@@ -20,8 +20,4 @@ function the_period = periodIniSpont(t)
 
 time_start = 1;
 
-if isfield(t.props, 'trace_time_start')
-  time_start = t.props.trace_time_start;
-end
-
 the_period = period(time_start, t.pulse_time_start - 1);

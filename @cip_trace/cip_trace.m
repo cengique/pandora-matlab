@@ -19,8 +19,9 @@ function obj = cip_trace(datasrc, dt, dy, ...
 %	pulse_time_start, pulse_time_width:
 %		Start and width of the pulse [dt]
 %	id: Identification string.
-%	props: A structure any needed properties, such as:
+%	props: A structure with any optional properties, such as:
 %		trace_time_start: Samples in the beginning to discard [dt]
+%		(see trace for more)
 %
 %   Returns a structure object with the following fields:
 %	trace, pulse_time_start, pulse_time_width, props.
@@ -52,6 +53,11 @@ else
   end
 
   trace_obj = trace(datasrc, dt, dy, id, props);
+
+  %# Adjust time variables if data is cropped
+  if isfield(props, 'trace_time_start')
+    pulse_time_start = pulse_time_start - props.trace_time_start;
+  end
 
   obj.pulse_time_start = pulse_time_start;
   obj.pulse_time_width = pulse_time_width;

@@ -4,5 +4,5 @@ function s = display(t)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 struct(t)
-display(t.profile)
+display(t.results);
 

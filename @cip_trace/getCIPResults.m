@@ -22,8 +22,11 @@ function results = getCIPResults(a_cip_trace, a_spikes)
 %# convert all to ms/mV
 mV_factor = 1e3 * getDy(a_cip_trace);
 
+results.IniSpontPotAvg = calcAvg(a_cip_trace.trace, ...
+				 periodIniSpont(a_cip_trace));
 results.PulsePotAvg = calcPulsePotAvg(a_cip_trace) * mV_factor;
 results.RecSpontPotAvg = calcRecSpontPotAvg(a_cip_trace) * mV_factor;
+results.RecIniSpontPotRatio = results.RecSpontPotAvg / results.IniSpontPotAvg;
 
 %# Only if no spikes during pulse period
 pulseSpikes = withinPeriod(a_spikes, periodPulse(a_cip_trace));

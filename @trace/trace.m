@@ -15,7 +15,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: Identification string
 %	props: A structure any needed properties, such as:
-%		dy: y-axis scale to be applied from input file.
+%		scale_y: y-axis scale to be applied to loaded data.
+%		trace_time_start: Samples in the beginning to discard [dt]
 %		baseline: Resting potential.
 %		channel: Channel to read from file.
 %		traces: Traces to read from PCDX file.
@@ -97,12 +98,22 @@ if nargin == 0 %# Called with no params
        id = name;
      end
 
+
    elseif isa(data_src, 'double')
      data = data_src;
    else
      error(sprintf('Unrecognized data source %s', data_src));
    end
 
+   %# Scale the loaded data if desired
+   if isfield(props, 'scale_y')
+     data = props.scale_y * data;
+   end
+
+   %# Crop the data if desired
+   if isfield(props, 'trace_time_start')
+     data =  data(props.trace_time_start:end);
+   end
 
    obj.data = data;
    obj.dt = dt;

@@ -42,7 +42,7 @@ tests = repmat(0, num_files, length(test_names));
 start_time = cputime;
 
 for file_index=1:num_files
-  [params_row, tests_row] = fileResultsRow(obj, fullname);
+  [params_row, tests_row] = fileResultsRow(obj, file_index);
   
   params(file_index, :) = params_row;
   tests(file_index, :) = [tests_row, file_index];

@@ -28,16 +28,16 @@ end
 
 %# Check for empty spike_shape object first.
 if isempty(s.trace.data) 
-  results.min_Vm = NaN;
-  results.peak_Vm = NaN;
-  results.init_Vm = NaN;
-  results.amplitude = NaN;
-  results.max_ahp = NaN;
-  results.dahp_mag = NaN;
-  results.rise_time = NaN;
-  results.fall_time = NaN;
-  results.base_width = NaN;
-  results.half_width = NaN;
+  results.MinVm = NaN;
+  results.PeakVm = NaN;
+  results.InitVm = NaN;
+  results.Amplitude = NaN;
+  results.MaxAHP = NaN;
+  results.DAHPMag = NaN;
+  results.RiseTime = NaN;
+  results.FallTime = NaN;
+  results.BaseWidth = NaN;
+  results.HalfWidth = NaN;
   return;
 end
 
@@ -64,7 +64,10 @@ if plotit == 1
   plot([init_idx, init_idx + base_width] * ms_factor, ...
        [init_val, init_val] * mV_factor, 'r');
 
-  plot([init_idx, init_idx + half_width] * ms_factor, ...
+  approx_half_idx = ...
+      init_idx + ...
+      (half_Vm - init_val) * (peak_idx - init_idx) / (peak_mag - init_val);
+  plot([approx_half_idx, approx_half_idx + half_width] * ms_factor, ...
        [half_Vm, half_Vm] * mV_factor, 'r');
 
   plot([peak_idx, peak_idx] * ms_factor, ...
@@ -86,17 +89,17 @@ end
 
 %# If you change any of the following names, 
 %# make sure to change the above NaN names, too.
-results.min_Vm = min_val * mV_factor;
-results.peak_Vm = peak_mag * mV_factor;
-results.init_Vm = init_val * mV_factor;
-results.amplitude = amplitude * mV_factor;
-results.max_ahp = max_ahp * mV_factor;
-results.dahp_mag = dahp_mag * mV_factor;
+results.MinVm = min_val * mV_factor;
+results.PeakVm = peak_mag * mV_factor;
+results.InitVm = init_val * mV_factor;
+results.Amplitude = amplitude * mV_factor;
+results.MaxAHP = max_ahp * mV_factor;
+results.DAHPMag = dahp_mag * mV_factor;
 
-results.rise_time = rise_time * ms_factor;
-results.fall_time = fall_time * ms_factor;
+results.RiseTime = rise_time * ms_factor;
+results.FallTime = fall_time * ms_factor;
 %# Not a realistic measure
 %#results.ahp_decay_constant = ahp_decay_constant * ms_factor;
-results.base_width = base_width * ms_factor;
-results.half_width = half_width * ms_factor;
+results.BaseWidth = base_width * ms_factor;
+results.HalfWidth = half_width * ms_factor;
 

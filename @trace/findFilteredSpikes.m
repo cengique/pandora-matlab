@@ -42,14 +42,15 @@ dn_threshold = -2;
 mV_factor = 1e3 * t.dy;
 
 %# Prepend some activity for filter distortion
-prepend_size = 20e-3 / t.dt;
-data = [t.data(a_period.start_time:floor(a_period.start_time + prepend_size)); ...
+prepend_size = floor(20e-3 / t.dt);
+data = [t.data(a_period.start_time:(a_period.start_time + prepend_size - 1)); ...
 	t.data(a_period.start_time:a_period.end_time) ] * mV_factor;
 
 filtered = filtfilt(fd.tf.num, fd.tf.den, data);
 
 %# ignore the prepended part
-filtered = filtered(floor(prepend_size):end);
+filtered = filtered(prepend_size:end);
+data = data(prepend_size:end);
 [times, peaks, n] = findspikes(filtered, up_threshold, plotit);
 
 newtimes = [];
@@ -76,10 +77,18 @@ for i=1:n
   min1 = min(filtered(max(1, times(i) - 3e-3 / t.dt) : times(i)));
   min2 = min(filtered(times(i) : min(times(i) + 5e-3 / t.dt, length(filtered))));
 
-  if min1 <= up_threshold & ...
-	min2 <= dn_threshold    
-    newtimes = [newtimes, times(i)];
-    newpeaks = [newpeaks, peaks(i)];
+  %# Spike shape criterion test
+  if min1 <= up_threshold & min2 <= dn_threshold    
+
+    %# Re-correct according to peaks in real data (filtered data is shifted)
+    real_time = times(i);
+    [real_peak peak_time] = ...
+	max(data(max(1, real_time - pm) : min(real_time + pm, length(data))));
+    real_time = max(1, real_time - pm) + peak_time - 1;
+
+    %# Collect in new list
+    newtimes = [newtimes, real_time];
+    newpeaks = [newpeaks, real_peak];
     newn = newn + 1;
     lasttime = times(i);
   else
@@ -90,6 +99,6 @@ for i=1:n
 end
 
 %# correct the times
-times = newtimes + a_period.start_time;
+times = newtimes + a_period.start_time - 1;
 peaks = newpeaks;
 n = newn;

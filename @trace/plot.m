@@ -15,7 +15,6 @@ if length(t) > 1
   end
 else
   h = figure;
-  %#class(t)
   plot_title = sprintf('%s: %s', class(t), t.id);
   set(h, 'Name', plot_title);
   time = (1:length(t.data)) * t.dt * 1e3; %# in ms

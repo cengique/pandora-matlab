@@ -20,12 +20,13 @@ function a_cip_trace_profile = cip_trace_profile(fileset, file_index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
-filename = fileset.filenames{file_index};
-fullname = fullfile(fileset.path, filename);
+filenames = get(fileset, 'filenames');
+filename = filenames{file_index};
+fullname = fullfile(get(fileset, 'path'), filename);
 
 %# Load a cip_trace_profile object
 a_cip_trace_profile = ...
-    cip_trace_profile(fullname, fileset.dt, fileset.dy, ...
-		      fileset.pulse_time_start, fileset.pulse_time_width, 
-		      [fileset.id '(' num2str(file_index) ')'], ...
-		      fileset.props);
+    cip_trace_profile(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
+		      fileset.pulse_time_start, fileset.pulse_time_width, ...
+		      [get(fileset, 'id') '(' num2str(file_index) ')'], ...
+		      get(fileset, 'props'));

@@ -117,7 +117,8 @@ function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
   dahp_idx = NaN;
 
   %# Check for a maximum point right after the max AHP
-  duration=after_ahp(1:floor(30e-3 / dt)); %# The first 30 ms
+  %# The first 30 ms, or until the end of trace
+  duration=after_ahp(1:min(floor(30e-3 / dt), length(after_ahp))); 
 
   [max_val, max_idx] = max(duration);
 

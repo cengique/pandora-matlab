@@ -32,10 +32,8 @@ fullname = fullfile(fileset.path, filename);
 names_vals = parseGenesisFilename(fullname);
 
 %# Convert params to row vector
-param_row(1:size(names_vals, 1)) = [ names_vals{:, 2} ];
+params_row(1:size(names_vals, 1)) = [ names_vals{:, 2} ];
 
 %# Convert results to row vector
 resultCell = struct2cell(getResults(a_profile));
-
-%# The final test is always the file_index
-tests_row = [ resultCell{:}, file_index ];
+tests_row = [ resultCell{:} ];

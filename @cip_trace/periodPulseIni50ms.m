@@ -18,11 +18,5 @@ function the_period = periodPulseIni50ms(t)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
-time_start = 1;
-
-if isfield(t.props, 'trace_time_start')
-  time_start = t.props.trace_time_start;
-end
-
 the_period = period(t.pulse_time_start, t.pulse_time_start + ...
 		    floor(50e-3 / t.trace.dt));

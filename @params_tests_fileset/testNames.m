@@ -19,11 +19,6 @@ function test_names = testNames(fileset)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
-filename = fileset.filenames{1};
-fullname = fullfile(fileset.path, filename);
-
-%# Load any profile object
-a_profile = loadFileProfile(fileset, file_index);
-
-%# Convert test names to cell array
-test_names = fieldnames(getResults(a_profile));
+%# Load the first file and
+%# convert test names to cell array
+test_names = fieldnames(getResults(loadFileProfile(fileset, 1)));

@@ -4,9 +4,9 @@ TODO
 - CVS
 	- present CVS, start using it
 	- move this repository to djlab account?
-- add calcSlowInact to @cip_trace
 - add plot-frame and docgen classes
 
++ add calcSlowInact to @cip_trace
 + add cip_trace_fileset class
 + make abstract profile class to describe the getResults method
 + Make Matlab contents file
