@@ -1,6 +1,6 @@
 function a_plot = plotEqSpaced(a_hist_db, command, props)
 
-% plotEqSpaced - Generates a plottable description of this object.
+% plotEqSpaced - Generates a histogram plot where the values are equally spaced on the x-axis. For use with non-linear parameter values.
 %
 % Usage:
 % a_plot = plotEqSpaced(a_hist_db, command, props)
@@ -28,8 +28,6 @@ end
 if ~ exist('props')
   props = struct([]);
 end
-
-
 
 %# If input is an array, then return array of plots
 num_dbs = length(a_hist_db);
