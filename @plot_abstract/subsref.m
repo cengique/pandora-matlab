@@ -11,7 +11,6 @@ else
       b = a.tests_db(index.subs{:});
     case '.'
       b = get(a, index.subs); 
-      %# eval(['a.' index.subs]);
     case '{}'
       b = a{index.subs{:}};
   end
