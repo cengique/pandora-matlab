@@ -20,9 +20,24 @@ function handles = decorate(a_plot)
 
 %# Run the plot command
 th = title(a_plot.title);
-xh = xlabel(a_plot.axis_labels{1});
+if isfield(a_plot.props, 'rotateXLabel')
+  xh = xlabel(a_plot.axis_labels{1}, ...
+	      'Rotation', a_plot.props.rotateXLabel, ...
+	      'HorizontalAlignment', 'right');
+else
+  xh = xlabel(a_plot.axis_labels{1});
+end
 yh = ylabel(a_plot.axis_labels{2});
 %# Z-axis?
+
+if isfield(a_plot.props, 'noXTickLabels')
+  set(gca, 'XTickLabel', {});
+end
+
+if isfield(a_plot.props, 'noYTickLabels')
+  set(gca, 'YTickLabel', {});
+end
+
 if (length(a_plot.legend) > 0)
   lh = legend(a_plot.legend);
 else

@@ -18,7 +18,7 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 %	label_y: Y-axis label string.
 %	legend: Short description of data points.
 %	command: Plotting command to use (Optional, default='plot')
-%	props: A structure any needed properties.
+%	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract, props.

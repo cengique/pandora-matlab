@@ -38,6 +38,20 @@ elseif strcmp(a_plot.orient, 'y')
   height = border * layout_axis(4) / num_plots;
 end
 
+class(get(a_plot, 'title'))
+
+%# Put a title first
+text(layout_axis(1) + layout_axis(3) / 2, ...
+     layout_axis(2) + layout_axis(4) + 0.1, ...
+     get(a_plot, 'title'), ...
+     'Units', 'Normalized', ...
+     'HorizontalAlignment', 'center', 'VerticalAlignment', 'top' );
+
+%#hold on;
+%#subplot('position', layout_axis);
+%#title();
+%#return;
+
 %# Lay them out
 for plot_num=1:num_plots
   x_offset = layout_axis(1) + (1 - scale_down) * width / 2 + ...
@@ -53,6 +67,14 @@ for plot_num=1:num_plots
   if ~ isempty(a_plot.axis_limits)
     axis(a_plot.axis_limits);
   end
-  decorate(a_plot.plots{plot_num});
+  one_plot = a_plot.plots{plot_num};
+  if plot_num > 1 && isfield(a_plot.props, 'yTicksPos') && ...
+	strcmp(a_plot.props.yTicksPos, 'left')
+    its_props = one_plot.props;
+    its_props.noYTickLabels = 1;
+    one_plot = set(one_plot, 'props', its_props);
+  end
+  decorate(one_plot);
 end
 
+hold off;

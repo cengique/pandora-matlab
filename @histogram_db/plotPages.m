@@ -40,4 +40,4 @@ for page_num=pages'
 						   page_num));
 end
 
-a_plot = plot_stack(subplots, [], an_orient);
+a_plot = plot_stack(subplots, [], an_orient, '');

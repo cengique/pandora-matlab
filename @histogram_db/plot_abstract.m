@@ -3,7 +3,7 @@ function a_plot = plot_abstract(a_hist_db, command)
 % plot_abstract - Generates a plottable description of this object.
 %
 % Usage:
-% a_plot = plot_abstract(a_hist_db)
+% a_plot = plot_abstract(a_hist_db, command)
 %
 % Description:
 %   Generates a plot_simple object from this histogram.

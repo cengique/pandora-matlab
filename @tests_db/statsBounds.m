@@ -1,16 +1,17 @@
-function a_stats_db = statsBounds(db, tests)
+function a_stats_db = statsBounds(db, tests, props)
 
 % statsBounds - Generates a stats_db object with two rows corresponding to 
 %		the mean, min, and max of the tests' distributions.
 %
 % Usage:
-% a_stats_db = statsBounds(db, tests)
+% a_stats_db = statsBounds(db, tests, props)
 %
 % Description:
 %
 %   Parameters:
 %	db: A tests_db object.
 %	tests: A tests specification (see onlyRowsTests).
+%	props: A structure with any optional properties for stats_db.
 %		
 %   Returns:
 %	a_stats_db: A stats_db object.
@@ -20,8 +21,12 @@ function a_stats_db = statsBounds(db, tests)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
+if ~ exist('props')
+  props = struct([]);
+end
+
 a_db = db(:, tests);
-test_results = [mean(a_db.data, 1); min(a_db.data, [], 1); ...
+test_results = [mean(a_db, 1); min(a_db.data, [], 1); ...
 		max(a_db.data, [], 1)];
 row_names = {'mean', 'min', 'max'};
 
@@ -31,4 +36,4 @@ col_name_cell = fieldnames(db.col_idx);
 col_names = col_name_cell(cols);
 
 a_stats_db = stats_db(test_results, col_names, row_names, {}, ...
-		      [ 'Bounds from ' db.id ]);
+		      [ 'Bounds from ' db.id ], props);

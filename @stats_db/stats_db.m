@@ -20,6 +20,10 @@ function a_stats_db = ...
 %		(e.g., a different invariant parameter).
 %	id: An identifying string.
 %	props: A structure with any optional properties.
+%		axis_limits: Limits in the form of [xmin xmax ymin ymax]
+%			     for errorbar axes.
+%		yTicksPos: 'left' means only put y-axis ticks to leftmost plot.
+%		xTicksPos: 'bottom' means only put x-axis ticks to lowest plot.
 %		
 %   Returns a structure object with the following fields:
 %	tests_3D_db, props.

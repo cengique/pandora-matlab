@@ -19,3 +19,6 @@ function handles = decorate(a_plot)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
 handles = struct([]);
+
+%# Put a title?
+%#handles.title = title(get(a_plot, 'title'));
