@@ -22,8 +22,14 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 cip_fold_db = swapRowsPages(invarParam(db, 'pAcip'));
 
 %# Merge the selected tests from each of the two pages
-merged_db = mergePages(cip_fold_db, {hyper_tests, depol_tests}, ...
-		       {hyper_suffix, depol_suffix});
+%# Check cip value of first page to verify placement
+if get(onlyRowsTests(cip_fold_db, 1, 'pAcip', 1), 'data') < 0
+  merged_db = mergePages(cip_fold_db, {hyper_tests, depol_tests}, ...
+			 {hyper_suffix, depol_suffix});
+else
+  merged_db = mergePages(cip_fold_db, {depol_tests, hyper_tests}, ...
+			 {depol_suffix, hyper_suffix});
+end
 
 %# Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
