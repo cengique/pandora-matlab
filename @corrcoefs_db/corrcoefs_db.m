@@ -36,7 +36,7 @@ function a_coef_db = ...
 if nargin == 0 %# Called with no params
   a_coef_db.col_name = '';
   a_coef_db.props = struct([]);
-  a_coef_db = class(a_coef_db, 'corrcoefs_db', tests_db);
+  a_coef_db = class(a_coef_db, 'corrcoefs_db', tests_3D_db);
 elseif isa(col_name, 'corrcoefs_db') %# copy constructor?
   a_coef_db = col_name;
 else
