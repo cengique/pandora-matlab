@@ -8,12 +8,14 @@
 %   trace		- A voltage/current trace.
 %   spikes		- Spike times of a trace. 
 %   spike_shape		- Averaged spike shape from a trace.
+%   period		- Define time periods.
 %
 % Classes specialized for CIP experiments tests:
 %   cip_trace		- A voltage trace with a CIP applied.
 %   cip_traces		- Traces with a set of CIPs applied (N/I).
 %
 % Profile classes that hold test results:
+%   profile		- Base class that holds a results structure.
 %   trace_profile	- Generic example class for holding a trace profile.
 %   cip_trace_profile	- Holds cip_trace results. Template class designed 
 %			only for subclassing.
