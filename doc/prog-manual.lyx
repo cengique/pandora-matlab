@@ -1,0 +1,338 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\begin_preamble
+\newif\ifpdf 
+  \ifx\pdfoutput\undefined \pdffalse % we are not running PDFLaTeX 
+\else 
+  \pdfoutput=1 % we are running PDFLaTeX 
+  \pdftrue 
+\fi
+
+\ifpdf 
+  \usepackage[pdftex]{graphicx} 
+  \pdfcompresslevel=9 
+  \DeclareGraphicsExtensions{.pdf,.gif,.png,.jpeg}
+  %\pdfpagewidth 11truein \pdfpageheight 8.5truein 
+  %\pdfhorigin 1truein \pdfvorigin 1truein
+  \usepackage[colorlinks=true,pdftex]{hyperref}
+\else 
+  \usepackage[dvips]{graphicx} 
+  \DeclareGraphicsExtensions{.eps,.pstex,.ps}
+  \usepackage[colorlinks=false]{hyperref}
+\fi
+
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{color}
+%\usepackage{html}
+\usepackage{ifthen}
+\usepackage{url}
+
+%\newcommand{\shorter}{} % Shorter 25 pg for Biol Cybern
+%\newcommand{\forspringer}
+%\newcommand{\production}{}
+%\newcommand{\techreport}{}
+
+%% Common preambles
+%\input{../over-delays/formals.tex}
+%\input{../over-delays/preamble.tex}
+
+\def\idstring{Id}
+\gdef\CVSKeyword$#1 ${\expandafter\cCVSKeyword#1\endcCVSKeyword\relax}
+\gdef\cCVSKeyword#1: #2\endcCVSKeyword{%
+\gdef\myparam{#1}%
+%\typeout{************This is IT:'\myparam'}%
+\ifx\idstring\myparam%
+\expandafter\cCVSId#2\endcCVSId\relax
+\else%
+\expandafter\gdef\csname CVS#1\endcsname{#2}%
+\fi%
+}
+\gdef\cCVSId#1 #2\endcCVSId{%
+\gdef\CVSIdp{\shortstack{\url{#1} \\ #2}}%
+}
+
+%% Version info
+\CVSKeyword$Date$ 
+\CVSKeyword$Revision$ 
+\CVSKeyword$Id$ 
+\CVSKeyword$Author$
+
+%% Version number on footer
+\fancyfoot[RE,LO]{\small{DDONAS: Prog.'s Manual}}
+{\fancyfoot[LE,RO]{\small{Draft v\CVSRevision{} on \CVSDate}}}
+
+%% Fix overlap in headers
+\fancyhead[L]{\slshape \leftmark} 
+\fancyhead[R]{} % otherwise they overwrite one another
+%\bibpunct{(}{)}{;}{a}{,}{,}
+
+%% ignore inside this
+\providecommand{\mycomment}{}
+\end_preamble
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics none
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 1
+\use_natbib 1
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+
+\layout Title
+
+The DJLAB Database Oriented Neuroscientific Analysis Software --- 
+\newline 
+An Advanced User's and Programmer's Manual
+\layout Author
+
+Cengiz G
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+"
+\end_inset 
+
+unay, 
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+CVSRevision{}
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Section
+
+Intro
+\layout Subsection
+
+What is this?
+\layout Subsection
+
+Why did you do it?
+\layout Subsection
+
+How is it implemented?
+\layout Section
+
+The Main Class Hierarchies
+\layout Subsection
+
+Databases hold all the information
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed true
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename /Lab/cengiz/work/djlab_matlab/doc/DB-classes
+	height 100text%
+	rotateAngle 90
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Database-class-hierarchy}
+
+\end_inset 
+
+Database class hierarchy.
+\end_inset 
+
+
+\layout Subsection
+
+Datasets create the databases
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed true
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename /Lab/cengiz/work/djlab_matlab/doc/Dataset-classes
+	width 90theight%
+	rotateAngle 90
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Dataset-class-hierarchy}
+
+\end_inset 
+
+Dataset class hierarchy.
+\end_inset 
+
+
+\layout Subsection
+
+Data wrappers hold the raw data
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed true
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename /Lab/cengiz/work/djlab_matlab/doc/data-wrapper-diagram
+	width 90theight%
+	rotateAngle 90
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Datawrapper-class-hierarchy}
+
+\end_inset 
+
+Data wrapper class hierarchy.
+\end_inset 
+
+
+\layout Subsection
+
+Profiles hold results obtained from data
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed true
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename /Lab/cengiz/work/djlab_matlab/doc/Profiles
+	width 90theight%
+	rotateAngle 90
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Profile-class-hierarchy}
+
+\end_inset 
+
+Profile class hierarchy.
+\end_inset 
+
+
+\layout Subsection
+
+Plots provide easy visualization
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed false
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename /Lab/cengiz/work/djlab_matlab/doc/plots
+	width 90theight%
+	rotateAngle 90
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Plot-class-hierarchy}
+
+\end_inset 
+
+Plots class hierarchy.
+\end_inset 
+
+
+\layout Section
+
+Recipes for Routine Tasks
+\layout Subsection
+
+How to load a database
+\layout Subsubsection
+
+How to create a dataset for physiology data
+\layout Subsubsection
+
+How to create a dataset for simulation data
+\layout Subsection
+
+How to find contrained subsets in a database
+\layout Section
+
+API Reference
+\layout Standard
+
+[Supposed to have all class and method documentation generated from matlab
+ help files.]
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[bibtotoc,plainnat]{ref}
+
+\end_inset 
+
+
+\the_end
