@@ -5,5 +5,5 @@ try
   eval(['a.' attr ' = val;']);
   b = a;
 catch
-  errstr = lasterror;
+  rethrow(lasterror);
 end
