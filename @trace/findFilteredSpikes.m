@@ -60,18 +60,19 @@ newn = 0;
 lasttime = -3e-3 / t.dt;
 for i=1:n
 
-  if times(i) < (lasttime + 3e-3 / t.dt)
-    if plotit ~= 0 & plotit ~= 2
-      disp(sprintf('Skip %f', times(i)));
-    end
-    continue;
-  end
-
   %# correct the peak by finding the absolute max within +/- 3ms
   pm = 3e-3 / t.dt;
   [m peak_time] = ...
       max(filtered(max(1, times(i) - pm) : min(times(i) + pm, length(filtered))));
+  old_time = times(i);
   times(i) = max(1, times(i) - pm) + peak_time - 1;
+
+  %# Only if there's no trough between the old and new maxs
+  if min(filtered(min(old_time, times(i)):max(old_time, times(i)))) < ...
+	up_threshold
+    %#then go back
+    times(i) = old_time;
+  end
 
   %# There should be a trough within 3ms before and within 5ms after the peak
   min1 = min(filtered(max(1, times(i) - 3e-3 / t.dt) : times(i)));
@@ -81,19 +82,36 @@ for i=1:n
   if min1 <= up_threshold & min2 <= dn_threshold    
 
     %# Re-correct according to peaks in real data (filtered data is shifted)
+    real_pm = 1e-3 / t.dt;
     real_time = times(i);
     [real_peak peak_time] = ...
-	max(data(max(1, real_time - pm) : min(real_time + pm, length(data))));
-    real_time = max(1, real_time - pm) + peak_time - 1;
+	max(data(max(1, real_time - real_pm) : ...
+		 min(real_time + real_pm, length(data))));
+    real_time = max(1, real_time - real_pm) + peak_time - 1;
+
+    %# Check again if new time is very close to last time
+    if real_time < (lasttime + 3e-3 / t.dt)
+      if plotit ~= 0 & plotit ~= 2
+	disp(sprintf('Skip real %f from filtered %f, orig %f', ...
+		     real_time, times(i), old_time));
+      end
+      continue;
+    end
 
     %# Collect in new list
     newtimes = [newtimes, real_time];
     newpeaks = [newpeaks, real_peak];
     newn = newn + 1;
-    lasttime = times(i);
+    lasttime = real_time;
+
+    if plotit ~= 0 & plotit ~= 2
+      disp(sprintf('Add real %f from filtered %f, orig %f', ...
+		   real_time, times(i), old_time));
+    end
+
   else
     if plotit ~= 0 & plotit ~= 2
-      disp(sprintf('Failed criterion for %f', times(i)));
+      disp(sprintf('Failed criterion for %f, orig %f', times(i), old_time));
     end    
   end
 end

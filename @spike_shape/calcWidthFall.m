@@ -5,8 +5,8 @@ function [base_width, half_width, half_Vm, fall_time] = ...
 %		spike_shape, s. 
 %
 % Usage:
-% [init_val, init_idx, rise_time, amplitude, max_ahp] = 
-%	calcWidthFall(s, max_idx, min_idx)
+% [base_width, half_width, half_Vm, fall_time] = ...
+%      calcWidthFall(s, max_idx, max_val, min_idx, init_idx)
 %
 % Description:
 %   max_* can be the peak_* from calcInitVm.
@@ -37,17 +37,23 @@ min_val = s.trace.data(min_idx);
 %#max_val = s.trace.data(max_idx);
 
 %# Find depolarized part
-depol = find(s.trace.data >= init_val);
+depol = find(s.trace.data(floor(max_idx):end) <= init_val);
 
-if depol(end) == length(s.trace.data)
-error('Spike failed to repolarize.');
+if isempty(depol) || depol(1) == length(s.trace.data)
+  warning('spike_shape:no_repolarize', 'Spike failed to repolarize.');
+  base_width = NaN;
+  half_width = NaN;
+  half_Vm = NaN;
+  fall_time = NaN;
+  return;
 end
 
-end_depol = depol(end);
+end_depol = depol(1) + max_idx - 1;
 
 %# Interpolate to find the threshold crossing point
-extra_time = (s.trace.data(end_depol) - init_val) / ...
-             (s.trace.data(end_depol) - s.trace.data(end_depol + 1)); 
+extra_time = (s.trace.data(floor(end_depol)) - init_val) / ...
+             (s.trace.data(floor(end_depol)) - ...
+	      s.trace.data(floor(end_depol) + 1)); 
 fall_init_cross_time = end_depol + extra_time;
 
 %# Base width and fall time

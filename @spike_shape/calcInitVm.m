@@ -108,8 +108,12 @@ else
   recover_times = find(after_ahp >= decay_constant_threshold) + min_idx;
 end
 
-%# Take first point for fitting exponential decay
-ahp_decay_constant = recover_times(1) - max_idx;
+if length(recover_times) > 0 
+  %# Take first point for fitting exponential decay
+  ahp_decay_constant = recover_times(1) - max_idx;
+else 
+  ahp_decay_constant = NaN;
+end
 
 function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
   %# No dahp by default  

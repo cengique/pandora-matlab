@@ -41,12 +41,25 @@ tests = repmat(0, num_files, length(test_names));
 %# Batch process all files
 start_time = cputime;
 
-for file_index=1:num_files
-  [params_row, tests_row] = fileResultsRow(obj, file_index);
+%#try
+print(java.lang.System.out, 'Reading: ');
+
+  for file_index=1:num_files
+    %#disp(sprintf('File number: %d\r', file_index));
+    print(java.lang.System.out, [ num2str(file_index) ', ' ]);
+    if mod(file_index, 20) == 0
+      disp(' ');
+    end
+    [params_row, tests_row] = fileResultsRow(obj, file_index);
   
-  params(file_index, :) = params_row;
-  tests(file_index, :) = [tests_row, file_index];
-end
+    params(file_index, :) = params_row;
+    tests(file_index, :) = [tests_row, file_index];
+  end
+%#catch
+%#  disp(['Error during processing file number ' num2str(file_index) ]);
+%#  rethrow(lasterror);
+%#end
+
 end_time = cputime;
 
 db_obj = params_tests_db(params, param_names, tests, test_names, ...

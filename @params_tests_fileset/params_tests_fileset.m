@@ -58,12 +58,13 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/09
 
 if nargin == 0 %# Called with no params
-  obj.path='';
-  obj.filenames = {};
   obj.dt=1;
   obj.dy=1;
-  obj.dy='';
+  obj.id = '';
   obj.props = struct([]);
+  obj.path='';
+  obj.filenames = {};
+  obj.dy='';
   obj = class(obj, 'params_tests_fileset');
 elseif isa(file_pattern, 'params_tests_fileset') %# copy constructor?
   obj = file_pattern;

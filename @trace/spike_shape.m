@@ -33,6 +33,8 @@ right = min_isi - left;
 
 if length(s.times) > 0
   [allspikes, avgspikes] = collectspikes(t.data, s.times, left, right, 0);
+
+  
   obj = spike_shape(avgspikes', t.dt, t.dy, t.id);
 else
   %#error('spike_shape:no_spikes', 'No spikes exist!');

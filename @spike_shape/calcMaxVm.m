@@ -19,5 +19,6 @@ function [max_val, max_idx] = calcMaxVm(s)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 
 %# Look for the peak only in the first 10 ms or so.
-[max_val, max_idx] = calcMax(s.trace, period(1, floor(10e-3 / s.trace.dt)));
+or_so = floor(min(10e-3 / s.trace.dt, length(s.trace.data)));
+[max_val, max_idx] = calcMax(s.trace, period(1, or_so));
 
