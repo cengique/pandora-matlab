@@ -12,7 +12,7 @@
 %
 % Classes specialized for CIP experiments tests:
 %   cip_trace		- A voltage trace with a CIP applied.
-%   cip_traces		- Traces with a set of CIPs applied (N/I).
+%   cip_traces		- Traces with a set of CIPs applied (from /Lab/matlab/cengiz).
 %
 % Profile classes that hold test results:
 %   result_profile	- Base class that holds a results structure.
@@ -20,22 +20,23 @@
 %   cip_trace_profile	- Holds cip_trace results. Template class designed 
 %			only for subclassing.
 %   cip_traces_profile	- Vector/polynomial results profile from a 
-%			cip_traces (N/I).
+%			cip_traces.
 %   params_tests_profile- Collects both intermediate and result data structures 
 %			from analysis of a params_tests_db.
 %
-% Profile database classes:
+% Dataset classes that point to or hold raw data:
+%   params_tests_dataset - Base class for datasets.
+%   params_tests_fileset - Holds a list of filenames and associated information,  
+%			   capable of creating a params_tests_db.
+%   params_cip_trace_fileset - Fileset from which cip_trace objects can be created. 
+%   cip_traces_dataset  - Dataset of cip_traces objects.
+% 
+% Profile database classes created from datasets:
 %   tests_db		- General test results database class that 
 %			contains many utilities.
 %   params_tests_db	- DB extended to hold parameter values 
 %			associated with results.
-%   params_tests_fileset 	
-%			- Manages a fileset and can create a 
-%			params_tests_db from it.
-%   params_cip_trace_fileset	
-%			- Fileset of cip_trace style data.
-%   test_variable_db	- Database of tests that vary with a variable (N/I).
-%   test_cip_db		- Database of tests that vary with the CIP magnitude (N/I).
+%   test_3D_db		- 3D database of tests that vary with a third variable.
 %
 % Notes:
 % N/I: Not implemented (yet).
