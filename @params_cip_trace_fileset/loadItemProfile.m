@@ -1,9 +1,9 @@
-function a_profile = loadFileProfile(fileset, file_index)
+function a_profile = loadItemProfile(fileset, file_index)
 
-% loadFileProfile - Loads a cip_trace_profile object from a raw data file in the fileset.
+% loadItemProfile - Loads a cip_trace_profile object from a raw data file in the fileset.
 %
 % Usage:
-% [params_row, tests_row] = loadFileProfile(fileset, file_index)
+% [params_row, tests_row] = loadItemProfile(fileset, file_index)
 %
 % Description:
 %
@@ -14,7 +14,7 @@ function a_profile = loadFileProfile(fileset, file_index)
 %   Returns:
 %	a_profile: A profile object that implements the getResults method.
 %
-% See also: fileResultsRow, params_tests_fileset, paramNames, testNames
+% See also: itemResultsRow, params_tests_fileset, paramNames, testNames
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
