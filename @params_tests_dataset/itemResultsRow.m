@@ -28,7 +28,7 @@ function [params_row, tests_row] = itemResultsRow(dataset, index)
 a_profile = loadItemProfile(dataset, index);
 
 %# Get params row vector
-params_row = getItemParams(dataset, index);
+params_row = getItemParams(dataset, index, a_profile);
 
 %# Convert results to row vector
 resultCell = struct2cell(getResults(a_profile));
