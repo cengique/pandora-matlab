@@ -152,28 +152,32 @@ for plot_num=1:num_plots
   its_props = one_plot.props;
   %# Check if y-ticks only for the leftmost plot
   if isfield(a_plot.props, 'yTicksPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.yTicksPos, 'left')) || ...
+	((plot_num > 1 && strcmp(a_plot.props.yTicksPos, 'left') && ...
+	  strcmp(a_plot.orient, 'x')) || ...
 	 strcmp(a_plot.props.yTicksPos, 'none'))
     its_props(1).YTickLabel = {};
   else
     %#its_props(1).YTickLabel = 1; is this required?    
   end
   if isfield(a_plot.props, 'yLabelsPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.yLabelsPos, 'left')) || ...
+	((plot_num > 1 && strcmp(a_plot.props.yLabelsPos, 'left') && ...
+	  strcmp(a_plot.orient, 'x')) || ...
 	 strcmp(a_plot.props.yLabelsPos, 'none'))
     its_props(1).noYLabel = 1;
   else
     its_props(1).noYLabel = 0;
   end
   if isfield(a_plot.props, 'xTicksPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom')) || ...
+	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom') && ...
+	  strcmp(a_plot.orient, 'y')) || ...
 	 strcmp(a_plot.props.xTicksPos, 'none'))
     its_props(1).XTickLabel = {};
   else
     %#its_props(1).XTickLabel = 1;
   end
   if isfield(a_plot.props, 'xLabelsPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.xLabelsPos, 'bottom')) || ...
+	((plot_num > 1 && strcmp(a_plot.props.xLabelsPos, 'bottom') && ...
+	  strcmp(a_plot.orient, 'y')) || ...
 	 strcmp(a_plot.props.xLabelsPos, 'none'))
     its_props(1).noXLabel = 1;
   else
@@ -182,7 +186,8 @@ for plot_num=1:num_plots
   end
   %# Check if title only for the topmost plot
   if isfield(a_plot.props, 'titlesPos') 
-    if 	(plot_num < num_plots && strcmp(a_plot.props.titlesPos, 'top')) || ...
+    if 	(plot_num < num_plots && strcmp(a_plot.props.titlesPos, 'top') && ...
+	 strcmp(a_plot.orient, 'y')) || ...
 	  strcmp(a_plot.props.titlesPos, 'none')
       its_props(1).noTitle = 1;
     end
@@ -200,11 +205,6 @@ for plot_num=1:num_plots
   plot(one_plot, position);
   %# Set its axis limits if requested
   current_axis = axis;
-  if ~ isempty(a_plot.axis_limits)
-    %# Skip NaNs, allows fixing some ranges while keeping others flexible
-    nonnans = ~isnan(a_plot.axis_limits);
-    current_axis(nonnans) = a_plot.axis_limits(nonnans);
-  end
   if isfield(a_plot.props, 'relaxedLimits') && a_plot.props.relaxedLimits == 1
     %# Set axis limits to +/- 10% of bounds
     axis_width = current_axis(2) - current_axis(1);
@@ -213,6 +213,11 @@ for plot_num=1:num_plots
     current_axis(2) = current_axis(2) + axis_width * .1;
     current_axis(3) = current_axis(3) - axis_height * .1;
     current_axis(4) = current_axis(4) + axis_height * .1
+  end
+  if ~ isempty(a_plot.axis_limits)
+    %# Skip NaNs, allows fixing some ranges while keeping others flexible
+    nonnans = ~isnan(a_plot.axis_limits);
+    current_axis(nonnans) = a_plot.axis_limits(nonnans);
   end
   axis(current_axis);
   %# Place other decorations
