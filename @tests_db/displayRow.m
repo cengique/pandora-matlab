@@ -29,7 +29,12 @@ if ~ exist('rows')
 end
 
 %# Make a cell array out of db contents
-s = cat(2, fieldnames(db.col_idx), num2cell(db.data(rows, :, pages))');
+col_names = fieldnames(db.col_idx);
+if ~ isempty(col_names)
+  s = cat(2, col_names, num2cell(db.data(rows, :, pages))');
+else
+  s = num2cell(db.data(rows, :, pages));
+end
 
 %# Add row names
 row_names = fieldnames(db.row_idx);
