@@ -18,7 +18,7 @@ function the_period = periodRecSpont1(t)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
-time_start = t.pulse_time_start + t.pulse_time_width + 1;
+time_start = t.pulse_time_start + t.pulse_time_width;
 time_end = length(t.trace.data);
 
 the_period = period(time_start, time_start + (time_end - time_start) / 2);

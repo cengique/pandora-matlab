@@ -18,6 +18,6 @@ function the_period = periodPulseHalf1(t)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 time_start = t.pulse_time_start;
-time_end = t.pulse_time_start + t.pulse_time_width;
+time_end = t.pulse_time_start + t.pulse_time_width - 1;
 
 the_period = period(time_start, time_start + t.pulse_time_width / 2);

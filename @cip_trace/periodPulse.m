@@ -17,4 +17,4 @@ function the_period = periodPulse(t)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
-the_period = period(t.pulse_time_start, t.pulse_time_start + t.pulse_time_width);
+the_period = period(t.pulse_time_start, t.pulse_time_start + t.pulse_time_width - 1);

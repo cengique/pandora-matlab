@@ -19,7 +19,7 @@ function the_period = periodPulseIni50msRest2(t)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 time_start = t.pulse_time_start + 100e-3 / t.trace.dt + 1;
-time_end = t.pulse_time_start + t.pulse_time_width;
+time_end = t.pulse_time_start + t.pulse_time_width - 1;
 
 the_period = period(time_start + floor((time_end - time_start) / 2) + 1, ...
 		    time_end);
