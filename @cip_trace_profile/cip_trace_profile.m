@@ -55,6 +55,7 @@ if nargin == 0 %# Called with no params, creates empty object
   obj.trace = trace;
   obj.spikes = spikes;
   obj.spont_spike_shape = spike_shape;
+  obj.pulse_spike_shape = spike_shape;
   obj.props = struct([]);
   obj = class(obj, 'cip_trace_profile', results_profile);
 elseif isa(varargin{1}, 'cip_trace_profile') %# copy constructor?
@@ -74,10 +75,22 @@ elseif isnumeric(varargin{2})
   obj.spikes = spikes(obj.trace);
 
   %# Get spont spike_shape
+  %# Prefix spike shape measures from different periods
   obj.spont_spike_shape = ...
       spike_shape(withinPeriod(obj.trace, periodIniSpont(obj.trace)), ...
 		  withinPeriod(obj.spikes, periodIniSpont(obj.trace)));
-  obj.props = props;
+  spont_sh_results = prefixStruct(getResults(obj.spont_spike_shape), 'Spont');
+
+  obj.pulse_spike_shape  = ...
+      spike_shape(withinPeriod(obj.trace, periodPulse(obj.trace)), ...
+		  withinPeriod(obj.spikes, periodPulse(obj.trace)));
+  pulse_sh_results = prefixStruct(getResults(obj.pulse_spike_shape), 'Pulse');
+
+  %# Misc measures
+  misc_results.PulseSpontAmpRatio = ...
+      pulse_sh_results.PulseAmplitude / spont_sh_results.SpontAmplitude;
+
+  obj.props = props;  
 
   %# Create the object
   %# Calculate trace & spikes tests
@@ -86,8 +99,9 @@ elseif isnumeric(varargin{2})
   %# And merge them together
   obj = class(obj, 'cip_trace_profile', ...
 	      results_profile(mergeStructs(getResults(obj.trace, obj.spikes), ...
-				   getResults(obj.spont_spike_shape)), ...
-		      varargin{6}));
+					   spont_sh_results, pulse_sh_results, ...
+					   misc_results), ...
+			      varargin{6}));
 else 
   %# Create object with custom data (used from subclasses)
   if nargin < 6
@@ -103,3 +117,5 @@ else
   %# Create the object
   obj = class(obj, 'cip_trace_profile', results_profile(varargin{4:5}));
 end
+
+
