@@ -28,7 +28,7 @@ if ~ exist('grouped')
 end
 
 cols = tests2cols(db, tests);
-num_rows = size(db, 1);
+num_rows = dbsize(db, 1);
 data = get(db, 'data');
 
 if grouped == 1

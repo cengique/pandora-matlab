@@ -9,7 +9,7 @@ function db_obj = params_tests_db(obj, props)
 %   This is a converter method to convert from params_tests_dataset to
 % params_tests_db. Uses readDBItems to read the files.
 % A customized subclass should provide the correct 
-% paramNames, testNames, and itemResultsRow functions. Adds a FileIndex
+% paramNames, testNames, and itemResultsRow functions. Adds a ItemIndex
 % column to the DB to keep track of raw data files after shuffling.
 %
 %   Parameters:

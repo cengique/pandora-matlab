@@ -28,7 +28,7 @@ col_name_cell = fieldnames(get(db, 'col_idx'));
 col = tests2cols(db, param);
 
 %# List of columns with parameter and all tests
-cols = [col, (db.num_params + 1):size(db, 2) ];
+cols = [col, (db.num_params + 1):dbsize(db, 2) ];
 
 
 %# Add invar test name

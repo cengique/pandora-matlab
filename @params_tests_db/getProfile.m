@@ -44,7 +44,7 @@ if ~ exist('props')
 end
 
 num_params = a_db.num_params;
-num_tests = size(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
 %# Setup lookup tables
 col_names = fieldnames(get(a_db, 'col_idx'));

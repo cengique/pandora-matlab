@@ -24,6 +24,14 @@ if ~ exist('command')
   command = 'bar';
 end
 
+%# If input is an array, then return array of plots
+if length(a_hist_db) > 1 
+  if iscell
+  for a_hist = a_hist_db
+  end
+  return;
+end
+
 %# First column is the variable, second is the histogram
 colnames = fieldnames(get(a_hist_db, 'col_idx'));
 

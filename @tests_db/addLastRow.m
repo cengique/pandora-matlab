@@ -25,9 +25,9 @@ function obj = addLastRow(obj, row)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
 
-if size(row, 2) ~= size(obj.data, 2)
+if size(row, 2) ~= dbsize(obj, 2)
   error(['Number of columns in row (' size(row, 2) ') ', ...
-	 'does not match columns in DB (' size(obj.data, 2) ').']);
+	 'does not match columns in DB (' dbsize(obj, 2) ').']);
 end
 
 obj.data = [obj.data; row];

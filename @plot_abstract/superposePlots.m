@@ -8,7 +8,7 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 % Description:
 %
 %   Parameters:
-%	plots: A cell array of objects of class plot_abstract or its subclass.
+%	plots: Array of plot_abstract or subclass objects.
 %	axis_labels: Cell array of axis label strings (optional, taken from plots).
 %	title: Plot description string (optional, taken from plots).
 %	command: Plotting command to use (optional, taken from plots)

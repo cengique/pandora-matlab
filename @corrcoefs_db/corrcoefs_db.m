@@ -5,7 +5,7 @@ function a_coef_db = ...
 %		a column of another database.
 %
 % Usage:
-% a_coef_db = corrcoefs_db(col_name, bins, hist_results, id, props)
+% a_coef_db = corrcoefs_db(col_name, coefs, coef_names, pages, id, props)
 %
 % Description:
 %   This is a subclass of tests_db. Allows generating a plot, etc.

@@ -23,7 +23,7 @@ function compared = compareRows(db, row)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
-if size(db.data, 2) ~= size(row, 2)
+if dbsize(db, 2) ~= size(row, 2)
   error('Row must contain same columns as the db.');
 end
 
@@ -31,7 +31,7 @@ end
 %# Thus, use algorithm:
 
 %# - duplicate row to a matrix of same size with db
-row_matx = ones(size(db.data, 1), 1) * row;
+row_matx = ones(dbsize(db, 1), 1) * row;
 
 %# - subtract from db
 compared = db.data - row_matx;

@@ -7,7 +7,7 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats)
 % a_plot_stack = plotVarMatrix(a_db, p_stats)
 %
 % Description:
-%   Skips the 'FileIndex' test.
+%   Skips the 'ItemIndex' test.
 %
 %   Parameters:
 %	a_db: A tests_db object.
@@ -22,7 +22,7 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_params = a_db.num_params;
-num_tests = size(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the item indices
 
 %# TODO: Row stacks with 
 plot_rows = cell(1, num_tests);

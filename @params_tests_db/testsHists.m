@@ -7,7 +7,7 @@ function t_hists = testsHists(a_db)
 % t_hists = testsHists(a_db)
 %
 % Description:
-%   Skips the 'FileIndex' test.
+%   Skips the 'ItemIndex' test.
 %
 %   Parameters:
 %	a_db: A tests_db object.
@@ -21,9 +21,9 @@ function t_hists = testsHists(a_db)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_params = a_db.num_params;
-num_tests = size(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
-t_hists = cell(1, num_tests);
+t_hists = repmat(histogram_db, 1, num_tests);
 for test_num=1:num_tests
-  t_hists{test_num} = histogram(a_db, num_params + test_num);
+  t_hists(test_num) = histogram(a_db, num_params + test_num);
 end

@@ -34,7 +34,7 @@ col_db = onlyRowsTests(col_db, ~ isnan(col_db.data), 1);
 %# I don't know why the above doesn't work!?
 
 %# If any rows left
-if size(col_db, 1) > 0
+if dbsize(col_db, 1) > 0
   [hist_results bins] = hist(col_db.data, num_bins);
 else
   hist_results = zeros(1, num_bins);

@@ -28,7 +28,7 @@ end
 
 cols = tests2cols(a_db, tests);
 
-num_pages = size(a_db, 3);
+num_pages = dbsize(a_db, 3);
 pages=1:num_pages;
 data = repmat(0, [3, length(cols), num_pages]);
 for page_num=pages

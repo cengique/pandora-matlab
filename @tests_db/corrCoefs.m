@@ -58,12 +58,12 @@ end
 col1 = tests2cols(db, col1);
 cols = tests2cols(db, cols);
 
-num_pages = size(db.data, 3);
+num_pages = dbsize(db, 3);
 pages=(1:num_pages)';
 coefs = repmat(NaN, [num_pages, length(cols), 3]);
 
 %# Only if there are multiple observations
-if size(db.data, 1) > 1
+if dbsize(db, 1) > 1
   %# One coefficient per page of observations
   for page_num=pages'
 

@@ -29,8 +29,8 @@ w_data = get(with_db, 'data');
 join_col = tests2cols(with_db, 'RowIndex');
 joins = w_data(:, join_col);
 
-size_db = size(db);
-size_wdb = size(with_db);
+size_db = dbsize(db);
+size_wdb = dbsize(with_db);
 
 cols = tests2cols(db, tests);
 w_cols = tests2cols(with_db, w_tests);

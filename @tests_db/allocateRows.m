@@ -24,7 +24,7 @@ function obj = allocateRows(obj, num_rows)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
 
-if size(obj.data, 1) ~= 0 || size(obj.data, 2) ~= 0
+if dbsize(obj, 1) ~= 0 || dbsize(obj, 2) ~= 0
   error(['Database is not empty! This operation erases ', ...
 	 'all contents of the DB.']);
 end

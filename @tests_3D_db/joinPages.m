@@ -27,8 +27,8 @@ data = get(db, 'data');
 w_data = get(with_db, 'data');
 page_col = tests2cols(with_db, 'PageIndex');
 pages = w_data(:, page_col);
-size_db = size(db);
-size_wdb = size(with_db);
+size_db = dbsize(db);
+size_wdb = dbsize(with_db);
 
 cols = tests2cols(db, tests);
 w_cols = tests2cols(with_db, w_tests);

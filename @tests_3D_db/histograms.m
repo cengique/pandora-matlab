@@ -28,7 +28,7 @@ if ~ exist('num_bins')
 end
 
 %# For all pages, get histogram
-num_pages = size(db.tests_db.data, 3);
+num_pages = dbsize(db.tests_db, 3);
 pages=(1:num_pages)';
 data = repmat(0, [num_bins, 2, num_pages]);
 for page_num=pages'

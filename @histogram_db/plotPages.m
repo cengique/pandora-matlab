@@ -31,7 +31,7 @@ if ~ exist('command')
   command = 'bar';
 end
 
-num_pages = size(a_hist_db.tests_db.data, 3);
+num_pages = dbsize(a_hist_db.tests_db, 3);
 pages=(1:num_pages)';
 subplots = cell(num_pages, 1);
 

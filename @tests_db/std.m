@@ -31,7 +31,7 @@ if ~ exist('flag')
 end
 
 %# Always do row stds
-order = 1:length(size(db.data));
+order = 1:length(dbsize(db));
 if dim ~= 1
   order(dim) = 1;
   order(1) = dim;
@@ -55,6 +55,11 @@ end
 function s = recstd(data, dim)
   if dim == 1
     s = std(data(~isnan(data(:))), flag, 1);
+    if size(s, 2) == 0
+      %# If a divide by zero error occured, 
+      %# give it NaN value instead of an empty matrix.
+      s = NaN;
+    end
   else
     for num=1:size(data, dim)
       %# Otherwise recurse

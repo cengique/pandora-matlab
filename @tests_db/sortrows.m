@@ -53,7 +53,7 @@ if ~ isempty(row_names)
 end
 
 %# Create a new db (or maybe only set fields so that the object stays the same?)
-if num_pages > 1
+if isa(db, 'tests_3D_db')
   sorted = tests_3D_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
 		       fieldnames(get(db, 'page_idx')), ...
 		       get(db, 'id'), get(db, 'props'));

@@ -29,7 +29,7 @@ if ~ exist('orientation')
   orientation = 'y'
 end
 
-num_rows = size(a_tests_db, 1);
+num_rows = dbsize(a_tests_db, 1);
 plots = cell(num_rows, 1);
 for row_num=1:num_rows
   plots{row_num} = plotrow(a_tests_db, row_num);

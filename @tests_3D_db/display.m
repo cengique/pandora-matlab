@@ -17,6 +17,6 @@ struct(t.props)
 
 display(t.tests_db);
 
-%#disp([ num2str(size(t.tests_db.data, 3)) ' pages of the above matrix.']);
+%#disp([ num2str(dbsize(t.tests_db, 3)) ' pages of the above matrix.']);
 
 

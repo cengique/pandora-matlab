@@ -1,5 +1,9 @@
 TODO
 --------------------
+- Make params_tests_profile to use arrays rather than cell arrays
+	+ had to remove size member function
+	- may need to modify subsref (!)
+	- then make plot methods operate on arrays and return plot arrays
 - update documentation on all constructors and README
 - Replace older plot methods with plotFigure(plot_abstract(.)) combinations
 	- what to do with Interpreter=None stuff?

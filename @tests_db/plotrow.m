@@ -20,7 +20,7 @@ function a_plot = plotrow(a_tests_db, row)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/08
 
 data = a_tests_db.data;
-x_vals = 1:size(a_tests_db, 2);
+x_vals = 1:dbsize(a_tests_db, 2);
 %#props.XTickLabel = fieldnames(get(a_tests_db, 'col_idx'));
 props.XTick = x_vals;
 props.grid = 1;

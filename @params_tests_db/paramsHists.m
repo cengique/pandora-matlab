@@ -7,7 +7,7 @@ function p_hists = paramsHists(a_db)
 % p_hists = paramsHists(a_db)
 %
 % Description:
-%   Skips the 'FileIndex' test. Useful for looking at subset databases and
+%   Skips the 'ItemIndex' test. Useful for looking at subset databases and
 % find out what parameter values are used most.
 %
 %   Parameters:
@@ -22,7 +22,7 @@ function p_hists = paramsHists(a_db)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/20
 
 num_params = a_db.num_params;
-num_tests = size(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
 p_hists = cell(1, num_params);
 for param_num=1:num_params

@@ -30,7 +30,7 @@ function a_tests_3D_db = invarValues(db, cols)
 cols = tests2cols(db, cols);
 
 %# Remove given columns
-log_cols = false(1, size(db, 2));
+log_cols = false(1, dbsize(db, 2));
 log_cols(cols) = true(1);
 wo_cols = db.data(:, ~log_cols);
 
