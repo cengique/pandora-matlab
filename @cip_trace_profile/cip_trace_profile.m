@@ -16,11 +16,11 @@ function obj = ...
 %	props: A structure with any optional properties.
 %
 % Usage 2:
-% obj = trace_profile(data_src, dt, dy, pulse_time_start, pulse_time_width, 
-%	              id, props)
+% obj = cip_trace_profile(data_src, dt, dy, pulse_time_start, pulse_time_width, 
+%	                  id, props)
 %
 %    Parameters:
-%	data_src: The trace column OR the .MAT filename.
+%	data_src: The trace column OR the filename.
 %	dt: Time resolution [s]
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	pulse_time_start, pulse_time_width:
