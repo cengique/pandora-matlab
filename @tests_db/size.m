@@ -1,4 +1,4 @@
-function s = size(db)
+function s = size(db, dim)
 
 % size - Returns the size of the data matrix of db.
 %
@@ -18,4 +18,8 @@ function s = size(db)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
-s = size(db.data);
+if exist('dim')
+  s = size(db.data, dim);
+else
+  s = size(db.data);
+end

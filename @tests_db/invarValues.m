@@ -27,6 +27,8 @@ function a_tests_3D_db = invarValues(db, cols)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
+cols = tests2cols(db, cols);
+
 %# Remove given columns
 log_cols(cols) = true(1);
 wo_cols = db.data(:, ~log_cols);
@@ -48,7 +50,7 @@ normalorder = 1:length(idx);
 
 %# Initialize
 num_rows = length(unique_idx);
-page_rows = size(sorted, 1) / num_rows;
+page_rows = floor(size(sorted, 1) / num_rows);
 data = repmat(NaN, [page_rows, (length(cols) + 1), num_rows]);
 
 %# For each unique row to next, find correlation coefficients of col1, col2

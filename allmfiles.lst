@@ -71,7 +71,6 @@
 ./@profile/display.m
 ./@tests_db/tests_db.m
 ./@tests_db/addLastRow.m
-./@tests_db/private/tests2cols.m
 ./@tests_db/addRow.m
 ./@tests_db/allocateRows.m
 ./@tests_db/setRows.m
@@ -88,8 +87,8 @@
 ./@tests_db/gt.m
 ./@tests_db/ge.m
 ./@tests_db/le.m
-./@tests_db/invarCorrHist.m
-./@tests_db/invarCorrCoefs.m
+./@tests_db/tests2cols.m
+./@tests_db/testsStats.m
 ./@tests_db/invarValues.m
 ./@tests_db/corrCoefs.m
 ./@tests_db/isnan.m
@@ -98,6 +97,7 @@
 ./@params_tests_db/get.m
 ./@params_tests_db/subsref.m
 ./@params_tests_db/display.m
+./@params_tests_db/invarParam.m
 ./@params_tests_fileset/paramNames.m
 ./@params_tests_fileset/params_tests_fileset.m
 ./@params_tests_fileset/params_tests_db.m

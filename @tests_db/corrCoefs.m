@@ -59,35 +59,41 @@ cols = tests2cols(db, cols);
 
 num_pages = size(db.data, 3);
 pages=(1:num_pages)';
-coefs = repmat(NaN, num_pages, length(cols), 3);
+coefs = repmat(NaN, [num_pages, length(cols), 3]);
 
 %# Only if there are multiple observations
 if size(db.data, 1) > 1
   %# One coefficient per page of observations
   for page_num=pages'
 
-    data = db.data(:, [col1 cols], page_num);
+    %# Do each column separately
+    for col_num=1:length(cols)
+      data = db.data(:, [col1 cols(col_num)], page_num);
 
-    if excludeNaNs
-      %# Remove all rows with any NaNs
-      data = data(~any(isnan(data), 2), :);
+      if excludeNaNs
+	%# Remove all rows with any NaNs
+	data = data(~any(isnan(data), 2), :);
 
-      %# Check if any rows left
-      if size(data, 1) == 0
-	error('No NaN-free rows found.');
+	%# Check if any rows left
+	if size(data, 1) == 0
+	  warning('tests_db:anyNaNs', 'No NaN-free rows found.');
+	  continue;
+	end
+
+	%# Skip also if only one row left
+	if size(data, 1) == 1
+	  warning('tests_db:coefs_one_row', 'One row not enough.');
+	  continue;
+	end
+      end
+
+      [coef_data, p, rlo, rup] = corrcoef(data);
+      
+      if ~ skipCoefs || p(1,2) <= 0.05
+	coefs(page_num, col_num, :) = ...
+	    [coef_data(1, 2), rlo(1, 2), rup(1, 2)];
       end
     end
-
-    [coef_data, p, rlo, rup] = corrcoef(data);
-
-    if skipCoefs
-      set_cols = p(1,2:end) <= 0.05;
-    else
-      set_cols = true(1, length(cols));
-    end
-    coefs(page_num, set_cols, 1) = coef_data(1, [false(1), set_cols]);
-    coefs(page_num, set_cols, 2) = rlo(1, [false(1), set_cols]);
-    coefs(page_num, set_cols, 2) = rup(1, [false(1), set_cols]);
   end
 end
 
