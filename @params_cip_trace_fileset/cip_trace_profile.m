@@ -20,8 +20,7 @@ function a_cip_trace_profile = cip_trace_profile(fileset, file_index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
-filenames = get(fileset, 'filenames');
-filename = filenames{file_index};
+filename = getItem(fileset, file_index);
 fullname = fullfile(get(fileset, 'path'), filename);
 
 %# Load a cip_trace_profile object

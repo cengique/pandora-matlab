@@ -5,4 +5,4 @@ function s = display(t)
 
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 struct(t)
-struct(t.params_tests_fileset)
+display(t.params_tests_fileset)

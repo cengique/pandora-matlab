@@ -23,5 +23,16 @@ function s = displayRow(db, rows, pages)
 if ~ exist('pages')
   pages = 1;
 end
-s = cell2struct(num2cell(db.data(rows, :, pages)), fieldnames(db.col_idx), 2);
 
+if ~ exist('rows')
+  rows = ':';
+end
+
+%# Make a cell array out of db contents
+s = cat(2, fieldnames(db.col_idx), num2cell(db.data(rows, :, pages))');
+
+%# Add row names
+row_names = fieldnames(db.row_idx);
+if ~ isempty(row_names)
+  s = cat(1, {'', row_names{:}}, s);
+end

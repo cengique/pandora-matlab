@@ -8,7 +8,7 @@ function a_db = joinRows(db, tests, with_db, w_tests)
 %
 % Description:
 %   Takes the desired columns in with_db with rows having a 
-% row index and joins them next to dedired columns from the current db. 
+% row index and joins them next to desired columns from the current db. 
 % Assumes each row index only appears once in with_db. The created
 % db preserves the ordering of with_db.
 %

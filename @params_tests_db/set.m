@@ -4,5 +4,5 @@ function a = set(a, attr, val)
 try
   a.(attr) = val;
 catch
-  rethrow(lasterror);
+  a.tests_db = set(a.tests_db, attr, val);
 end

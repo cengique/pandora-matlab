@@ -1,22 +1,23 @@
-function obj = cip_traces_dataset(ts, mags, id, props)
+function obj = cip_traces_dataset(ts, cipmag, id, props)
 
 % cip_traces_dataset - Dataset of cip_traces objects, each with varying cip magnitudes.
 %
 % Usage:
-% obj = cip_traces_dataset(ts, mags, id, props)
+% obj = cip_traces_dataset(ts, cipmag, id, props)
 %
 % Description:
 %   This is a subclass of params_tests_fileset.
 %
 %   Parameters:
-%	ts: Array of cip_traces objects.
-%	mags: Indices of magnitudes to take from objects.
+%	ts: A cell array of cip_traces objects.
+%	cipmag: A single cip magnitude to trace take from objects.
 %	id: An identification string for the whole dataset.
 %	props: A structure with any optional properties.
+%		offsetPotential: Add this to physiology trace as compensation.
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,
-%	mags, props (see above).
+%	cipmag, props (see above).
 %
 % General operations on cip_traces_dataset objects:
 %   cip_traces_dataset - Construct a new object.
@@ -37,7 +38,7 @@ function obj = cip_traces_dataset(ts, mags, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/30
 
 if nargin == 0 %# Called with no params
-  obj.mags = [];
+  obj.cipmag = [];
   obj.props = struct([]);
   obj = class(obj, 'cip_traces_dataset', params_tests_dataset);
 elseif isa(ts, 'cip_traces_dataset') %# copy constructor?
@@ -48,11 +49,15 @@ else
     props = struct([]);
   end
 
-  obj.mags = mags;
+  obj.cipmag = cipmag;
   obj.props = props;
 
   %# Get the dt from first object
-  dt = ts(1).dt;
+  if iscell(ts)
+    dt = ts{1}.dt;
+  else
+    dt = ts(1).dt;
+  end
 
   %# Create the object 
   obj = class(obj, 'cip_traces_dataset', ...

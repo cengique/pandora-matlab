@@ -19,5 +19,8 @@ function params_row = getParams(dataset, index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/06
 
-item = getItem(dataset, index);
-params_row = item.pulse_mags_pA(dataset.mags);
+%#item = getItem(dataset, index);
+%#params_row = item.pulse_mags_pA(dataset.mags);
+
+%# Only value to return
+params_row = dataset.cipmag;

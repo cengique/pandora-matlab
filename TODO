@@ -1,5 +1,10 @@
 TODO
 --------------------
+- objects don't take more space when they're used again, has implications on design:
+	- put link to dataset from db
+	- put links to previous db's for a chain of operations
+- comparing physiology data
+	+ make tabular display
 - Make params_tests_profile to use arrays rather than cell arrays
 	+ had to remove size member function
 	+ may need to modify subsref [if an array is passed, then call built-in function]

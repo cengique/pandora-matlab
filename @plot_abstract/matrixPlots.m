@@ -11,7 +11,7 @@ function a_plot = matrixPlots(plots, axis_labels, title, props)
 %	plots: Array of plot_abstract or subclass objects.
 %	axis_labels: Cell array of axis label strings (optional, taken from plots).
 %	title: Plot description string (optional, taken from plots).
-%	props: A structure with any optional properties.
+%	props: A structure with any optional properties passed to the Y stack_plot.
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
@@ -23,6 +23,10 @@ function a_plot = matrixPlots(plots, axis_labels, title, props)
 
 if ~ exist('title')
   title = '';
+end
+
+if ~ exist('props')
+  props = struct([]);
 end
 
 %# Find best fit rectangular arrangement
@@ -100,7 +104,7 @@ for y = 1:height
   end
   vert_stacks{y} = plot_stack(horz_stacks, [], 'x', '', horz_props);
 end
-a_plot = plot_stack(vert_stacks, [], 'y', title)
+a_plot = plot_stack(vert_stacks, [], 'y', title, props)
 
 function good = goodRatio(side1, side2)
   %# Try to see if it is within some % of the 3/4 ratio

@@ -22,9 +22,12 @@ function crit_db = matchingRow(db, row, tests)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/08
 
-cols = tests2cols(db, tests);
+if ~ exist('tests')
+  tests = ':';
+end
 
-col_db = db(row, tests)
+cols = tests2cols(db, tests);
+col_db = db(row, tests);
 
 %# Add the row index
 data = [ col_db.data, row; std(db(:, tests)), 0 ];

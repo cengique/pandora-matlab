@@ -22,7 +22,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %	id: An identification string
 %	props: A structure with any optional properties.
 %		channel: Channel to read from in data files (default = 1).
-%		trace_start: Starting of trace in file (default = 1).
+%		trace_time_start: Starting of trace in file (default = 1).
 %		type: type of file (default = '')
 %		
 %   Returns a structure object with the following fields:

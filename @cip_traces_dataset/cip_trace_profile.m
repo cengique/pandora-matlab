@@ -22,8 +22,22 @@ function a_cip_trace_profile = cip_trace_profile(dataset, index)
 
 %# Load a cip_trace_profile object
 a_ct = getItem(dataset, index);
+
+%# Find cip magnitude index
+magidx = find(a_ct.pulse_mags_pA == dataset.cipmag);
+
+if length(magidx) == 0 
+  error(['CIP magnitude ' num2str(dataset.cipmag) ' cannot be found in ' a_ct '.']);
+end
+
+data = a_ct.data(:, magidx(1));
+if isfield(dataset.props, 'offsetPotential')
+  data = data + dataset.props.offsetPotential;
+end
+
+%# Create profile by analyzing raw data
 a_cip_trace_profile = ...
-    cip_trace_profile(a_ct.data(:, dataset.mags), ...
+    cip_trace_profile(data, ...
 		      get(dataset, 'dt'), get(dataset, 'dy'), ...
 		      a_ct.pulse_time_start, a_ct.pulse_time_width, ...
 		      [get(dataset, 'id') '(' num2str(index) ')'], ...

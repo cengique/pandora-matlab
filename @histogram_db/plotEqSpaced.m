@@ -3,7 +3,7 @@ function a_plot = plotEqSpaced(a_hist_db, command, props)
 % plotEqSpaced - Generates a plottable description of this object.
 %
 % Usage:
-% a_plot = plotEqSpaced(a_hist_db, command)
+% a_plot = plotEqSpaced(a_hist_db, command, props)
 %
 % Description:
 %   Generates a plot_simple object from this histogram.

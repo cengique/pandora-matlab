@@ -26,7 +26,9 @@ col_vals = struct2cell(db.col_idx);
 cols = [];
 if ischar(tests) && strcmp(tests, ':')
   cols = [ col_vals{:} ];
-elseif isnumeric(tests) || islogical(tests)
+elseif islogical(tests)
+  cols = find(tests);
+elseif isnumeric(tests) 
   cols = tests;
 elseif ischar(tests)
   cols = getfield(db.col_idx, tests);

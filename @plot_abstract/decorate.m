@@ -62,6 +62,33 @@ if isfield(a_plot.props, 'XTick')
   set(gca, 'XTick', a_plot.props.XTick);
 end
 
+if isfield(a_plot.props, 'numXTicks')
+  num_ticks = a_plot.props.numXTicks - 1;
+  axis_limits = get(gca, 'Xlim')
+  xticklist = axis_limits(1) + ...
+      (0:num_ticks) * (diff(axis_limits([1 2]))) / num_ticks
+  xtickscell = cell(1, num_ticks + 1);
+  for tick_num=1:(num_ticks+1)
+    xtickscell{tick_num} = sprintf('%.2f', xticklist(tick_num));
+  end
+  xtickscell
+  set(gca, 'XTick', xticklist);
+  set(gca, 'XTickLabel', xtickscell);
+end
+
+if isfield(a_plot.props, 'formatXTickLabels')
+  xticks = get(gca, 'XTick');
+  xticklabels = get(gca, 'XTickLabel');
+  for tick_num=(xticks + 1)
+
+    newstr = sprintf(a_plot.props.formatXTickLabels, str2num(xticklabels(tick_num)));
+    xticklabels(tick_num, :) = [newstr ...
+				blanks(size(xticklabels, 2) - size(newstr, 2)) ];
+  end
+  %#xticklist = sprintf([a_plot.props.formatXTickLabels '\n'], str2num(xticklist))
+  set(gca, 'XTickLabel', xticklabels);
+end
+
 if isfield(a_plot.props, 'YTickLabel')
   set(gca, 'YTickLabel', a_plot.props.YTickLabel);
 end

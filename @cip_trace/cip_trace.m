@@ -62,7 +62,7 @@ else
 
   %# Adjust time variables if data is cropped
   if isfield(props, 'trace_time_start')
-    pulse_time_start = pulse_time_start - props.trace_time_start;
+    pulse_time_start = pulse_time_start - props.trace_time_start + 1;
   end
 
   obj.pulse_time_start = pulse_time_start;

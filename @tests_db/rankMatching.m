@@ -32,6 +32,7 @@ crit_tests = setdiff(fieldnames(crit_db.col_idx), 'RowIndex');
 
 %# Filter relevant columns
 reduced_db = db(':', crit_tests);
+dbsize(reduced_db)
 
 %# Vectorize diff over cols and do the diff^2
 %#####
@@ -49,10 +50,17 @@ rep_weight = ones(dbsize(db, 1), 1) * second_row.data;
 wghd_data = diff_data ./ rep_weight;
 
 %# Sum of squares: distance measure
-wghd_data = sum(wghd_data .* wghd_data, 2);
+ss_data = wghd_data .* wghd_data;
+wghd_data = sum(ss_data, 2);
+
+%# Ignore NaN rows
+nans = isnan(wghd_data);
+wghd_data = wghd_data(~nans);
+row_index = row_index(~nans);
+ss_data = ss_data(~nans, :);
 
 %# Create new db with distances and row indices, sorted with distances
-rank_db = sortrows(tests_db([wghd_data, row_index], ...
-			    {'Distance', 'RowIndex'}, {}, ...
+rank_db = sortrows(tests_db([ss_data, wghd_data, row_index], ...
+			    {crit_tests{:}, 'Distance', 'RowIndex'}, {}, ...
 			    [ get(db, 'id') ' compared with ' get(crit_db, 'id') ]), ...
 		   'Distance');
