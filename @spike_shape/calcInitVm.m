@@ -1,6 +1,6 @@
 function [init_val, init_idx, rise_time, amplitude, ...
 	  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx, ...
-	  peak_mag, peak_idx] = ...
+	  peak_mag, peak_idx, a_plot] = ...
       calcInitVm(s, max_idx, min_idx, plotit)
 
 % calcInitVm - Calculates the spike initiation information of the 
@@ -8,7 +8,7 @@ function [init_val, init_idx, rise_time, amplitude, ...
 %
 % Usage:
 % [init_val, init_idx, rise_time, amplitude, max_ahp, ahp_decay_constant,
-%  dahp_mag, dahp_idx, peak_mag, peak_idx] = 
+%  dahp_mag, dahp_idx, peak_mag, peak_idx, a_plot] = 
 %	calcInitVm(s, max_idx, min_idx)
 %
 % Description:
@@ -30,6 +30,7 @@ function [init_val, init_idx, rise_time, amplitude, ...
 %	dahp_mag: Index of the double AHP peak
 %	peak_mag: Peak value [dy]
 %	peak_idx: Extrapolated spike peak index [dt]
+%	a_plot: plot_abstract, if requested.
 %
 % See also: spike_shape
 %
@@ -41,6 +42,7 @@ function [init_val, init_idx, rise_time, amplitude, ...
 if ~ exist('plotit')
   plotit = 0;
 end
+a_plot = [];
 
 %# Constants
 min_val = s.trace.data(min_idx);
@@ -73,7 +75,7 @@ switch method
 	       s.props.init_threshold * s.trace.dt / s.trace.dy); 
     if length(idx) == 0 
       warning('spike_shape:threshold_derivative', ...
-	      ['Threshold ' num2str(s.props.init_threshold) ...
+	      ['Derivative threshold ' num2str(s.props.init_threshold) ...
 	       ' failed to find spike initiation point.']);
       %# Then, the first point of the trace is the spike initiation point.
       idx = 1;
@@ -81,51 +83,14 @@ switch method
     idx = idx(1);
   case 4
     %# Sekerli's method: maximum second derivative in the phase space
-    %#   Taken from Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,
-    %#	51(9): 1665-71, 2004.
-    d3 = diff3T(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
-    d2 = diff2T(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
-    d1 = diffT(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
-    %# Remove boundary artifacts
-    d3 = d3(4:(end - 3)); 
-    d2 = d2(4:(end - 3));
-    d1 = d1(4:(end - 3));
-    h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
-    if plotit
-      figure;
-      t = (4 : (max_idx -1)) * s.trace.dt * 1e3;
-      handles = semilogy(t, d1, t, d2, t, d3, t, h, '.-', ...
-			 t, 100 + s.trace.data(4 : (max_idx -1)));
-      legend(handles, {'d1', 'd2', 'd3', 'h', 'v'});
-      title('Sekerli''s method, h = second derivative of dV/dt with V');
-    end
-    [val, idx] = max(h); 
-    idx = idx + 3;
+    [idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit);
   case 5
     %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
-    %# Taken from Sekerli, Del Negro, Lee and Butera. 
-    %# IEEE Trans. Biomed. Eng., 51(9): 1665-71, 2004.
-    d2 = diff2T(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
-    d1 = diffT(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
-    d2 = d2(3:(end -2));
-    d1 = d1(3:(end -2));
-    k1 = 1 + d1 .* d1;
-    k = d2 ./ sqrt(k1 .* k1 .* k1);
-    %# Find first local maximum in k before spike peak
-    dk = diff(k);
-    dk2 = dk(2:end) .* dk(1:(end-1));
-    zc = find(dk2 < 0);
-    %#[val, idx] = max(k); 
-    idx = zc(end) + 1; %# need to add 1 because of diff
-    idx = idx + 2;
-    if plotit
-      figure;
-      t = (3 : max_idx) * s.trace.dt * 1e3;
-      handles = semilogy(t, d1, t, d2, t, k1, t, 100*k, '.-', ...
-			 t, 100 + s.trace.data(3 : max_idx));
-      legend(handles, {'d1', 'd2', 'k1', 'Kp', 'v'})
-      title('Maximal curvature Kp');
-    end
+    [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, 5, 50, plotit);
+  case 6
+    %# Sekerli's method with a twist
+    [idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, ...
+					s.props.init_threshold, plotit);
   otherwise
     error(sprintf('Incorrect spike initiation method: %f', method));
 end

@@ -66,6 +66,7 @@ spsh_plot = plotData(s);
 
 %# Create annotation plot using the above as template
 annot_plot = set(spsh_plot, 'data', plot_data);
+annot_plot = set(annot_plot, 'legend', {});
 
 %# Superpose them
 a_plot = superposePlots([spsh_plot, annot_plot]);

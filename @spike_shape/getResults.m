@@ -1,10 +1,10 @@
-function results = getResults(s, plotit)
+function [results, a_plot] = getResults(s, plotit)
 
 % getResults - Runs all tests defined by this class and return them in a 
 %		structure.
 %
 % Usage:
-% results = getResults(s)
+% [results, a_plot] = getResults(s, plotit)
 %
 % Description:
 %   Parameters:
@@ -14,6 +14,7 @@ function results = getResults(s, plotit)
 %
 %   Returns:
 %	results: A structure associating test names to values in ms and mV.
+%	a_plot: plot_abstract, if requested.
 %
 % See also: spike_shape
 %
@@ -31,11 +32,14 @@ if isempty(s.trace.data)
   results.MinVm = NaN;
   results.PeakVm = NaN;
   results.InitVm = NaN;
+  results.HalfVm = NaN;
   results.Amplitude = NaN;
   results.MaxAHP = NaN;
   results.DAHPMag = NaN;
+  results.InitTime = NaN;
   results.RiseTime = NaN;
   results.FallTime = NaN;
+  results.MinTime = NaN;
   results.BaseWidth = NaN;
   results.HalfWidth = NaN;
   return;
@@ -46,7 +50,7 @@ end
 [min_val, min_idx] = calcMinVm(s, max_idx);
 [init_val, init_idx, rise_time, amplitude, ...
  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx, ...
- peak_mag, peak_idx]=calcInitVm(s, max_idx, min_idx, plotit);
+ peak_mag, peak_idx, a_plot]=calcInitVm(s, max_idx, min_idx, plotit);
 [base_width, half_width, half_Vm, fall_time] = ...
       calcWidthFall(s, peak_idx, peak_mag, min_idx, init_idx);
 

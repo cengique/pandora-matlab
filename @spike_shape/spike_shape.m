@@ -19,6 +19,12 @@ function obj = spike_shape(data, dt, dy, id, props)
 %		baseline: Resting potential.
 %		threshold: Spike threshold.
 %		init_Vm_method: Method to obtain spike initiation voltage.
+%			1- maximum acceleration point
+%			2- threshold crossing of acceleration (needs threshold)
+%			3- threshold crossing of slope (needs threshold)
+%			4- maximum second derivative in the phase space
+%			   (optionally specify maximal threshold parameter)
+%			5- point of maximum curvature
 %		init_threshold: Spike initiation threshold (deriv or accel).
 %				(see calcInitVm)
 %
@@ -54,7 +60,12 @@ else
 
   if ~ exist('props')
     props.init_Vm_method = 4; %# Sekerli's method
-    %#props.init_threshold = 15; %# Derivative in V/s (= mV/ms)
+    %#props.init_threshold = 50; %# upper bound of derivative in V/s (= mV/ms)
+    %# (no upper bound works more reliably)
+    %# OR
+    %#props.init_Vm_method = 3; %# Derivative threshold method
+    %#props.init_threshold = 15; %# threshold crossing derivative in V/s (= mV/ms)
+    
   end
   obj.props = props;
 
