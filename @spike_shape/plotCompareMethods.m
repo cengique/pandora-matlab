@@ -36,11 +36,22 @@ rise_time = resultsm3.RiseTime ;
 peak_time = init_idx + rise_time;
 min_time = resultsm3.MinTime;
 
+%# Method 7, slope threshold with supersampling
+sm7 = set(s, 'props', struct('init_Vm_method', 7, 'init_threshold', th));
+resultsm7 = getResults(sm7);
+
+r2_plot = set(plotResults(sm7), 'title', ['Slope threshold (interp.), v\prime > ' num2str(th) ]);
+r2_plot = setProp(r2_plot, 'axisLimits', ...
+		 [peak_time - 3, min_time, NaN, NaN]);
+
 %# Adjust plots
 r_plot = set(plotResults(sm3), 'title', ['Slope threshold, v\prime > ' num2str(th) ]);
 r_plot = setProp(r_plot, 'axisLimits', ...
 		 [peak_time - 3, min_time, NaN, NaN]);
-m3_plot = plot_stack({r_plot, plotTPP(sm3)}, [], 'x', '', struct([]));
+
+r3_plot = set(plotTPP(sm3), 'title', [ 'In phase-plane' ]);
+
+m3_plot = plot_stack({r_plot, r2_plot, r3_plot}, [], 'x', '', struct([]));
 
 %# Method 4 (non-parameteric)
 sm4 = set(s, 'props', struct('init_Vm_method', 4));
