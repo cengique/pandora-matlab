@@ -30,5 +30,8 @@ for param_num=1:num_params
   param_col = sortrows(get(onlyRowsTests(a_db, ':', param_num), 'data'));
   param_vals = sortedUniqueValues(param_col);
   %# Give the param_vals as bin centers
+  if length(param_vals) == 1
+    param_vals = 1; %# A single histogram bin
+  end
   p_hists(param_num) = histogram(a_db, param_num, param_vals');
 end
