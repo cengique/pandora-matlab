@@ -64,7 +64,8 @@ fall_time = fall_init_cross_time - max_idx;
 half_Vm = init_val + (max_val - init_val) / 2;
 
 %# Find part above half Vm
-above_half = find(s.trace.data >= half_Vm);
+start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
+above_half = start_from - 1 + find(s.trace.data(start_from:end) >= half_Vm);
 
 half_start = above_half(1) - ...
     (s.trace.data(above_half(1)) - half_Vm) / ...

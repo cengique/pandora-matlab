@@ -47,7 +47,7 @@ h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
 dh = diffT(h, 1);
 dh2 = dh(2:end) .* dh(1:(end-1));
 hd2 = diff2T(h, 1); %# 2nd deriv
-zc = find(dh2 < 0 & dh(1:(end-1)) > 0)
+zc = find(dh2 < 0 & dh(1:(end-1)) > 0);
 if length(zc) == 0 
   %# TODO: this should throw an error that can be caught and handled
   %# then another method can be tried.
@@ -68,12 +68,13 @@ else
 	     'Taking the first point in the trace as threshold instead.']);
     %# Then, the first point of the trace is the spike initiation point.
     idx = 1;
-  end
-  cross_idx = cross_idx(1)
+  else
+    cross_idx = cross_idx(1);
 
-  %# choose maximum nearest to crossing point
-  [nearest, nearest_idx] = min(abs(zc - cross_idx));
-  idx = zc(nearest_idx) + 3
+    %# choose maximum nearest to crossing point
+    [nearest, nearest_idx] = min(abs(zc - cross_idx));
+    idx = zc(nearest_idx) + 3;
+  end
 end
 if plotit
   t = (4 : (max_idx -1)) * s.trace.dt * 1e3;

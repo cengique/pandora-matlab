@@ -23,10 +23,14 @@ function obj = spike_shape(data, dt, dy, id, props)
 %			2- threshold crossing of acceleration (needs threshold)
 %			3- threshold crossing of slope (needs threshold)
 %			4- maximum second derivative in the phase space
-%			   (optionally specify maximal threshold parameter)
-%			5- point of maximum curvature
+%			   (optionally specify maximal threshold as init_threshold)
+%			5- point of maximum curvature, when slope is between 
+%			   init_lo_thr and init_hi_thr
+%			6- local maximum of second derivative in the phase space
+%			   nearest slope crossing init_threshold
 %		init_threshold: Spike initiation threshold (deriv or accel).
 %				(see calcInitVm)
+%		init_lo_thr, init_hi_thr: Low and high thresholds for slope.
 %
 %   Returns a structure object with the following fields:
 %	trace, props.
@@ -59,13 +63,12 @@ else
   trace_obj = trace(data, dt, dy, id, struct([]));
 
   if ~ exist('props')
-    props.init_Vm_method = 4; %# Sekerli's method
-    %#props.init_threshold = 50; %# upper bound of derivative in V/s (= mV/ms)
+    props.init_Vm_method = 6; %# Sekerli's method
+    props.init_threshold = 10; %# upper bound of derivative in V/s (= mV/ms)
     %# (no upper bound works more reliably)
     %# OR
     %#props.init_Vm_method = 3; %# Derivative threshold method
     %#props.init_threshold = 15; %# threshold crossing derivative in V/s (= mV/ms)
-    
   end
   obj.props = props;
 

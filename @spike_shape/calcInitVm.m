@@ -69,24 +69,15 @@ switch method
     end
     idx = idx(1);
   case 3
-    deriv = diff(s.trace.data);
-    %# threshold voltage derivative
-    idx = find(deriv(1 : max_idx) >= ...
-	       s.props.init_threshold * s.trace.dt / s.trace.dy); 
-    if length(idx) == 0 
-      warning('spike_shape:threshold_derivative', ...
-	      ['Derivative threshold ' num2str(s.props.init_threshold) ...
-	       ' failed to find spike initiation point.']);
-      %# Then, the first point of the trace is the spike initiation point.
-      idx = 1;
-    end
-    idx = idx(1);
+    [idx, a_plot] = ...
+	calcInitVmSlopeThreshold(s, max_idx, min_idx, s.props.init_threshold, plotit);
   case 4
     %# Sekerli's method: maximum second derivative in the phase space
     [idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit);
   case 5
     %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
-    [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, 5, 50, plotit);
+    [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, s.props.init_lo_thr, ...
+					 s.props.init_hi_thr, plotit);
   case 6
     %# Sekerli's method with a twist
     [idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, ...

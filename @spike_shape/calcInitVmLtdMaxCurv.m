@@ -44,20 +44,21 @@ d2 = d2(3:(end -2));
 d1 = d1(3:(end -2));
 k1 = 1 + d1 .* d1;
 k = d2 ./ sqrt(k1 .* k1 .* k1);
-%# Find maximum of k between given derivative thresholds
-constrained_idx = find(d1 >= lo_thr & d1 <= hi_thr);
+%# Find maximum of k between given derivative thresholds and on the rising edge
+constrained_idx = find(d1 >= lo_thr & d1 <= hi_thr & d2 > 0);
 if length(constrained_idx) == 0 
   warning('spike_shape:threshold_derivative', ...
 	  ['Failed to find any points between derivative thresholds (' ...
-	   num2str(lo_thr) ', ' num2str(hi_thr) '). '
-	   'Using first data point as AP threshold.']);
-  %# Then, use the first point of the trace as the spike initiation point.
-  idx = 1;
+	   num2str(lo_thr), num2str(hi_thr) ') while v'''' > 0. ' ...
+	   'Using slope threhold crossing method (3) instead.']);
+  [init_idx a_plot] = ...
+      calcInitVmSlopeThreshold(s, max_idx, min_idx, s.props.init_threshold, plotit);
+  return;
 else    
   [val, idx] = max(k(constrained_idx)); 
   idx = constrained_idx(idx);
+  idx = idx + 2;
 end
-idx = idx + 2;
 
 if plotit
   class_name = strrep(class(s), '_', ' ');

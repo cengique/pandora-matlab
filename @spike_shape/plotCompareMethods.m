@@ -59,7 +59,9 @@ m4p_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		      struct('titlesPos', 'none'));
 
 %# Method 5 (non-parameteric)
-sm5 = set(s, 'props', struct('init_Vm_method', 5));
+sm5 = set(s, 'props', struct('init_Vm_method', 5, ...
+			     'init_lo_thr', 5, 'init_hi_thr', 50, ...
+			     'init_threshold', 15));
 [res, d_plot] = getResults(sm5, 1);
 d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
 r_plot = setProp(plotResults(sm5), 'axisLimits', [peak_time - 3, min_time, NaN, NaN]);
