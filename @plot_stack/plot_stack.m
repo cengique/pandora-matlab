@@ -19,6 +19,7 @@ function a_plot = plot_stack(plots, axis_limits, orient, title, props)
 %		yTicksPos: 'left' means only put y-axis ticks to leftmost plot.
 %		xLabelsPos: 'bottom' means only put x-axis label to lowest plot.
 %		xTicksPos: 'bottom' means only put x-axis ticks to lowest plot.
+%		titlesPos: 'top' means only put title to top plot.
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract, plots, axis_limits, orient, props.

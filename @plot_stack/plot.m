@@ -30,8 +30,15 @@ end
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-scale_down = 0.6;
+scale_down = 0.9;
 border = 1;
+
+%# Find the width of a regular y-axis label
+ticklabel = text(0, 0, 'xxx', 'Visible', 'off');
+tickextent = get(ticklabel, 'Extent');
+tickwidth = tickextent(3);
+tickheight = tickextent(4);
+
 if strcmp(a_plot.orient, 'x')
   width = border * layout_axis(3) / num_plots;
   height = border * layout_axis(4);
@@ -40,8 +47,6 @@ elseif strcmp(a_plot.orient, 'y')
   height = border * layout_axis(4) / num_plots;
 end
 
-class(get(a_plot, 'title'))
-
 %# Put a title first
 text(layout_axis(1) + layout_axis(3) / 2, ...
      layout_axis(2) + layout_axis(4) + 0.1, ...
@@ -49,32 +54,41 @@ text(layout_axis(1) + layout_axis(3) / 2, ...
      'Units', 'Normalized', ...
      'HorizontalAlignment', 'center', 'VerticalAlignment', 'top' );
 
-%#hold on;
-%#subplot('position', layout_axis);
-%#title();
-%#return;
+%# The textbox opens an unwanted axis, so hide it
+set(gca, 'Visible', 'off');
+
+minwidth = 0.01;
+minheight = 0.01;
 
 %# Lay them out
 for plot_num=1:num_plots
-  x_offset = layout_axis(1) + (1 - scale_down) * width / 2 + ...
-      strcmp(a_plot.orient, 'x') * ...
-      (plot_num - 1) * width;
-  y_offset = layout_axis(2) + (1 - scale_down) * height / 2 + ...
-      strcmp(a_plot.orient, 'y') * ...
-      (plot_num - 1) * height;
+  one_plot = a_plot.plots{plot_num};
+  its_props = one_plot.props;
+  %# Check if y-ticks only for the leftmost plot
+  if plot_num > 1 && isfield(a_plot.props, 'yTicksPos') && ...
+	strcmp(a_plot.props.yTicksPos, 'left')
+    its_props.noYTickLabels = 1;
+    tickwidth = 0; %# no more space is needed for y-tick labels
+  end
+  %# Check if title only for the topmost plot
+  if plot_num < num_plots && isfield(a_plot.props, 'titlesPos') && ...
+	strcmp(a_plot.props.titlesPos, 'top')
+    one_plot = set(one_plot, 'title', '')
+  end
+  %# Set the modified properties back to the plot
+  one_plot = set(one_plot, 'props', its_props);
+  %# Calculate subplot positioning
+  x_offset = layout_axis(1) + tickwidth + (1 - scale_down) * width / 2 + ...
+      strcmp(a_plot.orient, 'x') * (plot_num - 1) * width;
+  y_offset = layout_axis(2) + tickheight + (1 - scale_down) * height / 2 + ...
+      strcmp(a_plot.orient, 'y') * (plot_num - 1) * height;
   position = [x_offset, y_offset, ...
-	      scale_down * width, scale_down * height];
+	      max(scale_down * width - tickwidth, minwidth), ...
+	      max(scale_down * height - tickheight, minheight) ];
   plot(a_plot.plots{plot_num}, position);
   %# Set its axis limits if requested
   if ~ isempty(a_plot.axis_limits)
     axis(a_plot.axis_limits);
-  end
-  one_plot = a_plot.plots{plot_num};
-  if plot_num > 1 && isfield(a_plot.props, 'yTicksPos') && ...
-	strcmp(a_plot.props.yTicksPos, 'left')
-    its_props = one_plot.props;
-    its_props.noYTickLabels = 1;
-    one_plot = set(one_plot, 'props', its_props);
   end
   decorate(one_plot);
 end
