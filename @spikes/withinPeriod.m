@@ -22,7 +22,7 @@ function obj = withinPeriod(s, a_period)
 %# TODO:
 %# - Relate this method by overloading an abstract class/interface periodable(?) 
 
-s.times = s.times(s.times >= a_period.start_time & s.times <= a_period.end_time);
+s.times = s.times(s.times > a_period.start_time & s.times <= a_period.end_time);
 s.num_samples = a_period.end_time - a_period.start_time;
 
 %# reset the offset
