@@ -28,7 +28,11 @@ end
 
 data = get(db, 'data');
 db_size = size(data);
-num_pages = db_size(3);
+if length(db_size) > 2
+  num_pages = db_size(3);
+else
+  num_pages = 1;
+end
 pages=1:num_pages;
 
 cols = tests2cols(db, cols);
