@@ -28,8 +28,14 @@ function obj = tests_db(test_results, col_names, id, props)
 %   addLastRow		- Add a single row to the end of DB.
 %   display		- Returns and displays the identification string.
 %   displayRow		- Display one row of data from the DB.
-%   subsref		- Allows referencing rows/cols to get new 
+%   subsref		- Allows referencing rows/cols via () to get new 
 %			  tests_db objects and allows usage of . operator.
+%   eq			- Overloaded == operator that returns row indices.
+%   ne			- Overloaded ~= operator that returns row indices.
+%   lt			- Overloaded < operator that returns row indices.
+%   gt			- Overloaded > operator that returns row indices.
+%   le			- Overloaded <= operator that returns row indices.
+%   ge			- Overloaded >= operator that returns row indices.
 %   get			- Gets attributes of this object and parents.
 %   kcluster		- Returns k tests_db objects, one for each cluster 
 %			  found in this one (N/I).

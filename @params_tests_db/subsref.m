@@ -7,7 +7,8 @@ if size(index, 2) > 1
 else
   switch index.type
     case '()'
-      b = a(index.subs{:});
+      %# Delegate to base class
+      b = a.tests_db(index.subs{:});
     case '.'
       b = eval(['a.' index.subs]);
     case '{}'

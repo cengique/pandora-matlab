@@ -6,6 +6,8 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
-V0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
+v0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
 	spike_shape, period, and cip_trace.
+
+v0_2b: Cengiz Gunay, 2004/09/16. Beta version of fileset and db classes.
 
