@@ -4,5 +4,5 @@ function b = get(a, attr)
 try
   b = getfield(struct(a), attr);
 catch
-  throw(lasterror);
+  rethrow(lasterror);
 end
