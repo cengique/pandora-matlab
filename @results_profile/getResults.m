@@ -7,12 +7,12 @@ function results = getResults(p)
 %
 % Description:
 %   Parameters:
-%	p: A profile object.
+%	p: A result_profile object.
 %
 %   Returns:
 %	results: A structure associating test names to values.
 %
-% See also: profile
+% See also: results_profile
 %
 % $Id$
 % Author: 

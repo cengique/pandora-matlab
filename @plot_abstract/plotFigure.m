@@ -19,5 +19,6 @@ function handle = plotFigure(a_plot)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 handle = figure;
+set(handle, 'Name', get(a_plot, 'title'));
 plot(a_plot, [0.1 0.1 0.8 0.8]);
 decorate(a_plot);

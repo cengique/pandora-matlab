@@ -4,7 +4,7 @@ function a_3D_db = invarParam(db, param)
 %		a parameter and all test columns. 
 %
 % Usage:
-% a_3D_db = invarParam(db, cols)
+% a_3D_db = invarParam(db, param)
 %
 % Description:
 %   Finds all combinations when the rest of the parameters are fixed,

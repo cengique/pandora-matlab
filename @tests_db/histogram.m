@@ -25,14 +25,21 @@ if ~ exist('num_bins')
   num_bins = 100;
 end
 
-col_db = db(:, col)
+col_db = db(:, col);
 
 %# Remove NaN values 
-col_db = onlyRowsTests(col_db, ~ isnan(col_db(:, 1)), 1)
+col_db = onlyRowsTests(col_db, ~ isnan(col_db(:, 1)), 1);
 %#col_db = col_db( ~ isnan(col_db(:, 1)), 1);
 %# I don't know why the above doesn't work!?
 
-[hist_results bins] = hist(col_db.data, num_bins);
+%# If any rows left
+if size(col_db, 1) > 0
+  [hist_results bins] = hist(col_db.data, num_bins);
+else
+  hist_results = zeros(1, num_bins);
+  bins = zeros(1, num_bins);
+end
+
 col_name_cell = fieldnames(col_db.col_idx);
 col_name = col_name_cell{1};
 

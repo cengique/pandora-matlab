@@ -20,6 +20,8 @@ function handles = plot(a_plot, layout_axis)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
+%# TODO: spare fixed space for axis labels if they exist, not rational space.
+
 if ~ exist('layout_axis') || isempty(layout_axis)
   %# By default the whole figure area is taken
   layout_axis = [ 0 0 1 1];

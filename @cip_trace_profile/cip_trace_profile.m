@@ -13,7 +13,7 @@ function obj = ...
 %	a_spont_spike_shape: A spike_shape object for spont spikes.
 %	results: A structure containing test results.
 %	id: Identification string.
-%	props: A structure any optional properties.
+%	props: A structure with any optional properties.
 %
 % Usage 2:
 % obj = trace_profile(data_src, dt, dy, pulse_time_start, pulse_time_width, 
@@ -56,7 +56,7 @@ if nargin == 0 %# Called with no params, creates empty object
   obj.spikes = spikes;
   obj.spont_spike_shape = spike_shape;
   obj.props = struct([]);
-  obj = class(obj, 'cip_trace_profile', profile);
+  obj = class(obj, 'cip_trace_profile', results_profile);
 elseif isa(varargin{1}, 'cip_trace_profile') %# copy constructor?
   obj = varargin{1};
 elseif isnumeric(varargin{2})
@@ -85,7 +85,7 @@ elseif isnumeric(varargin{2})
   %# (Gets a NaN filled structure if no spikes found.)
   %# And merge them together
   obj = class(obj, 'cip_trace_profile', ...
-	      profile(mergeStructs(getResults(obj.trace, obj.spikes), ...
+	      results_profile(mergeStructs(getResults(obj.trace, obj.spikes), ...
 				   getResults(obj.spont_spike_shape)), ...
 		      varargin{6}));
 else 
@@ -101,5 +101,5 @@ else
   obj.props = props;
 
   %# Create the object
-  obj = class(obj, 'cip_trace_profile', profile(varargin{4:5}));
+  obj = class(obj, 'cip_trace_profile', results_profile(varargin{4:5}));
 end

@@ -75,7 +75,7 @@ if size(db.data, 1) > 1
       data = db.data(col1nonnans, [col1 cols(col_num)], page_num);
 
       %# Remove rows with NaNs on column
-      data = data(isnan(data(:, 2)), :);
+      data = data(~isnan(data(:, 2)), :);
 
       %# Check if any rows left
       if size(data, 1) < 2
@@ -103,16 +103,17 @@ pages( nanrows, : ) = [];
 pages(:, :, 2) = pages(:, :, 1);
 pages(:, :, 3) = pages(:, :, 1);
 
-%# Check if any coefs left
-if size(coefs, 1) == 0
-  error('No coefficients found.');
-end
-
 %# Create the coefficient database
 col_name_cell = fieldnames(get(db, 'col_idx'));
 col1_name = col_name_cell{col1};
 col_names = col_name_cell(cols);
 
+%# Check if any coefs left
+if size(coefs, 1) == 0
+  warning('tests_db:corrCoef:no_coefs', 'No coefficients found.');
+end
+
 a_coefs_db = corrcoefs_db(col1_name, coefs, col_names, pages, ...
 			  [ 'Correlations to ' col1_name ...
 			   ' in ' get(db, 'id') ], props);
+

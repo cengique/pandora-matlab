@@ -1,5 +1,10 @@
 TODO
 --------------------
+-histograms.m doesn't work?
+- new plot type
+	- new datatype for that
+- matrix stack plot
+- matrix color plot
 - Make PDF with code design
 - CVS
   - present CVS, start using it

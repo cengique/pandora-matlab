@@ -59,7 +59,7 @@ if nargin == 0 %# Called with no params, creates empty object
   obj.spikes = spikes;
   obj.spike_shape = spike_shape;
   obj.props = struct([]);
-  obj = class(obj, 'trace_profile', profile);
+  obj = class(obj, 'trace_profile', results_profile);
 elseif isa(varargin{1}, 'trace_profile') %# copy constructor?
   obj = varargin{1};
 elseif nargin < 4 && isnumeric(varargin{2})
@@ -75,7 +75,7 @@ elseif nargin < 4 && isnumeric(varargin{2})
 
   %# Create the object
   obj = class(obj, 'trace_profile', ...
-	      profile(mergeStructs(trace_results, rate_results, ...
+	      results_profile(mergeStructs(trace_results, rate_results, ...
 				   shape_results), ...
 		      varargin{5}));
 else
@@ -84,5 +84,5 @@ else
       deal(varargin{1:3});
   obj.props = props;
   %# Create the object
-  obj = class(obj, 'trace_profile', profile(varargin{4:5}));
+  obj = class(obj, 'trace_profile', results_profile(varargin{4:5}));
 end

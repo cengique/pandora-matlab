@@ -15,7 +15,7 @@
 %   cip_traces		- Traces with a set of CIPs applied (N/I).
 %
 % Profile classes that hold test results:
-%   profile		- Base class that holds a results structure.
+%   result_profile	- Base class that holds a results structure.
 %   trace_profile	- Generic example class for holding a trace profile.
 %   cip_trace_profile	- Holds cip_trace results. Template class designed 
 %			only for subclassing.
