@@ -14,6 +14,10 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 %   Returns:
 %	a_db: A params_tests_db object of organized values.
 %
+%   Example:
+%	>> control_phys_sdb = getDualCIPdb(control_phys_db, depol_tests, hyper_tests, '', 'Hyp100pA')
+%	where depol_tests and hyper_tests are cell arrays of selected tests.
+%
 % See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair
 %
 % $Id$

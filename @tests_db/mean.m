@@ -50,11 +50,13 @@ end
 %# Recursive std needed for stripping NaNs in each dimension
 function s = recmean(data, dim)
   if dim == 1
-    s = mean(data(~isnan(data(:))), 1);
-    if size(s, 2) == 0
+    sdata = data(~isnan(data(:)));
+    if size(sdata, 1) == 0
       %# If a divide by zero error occured, 
       %# give it NaN value instead of an empty matrix.
       s = NaN;
+    else
+      s = mean(sdata, 1);
     end
   else
     for num=1:size(data, dim)

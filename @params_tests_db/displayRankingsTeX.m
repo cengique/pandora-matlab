@@ -1,6 +1,6 @@
 function tex_string = displayRankingsTeX(a_db, crit_db, props)
 
-% displayRankingsTeX - Generates and displays a ranking DB by comparing rows of a_db with the given test criteria.
+% displayRankingsTeX - Generates and displays a ranking DB by comparing rows of a_db with the given match criteria.
 %
 % Usage:
 % tex_string = displayRankingsTeX(a_db, crit_db)
@@ -37,11 +37,16 @@ tex_string = '';
 ranked_db = rankMatching(a_db, crit_db);
 joined_db = joinOriginal(ranked_db);
 ranked_num_rows = dbsize(ranked_db, 1);
+
+%# LaTeX likes '_' to be '\_' 
+a_db_id = strrep(lower(get(a_db, 'id')), '_', '\_');
+crit_db_id = strrep(lower(get(crit_db, 'id')), '_', '\_');
+
 if ranked_num_rows > 0
   %# Display values of 10 best matches
   num_best = 8;
   top_ranks = onlyRowsTests(ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
-  short_caption = [ lower(get(a_db, 'id')) ' ranked to the ' lower(get(crit_db, 'id')) '.' ];
+  short_caption = [ a_db_id ' ranked to the ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' Only ' num2str(num_best) ' best matches are shown.' ];
   tex_string = [ tex_string displayRowsTeX(top_ranks, caption, ...
@@ -57,16 +62,17 @@ if ranked_num_rows > 0
 			struct('yLabelsPos', 'left', 'titlesPos', 'none')));
 
   %# Save it as a picture 
-  filename = [ get(crit_db, 'id') ' - top 50 - params distribution' ];
+  filename = [ lower(get(crit_db, 'id')) ' - top 50 - params distribution' ];
   %# Replace all white space with underscores
   filename = strrep(filename, ' ', '_');
-  print('-depsc2', filename);
+  filename = strrep(filename, '.', '_');
+  print('-depsc', [ filename '.eps' ]);
 
   %# Put it in a figure float
   %# TODO: indicate distances of best and furthest matches
-  short_caption = [ 'Parameter distributions of the best ranked to the ' lower(get(crit_db, 'id')) '.' ];
+  short_caption = [ 'Parameter distributions of the best ranked to the ' crit_db_id '.' ];
   caption = [ short_caption ...
-	     ' Only ' num2str(num_best) ' best matches from ' lower(get(a_db, 'id')) ...
+	     ' Only ' num2str(num_best) ' best matches from ' a_db_id ...
 	     ' are taken.' ];
   tex_string = [ tex_string ...
 		TeXtable([ '\includegraphics{' filename '}' ], ...
@@ -81,7 +87,17 @@ if ranked_num_rows > 0
     %# one row for original and 5 matching data traces
     %# second row for original and 5 matching spike shapes
     %# TODO: This should be in a *_profile class
-    orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'ItemIndex'), 'data'));
+    try 
+      orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'NeuronId'), 'data'), get(onlyRowsTests(crit_db, 1, 'ItemIndex'), 'data'));
+    catch
+      errstr = lasterror;
+
+      if strcmp(errstr.identifier, 'MATLAB:nonExistentField')
+	orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'ItemIndex'), 'data'), 1);
+      else
+	rethrow(errstr);
+      end
+    end
     trace_plots = cell(1, 6);
     spont_shape_plots = cell(1, 6);
     pulse_shape_plots = cell(1, 6);
@@ -127,18 +143,20 @@ if ranked_num_rows > 0
     plotFigure(plot_stack({top_row_plot, bottom_row_plot2, bottom_row_plot}, ...
 			  [], 'y', '', struct('titlesPos', 'none')));
 
-    filename = [ get(crit_db, 'id') ' - some matching raw traces' ];
-    %# Replace all white space with underscores
+    filename = [ lower(get(crit_db, 'id')) ' - some matching raw traces' ];
+
+    %# Replace all white space with underscores for LaTeX
     filename = strrep(filename, ' ', '_');
-    print('-depsc2', filename);
+    filename = strrep(filename, '.', '_');
+    print('-depsc', [ filename '.eps' ] );
 
     %# Put it in a figure float
     %# TODO: indicate distances of best and furthest matches
-    short_caption = [ 'Raw traces of the ranked to the ' lower(get(crit_db, 'id')) '.' ];
+    short_caption = [ 'Raw traces of the ranked to the ' crit_db_id '.' ];
     caption = [ short_caption ...
-	       ' Leftmost trace and spike shape from ' lower(get(crit_db, 'id')) ...
+	       ' Leftmost trace and spike shape from ' crit_db_id ...
 	       '. Other traces are taken from 5 equidistant matches from the best' ...
-	       ' 50 matches from ' lower(get(a_db, 'id')) '.' ];
+	       ' 50 matches from ' a_db_id '.' ];
     tex_string = [ tex_string ...
 		  TeXtable([ '\includegraphics{' filename '}' ], ...
 			   caption, struct('floatType', 'figure', ...

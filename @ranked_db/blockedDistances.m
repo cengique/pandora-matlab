@@ -20,6 +20,11 @@ function a_db = blockedDistances(a_ranked_db, rows, blocked_db, blocked_param_in
 %   Returns:
 %	a_db: A tests_db object with the matrix of distances.
 %
+%   Example:
+%	>> dist_matx_db = blockedDistances(rankMatching(super_db, matchingRow(rsuper_phys_db, 20)), 1:5, super_blocker_db, [1 2], 10, matchingRow(rsuper_phys_db, 21))
+%
+%       where super_db is a simulation dual-cip database and rsuper_phys_db is a physiology dual-cip database.
+%
 % See also: getBlockedParamRows, getParamRowIndices
 %
 % $Id$

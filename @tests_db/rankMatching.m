@@ -31,8 +31,8 @@ end
 crit_tests = fieldnames(crit_db.col_idx);
 itemIndices = strmatch('ItemIndex', crit_tests);
 
-%# Strip out the RowIndex and ItemIndex columns from criterion db
-crit_tests = setdiff(crit_tests, {'RowIndex', crit_tests{itemIndices}});
+%# Strip out the NeuronId, RowIndex, and ItemIndex columns from criterion db
+crit_tests = setdiff(crit_tests, {'NeuronId', 'RowIndex', crit_tests{itemIndices}});
 
 %# Filter relevant columns
 reduced_db = db(':', crit_tests);

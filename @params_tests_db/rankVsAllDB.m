@@ -1,6 +1,6 @@
 function tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
 
-% rankVsAllDB - Generates a ranking DBs by comparing rows of this db with all rows of given DB.
+% rankVsAllDB - Generates ranking DBs by comparing rows of a_db with each row of to_db.
 %
 % Usage:
 % tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
@@ -43,7 +43,7 @@ for row_num=1:rows_per_page:dbsize(to_db, 1)
   end
 
   tex_string = [ tex_string ...
-		displayRowsTeX(onlyRowsTests(to_db, rows, ':'), page_props) ];
+		displayRowsTeX(onlyRowsTests(to_db, rows, ':'), '', page_props) ];
 end
 
 %# List target db mean and std

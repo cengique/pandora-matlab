@@ -23,15 +23,22 @@ if ~ exist('rows')
   rows = ':';
 end
 
-%# Join with original here 
-%# TODO: only join the requested rows!
+%# Join with original here. Only joins the requested rows.
 joined_db = joinOriginal(db, rows);
 joined_data = joined_db.data;
 
+%# Ignore NeuronId?
+crit_cols = fieldnames(db.crit_db.col_idx);
+all_test_cols(1:length(crit_cols)) = true(1);
+if any(ismember(crit_cols, 'NeuronId'))
+  all_test_cols(tests2cols(db.crit_db, 'NeuronId')) = false(1);
+end
+crit_cols = {crit_cols{all_test_cols}};
+
 %# Insert crit_db's values in proper columns
-cols = tests2cols(joined_db, fieldnames(db.crit_db.col_idx)');
+cols = tests2cols(joined_db, crit_cols);
 [critcol{1:dbsize(joined_db, 2), 1}] = deal(''); %# value doesn't exist
-cells = num2cell(db.crit_db.data(1, :));
+cells = num2cell(db.crit_db.data(1, tests2cols(db.crit_db, crit_cols)));
 [critcol{cols}] = deal(cells{:}); %# Fill available values from crit_db
 
 %# Make a cell array out of db contents

@@ -26,7 +26,7 @@ if ~ exist('props')
 end
 
 if ~ exist('caption') || isempty(caption)
-  caption = [ 'Rows of ' get(a_db, 'id') '.' ];
+  caption = [ 'Rows of ' strrep(get(a_db, 'id'), '_', '\_') '.' ];
 end
 
 %# User props have priority

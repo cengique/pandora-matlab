@@ -31,6 +31,9 @@ all_test_cols(1:length(crit_cols)) = true(1);
 if any(ismember(crit_cols, 'RowIndex'))
   all_test_cols(tests2cols(a_ranked_db.crit_db, 'RowIndex')) = false(1);
 end
+if any(ismember(crit_cols, 'NeuronId'))
+  all_test_cols(tests2cols(a_ranked_db.crit_db, 'NeuronId')) = false(1);
+end
 %#if any(ismember(crit_cols, 'ItemIndex'))
 %#  all_test_cols(tests2cols(a_ranked_db.crit_db, 'ItemIndex')) = false(1);
 %#end
