@@ -320,6 +320,41 @@ collapsed true
 Database class hierarchy.
 \end_inset 
 
+The database object is the center of this software package.
+ A database object can be created from any of the classes in the class hierarchy
+ in Figure 
+\begin_inset LatexCommand \ref{figcap:Database-class-hierarchy}
+
+\end_inset 
+
+.
+ The top-level database class is 
+\family typewriter 
+tests_db
+\family default 
+ which contains a two-dimensional matrix of real-number data with associated
+ information.
+ The associated information consist of meta-data such as column labels (e.g.,
+ measures), a dataset label, and data properties (e.g., time resolution).
+\layout Standard
+
+The preferred way to create a database object is using a dataset object.
+ This maintains a connection from the elements of the database (e.g., neurons)
+ to raw data.
+ Thus raw data associated with database contents can be visualized during
+ database analysis.
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+clearpage
+\end_inset 
+
 
 \layout Subsection
 
@@ -455,9 +490,82 @@ Recipes for Routine Tasks
 \layout Subsection
 
 How to load a database
+\layout Standard
+
+To load a database, first a dataset object need to be created that point
+ to the data sources.
+ There are different dataset classes that allow using different data sources.
+ For instance, physiology and simulation data require different operations.
+ In physiology data, one may want to record information about the treatments
+ and other conditions, whereas in simulations one may want to keep track
+ of changing parameters.
+ 
+\layout Standard
+
+Once the dataset object is obtained, the database object can be created
+ with 
+\layout LyX-Code
+
+>> mydb = params_tests_db(dataset)
+\layout Standard
+
+which initiates the loading of files.
+ This operation is the same no matter what type of dataset or fileset object
+ is used.
 \layout Subsubsection
 
 How to create a dataset for physiology data
+\layout Standard
+
+Physiology data can be obtained from multiple sources.
+ 
+\layout Paragraph
+
+Loading data from existing 
+\family typewriter 
+cip_traces
+\family default 
+ objects
+\layout Standard
+
+The now obsolete 
+\family typewriter 
+cip_traces
+\family default 
+ Matlab objects have been used to hold some earlier physiological data.
+ Each object holds a set of traces with varying CIP levels applied to the
+ cell.
+ The following command creates a dataset object from a cell array 
+\family typewriter 
+ct_list
+\family default 
+ of 
+\family typewriter 
+cip_traces
+\family default 
+ objects by choosing only the traces with 
+\begin_inset Formula $100$
+\end_inset 
+
+\SpecialChar ~
+pA and 
+\begin_inset Formula $-100$
+\end_inset 
+
+\SpecialChar ~
+pA CIP levels
+\layout LyX-Code
+
+>> phys_dataset = 
+\layout LyX-Code
+
+  cip_traceset_dataset(ct_list, [100, -100], 1e-3, 
+\layout LyX-Code
+
+                       'dataset gpd 0411-21', 
+\layout LyX-Code
+
+                       struct('offsetPotential', -9)
 \layout Subsubsection
 
 How to create a dataset for simulation data
@@ -475,10 +583,13 @@ Genesis
  files would be
 \layout LyX-Code
 
-fileset = 
+>> fileset = 
 \layout LyX-Code
 
-  params_cip_trace_fileset('*.bin', 1e-4, 1e-3, 
+  params_cip_trace_fileset('/home/cengiz/data/*.bin', 
+\layout LyX-Code
+
+                           1e-4, 1e-3, 
 \layout LyX-Code
 
                            20001, 10000, 
@@ -543,17 +654,8 @@ Genesis
 \end_inset 
 
  indicated.
- 
-\layout Standard
-
-Once the fileset object is obtained, the database object can be created
- by 
-\layout LyX-Code
-
-mydb = params_tests_db(fileset)
-\layout Standard
-
-which does the actual loading of files.
+ Note that, using an absolute path to refer to data files ensures that they
+ can be reached from different directories after the fileset object is saved.
 \layout Subsection
 
 How to make a database by merging multiple rows from another database
@@ -579,7 +681,10 @@ params_tests_db
  to do this conversion.
 \layout LyX-Code
 
-sdball = getDualCIPdb(dball, depol_tests, hyper_tests, '', 'Hyp100pA')
+>> sdball = getDualCIPdb(dball, depol_tests, hyper_tests, 
+\layout LyX-Code
+
+                         '', 'Hyp100pA')
 \layout Standard
 
 Here, the cell array variables 
@@ -1234,16 +1339,16 @@ invarParams
  The sequence of commands is then becomes:
 \layout LyX-Code
 
-p_t3ds = invarParams(sdball)
+>> p_t3ds = invarParams(sdball)
 \layout LyX-Code
 
-[pt_hists, p_stats] = paramsTestsHistsStats(sdball, p_t3ds)
+>> [pt_hists, p_stats] = paramsTestsHistsStats(sdball, p_t3ds)
 \layout LyX-Code
 
-ap = plotVarMatrix(sdb2, p_stats)
+>> ap = plotVarMatrix(sdb2, p_stats)
 \layout LyX-Code
 
-plotFigure(ap)
+>> plotFigure(ap)
 \layout Standard
 
 This will create a matrix plot with as many columns as parameters and as
@@ -1261,45 +1366,145 @@ sdball
  of commands
 \layout LyX-Code
 
-sdb1 = sdball(:, [1:9, 10:35])
+>> sdb1 = sdball(:, [1:9, 10:35])
 \layout LyX-Code
 
-sdb2 = sdball(:, [1:9, 36:49])
+>> sdb2 = sdball(:, [1:9, 36:49])
 \layout Standard
 
 by choosing all parameters in both DBs, but only some measures for each.
  Then, the plots can be created for each DB by issuing
 \layout LyX-Code
 
-p1_t3ds = invarParams(sdb1)
+>> p1_t3ds = invarParams(sdb1)
 \layout LyX-Code
 
-p2_t3ds = invarParams(sdb2)
+>> p2_t3ds = invarParams(sdb2)
 \layout LyX-Code
 
-[pt1_hists, p1_stats] = paramsTestsHistsStats(sdb1, p1_t3ds)
+>> [pt1_hists, p1_stats] = paramsTestsHistsStats(sdb1, p1_t3ds)
 \layout LyX-Code
 
-[pt2_hists, p2_stats] = paramsTestsHistsStats(sdb2, p2_t3ds)
+>> [pt2_hists, p2_stats] = paramsTestsHistsStats(sdb2, p2_t3ds)
 \layout LyX-Code
 
-ap1 = plotVarMatrix(sdb1, p1_stats)
+>> ap1 = plotVarMatrix(sdb1, p1_stats)
 \layout LyX-Code
 
-plotFigure(ap1)
+>> plotFigure(ap1)
 \layout LyX-Code
 
-ap2 = plotVarMatrix(sdb2, p2_stats)
+>> ap2 = plotVarMatrix(sdb2, p2_stats)
 \layout LyX-Code
 
-plotFigure(ap1)
+>> plotFigure(ap1)
+\layout Subsection
+
+Generating a report comparing two databases
+\layout Standard
+
+Most commonly a database of physiology neurons need to be compared to a
+ database of a large body of simulation neurons and find best matches.
+ One may need to see the match quality for a number of best matching candidates
+ for each of the physiology neurons.
+ Assuming multiple plots and tables are required to do a fair job of comparing
+ a neuron to a thousands of simulation neurons, it becomes a difficult job
+ to do this manually.
+ An automatic report generation system has been built into the system for
+ this purpose.
+ 
+\layout Standard
+
+Currently a LaTeX document is created that needs to be included in either
+ a proper LaTeX document, or included in a LyX document.
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+This document is prepared using the LyX document preparation system 
+\begin_inset LatexCommand \citep{lyx-03}
+
+\end_inset 
+
+ which uses the 
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+LaTeXe{}
+\end_inset 
+
+ typesetting language 
+\begin_inset LatexCommand \citep{lamport-94}
+
+\end_inset 
+
+.
+ LyX is copyrighted by Matthias Ettrich and covered by the terms of the
+ GNU General Public License (GPL), and 
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+LaTeXe{}
+\end_inset 
+
+ is copyrighted by D.\SpecialChar ~
+E.\SpecialChar ~
+Knuth and the Free Software Foundation, Inc.\SpecialChar ~
+and is covered
+ by both the TeX copyright and the GNU GPL.
+\end_inset 
+
+ The including document should provide the context in which the included
+ part becomes meaningful.
+ The report contains a set of tables and figures with proper captions.
+ The table of contents, list of figures and list of tables facilities of
+ LaTeX becomes useful to make the automatically generated document eaisly
+ readable.
+ 
+\layout Standard
+
+The report can be created with the command
+\layout LyX-Code
+
+>> tex_string = rankVsAllDB(sdb, phys_sdb, 
+\layout LyX-Code
+
+                            fileset, phys_fileset);
+\layout Standard
+
+where the simulation database 
+\family typewriter 
+sdb
+\family default 
+ is searched for best matches to each row of physiology database 
+\family typewriter 
+phys_sdb
+\family default 
+.
+ The dataset for each is provided for the report to contain raw data associated
+ with best matches.
+ The obtained report contained in 
+\family typewriter 
+tex_string
+\family default 
+ can be saved as a ASCII LaTeX file with
+\layout LyX-Code
+
+>> string2File(tex_string, 'myreport.tex');
 \layout Section
 
 Function Reference
 \layout Standard
 
-[Supposed to have all class and method documentation generated from matlab
- help files.]
+[Supposed to have all class and method documentation automagically generated
+ from matlab help files.]
 \layout Standard
 
 
