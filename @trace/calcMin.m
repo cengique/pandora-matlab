@@ -1,15 +1,15 @@
-function [min_val, min_idx] = calcMin(t, period)
+function [min_val, min_idx] = calcMin(t, a_period)
 
 % calcMin - Calculates the minimal value of the given period 
 % 		of the trace, t. 
 %
 % Usage:
-% [min_val, min_idx] = calcMin(t, period)
+% [min_val, min_idx] = calcMin(t, a_period)
 %
 % Description:
 %   Parameters:
 %	t: A trace object.
-%	period: A period object (optional).
+%	a_period: A period object (optional).
 %
 %   Returns:
 %	min_val: The min value.
@@ -23,7 +23,7 @@ function [min_val, min_idx] = calcMin(t, period)
 if nargin == 0 %# Called with no params
   error('Need trace parameter.');
 elseif nargin == 1 
-  period = periodWhole(t);
+  a_period = periodWhole(t);
 end
 
-[min_val, min_idx] = min(t.data(period.start_time:period.end_time));
+[min_val, min_idx] = min(t.data(a_period.start_time:a_period.end_time));

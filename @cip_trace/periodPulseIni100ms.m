@@ -1,17 +1,17 @@
-function _period = periodPulseIni100ms(t)
+function the_period = periodPulseIni100ms(t)
 
 % periodPulseIni100ms - Returns the first 100ms of the CIP period of 
 %			cip_trace, t. 
 %
 % Usage:
-% _period = periodPulseIni100ms(t)
+% the_period = periodPulseIni100ms(t)
 %
 % Description:
 %   Parameters:
 %	t: A trace object.
 %
 %   Returns:
-%	_period: A period object.
+%	the_period: A period object.
 %
 % See also: period, cip_trace, trace
 %
@@ -24,4 +24,4 @@ if isfield(t.props, 'trace_time_start')
   time_start = t.props.trace_time_start;
 end
 
-_period = period(t.pulse_time_start, 100e-3 / t.dt);
+the_period = period(t.pulse_time_start, 100e-3 / t.trace.dt);

@@ -22,6 +22,10 @@ function results = getResults(s, plotit)
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.
 
+if ~ exist('plotit')
+  plotit = 0;
+end
+
 %# Run tests
 [max_val, max_idx] = calcMaxVm(s);
 [min_val, min_idx] = calcMinVm(s, max_idx);

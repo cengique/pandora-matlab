@@ -1,19 +1,19 @@
-function obj = withinPeriod(s, period)
+function obj = withinPeriod(s, a_period)
 
 % withinPeriod - Returns a spikes object valid only within the given period.
 %
 % Usage:
-% obj = withinPeriod(s, trace_index, times, period)
+% obj = withinPeriod(s, a_period)
 %
 % Description:
 %   Parameters:
 %	s: A spikes object.
-%	period: The period where spikes were found (optional)
+%	a_period: The desired period 
 %
 %   Returns:
-%	obj: Inter-spike-interval vector [dt]
+%	obj: A spikes object
 %
-% See also: trace, spikes, period
+% See also: spikes, period
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/31
@@ -22,8 +22,11 @@ function obj = withinPeriod(s, period)
 %# TODO:
 %# - Relate this method by overloading an abstract class/interface periodable(?) 
 
-s.times = s.times(s.times >= period.start_time & s.times <= period.end_time);
-s.num_samples = period.end_time - period.start_time;
+s.times = s.times(s.times >= a_period.start_time & s.times <= a_period.end_time);
+s.num_samples = a_period.end_time - a_period.start_time;
+
+%# reset the offset
+s.times = s.times - a_period.start_time;
 
 obj = s;
 

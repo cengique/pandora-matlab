@@ -1,4 +1,4 @@
-function avg_val = calcAvg(t, period)
+function avg_val = calcAvg(t, a_period)
 
 % calcAvg - Calculates the average value of the given period 
 % 		of the trace, t. 
@@ -19,7 +19,7 @@ function avg_val = calcAvg(t, period)
 if nargin == 0 %# Called with no params
   error('Need trace parameter.');
 elseif nargin == 1 
-  period = periodWhole(t);
+  a_period = periodWhole(t);
 end
 
-avg_val = mean(t.data(period.start_time:period.end_time));
+avg_val = mean(t.data(a_period.start_time:a_period.end_time));

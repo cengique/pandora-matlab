@@ -32,6 +32,6 @@ ini_spikes = spikes(t.trace, periodIniSpont(t), plotit);
 cip_spikes = spikes(t.trace, periodPulse(t), plotit);
 rec_spikes = spikes(t.trace, periodRecSpont(t), plotit);
 
-obj = ([ini_spikes.times, cip_spikes.times, rec_spikes.times], ...
-       length(t.trace.data), t.dt, t.id);
+obj = spikes([ini_spikes.times, cip_spikes.times, rec_spikes.times], ...
+	     length(t.trace.data), t.trace.dt, t.trace.id);
 

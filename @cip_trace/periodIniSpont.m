@@ -1,17 +1,17 @@
-function _period = periodIniSpont(t)
+function the_period = periodIniSpont(t)
 
 % periodIniSpont - Returns the initial spontaneous activity period of 
 %		cip_trace, t. 
 %
 % Usage:
-% _period = periodIniSpont(t)
+% the_period = periodIniSpont(t)
 %
 % Description:
 %   Parameters:
 %	t: A trace object.
 %
 %   Returns:
-%	_period: A period object.
+%	the_period: A period object.
 %
 % See also: period, cip_trace, trace
 %
@@ -24,4 +24,4 @@ if isfield(t.props, 'trace_time_start')
   time_start = t.props.trace_time_start;
 end
 
-_period = period(time_start, t.pulse_time_start - 1);
+the_period = period(time_start, t.pulse_time_start - 1);

@@ -1,4 +1,4 @@
-function freq = spikeRateISI(s, period)
+function freq = spikeRateISI(s, a_period)
 
 % spikeRateISI - Calculates the firing rate of the spikes found in the given 
 %		period with an averaged inter-spike-interval approach.
@@ -22,11 +22,11 @@ function freq = spikeRateISI(s, period)
 % - Adapted to the spikes object, CG 2004/07/31
 
 %# By default apply to the whole of s
-if ~ exist('period')
-  period = periodWhole(s);
+if ~ exist('a_period')
+  a_period = periodWhole(s);
 else
-  s = withinPeriod(s, period);
+  s = withinPeriod(s, a_period);
 end
 
-freq = meanSpikeFreq(s.times, s.dt, (period.end_time - period.start_time ));
+freq = meanSpikeFreq(s.times, s.dt, (a_period.end_time - a_period.start_time ));
 

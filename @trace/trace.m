@@ -62,28 +62,47 @@ if nargin == 0 %# Called with no params
    obj = data_src;
  else
 
-   if isa(data_src, 'char') %# filename?
+   if ~ exist('props')
+     props = struct([]);
+   end
 
-     %# TODO: load genesis, pcdx, and matlab files
+   if isa(data_src, 'char') %# filename?
+     [path, filename, ext, ver] = fileparts(data_src);
+
+     %# TODO: Also load PCDX and LabVIEW files
+
+     if strcmp(ext, '.bin') %# Genesis file
+       channel = 1; %# by default
+       if isfield(props, 'channel')
+	 channel = props.channel;
+       end
+
+       if ~ isempty(findstr(filename, '_BE_')) | ...
+	     ~ isempty(findstr(filename, '_BE.'))
+	 %# Use big-endian (Mac, Sun) version of readgenesis
+	 data = readgenesis_BE(data_src, channel);
+       else
+	 %# Use regular (i386 PCs) little-endian version of readgenesis
+	 data = readgenesis(data_src, channel);
+       end
+
+     elseif strcmp(ext, 'mat') %# MatLab file
+       s = load(data_src);
+       fields = fieldnames(s);
+       data = getfield(s, fields{1});	%# Assuming there's only one vector
+     end
 
      %# use the filename as id unless otherwise specified
      if ~ exist('id') | strcmp(id, '') == 1
-       [path, name, ext, ver] = fileparts(data_src);
        id = name;
      end
 
-     s = load(data_src);
-     fields = fieldnames(s);
-     data = getfield(s, fields{1});	%# Assuming there's only one vector
    elseif isa(data_src, 'double')
      data = data_src;
    else
      error(sprintf('Unrecognized data source %s', data_src));
    end
 
-   if ~ exist('props')
-     props = struct([]);
-   end
 
    obj.data = data;
    obj.dt = dt;

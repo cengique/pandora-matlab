@@ -30,5 +30,5 @@ steady_val = calcAvg(t.trace, periodPulseIni50msRest2(t));
 sag_val = steady_val - min_val;
 
 if (sag_val < 0)
-  error('Negative sag! Make sure there're no spikes in CIP period.')
+  error('Negative sag! Make sure there''re no spikes in CIP period.')
 end

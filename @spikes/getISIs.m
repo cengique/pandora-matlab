@@ -1,4 +1,4 @@
-function isi = getISIs(s, period)
+function isi = getISIs(s, a_period)
 
 % getISIs - Calculates the firing rate of the spikes found in the given 
 %		period with an averaged inter-spike-interval approach.
@@ -21,8 +21,9 @@ function isi = getISIs(s, period)
 % Modified:
 % - Adapted to the spikes object, CG 2004/07/31
 
-if exist('period')
-  s = withinPeriod(s, period);
+%# By default apply to the whole of s
+if exist('a_period')
+  s = withinPeriod(s, a_period);
 end
 
 isi = diff(s.times);

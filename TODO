@@ -4,4 +4,8 @@ TODO
 - MAke Matlab contents file
 - getResults for @spikes
 - add calcSlowInact to @cip_trace
-- make spike checks in cip_trace_profile
+- move this repository to djlab account?
+
++ make spike checks in cip_trace_profile
++ make specialized directory for brute_aug_04, move cip_trace_profile there
+	+ first make a general cip_trace_profile which takes ready-made objs

@@ -1,12 +1,12 @@
 function [times, peaks, n] = ...
-      findFilteredSpikes(t, period, plotit)
+      findFilteredSpikes(t, a_period, plotit)
 
 % findFilteredSpikes - Runs a frequency filter over the data and then 
 %			finds all peaks using findspikes.
 %
 % Usage:
 % [times, peaks, n] = 
-%	findFilteredSpikes(t, period, plotit)
+%	findFilteredSpikes(t, a_period, plotit)
 %
 % Description:
 %   Runs a 50-300 Hz band-pass filter over the data and then calls findspikes.
@@ -18,7 +18,7 @@ function [times, peaks, n] = ...
 %
 % 	Parameters: 
 %		t: Trace object
-%		period: Period of interest.
+%		a_period: Period of interest.
 %		plotit: Plots the spikes found if 1.
 %	Returns:
 %		times: The times of spikes [dt].
@@ -38,10 +38,13 @@ fd = getfield(s, fields{1});	%# Assuming there's only one element
 up_threshold = 10;
 dn_threshold = -2;
 
+%# Scale to mV for spike finder
+mV_factor = 1e3 * t.dy;
+
 %# Prepend some activity for filter distortion
 prepend_size = 20e-3 / t.dt;
-data = [t.data(period.start_time:floor(period.start_time + prepend_size)); ...
-	t.data(period.start_time:period.end_time) ];
+data = [t.data(a_period.start_time:floor(a_period.start_time + prepend_size)); ...
+	t.data(a_period.start_time:a_period.end_time) ] * mV_factor;
 
 filtered = filtfilt(fd.tf.num, fd.tf.den, data);
 
@@ -87,6 +90,6 @@ for i=1:n
 end
 
 %# correct the times
-times = newtimes + period.start_time;
+times = newtimes + a_period.start_time;
 peaks = newpeaks;
 n = newn;

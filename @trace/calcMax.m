@@ -1,4 +1,4 @@
-function [max_val, max_idx] = calcMax(t, period)
+function [max_val, max_idx] = calcMax(t, a_period)
 
 % calcMax - Calculates the maximal value of the given period 
 % 		of the trace, t. 
@@ -23,7 +23,7 @@ function [max_val, max_idx] = calcMax(t, period)
 if nargin == 0 %# Called with no params
   error('Need trace parameter.');
 elseif nargin == 1 
-  period = periodWhole(t);
+  a_period = periodWhole(t);
 end
 
-[max_val, max_idx] = max(t.data(period.start_time:period.end_time));
+[max_val, max_idx] = max(t.data(a_period.start_time:a_period.end_time));

@@ -20,7 +20,7 @@ function obj = cip_trace(datasrc, dt, dy, ...
 %		Start and width of the pulse [dt]
 %	id: Identification string.
 %	props: A structure any needed properties, such as:
-%		trace_time_start: Samples in the beggining to discard [dt]
+%		trace_time_start: Samples in the beginning to discard [dt]
 %
 %   Returns a structure object with the following fields:
 %	trace, pulse_time_start, pulse_time_width, props.
@@ -47,14 +47,14 @@ if nargin == 0 %# Called with no params
 elseif isa(datasrc, 'cip_trace') %# copy constructor?
   obj = datasrc;
 else
-  trace_obj = trace(datasrc, dt, dy, id, struct([]));
-
-  obj.pulse_time_start = pulse_time_start;
-  obj.pulse_time_width = pulse_time_width;
-
   if ~ exist('props')
     props.trace_time_start = 1;
   end
+
+  trace_obj = trace(datasrc, dt, dy, id, props);
+
+  obj.pulse_time_start = pulse_time_start;
+  obj.pulse_time_width = pulse_time_width;
   obj.props = props;
 
   obj = class(obj, 'cip_trace', trace_obj);
