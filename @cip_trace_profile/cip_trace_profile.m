@@ -41,7 +41,6 @@ function obj = ...
 
 %# TODO: 
 %# - How about sim parameter values?
-%# - put this in brute directory out of general stuff
 %# - use getResults to fill up results? [May be incompatible with subclasses]
 
 if nargin == 0 %# Called with no params, creates empty object

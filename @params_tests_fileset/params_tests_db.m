@@ -18,7 +18,8 @@ function db_obj = params_tests_db(obj, props)
 %   Returns:
 %	db_obj: A params_tests_db object.
 %
-% See also: params_tests_db, params_tests_fileset
+% See also: params_tests_db, params_tests_fileset, fileResultsRow
+%	    testNames, paramNames
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/09
@@ -41,9 +42,6 @@ tests = repmat(0, num_files, length(test_names));
 start_time = cputime;
 
 for file_index=1:num_files
-  filename = obj.filenames{file_index};
-
-  fullname = fullfile(obj.path, filename);
   [params_row, tests_row] = fileResultsRow(obj, fullname);
   
   params(file_index, :) = params_row;
