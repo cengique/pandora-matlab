@@ -1,5 +1,17 @@
 TODO
 --------------------
+- ignore all parameters in comparisons?
+- plot average neuron comparison matches.
+- plot matches that vary a lot in parameter values, but same outcome
+- make dualcip a new db and make it load profiles, etc.
+- for version 0.6:
+	- add new physiology dataset loader
+- for version 0.7:
+	- add dataset connection to tests_db
+	- put params in dataset
+- fix fillederrorbar with new Matlab
+- Make tests_db save and load its dataset on request
+	- overload saveobj and loadobj methods
 - tests_db
 	- add arithmetic operations that operate on the data matrix
 	+ add horzcat, vertcat methods to concat rows or columns (!)
@@ -52,6 +64,9 @@ TODO
 - CVS
   - present CVS, start using it
   - move this repository to djlab account?
++ add min ahp time to DB
++ replace '_' in latex outputs
++ ignore NeuronId while comparison and do the comparison again
 + profile:
 	+ make a converter method from params_tests_db to get the profile
 	+ make the profile constructor simple

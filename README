@@ -15,3 +15,6 @@ v0_4b: Cengiz Gunay, 2005/01/11. Beta version with pulse spike
 	characteristics and database matching tools.
 
 v0_5b: Cengiz Gunay, 2005/01/25. Beta version that can work with PCDX files.
+
+v0_6b: Cengiz Gunay & Jeremy Edgerton, 2005/03/14. Beta version that can 
+	load physiology filesets with pharmacology data.
