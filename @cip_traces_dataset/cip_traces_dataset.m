@@ -12,8 +12,7 @@ function obj = cip_traces_dataset(ts, cipmag, id, props)
 %	ts: A cell array of cip_traces objects.
 %	cipmag: A single cip magnitude to trace take from objects.
 %	id: An identification string for the whole dataset.
-%	props: A structure with any optional properties.
-%		offsetPotential: Add this to physiology trace as compensation.
+%	props: A structure with any optional properties passed to cip_trace_profile.
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,

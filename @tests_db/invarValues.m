@@ -46,6 +46,11 @@ sorted = db.data(idx, :);
 %# Initialize
 num_rows = length(unique_idx);
 page_rows = floor(size(sorted, 1) / num_rows);
+
+if mod(size(sorted, 1), num_rows) ~= 0
+  error('Database does not contain equal rows of each unique combination. Cannot fold.');
+end
+
 data = repmat(NaN, [page_rows, (length(cols) + 1), num_rows]);
 
 %# For each unique row to next, create a new page

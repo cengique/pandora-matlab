@@ -25,7 +25,7 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 %
 %	dt: time resolution [s].
 %	dy: y-axis resolution [V] or [A].
-%	props: A structure with any optional properties.
+%	props: A structure with any optional properties passed to cip_trace_profile.
 %		
 %   Returns a structure object with the following fields:
 %	neuron_idx: A structure that points from neuron names to NeuronId numbers.
@@ -140,7 +140,8 @@ else
   if isfield(tmtstruct, 'tmp')
 	  tmtstruct = rmfield(tmtstruct, 'tmp');
   end
-  % Create list of traceset objects.
+
+  %# Create list of traceset objects.
   for n = 1:length(tcell)
 	% make copy of treatment struct, fill in values for this item
 	tempstruct = tmtstruct;
@@ -149,13 +150,13 @@ else
 		tempstruct = setfield(tempstruct, ttm{m,1}, ttm{m,2});
 	end
 	list{n} = physiol_cip_traceset(traces{n}, paths{n}, chaninfo{n}, ...
-				       dt, dy, tempstruct, names{n});
+				       dt, dy, tempstruct, names{n}, props);
   end
 
   %# Create the fileset object
   obj = class(obj, 'physiol_cip_traceset_fileset', ...
 	      params_tests_dataset(list, dt, dy, ...
-	      ['sets of tracesets from ', cells_filename ], props));
+	      ['tracesets from ', cells_filename ], props));
 
 end
 

@@ -15,7 +15,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: Identification string
 %	props: A structure with any optional properties.
-%		scale_y: y-axis scale to be applied to loaded data.
+%		scale_y: Y-axis scale to be applied to loaded data.
+%		offset_y: Y-axis offset to be added to loaded and scaled data.
 %		trace_time_start: Samples in the beginning to discard [dt]
 %		baseline: Resting potential.
 %		channel: Channel to read from file.
@@ -121,6 +122,11 @@ if nargin == 0 %# Called with no params
    %# Scale the loaded data if desired
    if isfield(props, 'scale_y')
      data = props.scale_y * data;
+   end
+
+   %# Apply offset to data if desired (after scaling?)
+   if isfield(props, 'offset_y')
+     data = data + props.offset_y;
    end
 
    %# Crop the data if desired
