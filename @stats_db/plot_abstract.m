@@ -1,4 +1,4 @@
-function a_plot = plot_abstract(a_stats_db)
+function a_plot = plot_abstract(a_stats_db, props)
 
 % plot_abstract - Generates an error bar representation for each of the columns
 %	in this db. Looks for 'min', 'max', and 'std' labels in the row_idx
@@ -24,6 +24,10 @@ function a_plot = plot_abstract(a_stats_db)
 
 if ~ exist('command')
   command = 'bar';
+end
+
+if ~ exist('props')
+  props = struct([]);
 end
 
 %# Setup lookup tables
@@ -53,4 +57,4 @@ end
 
 a_plot = plot_errorbars(data(1,:), lows, highs, ...
 		       col_names, get(a_stats_db, 'id'), axis_limits, ...
-		       a_stats_db.props);
+		       mergeStructs(props, a_stats_db.props));
