@@ -25,7 +25,7 @@ if exist('layout_axis')
 end
 
 %# Run the plot command
-if strcmp(a_plot.command, 'boxplot')
+if strcmp(a_plot.command, 'boxplot') || strcmp(a_plot.command, 'boxplotp')
   feval(a_plot.command, a_plot.data{:});
   ph = []; %# boxplot returns no handle???
 else
