@@ -3,7 +3,7 @@ function a_plot = matrixPlots(plots, axis_labels, title, props)
 % matrixPlots - Superpose multiple plots with common command onto a single axis.
 %
 % Usage:
-% a_plot = matrixPlots(plots, axis_labels, title, command, props)
+% a_plot = matrixPlots(plots, axis_labels, title, props)
 %
 % Description:
 %
