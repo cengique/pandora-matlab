@@ -69,5 +69,5 @@ end
 col_name_cell = fieldnames(db.col_idx);
 col_names = col_name_cell(cols);
 
-a_tests_3D_db = tests_3D_db(data, {col_names{:}, 'RowIndex'}, ...
+a_tests_3D_db = tests_3D_db(data, {col_names{:}, 'RowIndex'}, {}, {}, ...
 			    [ ' Invariant values from ' db.id ], db.props);

@@ -53,7 +53,8 @@ else
   trace_obj = trace(data, dt, dy, id, struct([]));
 
   if ~ exist('props')
-    props.init_Vm_method = 1; %# ?
+    props.init_Vm_method = 3; %# Derivative threshold
+    props.init_threshold = 15; %# Derivative in V/s
   end
   obj.props = props;
 

@@ -74,9 +74,11 @@ for i=1:n
     times(i) = old_time;
   end
 
-  %# There should be a trough within 3ms before and within 5ms after the peak
-  min1 = min(filtered(max(1, times(i) - 3e-3 / t.dt) : times(i)));
-  min2 = min(filtered(times(i) : min(times(i) + 5e-3 / t.dt, length(filtered))));
+  %# There should be a trough within 3ms before and within 6ms after the peak
+  period_before = floor(3e-3 / t.dt);
+  period_after = floor(6e-3 / t.dt);
+  min1 = min(filtered(max(1, times(i) - period_before) : times(i)));
+  min2 = min(filtered(times(i) : min(times(i) + period_after, length(filtered))));
 
   %# Spike shape criterion test
   if min1 <= up_threshold & min2 <= dn_threshold    
@@ -111,7 +113,8 @@ for i=1:n
 
   else
     if plotit ~= 0 & plotit ~= 2
-      disp(sprintf('Failed criterion for %f, orig %f', times(i), old_time));
+      disp(sprintf('Failed criterion for %f, orig %f (min1=%f, min2=%f)', ...
+		   times(i), old_time, min1, min2));
     end    
   end
 end

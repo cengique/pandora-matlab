@@ -1,9 +1,9 @@
-function obj = tests_db(test_results, col_names, id, props)
+function obj = tests_db(test_results, col_names, row_names, id, props)
 
 % tests_db - A generic database of test results organized in a matrix format.
 %
 % Usage:
-% obj = tests_db(test_results, col_names, id, props)
+% obj = tests_db(test_results, col_names, row_names, id, props)
 %
 % Description:
 %   Defines all operations on this structure so that subclasses can use them.
@@ -12,12 +12,13 @@ function obj = tests_db(test_results, col_names, id, props)
 %	test_results: A matrix that contains columns associated with
 %		tests and rows for separate observations.
 %	col_names: Cell array of column names of test_results.
+%	row_names: Cell array of row names of test_results.
 %	id: An identifying string.
 %	props: A structure any optional properties.
 %		
 %   Returns a structure object with the following fields:
 %	data: The data matrix.
-%	col_idx: Structure associating column names to column indices.
+%	row_idx, col_idx: Structure associating row/column names to indices.
 %	id, props.
 %
 % General operations on tests_db objects:
@@ -36,6 +37,8 @@ function obj = tests_db(test_results, col_names, id, props)
 %   gt			- Overloaded > operator that returns row indices.
 %   le			- Overloaded <= operator that returns row indices.
 %   ge			- Overloaded >= operator that returns row indices.
+%   size		- Overloaded, returns size of database.
+%   isnan		- Overloaded, returns non-NaN elements logical array.
 %   get			- Gets attributes of this object and parents.
 %   kcluster		- Returns k tests_db objects, one for each cluster 
 %			  found in this one (N/I).
@@ -67,6 +70,7 @@ function obj = tests_db(test_results, col_names, id, props)
 if nargin == 0 %# Called with no params
    obj.data = [];
    obj.col_idx = struct([]);
+   obj.row_idx = struct([]);
    obj.id = '';
    obj.props = struct([]);
    obj = class(obj, 'tests_db');
@@ -91,15 +95,9 @@ if nargin == 0 %# Called with no params
    obj.data = test_results;
 
 
-   %# Prepare col_idx
-   col_idx = struct;
-   for i=1:length(col_names)
-     col_idx = setfield(col_idx, col_names{i}, i);
-   end
-
-
-
-   obj.col_idx = col_idx;
+   %# Prepare *_idx
+   obj.col_idx = makeIdx(col_names);
+   obj.row_idx = makeIdx(row_names);
    obj.id = id;
    obj.props = props;
 

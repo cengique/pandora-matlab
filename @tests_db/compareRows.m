@@ -36,4 +36,4 @@ row_matx = ones(size(db.data, 1), 1) * row;
 %# - subtract from db
 compared = db.data - row_matx;
 
-rows = sum(compared, 2);
+rows = sum(compared, 2) ~= 0;

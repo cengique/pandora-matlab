@@ -39,7 +39,7 @@ min_val = s.trace.data(min_idx);
 %# Find depolarized part
 depol = find(s.trace.data(floor(max_idx):end) <= init_val);
 
-if isempty(depol) || depol(1) == length(s.trace.data)
+if isempty(depol) || floor((depol(1) + max_idx - 1)) == length(s.trace.data)
   warning('spike_shape:no_repolarize', 'Spike failed to repolarize.');
   base_width = NaN;
   half_width = NaN;

@@ -60,11 +60,14 @@ switch method
     idx = idx(1);
   case 3
     %# threshold voltage derivative
-    idx = find(deriv(1 : max_idx) >= s.props.init_threshold); 
+    idx = find(deriv(1 : max_idx) >= ...
+	       s.props.init_threshold * s.trace.dt / s.trace.dy); 
     if length(idx) == 0 
-      error(sprintf(['Threshold %f failed to find ', ...
-		     ' spike initiation acceleration.'], ...
-		    s.props.init_threshold));
+      warning('spike_shape:threshold_derivative', ...
+	      ['Threshold ' num2str(s.props.init_threshold) ...
+	       ' failed to find spike initiation point.']);
+      %# Then, the first point of the trace is the spike initiation point.
+      idx = 1;
     end
     idx = idx(1);
   otherwise

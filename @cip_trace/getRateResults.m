@@ -57,7 +57,9 @@ results.PulseSpikeRateISI = ...
     spikeRateISI(a_spikes, periodPulse(a_cip_trace));
 
 %# ISI-CV 
+results.IniSpontISICV = ISICV(a_spikes, periodIniSpont(a_cip_trace));
 results.PulseISICV = ISICV(a_spikes, periodPulse(a_cip_trace));
+results.RecSpontISICV = ISICV(a_spikes, periodRecSpont(a_cip_trace));
 
 %# Spike frequency accommodation (SFA)
 results.PulseSFA = SFA(a_spikes, periodPulse(a_cip_trace));

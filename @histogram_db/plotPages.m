@@ -4,7 +4,7 @@ function a_plot = plotPages(a_hist_db, command, an_orient)
 %		each page.
 %
 % Usage:
-% a_plot = plotPages(a_hist_db, an_orient)
+% a_plot = plotPages(a_hist_db, command, an_orient)
 %
 % Description:
 %   For each page of the histogram, a histogram is placed in a subplot.

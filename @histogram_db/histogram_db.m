@@ -21,7 +21,9 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 %
 % General operations on histogram_db objects:
 %   histogram_db		- Construct a new histogram_db object.
-%   plot_simple			- Create a simple plot object
+%   plot_abstract		- Create a simple plot object
+%   plotPages			- Create a multiplot from pages of histograms.
+%   plot			- Plot this histogram alone in a figure.
 %
 % Additional methods:
 %	See methods('histogram_db')
@@ -49,6 +51,6 @@ if nargin == 0 %# Called with no params
    a_hist_db.props = props;
 
    a_hist_db = class(a_hist_db, 'histogram_db', ...
-		     tests_db(test_results, col_names, id, props));
+		     tests_db(test_results, col_names, {}, id, props));
 end
 

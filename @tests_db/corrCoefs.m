@@ -1,4 +1,4 @@
-function a_tests_db = corrCoefs(db, col1, cols, props)
+function a_coefs_db = corrCoefs(db, col1, cols, props)
 
 % corrCoefs - Generates a database of correlation coefficients 
 %		by comparing col1 with other cols in the database. 
@@ -6,7 +6,7 @@ function a_tests_db = corrCoefs(db, col1, cols, props)
 %		produces a row of coefficients and matching PageIndex.
 %
 % Usage:
-% a_tests_db = corrCoefs(db, col1, cols, props)
+% a_coefs_db = corrCoefs(db, col1, cols, props)
 %
 % Description:
 % Assuming the db was created with invarValues, this function finds the
@@ -30,9 +30,9 @@ function a_tests_db = corrCoefs(db, col1, cols, props)
 %			should be skipped.
 %		
 %   Returns:
-%	a_tests_db: A tests_db object with the coefficients and page indices.
+%	a_coefs_db: A corrcoefs_db of the coefficients and page indices.
 %
-% See also: tests_db
+% See also: tests_db, corrcoefs_db
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
@@ -47,31 +47,59 @@ else
   skipCoefs = 1;
 end
 
-num_pages = size(db.tests_db.data, 3);
+if isfield(props, 'excludeNaNs')
+  excludeNaNs = props.excludeNaNs;
+else
+  excludeNaNs = 1;
+end
+
+%# translate column spec to array form
+col1 = tests2cols(db, col1);
+cols = tests2cols(db, cols);
+
+num_pages = size(db.data, 3);
 pages=(1:num_pages)';
-coefs = repmat(NaN, num_pages, length(cols));
+coefs = repmat(NaN, num_pages, length(cols), 3);
 
 %# Only if there are multiple observations
-if size(db.tests_db.data, 1) > 1
+if size(db.data, 1) > 1
   %# One coefficient per page of observations
   for page_num=pages'
-    [coef_data, p, rlo, rup] = ...
-	corrcoef(db.tests_db.data(:, [col1 col2], page_num));
 
-    if ~ skipCoefs
+    data = db.data(:, [col1 cols], page_num);
+
+    if excludeNaNs
+      %# Remove all rows with any NaNs
+      data = data(~any(isnan(data), 2), :);
+
+      %# Check if any rows left
+      if size(data, 1) == 0
+	error('No NaN-free rows found.');
+      end
+    end
+
+    [coef_data, p, rlo, rup] = corrcoef(data);
+
+    if skipCoefs
       set_cols = p(1,2:end) <= 0.05;
     else
-      set_cols = true(length(cols));
+      set_cols = true(1, length(cols));
     end
-    coefs(page_num, set_cols) = coef_data(1, [false(1), set_cols]);
+    coefs(page_num, set_cols, 1) = coef_data(1, [false(1), set_cols]);
+    coefs(page_num, set_cols, 2) = rlo(1, [false(1), set_cols]);
+    coefs(page_num, set_cols, 2) = rup(1, [false(1), set_cols]);
   end
 end
 
 %# Cannot strip all the NaNs out, do it at histogram time
 %# Only strip full NaN rows here.
-nanrows = all(isnan(coefs), 2);
-coefs( nanrows, : ) = [];
+nanrows = all(isnan(coefs(:,:,1)), 2);
+coefs( nanrows, :, : ) = [];
 pages( nanrows, : ) = [];
+
+%# Triplicate pages
+pages(:, :, 2) = pages(:, :, 1);
+pages(:, :, 3) = pages(:, :, 1);
 
 %# Check if any coefs left
 if size(coefs, 1) == 0
@@ -83,7 +111,6 @@ col_name_cell = fieldnames(get(db, 'col_idx'));
 col1_name = col_name_cell{col1};
 col_names = col_name_cell(cols);
 
-a_tests_db = tests_db([coefs, pages], ...
-		      {col_names{:}, 'PageIndex'}, ...
-		      [ 'Correlations to ' col1_name ...
-		       ' in ' get(db, 'id') ], props);
+a_coefs_db = corrcoefs_db(col1_name, coefs, col_names, pages, ...
+			  [ 'Correlations to ' col1_name ...
+			   ' in ' get(db, 'id') ], props);

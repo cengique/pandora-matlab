@@ -70,6 +70,6 @@ else
 
    obj.num_params = length(param_names);
    obj.props = props;
-   obj = class(obj, 'params_tests_db', tests_db(data, col_names, id, props));
+   obj = class(obj, 'params_tests_db', tests_db(data, col_names, {}, id, props));
 end
 
