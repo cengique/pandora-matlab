@@ -102,7 +102,7 @@ else
   if isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 0
     labelwidth = 0;
   else
-    labelwidth = decosize
+    labelwidth = decosize;
   end
 end
 
@@ -121,7 +121,7 @@ else
   if isfield(a_plot.props, 'YTickLabel') && isempty(a_plot.props.YTickLabel)
     tickwidth = 0;
   else
-    tickwidth = decosize
+    tickwidth = decosize;
   end
 end
 
@@ -135,10 +135,10 @@ end
 
 %# Put a title first
 text(left_side + width / 2, ...
-     bottom_side + height + 0.1, ...
+     1, ... %#bottom_side + 1.5 * height + 0.0, ...
      get(a_plot, 'title'), ...
      'Units', 'Normalized', ...
-     'HorizontalAlignment', 'center', 'VerticalAlignment', 'top' );
+     'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
 
 %# The textbox opens an unwanted axis, so hide it
 set(gca, 'Visible', 'off');
