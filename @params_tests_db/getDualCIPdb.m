@@ -23,8 +23,8 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
-%# Fold in two according to cip values
-cip_fold_db = swapRowsPages(invarParam(db, 'pAcip'));
+%# Fold into two, according to cip values
+cip_fold_db = swapRowsPages(invarParam(sortrows(db, 'pAcip'), 'pAcip'));
 
 %# Merge the selected tests from each of the two pages
 %# Check cip value of first page to verify placement
