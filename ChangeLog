@@ -1,3 +1,36 @@
+2004-09-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace/getCIPResults.m, @cip_trace/getRateResults.m, @cip_trace/getResults.m, @cip_trace_profile/cip_trace_profile.m, @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/loadFileProfile.m, Contents.m, TODO, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_db/params_tests_db.m, @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/loadFileProfile.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/testNames.m, @profile/getResults.m, @profile/profile.m, @trace_profile/trace_profile.m:
+	Finished coding a consistent base for analyzing cip_trace filesets. Needs tesintg.
+
+2004-09-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/trace.m, @params_tests_fileset/trace_profile.m, @spikes/ISICV.m, @spikes/getResults.m, @trace/getResults.m, @trace_profile/trace_profile.m, TODO:
+	params_tests_fileset should be working. Needs testing.
+
+2004-09-10  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_profile/cip_trace_profile.m, @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/paramNames.m, @params_tests_fileset/params_tests_db.m, @params_tests_fileset/testNames.m, TODO:
+	Initial revision for major DB classes. Still need cip_trace_fileset,
+	and a customized subclass for testing.
+
+	* @tests_db/addLastRow.m, @tests_db/addRow.m, @tests_db/allocateRows.m, @tests_db/setRows.m:
+	Moved private functions out because Matlab doesn't have protected access.
+
+	* @params_tests_db/params_tests_db.m, @params_tests_fileset/params_tests_db.m, @params_tests_fileset/params_tests_fileset.m, @spike_shape/getResults.m, @trace/spike_shape.m, @trace/trace.m:
+	Initial version of DB classes. Not complete.
+
+2004-09-08  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/tests_db.m: Initial version.
+
+2004-08-31  Cengiz Gunay  <cgunay@emory.edu>
+
+	* README, ChangeLog, TODO: Documentation.
+
+	* @cip_trace/calcPulsePotSag.m, @cip_trace/calcRecSpontPotAvg.m, @cip_trace/cip_trace.m, @cip_trace/display.m, @cip_trace/periodIniSpont.m, @cip_trace/periodPulse.m, @cip_trace/periodPulseHalf1.m, @cip_trace/periodPulseIni100ms.m, @cip_trace/periodPulseIni50ms.m, @cip_trace/periodPulseIni50msRest1.m, @cip_trace/periodPulseIni50msRest2.m, @cip_trace/periodRecSpont.m, @cip_trace/periodRecSpont1.m, @cip_trace/periodRecSpont2.m, @cip_trace/spikes.m, @cip_trace/subsref.m, @cip_trace_profile/cip_trace_profile.m, @cip_trace_profile/display.m, TODO, @cip_trace_profile/subsref.m, @spike_shape/getResults.m, @spikes/getISIs.m, @spikes/spikeRate.m, @spikes/spikeRateISI.m, @spikes/withinPeriod.m, @trace/calcAvg.m, @trace/calcMax.m, @trace/calcMin.m, @trace/findFilteredSpikes.m, @trace/getDy.m, @trace/plot.m, @trace/spike_shape.m, @trace/spikes.m, @trace/trace.m, @trace/withinPeriod.m:
+	Fixed a lot of minor issues, and made the first custom classes under cengiz/ to work.
+
 2004-08-31  Cengiz Gunay  <cgunay@emory.edu>
 
 	* @cip_trace/calcPulsePotSag.m, @cip_trace/calcRecSpontPotAvg.m, @cip_trace/cip_trace.m, @cip_trace/display.m, @cip_trace/periodIniSpont.m, @cip_trace/periodPulse.m, @cip_trace/periodPulseHalf1.m, @cip_trace/periodPulseIni100ms.m, @cip_trace/periodPulseIni50ms.m, @cip_trace/periodPulseIni50msRest1.m, @cip_trace/periodPulseIni50msRest2.m, @cip_trace/periodRecSpont.m, @cip_trace/periodRecSpont1.m, @cip_trace/periodRecSpont2.m, @cip_trace/spikes.m, @cip_trace/subsref.m, @cip_trace_profile/cip_trace_profile.m, @cip_trace_profile/display.m, TODO, @cip_trace_profile/subsref.m, @spike_shape/getResults.m, @spikes/getISIs.m, @spikes/spikeRate.m, @spikes/spikeRateISI.m, @spikes/withinPeriod.m, @trace/calcAvg.m, @trace/calcMax.m, @trace/calcMin.m, @trace/findFilteredSpikes.m, @trace/getDy.m, @trace/plot.m, @trace/spike_shape.m, @trace/spikes.m, @trace/trace.m, @trace/withinPeriod.m:
