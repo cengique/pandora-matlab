@@ -3,10 +3,18 @@ function h = plot(t)
 % plot - Plots a trace.
 %
 % Usage: 
-% plot(t)
+% h = plot(t)
 %
 % Description:
+%   Parameters:
+%	t: A trace object.
 %
+%   Returns:
+%	h: Handle to figure object.
+%
+% See also: trace, plot_abstract
+%
+% %Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 
 if length(t) > 1
@@ -14,14 +22,5 @@ if length(t) > 1
     plot(t(i));
   end
 else
-  h = figure;
-  plot_title = sprintf('%s: %s', class(t), t.id);
-  set(h, 'Name', plot_title);
-  time = (1:length(t.data)) * t.dt * 1e3; %# in ms
-  plot(time, t.dy * t.data * 1e3); %# mV or mA
-  title(plot_title, 'Interpreter', 'none');
-  xlabel('time [ms]');
-  if isfield(t.props, 'y_label')
-    ylabel(t.props.y_label);
-  end
+  h = plotFigure(plotData(t));
 end

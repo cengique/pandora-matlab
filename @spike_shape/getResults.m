@@ -54,50 +54,20 @@ end
 ms_factor = 1e3 * s.trace.dt;
 mV_factor = 1e3 * s.trace.dy;
 
-%# plot 'em
-if plotit == 1
-  %# TODO: Legend?
-  plot(s);
-  hold on;
-  plot(peak_idx * ms_factor, peak_mag * mV_factor, 'r*');
-  plot(init_idx * ms_factor, init_val * mV_factor, 'r*');
-  plot([init_idx, init_idx + base_width] * ms_factor, ...
-       [init_val, init_val] * mV_factor, 'r');
-
-  approx_half_idx = ...
-      init_idx + ...
-      (half_Vm - init_val) * (peak_idx - init_idx) / (peak_mag - init_val);
-  plot([approx_half_idx, approx_half_idx + half_width] * ms_factor, ...
-       [half_Vm, half_Vm] * mV_factor, 'r');
-
-  plot([peak_idx, peak_idx] * ms_factor, ...
-       [peak_mag, peak_mag - amplitude] * mV_factor, 'r');
-
-  plot(min_idx * ms_factor, min_val * mV_factor, 'r*');
-  plot([min_idx, min_idx] * ms_factor, ...
-       [min_val, min_val + max_ahp] * mV_factor, 'r');
-  plot([min_idx, min_idx + ahp_decay_constant] * ms_factor, ...
-       [min_val, min_val] * mV_factor, 'r');
-
-  if ~isnan(dahp_mag)
-    plot([dahp_idx, dahp_idx] * ms_factor, ...
-	 [min_val, min_val - dahp_mag] * mV_factor, 'r');
-  end
-
-  hold off;
-end
-
 %# If you change any of the following names, 
 %# make sure to change the above NaN names, too.
 results.MinVm = min_val * mV_factor;
 results.PeakVm = peak_mag * mV_factor;
 results.InitVm = init_val * mV_factor;
+results.HalfVm = half_Vm * mV_factor;
 results.Amplitude = amplitude * mV_factor;
 results.MaxAHP = max_ahp * mV_factor;
 results.DAHPMag = dahp_mag * mV_factor;
 
+results.InitTime = init_idx * ms_factor;
 results.RiseTime = rise_time * ms_factor;
 results.FallTime = fall_time * ms_factor;
+results.MinTime = min_idx * ms_factor;
 %# Not a realistic measure
 %#results.ahp_decay_constant = ahp_decay_constant * ms_factor;
 results.BaseWidth = base_width * ms_factor;

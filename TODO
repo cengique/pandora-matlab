@@ -2,12 +2,14 @@ TODO
 --------------------
 - update documentation on all constructors and README
 - Replace older plot methods with plotFigure(plot_abstract(.)) combinations
+	- what to do with Interpreter=None stuff?
 - high-order methods:
 	+ factor analysis
 	+ shuffle predicition
 	- pca
 	- ica
-	- clustering
+	- clustering (use for finding multiple solutions?)
+		- use ANOVA for showing different distributions
 - new subclass for custom analysis
 	- add plotTestStats function to group things together [?]
 - matrix color plot
