@@ -63,12 +63,16 @@ else
   trace_obj = trace(data, dt, dy, id, struct([]));
 
   if ~ exist('props')
+    props = struct([]);
+  end
+
+  if ~ isfield(props, 'init_Vm_method')
     %#props.init_Vm_method = 6; %# Sekerli's method
     %#props.init_threshold = 10; %# upper bound of derivative in V/s (= mV/ms)
     %# (no upper bound works more reliably)
     %# OR
-    props.init_Vm_method = 3; %# Derivative threshold method
-    props.init_threshold = 15; %# threshold crossing derivative in V/s (= mV/ms)
+    props(1).init_Vm_method = 3; %# Derivative threshold method
+    props(1).init_threshold = 15; %# threshold crossing derivative in V/s (= mV/ms)
   end
   obj.props = props;
 
