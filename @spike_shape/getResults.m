@@ -1,7 +1,7 @@
 function results = getResults(s, plotit)
 
 % getResults - Runs all tests defined by this class and return them in a 
-%		structure, results.
+%		structure.
 %
 % Usage:
 % results = getResults(s)

@@ -1,0 +1,7 @@
+TODO
+--------------------
+- Make README file
+- MAke Matlab contents file
+- getResults for @spikes
+- add calcSlowInact to @cip_trace
+- make spike checks in cip_trace_profile
