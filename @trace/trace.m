@@ -11,6 +11,9 @@ function obj = trace(data_src, dt, dy, id, props)
 %
 %   Parameters:
 %	data_src: The trace column OR the .MAT filename.
+%	dt: Time resolution [s]
+%	dy: y-axis resolution [ISI (V, A, etc.)]
+%	id: Identification string
 %	props: A structure any needed properties, such as:
 %		dy: y-axis scale to be applied from input file.
 %		baseline: Resting potential.
@@ -23,10 +26,7 @@ function obj = trace(data_src, dt, dy, id, props)
 %		
 %   Returns a structure object with the following fields:
 %	data: The trace column matrix.
-%	dt: Time resolution [s]
-%	dy: y-axis resolution [ISI (V, A, etc.)]
-%	id: Identification string
-%	props: (see above)
+%	dt, dy, id, props (see above)
 %
 % General operations on trace objects:
 %   trace		- Construct a new trace object.

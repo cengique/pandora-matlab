@@ -26,6 +26,21 @@ if ~ exist('plotit')
   plotit = 0;
 end
 
+%# Check for empty spike_shape object first.
+if isempty(s.trace.data) 
+  results.min_Vm = NaN;
+  results.peak_Vm = NaN;
+  results.init_Vm = NaN;
+  results.amplitude = NaN;
+  results.max_ahp = NaN;
+  results.dahp_mag = NaN;
+  results.rise_time = NaN;
+  results.fall_time = NaN;
+  results.base_width = NaN;
+  results.half_width = NaN;
+  return;
+end
+
 %# Run tests
 [max_val, max_idx] = calcMaxVm(s);
 [min_val, min_idx] = calcMinVm(s, max_idx);
@@ -69,7 +84,8 @@ if plotit == 1
   hold off;
 end
 
-
+%# If you change any of the following names, 
+%# make sure to change the above NaN names, too.
 results.min_Vm = min_val * mV_factor;
 results.peak_Vm = peak_mag * mV_factor;
 results.init_Vm = init_val * mV_factor;
