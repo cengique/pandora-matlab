@@ -17,16 +17,19 @@ function a_db = joinRows(db, tests, with_db, w_tests)
 %	with_db: A tests_db object with a RowIndex column.
 %		
 %   Returns:
-%	a_db: A tests_db object.
+%	a_db: A params_tests_db object.
 %
 % See also: tests_db
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/16
 
-%# TODO: calculate correct number of parameters left after the join
+%# calculate correct number of parameters left after the join
+%# Re-adjust the number of params if some are gone
+cols = sort(tests2cols(db, tests));
+num_params = sum(cols <= db.num_params);
 
 %# Call super class method
-a_db = params_tests_db(db.num_params, ...
+a_db = params_tests_db(num_params, ...
 		       joinRows(db.tests_db, tests, with_db, w_tests), ...
 		       db.props);
