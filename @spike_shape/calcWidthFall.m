@@ -67,12 +67,22 @@ half_Vm = init_val + (max_val - init_val) / 2;
 start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
 above_half = start_from - 1 + find(s.trace.data(start_from:end) >= half_Vm);
 
+%# Find the first discontinuity to match only the first down ramp
+some_of_the_above = above_half(above_half > floor(max_idx));
+end_of_first_hump = find(diff(some_of_the_above) > 1);
+if length(end_of_first_hump) > 0
+  end_of_first_hump = end_of_first_hump(1) + floor(max_idx);
+else
+  end_of_first_hump = above_half(end);
+end
+
 half_start = above_half(1) - ...
     (s.trace.data(above_half(1)) - half_Vm) / ...
     (s.trace.data(above_half(1)) - s.trace.data(above_half(1) - 1));
 
-half_end = above_half(end) + ...
-    (s.trace.data(above_half(end)) - half_Vm) / ...
-    (s.trace.data(above_half(end)) - s.trace.data(above_half(end) + 1));
+half_end = end_of_first_hump + ...
+    (s.trace.data(end_of_first_hump) - half_Vm) / ...
+    (s.trace.data(end_of_first_hump) - ...
+     s.trace.data(end_of_first_hump + 1));
 
 half_width = half_end - half_start;
