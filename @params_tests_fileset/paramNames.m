@@ -24,8 +24,8 @@ fullname = fullfile(fileset.path, filename);
 
 names_vals = parseGenesisFilename(fullname);
 
-if isfield(dataset.props, 'num_params')
-  num_params = dataset.props.num_params;
+if isfield(fileset.props, 'num_params')
+  num_params = fileset.props.num_params;
 else
   num_params = size(names_vals, 1);
 end
