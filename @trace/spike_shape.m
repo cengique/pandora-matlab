@@ -28,10 +28,11 @@ end
 min_isi = min(getISIs(s));
 
 %# Points from left side of peak, depends on the half minimal isi
-left = min(5e-3 / t.dt, min_isi/2);
+left = floor(min(5e-3 / t.dt, min_isi/2));
 
 %# Calculate right side accordingly
-right = min_isi - left + min(3e-3 / t.dt, left /2); %# Add some more on the right side
+%# Add some more on the right side
+right = min_isi - left + floor(min(3e-3 / t.dt, left /2)); 
 
 if length(s.times) > 0
   [allspikes, avgspikes] = collectspikes(t.data, s.times, left, right, 0);
