@@ -33,11 +33,17 @@ tests_wo_index(1:dbsize(to_db, 2)) = true(1);
 %#tests_wo_index(tests2cols(to_db, {'ItemIndex'})) = false(1);
 
 %# List all target db rows in a table
-for row_num=1:10:dbsize(to_db, 1)
+rows_per_page = 10;
+for row_num=1:rows_per_page:dbsize(to_db, 1)
+  rows = row_num:min((row_num + 9), dbsize(to_db, 1));
+  if length(rows) < rows_per_page
+    page_props = struct('height', '!');
+  else
+    page_props = struct;
+  end
+
   tex_string = [ tex_string ...
-		displayRowsTeX(onlyRowsTests(to_db, ...
-					     row_num:min((row_num + 9), ...
-							 dbsize(to_db, 1)), ':')) ];
+		displayRowsTeX(onlyRowsTests(to_db, rows, ':'), page_props) ];
 end
 
 %# List target db mean and std
