@@ -205,6 +205,11 @@ for plot_num=1:num_plots
   plot(one_plot, position);
   %# Set its axis limits if requested
   current_axis = axis;
+  if ~ isempty(a_plot.axis_limits)
+    %# Skip NaNs, allows fixing some ranges while keeping others flexible
+    nonnans = ~isnan(a_plot.axis_limits);
+    current_axis(nonnans) = a_plot.axis_limits(nonnans);
+  end
   if isfield(a_plot.props, 'relaxedLimits') && a_plot.props.relaxedLimits == 1
     %# Set axis limits to +/- 10% of bounds
     axis_width = current_axis(2) - current_axis(1);
@@ -213,11 +218,6 @@ for plot_num=1:num_plots
     current_axis(2) = current_axis(2) + axis_width * .1;
     current_axis(3) = current_axis(3) - axis_height * .1;
     current_axis(4) = current_axis(4) + axis_height * .1
-  end
-  if ~ isempty(a_plot.axis_limits)
-    %# Skip NaNs, allows fixing some ranges while keeping others flexible
-    nonnans = ~isnan(a_plot.axis_limits);
-    current_axis(nonnans) = a_plot.axis_limits(nonnans);
   end
   axis(current_axis);
   %# Place other decorations
