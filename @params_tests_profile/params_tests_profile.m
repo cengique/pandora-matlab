@@ -50,6 +50,7 @@ function a_pt_profile = params_tests_profile(a_db, props)
 
 if nargin == 0 %# Called with no params, creates empty object
   a_pt_profile.db = params_tests_db;
+  a_pt_profile.idx = struct([]);
   a_pt_profile.t_hists = {};
   a_pt_profile.p_t3ds = {};
   a_pt_profile.pt_hists = {};
@@ -68,6 +69,20 @@ else
   num_params = a_db.num_params;
   num_tests = size(a_db, 2) - num_params;
   a_pt_profile.db = a_db;
+
+  %# Setup lookup tables
+  col_names = fieldnames(a_db.col_idx);
+
+  %# Create the param and test number structure
+  
+  idx.NaN= NaN;
+  for param_num=1:num_params
+    idx = setfield(idx, col_names{param_num}, param_num);
+  end
+  for test_num=1:num_tests
+    idx = setfield(idx, col_names{num_params + test_num}, test_num);
+  end
+  a_pt_profile.idx = idx;
 
   %# Create the test_hists
   tic;
@@ -93,6 +108,8 @@ else
   a_pt_profile.pt_hists = cell(num_tests, num_params);
   for param_num=1:num_params
     a_t3d = swapRowsPages(a_pt_profile.p_t3ds{param_num});
+    %# Sort the param column first
+    a_t3d = sortrows(a_t3d, 1);
     for test_num=1:num_tests
       a_pt_profile.pt_hists{test_num, param_num} = histograms(a_t3d, test_num + 1);
     end

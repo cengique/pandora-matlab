@@ -16,7 +16,7 @@ function a_coef_db = ...
 %	coef_names: Cell array of column names corresponding to coefficients.
 %	pages: Column vector of page indices pointing to the tests_3d_db.
 %	id: An identifying string.
-%	props: A structure any needed properties.
+%	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
 %	tests_db, props.

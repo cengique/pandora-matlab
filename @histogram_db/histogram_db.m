@@ -14,7 +14,7 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 %	bins: The values for which the histogram values are calculated.
 %	hist_results: A column vector of histogram values.
 %	id: An identifying string.
-%	props: A structure any needed properties.
+%	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
 %	tests_db, props.

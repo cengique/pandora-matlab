@@ -21,6 +21,8 @@
 %			only for subclassing.
 %   cip_traces_profile	- Vector/polynomial results profile from a 
 %			cip_traces (N/I).
+%   params_tests_profile- Collects both intermediate and result data structures 
+%			from analysis of a params_tests_db.
 %
 % Profile database classes:
 %   tests_db		- General test results database class that 

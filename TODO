@@ -1,8 +1,17 @@
 TODO
 --------------------
--histograms.m doesn't work?
-- new plot type
-	- new datatype for that
+- new subclass for custom analysis
+	- add plotTestStats function which groupd things together
+- new plot & data type for mean and stds of each test and param value
+	- swapRowsPages, then find statsMeanStd
+	- create special plot with vectors and errorbars
+	- do it over all parameters in the profile
+	- then plot a test for all parameters in the same way
+- profile:
+	- make a converter method from params_tests_db to get the profile
+	- make the profile constructor simple
+	- put all test results into the results structure
+	- overload the get method to look into the results structure
 - matrix stack plot
 - matrix color plot
 - Make PDF with code design
@@ -10,18 +19,23 @@ TODO
   - present CVS, start using it
   - move this repository to djlab account?
 - add plot-frame and docgen classes
-  - classes should have function that returns plot_desc
-  - @plot_desc is one x-y plot w/ legends, etc.
-  - @plot_desc/plotAxis, superposes plots on same axis, and 
+  - sortrows in histograms.m
+  - histograms should have same axis limits
+  - @plot_abstract/superpose, superposes plots on same axis, and 
     return a new plot_desc object
-  - @plot_desc/vsubPlots, places plots on subplots.
+  + allow adjusting location of title in stack plots
+  + invar param value should be indicated on plotPages
+  + classes should have function that returns plot_abstract
+  + @plot_abstract is one x-y plot w/ legends, etc.
+  + @plot_stack, places plots on subplots.
 - tests_db
 	- print column numbers in display
 	+ define all operations as row logical functions
 	+ complex subsref for tests_db. 
-  
-- clustering histograms?
+  - clustering histograms?
 
++ sortrows(tests_db) only sorts one page and applies to all?
+	+ invarValues should've been sorted already? [no, only other columns are sorted]
 + add calcSlowInact to @cip_trace
 + add cip_trace_fileset class
 + make abstract profile class to describe the getResults method

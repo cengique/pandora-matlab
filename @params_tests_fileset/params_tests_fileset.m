@@ -20,7 +20,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %	dt: Time resolution [s]
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: An identification string
-%	props: A structure any optional properties.
+%	props: A structure with any optional properties.
 %		channel: Channel to read from in data files (default = 1).
 %		trace_start: Starting of trace in file (default = 1).
 %		type: type of file (default = '')

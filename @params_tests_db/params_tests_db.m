@@ -18,7 +18,7 @@ function obj = params_tests_db(params, param_names, ...
 %	param_names, test_names: Cell arrays of column names of params, 
 %			and test_results, respectively.
 %	id: An identifying string.
-%	props: A structure any needed properties.
+%	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
 %	tests_db
