@@ -37,6 +37,8 @@ for page_num=pages'
   data(:, :, page_num) = get(a_histogram_db, 'data');
 end
 
+col = tests2cols(db, col);
+
 %# Create a new histogram_db with all the data
 col_name_cell = fieldnames(get(db, 'col_idx'));
 col_name = col_name_cell{col};
