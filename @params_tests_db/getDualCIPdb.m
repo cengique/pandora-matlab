@@ -6,6 +6,7 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 % a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_suffix)
 %
 % Description:
+%   depol_tests need to have the RowIndex column in it.
 %
 %   Parameters:
 %	db: A params_tests_db object.

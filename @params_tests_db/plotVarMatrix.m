@@ -10,7 +10,7 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats)
 %   Skips the 'ItemIndex' test.
 %
 %   Parameters:
-%	a_db: A tests_db object.
+%	a_db: A params_tests_db object.
 %	p_stats: Cell array of invariant parameter databases.
 %		
 %   Returns:
