@@ -148,9 +148,12 @@ function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
   end
 
   %# Make linear approximation to an ahp bump
-  dahp_bump_rise = duration(1):(max_val - duration(1))/max_idx:max_val;
-  dahp_bump_fall = max_val:(duration(end) - max_val)/(length(duration) - max_idx):duration(end);
-  dahp_bump = [dahp_bump_rise(1:end-1), dahp_bump_fall(2:end)]';
+  dahp_bump_rise = duration(1) + (max_val - duration(1)) * (0:(max_idx-1)) / (max_idx-1);
+  %#dahp_bump_rise = duration(1):(max_val - duration(1))/max_idx:max_val;
+  fall_time = length(duration) - max_idx - 1;
+  dahp_bump_fall = max_val + (duration(end) - max_val) * (0:fall_time) / fall_time;
+  %#dahp_bump_fall = max_val:(duration(end) - max_val)/(length(duration) - max_idx):duration(end);
+  dahp_bump = [dahp_bump_rise(1:end), dahp_bump_fall(1:end)]';
 
   %# Make linear approximation to no double ahp case
   no_dahp = [duration(1) + ...
