@@ -22,17 +22,20 @@ function a_ranked_db = rankMatching(db, crit_db)
 
 %# If not exists, add RowIndex column
 if isfield(db.col_idx, 'RowIndex')
-  row_index = db(:, 'RowIndex').data;
+  row_db = onlyRowsTests(db, ':', 'RowIndex');
+  row_index = row_db.data;
 else
   row_index = (1:dbsize(db, 1))';
 end
 
+crit_tests = fieldnames(crit_db.col_idx);
+itemIndices = strmatch('ItemIndex', crit_tests);
+
 %# Strip out the RowIndex and ItemIndex columns from criterion db
-crit_tests = setdiff(fieldnames(crit_db.col_idx), {'RowIndex', 'ItemIndex'});
+crit_tests = setdiff(crit_tests, {'RowIndex', crit_tests{itemIndices}});
 
 %# Filter relevant columns
 reduced_db = db(':', crit_tests);
-dbsize(reduced_db)
 
 %# Vectorize diff over cols and do the diff^2
 %#####
