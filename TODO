@@ -1,5 +1,8 @@
 TODO
 --------------------
+- add a addItem method to datasets
+- add a merge method to tests_db (override cat method?)
+- add artihmetic operations to tests_db
 - fix varboxplot to return correct y-axis limits
 - objects don't take more space when they're used again, has implications on design:
 	- put link to dataset from db
