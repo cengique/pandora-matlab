@@ -36,8 +36,8 @@ init_val = s.trace.data(init_idx);
 min_val = s.trace.data(min_idx);
 %#max_val = s.trace.data(max_idx);
 
-%# Find depolarized part
-depol = find(s.trace.data(floor(max_idx):end) <= init_val);
+%# Find depolarized part (+/- 1mV tolerance)
+depol = find(s.trace.data(floor(max_idx):end) <= (init_val + 1));
 
 if isempty(depol) || floor((depol(1) + max_idx - 1)) == length(s.trace.data)
   warning('spike_shape:no_repolarize', 'Spike failed to repolarize.');

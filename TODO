@@ -1,43 +1,52 @@
 TODO
 --------------------
-- poster size: 1.75x1.1 m^2, 68"x43"
+- update documentation on all constructors and README
+- Replace older plot methods with plotFigure(plot_abstract(.)) combinations
+- high-order methods:
+	+ factor analysis
+	+ shuffle predicition
+	- pca
+	- ica
+	- clustering
 - new subclass for custom analysis
-	- add plotTestStats function to group things together
-- new plot & data type for mean and stds of each test and param value
-	+ swapRowsPages, then find statsMeanStd
-	- statsMeanStd needs page-capable mean and std funcs
-	- create special plot with vectors and errorbars
-	- do it over all parameters in the profile
-	- then plot a test for all parameters in the same way
-- profile:
-	- make a converter method from params_tests_db to get the profile
-	- make the profile constructor simple
-	- put all test results into the results structure
-	- overload the get method to look into the results structure
-- matrix stack plot
+	- add plotTestStats function to group things together [?]
 - matrix color plot
 - Make PDF with code design
 	- add class diagram with converter methods
 - CVS
   - present CVS, start using it
   - move this repository to djlab account?
+- profile:
+	+ make a converter method from params_tests_db to get the profile
+	+ make the profile constructor simple
+	+ put all test results into the results structure
+	+ overload the get method to look into the results structure
 - add plot-frame and docgen classes
-  - allow fontsize change to fit more on a single page
-  - sortrows in histograms.m
-  - histograms should have same axis limits
-  - @plot_abstract/superpose, superposes plots on same axis, and 
-    return a new plot_abstract object
   + allow adjusting location of title in stack plots
   + invar param value should be indicated on plotPages
   + classes should have function that returns plot_abstract
   + @plot_abstract is one x-y plot w/ legends, etc.
   + @plot_stack, places plots on subplots.
+  + sortrows in histograms.m
+  + histograms should have same axis limits
+  + @plot_abstract/superposePlots, superposes plots on same axis, and 
+    return a new plot_abstract object
+  - allow fontsize change to fit more on a single page [can use export size for that]
 - tests_db
-	- print column numbers in display
+	+ print column numbers in display
 	+ define all operations as row logical functions
 	+ complex subsref for tests_db. 
   - clustering histograms?
 
++ matrix stack plot
++ new plot & data type for mean and stds of each test and param value
+	+ swapRowsPages, then find statsMeanStd
+	+ statsMeanStd needs page-capable mean and std funcs
+	+ create special plot with vectors and errorbars
+	+ do it over all parameters in the profile
+	+ then plot a test for all parameters in the same way
+	+ use boxplots
++ poster size: 1.75x1.1 m^2, 68"x43"
 + sortrows(tests_db) only sorts one page and applies to all?
 	+ invarValues should've been sorted already? [no, only other columns are sorted]
 + add calcSlowInact to @cip_trace

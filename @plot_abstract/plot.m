@@ -25,7 +25,12 @@ if exist('layout_axis')
 end
 
 %# Run the plot command
-ph = feval(a_plot.command, a_plot.data{:});
+if strcmp(a_plot.command, 'boxplot')
+  feval(a_plot.command, a_plot.data{:});
+  ph = []; %# boxplot returns no handle???
+else
+  ph = feval(a_plot.command, a_plot.data{:});
+end
 
 %# Add titles, etc. (Not here! see plotFigure)
 %#handles = decorate(a_plot);

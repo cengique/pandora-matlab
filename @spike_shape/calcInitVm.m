@@ -1,7 +1,7 @@
 function [init_val, init_idx, rise_time, amplitude, ...
 	  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx, ...
 	  peak_mag, peak_idx] = ...
-      calcInitVm(s, max_idx, min_idx)
+      calcInitVm(s, max_idx, min_idx, plotit)
 
 % calcInitVm - Calculates the spike initiation information of the 
 %		spike_shape, s. 
@@ -16,6 +16,8 @@ function [init_val, init_idx, rise_time, amplitude, ...
 %	s: A spike_shape object.
 %	max_idx: The index of the maximal point of the spike_shape [dt].
 %	min_idx: The index of the minimal point of the spike_shape [dt].
+%	plotit: If non-zero, plot a graph annotating the test results 
+%		(optional).
 %
 %   Returns:
 %	init_val: The potential value [dy].
@@ -36,20 +38,26 @@ function [init_val, init_idx, rise_time, amplitude, ...
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.
 
+if ~ exist('plotit')
+  plotit = 0;
+end
+
 %# Constants
 min_val = s.trace.data(min_idx);
 max_val = s.trace.data(max_idx);
 
 %# Find spike initial voltage
-deriv = diff(s.trace.data);
-accel = diff(deriv);
 method = s.props.init_Vm_method;
 
 switch method
   case 1
+    deriv = diff(s.trace.data);
+    accel = diff(deriv);
     %# peak of voltage acceleration.
     [val, idx] = max(accel(1 : max_idx)); 
   case 2
+    deriv = diff(s.trace.data);
+    accel = diff(deriv);
     %# threshold voltage acceleration.
     idx = find(accel(1 : max_idx) >= s.props.init_threshold); 
     if length(idx) == 0 
@@ -59,6 +67,7 @@ switch method
     end
     idx = idx(1);
   case 3
+    deriv = diff(s.trace.data);
     %# threshold voltage derivative
     idx = find(deriv(1 : max_idx) >= ...
 	       s.props.init_threshold * s.trace.dt / s.trace.dy); 
@@ -70,6 +79,53 @@ switch method
       idx = 1;
     end
     idx = idx(1);
+  case 4
+    %# Sekerli's method: maximum second derivative in the phase space
+    %#   Taken from Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,
+    %#	51(9): 1665-71, 2004.
+    d3 = diff3T(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
+    d2 = diff2T(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
+    d1 = diffT(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
+    %# Remove boundary artifacts
+    d3 = d3(4:(end - 3)); 
+    d2 = d2(4:(end - 3));
+    d1 = d1(4:(end - 3));
+    h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
+    if plotit
+      figure;
+      t = (4 : (max_idx -1)) * s.trace.dt * 1e3;
+      handles = semilogy(t, d1, t, d2, t, d3, t, h, '.-', ...
+			 t, 100 + s.trace.data(4 : (max_idx -1)));
+      legend(handles, {'d1', 'd2', 'd3', 'h', 'v'});
+      title('Sekerli''s method, h = second derivative of dV/dt with V');
+    end
+    [val, idx] = max(h); 
+    idx = idx + 3;
+  case 5
+    %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
+    %# Taken from Sekerli, Del Negro, Lee and Butera. 
+    %# IEEE Trans. Biomed. Eng., 51(9): 1665-71, 2004.
+    d2 = diff2T(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
+    d1 = diffT(s.trace.data(1 : (max_idx + 2)), s.trace.dt);
+    d2 = d2(3:(end -2));
+    d1 = d1(3:(end -2));
+    k1 = 1 + d1 .* d1;
+    k = d2 ./ sqrt(k1 .* k1 .* k1);
+    %# Find first local maximum in k before spike peak
+    dk = diff(k);
+    dk2 = dk(2:end) .* dk(1:(end-1));
+    zc = find(dk2 < 0);
+    %#[val, idx] = max(k); 
+    idx = zc(end) + 1; %# need to add 1 because of diff
+    idx = idx + 2;
+    if plotit
+      figure;
+      t = (3 : max_idx) * s.trace.dt * 1e3;
+      handles = semilogy(t, d1, t, d2, t, k1, t, 100*k, '.-', ...
+			 t, 100 + s.trace.data(3 : max_idx));
+      legend(handles, {'d1', 'd2', 'k1', 'Kp', 'v'})
+      title('Maximal curvature Kp');
+    end
   otherwise
     error(sprintf('Incorrect spike initiation method: %f', method));
 end
@@ -82,12 +138,13 @@ init_idx = idx;
 
 rise_time = peak_idx - init_idx;	%# Init-max Time
 amplitude = peak_mag - init_val; %# Spike amplitude
-max_ahp = init_val - min_val; 	%# maximal AHP amplitude
+max_ahp = max(0, init_val - min_val); 	%# maximal AHP amplitude
 
 %# Calculate AHP decay time constant approx: 
 %# min_val - max_ahp * (1 - exp(-t/decay_constant))
 
-after_ahp = s.trace.data(min_idx:end);
+%# Don't wrap to the beginning of the trace, already done at creation time
+after_ahp = [s.trace.data(min_idx:end)];
 
 %# Find double AHP is it exists
 [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, min_idx, s.trace.dt);

@@ -22,14 +22,14 @@ if nargin < 2 %# Called with insufficient params
   error('Need parameters.');
 end
 
-left = 2e-3 / t.dt;		%# From left side of peak 
+left = 5e-3 / t.dt;		%# From left side of peak 
 %#right = 20e-3 / t.dt;		%# From right side of peak 
 
 %# Find minimal ISI value for maximal range that can be acquired with
 %# single spikes
 min_isi = min(getISIs(s));
 
-right = min_isi - left;
+right = min_isi - left + 3e-3 / t.dt; %# Add some more on the right side
 
 if length(s.times) > 0
   [allspikes, avgspikes] = collectspikes(t.data, s.times, left, right, 0);

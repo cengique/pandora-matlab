@@ -1,6 +1,6 @@
 function a_plot = superposePlots(plots, axis_labels, title, command, props)
 
-% superposePlots - Superpose a number of plots onto a single axis.
+% superposePlots - Superpose multiple plots with common command onto a single axis.
 %
 % Usage:
 % a_plot = superposePlots(plots, axis_labels, title, command, props)
@@ -9,9 +9,9 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 %
 %   Parameters:
 %	plots: A cell array of objects of class plot_abstract or its subclass.
-%	axis_labels: Cell array of axis label strings.
-%	title: Plot description string.
-%	command: Plotting command to use (Optional, default='plot')
+%	axis_labels: Cell array of axis label strings (optional, taken from plots).
+%	title: Plot description string (optional, taken from plots).
+%	command: Plotting command to use (optional, taken from plots)
 %	props: A structure with any optional properties.
 %		
 %   Returns:
@@ -22,37 +22,12 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/23
 
-a_plot.data = {};
-a_plot.data = deal(plots{:}.data{:})
-
-%# TODO: to be completed...
-
-if nargin == 0 %# Called with no params
-  obj.data = {};
-  obj.axis_labels = {};
-  obj.title = '';
-  obj.legend = {};
-  obj.command = {};
-  obj.props = struct([]);
-  obj = class(obj, 'plot_abstract');
-elseif isa(data, 'plot_abstract') %# copy constructor?
-  obj = data;
-else
-   if ~ exist('props')
-     props = struct([]);
-   end
-
-   if ~ exist('command')
-     command = 'plot';
-   end
-
-  obj.data = data;
-  obj.axis_labels = axis_labels;
-  obj.title = title;
-  obj.legend = legend;
-  obj.command = command;
-  obj.props = props;
-
-  obj = class(obj, 'plot_abstract');
+data = {};
+legend = {};
+for one_plot = plots
+  data = {data{:}, one_plot.data{:}};
+  legend = {legend{:}, one_plot.legend{:}};
 end
 
+a_plot = set(one_plot, 'data', data);
+a_plot = set(a_plot, 'legend', legend);

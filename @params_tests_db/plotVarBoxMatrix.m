@@ -1,17 +1,17 @@
-function a_plot_stack = plotVarMatrix(a_db, p_stats)
+function a_plot_stack = plotVarBoxMatrix(a_db, p_t3ds)
 
-% plotVarMatrix - Create a stack of parameter-test variation plots 
+% plotVarBoxMatrix - Create a stack of parameter-test variation plots 
 %		organized in a matrix.
 %
 % Usage:
-% a_plot_stack = plotVarMatrix(a_db, p_stats)
+% a_plot_stack = plotVarBoxMatrix(a_db, p_t3ds)
 %
 % Description:
 %   Skips the 'FileIndex' test.
 %
 %   Parameters:
 %	a_db: A tests_db object.
-%	p_stats: Cell array of invariant parameter databases.
+%	p_t3ds: Cell array of invariant parameter databases.
 %		
 %   Returns:
 %	a_plot_stack: A plot_stack with the plots organized in matrix form
@@ -24,6 +24,10 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats)
 num_params = a_db.num_params;
 num_tests = size(a_db, 2) - num_params - 1; %# Except the file indices
 
+for param_num=1:num_params
+  pss_t3ds{param_num} = swapRowsPages(sortrows(p_t3ds{param_num}, 1));
+end
+
 %# TODO: Row stacks with 
 plot_rows = cell(1, num_tests);
 for test_num=1:num_tests
@@ -31,9 +35,9 @@ for test_num=1:num_tests
   plots = cell(1, num_params);  
   ranges = [];
   for param_num=1:num_params
-    a_stats_db = p_stats{param_num};
-    a_plot = plotVar(p_stats{param_num}, 1, test_num + 1, ...
-		     struct('rotateYLabel', 60));
+    a_plot = plotVarBox(pss_t3ds{param_num}, 1, test_num + 1, ...
+			1, 'r.', 1, 1.5, ...
+			struct('rotateYLabel', 60));
     %# Calculate the maximal axis range
     if isempty(ranges)
       ranges = axis(a_plot);
@@ -54,12 +58,13 @@ for test_num=1:num_tests
 		   'xTicksPos', 'none');
   end
 
-  %# fixed y-axis bounds, but flexible x-axis
-  plot_rows{test_num} = plot_stack(plots, [NaN NaN ranges(3:4)], 'x', '', props);
+  %# fixed y-axis bounds, but flexible x-axis (reversed for boxplot weirdness)
+  plot_rows{test_num} = plot_stack(plots, [NaN NaN ranges(1:2)], 'x', '', props);
 end
 
 a_plot_stack = plot_stack(plot_rows, [], 'y', ...
-			  'Measure Mean and SE Variations with Parameter Values', ...
+			  ['Measure Variations with Parameter Values in ' ...
+			   get(a_db, 'id')], ...
 			  struct('titlesPos', 'none', ...
 				 'xLabelsPos', 'bottom', ...
 				 'xTicksPos', 'bottom'));

@@ -36,7 +36,10 @@ if ~ (isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 1)
   else
     xh = xlabel(a_plot.axis_labels{1});
   end
+else
+  xlabel(''); %# Clear the label
 end
+
 if ~ (isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 1)
   if isfield(a_plot.props, 'rotateYLabel')
     yh = ylabel(a_plot.axis_labels{2}, ...
@@ -45,6 +48,8 @@ if ~ (isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 1)
   else
     yh = ylabel(a_plot.axis_labels{2});
   end
+else
+  ylabel(''); %# Clear the y-label
 end
 
 %# Z-axis?

@@ -27,5 +27,6 @@ else
   hsp = plot(t.spikes);
   %# TODO: Hack, fix it
   getResults(t.spont_spike_shape, 1);
+  hss = plotFigure(plotTPP(t.spont_spike_shape));
   h = [ht, hsp];
 end

@@ -27,7 +27,12 @@ if isempty(title)
 else
   titleheight = 0.03;
 end
-border = 0.1;
+
+if isfield(a_plot.props, 'border')
+  border = a_plot.props.border;
+else
+  border = 0.15;
+end
 plot(a_plot, [border/2, border/2, ...
 	      (1 - border), (1-border - titleheight)]);
 decorate(a_plot);
