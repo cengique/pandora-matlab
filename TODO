@@ -11,7 +11,8 @@ TODO
     return a new plot_desc object
   - @plot_desc/vsubPlots, places plots on subplots.
 - tests_db
-	- define all operations as row logical functions
+	- print column numbers in display
+	+ define all operations as row logical functions
 	+ complex subsref for tests_db. 
   
 - clustering histograms?
