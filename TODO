@@ -1,13 +1,13 @@
 TODO
 --------------------
 - Make README file
-- MAke Matlab contents file
-- getResults for @spikes
+- Make Matlab contents file
+- getResults for @spikes, @trace
 - add calcSlowInact to @cip_trace
 - move this repository to djlab account?
-- remove conflicting classes from the cen_matlab module
 - add plot-frame and docgen classes
 
 + make spike checks in cip_trace_profile
 + make specialized directory for brute_aug_04, move cip_trace_profile there
 	+ first make a general cip_trace_profile which takes ready-made objs
++ remove conflicting classes from the cen_matlab module
