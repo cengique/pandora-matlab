@@ -18,20 +18,26 @@ function handles = decorate(a_plot)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
-%# Run the plot command
-th = title(a_plot.title);
+%# Do the decorations based on properties
+th = [];
 xh = [];
 yh = [];
-if ~ isfield(a_plot.props, 'noXLabel')
+
+if ~ (isfield(a_plot.props, 'noTitle') && a_plot.props.noTitle == 1)
+  th = title(a_plot.title);
+end
+
+if ~ (isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 1)
   if isfield(a_plot.props, 'rotateXLabel')
     xh = xlabel(a_plot.axis_labels{1}, ...
 		'Rotation', a_plot.props.rotateXLabel, ...
-		'HorizontalAlignment', 'right');
+		'HorizontalAlignment', 'right', ...
+		'VerticalAlignment', 'middle'); %#'HorizontalAlignment', 'right'
   else
     xh = xlabel(a_plot.axis_labels{1});
   end
 end
-if ~ isfield(a_plot.props, 'noYLabel')
+if ~ (isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 1)
   if isfield(a_plot.props, 'rotateYLabel')
     yh = ylabel(a_plot.axis_labels{2}, ...
 		'Rotation', a_plot.props.rotateYLabel, ...
@@ -43,11 +49,11 @@ end
 
 %# Z-axis?
 
-if isfield(a_plot.props, 'noXTickLabels')
+if isfield(a_plot.props, 'noXTickLabels') && a_plot.props.noXTickLabels == 1
   set(gca, 'XTickLabel', {});
 end
 
-if isfield(a_plot.props, 'noYTickLabels')
+if isfield(a_plot.props, 'noYTickLabels') && a_plot.props.noYTickLabels == 1
   set(gca, 'YTickLabel', {});
 end
 

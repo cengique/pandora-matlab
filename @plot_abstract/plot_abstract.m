@@ -27,6 +27,7 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %		noYTickLabels: No Y-axis tick labels.
 %		noXLabel: No X-axis label.
 %		noYLabel: No Y-axis label.
+%		noTitle: No title.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props

@@ -34,7 +34,7 @@ for param_num=1:num_params
   as_t3d = sortrows(p_t3ds{param_num}, 1);
   %# Then swap dimensions
   ass_t3d = swapRowsPages(as_t3d);
-  p_stats{param_num} = statsMeanStd(ass_t3d, ':');
+  p_stats{param_num} = statsMeanSE(ass_t3d, ':');
   for test_num=1:num_tests
     pt_hists{test_num, param_num} = histograms(ass_t3d, test_num + 1);
   end

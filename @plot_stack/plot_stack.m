@@ -20,6 +20,7 @@ function a_plot = plot_stack(plots, axis_limits, orient, title, props)
 %		xLabelsPos: 'bottom' means only put x-axis label to lowest plot.
 %		xTicksPos: 'bottom' means only put x-axis ticks to lowest plot.
 %		titlesPos: 'top' means only put title to top plot.
+%		relaxedLimits: Add 10% to all axis limits, overriding Matlab's layout
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract, plots, axis_limits, orient, props.

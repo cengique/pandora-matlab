@@ -27,7 +27,7 @@ if isempty(title)
 else
   titleheight = 0.03;
 end
-border = 0.05;
-plot(a_plot, [border/2 + 0.05, border/2 + 0.05, ...
-	      (1 - border - 0.05), (1-border - 0.05 - titleheight)]);
+border = 0.1;
+plot(a_plot, [border/2, border/2, ...
+	      (1 - border), (1-border - titleheight)]);
 decorate(a_plot);

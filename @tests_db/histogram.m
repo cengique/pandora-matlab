@@ -11,7 +11,8 @@ function a_histogram_db = histogram(db, col, num_bins)
 %   Parameters:
 %	db: A tests_db object.
 %	col: Column to find the histogram.
-%	num_bins: Number of histogram bins (Optional, default=100)
+%	num_bins: Number of histogram bins (Optional, default=100), or
+%		  vector of histogram bin centers.
 %		
 %   Returns:
 %	a_histogram_db: A histogram_db object containing the histogram.

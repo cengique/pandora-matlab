@@ -23,30 +23,42 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats)
 num_params = a_db.num_params;
 num_tests = size(a_db, 2) - num_params - 1; %# Except the file indices
 
-%# TODO: Row stacks with fixed y-axis bounds?
+%# TODO: Row stacks with 
 plot_rows = cell(1, num_tests);
 for test_num=1:num_tests
 
   plots = cell(1, num_params);  
+  ranges = [];
   for param_num=1:num_params
     a_stats_db = p_stats{param_num};
-    plots{param_num} = plotVar(p_stats{param_num}, 1, test_num + 1, ...
-			       struct('rotateYLabel', 60));
+    a_plot = plotVar(p_stats{param_num}, 1, test_num + 1, ...
+		     struct('rotateYLabel', 60));
+    %# Calculate the maximal axis range
+    if isempty(ranges)
+      ranges = axis(a_plot);
+    else
+      ranges = growRange([ranges; axis(a_plot)]);
+    end
+    plots{param_num} = a_plot;
   end
   if test_num == 1
     props = struct('titlesPos', 'none', ...
-		   'yLabelsPos', 'left');
+		   'yLabelsPos', 'left', ...
+		   'yTicksPos', 'left');
   else
     props = struct('titlesPos', 'none', ...
 		   'yLabelsPos', 'left', ...
+		   'yTicksPos', 'left', ...
 		   'xLabelsPos', 'none', ...
 		   'xTicksPos', 'none');
   end
 
-  plot_rows{test_num} = plot_stack(plots, [], 'x', '', props);
+  %# fixed y-axis bounds, but flexible x-axis
+  plot_rows{test_num} = plot_stack(plots, [NaN NaN ranges(3:4)], 'x', '', props);
 end
 
-a_plot_stack = plot_stack(plot_rows, [], 'y', '', ...
+a_plot_stack = plot_stack(plot_rows, [], 'y', ...
+			  'Measure Mean and SE Variations with Parameter Values', ...
 			  struct('titlesPos', 'none', ...
 				 'xLabelsPos', 'bottom', ...
 				 'xTicksPos', 'bottom'));

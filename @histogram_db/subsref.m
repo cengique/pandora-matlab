@@ -8,7 +8,7 @@ else
   switch index.type
     case '()'
       %# Delegate to base class
-      b = a.tests_db(index.subs{:});
+      b = onlyRowsTests(a, index.subs{:});
     case '.'
       b = eval(['a.' index.subs]);
     case '{}'

@@ -37,7 +37,7 @@ height = layout_axis(4);
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-scale_down = 0.95;
+scale_down = 0.85;
 border = 1;
 
 %# Find the width of a regular y-axis label (DOESN'T WORK!)
@@ -102,7 +102,7 @@ else
   if isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 0
     labelwidth = 0;
   else
-    labelwidth = decosize;
+    labelwidth = decosize
   end
 end
 
@@ -121,7 +121,7 @@ else
   if isfield(a_plot.props, 'noYTickLabels') && a_plot.props.noYTickLabels == 0
     tickwidth = 0;
   else
-    tickwidth = decosize;
+    tickwidth = decosize
   end
 end
 
@@ -155,21 +155,22 @@ for plot_num=1:num_plots
 	((plot_num > 1 && strcmp(a_plot.props.yTicksPos, 'left')) || ...
 	 strcmp(a_plot.props.yTicksPos, 'none'))
     its_props(1).noYTickLabels = 1;
-    %#tickwidth = 0; %# no more space is needed for y-tick labels
+  else
+    its_props(1).noYTickLabels = 0;
   end
   if isfield(a_plot.props, 'yLabelsPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.yLabelsPos, 'left')) || ...
 	 strcmp(a_plot.props.yLabelsPos, 'none'))
     its_props(1).noYLabel = 1;
-    %#tickwidth = 0; %# no more space is needed for y-tick labels
-    %#labelwidth = 0;
+  else
+    its_props(1).noYLabel = 0;
   end
   if isfield(a_plot.props, 'xTicksPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom')) || ...
 	 strcmp(a_plot.props.xTicksPos, 'none'))
     its_props(1).noXTickLabels = 1;
   else
-    its_props(1).noXTickLabels = 0
+    its_props(1).noXTickLabels = 0;
   end
   if isfield(a_plot.props, 'xLabelsPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.xLabelsPos, 'bottom')) || ...
@@ -177,7 +178,7 @@ for plot_num=1:num_plots
     its_props(1).noXLabel = 1;
   else
     %# Signal to plot that it has space to put its labels
-    its_props(1).noXLabel = 0
+    its_props(1).noXLabel = 0;
   end
   %# Check if title only for the topmost plot
   if isfield(a_plot.props, 'titlesPos') 
@@ -198,9 +199,23 @@ for plot_num=1:num_plots
 	      max(scale_down * tileheight - tickheight - labelheight, minheight) ];
   plot(one_plot, position);
   %# Set its axis limits if requested
+  current_axis = axis;
   if ~ isempty(a_plot.axis_limits)
-    axis(a_plot.axis_limits);
+    %# Skip NaNs, allows fixing some ranges while keeping others flexible
+    nonnans = ~isnan(a_plot.axis_limits);
+    current_axis(nonnans) = a_plot.axis_limits(nonnans);
   end
+  if isfield(a_plot.props, 'relaxedLimits') && a_plot.props.relaxedLimits == 1
+    %# Set axis limits to +/- 10% of bounds
+    axis_width = current_axis(2) - current_axis(1);
+    axis_height = current_axis(4) - current_axis(3);
+    current_axis(1) = current_axis(1) - axis_width * .1;
+    current_axis(2) = current_axis(2) + axis_width * .1;
+    current_axis(3) = current_axis(3) - axis_height * .1;
+    current_axis(4) = current_axis(4) + axis_height * .1
+  end
+  axis(current_axis);
+  %# Place other decorations
   decorate(one_plot);
 end
 

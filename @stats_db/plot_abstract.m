@@ -36,6 +36,9 @@ if isfield(row_idx, 'min')
 elseif isfield(row_idx, 'std')
   lows = -data(row_idx.std,:);  
   highs = data(row_idx.std,:);
+elseif isfield(row_idx, 'se')
+  lows = -data(row_idx.se,:);  
+  highs = data(row_idx.se,:);
 end
 
 if isfield(row_idx, 'max')
@@ -48,6 +51,6 @@ else
   axis_limits = [];
 end
 
-a_plot = plot_errorbar(data(1,:), lows, highs, ...
+a_plot = plot_errorbars(data(1,:), lows, highs, ...
 		       col_names, get(a_stats_db, 'id'), axis_limits, ...
 		       a_stats_db.props);
