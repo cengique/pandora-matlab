@@ -40,6 +40,8 @@ ticklabel = text(0, 0, 'xxx', 'Visible', 'off');
 tickextent = get(ticklabel, 'Extent');
 tickwidth = 0.03; %#tickextent(3)
 tickheight = 0.03; %#tickextent(4)
+labelwidth = 0.03;
+labelheight = 0.03;
 
 if strcmp(a_plot.orient, 'x')
   width = border * layout_axis(3) / num_plots;
@@ -78,6 +80,7 @@ for plot_num=1:num_plots
 	 strcmp(a_plot.props.yLabelsPos, 'none'))
     its_props(1).noYLabel = 1;
     %#tickwidth = 0; %# no more space is needed for y-tick labels
+    labelwidth = 0;
   end
   if isfield(a_plot.props, 'xTicksPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom')) || ...
@@ -90,6 +93,7 @@ for plot_num=1:num_plots
 	 strcmp(a_plot.props.xLabelsPos, 'none'))
     its_props(1).noXLabel = 1;
     %#tickheight = 0; %# no more space is needed for x-tick labels
+    labelheight = 0;
   end
   %# Check if title only for the topmost plot
   if isfield(a_plot.props, 'titlesPos') 
@@ -106,8 +110,8 @@ for plot_num=1:num_plots
   y_offset = layout_axis(2) + tickheight + (1 - scale_down) * height / 2 + ...
       strcmp(a_plot.orient, 'y') * (plot_num - 1) * height;
   position = [x_offset, y_offset, ...
-	      max(scale_down * width - tickwidth, minwidth), ...
-	      max(scale_down * height - tickheight, minheight) ];
+	      max(scale_down * width - tickwidth - labelwidth, minwidth), ...
+	      max(scale_down * height - tickheight - labelheight, minheight) ];
   plot(a_plot.plots{plot_num}, position);
   %# Set its axis limits if requested
   if ~ isempty(a_plot.axis_limits)
@@ -117,3 +121,4 @@ for plot_num=1:num_plots
 end
 
 hold off;
+

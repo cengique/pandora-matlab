@@ -19,7 +19,15 @@ function handle = plotFigure(a_plot)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 handle = figure;
-set(handle, 'Name', get(a_plot, 'title'));
+title = get(a_plot, 'title');
+set(handle, 'Name', title);
+
+if isempty(title)
+  titleheight = 0;
+else
+  titleheight = 0.03;
+end
 border = 0.05;
-plot(a_plot, [border/2 + 0.05 border/2 + 0.05 (1-border-0.05) (1-border-0.05)]);
+plot(a_plot, [border/2 + 0.05, border/2 + 0.05, ...
+	      (1 - border - 0.05), (1-border - 0.05 - titleheight)]);
 decorate(a_plot);

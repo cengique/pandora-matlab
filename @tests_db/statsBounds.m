@@ -26,11 +26,11 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%#data = get(a_db, 'data');
-db_size = size(data);
-num_pages = db_size(3);
+cols = tests2cols(a_db, tests);
+
+num_pages = size(a_db, 3);
 pages=1:num_pages;
-data = repmat(0, [3, db_size(2), num_pages]);
+data = repmat(0, [3, length(cols), num_pages]);
 for page_num=pages
   a_page_db = a_db(:, tests, page_num);
   data(:, :, page_num) = [mean(a_page_db, 1); min(a_page_db.data, [], 1); ...
@@ -40,9 +40,8 @@ end
 row_names = {'mean', 'min', 'max'};
 
 %# Original column names
-cols = tests2cols(a_db, tests);
 col_name_cell = fieldnames(a_db.col_idx);
 col_names = col_name_cell(cols);
 
 a_stats_db = stats_db(data, col_names, row_names, {}, ...
-		      [ 'Mean value and min-max bounds from ' db.id ], props);
+		      [ 'Mean value and min-max bounds from ' get(a_db, 'id') ], props);
