@@ -12,7 +12,7 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 %	axis_labels: Cell array of axis label strings.
 %	title: Plot description string.
 %	command: Plotting command to use (Optional, default='plot')
-%	props: A structure any needed properties.
+%	props: A structure with any optional properties.
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
@@ -24,6 +24,8 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 
 a_plot.data = {};
 a_plot.data = deal(plots{:}.data{:})
+
+%# TODO: to be completed...
 
 if nargin == 0 %# Called with no params
   obj.data = {};

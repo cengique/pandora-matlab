@@ -38,7 +38,8 @@ if isfield(a_plot.props, 'noYTickLabels')
   set(gca, 'YTickLabel', {});
 end
 
-if (length(a_plot.legend) > 0)
+%# Only put legend when there is more than one trace
+if (length(a_plot.legend) > 1)
   lh = legend(a_plot.legend);
 else
   lh = [];
