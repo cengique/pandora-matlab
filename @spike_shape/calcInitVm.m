@@ -51,6 +51,7 @@ max_val = s.trace.data(max_idx);
 %# Find spike initial voltage
 method = s.props.init_Vm_method;
 
+try
 switch method
   case 1
     deriv = diff(s.trace.data);
@@ -69,6 +70,7 @@ switch method
     end
     idx = idx(1);
   case 3
+    %# threshold voltage derivative
     [idx, a_plot] = ...
 	calcInitVmSlopeThreshold(s, max_idx, min_idx, s.props.init_threshold, plotit);
   case 4
@@ -82,12 +84,31 @@ switch method
     %# Sekerli's method with a twist
     [idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, ...
 					s.props.init_threshold, plotit);
+  case 7
+    %# threshold voltage derivative by first supersampling using interpolation
+    [idx, a_plot] = ...
+	calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s.props.init_threshold, plotit);
   otherwise
     error(sprintf('Incorrect spike initiation method: %f', method));
 end
+catch
+  err = lasterror;
+  disp(['Warning: ' err.message ...
+	' Taking the fist point in the trace as AP threshold.']);
+  idx = 1;
+end
 
-init_val = s.trace.data(idx);	%# Init Vm
+%# AP init. time
 init_idx = idx;
+
+%# AP init. Vm
+if (ceil(init_idx) - floor(init_idx)) > 0
+  init_val = interp1([floor(init_idx), ceil(init_idx)], ...
+		     [s.trace.data(floor(init_idx)), s.trace.data(ceil(init_idx))], ...
+		     init_idx);
+else
+  init_val = s.trace.data(init_idx);
+end
 
 %# Find the REAL max_val
 [peak_mag, peak_idx] = estimate_tip(s.trace.data, max_idx);
@@ -180,7 +201,10 @@ function [peak_mag, peak_idx] = estimate_tip(data, max_idx)
   peak_idx = max_idx - 1 + (peak_idx - 1) * 2/10;
 
   return
-  %# Find the slopes:
+  
+  %# THE FOLLOWING IS NOT USED:
+  
+  %# Find the slopes
   slopes = diff(data(max_idx - 3 : max_idx + 3))
 
   flips = slopes(1:end-2) .* slopes(3:end)
