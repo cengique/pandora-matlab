@@ -32,8 +32,6 @@ cols = tests2cols(db, cols);
 %# Remove given columns
 log_cols(cols) = true(1);
 wo_cols = db.data(:, ~log_cols);
-%#wo_cols = db.data;
-%#wo_cols(:, cols) = [];
 
 %# Sort rows
 [sorted idx] = sortrows(wo_cols);
@@ -44,16 +42,12 @@ wo_cols = db.data(:, ~log_cols);
 %# Get the columns back
 sorted = db.data(idx, :);
 
-%# Reorder to find original row indices
-%#[a row_idx] = sort(idx);
-normalorder = 1:length(idx);
-
 %# Initialize
 num_rows = length(unique_idx);
 page_rows = floor(size(sorted, 1) / num_rows);
 data = repmat(NaN, [page_rows, (length(cols) + 1), num_rows]);
 
-%# For each unique row to next, find correlation coefficients of col1, col2
+%# For each unique row to next, create a new page
 for row_num=1:num_rows
   if row_num < num_rows
     rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
@@ -61,10 +55,8 @@ for row_num=1:num_rows
     rows = unique_idx(row_num):size(sorted, 1);
   end
 
-  %# (row_num:(row_num + page_rows - 1))'
   %# Fill page
-  data(:, :, row_num) = [sorted(rows, cols), ...
-			 idx(rows) ];
+  data(:, :, row_num) = [sorted(rows, cols), idx(rows) ];
 end
 
 %# Create the 3D database
