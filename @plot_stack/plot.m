@@ -148,7 +148,11 @@ minheight = 0.01;
 
 %# Lay them out
 for plot_num=1:num_plots
-  one_plot = a_plot.plots{plot_num};
+  if iscell(a_plot.plots)
+    one_plot = a_plot.plots{plot_num};
+  else
+    one_plot = a_plot.plots(plot_num);
+  end
   its_props = one_plot.props;
   %# Check if y-ticks only for the leftmost plot
   if isfield(a_plot.props, 'yTicksPos') && ...
