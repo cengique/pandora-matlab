@@ -38,6 +38,9 @@ function obj = ...
 %   cip_trace		- Load a cip_trace corresponding to fileset entry.
 %   cip_trace_profile	- Load a cip_trace_profile corresponding to fileset entry.
 %
+%    Example:
+%	>> fileset = params_cip_trace_fileset('/home/abc/data/*.bin', 1e-4, 1e-3, 20001, 10000, 'sim dataset gpsc0501', struct('trace_time_start', 10001, 'type', 'sim', 'scale_y', 1e3))
+%
 % Additional methods:
 %	See methods('params_cip_trace_fileset'), and 
 %	    methods('params_tests_fileset').
