@@ -42,6 +42,7 @@ if isempty(s.trace.data)
   results.MinTime = NaN;
   results.BaseWidth = NaN;
   results.HalfWidth = NaN;
+  a_plot = plot_simple;
   return;
 end
 
@@ -50,9 +51,9 @@ end
 [min_val, min_idx] = calcMinVm(s, max_idx);
 [init_val, init_idx, rise_time, amplitude, ...
  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx, ...
- peak_mag, peak_idx, a_plot]=calcInitVm(s, max_idx, min_idx, plotit);
+ peak_mag, peak_idx, a_plot] = calcInitVm(s, max_idx, min_idx, plotit);
 [base_width, half_width, half_Vm, fall_time] = ...
-      calcWidthFall(s, peak_idx, peak_mag, min_idx, init_idx);
+      calcWidthFall(s, peak_idx, peak_mag, min_idx, init_idx, init_val);
 
 %# convert all to ms/mV
 ms_factor = 1e3 * s.trace.dt;
