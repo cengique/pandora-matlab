@@ -1,0 +1,11 @@
+
+CVS repository: ~cengiz/.rep/djlab_matlab
+
+See ChangeLog for details of evolution.
+
+Version history:
+--------------------
+
+V0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
+	spike_shape, period, and cip_trace.
+
