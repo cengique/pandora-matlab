@@ -11,7 +11,7 @@ function obj = trace_profile(varargin)
 %	a_spike_shape: A spike_shape object for spikes.
 %	results: A structure containing test results.
 %	id: Identification string.
-%	props: A structure any needed properties.
+%	props: A structure with any optional properties.
 %
 % Usage 2:
 % obj = trace_profile(data_src, dt, dy, id, props)

@@ -18,7 +18,8 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 %	data: The 3-d vector of rows, columns, and pages.
 %	col_names: Colun names of the database.
 %	id: An identifying string.
-%	props: A structure any optional properties.
+%	props: A structure with any optional properties.
+%		invarName: Name of the invariant parameter for this db.
 %		
 %   Returns a structure object with the following fields:
 %	tests_db, page_idx, props.

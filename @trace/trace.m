@@ -14,7 +14,7 @@ function obj = trace(data_src, dt, dy, id, props)
 %	dt: Time resolution [s]
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: Identification string
-%	props: A structure any needed properties, such as:
+%	props: A structure with any optional properties.
 %		scale_y: y-axis scale to be applied to loaded data.
 %		trace_time_start: Samples in the beginning to discard [dt]
 %		baseline: Resting potential.
