@@ -38,6 +38,7 @@ avg_distance = mean(dist_db(:, 'Distance'));
 max_distance = max(dist_db(:, 'Distance').data);
 
 %# Take all criterion columns and parameter columns from original db
+%# TODO: that may need to be instructed to joinOriginal from here.
 a_ranked_db = joinOriginal(dist_db);
 
 %# a=displayRow(a_ranked_db, 1:10)
