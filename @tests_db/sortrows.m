@@ -52,12 +52,15 @@ if ~ isempty(row_names)
   row_names = row_names(idx);
 end
 
+sorted = set(db, 'data', data);
+sorted = set(sorted, 'row_idx', makeIdx(row_names));
+
 %# Create a new db (or maybe only set fields so that the object stays the same?)
-if isa(db, 'tests_3D_db')
-  sorted = tests_3D_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
-		       fieldnames(get(db, 'page_idx')), ...
-		       get(db, 'id'), get(db, 'props'));
-else
-  sorted = tests_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
-		    get(db, 'id'), get(db, 'props'));  
-end
+%#if isa(db, 'tests_3D_db')
+%#  sorted = tests_3D_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
+%#		       fieldnames(get(db, 'page_idx')), ...
+%#		       get(db, 'id'), get(db, 'props'));
+%#else
+%#  sorted = tests_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
+%#		    get(db, 'id'), get(db, 'props'));  
+%#end
