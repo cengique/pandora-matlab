@@ -11,3 +11,5 @@ v0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
 
 v0_2b: Cengiz Gunay, 2004/09/16. Beta version of fileset and db classes.
 
+v0_4b: Cengiz Gunay, 2005/01/11. Beta version with pulse spike
+	characteristics and database matching tools.
