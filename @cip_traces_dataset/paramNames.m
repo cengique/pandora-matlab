@@ -20,4 +20,4 @@ function param_names = paramNames(fileset)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/06
 
 %# CIP magnitude in pA
-param_names = { 'pAcip' };
+param_names = { 'NeuronId', 'pAcip' };

@@ -23,4 +23,4 @@ function params_row = getParams(dataset, index)
 %#params_row = item.pulse_mags_pA(dataset.mags);
 
 %# Only value to return
-params_row = dataset.cipmag;
+params_row = [index dataset.cipmag];
