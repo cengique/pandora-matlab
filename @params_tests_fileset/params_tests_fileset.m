@@ -7,7 +7,8 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %
 % Description:
-%   This class is used to generate params_tests_db objects and keep 
+%   This is a subclass of params_tests_dataset. This class is used to generate 
+% params_tests_db objects and keep 
 % a connection to the raw data files. This class only keeps names of
 % files and loads raw data files whenever it's requested. A database
 % object can easily be generated using the convertion methods.
@@ -21,9 +22,8 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: An identification string
 %	props: A structure with any optional properties.
-%		channel: Channel to read from in data files (default = 1).
-%		trace_time_start: Starting of trace in file (default = 1).
-%		type: type of file (default = '')
+%		num_params: Number of parameters that appear in filenames.
+%		(See parent classes and cip_trace object for more props)
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,

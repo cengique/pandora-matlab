@@ -24,5 +24,11 @@ fullname = fullfile(dataset.path, filename);
 
 names_vals = parseGenesisFilename(fullname);
 
+if isfield(dataset.props, 'num_params')
+  num_params = dataset.props.num_params;
+else
+  num_params = size(names_vals, 1);
+end
+
 %# Convert params to row vector
-params_row(1:size(names_vals, 1)) = [ names_vals{:, 2} ];
+params_row(1:num_params) = [ names_vals{1:num_params, 2} ];
