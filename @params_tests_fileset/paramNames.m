@@ -24,5 +24,11 @@ fullname = fullfile(fileset.path, filename);
 
 names_vals = parseGenesisFilename(fullname);
 
+if isfield(dataset.props, 'num_params')
+  num_params = dataset.props.num_params;
+else
+  num_params = size(names_vals, 1);
+end
+
 %# Convert param names to cell array
-param_names = { names_vals{:, 1} };
+param_names = { names_vals{1:num_params, 1} };
