@@ -47,6 +47,7 @@ else
   skipCoefs = 1;
 end
 
+%# Obsolete, need to remove NaNs
 if isfield(props, 'excludeNaNs')
   excludeNaNs = props.excludeNaNs;
 else
@@ -61,30 +62,25 @@ num_pages = size(db.data, 3);
 pages=(1:num_pages)';
 coefs = repmat(NaN, [num_pages, length(cols), 3]);
 
+
 %# Only if there are multiple observations
 if size(db.data, 1) > 1
   %# One coefficient per page of observations
   for page_num=pages'
 
+    col1nonnans = ~isnan(db.data(:, col1, page_num));
+
     %# Do each column separately
     for col_num=1:length(cols)
-      data = db.data(:, [col1 cols(col_num)], page_num);
+      data = db.data(col1nonnans, [col1 cols(col_num)], page_num);
 
-      if excludeNaNs
-	%# Remove all rows with any NaNs
-	data = data(~any(isnan(data), 2), :);
+      %# Remove rows with NaNs on column
+      data = data(isnan(data(:, 2)), :);
 
-	%# Check if any rows left
-	if size(data, 1) == 0
-	  warning('tests_db:anyNaNs', 'No NaN-free rows found.');
-	  continue;
-	end
-
-	%# Skip also if only one row left
-	if size(data, 1) == 1
-	  warning('tests_db:coefs_one_row', 'One row not enough.');
-	  continue;
-	end
+      %# Check if any rows left
+      if size(data, 1) < 2
+	%#warning('tests_db:anyNaNs', 'No NaN-free rows found.');
+	continue;
       end
 
       [coef_data, p, rlo, rup] = corrcoef(data);
