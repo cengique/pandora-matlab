@@ -1,5 +1,6 @@
 TODO
 --------------------
+- fix varboxplot to return correct y-axis limits
 - objects don't take more space when they're used again, has implications on design:
 	- put link to dataset from db
 	- put links to previous db's for a chain of operations
