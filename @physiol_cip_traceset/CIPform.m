@@ -2,8 +2,7 @@ function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
 	warning off MATLAB:divideByZero;
 	warning off MATLAB:polyfit:PolyNotUnique;
 
-
-	sprintf('data file: %s, trace number: %d', traceset.data_src, trace_index)
+	%#sprintf('data file: %s, trace number: %d', traceset.data_src, trace_index)
 
 	% Create list of all available cip step amplitudes.
 	cipList = [-200,-150,[-100:10:100],150,200,250,300,400,500];
@@ -11,8 +10,9 @@ function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
 	nSD = 10;	% number of standard deviations for transition threshold
 	hfig = 1;	% figure number on which to plot
 	
-	current = 100*loadtraces(traceset.data_src, ...
-		num2str(getItem(traceset, trace_index)), traceset.ichan)/traceset.igain;
+	current = 100 * loadtraces(traceset.data_src, ...
+				   num2str(getItem(traceset, trace_index)), ...
+				   traceset.ichan, 1) / traceset.igain;
 		% Multiplication by 1000 converts current from nA to pA.
 	windowsize = 100;	% size of sliding window for moving average.
 	if length(current) < 3*windowsize

@@ -95,8 +95,8 @@ if nargin == 0 %# Called with no params
        end
 
      elseif strcmp(ext, '.all') %# PCDX file
-       disp('Loading PCDX trace');
-       data = loadtraces(data_src, props.traces, props.channel);
+       %#disp('Loading PCDX trace');
+       data = loadtraces(data_src, props.traces, props.channel, 1);
        
      elseif strcmp(ext, '.mat') %# MatLab file
        s = load(data_src);

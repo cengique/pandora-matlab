@@ -46,7 +46,7 @@ tests = repmat(NaN, rows, length(test_names));
 %# Batch process all items
 start_time = cputime;
 
-print(java.lang.System.out, 'Reading: ');
+println(java.lang.System.out, 'Reading fileset: ');
 
 rows = 1;
 for item_num=1:num_items
@@ -57,10 +57,10 @@ for item_num=1:num_items
 
   item = getItem(obj, item_num);
 
-  disp(get(item , 'id'));
+  disp(['Loading traceset ' get(item , 'id') ' on row ' num2str(item_num) ]);
 
   [item_params, tmp_param_names, item_tests, tmp_test_names] = readDBItems(item);
-  num_traces = length(get(item, 'list'))
+  num_traces = length(get(item, 'list'));
 
   %# Read the neuron name from the id field of traceset and translate to NeuronId
   neuron_id = obj.neuron_idx.(get(item, 'id'));
