@@ -45,16 +45,17 @@ db_size = size(data);
 s = repmat(NaN, [1 db_size(2:end)]);
 
 %# Do a loop over EACH other dimension (!)
-s = recstd(data, length(db_size));
+s = recstd(data, length(db_size), flag);
 
 if dim ~= 1
   s = ipermute(s, order);
 end
 
 %# Recursive std needed for stripping NaNs in each dimension
-function s = recstd(data, dim)
+function s = recstd(data, dim, flag)
   if dim == 1
-    s = std(data(~isnan(data(:))), flag, 1);
+    sdata = data(~isnan(data(:)));
+    s = std(sdata, flag, 1);
     if size(s, 2) == 0
       %# If a divide by zero error occured, 
       %# give it NaN value instead of an empty matrix.
@@ -65,6 +66,6 @@ function s = recstd(data, dim)
       %# Otherwise recurse
       [dims{1:(dim-1)}] = deal(':');
       dims{dim} = num;
-      s(dims{:}) = recstd(data(dims{:}), dim - 1);
+      s(dims{:}) = recstd(data(dims{:}), dim - 1, flag);
     end
   end
