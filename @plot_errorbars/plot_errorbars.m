@@ -2,7 +2,7 @@ function a_plot = plot_errorbars(mid_vals, lo_vals, hi_vals, labels, ...
 				title, axis_limits, props)
 
 % plot_errorbars - Special plot for plotting distributions of separate
-%		variables.
+%		variables. Each variable is plotted in its own axis.
 %
 % Usage:
 % a_plot = plot_errorbars(labels, mid_vals, lo_vals, hi_vals, labels, 
@@ -44,7 +44,7 @@ if nargin == 0 %# Called with no params
  else
    if ~ exist('props')
      props.rotateXLabel = 45; %# Degrees
-     props.noXTickLabels = 1;
+     %#props.XTickLabel = 1;
    end
 
    if ~ exist('axis_limits')

@@ -1,10 +1,10 @@
-function a_pt_profile = params_tests_profile(a_db, props)
+function a_pt_profile = getProfile(a_db, props)
 
-% params_tests_profile - Create a profile object from a params_tests_db by collecting
+% getProfile - Create a profile object from a params_tests_db by collecting
 %			 statistics.
 %
 % Usage:
-% a_pt_profile = params_tests_profile(a_db, props)
+% a_pt_profile = getProfile(a_db, props)
 %
 %   Parameters:
 %	a_db: A params_tests_db object.
@@ -81,7 +81,7 @@ disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 %# Create the p_coefs
 start_time = cputime;
 disp('Calculating invariant correlation coefficients of all tests with each parameter.');
-results.p_coefs = paramsTestsCoefs(a_db, results.p_t3ds);
+results.p_coefs = paramsCoefs(a_db, results.p_t3ds);
 disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
 %# Create the pt_coefs_hists
@@ -101,5 +101,5 @@ disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 disp(sprintf('Total time took %.2f seconds.', cputime - very_start_time));
 
 %# Create the object
-a_pt_profile = params_tests_profile(a_db, results, props);
+a_pt_profile = params_tests_profile(results, a_db, props);
 

@@ -23,11 +23,13 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %		rotateXLabel: Rotates the X-axis label for smaller width.
 %		rotateYLabel: Rotates the Y-axis label for smaller width.
 %		fontSize: Set the fontsize.
-%		noXTickLabels: No X-axis tick labels.
-%		noYTickLabels: No Y-axis tick labels.
+%		XTick: Points for X-axis ticks.
+%		XTickLabel: X-axis tick labels.
+%		YTickLabel: Y-axis tick labels.
 %		noXLabel: No X-axis label.
 %		noYLabel: No Y-axis label.
 %		noTitle: No title.
+%		grid: Display dashed grid in background.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props

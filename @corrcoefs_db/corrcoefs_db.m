@@ -46,7 +46,7 @@ else
   end
 
   %# Add a column for bin numbers
-  test_results = [coefs, pages];
+  test_results = cat(2, coefs, pages);
   col_names = { coef_names{:}, 'PageIndex' };
   page_names = { 'Coefs', 'Rlo', 'Rup' };
 

@@ -3,7 +3,7 @@ function a_profile = loadFileProfile(fileset, file_index)
 % loadFileProfile - Loads a profile object from a raw data file in the fileset.
 %
 % Usage:
-% [params_row, tests_row] = loadFileProfile(fileset, file_index)
+% a_profile = loadFileProfile(fileset, file_index)
 %
 % Description:
 %   Subclasses should overload this function to load the specific profile

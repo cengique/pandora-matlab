@@ -97,9 +97,6 @@ end
 nanrows = all(isnan(coefs(:,:,1)), 2);
 coefs( nanrows, :, : ) = [];
 pages( nanrows, : ) = [];
-size(nanrows)
-size(coefs)
-size(pages)
 
 %# Triplicate pages
 pages(:, :, 2) = pages(:, :, 1);

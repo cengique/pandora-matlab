@@ -49,12 +49,20 @@ end
 
 %# Z-axis?
 
-if isfield(a_plot.props, 'noXTickLabels') && a_plot.props.noXTickLabels == 1
-  set(gca, 'XTickLabel', {});
+if isfield(a_plot.props, 'XTickLabel')
+  set(gca, 'XTickLabel', a_plot.props.XTickLabel);
 end
 
-if isfield(a_plot.props, 'noYTickLabels') && a_plot.props.noYTickLabels == 1
-  set(gca, 'YTickLabel', {});
+if isfield(a_plot.props, 'XTick')
+  set(gca, 'XTick', a_plot.props.XTick);
+end
+
+if isfield(a_plot.props, 'YTickLabel')
+  set(gca, 'YTickLabel', a_plot.props.YTickLabel);
+end
+
+if isfield(a_plot.props, 'grid')
+  grid;
 end
 
 %# Only put legend when there is more than one trace

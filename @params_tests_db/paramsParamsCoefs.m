@@ -46,6 +46,6 @@ for param_num=1:num_params
     all_test_cols = [];
     all_test_cols((num_params + 1):size(j2_db, 2)) = true(1);
     pp_coefs{param_num, cparam_num} = ...
-	corrCoefs(j2_db, param_num, find(all_test_cols));
+	corrCoefs(j2_db, param_num, find(all_test_cols), struct('skipCoefs', 0));
   end
 end

@@ -1,9 +1,9 @@
-function a_plot = plot_stack(plots, axis_limits, orient, title, props)
+function a_plot = plot_stack(plots, axis_limits, orientation, title, props)
 
 % plot_stack - A horizontal or vertical stack of plots.
 %
 % Usage:
-% a_plot = plot_stack(plots, axis_limits, orient, title, props)
+% a_plot = plot_stack(plots, axis_limits, orientation, title, props)
 %
 % Description:
 %   Subclass of plot_abstract. Contains other plot_abstract objects or
@@ -12,7 +12,7 @@ function a_plot = plot_stack(plots, axis_limits, orient, title, props)
 %   Parameters:
 %	plots: Cell array of plot_abstract or subclass objects.
 %	axis_limits: If given, all plots contained will have these axis limits.
-%	orient: Stack orientation 'x' for horizontal, 'y' for vertical, etc.
+%	orientation: Stack orientation 'x' for horizontal, 'y' for vertical, etc.
 %	title: Title to go on top of the stack
 %	props: A structure with any optional properties.
 %		yLabelsPos: 'left' means only put y-axis label to leftmost plot.
@@ -50,8 +50,8 @@ if nargin == 0 %# Called with no params
      props = struct([]);
    end
 
-   if ~ exist('orient')
-     orient = 'y';
+   if ~ exist('orientation')
+     orientation = 'y';
    end
 
    if ~ exist('axis_limits')
@@ -62,7 +62,7 @@ if nargin == 0 %# Called with no params
 
    a_plot.plots = plots;
    a_plot.axis_limits = axis_limits;
-   a_plot.orient = orient;
+   a_plot.orient = orientation;
    a_plot.props = props;
 
    %# Initialize with empty plot_abstract instance

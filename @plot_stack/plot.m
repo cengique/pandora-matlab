@@ -80,7 +80,7 @@ if isfield(a_plot.props, 'xTicksPos')
 	error(['xTicksPos=' a_plot.props.xTicksPos ' not recognized.' ]);
     end
 else
-  if isfield(a_plot.props, 'noXTickLabels') && a_plot.props.noXTickLabels == 0
+  if isfield(a_plot.props, 'XTickLabel') && isempty(a_plot.props.XTickLabel)
     tickheight = 0;
   else
     tickheight = decosize / 2;
@@ -118,7 +118,7 @@ if isfield(a_plot.props, 'yTicksPos')
 	error(['yTicksPos=' a_plot.props.yTicksPos ' not recognized.' ]);
     end
 else
-  if isfield(a_plot.props, 'noYTickLabels') && a_plot.props.noYTickLabels == 0
+  if isfield(a_plot.props, 'YTickLabel') && isempty(a_plot.props.YTickLabel)
     tickwidth = 0;
   else
     tickwidth = decosize
@@ -154,9 +154,9 @@ for plot_num=1:num_plots
   if isfield(a_plot.props, 'yTicksPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.yTicksPos, 'left')) || ...
 	 strcmp(a_plot.props.yTicksPos, 'none'))
-    its_props(1).noYTickLabels = 1;
+    its_props(1).YTickLabel = {};
   else
-    its_props(1).noYTickLabels = 0;
+    %#its_props(1).YTickLabel = 1; is this required?    
   end
   if isfield(a_plot.props, 'yLabelsPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.yLabelsPos, 'left')) || ...
@@ -168,9 +168,9 @@ for plot_num=1:num_plots
   if isfield(a_plot.props, 'xTicksPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom')) || ...
 	 strcmp(a_plot.props.xTicksPos, 'none'))
-    its_props(1).noXTickLabels = 1;
+    its_props(1).XTickLabel = {};
   else
-    its_props(1).noXTickLabels = 0;
+    %#its_props(1).XTickLabel = 1;
   end
   if isfield(a_plot.props, 'xLabelsPos') && ...
 	((plot_num > 1 && strcmp(a_plot.props.xLabelsPos, 'bottom')) || ...

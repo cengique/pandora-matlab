@@ -9,7 +9,12 @@ disp([ num2str(size(t.data, 1)) ' rows in database with ' ...
       num2str(size(t.data, 2)) ' columns, and ' ...
       num2str(size(t.data, 3)) ' pages.']);
 disp('Column names:');
-disp(fieldnames(t.col_idx));
+colnames = fieldnames(t.col_idx);
+colnums = num2cell(1:length(colnames));
+format long
+numnamecell = { colnums{:}; colnames{:} };
+disp(numnamecell');
+format short
 row_names = fieldnames(t.row_idx);
 if ~ isempty(row_names)
   disp('Row names:');

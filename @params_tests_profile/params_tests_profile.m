@@ -1,9 +1,9 @@
-function a_pt_profile = params_tests_profile(a_db, results, props)
+function a_pt_profile = params_tests_profile(results, a_db, props)
 
 % params_tests_profile - Holds the results profile from a params_tests_db.
 %
 % Usage:
-% a_pt_profile = params_tests_profile(a_db, results, props)
+% a_pt_profile = params_tests_profile(results, a_db, props)
 %
 %   Parameters:
 %	a_db: A params_tests_db object.
@@ -36,8 +36,8 @@ if nargin == 0 %# Called with no params, creates empty object
   a_pt_profile.db = params_tests_db;
   a_pt_profile.props = struct([]);
   a_pt_profile = class(a_pt_profile, 'params_tests_profile', results_profile);
-elseif isa(a_db, 'params_tests_profile') %# copy constructor?
-  a_pt_profile = a_db;
+elseif isa(results, 'params_tests_profile') %# copy constructor?
+  a_pt_profile = results;
 else 
   if ~ exist('props')
     props = struct([]);
