@@ -3,7 +3,7 @@ function tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
 % rankVsAllDB - Generates a ranking DBs by comparing rows of this db with all rows of given DB.
 %
 % Usage:
-% [ranked_dbs, tex_string] = rankVsAllDB(a_db, to_db)
+% tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
 %
 % Description:
 %   Distance is each measure difference divided by the STD in to_db, squared and
@@ -28,9 +28,9 @@ function tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
 
 tex_string = '';
 
-%# Generate a tests list without the ItemIndex column
+%# Generate a tests list without the ItemIndex column (why??)
 tests_wo_index(1:dbsize(to_db, 2)) = true(1);
-tests_wo_index(tests2cols(to_db, {'ItemIndex'})) = false(1);
+%#tests_wo_index(tests2cols(to_db, {'ItemIndex'})) = false(1);
 
 %# List all target db rows in a table
 for row_num=1:10:dbsize(to_db, 1)
