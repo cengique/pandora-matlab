@@ -8,11 +8,8 @@ else
   switch index.type
     case '()'
       b = onlyRowsTests(a, index.subs{:});
-      %# Delegate to base class
-      %#b = a.tests_db(index.subs{:});
     case '.'
       b = get(a, index.subs); 
-      %# eval(['a.' index.subs]);
     case '{}'
       b = a{index.subs{:}};
   end

@@ -4,5 +4,5 @@ function b = get(a, attr)
 try
   b = getfield(struct(a), attr);
 catch
-  b = getfield(struct(a.params_tests_datase), attr);
+  b = getfield(struct(a.params_tests_dataset), attr);
 end

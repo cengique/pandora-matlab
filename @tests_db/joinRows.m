@@ -1,15 +1,16 @@
-function a_db = join(db, tests, with_db, w_tests)
+function a_db = joinRows(db, tests, with_db, w_tests)
 
-% join - Joins the rows of the given db with rows of with_db with matching
+% joinRows - Joins the rows of the given db with rows of with_db with matching
 %  	RowIndex values.
 %
 % Usage:
-% a_db = join(db, tests, with_db, w_tests)
+% a_db = joinRows(db, tests, with_db, w_tests)
 %
 % Description:
 %   Takes the desired columns in with_db with rows having a 
 % row index and joins them next to dedired columns from the current db. 
-% Assumes each row index only appears once in with_db.
+% Assumes each row index only appears once in with_db. The created
+% db preserves the ordering of with_db.
 %
 %   Parameters:
 %	db: A param_tests_db object.

@@ -48,13 +48,11 @@ function obj = params_tests_dataset(list, dt, dy, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/02
 
 if nargin == 0 %# Called with no params
+  obj.list = [];
   obj.dt=1;
   obj.dy=1;
   obj.id = '';
   obj.props = struct([]);
-  obj.path='';
-  obj.list = {};
-  obj.dy='';
   obj = class(obj, 'params_tests_dataset');
 elseif isa(list, 'params_tests_dataset') %# copy constructor?
   obj = list;

@@ -14,7 +14,7 @@ function p_hists = paramsHists(a_db)
 %	a_db: A tests_db object.
 %		
 %   Returns:
-%	p_hists: A cell array of histograms for each parameter in a_db.
+%	p_hists: An array of histograms for each parameter in a_db.
 %
 % See also: params_tests_profile
 %
@@ -24,11 +24,11 @@ function p_hists = paramsHists(a_db)
 num_params = a_db.num_params;
 num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
-p_hists = cell(1, num_params);
+[p_hists(1:num_params)] = deal(histogram_db);
 for param_num=1:num_params
   %# First find all unique values of the parameter
   param_col = sortrows(get(onlyRowsTests(a_db, ':', param_num), 'data'));
-  param_vals = sortedUniqueValues(param_col)
+  param_vals = sortedUniqueValues(param_col);
   %# Give the param_vals as bin centers
-  p_hists{param_num} = histogram(a_db, param_num, param_vals');
+  p_hists(param_num) = histogram(a_db, param_num, param_vals');
 end

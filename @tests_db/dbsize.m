@@ -19,7 +19,7 @@ function s = dbsize(db, dim)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 if exist('dim')
-  s = size(db, dim);
+  s = size(db.data, dim);
 else
-  s = size(db);
+  s = size(db.data);
 end

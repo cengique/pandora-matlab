@@ -24,6 +24,12 @@ function b = subsref(a,index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
+%# If a is an array, use built-in methods
+if length(a) > 1
+  b = builtin('subsref', a, index);
+  return;
+end
+
 if size(index, 2) > 1
   first = subsref(a, index(1));
   %# recursive
@@ -38,7 +44,7 @@ else
       elseif length(index.subs) == 3 %# Rows, cols, and pages.
 	b = onlyRowsTests(a, index.subs{1:3});
       else
-	error('Only two indices are supported: db(rows, cols)');
+	error('Only up to three indices are supported: db(rows, cols, pages)');
       end
     case '.'
       b = get(a, index.subs); 

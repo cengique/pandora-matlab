@@ -37,7 +37,7 @@ height = layout_axis(4);
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-scale_down = 0.85;
+scale_down = .85;
 border = 1;
 
 %# Find the width of a regular y-axis label (DOESN'T WORK!)
@@ -90,8 +90,8 @@ end
 if isfield(a_plot.props, 'yLabelsPos') 
   switch a_plot.props.yLabelsPos
       case 'left'
-	left_side = left_side + decosize;
-	width = width - decosize;
+	left_side = left_side + decosize / 2;
+	width = width - decosize / 2;
 	labelwidth = 0;
       case 'none'
 	labelwidth = 0;
@@ -109,8 +109,8 @@ end
 if isfield(a_plot.props, 'yTicksPos') 
   switch a_plot.props.yTicksPos
       case 'left'
-	left_side = left_side + decosize;
-	width = width - decosize;
+	left_side = left_side + decosize / 2;
+	width = width - decosize / 2;
 	tickwidth = 0;
       case 'none'
 	tickwidth = 0;
@@ -121,7 +121,7 @@ else
   if isfield(a_plot.props, 'YTickLabel') && isempty(a_plot.props.YTickLabel)
     tickwidth = 0;
   else
-    tickwidth = decosize;
+    tickwidth = decosize / 2;
   end
 end
 

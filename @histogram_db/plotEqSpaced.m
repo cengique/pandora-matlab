@@ -1,9 +1,9 @@
-function a_plot = plot_abstract(a_hist_db, command, props)
+function a_plot = plotEqSpaced(a_hist_db, command, props)
 
-% plot_abstract - Generates a plottable description of this object.
+% plotEqSpaced - Generates a plottable description of this object.
 %
 % Usage:
-% a_plot = plot_abstract(a_hist_db, command)
+% a_plot = plotEqSpaced(a_hist_db, command)
 %
 % Description:
 %   Generates a plot_simple object from this histogram.
@@ -29,13 +29,15 @@ if ~ exist('props')
   props = struct([]);
 end
 
+
+
 %# If input is an array, then return array of plots
 num_dbs = length(a_hist_db);
 if num_dbs > 1 
   %# Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_simple);
   for plot_num = 1:num_dbs
-    a_plot(plot_num) = plot_abstract(a_hist_db(plot_num), command, props);
+    a_plot(plot_num) = plotEqSpaced(a_hist_db(plot_num), command, props);
   end
   return;
 end
@@ -44,6 +46,8 @@ end
 colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
+
+props(1).XTickLabel = data(:, 1);
 
 %# if the plot is rotated switch the axis labels
 if strcmp(command, 'barh')
@@ -55,7 +59,7 @@ else
 end
 
 %# Make a simple plot object drawing vertical bars
-a_plot = plot_simple(data(:, 1), data(:, 2), ...
+a_plot = plot_simple(1:dbsize(a_hist_db, 1), data(:, 2), ...
 		     [ 'Histogram of ' get(a_hist_db, 'id') ], ...
 		     x_label, y_label, ...
 		     colnames{1}, command, props);

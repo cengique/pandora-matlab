@@ -4,13 +4,10 @@ function obj = params_tests_db(params, param_names, ...
 % params_tests_db - A generic database of test results varying with 
 %		parameter values, organized in a matrix format.
 %
-% Usage:
+% Usage 1:
 % obj = params_tests_db(params, param_names, test_results, 
 %			test_names, id, props)
 %
-% Description:
-%   This is a subclass of tests_db. Defines all operations on this
-% structure so that subclasses can use them.
 %
 %   Parameters:
 %	params, test_results: Matrices that contain columns associated with
@@ -20,7 +17,19 @@ function obj = params_tests_db(params, param_names, ...
 %	id: An identifying string.
 %	props: A structure with any optional properties.
 %		
-%   Returns a structure object with the following fields:
+% Usage 2:
+% obj = params_tests_db(num_params, a_tests_db, props)
+%
+%   Parameters:
+%	num_params: Number of parameters.
+%	a_tests_db: A tests_db upon which to build the params_tests_db.
+%	props: A structure with any optional properties.
+%
+% Description:
+%   This is a subclass of tests_db. Defines all operations on this
+% structure so that subclasses can use them.
+%
+% Returns a structure object with the following fields:
 %	tests_db
 %	num_params: Number of variable parameters in simulations.
 %	props.
@@ -45,31 +54,41 @@ if nargin == 0 %# Called with no params
   obj = class(obj, 'params_tests_db', tests_db);
 elseif isa(params, 'params_tests_db') %# copy constructor?
   obj = params;
+elseif isa(param_names, 'tests_db')
+  %# Usage 2
+  obj.num_params = params;
+  if exist('test_results')
+    props = test_results;
+  else
+    props = struct([]);
+  end
+  obj.props = props;
+  obj = class(obj, 'params_tests_db', param_names);
 else
+  %# Usage 1
+  if ~ exist('props')
+    props = struct([]);
+  end
 
-   if ~ exist('props')
-     props = struct([]);
-   end
-
-   %# Only allow numeric arrays as params & test_results
-   %# TODO: add cell arrays?
-   if ~ isnumeric(test_results) || ~ isnumeric(params)
-     error('Only numeric arrays allowed as params or test_results.');
-   end
-
-   if (size(test_results, 1) > 0 && ...
-       size(test_results, 2) ~= length(test_names)) || ...
-	 (size(params, 1) > 0 && ...
-       size(params, 2) ~= length(param_names))
-     error(['Number of columns in params or test_results ', ...
-	    'and items in param_names or test_names must match.']);
-   end
-
-   data = [params, test_results];
-   col_names = [param_names, test_names];
-
-   obj.num_params = length(param_names);
-   obj.props = props;
-   obj = class(obj, 'params_tests_db', tests_db(data, col_names, {}, id, props));
+  %# Only allow numeric arrays as params & test_results
+  %# TODO: add cell arrays?
+  if ~ isnumeric(test_results) || ~ isnumeric(params)
+    error('Only numeric arrays allowed as params or test_results.');
+  end
+  
+  if (size(test_results, 1) > 0 && ...
+      size(test_results, 2) ~= length(test_names)) || ...
+	(size(params, 1) > 0 && ...
+	 size(params, 2) ~= length(param_names))
+    error(['Number of columns in params or test_results ', ...
+	   'and items in param_names or test_names must match.']);
+  end
+  
+  data = [params, test_results];
+  col_names = [param_names, test_names];
+  
+  obj.num_params = length(param_names);
+  obj.props = props;
+  obj = class(obj, 'params_tests_db', tests_db(data, col_names, {}, id, props));
 end
 

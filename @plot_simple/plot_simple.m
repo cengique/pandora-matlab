@@ -4,7 +4,8 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 % plot_simple - Abstract description of a single plot.
 %
 % Usage:
-% a_plot = plot_simple(data_x, data_y, title, label_x, label_y, legend, command)
+% a_plot = plot_simple(data_x, data_y, title, 
+%		       label_x, label_y, legend, command, props)
 %
 % Description:
 %   Subclass of plot_abstract. The plot_abstract/plot command can be used to

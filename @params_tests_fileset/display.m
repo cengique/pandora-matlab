@@ -3,7 +3,11 @@ function s = display(t)
 % Generic object display method.
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 
-s = sprintf('%s', t.id);
-disp(t);
+disp(sprintf('%s, %s', class(t), get(t, 'id')));
 struct(t)
+
+disp(['Optional properties of ' class(t) ':']);
+struct(t.props)
+
+display(t.params_tests_dataset);
 

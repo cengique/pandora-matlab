@@ -1,5 +1,12 @@
 function b = subsref(a,index)
 % subsref - Defines generic indexing for objects.
+
+%# If a is an array, use built-in methods
+if length(a) > 1
+  b = builtin('subsref', a, index);
+  return;
+end
+
 if size(index, 2) > 1
   first = subsref(a, index(1));
   %# recursive

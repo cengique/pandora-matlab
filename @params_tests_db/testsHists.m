@@ -13,7 +13,7 @@ function t_hists = testsHists(a_db)
 %	a_db: A tests_db object.
 %		
 %   Returns:
-%	t_hists: A cell array of histograms for each test in a_db.
+%	t_hists: An array of histograms for each test in a_db.
 %
 % See also: params_tests_profile
 %
@@ -23,7 +23,7 @@ function t_hists = testsHists(a_db)
 num_params = a_db.num_params;
 num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
-t_hists = repmat(histogram_db, 1, num_tests);
+[t_hists(1:num_tests)] = deal(histogram_db);
 for test_num=1:num_tests
   t_hists(test_num) = histogram(a_db, num_params + test_num);
 end

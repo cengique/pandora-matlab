@@ -2,9 +2,12 @@ TODO
 --------------------
 - Make params_tests_profile to use arrays rather than cell arrays
 	+ had to remove size member function
-	- may need to modify subsref (!)
-	- then make plot methods operate on arrays and return plot arrays
-- update documentation on all constructors and README
+	+ may need to modify subsref [if an array is passed, then call built-in function]
+	+ then make plot methods operate on arrays and return plot arrays
+	- do for rest of profile elements
+- update documentation 
+	+ update README
+	- make first description no longer than one line on all constructors
 - Replace older plot methods with plotFigure(plot_abstract(.)) combinations
 	- what to do with Interpreter=None stuff?
 - high-order methods:
@@ -14,7 +17,8 @@ TODO
 	- ica
 	- clustering (use for finding multiple solutions?)
 		- use ANOVA for showing different distributions
-- new subclass for custom analysis
+		- need this for finding parameter clusters matching phys data?
++ new subclass for custom analysis
 	- add plotTestStats function to group things together [?]
 - matrix color plot
 - Make PDF with code design
