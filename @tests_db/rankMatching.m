@@ -13,7 +13,7 @@ function a_ranked_db = rankMatching(db, crit_db)
 %	crit_db: A tests_db object holding the match criterion tests and stds.
 %		
 %   Returns:
-%	a_ranked_db: A tests_db object.
+%	a_ranked_db: A ranked_db object.
 %
 % See also: matchingRow, tests_db
 %
@@ -27,8 +27,8 @@ else
   row_index = (1:dbsize(db, 1))';
 end
 
-%# Strip out the RowIndex column from criterion db
-crit_tests = setdiff(fieldnames(crit_db.col_idx), 'RowIndex');
+%# Strip out the RowIndex and ItemIndex columns from criterion db
+crit_tests = setdiff(fieldnames(crit_db.col_idx), {'RowIndex', 'ItemIndex'});
 
 %# Filter relevant columns
 reduced_db = db(':', crit_tests);
@@ -50,10 +50,13 @@ rep_weight = ones(dbsize(db, 1), 1) * second_row.data;
 wghd_data = diff_data ./ rep_weight;
 
 %# Sum of squares: distance measure
+%# Look for NaN values, skip them and count the non-NaN values to normalize the SS
 ss_data = wghd_data .* wghd_data;
-summed_data = sum(ss_data, 2);
+nans = isnan(ss_data);
+ss_data(nans) = 0; %# Replace NaNs with 0s
+summed_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and normalize by non-NaNs
 
-%# Ignore NaN rows
+%# Ignore NaN rows (there will be non NaN rows after the above)
 nans = isnan(summed_data);
 summed_data = summed_data(~nans);
 row_index = row_index(~nans);
