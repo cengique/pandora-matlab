@@ -40,6 +40,17 @@ end
 %# Create a new histogram_db with all the data
 col_name_cell = fieldnames(get(db, 'col_idx'));
 col_name = col_name_cell{col};
+props = struct([]);
+
+if isfield(db.props, 'invarName')
+  page_names = cell(1, num_pages);
+  for page_num=pages'
+    invar_value_db = onlyRowsTests(db, 1, db.props.invarName, page_num);
+    page_names{page_num} = [db.props.invarName ' = ' ...
+			    num2str(get(invar_value_db, 'data')) ];
+  end
+  props = struct('pageNames', {page_names})
+end
 
 a_histogram_db = histogram_db(col_name, data(:,1,:), data(:,2,:), ...
-			      [ col_name ' of ' get(db, 'id') ]);
+			      [ col_name ' of ' get(db, 'id') ], props);
