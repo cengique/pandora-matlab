@@ -73,7 +73,7 @@
 \end_preamble
 \language english
 \inputencoding auto
-\fontscheme default
+\fontscheme times
 \graphics none
 \paperfontsize default
 \spacing single 
@@ -111,7 +111,10 @@ status Collapsed
 "
 \end_inset 
 
-unay, 
+unay 
+\layout Date
+
+Revision 
 \begin_inset ERT
 status Collapsed
 
@@ -119,6 +122,16 @@ status Collapsed
 
 \backslash 
 CVSRevision{}
+\end_inset 
+
+, 
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+today
 \end_inset 
 
 
@@ -130,18 +143,149 @@ CVSRevision{}
 \end_inset 
 
 
+\layout Standard
+
+
+\begin_inset FloatList figure
+
+\end_inset 
+
+
 \layout Section
 
-Intro
+Introduction
 \layout Subsection
 
 What is this?
+\layout Standard
+
+A collection of 
+\noun on 
+Matlab
+\noun default 
+ classes and scripts for creating, analyzing and visualizing databases created
+ with data from electrophysiological neuron simulations and recordings.
 \layout Subsection
 
 Why did you do it?
+\layout Standard
+
+Motivations to create this software are:
+\layout Itemize
+
+Aid brute-force and other parameter search methods.
+\layout Itemize
+
+Analyze subsets of parameter spaces and special cases.
+\layout Itemize
+
+Evaluate robustness of model neurons.
+\layout Itemize
+
+Find functional roles of specific conductances.
 \layout Subsection
 
 How is it implemented?
+\layout Standard
+
+A custom database management system (DBMS) is written from scratch in the
+ 
+\noun on 
+Matlab
+\noun default 
+ language.
+ It uses functions from the statistics and signal processing toolboxes of
+ 
+\noun on 
+Matlab
+\noun default 
+, but they are not strictly necessary.
+ It does not use 
+\noun on 
+Matlab
+\noun default 
+'s database (DB) toolbox.
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+At the time of initial design, the author did not have access to the DB
+ toolbox.
+ Future versions may support the DB toolbox.
+\end_inset 
+
+
+\layout Subsection
+
+Finding your way around
+\layout Standard
+
+The source code uses 
+\noun on 
+Matlab
+\noun default 
+'s documentation system, therefore all methods and classes are documented.
+ To get help about all classes, issue the 
+\layout LyX-Code
+
+>> help djlab
+\layout Standard
+
+at the 
+\noun on 
+Matlab
+\noun default 
+ prompt.
+ This should give you an overview of available classes.
+ Then, to learn about a specific class, ask for the documentation for the
+ constructor method.
+ For instance, for the 
+\family typewriter 
+trace
+\family default 
+ class, issuing
+\layout LyX-Code
+
+>> help trace
+\layout Standard
+
+gives you the documentation for the constructor together with an overview
+ for the class.
+ Sometimes, if there are multiple methods with the same name under different
+ classes, you may get the wrong documentation.
+ In that case, you can specify the class from which to take the method by
+ prepending the class name to the method, such as in
+\layout LyX-Code
+
+>> help trace/spikes
+\layout Standard
+
+In order to learn all methods available for a class, you can use 
+\noun on 
+Matlab
+\noun default 
+'s 
+\family typewriter 
+methods
+\family default 
+ command.
+ For the 
+\family typewriter 
+trace
+\family default 
+ class, do
+\layout LyX-Code
+
+>> methods(trace)
+\layout Standard
+
+However, some documentation may be outdated or simply wrong.
+ Please report these to the author via e-mail to 
+\family typewriter 
+cgunay@emory.edu
+\family default 
+.
 \layout Section
 
 The Main Class Hierarchies
@@ -281,7 +425,7 @@ Plots provide easy visualization
 
 \begin_inset Float figure
 wide false
-collapsed false
+collapsed true
 
 \layout Standard
 \align center 
@@ -317,12 +461,841 @@ How to create a dataset for physiology data
 \layout Subsubsection
 
 How to create a dataset for simulation data
+\layout Standard
+
+First a dataset or a fileset must be created.
+ An example to load 
+\noun on 
+Genesis
+\noun default 
+ 
+\family typewriter 
+.bin
+\family default 
+ files would be
+\layout LyX-Code
+
+fileset = 
+\layout LyX-Code
+
+  params_cip_trace_fileset('*.bin', 1e-4, 1e-3, 
+\layout LyX-Code
+
+                           20001, 10000, 
+\layout LyX-Code
+
+                           'sim dataset gpsc0501', 
+\layout LyX-Code
+
+                           struct('trace_time_start', 10001, 
+\layout LyX-Code
+
+                                  'type', 'sim',  
+\layout LyX-Code
+
+                                  'scale_y', 1e3))
+\layout Standard
+
+The explanation of arguments can be obtained by issuing a 
+\layout LyX-Code
+
+>> help params_cip_trace_fileset
+\layout Standard
+
+in 
+\noun on 
+Matlab
+\noun default 
+.
+\begin_inset Note
+collapsed true
+
+\layout Standard
+
+Point to reference manual at the end of this manual.
+ You know, the automatically generated one.
+\end_inset 
+
+ In this example, all 
+\noun on 
+Genesis
+\noun default 
+ files were created with the same characteristics: 
+\begin_inset Formula $\mathrm{d}t=10^{-4}$
+\end_inset 
+
+, 
+\begin_inset Formula $\mathrm{d}V=10^{-3}$
+\end_inset 
+
+, pulse during samples 
+\begin_inset Formula $[20001,30000]$
+\end_inset 
+
+.
+ Optional properties (the last argument) indicates that the first 
+\begin_inset Formula $10000$
+\end_inset 
+
+ samples should be discarded and that the data should be prescaled to yield
+ the 
+\begin_inset Formula $\mathrm{d}V$
+\end_inset 
+
+ indicated.
+ 
+\layout Standard
+
+Once the fileset object is obtained, the database object can be created
+ by 
+\layout LyX-Code
+
+mydb = params_tests_db(fileset)
+\layout Standard
+
+which does the actual loading of files.
 \layout Subsection
 
-How to find contrained subsets in a database
+How to make a database by merging multiple rows from another database
+\layout Standard
+
+A simple example for making a new database out of multiple rows in an existing
+ database is combining multiple traces from the same neuron with different
+ current pulse injection (CIP) levels.
+ The initial database contains a row for each CIP level (one positive and
+ one negative) with redundant information, such as spontaneous period measuremen
+ts.
+ 
+\layout Standard
+
+The following statement uses the 
+\family typewriter 
+getDualCIPdb
+\family default 
+ method in 
+\family typewriter 
+params_tests_db
+\family default 
+ to do this conversion.
+\layout LyX-Code
+
+sdball = getDualCIPdb(dball, depol_tests, hyper_tests, '', 'Hyp100pA')
+\layout Standard
+
+Here, the cell array variables 
+\family typewriter 
+depol_tests
+\family default 
+ and 
+\family typewriter 
+hyper_tests
+\family default 
+ hold the names of measures to be selected from depolarizing CIP and hyperpolari
+zing CIP, respectively.
+ The last two arguments define the suffixes to be applied to distinguish
+ the measures from each CIP.
+ The original DB is 
+\layout LyX-Code
+
+>> dball
+\layout LyX-Code
+
+dball
+\layout LyX-Code
+
+params_tests_db, sim dataset gpsc0501
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    num_params: 10
+\layout LyX-Code
+
+         props: [0x0 struct]
+\layout LyX-Code
+
+      tests_db: [1x1 tests_db]
+\layout LyX-Code
+
+Optional properties of params_tests_db:
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+0x0 struct array with no fields.
+\layout LyX-Code
+
+tests_db, sim dataset gpsc0501
+\layout LyX-Code
+
+39366 rows in database with 62 columns, and 1 pages.
+\layout LyX-Code
+
+Column names:
+\layout LyX-Code
+
+    [ 1]    'NaF'                        
+\layout LyX-Code
+
+    [ 2]    'NaP'                        
+\layout LyX-Code
+
+    [ 3]    'Kv3'                        
+\layout LyX-Code
+
+    [ 4]    'Kv2'                        
+\layout LyX-Code
+
+    [ 5]    'Kv4f'                       
+\layout LyX-Code
+
+    [ 6]    'KCNQ'                       
+\layout LyX-Code
+
+    [ 7]    'SK'                         
+\layout LyX-Code
+
+    [ 8]    'CaHVA'                      
+\layout LyX-Code
+
+    [ 9]    'HCN'                        
+\layout LyX-Code
+
+    [10]    'pAcip'                      
+\layout LyX-Code
+
+    [11]    'IniSpontISICV'              
+\layout LyX-Code
+
+    [12]    'IniSpontPotAvg'             
+\layout LyX-Code
+
+    [13]    'IniSpontSpikeRate'          
+\layout LyX-Code
+
+    [14]    'PulseISICV'                 
+\layout LyX-Code
+
+    [15]    'PulseIni100msISICV'         
+\layout LyX-Code
+
+    [16]    'PulseIni100msRest1SpikeRate'
+\layout LyX-Code
+
+    [17]    'PulseIni100msRest2SpikeRate'
+\layout LyX-Code
+
+    [18]    'PulseIni100msSpikeRate'     
+\layout LyX-Code
+
+    [19]    'PulseIni100msSpikeRateISI'  
+\layout LyX-Code
+
+    [20]    'PulsePotAvg'                
+\layout LyX-Code
+
+    [21]    'PulsePotMin'                
+\layout LyX-Code
+
+    [22]    'PulsePotSag'                
+\layout LyX-Code
+
+    [23]    'PulseSFA'                   
+\layout LyX-Code
+
+    [24]    'PulseSpikeAmpDecayDelta'    
+\layout LyX-Code
+
+    [25]    'PulseSpikeAmpDecayTau'      
+\layout LyX-Code
+
+    [26]    'PulseSpikeRate'             
+\layout LyX-Code
+
+    [27]    'PulseSpikeRateISI'          
+\layout LyX-Code
+
+    [28]    'RecIniSpontPotRatio'        
+\layout LyX-Code
+
+    [29]    'RecIniSpontRateRatio'       
+\layout LyX-Code
+
+    [30]    'RecSpont1SpikeRate'         
+\layout LyX-Code
+
+    [31]    'RecSpont2SpikeRate'         
+\layout LyX-Code
+
+    [32]    'RecSpontISICV'              
+\layout LyX-Code
+
+    [33]    'RecSpontPotAvg'             
+\layout LyX-Code
+
+    [34]    'RecSpontSpikeRate'          
+\layout LyX-Code
+
+    [35]    'SpontAmplitude'             
+\layout LyX-Code
+
+    [36]    'SpontBaseWidth'             
+\layout LyX-Code
+
+    [37]    'SpontDAHPMag'               
+\layout LyX-Code
+
+    [38]    'SpontFallTime'              
+\layout LyX-Code
+
+    [39]    'SpontHalfVm'                
+\layout LyX-Code
+
+    [40]    'SpontHalfWidth'             
+\layout LyX-Code
+
+    [41]    'SpontInitTime'              
+\layout LyX-Code
+
+    [42]    'SpontInitVm'                
+\layout LyX-Code
+
+    [43]    'SpontMaxAHP'                
+\layout LyX-Code
+
+    [44]    'SpontMinTime'               
+\layout LyX-Code
+
+    [45]    'SpontMinVm'                 
+\layout LyX-Code
+
+    [46]    'SpontPeakVm'                
+\layout LyX-Code
+
+    [47]    'SpontRiseTime'              
+\layout LyX-Code
+
+    [48]    'PulseAmplitude'             
+\layout LyX-Code
+
+    [49]    'PulseBaseWidth'             
+\layout LyX-Code
+
+    [50]    'PulseDAHPMag'               
+\layout LyX-Code
+
+    [51]    'PulseFallTime'              
+\layout LyX-Code
+
+    [52]    'PulseHalfVm'                
+\layout LyX-Code
+
+    [53]    'PulseHalfWidth'             
+\layout LyX-Code
+
+    [54]    'PulseInitTime'              
+\layout LyX-Code
+
+    [55]    'PulseInitVm'                
+\layout LyX-Code
+
+    [56]    'PulseMaxAHP'                
+\layout LyX-Code
+
+    [57]    'PulseMinTime'               
+\layout LyX-Code
+
+    [58]    'PulseMinVm'                 
+\layout LyX-Code
+
+    [59]    'PulsePeakVm'                
+\layout LyX-Code
+
+    [60]    'PulseRiseTime'              
+\layout LyX-Code
+
+    [61]    'PulseSpontAmpRatio'         
+\layout LyX-Code
+
+    [62]    'ItemIndex'                  
+\layout LyX-Code
+
+Optional properties of tests_db:
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+0x0 struct array with no fields.
+\layout Standard
+
+After the merging is becomes 
+\layout LyX-Code
+
+>> sdball
+\layout LyX-Code
+
+sdball
+\layout LyX-Code
+
+params_tests_db, sim dataset gpsc0501 dual cip
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    num_params: 9
+\layout LyX-Code
+
+         props: [0x0 struct]
+\layout LyX-Code
+
+      tests_db: [1x1 tests_db]
+\layout LyX-Code
+
+Optional properties of params_tests_db:
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+0x0 struct array with no fields.
+\layout LyX-Code
+
+tests_db, sim dataset gpsc0501 dual cip
+\layout LyX-Code
+
+19683 rows in database with 50 columns, and 1 pages.
+\layout LyX-Code
+
+Column names:
+\layout LyX-Code
+
+    [ 1]    'NaF'                         
+\layout LyX-Code
+
+    [ 2]    'NaP'                         
+\layout LyX-Code
+
+    [ 3]    'Kv3'                         
+\layout LyX-Code
+
+    [ 4]    'Kv2'                         
+\layout LyX-Code
+
+    [ 5]    'Kv4f'                        
+\layout LyX-Code
+
+    [ 6]    'KCNQ'                        
+\layout LyX-Code
+
+    [ 7]    'SK'                          
+\layout LyX-Code
+
+    [ 8]    'CaHVA'                       
+\layout LyX-Code
+
+    [ 9]    'HCN'                         
+\layout LyX-Code
+
+    [10]    'RecIniSpontPotRatioHyp100pA' 
+\layout LyX-Code
+
+    [11]    'RecIniSpontRateRatioHyp100pA'
+\layout LyX-Code
+
+    [12]    'RecSpont1SpikeRateHyp100pA'  
+\layout LyX-Code
+
+    [13]    'RecSpont2SpikeRateHyp100pA'  
+\layout LyX-Code
+
+    [14]    'RecSpontISICVHyp100pA'       
+\layout LyX-Code
+
+    [15]    'RecSpontPotAvgHyp100pA'      
+\layout LyX-Code
+
+    [16]    'ItemIndexHyp100pA'           
+\layout LyX-Code
+
+    [17]    'IniSpontSpikeRate'           
+\layout LyX-Code
+
+    [18]    'PulseIni100msSpikeRate'      
+\layout LyX-Code
+
+    [19]    'PulseIni100msSpikeRateISI'   
+\layout LyX-Code
+
+    [20]    'PulseIni100msISICV'          
+\layout LyX-Code
+
+    [21]    'PulseIni100msRest1SpikeRate' 
+\layout LyX-Code
+
+    [22]    'PulseIni100msRest2SpikeRate' 
+\layout LyX-Code
+
+    [23]    'RecSpont1SpikeRate'          
+\layout LyX-Code
+
+    [24]    'RecSpont2SpikeRate'          
+\layout LyX-Code
+
+    [25]    'RecIniSpontRateRatio'        
+\layout LyX-Code
+
+    [26]    'IniSpontISICV'               
+\layout LyX-Code
+
+    [27]    'PulseISICV'                  
+\layout LyX-Code
+
+    [28]    'RecSpontISICV'               
+\layout LyX-Code
+
+    [29]    'PulseSFA'                    
+\layout LyX-Code
+
+    [30]    'PulseSpikeAmpDecayTau'       
+\layout LyX-Code
+
+    [31]    'PulseSpikeAmpDecayDelta'     
+\layout LyX-Code
+
+    [32]    'IniSpontPotAvg'              
+\layout LyX-Code
+
+    [33]    'PulsePotAvg'                 
+\layout LyX-Code
+
+    [34]    'RecSpontPotAvg'              
+\layout LyX-Code
+
+    [35]    'RecIniSpontPotRatio'         
+\layout LyX-Code
+
+    [36]    'SpontInitVm'                 
+\layout LyX-Code
+
+    [37]    'SpontAmplitude'              
+\layout LyX-Code
+
+    [38]    'SpontMaxAHP'                 
+\layout LyX-Code
+
+    [39]    'SpontDAHPMag'                
+\layout LyX-Code
+
+    [40]    'SpontRiseTime'               
+\layout LyX-Code
+
+    [41]    'SpontFallTime'               
+\layout LyX-Code
+
+    [42]    'SpontHalfWidth'              
+\layout LyX-Code
+
+    [43]    'PulseInitVm'                 
+\layout LyX-Code
+
+    [44]    'PulseAmplitude'              
+\layout LyX-Code
+
+    [45]    'PulseMaxAHP'                 
+\layout LyX-Code
+
+    [46]    'PulseDAHPMag'                
+\layout LyX-Code
+
+    [47]    'PulseRiseTime'               
+\layout LyX-Code
+
+    [48]    'PulseFallTime'               
+\layout LyX-Code
+
+    [49]    'PulseHalfWidth'              
+\layout LyX-Code
+
+    [50]    'ItemIndex'                   
+\layout LyX-Code
+
+Optional properties of tests_db:
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+0x0 struct array with no fields.
+\layout Subsection
+
+How to find constrained subsets in a database
+\layout Standard
+
+Once a database with more-than-sufficient number of measures is available,
+ subsets of this database can be extracted easily for other tasks.
+ New databases can be formed by filtering rows, columns or pages of an existing
+ database.
+ For choosing any of these dimensions, the user can specify an array of
+ indices, or a logical array.
+ For instance, 
+\layout LyX-Code
+
+>> db2 = db1(1:10, :);
+\layout Standard
+
+creates a database object 
+\family typewriter 
+db2
+\family default 
+ by the first ten rows of 
+\family typewriter 
+db1
+\family default 
+ and all its columns.
+ For three-dimensional databases, a third parameter can be specified, as
+ in 
+\layout LyX-Code
+
+>> db2 = db1(1:10, :, [1 3]);
+\layout Standard
+
+which will take only the first and third page from 
+\family typewriter 
+db1
+\family default 
+.
+\layout Standard
+
+For measures, columns can also be specified as a single string value, or
+ a cell array of strings, as in 
+\layout LyX-Code
+
+>> db2 = db1(1:10, 'pAcip');
+\layout Standard
+
+which chooses only the 
+\family typewriter 
+pAcip
+\family default 
+ column of the first 10 rows of 
+\family typewriter 
+db1
+\family default 
+.
+ 
+\layout Standard
+
+Rows of the database signify neurons or simulation runs.
+ Therefore it is important to find subset of neurons that match a certain
+ criteria.
+ This can be done specifying a list of rows that is the result of a logical
+ operation.
+ A logical operation finds rows that satisfy constraints on a single parameter
+ or measure of a database.
+ For instance, 
+\layout LyX-Code
+
+>> rows = db1(:, 'IniSpontSpikeRate') > 10;
+\layout Standard
+
+gives a logical array that contains a 
+\family typewriter 
+true
+\family default 
+ value for all rows in 
+\family typewriter 
+db1
+\family default 
+ that has spontaneous firing faster than 10 Hz.
+ If this is used as the row specifier in a subset operation, a new database
+ with only these neurons can be obtained by 
+\layout LyX-Code
+
+>> db2 = db1(rows, :);
+\layout Standard
+
+If we want more constrains it is straightforward to use any logical operation
+ such as AND (
+\family typewriter 
+&&
+\family default 
+) or OR (
+\family typewriter 
+||
+\family default 
+) on these logical arrays such as 
+\layout LyX-Code
+
+>> db2 = db1((rows || rows2) && rows3, :);
+\layout Standard
+
+which says choose all rows from 
+\family typewriter 
+db1
+\family default 
+ where either the tests 
+\family typewriter 
+rows
+\family default 
+ and 
+\family typewriter 
+rows2
+\family default 
+ are satisfied and while 
+\family typewriter 
+rows3
+\family default 
+ is always satisfied.
+ All these operations can be specified in-place such as in 
+\layout LyX-Code
+
+>> db2 = db1(db1(:, 'IniSpontSpikeRate') > 10 && 
+\layout LyX-Code
+
+             db1(:, 'IniSpontSpikeRate') <= 20, :);
+\layout Standard
+
+which will create a database of neurons that spontaneously fire between
+ 10--20 Hz.
 \layout Section
 
-API Reference
+Visualization
+\layout Subsection
+
+Plotting all measure histograms
+\layout Standard
+
+For plotting all measure histograms in a DB, the following method of 
+\family typewriter 
+params_tests_db
+\family default 
+ creates a matrix plot:
+\layout LyX-Code
+
+>> mp1 = plotTestsHistsMatrix(sdball);
+\layout LyX-Code
+
+>> plotFigure(mp1);
+\layout Subsection
+
+Plotting all parameter-measure variations
+\layout Standard
+
+To plot all parameter-measure variations, the 
+\family typewriter 
+plotVarMatix
+\family default 
+ method of 
+\family typewriter 
+params_tests_db
+\family default 
+ can be used.
+ 
+\family typewriter 
+plotVarMatix
+\family default 
+ requires the DB object and the 
+\family typewriter 
+p_stats
+\family default 
+ array of 
+\family typewriter 
+stats_db
+\family default 
+ objects that hold the mean and standard error information (or possibly
+ other statistics) for each of the possible parameter-measure combinations.
+ The 
+\family typewriter 
+p_stats
+\family default 
+ array can be created using the 
+\family typewriter 
+paramsTestsHistsStats
+\family default 
+ method, which in turn requires the 
+\family typewriter 
+p_t3ds
+\family default 
+ array of 3-dimensional databases each of which contain effects of a parameter
+ invariant of other parameters.
+ The 
+\family typewriter 
+p_t3ds
+\family default 
+ array can be created using the 
+\family typewriter 
+invarParams
+\family default 
+ method.
+ The sequence of commands is then becomes:
+\layout LyX-Code
+
+p_t3ds = invarParams(sdball)
+\layout LyX-Code
+
+[pt_hists, p_stats] = paramsTestsHistsStats(sdball, p_t3ds)
+\layout LyX-Code
+
+ap = plotVarMatrix(sdb2, p_stats)
+\layout LyX-Code
+
+plotFigure(ap)
+\layout Standard
+
+This will create a matrix plot with as many columns as parameters and as
+ many rows as measures in the 
+\family typewriter 
+sdball
+\family default 
+ object.
+ It may be difficult to read if 
+\family typewriter 
+sdball
+\family default 
+ contains large number of measures.
+ One can divide the measures into two plots with the following sequence
+ of commands
+\layout LyX-Code
+
+sdb1 = sdball(:, [1:9, 10:35])
+\layout LyX-Code
+
+sdb2 = sdball(:, [1:9, 36:49])
+\layout Standard
+
+by choosing all parameters in both DBs, but only some measures for each.
+ Then, the plots can be created for each DB by issuing
+\layout LyX-Code
+
+p1_t3ds = invarParams(sdb1)
+\layout LyX-Code
+
+p2_t3ds = invarParams(sdb2)
+\layout LyX-Code
+
+[pt1_hists, p1_stats] = paramsTestsHistsStats(sdb1, p1_t3ds)
+\layout LyX-Code
+
+[pt2_hists, p2_stats] = paramsTestsHistsStats(sdb2, p2_t3ds)
+\layout LyX-Code
+
+ap1 = plotVarMatrix(sdb1, p1_stats)
+\layout LyX-Code
+
+plotFigure(ap1)
+\layout LyX-Code
+
+ap2 = plotVarMatrix(sdb2, p2_stats)
+\layout LyX-Code
+
+plotFigure(ap1)
+\layout Section
+
+Function Reference
 \layout Standard
 
 [Supposed to have all class and method documentation generated from matlab
