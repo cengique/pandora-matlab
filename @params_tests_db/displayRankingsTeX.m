@@ -34,21 +34,24 @@ end
 
 tex_string = '';
 
-ranked_db = rankVsDB(a_db, crit_db); 
+ranked_db = rankMatching(a_db, crit_db);
+joined_db = joinOriginal(ranked_db);
 ranked_num_rows = dbsize(ranked_db, 1);
 if ranked_num_rows > 0
   %# Display values of 10 best matches
-  top_ranks = onlyRowsTests(ranked_db, 1:min(10, ranked_num_rows), ':', ':');
+  num_best = 8;
+  top_ranks = onlyRowsTests(ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
   short_caption = [ lower(get(a_db, 'id')) ' ranked to the ' lower(get(crit_db, 'id')) '.' ];
   caption = [ short_caption ...
-	     ' Only 10 best matches are shown.' ];
+	     ' Only ' num2str(num_best) ' best matches are shown.' ];
   tex_string = [ tex_string displayRowsTeX(top_ranks, caption, ...
 					   struct('shortCaption', short_caption)) ];
 
   %# Display parameter distributions of 50 best matches
   num_best = 50;
-  top_ranks = onlyRowsTests(ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
+  top_ranks = onlyRowsTests(joined_db, 1:min(num_best, ranked_num_rows), ':', ':');
   p_hists = paramsHists(top_ranks);
+  p_hists(1)
   plotFigure(plot_stack(num2cell(plotEqSpaced(p_hists)), [], 'x', ...
 			['Parameter distribution histograms of ' num2str(num_best) ...
 			 ' best matches' ], ...
@@ -79,23 +82,23 @@ if ranked_num_rows > 0
     %# one row for original and 5 matching data traces
     %# second row for original and 5 matching spike shapes
     %# TODO: get to ItemIndex somehow
-    orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'RowIndex'), 'data'));
+    orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'ItemIndex'), 'data'));
     trace_plots = cell(1, 6);
     shape_plots = cell(1, 6);
     trace_plots{1} = plotData(orig_prof.trace);
 
     results  = getResults(orig_prof.spont_spike_shape);
     shape_plots{1} = setProp(plotResults(orig_prof.spont_spike_shape), 'axisLimits', ...
-			     [1, results.MinTime * 1.1, NaN, NaN]);
+			     [0, results.MinTime * 1.1, NaN, NaN]);
     for plot_num=1:5
       prof = loadItemProfile(props.a_dataset, ...
-			     get(onlyRowsTests(ranked_db, (plot_num - 1) * 10 + 1 , ...
-					       'RowIndex'), 'data'));
+			     get(onlyRowsTests(joined_db, (plot_num - 1) * 10 + 1 , ...
+					       'ItemIndex'), 'data'));
       trace_plots{1 + plot_num} = plotData(prof.trace);
       results  = getResults(prof.spont_spike_shape);
       shape_plots{1 + plot_num} = ...
 	  setProp(plotResults(prof.spont_spike_shape), ...
-		  'axisLimits', [1, results.MinTime * 1.1, NaN, NaN]);
+		  'axisLimits', [0, results.MinTime * 1.1, NaN, NaN]);
     end
     horiz_props = struct('titlesPos', 'none', 'yLabelsPos', 'left');
     top_row_plot = plot_stack(trace_plots, [], 'x', ...
