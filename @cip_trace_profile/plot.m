@@ -26,11 +26,12 @@ else
   ht = plot(t.trace);
   hsp = plot(t.spikes);
   %# TODO: Hack, fix it
-  [hss1 hss2] = plotSpikeShape(t.spont_spike_shape, 'Spont');
-  [hss1 hss2] = plotSpikeShape(t.pulse_spike_shape, 'Pulse');
+  [hss1 hss2] = plotSpikeShape(get(t, 'spont_spike_shape'), 'Spont');
+  [hss1 hss2] = plotSpikeShape(get(t, 'pulse_spike_shape'), 'Pulse');
 
   super_plot = set(superposePlots([plotResults(t.spont_spike_shape) ...
-				   plotResults(t.pulse_spike_shape)]), 'legend', {});
+				   plotResults(t.pulse_spike_shape)]), ...
+		   'legend', {});
   plotFigure(super_plot);
   h = [ht, hsp, hss1, hss2];
 end
@@ -38,9 +39,9 @@ end
 function [hss1, hss2] = plotSpikeShape(spsh, name)
   if ~ isempty(spsh.trace.data) 
     pr = plotResults(spsh);
-    pr = set(pr, 'title', [ name ' ' get(pr, 'title')] )
-    hss1 = plotFigure(pr);
-    hss2 = plotFigure(plotTPP(spsh));
+    hss1 = plotFigure(set(pr, 'title', [ name ' ' get(pr, 'title')] ));
+    pp = plotTPP(spsh);
+    hss2 = plotFigure(set(pp, 'title', [ name ' ' get(pp, 'title')]));
   else
     hss1 = NaN;
     hss2 = NaN;
