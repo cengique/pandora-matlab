@@ -27,7 +27,7 @@ if ~ exist('tests')
 end
 
 cols = tests2cols(db, tests);
-col_db = db(row, tests);
+col_db = onlyRowsTests(db, row, tests);
 
 %# Add the row index
 data = [ col_db.data, row; std(db(:, tests)), 0 ];
