@@ -26,7 +26,13 @@ else
   ht = plot(t.trace);
   hsp = plot(t.spikes);
   %# TODO: Hack, fix it
-  hss1 = plotFigure(plotResults(t.spont_spike_shape));
-  hss2 = plotFigure(plotTPP(t.spont_spike_shape));
+  s = t.spont_spike_shape
+  if ~ isempty(s.trace.data) 
+    hss1 = plotFigure(plotResults(t.spont_spike_shape));
+    hss2 = plotFigure(plotTPP(t.spont_spike_shape));
+  else
+    hss1 = NaN;
+    hss2 = NaN;
+  end
   h = [ht, hsp, hss1, hss2];
 end
