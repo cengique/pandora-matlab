@@ -31,7 +31,7 @@ min_isi = min(getISIs(s));
 left = min(5e-3 / t.dt, min_isi/2);
 
 %# Calculate right side accordingly
-right = min_isi - left + 3e-3 / t.dt; %# Add some more on the right side
+right = min_isi - left + min(3e-3 / t.dt, left /2); %# Add some more on the right side
 
 if length(s.times) > 0
   [allspikes, avgspikes] = collectspikes(t.data, s.times, left, right, 0);
