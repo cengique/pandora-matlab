@@ -42,7 +42,7 @@ function a_stats_db = ...
 
 if nargin == 0 %# Called with no params
   a_stats_db.props = struct([]);
-  a_stats_db = class(a_stats_db, 'stats_db', tests_db);
+  a_stats_db = class(a_stats_db, 'stats_db', tests_3D_db);
 elseif isa(test_results, 'stats_db') %# copy constructor?
   a_stats_db = test_results;
 else

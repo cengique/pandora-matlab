@@ -1,9 +1,11 @@
 TODO
 --------------------
+- poster size: 1.75x1.1 m^2, 68"x43"
 - new subclass for custom analysis
-	- add plotTestStats function which groupd things together
+	- add plotTestStats function to group things together
 - new plot & data type for mean and stds of each test and param value
-	- swapRowsPages, then find statsMeanStd
+	+ swapRowsPages, then find statsMeanStd
+	- statsMeanStd needs page-capable mean and std funcs
 	- create special plot with vectors and errorbars
 	- do it over all parameters in the profile
 	- then plot a test for all parameters in the same way
@@ -15,14 +17,16 @@ TODO
 - matrix stack plot
 - matrix color plot
 - Make PDF with code design
+	- add class diagram with converter methods
 - CVS
   - present CVS, start using it
   - move this repository to djlab account?
 - add plot-frame and docgen classes
+  - allow fontsize change to fit more on a single page
   - sortrows in histograms.m
   - histograms should have same axis limits
   - @plot_abstract/superpose, superposes plots on same axis, and 
-    return a new plot_desc object
+    return a new plot_abstract object
   + allow adjusting location of title in stack plots
   + invar param value should be indicated on plotPages
   + classes should have function that returns plot_abstract

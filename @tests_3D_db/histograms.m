@@ -49,8 +49,11 @@ if isfield(db.props, 'invarName')
     page_names{page_num} = [db.props.invarName ' = ' ...
 			    num2str(get(invar_value_db, 'data')) ];
   end
-  props = struct('pageNames', {page_names})
+  props = struct('pageNames', {page_names});
+  title = [ col_name ' given ' db.props.invarName ' of ' get(db, 'id') ];
+else 
+  title = [ col_name ' of ' get(db, 'id') ];
 end
 
 a_histogram_db = histogram_db(col_name, data(:,1,:), data(:,2,:), ...
-			      [ col_name ' of ' get(db, 'id') ], props);
+			      title, props);

@@ -27,17 +27,19 @@ if ~ exist('layout_axis') || isempty(layout_axis)
   layout_axis = [ 0 0 1 1];
 end
 
+axes('position', layout_axis);
+
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-scale_down = 0.9;
+scale_down = 0.95;
 border = 1;
 
 %# Find the width of a regular y-axis label
 ticklabel = text(0, 0, 'xxx', 'Visible', 'off');
 tickextent = get(ticklabel, 'Extent');
-tickwidth = tickextent(3);
-tickheight = tickextent(4);
+tickwidth = 0.03; %#tickextent(3)
+tickheight = 0.03; %#tickextent(4)
 
 if strcmp(a_plot.orient, 'x')
   width = border * layout_axis(3) / num_plots;
@@ -65,15 +67,36 @@ for plot_num=1:num_plots
   one_plot = a_plot.plots{plot_num};
   its_props = one_plot.props;
   %# Check if y-ticks only for the leftmost plot
-  if plot_num > 1 && isfield(a_plot.props, 'yTicksPos') && ...
-	strcmp(a_plot.props.yTicksPos, 'left')
-    its_props.noYTickLabels = 1;
+  if isfield(a_plot.props, 'yTicksPos') && ...
+	((plot_num > 1 && strcmp(a_plot.props.yTicksPos, 'left')) || ...
+	 strcmp(a_plot.props.yTicksPos, 'none'))
+    its_props(1).noYTickLabels = 1;
     tickwidth = 0; %# no more space is needed for y-tick labels
   end
+  if isfield(a_plot.props, 'yLabelsPos') && ...
+	((plot_num > 1 && strcmp(a_plot.props.yLabelsPos, 'left')) || ...
+	 strcmp(a_plot.props.yLabelsPos, 'none'))
+    its_props(1).noYLabel = 1;
+    %#tickwidth = 0; %# no more space is needed for y-tick labels
+  end
+  if isfield(a_plot.props, 'xTicksPos') && ...
+	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom')) || ...
+	 strcmp(a_plot.props.xTicksPos, 'none'))
+    its_props(1).noXTickLabels = 1;
+    tickheight = 0; %# no more space is needed for x-tick labels
+  end
+  if isfield(a_plot.props, 'xLabelsPos') && ...
+	((plot_num > 1 && strcmp(a_plot.props.xLabelsPos, 'left')) || ...
+	 strcmp(a_plot.props.xLabelsPos, 'none'))
+    its_props(1).noXLabel = 1;
+    %#tickheight = 0; %# no more space is needed for x-tick labels
+  end
   %# Check if title only for the topmost plot
-  if plot_num < num_plots && isfield(a_plot.props, 'titlesPos') && ...
-	strcmp(a_plot.props.titlesPos, 'top')
-    one_plot = set(one_plot, 'title', '')
+  if isfield(a_plot.props, 'titlesPos') 
+    if 	(plot_num < num_plots && strcmp(a_plot.props.titlesPos, 'top')) || ...
+	  strcmp(a_plot.props.titlesPos, 'none')
+      one_plot = set(one_plot, 'title', '');
+    end
   end
   %# Set the modified properties back to the plot
   one_plot = set(one_plot, 'props', its_props);

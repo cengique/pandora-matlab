@@ -25,10 +25,10 @@ if ~ exist('num_bins')
   num_bins = 100;
 end
 
-col_db = db(:, col);
+col_db = onlyRowsTests(db, ':', col);
 
 %# Remove NaN values 
-col_db = onlyRowsTests(col_db, ~ isnan(col_db(:, 1)), 1);
+col_db = onlyRowsTests(col_db, ~ isnan(col_db.data), 1);
 %#col_db = col_db( ~ isnan(col_db(:, 1)), 1);
 %# I don't know why the above doesn't work!?
 

@@ -23,10 +23,18 @@ function a_3D_db = invarParam(db, param)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
+col_name_cell = fieldnames(get(db, 'col_idx'));
+
 col = tests2cols(db, param);
 
 %# List of columns with parameter and all tests
 cols = [col, (db.num_params + 1):size(db, 2) ];
+
+
+%# Add invar test name
+props = get(db, 'props');
+props(1).invarName = col_name_cell{col};
+db = set(db, 'props', props);
 
 %# Get invarValues for these
 a_3D_db = invarValues(db, cols);

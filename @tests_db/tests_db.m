@@ -88,7 +88,8 @@ if nargin == 0 %# Called with no params
      error('Only numeric arrays allowed as test_results.');
    end
 
-   if size(test_results, 1) > 0 && size(test_results, 2) ~= length(col_names)
+   if size(test_results, 1) > 0 && ~ isempty(col_names) && ...
+	 size(test_results, 2) ~= length(col_names)
      error('Number of columns in test_results and items in col_names must match.');
    end
 

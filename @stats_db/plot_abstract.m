@@ -1,8 +1,8 @@
 function a_plot = plot_abstract(a_stats_db)
 
 % plot_abstract - Generates an error bar representation for each of the columns
-%	in this db. Assumes the first row is a middle point, the second
-%	is the low point, and the third is the high point in the errorbar.
+%	in this db. Looks for 'min', 'max', and 'std' labels in the row_idx
+%	for drawing the errorbars.
 %
 % Usage:
 % a_plot = plot_abstract(a_stats_db)

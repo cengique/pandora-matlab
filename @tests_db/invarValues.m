@@ -30,6 +30,7 @@ function a_tests_3D_db = invarValues(db, cols)
 cols = tests2cols(db, cols);
 
 %# Remove given columns
+log_cols = false(1, size(db, 2));
 log_cols(cols) = true(1);
 wo_cols = db.data(:, ~log_cols);
 
@@ -63,5 +64,6 @@ end
 col_name_cell = fieldnames(db.col_idx);
 col_names = col_name_cell(cols);
 
+%# TODO: put the invarName in the title?
 a_tests_3D_db = tests_3D_db(data, {col_names{:}, 'RowIndex'}, {}, {}, ...
-			    [ ' Invariant values from ' db.id ], db.props);
+			    [ 'Invariant values from ' db.id ], db.props);

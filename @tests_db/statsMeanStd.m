@@ -25,7 +25,7 @@ if ~ exist('props')
   props = struct([]);
 end
 
-a_db = db(:, tests);
+a_db = onlyRowsTests(db, ':', tests, ':');
 test_results = [mean(a_db, 1); std(a_db, 0, 1)];
 row_names = {'mean', 'std'};
 

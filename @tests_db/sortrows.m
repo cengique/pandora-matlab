@@ -35,24 +35,25 @@ cols = tests2cols(db, cols);
 %#idx = repmat(NaN, [db_size(1) 1]);
 
 %# Sort the first page
-[data(:,:,1) idx] = sortrows(data(:,:,1), cols);
+[a idx] = sortrows(data(:,:,1), cols);
 
 %# Sort each page with the first page idx
 for page_num=pages
   data(:, :, page_num) = data(idx, :, page_num);
 end
 
-%# Reorder row_idx
+%# Reorder row_idx if it exists
 row_names = fieldnames(db.row_idx);
-row_names = row_names(idx);
-row_idx = makeIdx(row_names);
+if ~ isempty(row_names)
+  row_names = row_names(idx);
+end
 
 %# Create a new db (or maybe only set fields so that the object stays the same?)
 if num_pages > 1
-  sorted = tests_3D_db(data, fieldnames(get(db, 'col_idx')), row_idx, ...
+  sorted = tests_3D_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
 		       fieldnames(get(db, 'page_idx')), ...
 		       get(db, 'id'), get(db, 'props'));
 else
-  sorted = tests_db(data, fieldnames(get(db, 'col_idx')), row_idx, ...
-		       get(db, 'id'), get(db, 'props'));  
+  sorted = tests_db(data, fieldnames(get(db, 'col_idx')), row_names, ...
+		    get(db, 'id'), get(db, 'props'));  
 end

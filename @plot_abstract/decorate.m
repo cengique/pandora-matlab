@@ -3,7 +3,7 @@ function handles = decorate(a_plot)
 % decorate - Draws this plot in the current axis.
 %
 % Usage:
-% a_histogram_db = decorate(a_plot)
+% handles = decorate(a_plot)
 %
 % Description:
 %
@@ -20,14 +20,27 @@ function handles = decorate(a_plot)
 
 %# Run the plot command
 th = title(a_plot.title);
-if isfield(a_plot.props, 'rotateXLabel')
-  xh = xlabel(a_plot.axis_labels{1}, ...
-	      'Rotation', a_plot.props.rotateXLabel, ...
-	      'HorizontalAlignment', 'right');
-else
-  xh = xlabel(a_plot.axis_labels{1});
+xh = [];
+yh = [];
+if ~ isfield(a_plot.props, 'noXLabel')
+  if isfield(a_plot.props, 'rotateXLabel')
+    xh = xlabel(a_plot.axis_labels{1}, ...
+		'Rotation', a_plot.props.rotateXLabel, ...
+		'HorizontalAlignment', 'right');
+  else
+    xh = xlabel(a_plot.axis_labels{1});
+  end
 end
-yh = ylabel(a_plot.axis_labels{2});
+if ~ isfield(a_plot.props, 'noYLabel')
+  if isfield(a_plot.props, 'rotateYLabel')
+    yh = ylabel(a_plot.axis_labels{2}, ...
+		'Rotation', a_plot.props.rotateYLabel, ...
+		'HorizontalAlignment', 'right');
+  else
+    yh = ylabel(a_plot.axis_labels{2});
+  end
+end
+
 %# Z-axis?
 
 if isfield(a_plot.props, 'noXTickLabels')

@@ -62,7 +62,6 @@ num_pages = size(db.data, 3);
 pages=(1:num_pages)';
 coefs = repmat(NaN, [num_pages, length(cols), 3]);
 
-
 %# Only if there are multiple observations
 if size(db.data, 1) > 1
   %# One coefficient per page of observations
@@ -98,6 +97,9 @@ end
 nanrows = all(isnan(coefs(:,:,1)), 2);
 coefs( nanrows, :, : ) = [];
 pages( nanrows, : ) = [];
+size(nanrows)
+size(coefs)
+size(pages)
 
 %# Triplicate pages
 pages(:, :, 2) = pages(:, :, 1);
@@ -111,6 +113,9 @@ col_names = col_name_cell(cols);
 %# Check if any coefs left
 if size(coefs, 1) == 0
   warning('tests_db:corrCoef:no_coefs', 'No coefficients found.');
+  if size(coefs, 2) > length(cols)
+    error('Coefs db larger than original!');
+  end
 end
 
 a_coefs_db = corrcoefs_db(col1_name, coefs, col_names, pages, ...

@@ -15,3 +15,5 @@ if ~ isempty(row_names)
   disp('Row names:');
   disp(row_names);
 end
+disp(['Optional properties of ' class(t) ':']);
+struct(t.props)

@@ -35,6 +35,7 @@ num_pages = size(a_hist_db.tests_db.data, 3);
 pages=(1:num_pages)';
 subplots = cell(num_pages, 1);
 
+ranges = [];
 for page_num=pages'
   a_plot = plot_abstract(onlyRowsTests(a_hist_db, ':', ':', ...
 				       page_num));
@@ -43,9 +44,16 @@ for page_num=pages'
     page_names = a_hist_db.props.pageNames;
     axis_labels = get(a_plot, 'axis_labels');
     axis_labels{1} = [ axis_labels{1} ', ' page_names{page_num} ];
-    a_plot = set(a_plot, 'axis_labels', axis_labels)
+    a_plot = set(a_plot, 'axis_labels', axis_labels);
+  end
+  %# Calculate the maximal axis range
+  if isempty(ranges)
+    ranges = axis(a_plot);
+  else
+    ranges = growRange([ranges; axis(a_plot)]);
   end
   subplots{page_num} = a_plot;
 end
 
-a_plot = plot_stack(subplots, [], an_orient, '', struct('titlesPos', 'top'));
+a_plot = plot_stack(subplots, ranges, an_orient, get(subplots{1}, 'title'), ...
+		    struct('titlesPos', 'none'));

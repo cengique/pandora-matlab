@@ -47,11 +47,6 @@ s = repmat(NaN, [1 db_size(2:end)]);
 %# Do a loop over EACH other dimension (!)
 s = recstd(data, length(db_size));
 
-%# Do a loop over the other dimension
-%#for num=1:size(data, 2)
-%#  s(num) = std(data(~isnan(data(:,num)), num), flag, 1);
-%#end
-
 if dim ~= 1
   s = ipermute(s, order);
 end

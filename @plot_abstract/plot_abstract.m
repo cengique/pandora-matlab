@@ -21,9 +21,12 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %	command: Plotting command to use (Optional, default='plot')
 %	props: A structure with any optional properties.
 %		rotateXLabel: Rotates the X-axis label for smaller width.
+%		rotateYLabel: Rotates the Y-axis label for smaller width.
 %		fontSize: Set the fontsize.
 %		noXTickLabels: No X-axis tick labels.
 %		noYTickLabels: No Y-axis tick labels.
+%		noXLabel: No X-axis label.
+%		noYLabel: No Y-axis label.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props
