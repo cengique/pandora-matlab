@@ -14,7 +14,7 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %	col_names: Cell array of column names of test_results.
 %	row_names: Cell array of row names of test_results.
 %	id: An identifying string.
-%	props: A structure any optional properties.
+%	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
 %	data: The data matrix.

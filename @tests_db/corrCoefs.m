@@ -25,7 +25,7 @@ function a_coefs_db = corrCoefs(db, col1, cols, props)
 %	db: A tests_db object.
 %	col1: Column to compare.
 %	cols: Columns to be compared with col1.
-%	props: A structure any optional properties.
+%	props: A structure with any optional properties.
 %		skipCoefs: If coefficients of less confidence than %95 
 %			should be skipped.
 %		
