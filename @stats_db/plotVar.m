@@ -41,6 +41,9 @@ if isfield(row_idx, 'min')
 elseif isfield(row_idx, 'std')
   lows = -data(row_idx.std, :, :);  
   highs = data(row_idx.std, :, :);
+elseif isfield(row_idx, 'se')
+  lows = -data(row_idx.se, :, :);  
+  highs = data(row_idx.se, :, :);
 end
 
 if isfield(row_idx, 'max')
