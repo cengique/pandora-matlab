@@ -37,6 +37,9 @@ function obj = cip_traces_dataset(ts, cipmag, id, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/30
 
+%# TODO: repeat the list for each cipmag. Then change cip_trace_profile
+%# to return one with a different cipmag according to index in list.
+
 if nargin == 0 %# Called with no params
   obj.cipmag = [];
   obj.props = struct([]);
