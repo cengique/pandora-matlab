@@ -10,7 +10,8 @@ else
       %# Delegate to base class
       b = a.tests_db(index.subs{:});
     case '.'
-      b = eval(['a.' index.subs]);
+      b = get(a, index.subs); 
+      %# eval(['a.' index.subs]);
     case '{}'
       b = a{index.subs{:}};
   end

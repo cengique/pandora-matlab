@@ -1,15 +1,16 @@
-function a_plot = plot_abstract(a_hist_db)
+function a_plot = plot_abstract(a_hist_db, command)
 
 % plot_abstract - Generates a plottable description of this object.
 %
 % Usage:
-% a_plot = plot_abstract()
+% a_plot = plot_abstract(a_hist_db)
 %
 % Description:
 %   Generates a plot_simple object from this histogram.
 %
 %   Parameters:
 %	a_hist_db: A histogram_db object.
+%	command: Plot command (Optional, default='bar')
 %		
 %   Returns:
 %	a_plot: A object of plot_abstract or one of its subclasses.
@@ -19,13 +20,26 @@ function a_plot = plot_abstract(a_hist_db)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
+if ~ exist('command')
+  command = 'bar';
+end
+
 %# First column is the variable, second is the histogram
 colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
 
+%# if the plot is rotated switch the axis labels
+if strcmp(command, 'barh')
+  x_label = 'Count';
+  y_label = colnames{1};
+else
+  x_label = colnames{1};
+  y_label = 'Count';
+end
+
 %# Make a simple plot object drawing vertical bars
 a_plot = plot_simple(data(:, 1), data(:, 2), ...
 		     [ 'Histogram of ' get(a_hist_db, 'id') ], ...
-		     colnames{1}, 'Count', ...
-		     colnames{1}, 'bar' );
+		     x_label, y_label, ...
+		     colnames{1}, command );

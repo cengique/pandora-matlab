@@ -1,6 +1,6 @@
 function a_histogram_db = histogram(db, col, num_bins)
 
-% histogram - Generates a tests_db object with rows corresponding to 
+% histogram - Generates a histogram_db object with rows corresponding to 
 %		histogram entries.
 %
 % Usage:
@@ -13,9 +13,9 @@ function a_histogram_db = histogram(db, col, num_bins)
 %	num_bins: Number of histogram bins (Optional, default=100)
 %		
 %   Returns:
-%	rows: A logical or index vector to be used in indexing db objects. 
+%	a_histogram_db: A histogram_db object containing the histogram.
 %
-% See also: tests_db
+% See also: histogram_db, tests_db
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
@@ -24,7 +24,7 @@ if ~ exist('num_bins')
   num_bins = 100;
 end
 
-col_db = db(:, col);
+col_db = onlyRowsTests(db, ':', col)
 [hist_results bins] = hist(col_db.data, num_bins);
 col_name_cell = fieldnames(col_db.col_idx);
 col_name = col_name_cell{1};

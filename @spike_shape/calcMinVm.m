@@ -22,7 +22,8 @@ function [min_val, min_idx, max_min_time] = calcMinVm(s, max_idx)
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.
 
-[min_val, min_idx] = calcMin(s.trace);
+[min_val, min_idx] = calcMin(s.trace, period(max_idx, length(s.trace.data)));
+min_idx = min_idx + max_idx - 1;
 max_min_time = min_idx - max_idx;
 
 if max_min_time < 0

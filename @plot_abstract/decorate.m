@@ -21,7 +21,7 @@ function handles = decorate(a_plot)
 %# Run the plot command
 th = title(a_plot.title);
 xh = xlabel(a_plot.axis_labels{1});
-yh = xlabel(a_plot.axis_labels{2});
+yh = ylabel(a_plot.axis_labels{2});
 %# Z-axis?
 if (length(a_plot.legend) > 0)
   lh = legend(a_plot.legend);
