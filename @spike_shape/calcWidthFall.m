@@ -1,5 +1,5 @@
 function [base_width, half_width, half_Vm, fall_time] = ...
-      calcWidthFall(s, max_idx, max_val, min_idx, init_idx)
+      calcWidthFall(s, max_idx, max_val, min_idx, init_idx, init_val)
 
 % calcWidthFall - Calculates the spike width and fall information of the 
 %		spike_shape, s. 
@@ -14,9 +14,10 @@ function [base_width, half_width, half_Vm, fall_time] = ...
 %   Parameters:
 %	s: A spike_shape object.
 %	max_idx: The index of the maximal point [dt].
-%	max_val: The value of the maximal point [dt].
-%	min_idx: The index of the minimal point [dt].
+%	max_val: The value of the maximal point [dy].
+%	min_idx: The index of the minimal point [dy].
 %	init_idx: The index of spike initiation point [dt].
+%	init_val: The value of spike initiation point [dy].
 %
 %   Returns:
 %	base_width: Width of spike at base [dt]
@@ -32,7 +33,7 @@ function [base_width, half_width, half_Vm, fall_time] = ...
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.
 
 %# constants
-init_val = s.trace.data(init_idx);
+%#init_val = s.trace.data(init_idx);
 min_val = s.trace.data(min_idx);
 %#max_val = s.trace.data(max_idx);
 
