@@ -19,7 +19,7 @@ function a_trace = trace(fileset, file_index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
-filename = fileset.filenames{file_index};
+filename = getItem(fileset, file_index);
 fullname = fullfile(fileset.path, filename);
 
 %# Load a trace object

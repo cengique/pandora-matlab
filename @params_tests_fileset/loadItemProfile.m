@@ -1,14 +1,14 @@
-function a_profile = loadFileProfile(fileset, file_index)
+function a_profile = loadItemProfile(fileset, file_index)
 
-% loadFileProfile - Loads a profile object from a raw data file in the fileset.
+% loadItemProfile - Loads a profile object from a raw data file in the fileset.
 %
 % Usage:
-% a_profile = loadFileProfile(fileset, file_index)
+% a_profile = loadItemProfile(fileset, file_index)
 %
 % Description:
 %   Subclasses should overload this function to load the specific profile
 % object they desire. The profile class should define a getResults method
-% which is used in the fileResultsRow method.
+% which is used in the itemResultsRow method.
 %
 %   Parameters:
 %	fileset: A params_tests_fileset.
@@ -17,7 +17,7 @@ function a_profile = loadFileProfile(fileset, file_index)
 %   Returns:
 %	a_profile: A profile object that implements the getResults method.
 %
-% See also: fileResultsRow, params_tests_fileset, paramNames, testNames
+% See also: itemResultsRow, params_tests_fileset, paramNames, testNames
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14

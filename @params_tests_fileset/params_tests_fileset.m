@@ -13,7 +13,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % object can easily be generated using the convertion methods.
 % Most methods defined here can 
 % be used as-is, however some should be overloaded in subclasses. 
-% The specific methods are loadFileProfile.
+% The specific methods are loadItemProfile.
 %
 %   Parameters:
 %	file_pattern: File pattern matching all files to be loaded.
@@ -26,21 +26,19 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %		type: type of file (default = '')
 %		
 %   Returns a structure object with the following fields:
-%	params_tests_db,
+%	params_tests_dataset,
 %	path: The pathname to files,
 %	filenames: Cell array of filenames corresponding to DB entries,
-%	dt, dy, id, props (see above).
+%	props (see above).
 %
 % General operations on params_tests_fileset objects:
 %   params_tests_fileset - Construct a new object.
-%   params_tests_db	 - Generate a db by calling fileResultsRow for 
-%			   each file.
-%   loadFileProfile 	 - Implements the specific way to load raw data 
+%   loadItemProfile 	 - Implements the specific way to load raw data 
 %			   traces for this fileset.
 %   testNames		 - Returns test names for this fileset. Uses
-%			   loadFileProfile to load the raw data.
+%			   loadItemProfile to load the raw data.
 %   paramNames		 - Returns parameter names for this fileset.
-%   fileResultsRow	 - Uses loadFileProfile to load raw data and
+%   itemResultsRow	 - Uses loadItemProfile to load raw data and
 %			   queries it to get parameters and results.
 %   trace		- Load a trace corresponding to fileset entry.
 %   trace_profile	- Load a trace_profile corresponding to fileset entry.
@@ -58,14 +56,9 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/09
 
 if nargin == 0 %# Called with no params
-  obj.dt=1;
-  obj.dy=1;
-  obj.id = '';
-  obj.props = struct([]);
   obj.path='';
-  obj.filenames = {};
-  obj.dy='';
-  obj = class(obj, 'params_tests_fileset');
+  obj.props = struct([]);
+  obj = class(obj, 'params_tests_fileset', params_tests_dataset);
 elseif isa(file_pattern, 'params_tests_fileset') %# copy constructor?
   obj = file_pattern;
 else
@@ -74,22 +67,20 @@ else
     props = struct([]);
   end
 
-  obj.dt = dt;
-  obj.dy = dy;
-  obj.id = id;
-  obj.props = props;
-
   %# First find all filenames matching the pattern
   
   %# Separate filename components
   [obj.path, name, ext, ver] = fileparts(file_pattern);
-  
+
+  obj.props = props;  
+
   filestruct = dir(file_pattern);
   entries = size(filestruct, 1);
-  [obj.filenames{1:entries}] = deal(filestruct(:).name);
+  [filenames{1:entries}] = deal(filestruct(:).name);
 
   %# then create the object 
-  obj = class(obj, 'params_tests_fileset');
+  obj = class(obj, 'params_tests_fileset', ...
+	      params_tests_dataset(filenames, dt, dy, id, props));
 
 end
 

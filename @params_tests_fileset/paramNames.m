@@ -19,7 +19,7 @@ function param_names = paramNames(fileset)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
-filename = fileset.filenames{1};
+filename = getItem(fileset, 1);
 fullname = fullfile(fileset.path, filename);
 
 names_vals = parseGenesisFilename(fullname);
