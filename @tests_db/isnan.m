@@ -23,4 +23,8 @@ if ~ exist('col')
   col = 1;
 end
 
-rows = isnan(db(:, col).data);
+col = tests2cols(db, col);
+
+col_db = onlyRowsTests(db, ':', col);
+
+rows = isnan(col_db.data);
