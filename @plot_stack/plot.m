@@ -47,8 +47,6 @@ border = 1;
 %# Fixed size for ticks and labels
 decosize = 0.03;
 
-a_plot.props
-
 %# Handle special label and tick placements to create maximal plotting area
 if isfield(a_plot.props, 'xLabelsPos') 
   switch a_plot.props.xLabelsPos
@@ -127,11 +125,6 @@ else
   end
 end
 
-labelwidth
-labelheight
-tickwidth
-tickheight
-
 if strcmp(a_plot.orient, 'x')
   tilewidth = border * width / num_plots;
   tileheight = border * height;
@@ -202,7 +195,7 @@ for plot_num=1:num_plots
       strcmp(a_plot.orient, 'y') * (plot_num - 1) * tileheight;
   position = [x_offset, y_offset, ...
 	      max(scale_down * tilewidth - tickwidth - labelwidth, minwidth), ...
-	      max(scale_down * tileheight - tickheight - labelheight, minheight) ]
+	      max(scale_down * tileheight - tickheight - labelheight, minheight) ];
   plot(one_plot, position);
   %# Set its axis limits if requested
   if ~ isempty(a_plot.axis_limits)
