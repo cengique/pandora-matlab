@@ -18,6 +18,7 @@ function a_ranked_db = ranked_db(data, col_names, orig_db, crit_db, id, props)
 %	crit_db: The criterion DB used for generating the ranking scores.
 %	id: An identifying string.
 %	props: A structure with any optional properties.
+%	  tolerateNaNs: If 0, rows with any NaN values are skipped (default=1).
 %		
 %   Returns a structure object with the following fields:
 %	tests_db, orig_db, crit_db, props.
