@@ -92,10 +92,16 @@ if nargin == 0 %# Called with no params
 	 data = readgenesis(data_src, channel);
        end
 
-     elseif strcmp(ext, 'mat') %# MatLab file
+     elseif strcmp(ext, '.all') %# PCDX file
+       disp('Loading PCDX trace');
+       data = loadtraces(data_src, props.traces, props.channel);
+       
+     elseif strcmp(ext, '.mat') %# MatLab file
        s = load(data_src);
        fields = fieldnames(s);
        data = getfield(s, fields{1});	%# Assuming there's only one vector
+     else
+       error(['No matching load function found for ' data_src ]);
      end
 
      %# use the filename as id unless otherwise specified
