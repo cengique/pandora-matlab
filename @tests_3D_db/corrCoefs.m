@@ -53,7 +53,7 @@ if size(db.tests_db.data, 1) > 1
   %# One coefficient per page of observations
   for page_num=pages'
     [coef_data, p, rlo, rup] = ...
-	corrcoef(db.tests_db.data(:, [col1 col2], page_num))
+	corrcoef(db.tests_db.data(:, [col1 col2], page_num));
 
     if ~ skipCoefs | p(1,2) <= 0.05
       coefs(page_num) = coef_data(1, 2); %# Cross-correlation coefficient 
