@@ -9,7 +9,8 @@ function a_db = join(db, tests, with_db, w_tests)
 % Description:
 %   Replicates the desired columns in the with_db with rows having a 
 % page index and joins them next to dedired columns from the current 3D_db. Flattens 
-% the resulting 3D_db to becaome a 2D db. Assumes each page index only appears once in with_db.
+% the resulting 3D_db to become a 2D db. Assumes each page index only 
+% appears once in with_db.
 %
 %   Parameters:
 %	db: A tests_3D_db object.
