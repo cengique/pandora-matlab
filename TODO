@@ -1,46 +1,18 @@
 TODO
 --------------------
-- add a addItem method to datasets
-- add a merge method to tests_db (override cat method?)
-- add artihmetic operations to tests_db
-- fix varboxplot to return correct y-axis limits
-- objects don't take more space when they're used again, has implications on design:
-	- put link to dataset from db
-	- put links to previous db's for a chain of operations
-- comparing physiology data
-	+ make tabular display
-- Make params_tests_profile to use arrays rather than cell arrays
-	+ had to remove size member function
-	+ may need to modify subsref [if an array is passed, then call built-in function]
-	+ then make plot methods operate on arrays and return plot arrays
-	- do for rest of profile elements
-- update documentation 
-	+ update README
-	- make first description no longer than one line on all constructors
-- Replace older plot methods with plotFigure(plot_abstract(.)) combinations
-	- what to do with Interpreter=None stuff?
-- high-order methods:
-	+ factor analysis
-	+ shuffle predicition
-	- pca
-	- ica
-	- clustering (use for finding multiple solutions?)
-		- use ANOVA for showing different distributions
-		- need this for finding parameter clusters matching phys data?
-+ new subclass for custom analysis
-	- add plotTestStats function to group things together [?]
-- matrix color plot
-- Make PDF with code design
-	- add class diagram with converter methods
-- CVS
-  - present CVS, start using it
-  - move this repository to djlab account?
-- profile:
-	+ make a converter method from params_tests_db to get the profile
-	+ make the profile constructor simple
-	+ put all test results into the results structure
-	+ overload the get method to look into the results structure
+- tests_db
+	- add arithmetic operations that operate on the data matrix
+	+ add horzcat, vertcat methods to concat rows or columns (!)
+	+ print column numbers in display
+	+ define all operations as row logical functions
+	+ complex subsref for tests_db. 
 - add plot-frame and docgen classes
+  - allow fontsize change to fit more on a single page [can use export size for that]
+  - clustering histograms?
+  - fix varboxplot to return correct y-axis limits
+  - Replace older plot methods with plotFigure(plot_abstract(.)) combinations
+	- what to do with Interpreter=None stuff?
+  - matrix color plot
   + allow adjusting location of title in stack plots
   + invar param value should be indicated on plotPages
   + classes should have function that returns plot_abstract
@@ -50,13 +22,41 @@ TODO
   + histograms should have same axis limits
   + @plot_abstract/superposePlots, superposes plots on same axis, and 
     return a new plot_abstract object
-  - allow fontsize change to fit more on a single page [can use export size for that]
-- tests_db
-	+ print column numbers in display
-	+ define all operations as row logical functions
-	+ complex subsref for tests_db. 
-  - clustering histograms?
+- objects don't take more space when they're used again, has implications on design:
+	- put link to dataset from db
+	- put links to previous db's for a chain of operations
+- comparing physiology data
+	+ make tabular display
+- Make params_tests_profile to use arrays rather than cell arrays
+	- do for rest of profile elements
+	+ had to remove size member function
+	+ may need to modify subsref [if an array is passed, then call built-in function]
+	+ then make plot methods operate on arrays and return plot arrays
+- update documentation 
+	+ update README
+	- make first description no longer than one line on all constructors
+	- Make PDF with code design
+		- add class diagram with converter methods
+- high-order methods:
+	+ factor analysis
+	+ shuffle predicition
+	- pca
+	- ica
+	- clustering (use for finding multiple solutions?)
+		- use ANOVA for showing different distributions
+		- need this for finding parameter clusters matching phys data?
++ add an addItem method to datasets
++ new subclass for custom analysis
+	- add plotTestStats function to group things together [?]
 
+- CVS
+  - present CVS, start using it
+  - move this repository to djlab account?
++ profile:
+	+ make a converter method from params_tests_db to get the profile
+	+ make the profile constructor simple
+	+ put all test results into the results structure
+	+ overload the get method to look into the results structure
 + matrix stack plot
 + new plot & data type for mean and stds of each test and param value
 	+ swapRowsPages, then find statsMeanStd
