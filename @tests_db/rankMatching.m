@@ -1,9 +1,9 @@
-function rank_db = rankMatching(db, crit_db)
+function a_ranked_db = rankMatching(db, crit_db)
 
 % rankMatching - Create a ranking db of row distances of db to given criterion db.
 %
 % Usage:
-% rank_db = rankMatching(db, crit_db)
+% a_ranked_db = rankMatching(db, crit_db)
 %
 % Description:
 %   crit_db can be created with the matchingRow method.
@@ -13,7 +13,7 @@ function rank_db = rankMatching(db, crit_db)
 %	crit_db: A tests_db object holding the match criterion tests and stds.
 %		
 %   Returns:
-%	rank_db: A tests_db object.
+%	a_ranked_db: A tests_db object.
 %
 % See also: matchingRow, tests_db
 %
@@ -51,16 +51,15 @@ wghd_data = diff_data ./ rep_weight;
 
 %# Sum of squares: distance measure
 ss_data = wghd_data .* wghd_data;
-wghd_data = sum(ss_data, 2);
+summed_data = sum(ss_data, 2);
 
 %# Ignore NaN rows
-nans = isnan(wghd_data);
-wghd_data = wghd_data(~nans);
+nans = isnan(summed_data);
+summed_data = summed_data(~nans);
 row_index = row_index(~nans);
-ss_data = ss_data(~nans, :);
+wghd_data = wghd_data(~nans, :);
 
-%# Create new db with distances and row indices, sorted with distances
-rank_db = sortrows(tests_db([ss_data, wghd_data, row_index], ...
-			    {crit_tests{:}, 'Distance', 'RowIndex'}, {}, ...
-			    [ get(db, 'id') ' compared with ' get(crit_db, 'id') ]), ...
-		   'Distance');
+%# Create a ranked_db with distances and row indices, sorted with distances
+a_ranked_db = ranked_db([wghd_data, summed_data, row_index], ...
+			{crit_tests{:}, 'Distance', 'RowIndex'}, db, crit_db, ...
+			[ lower(get(db, 'id')) ' ranked to ' lower(get(crit_db, 'id')) ]);

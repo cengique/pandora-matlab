@@ -1,9 +1,9 @@
-function ranked_db = rankVsDB(a_db, crit_db)
+function a_ranked_db = rankVsDB(a_db, crit_db)
 
 % rankVsDB - Generates a ranking DB by comparing rows of this db with the given test criteria.
 %
 % Usage:
-% ranked_db = rankVsDB(a_db, crit_db)
+% a_ranked_db = rankVsDB(a_db, crit_db)
 %
 % Description:
 %   Distance is each measure difference divided by the STD in to_db, squared and
@@ -16,7 +16,7 @@ function ranked_db = rankVsDB(a_db, crit_db)
 %		 which can be created with matchingRow.
 %
 %   Returns:
-%	ranked_db: The created DB with original rows and a distance measure, 
+%	a_ranked_db: The created DB with original rows and a distance measure, 
 %		   in ascending order. 
 %
 % See also: matchingRow, rankMatching, joinRows
@@ -31,17 +31,14 @@ function ranked_db = rankVsDB(a_db, crit_db)
 %#crit_db = matchingRow(to_db, to_row, to_tests);
 
 %# Get rankings from criterion
-ranked_db = rankMatching(a_db, crit_db);
+dist_db = rankMatching(a_db, crit_db);
 
-min_distance = min(ranked_db(:, 'Distance').data);
-avg_distance = mean(ranked_db(:, 'Distance'));
-max_distance = max(ranked_db(:, 'Distance').data);
+min_distance = min(dist_db(:, 'Distance').data);
+avg_distance = mean(dist_db(:, 'Distance'));
+max_distance = max(dist_db(:, 'Distance').data);
 
 %# Take all criterion columns and parameter columns from original db
-crit_cols = fieldnames(crit_db.col_idx);
-db_cols = fieldnames(get(a_db, 'col_idx'));
-ranked_db = joinRows(a_db, {db_cols{1:a_db.num_params}, ...
-			    crit_cols{1:24}}, ranked_db, {'Distance', 'RowIndex'});
+a_ranked_db = joinOriginal(dist_db);
 
-%# a=displayRow(ranked_db, 1:10)
+%# a=displayRow(a_ranked_db, 1:10)
 %# s = cell2TeX(a)
