@@ -71,4 +71,4 @@ col_names = col_name_cell(cols);
 
 %# TODO: put the invarName in the title?
 a_tests_3D_db = tests_3D_db(data, {col_names{:}, 'RowIndex'}, {}, {}, ...
-			    [ 'Invariant values from ' db.id ], db.props);
+			    [ 'Invariant values from ' db.id ], get(db, 'props'));
