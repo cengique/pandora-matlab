@@ -36,8 +36,16 @@ pages=(1:num_pages)';
 subplots = cell(num_pages, 1);
 
 for page_num=pages'
-  subplots{page_num} = plot_abstract(onlyRowsTests(a_hist_db, ':', ':', ...
-						   page_num));
+  a_plot = plot_abstract(onlyRowsTests(a_hist_db, ':', ':', ...
+				       page_num));
+  %# Add a page identification label on the x-axis label
+  if isfield(a_hist_db.props, 'pageNames')
+    page_names = a_hist_db.props.pageNames;
+    axis_labels = get(a_plot, 'axis_labels');
+    axis_labels{1} = [ axis_labels{1} ', ' page_names{page_num} ];
+    a_plot = set(a_plot, 'axis_labels', axis_labels)
+  end
+  subplots{page_num} = a_plot;
 end
 
-a_plot = plot_stack(subplots, [], an_orient, '');
+a_plot = plot_stack(subplots, [], an_orient, '', struct('titlesPos', 'top'));
