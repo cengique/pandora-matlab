@@ -1,4 +1,4 @@
-function params_row = getItemParams(dataset, index)
+function params_row = getItemParams(dataset, index, a_profile)
 
 % getItemParams - Get the parameter values of a dataset item.
 %
