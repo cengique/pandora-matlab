@@ -43,7 +43,7 @@ if isfield(row_idx, 'max')
 end
 
 if isfield(a_stats_db.props, 'axis_limits')
-  axis_limits = a_stats_db.props.axis_limits
+  axis_limits = a_stats_db.props.axis_limits;
 else
   axis_limits = [];
 end
