@@ -1,9 +1,9 @@
-function a_db = vertcat(db, with_db)
+function a_db = vertcat(db, varargin)
 
-% vertcat - Vertical concatanation [db;with_db] operator.
+% vertcat - Vertical concatanation [db;with_db;...] operator.
 %
 % Usage:
-% a_db = vertcat(db, with_db)
+% a_db = vertcat(db, with_db, ...)
 %
 % Description:
 %   Concatanates rows of with_db to rows of db. Overrides the built-in
@@ -11,7 +11,7 @@ function a_db = vertcat(db, with_db)
 %
 %   Parameters:
 %	db: A tests_db object.
-%	with_db: A tests_db object to be concatanated to db.
+%	with_db: A tests_db object whose rows are concatanated to db.
 %		
 %   Returns:
 %	a_db: A tests_db that contains rows of db and with_db.
@@ -20,6 +20,13 @@ function a_db = vertcat(db, with_db)
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/25
+
+%# Recurse to support variable number of inputs
+if length(varargin) > 1
+  with_db = vertcat(varargin{1}, varargin{2:end});
+else
+  with_db = varargin{1};
+end
 
 col_names = fieldnames(get(db, 'col_idx'));
 wcol_names = fieldnames(get(with_db, 'col_idx'));
