@@ -11,6 +11,7 @@ function obj = ...
 %	a_cip_trace: A cip_trace object.
 %	a_spikes: A spikes object.
 %	a_spont_spike_shape: A spike_shape object for spont spikes.
+%	a_pulse_spike_shape: A spike_shape object for pulse spikes.
 %	results: A structure containing test results.
 %	id: Identification string.
 %	props: A structure with any optional properties.
@@ -104,18 +105,18 @@ elseif isnumeric(varargin{2})
 			      varargin{6}));
 else 
   %# Create object with custom data (used from subclasses)
-  if nargin < 6
+  if nargin < 7
     props = struct([]);
   else
-    props = varargin{6};
+    props = varargin{7};
   end
 
-  [ obj.trace, obj.spikes, obj.spont_spike_shape ] = ...
-      deal(varargin{1:3});
+  [ obj.trace, obj.spikes, obj.spont_spike_shape obj.pulse_spike_shape ] = ...
+      deal(varargin{1:4});
   obj.props = props;
 
   %# Create the object
-  obj = class(obj, 'cip_trace_profile', results_profile(varargin{4:5}));
+  obj = class(obj, 'cip_trace_profile', results_profile(varargin{5:6}));
 end
 
 
