@@ -1,16 +1,17 @@
-function a_stats_db = statsBounds(db, tests, props)
+function a_stats_db = statsBounds(a_db, tests, props)
 
-% statsBounds - Generates a stats_db object with two rows corresponding to 
-%		the mean, min, and max of the tests' distributions.
+% statsBounds - Generates a stats_db object with three rows corresponding to 
+%		the mean, min, and max of the tests' distributions. A page is
+%		generated for each page of data in db.
 %
 % Usage:
-% a_stats_db = statsBounds(db, tests, props)
+% a_stats_db = statsBounds(a_db, tests, props)
 %
 % Description:
 %
 %   Parameters:
-%	db: A tests_db object.
-%	tests: A tests specification (see onlyRowsTests).
+%	a_db: A tests_db object.
+%	tests: A selection of tests (see onlyRowsTests).
 %	props: A structure with any optional properties for stats_db.
 %		
 %   Returns:
@@ -25,15 +26,23 @@ if ~ exist('props')
   props = struct([]);
 end
 
-a_db = db(:, tests);
-test_results = [mean(a_db, 1); min(a_db.data, [], 1); ...
-		max(a_db.data, [], 1)];
+%#data = get(a_db, 'data');
+db_size = size(data);
+num_pages = db_size(3);
+pages=1:num_pages;
+data = repmat(0, [3, db_size(2), num_pages]);
+for page_num=pages
+  a_page_db = a_db(:, tests, page_num);
+  data(:, :, page_num) = [mean(a_page_db, 1); min(a_page_db.data, [], 1); ...
+			  max(a_page_db.data, [], 1)];
+end
+
 row_names = {'mean', 'min', 'max'};
 
 %# Original column names
-cols = tests2cols(db, tests);
-col_name_cell = fieldnames(db.col_idx);
+cols = tests2cols(a_db, tests);
+col_name_cell = fieldnames(a_db.col_idx);
 col_names = col_name_cell(cols);
 
-a_stats_db = stats_db(test_results, col_names, row_names, {}, ...
-		      [ 'Bounds from ' db.id ], props);
+a_stats_db = stats_db(data, col_names, row_names, {}, ...
+		      [ 'Mean value and min-max bounds from ' db.id ], props);
