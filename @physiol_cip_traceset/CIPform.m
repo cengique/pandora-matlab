@@ -1,0 +1,87 @@
+function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
+	warning off MATLAB:divideByZero;
+	warning off MATLAB:polyfit:PolyNotUnique;
+
+
+	sprintf('data file: %s, trace number: %d', traceset.data_src, trace_index)
+
+	% Create list of all available cip step amplitudes.
+	cipList = [-200,-150,[-100:10:100],150,200,250,300,400,500];
+%	cipList = [-200:100:500];
+	nSD = 10;	% number of standard deviations for transition threshold
+	hfig = 1;	% figure number on which to plot
+	
+	current = 100*loadtraces(traceset.data_src, ...
+		num2str(getItem(traceset, trace_index)), traceset.ichan)/traceset.igain;
+		% Multiplication by 1000 converts current from nA to pA.
+	windowsize = 100;	% size of sliding window for moving average.
+	if length(current) < 3*windowsize
+		error('The current trace does not have enough data points.');
+	end
+	filtcurr = filter(ones(1, windowsize)/windowsize, 1, current);	
+	% remove ends of filtered trace
+	filtcurr = filtcurr(windowsize + 1:length(filtcurr) - windowsize);
+	dt = get(traceset, 'dt');
+	maxc = max(filtcurr);
+	minc = min(filtcurr);
+	stdev = std(filtcurr(1:100));	
+	bsln = median(filtcurr(1:100));
+	if (maxc - minc) < 10 % No cip found.
+%		sprintf('0 cip')
+		on = 1;
+		off = length(current);
+		ciptype = 0;
+	elseif (maxc - bsln) > (bsln - minc)	% is +cip trace
+%		sprintf('+ cip')
+		tmp = find(filtcurr > (bsln + 0.5*(maxc - minc)));
+		ciptype = 1;
+	else	% is -cip trace
+%		sprintf('- cip')
+		tmp = find(filtcurr < (bsln - 0.5*(maxc - minc)));
+		ciptype = -1;
+    end
+
+	% extract pulse start & end times (to nearest 10 msec)
+	if ciptype ~= 0
+		on = 1 + windowsize + floor(tmp(1)*(dt*1000/10)) / (dt*1000/10);
+		off = ceil(tmp(length(tmp))*(dt*1000/10)) / (dt*1000/10);
+	end
+
+	% diagnostics
+%	sprintf('maxc: %g, minc: %g, stdev: %g, bsln: %g', maxc, minc, stdev, bsln)
+%	sprintf('ciptype: %d, on: %g, off: %g', ciptype,  on, off)
+	if on > 1 & on < 10001
+		warning('Unexpected pulse start time.');
+		sprintf('ciptype: %d, on: %g, off: %g', ciptype,  on, off)
+	elseif off > 20000 & off < 30000
+		warning('Unexpected pulse end time.');
+		sprintf('ciptype: %d, on: %g, off: %g', ciptype,  on, off)
+	end
+%	figure(hfig); plot(filtcurr, '-green'); hold on;
+%	figure; plot(current, '-blue'); hold on; plot(filtcurr, '-green');
+	
+	if ciptype == 0
+		bias = round(median(current));
+		pulse = 0;
+	else
+    	bias=round(median(current(1:on-10)));
+    	pulse = round(maxc-minc) * ciptype;
+%    	pulse = round(median(current(on+10:off-10)) - bias);
+%		sprintf('raw pulse: %g', pulse)
+		tvec = sort([cipList, pulse]);
+		pulseidx = find(tvec == pulse);
+		if length(pulseidx) > 1
+			pulse = tvec(pulseidx(1));
+		elseif pulseidx == 1
+			pulse = tvec(2);
+		elseif pulseidx == length(tvec)
+			pulse = tvec(pulseidx - 1);
+		elseif tvec(pulseidx + 1) - pulse > pulse - tvec(pulseidx - 1)
+			pulse = tvec(pulseidx - 1);
+		else
+			pulse = tvec(pulseidx + 1);
+		end
+	end
+%	sprintf('max - min: %g', (maxc - minc))
+%	sprintf('on: %g, off: %g, bias: %g, pulse: %g', on, off, bias, pulse)
+	finish = length(current);
