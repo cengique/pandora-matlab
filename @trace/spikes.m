@@ -31,6 +31,8 @@ if ~ exist('plotit')
   plotit = 0;
 end
 
+if (a_period.end_time - a_period.start_time) > 0
+
 %# Choose an appropriate spike finder here and indicate in id.
 if isfield(t.props, 'spike_finder') & ...
       t.props.spike_finder == 2 & ...
@@ -47,3 +49,9 @@ else %# Assume spike_finder == 1 for filtered method
 end
 
 obj = spikes(times, length(t.data), t.dt, t.id);
+
+else
+
+obj = spikes([], length(t.data), t.dt, t.id);
+
+end
