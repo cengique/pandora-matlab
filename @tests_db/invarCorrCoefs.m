@@ -1,10 +1,10 @@
-function a_tests_db = invarCorrCoefs(db, col1, col2, num_bins, props)
+function a_tests_db = invarCorrCoefs(db, col1, col2, props)
 
 % invarCorrCoefs - Generates a database of invariant correlation 
 %		coefficients for two columns in the database.
 %
 % Usage:
-% a_tests_db = invarCorrCoefs(db, col1, col2, num_bins)
+% a_tests_db = invarCorrCoefs(db, col1, col2, props)
 %
 % Description:
 % The invariant correlation coefficients are the correlation of one column
@@ -26,10 +26,6 @@ function a_tests_db = invarCorrCoefs(db, col1, col2, num_bins, props)
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/28
-
-if ~ exist('num_bins')
-  num_bins = 100;
-end
 
 if ~ exist('props')
   props = struct([]);
@@ -84,8 +80,8 @@ if length(coefs) == 0
   error('No coefficients found.');
 end
 
-%# Reorder to find original row indices
-row_idx = sort(idx(unique_idx));
+%# Translate to find original row indices 
+row_idx = idx(unique_idx);
 
 %# Create the coefficient database
 col_name_cell = fieldnames(db.col_idx);

@@ -10,6 +10,7 @@ function a_histogram_db = histogram(db, col, num_bins)
 %
 %   Parameters:
 %	db: A tests_db object.
+%	col: Column to find the histogram.
 %	num_bins: Number of histogram bins (Optional, default=100)
 %		
 %   Returns:

@@ -1,18 +1,19 @@
-function obj = onlyRowsTests(obj, rows, tests)
+function obj = onlyRowsTests(obj, rows, tests, pages)
 
 % onlyRowsTests - Returns a tests_db that only contains the desired 
-%		tests and rows.
+%		tests and rows (and pages).
 %
 % Usage:
-% obj = onlyRowsTests(obj, rows, tests)
+% obj = onlyRowsTests(obj, rows, tests, pages)
 %
 % Description:
-% Selects the given test columns and rows and returns in a new tests_db object.
+% Selects the given dimensions and returns in a new tests_db object.
 %
 %   Parameters:
 %	obj: A tests_db object.
 %	rows: A logical or index vector of rows. If ':', all rows.
 %	tests: Cell array of test names or column indices. If ':', all tests.
+%	pages: (Optional) A logical or index vector of pages. ':' for all pages.
 %		
 %   Returns:
 %	obj: The new tests_db object.
@@ -53,12 +54,13 @@ else
 	 ' column name or cell array of names.']);
 end
 
-%# Handle rows
-if strcmp(rows, ':')
-  obj.data = obj.data(:, cols);
-else
-  obj.data = obj.data(rows, cols);
+%# Pages
+if ~ exist('pages')
+  pages = ':';
 end
+
+%# Do it
+obj.data = obj.data(rows, cols, pages);
 
 %# Convert and get col_idx
 numsCell = col_names(cols);

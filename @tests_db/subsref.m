@@ -34,7 +34,9 @@ else
       if length(index.subs) == 1 %# Only rows
 	b = onlyRowsTests(a, index.subs{1}, ':');
       elseif length(index.subs) == 2 %# Both rows and cols
-	b = onlyRowsTests(a, index.subs{1}, index.subs{2});
+	b = onlyRowsTests(a, index.subs{1:2});
+      elseif length(index.subs) == 3 %# Rows, cols, and pages.
+	b = onlyRowsTests(a, index.subs{1:3});
       else
 	error('Only two indices are supported: db(rows, cols)');
       end
