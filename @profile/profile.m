@@ -17,9 +17,10 @@ function obj = profile(results, id)
 %
 % General methods of profile objects:
 %   profile	- Construct a new profile object.
-%   plot	- Graph the profile (N/I).
-%   display	- Returns and displays the identification string.
 %   getResults  - Returns the results structure.
+%   display	- Returns and displays the identification string.
+%   get		- Gets attributes of this object and parents.
+%   subsref	- Allows usage of . operator.
 %
 % Additional methods:
 %   See methods('profile')

@@ -30,6 +30,12 @@ function obj = cip_trace(datasrc, dt, dy, ...
 %   cip_trace		- Construct a new cip_trace object.
 %   plot		- Graph the cip_trace.
 %   display		- Returns and displays the identification string.
+%   get			- Gets attributes of this object and parents.
+%   subsref		- Allows usage of . operator.
+%   spikes		- Converter method to get a spikes object.
+%   calc*		- Various tests.
+%   getResults		- Calculates a set of tests.
+%   period* 		- Period objects defined for periods of interest.
 %
 % Additional methods:
 %   See methods('cip_trace')

@@ -20,11 +20,17 @@ function obj = spikes(times, num_samples, dt, id)
 %   spikes		- Construct a new spikes object.
 %   plot		- Graph the spikes.
 %   display		- Returns and displays the identification string.
+%   subsref		- Allows usage of . operator.
 %   spikeRate		- Average spike rate [Hz].
 %   spikeRateISI	- Average spike rate, calculated from ISIs [Hz].
 %   spikeISIs		- Vector of spike ISIs [dt].
+%   ISICV		- ISI coefficient of variation.
+%   SFA			- Spike frequency accommodation.
+%   spikeAmpSlope	- Approximate spike amplitude decay parameters.
 %   withinPeriod 	- Returns a spikes object valid only within the 
 %			given period.
+%   periodWhole		- Period object covering the whole period.
+%   getResults		- Calculates a set of tests.
 %
 % Additional methods:
 %   See methods('spikes')

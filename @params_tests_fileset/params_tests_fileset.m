@@ -8,12 +8,15 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %
 % Description:
 %   This class is used to generate params_tests_db objects and keep 
-% a connection to the raw data files. Most methods defined here can 
+% a connection to the raw data files. This class only keeps names of
+% files and loads raw data files whenever it's requested. A database
+% object can easily be generated using the convertion methods.
+% Most methods defined here can 
 % be used as-is, however some should be overloaded in subclasses. 
 % The specific methods are loadFileProfile.
 %
 %   Parameters:
-%	file_pattern: File pattern mathing all files to be loaded.
+%	file_pattern: File pattern matching all files to be loaded.
 %	dt: Time resolution [s]
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: An identification string
@@ -39,6 +42,11 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %   paramNames		 - Returns parameter names for this fileset.
 %   fileResultsRow	 - Uses loadFileProfile to load raw data and
 %			   queries it to get parameters and results.
+%   trace		- Load a trace corresponding to fileset entry.
+%   trace_profile	- Load a trace_profile corresponding to fileset entry.
+%   display		- Returns and displays the identification string.
+%   get			- Gets attributes of this object and parents.
+%   subsref		- Allows usage of . operator.
 %   
 %
 % Additional methods:

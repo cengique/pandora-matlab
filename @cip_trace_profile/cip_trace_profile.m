@@ -40,6 +40,8 @@ function obj = ...
 %   cip_trace_profile	- Construct a new cip_trace_profile object.
 %   plot		- Graph the cip_trace_profile.
 %   display		- Returns and displays the identification string.
+%   get			- Gets attributes of this object and parents.
+%   subsref		- Allows usage of . operator.
 %
 % Additional methods:
 %   See methods('cip_trace_profile')

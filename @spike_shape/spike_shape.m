@@ -27,12 +27,11 @@ function obj = spike_shape(data, dt, dy, id, props)
 %
 % General methods of spike_shape objects:
 %   spike_shape		- Construct a new spike_shape object.
-%   plot		- Graph the spike_shape.
-%   display		- Returns and displays the identification string.
 %   calcMinVm		- Returns the value and index of the minimal Vm point.
 %   calcMaxVm		- Returns the value and index of the maximal Vm point.
 %   calcInitVm		- Returns the value and index of the spike initiation point.
 %   calcWidthFall	- Returns the spike witdth and fall information
+%   getResults		- Calculates a set of tests.
 %
 % Additional methods:
 %   See methods('spike_shape')

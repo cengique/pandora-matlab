@@ -33,12 +33,17 @@ function obj = trace(data_src, dt, dy, id, props)
 %   trace		- Construct a new trace object.
 %   plot		- Graph the trace.
 %   display		- Returns and displays the identification string.
+%   get			- Gets attributes of this object and parents.
+%   subsref		- Allows usage of . operator.
 %   calcAvg		- Calculate the average value of the trace period.
 %   calcMin		- Calculate the minimum value of the trace period.
 %   calcMax		- Calculate the minimum value of the trace period.
 %   periodWhole		- Return the whole period of this trace.
 %   findFilteredSpikes	- Use a band-pass filter to smooth the data and
-%			find spikes afterwards. TODO: separate the filter
+%			find spikes afterwards. 
+%   getResults		- Calculates a set of tests.
+%   spike_shape		- Build a trace of the average spike shape in here.
+%   spikes		- Build a spikes object with the spikes found here.
 %
 % Converter methods:
 %   spikes		- Find the spikes and construct a spikes object.

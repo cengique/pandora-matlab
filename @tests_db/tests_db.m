@@ -22,8 +22,15 @@ function obj = tests_db(test_results, col_names, id, props)
 %
 % General operations on tests_db objects:
 %   tests_db		- Construct a new tests_db object.
-%   plot		- Graph the tests_db (N/I).
+%   allocateRows	- Preallocate rows before filling the DB.
+%   setRows		- Fill the DB with rows.
+%   addRow		- Add a single row to DB.
+%   addLastRow		- Add a single row to the end of DB.
 %   display		- Returns and displays the identification string.
+%   displayRow		- Display one row of data from the DB.
+%   subsref		- Allows referencing rows/cols to get new 
+%			  tests_db objects and allows usage of . operator.
+%   get			- Gets attributes of this object and parents.
 %   kcluster		- Returns k tests_db objects, one for each cluster 
 %			  found in this one (N/I).
 %   rankMatching	- Returns a tests_db object having an additional
@@ -41,8 +48,6 @@ function obj = tests_db(test_results, col_names, id, props)
 %			  requested (N/I).
 %   onlyTests		- Returns a tests_db object which contains only 
 %			  the requested test columns (N/I).
-%   subsref		- Allows referencing rows/cols to get new 
-%			  tests_db objects.
 %   histogram		- Returns histogram of given test.
 %
 % Additional methods:

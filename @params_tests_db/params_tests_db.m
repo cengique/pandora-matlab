@@ -27,6 +27,9 @@ function obj = params_tests_db(params, param_names, ...
 %
 % General operations on params_tests_db objects:
 %   params_tests_db		- Construct a new params_tests_db object.
+%   display		- Returns and displays the identification string.
+%   get			- Gets attributes of this object and parents.
+%   subsref		- Allows usage of . operator.
 %
 % Additional methods:
 %	See methods('params_tests_db') and methods('tests_db')

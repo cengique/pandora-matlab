@@ -31,6 +31,12 @@ function obj = ...
 %
 % General operations on params_cip_trace_fileset objects:
 %   params_cip_trace_fileset - Construct a new object.
+%   display		- Returns and displays the identification string.
+%   get			- Gets attributes of this object and parents.
+%   subsref		- Allows usage of . operator.
+%   loadFileProfile	- Builds a cip_trace_profile for a file in the set.
+%   cip_trace		- Load a cip_trace corresponding to fileset entry.
+%   cip_trace_profile	- Load a cip_trace_profile corresponding to fileset entry.
 %
 % Additional methods:
 %	See methods('params_cip_trace_fileset'), and 
