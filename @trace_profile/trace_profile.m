@@ -16,7 +16,6 @@ function obj = trace_profile(varargin)
 % Usage 2:
 % obj = trace_profile(data_src, dt, dy, id, props)
 %
-%
 %    Parameters:
 %	data_src: The trace column OR the .MAT filename.
 %	dt: Time resolution [s]
@@ -59,13 +58,11 @@ if nargin == 0 %# Called with no params, creates empty object
   obj.trace = trace;
   obj.spikes = spikes;
   obj.spike_shape = spike_shape;
-  obj.results = struct([]);
-  obj.id = '';
   obj.props = struct([]);
-  obj = class(obj, 'trace_profile');
-elseif isa(a_trace, 'trace_profile') %# copy constructor?
-  obj = datasrc;
-elseif nargin < 4 && isnumeric(a_spikes)
+  obj = class(obj, 'trace_profile', profile);
+elseif isa(varargin{1}, 'trace_profile') %# copy constructor?
+  obj = varargin{1};
+elseif nargin < 4 && isnumeric(varargin{2})
   %# Create all data structures and collect results
   obj.trace = trace(varargin{1:5}, props);
   obj.spikes = spikes(obj.trace);
@@ -75,18 +72,17 @@ elseif nargin < 4 && isnumeric(a_spikes)
   trace_results = getResults(obj.trace);
   rate_results = getResults(obj.spikes, obj.trace);
   shape_results = getResults(obj.spike_shape);
-  obj.results = mergeStructs(trace_results, rate_results, shape_results);
-
-  obj.props = props;
-  obj.id = varargin{5};
 
   %# Create the object
-  obj = class(obj, 'trace_profile');
+  obj = class(obj, 'trace_profile', ...
+	      profile(mergeStructs(trace_results, rate_results, 
+				   shape_results), ...
+		      varargin{5}));
 else
   %# Create object with custom data (used from subclasses)
-  [ obj.trace, obj.spikes, obj.spike_shape, obj.results, obj.id ] = ...
-      deal(varargin{1:5});
+  [ obj.trace, obj.spikes, obj.spike_shape ] = ...
+      deal(varargin{1:3});
   obj.props = props;
   %# Create the object
-  obj = class(obj, 'trace_profile');
+  obj = class(obj, 'trace_profile', profile(varargin{4:5}));
 end

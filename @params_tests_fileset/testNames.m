@@ -22,11 +22,8 @@ function test_names = testNames(fileset)
 filename = fileset.filenames{1};
 fullname = fullfile(fileset.path, filename);
 
-%# Load a trace object
-a_trace = trace(fullname, fileset.dt, fileset.dy, ...
-		[fileset.id '(' num2str(file_index) ')'], fileset.props);
-
-results = getResults(a_trace); 
+%# Load any profile object
+a_profile = loadFileProfile(fileset, file_index);
 
 %# Convert test names to cell array
-test_names = fieldnames(results);
+test_names = fieldnames(getResults(a_profile));

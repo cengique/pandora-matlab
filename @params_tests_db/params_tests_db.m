@@ -29,7 +29,7 @@ function obj = params_tests_db(params, param_names, ...
 %   params_tests_db		- Construct a new params_tests_db object.
 %
 % Additional methods:
-%	See methods('params_tests_db')
+%	See methods('params_tests_db') and methods('tests_db')
 %
 % See also: tests_db, test_variable_db (N/I)
 %

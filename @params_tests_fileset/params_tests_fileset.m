@@ -8,7 +8,9 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %
 % Description:
 %   This class is used to generate params_tests_db objects and keep 
-% a connection to the raw data files.
+% a connection to the raw data files. Most methods defined here can 
+% be used as-is, however some should be overloaded in subclasses. 
+% The specific methods are loadFileProfile.
 %
 %   Parameters:
 %	file_pattern: File pattern mathing all files to be loaded.
@@ -24,12 +26,20 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %	params_tests_db,
 %	path: The pathname to files,
 %	filenames: Cell array of filenames corresponding to DB entries,
-%	dt, dy, props (see above).
+%	dt, dy, id, props (see above).
 %
 % General operations on params_tests_fileset objects:
 %   params_tests_fileset - Construct a new object.
 %   params_tests_db	 - Generate a db by calling fileResultsRow for 
-%			  each file.
+%			   each file.
+%   loadFileProfile 	 - Implements the specific way to load raw data 
+%			   traces for this fileset.
+%   testNames		 - Returns test names for this fileset. Uses
+%			   loadFileProfile to load the raw data.
+%   paramNames		 - Returns parameter names for this fileset.
+%   fileResultsRow	 - Uses loadFileProfile to load raw data and
+%			   queries it to get parameters and results.
+%   
 %
 % Additional methods:
 %	See methods('params_tests_fileset')
@@ -44,6 +54,7 @@ if nargin == 0 %# Called with no params
   obj.filenames = {};
   obj.dt=1;
   obj.dy=1;
+  obj.dy='';
   obj.props = struct([]);
   obj = class(obj, 'params_tests_fileset');
 elseif isa(file_pattern, 'params_tests_fileset') %# copy constructor?
@@ -56,6 +67,7 @@ else
 
   obj.dt = dt;
   obj.dy = dy;
+  obj.id = id;
   obj.props = props;
 
   %# First find all filenames matching the pattern

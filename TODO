@@ -1,12 +1,17 @@
 TODO
 --------------------
-- Make README file
-- Make Matlab contents file
-- getResults for @spikes, @trace
+- Make PDF with code design
+- CVS
+	- present CVS, start using it
+	- move this repository to djlab account?
 - add calcSlowInact to @cip_trace
-- move this repository to djlab account?
 - add plot-frame and docgen classes
 
++ add cip_trace_fileset class
++ make abstract profile class to describe the getResults method
++ Make Matlab contents file
++ getResults for @spikes, @trace
++ Make README file
 + make spike checks in cip_trace_profile
 + make specialized directory for brute_aug_04, move cip_trace_profile there
 	+ first make a general cip_trace_profile which takes ready-made objs
