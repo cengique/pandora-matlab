@@ -1,10 +1,9 @@
 function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 
-% physiol_cip_traceset_fileset - Physiological dataset of traceset objects (concatenated).
+% physiol_cip_traceset_fileset - Physiological fileset of traceset objects (concatenated).
 %
 % Usage:
 % obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
-
 %
 % Description:
 %   This is a subclass of params_tests_dataset. Each trace varies in bias, 
@@ -29,6 +28,7 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 %	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
+%	neuron_idx: A structure that points from neuron names to NeuronId numbers.
 %	params_tests_dataset
 %
 % General operations on physiol_cip_traceset_fileset objects:
@@ -41,9 +41,11 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 % See also: physiol_cip_traceset, params_tests_dataset, params_tests_db
 %
 % $Id$
-% Author: Cengiz Gunay <cgunay@emory.edu> and Thoms Sangrey, 2005/01/17
+% Author: Cengiz Gunay <cgunay@emory.edu> and Thomas Sangrey, 2005/01/17
+% Modified: Jeremy Edgerton
 
 if nargin == 0 %# Called with no params
+  obj.neuron_idx = struct([]);
   obj.props = struct([]);
   obj = class(obj, 'physiol_cip_traceset_fileset', params_tests_dataset);
 elseif isa(cells_filename, 'physiol_cip_traceset_fileset') %# copy constructor?
@@ -54,6 +56,7 @@ else
     props = struct([]);
   end
    
+  obj.neuron_idx = struct;
   obj.props = props;
   %# read ASCII file, make each line an item in a cell array
   tcell = textread(cells_filename, '%s', 'delimiter', '\n');
@@ -65,6 +68,7 @@ else
   chaninfo = cell(length(tcell), 1);
   tmts = cell(length(tcell), 1);
   list = cell(length(tcell), 1);    
+  neuron_id = 1;
   
   for n = 1:length(tcell)
 	ttm = {};
@@ -75,13 +79,19 @@ else
 		ntok = ntok + 1;
 		[pars{ntok}, resid] = strtok(resid, sprintf('\t'));
 	end
+
+	%# Skip empty lines
+	if isempty(pars)
+	  continue;
+	end
+
 	% First token is either neuron id name or data file with path.
 	% If data file, make neuron id name = file name without extension.
 	if exist(pars{2}, 'file') == 2
 		names{n} = pars{1};
 		pars(1) = [];
 	elseif exist(pars{1}, 'file') ~= 2
-			error('No valid data file name found.');
+	  error('No valid data file name found.');
 	else
 		slashes = strfind(pars{1}, '/');
 		if isempty(slashes) ~= 1
@@ -95,6 +105,12 @@ else
 		else
 			names{n} = tstr;
 		end
+	end
+
+	%# Enter the name into a structure to keep track of unique neuron ids
+	if ~ isfield(obj.neuron_idx, names{n})
+	  obj.neuron_idx.(names{n}) = neuron_id;
+	  neuron_id = neuron_id + 1;
 	end
 	
 	paths{n} = pars{1};
@@ -133,7 +149,7 @@ else
 		tempstruct = setfield(tempstruct, ttm{m,1}, ttm{m,2});
 	end
 	list{n} = physiol_cip_traceset(traces{n}, paths{n}, chaninfo{n}, ...
-				dt, dy, tempstruct, names{n});
+				       dt, dy, tempstruct, names{n});
   end
 
   %# Create the fileset object

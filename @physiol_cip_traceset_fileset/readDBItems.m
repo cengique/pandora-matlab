@@ -36,7 +36,7 @@ end
 %# Get generic fileset information from the first traceset item
 first_item = getItem(obj, 1);
 param_names = paramNames(first_item);
-param_names = { param_names{:}, 'NeuronId' };
+param_names = { param_names{:}, 'NeuronId', 'TracesetIndex' };
 test_names = testNames(first_item);
 
 %# Preallocating matrices dramatically speeds up the filling process
@@ -62,8 +62,12 @@ for item_num=1:num_items
   [item_params, tmp_param_names, item_tests, tmp_test_names] = readDBItems(item);
   num_traces = length(get(item, 'list'))
 
+  %# Read the neuron name from the id field of traceset and translate to NeuronId
+  neuron_id = obj.neuron_idx.(get(item, 'id'));
+
   row_range = rows : (rows + num_traces - 1);
-  params(row_range, :) = [item_params, repmat(item_num, num_traces,1) ];
+  params(row_range, :) = [item_params, repmat(neuron_id, num_traces,1), ...
+			  repmat(item_num, num_traces,1) ];
   tests(row_range, :) = item_tests;
   rows = rows + num_traces;
 end
