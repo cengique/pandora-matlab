@@ -77,4 +77,12 @@ else
   lh = [];
 end
 
+if isfield(a_plot.props, 'axisLimits')
+  current_axis = axis;
+  %# Skip NaNs, allows fixing some ranges while keeping others flexible
+  nonnans = ~isnan(a_plot.props.axisLimits);
+  current_axis(nonnans) = a_plot.props.axisLimits(nonnans);
+  axis(current_axis);
+end
+
 handles = struct('title', th, 'axis_labels', [xh, yh], 'legend', lh);
