@@ -25,6 +25,17 @@ else
   ylabel = 'voltage [mV]';
 end
 
+%# If input is an array, then return array of plots
+num_dbs = length(t);
+if num_dbs > 1 
+  %# Create array of plots
+  [a_plot(1:num_dbs)] = deal(plot_abstract);
+  for plot_num = 1:num_dbs
+    a_plot(plot_num) = plotData(t(plot_num));
+  end
+  return;
+end
+
 %# Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(t), '_', ' ');
 a_plot = plot_abstract({time, t.dy * t.data * 1e3}, ...
