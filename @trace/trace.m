@@ -75,6 +75,8 @@ if nargin == 0 %# Called with no params
    if isa(data_src, 'char') %# filename?
      [path, filename, ext, ver] = fileparts(data_src);
 
+     ext = lower(ext); %# Case insensitive matches for file extension
+
      %# TODO: Also load PCDX and LabVIEW files
 
      if strcmp(ext, '.bin') %# Genesis file
