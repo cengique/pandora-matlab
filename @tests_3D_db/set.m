@@ -5,5 +5,6 @@ try
   eval(['a.' attr ' = val;']);
   b = a;
 catch
-  throw(lasterror);
+  a.tests_db = set(a.tests_db, attr, val);
+  b = a;
 end
