@@ -20,10 +20,22 @@ function t_hists = testsHists(a_db)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
-num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+tests = fieldnames(get(a_db, 'col_idx'));
+itemIndices = strmatch('ItemIndex', tests);
+
+%# Strip out the RowIndex and ItemIndex columns from criterion db
+tests = setdiff(tests, {'RowIndex', tests{itemIndices}});
+
+%# Preserve original column order (parameters at the beginning)
+cols = sort(tests2cols(a_db, tests));
+
+%# Filter relevant columns
+reduced_db = onlyRowsTests(a_db, ':', cols);
+
+num_params = reduced_db.num_params;
+num_tests = dbsize(reduced_db, 2) - num_params;
 
 [t_hists(1:num_tests)] = deal(histogram_db);
 for test_num=1:num_tests
-  t_hists(test_num) = histogram(a_db, num_params + test_num);
+  t_hists(test_num) = histogram(reduced_db, num_params + test_num);
 end

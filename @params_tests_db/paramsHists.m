@@ -21,17 +21,37 @@ function p_hists = paramsHists(a_db)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/20
 
-num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+colnames = fieldnames(get(a_db, 'col_idx'));
+
+itemsFound = strfind(colnames, 'Index');
+
+itemIndices = false(1, length(itemsFound));
+for i=1:length(itemsFound)
+  if length(itemsFound{i}) > 0
+    itemIndices(i) = true(1);
+  end
+end
+
+colnames{find(itemIndices)}
+
+%# Strip out the NeuronId columns from parameters 
+colnames = setdiff(colnames(1:a_db.num_params), {'NeuronId', colnames{find(itemIndices)}});
+
+%# Preserve original column order
+cols = sort(tests2cols(a_db, colnames));
+
+%# Filter relevant columns
+reduced_db = onlyRowsTests(a_db, ':', cols);
+num_params = reduced_db.num_params;
 
 [p_hists(1:num_params)] = deal(histogram_db);
 for param_num=1:num_params
   %# First find all unique values of the parameter
-  param_col = sortrows(get(onlyRowsTests(a_db, ':', param_num), 'data'));
+  param_col = sortrows(get(onlyRowsTests(reduced_db, ':', param_num), 'data'));
   param_vals = sortedUniqueValues(param_col);
   %# Give the param_vals as bin centers
   if length(param_vals) == 1
     param_vals = 1; %# A single histogram bin
   end
-  p_hists(param_num) = histogram(a_db, param_num, param_vals');
+  p_hists(param_num) = histogram(reduced_db, param_num, param_vals');
 end
