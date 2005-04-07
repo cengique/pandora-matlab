@@ -44,6 +44,14 @@ if nargin == 0 %# Called with no params
      props = struct([]);
    end
 
+   if size(bins, 2) > size(bins, 1)
+     bins = bins';
+   end
+
+   if size(hist_results, 2) > size(hist_results, 1)
+     hist_results = hist_results';
+   end
+
    %# Add a column for bin numbers
    test_results = [bins, hist_results];
    col_names = { col_name, 'histVal' };
