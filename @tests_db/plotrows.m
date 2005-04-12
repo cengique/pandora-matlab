@@ -26,13 +26,17 @@ if ~ exist('props')
 end
 
 if ~ exist('orientation')
-  orientation = 'y'
+  orientation = 'y';
 end
 
 num_rows = dbsize(a_tests_db, 1);
 plots = cell(num_rows, 1);
 for row_num=1:num_rows
-  plots{row_num} = plotrow(a_tests_db, row_num);
+  if row_num == 1
+    plots{row_num} = plotrow(a_tests_db, row_num, struct('putLabels', 1));
+  else
+    plots{row_num} = plotrow(a_tests_db, row_num);
+  end
 end
 
 props(1).xLabelsPos = 'bottom';
