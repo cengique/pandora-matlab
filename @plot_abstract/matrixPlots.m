@@ -42,7 +42,7 @@ while iter_num < 10
 
   if length(factors) == 1
     %# Only one factor
-    if goodRatio(1, factors)
+    if goodRatio(1, factors, iter_num)
       side1 = 1;
       side2 = factors;
       break;
@@ -50,7 +50,7 @@ while iter_num < 10
       num_max = num_max + 1;
       continue;  %# Start over
     end
-  elseif goodRatio(prod(factors(1:2:end)), prod(factors(2:2:end)))
+  elseif goodRatio(prod(factors(1:2:end)), prod(factors(2:2:end)), iter_num)
     %# interleaved product of factors
     side1 = prod(factors(1:2:end));
     side2 = prod(factors(2:2:end));
@@ -62,17 +62,17 @@ while iter_num < 10
       for frow=combs'
 	side1 = prod(frow)
 	side2 = num_max / side1
-	if goodRatio(side1, side2)
+	if goodRatio(side1, side2, iter_num)
 	  break;
 	end
       end
-      if goodRatio(side1, side2)
+      if goodRatio(side1, side2, iter_num)
 	break;
       end
     end
   end
 
-  if goodRatio(side1, side2)
+  if goodRatio(side1, side2, iter_num)
     break;
   else
     num_max = num_max + 1;
@@ -106,12 +106,14 @@ for y = 1:height
 end
 a_plot = plot_stack(vert_stacks, [], 'y', title, props)
 
-function good = goodRatio(side1, side2)
+function good = goodRatio(side1, side2, cost, iter_num)
   %# Try to see if it is within some % of the 3/4 ratio
   ratio = min([side1 side2])/max([side1 side2])
   goldratio = 3/4;
-  if ratio > .80*goldratio && ratio < 1.20*goldratio
+  margin = .2 * cost;		%# Increasing marginas cost rises
+  if ratio > (1 - margin) * goldratio && ratio < (1 + margin) * goldratio
     good = true(1);
   else
     good = false(1);
   end
+  disp(['Good: ' num2str(good) ' for ratio: ' num2str(ratio) ' ~= ' num2str(goldratio) ' +/- ' num2str(margin*goldratio) ]);

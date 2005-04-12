@@ -42,8 +42,11 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %   plot_abstract	- Construct a new plot_abstract object.
 %   plot		- Plots this plot in the current axis. Abstract method,
 %			needs to be defined for each subclass.
-%   superpose		- Create a superposed plot_abstract from multiple
-%			  plot_abstract objects (N/I).
+%   plotFigure		- Plots this plot in a new figure window.
+%   superposePlots	- Create a superposed plot_abstract from multiple
+%			  plot_abstract objects.
+%   matrixPlots		- Create a matrix of plots from an array of plot_abstract objects.
+%   setProp		- Set optional properties of plot_abstract objects.
 %
 % Additional methods:
 %	See methods('plot_abstract')

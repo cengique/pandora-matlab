@@ -1,6 +1,6 @@
 function handles = decorate(a_plot)
 
-% decorate - Draws this plot in the current axis.
+% decorate - Places decorations (titles, labels, ticks, etc.) on the plot.
 %
 % Usage:
 % handles = decorate(a_plot)
@@ -34,7 +34,9 @@ if ~ (isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 1)
 		'HorizontalAlignment', 'right', ...
 		'VerticalAlignment', 'middle'); %#'HorizontalAlignment', 'right'
   else
-    xh = xlabel(a_plot.axis_labels{1});
+    if length(a_plot.axis_labels) > 0
+      xh = xlabel(a_plot.axis_labels{1});
+    end
   end
 else
   xlabel(''); %# Clear the label
@@ -46,7 +48,9 @@ if ~ (isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 1)
 		'Rotation', a_plot.props.rotateYLabel, ...
 		'HorizontalAlignment', 'right');
   else
-    yh = ylabel(a_plot.axis_labels{2});
+    if length(a_plot.axis_labels) > 1
+      yh = ylabel(a_plot.axis_labels{2});
+    end
   end
 else
   ylabel(''); %# Clear the y-label

@@ -28,6 +28,9 @@ end
 if strcmp(a_plot.command, 'boxplot') || strcmp(a_plot.command, 'boxplotp')
   feval(a_plot.command, a_plot.data{:});
   ph = []; %# boxplot returns no handle???
+elseif strcmp(a_plot.command, 'silhouette')
+  %# silhouette plot requires two return values
+  [silh, ph] = feval(a_plot.command, a_plot.data{:});
 else
   ph = feval(a_plot.command, a_plot.data{:});
 end
