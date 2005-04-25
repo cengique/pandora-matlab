@@ -1,9 +1,7 @@
 function [init_idx, a_plot] = ...
       calcInitVmLtdMaxCurv(s, max_idx, min_idx, lo_thr, hi_thr, plotit)
 
-% calcInitVmLtdMaxCurv - Calculates the action potential threshold using the
-%			maximum of the curvature equation only in the limited
-%			range given with two voltage slope thresholds.
+% calcInitVmLtdMaxCurv - Calculates the action potential threshold using the maximum of the curvature equation only in the limited range given with two voltage slope thresholds.
 %
 % Usage:
 % [init_idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, lo_thr, hi_thr, plotit)
@@ -38,7 +36,7 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-d2 = diff2T(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1 = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d2 = d2(3:(end -2));
 d1 = d1(3:(end -2));
@@ -50,9 +48,10 @@ if length(constrained_idx) == 0
   warning('spike_shape:threshold_derivative', ...
 	  ['Failed to find any points between derivative thresholds (' ...
 	   num2str(lo_thr), num2str(hi_thr) ') while v'''' > 0. ' ...
-	   'Using slope threhold crossing method (3) instead.']);
+	   'Using supersampled slope threhold crossing method (7) instead.']);
   [init_idx a_plot] = ...
-      calcInitVmSlopeThreshold(s, max_idx, min_idx, s.props.init_threshold, plotit);
+      calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
+					s.props.init_threshold, plotit);
   return;
 else    
   [val, idx] = max(k(constrained_idx)); 

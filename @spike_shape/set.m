@@ -6,4 +6,6 @@ try
   b = a;
 catch
   errstr = lasterror;
+  a.trace = set(a.trace, attr, val);
+  b = a;
 end

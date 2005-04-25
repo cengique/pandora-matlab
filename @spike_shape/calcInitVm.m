@@ -53,49 +53,74 @@ method = s.props.init_Vm_method;
 
 try
 switch method
+
+  %# peak of voltage acceleration.
   case 1
     deriv = diff(s.trace.data);
     accel = diff(deriv);
-    %# peak of voltage acceleration.
     [val, idx] = max(accel(1 : max_idx)); 
+
+  %# threshold voltage acceleration.
   case 2
     deriv = diff(s.trace.data);
     accel = diff(deriv);
-    %# threshold voltage acceleration.
     idx = find(accel(1 : max_idx) >= s.props.init_threshold); 
     if length(idx) == 0 
-      error(sprintf(['Threshold %f failed to find ', ...
+      error('calcInitVm:failed', ...
+	    sprintf(['Threshold %f failed to find ', ...
 		     ' spike initiation acceleration.'], ...
 		    s.props.init_threshold));
     end
     idx = idx(1);
+
+  %# threshold voltage slope
   case 3
-    %# threshold voltage derivative
     [idx, a_plot] = ...
 	calcInitVmSlopeThreshold(s, max_idx, min_idx, s.props.init_threshold, plotit);
+
+  %# Sekerli's method: maximum second derivative in the phase space
   case 4
-    %# Sekerli's method: maximum second derivative in the phase space
     [idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit);
+
+  %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
   case 5
-    %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
     [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, s.props.init_lo_thr, ...
 					 s.props.init_hi_thr, plotit);
+
+  %# Sekerli's method with a twist
   case 6
-    %# Sekerli's method with a twist
     [idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, ...
 					s.props.init_threshold, plotit);
+
+  %# threshold voltage derivative by first supersampling using interpolation
   case 7
-    %# threshold voltage derivative by first supersampling using interpolation
     [idx, a_plot] = ...
 	calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s.props.init_threshold, plotit);
+
+  %# Point of maximum curvature in phase-plane: Kp = V''[1 + (V')^2]^(-3/2)
+  case 8
+    [idx, a_plot] = calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit);
+    idx = idx(1);
+
+  %# Combined methods for time-domain derivatives: h and Kp
+  case 9
+    [idx, a_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, ...
+					   s.props.init_lo_thr, ...
+					   s.props.init_hi_thr, plotit);
+    idx = idx(1);
+
   otherwise
     error(sprintf('Incorrect spike initiation method: %f', method));
 end
 catch
   err = lasterror;
-  disp(['Warning: ' err.message ...
-	' Taking the fist point in the trace as AP threshold.']);
-  idx = 1;
+  if strcmp(err.identifier, 'calcInitVm:failed')
+    disp(['Warning: ' err.message ...
+	  ' Taking the fist point in the trace as AP threshold.']);
+    idx = 1;
+  else
+    rethrow(err);
+  end
 end
 
 %# AP init. time

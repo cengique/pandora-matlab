@@ -1,8 +1,6 @@
 function [init_idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit)
 
-% calcInitVmSekerliV2 - Calculates the action potential threshold using the
-%			maximum second derivative of the phase space of 
-%			voltage-time slope versus voltage.
+% calcInitVmSekerliV2 - Calculates the action potential threshold using the maximum second derivative of the phase space of voltage-time slope versus voltage.
 %
 % Usage:
 % [init_idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit)
@@ -32,8 +30,8 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-d3 = diff3T(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
-d2 = diff2T(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+d3 = diff3T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1 = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 %# Remove boundary artifacts
 d3 = d3(4:(end - 3)); 
@@ -44,11 +42,9 @@ if isfield(s.props, 'init_threshold')
   add_title = [', while v\prime < ' num2str(s.props.init_threshold)];
   constrained_idx = find(d1 < s.props.init_threshold);
   if length(constrained_idx) == 0 
-    warning('spike_shape:threshold_derivative', ...
+    error('calcInitVm:failed', ...
 	    ['Failed to find any points below derivative threshold ' ...
 	     num2str(s.props.init_threshold) ]);
-    %# Then, use the first point of the trace as the spike initiation point.
-    idx = 1;
   else    
     [val, idx] = max(h(constrained_idx)); 
     idx = constrained_idx(idx);

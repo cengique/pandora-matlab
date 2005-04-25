@@ -45,8 +45,8 @@ deriv = deriv(3:(end-2));
 %# threshold voltage derivative
 idx = find(deriv >= thr); 
 if length(idx) == 0 
-  %# TODO: give error and catch the error in the above level
-  error('spike_shape:threshold_derivative', ...
+  %# Raise error and catch it in the caller function
+  error('calcInitVm:failed', ...
 	['Derivative threshold ' num2str(s.props.init_threshold) ...
 	 ' failed to find spike initiation point. ' ]);
 end

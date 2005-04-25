@@ -1,15 +1,16 @@
-function a_plot = plotCompareMethods(s)
+function a_plot = plotCompareMethods(s, title_str)
 
 % plotCompareMethods - Creates a multi-plot comparing different action potential
 %			threshold finding methods.
 %
 % Usage:
-% a_plot = plotCompareMethods(s)
+% a_plot = plotCompareMethods(s, title_str)
 %
 % Description:
 %
 %   Parameters:
 %	s: A spike_shape object.
+%	title_str: Title suffix (optional).
 %
 %   Returns:
 %	a_plot: A plot_abstract object that can be visualized.
@@ -42,31 +43,47 @@ resultsm7 = getResults(sm7);
 
 r2_plot = set(plotResults(sm7), 'title', ['Slope threshold (interp.), v\prime > ' num2str(th) ]);
 r2_plot = setProp(r2_plot, 'axisLimits', ...
-		 [peak_time - 3, min_time, NaN, NaN]);
+		 [resultsm7.InitTime - 1, resultsm7.InitTime + 1, ...
+		  resultsm7.InitVm - 5, resultsm7.InitVm + 5]);
 
 %# Adjust plots
 r_plot = set(plotResults(sm3), 'title', ['Slope threshold, v\prime > ' num2str(th) ]);
 r_plot = setProp(r_plot, 'axisLimits', ...
-		 [peak_time - 3, min_time, NaN, NaN]);
+		 [resultsm3.InitTime - 1, resultsm3.InitTime + 1, ...
+		  resultsm3.InitVm - 5, resultsm3.InitVm + 5]);
 
-r3_plot = set(plotTPP(sm3), 'title', [ 'In phase-plane' ]);
+r3_plot = set(plotTPP(sm3), 'title', [ 'In phase-plane (v\prime vs. v)' ]);
 
 m3_plot = plot_stack({r_plot, r2_plot, r3_plot}, [], 'x', '', struct([]));
 
-%# Method 4 (non-parameteric)
-sm4 = set(s, 'props', struct('init_Vm_method', 4));
-[res, d_plot] = getResults(sm4, 1);
-d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
-r_plot = setProp(plotResults(sm4), 'axisLimits', [peak_time - 3, min_time, NaN, NaN]);
-m4_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
+%# Method 8 (non-parameteric): maximal curvature in phase-plane
+sm8 = set(s, 'props', struct('init_Vm_method', 8));
+[res, d_plot] = getResults(sm8, 1);
+%#d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
+r_plot = setProp(plotResults(sm8), 'axisLimits', ...
+		 [res.InitTime - 1, res.InitTime + 1, ...
+		  res.InitVm - 5, res.InitVm + 5]);
+m8_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		     struct('titlesPos', 'none'));
 
-%# Method 4 (parameteric)
+%# Method 4 (parameteric): Sekerli's method with threshold
 sm4p = set(s, 'props', struct('init_Vm_method', 6, 'init_threshold', 10));
 [res, d_plot] = getResults(sm4p, 1);
 d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
-r_plot = setProp(plotResults(sm4p), 'axisLimits', [peak_time - 3, min_time, NaN, NaN]);
+r_plot = setProp(plotResults(sm4p), 'axisLimits', ...
+		 [res.InitTime - 1, res.InitTime + 1, ...
+		  res.InitVm - 5, res.InitVm + 5]);
 m4p_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
+		      struct('titlesPos', 'none'));
+
+%# Method 4 (non-parameteric): Sekerli's method
+sm4 = set(s, 'props', struct('init_Vm_method', 4, 'init_threshold', 15));
+[res, d_plot] = getResults(sm4, 1);
+d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
+r_plot = setProp(plotResults(sm4), 'axisLimits', ...
+		 [res.InitTime - 1, res.InitTime + 1, ...
+		  res.InitVm - 5, res.InitVm + 5]);
+m4_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		      struct('titlesPos', 'none'));
 
 %# Method 5 (non-parameteric)
@@ -75,11 +92,17 @@ sm5 = set(s, 'props', struct('init_Vm_method', 5, ...
 			     'init_threshold', 15));
 [res, d_plot] = getResults(sm5, 1);
 d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
-r_plot = setProp(plotResults(sm5), 'axisLimits', [peak_time - 3, min_time, NaN, NaN]);
+r_plot = setProp(plotResults(sm5), 'axisLimits', ...
+		 [res.InitTime - 1, res.InitTime + 1, ...
+		  res.InitVm - 5, res.InitVm + 5]);
 m5_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		     struct('titlesPos', 'none'));
 
+if ~ exist('title_str')
+  title_str = ', Comparison of AP threshold finding methods';
+end
+
 class_name = strrep(class(s), '_', ' ');
-a_plot = plot_stack({m3_plot, m4p_plot, m5_plot}, [], 'y', ...
+a_plot = plot_stack({m3_plot, m4_plot, m5_plot, m8_plot}, [], 'y', ...
 		    [ class_name ': ' get(s, 'id') ...
-		     ', Comparison of AP threshold finding methods']);
+		     title_str ]);

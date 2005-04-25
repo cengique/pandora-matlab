@@ -1,9 +1,6 @@
 function [init_idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, lo_thr, plotit)
 
-% calcInitVmV2PPLocal - Calculates the action potential threshold by finding 
-%			the local second derivative maximum in voltage-time slope 
-%			versus voltage phase plane, nearest a slope threshold
-%			crossing.
+% calcInitVmV2PPLocal - Calculates the action potential threshold by finding the local second derivative maximum in voltage-time slope versus voltage phase plane, nearest a slope threshold crossing.
 %
 % Usage:
 % [init_idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, lo_thr, plotit)
@@ -34,8 +31,8 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-d3 = diff3T(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
-d2 = diff2T(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+d3 = diff3T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1 = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 %# Remove boundary artifacts
 d3 = d3(4:(end - 3)); 
@@ -46,18 +43,14 @@ h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
 %# Find  local maxima in h 
 dh = diffT(h, 1);
 dh2 = dh(2:end) .* dh(1:(end-1));
-hd2 = diff2T(h, 1); %# 2nd deriv
+hd2 = diff2T_h4(h, 1); %# 2nd deriv
 zc = find(dh2 < 0 & dh(1:(end-1)) > 0);
 if length(zc) == 0 
   %# TODO: this should throw an error that can be caught and handled
   %# then another method can be tried.
-  warning('spike_shape:sekerli:no_local_maximum', ...
-	  ['Failed to find local maximum of phase place acceleration '...
-	   ' during rising edge of spike shape. ' ...
-	   'Taking the first point in the trace as threshold instead.']);
-  %#'near voltage slope threshold crossing at ' ...
-  %#   num2str(lo_thr) '. ', ...
-  idx = 1;
+  error('calcInitVm:failed', ...
+	['Failed to find local maximum of phase place acceleration '...
+	 ' during rising edge of spike shape. ']);
 else
   %# find slope threshold crossing point
   cross_idx = find(d1 >= lo_thr); 
