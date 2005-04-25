@@ -6,6 +6,8 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 % a_plot = superposePlots(plots, axis_labels, title, command, props)
 %
 % Description:
+%   The plot decoration will be taken from the last plot in the list, 
+% with the exception of legend labels.
 %
 %   Parameters:
 %	plots: Array of plot_abstract or subclass objects.

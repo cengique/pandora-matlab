@@ -101,6 +101,10 @@ if isfield(a_plot.props, 'grid')
   grid;
 end
 
+if isfield(a_plot.props, 'tightLimits') && a_plot.props.tightLimits == 1
+  axis tight;
+end
+
 %# Only put legend when there is more than one trace
 if (length(a_plot.legend) > 1)
   lh = legend(a_plot.legend);
