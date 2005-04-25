@@ -30,7 +30,6 @@ col = tests2cols(db, param);
 %# List of columns with parameter and all tests
 cols = [col, (db.num_params + 1):dbsize(db, 2) ];
 
-
 %# Add invar test name
 props = get(db, 'props');
 props(1).invarName = col_name_cell{col};
