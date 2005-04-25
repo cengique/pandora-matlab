@@ -23,8 +23,8 @@ if length(t) > 1
     plot(t(i));
   end
 else
-  ht = plot(t.trace);
-  hsp = plot(t.spikes);
+  ht = plotFigure(plot_superpose([plotData(t.trace), plotData(t.spikes)], {}, ...
+				 get(t, 'id')));
   %# TODO: Hack, fix it
   [hss1 hss2] = plotSpikeShape(get(t, 'spont_spike_shape'), 'Spont');
   [hss1 hss2] = plotSpikeShape(get(t, 'pulse_spike_shape'), 'Pulse');
@@ -33,7 +33,7 @@ else
 				   plotResults(t.pulse_spike_shape)]), ...
 		   'legend', {});
   plotFigure(super_plot);
-  h = [ht, hsp, hss1, hss2];
+  h = [ht, hss1, hss2];
 end
 
 function [hss1, hss2] = plotSpikeShape(spsh, name)
