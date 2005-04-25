@@ -24,6 +24,7 @@ function obj = trace(data_src, dt, dy, id, props)
 %		spike_finder: Method of finding spikes 
 %		(1 for findFilteredSpikes, 2 for findspikes).
 %		threshold: Spike threshold.
+%		quiet: Reduces the amount of textual description in plots, etc.
 %	(see below for the rest)
 %		
 %   Returns a structure object with the following fields:
