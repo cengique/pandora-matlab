@@ -32,10 +32,12 @@ end
 num_rows = dbsize(a_tests_db, 1);
 plots = cell(num_rows, 1);
 for row_num=1:num_rows
-  if row_num == 1
-    plots{row_num} = plotrow(a_tests_db, row_num, struct('putLabels', 1));
+  %# inverse order for plot_stack
+  if row_num == num_rows
+    plots{num_rows - row_num + 1} = ...
+	plotrow(a_tests_db, row_num, struct('putLabels', 1));
   else
-    plots{row_num} = plotrow(a_tests_db, row_num);
+    plots{num_rows - row_num + 1} = plotrow(a_tests_db, row_num);
   end
 end
 
