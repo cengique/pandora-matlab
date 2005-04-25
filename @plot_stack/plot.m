@@ -37,7 +37,7 @@ height = layout_axis(4);
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-scale_down = .85;
+scale_down = .9;
 border = 1;
 
 %# Find the width of a regular y-axis label (DOESN'T WORK!)
