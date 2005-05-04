@@ -1,7 +1,6 @@
 function t_hists = testsHists(a_db)
 
-% testsHists - Calculates histograms for all tests and returns in a 
-%		cell array.
+% testsHists - Calculates histograms for all tests and returns them in a cell array.
 %
 % Usage:
 % t_hists = testsHists(a_db)
@@ -33,9 +32,8 @@ cols = sort(tests2cols(a_db, tests));
 reduced_db = onlyRowsTests(a_db, ':', cols);
 
 num_params = reduced_db.num_params;
-num_tests = dbsize(reduced_db, 2) - num_params;
 
-[t_hists(1:num_tests)] = deal(histogram_db);
-for test_num=1:num_tests
-  t_hists(test_num) = histogram(reduced_db, num_params + test_num);
-end
+reduced_db = onlyRowsTests(reduced_db, ':', ...
+			   (num_params + 1):(dbsize(reduced_db, 2)));
+
+t_hists = testsHists(reduced_db.tests_db);
