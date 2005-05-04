@@ -32,26 +32,26 @@ if spike_num < 1 || spike_num > length(s.times)
 	 num2str(length(s.times)) ' spikes in object.' ]);
 end
 
-spike_idx = s.times(spike_num)
+spike_idx = s.times(spike_num);
 
 if spike_num == 1 %# If first spike
   max_left = spike_idx - 1;
 else
-  max_left = max(0, spike_idx - s.times(spike_num - 1) - 3e-3 / t.dt)
+  max_left = max(0, spike_idx - s.times(spike_num - 1) - 3e-3 / t.dt);
 end
 
 %# Points from left side of peak, depends on existing data points
-left = floor(min(5e-3 / t.dt, max_left))
+left = floor(min(5e-3 / t.dt, max_left));
 
 if spike_num == length(s.times) %# if last spike
-  max_right = length(get(t, 'data')) - spike_idx
+  max_right = length(get(t, 'data')) - spike_idx;
 else
-  max_right = max(0, s.times(spike_num + 1) - spike_idx - 3e-3 / t.dt)
+  max_right = max(0, s.times(spike_num + 1) - spike_idx - 3e-3 / t.dt);
 end
 
 %# Calculate right side accordingly
 %# Add some more on the right side
-right = floor(min(50e-3 / t.dt, max_right))
+right = floor(min(50e-3 / t.dt, max_right));
 %#min_isi - left + floor(min(3e-3 / t.dt, left /2));
 
 data = get(t, 'data');
