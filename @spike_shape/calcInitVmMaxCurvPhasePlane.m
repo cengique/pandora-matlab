@@ -1,4 +1,4 @@
-function [init_idx, a_plot] = ...
+function [init_idx, a_plot, fail_cond] = ...
       calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit)
 
 % calcInitVmMaxCurvPhasePlane - Calculates the voltage at the maximum curvature in the phase plane as action potential threshold.
@@ -42,7 +42,7 @@ d1o = diffT(s.trace.data(1 : (max_idx + 4)) * s.trace.dy, s.trace.dt);
 d1o = d1o(3:(end -2));
 
 %# Find max in derivative
-[max_d1o, max_d1o_idx] = max(d1o)
+[max_d1o, max_d1o_idx] = max(d1o);
 
 %# Interpolate to find a regular intervalled phase-plane representation
 %# Voltage range is from the intial resting point to the spike peak.
@@ -51,7 +51,7 @@ num_points = 200;
 dv = (s.trace.data(max_d1o_idx + 2) - s.trace.data(1))/num_points;
 voltage_points = (s.trace.data(1):dv:s.trace.data(max_d1o_idx + 2)) * s.trace.dy;
 interp_vpp = pchip(s.trace.data(3 : (max_d1o_idx + 2)) * s.trace.dy, ...
-		    d1o(1:max_d1o_idx), voltage_points);
+		   d1o(1:max_d1o_idx), voltage_points);
 
 if (1 == 1) 
   %# Estimations from Taylor series, error = O(dv^4)
@@ -78,16 +78,16 @@ d2 = d2(1:max_vpp_idx);
 d1 = d1(1:max_vpp_idx);
 
 %# Maximal d2vpp, one candidate for APthr
-max_d2vpp_idx = findMax(d2, voltage_points)
-max_d2vpp_t_idx = transV2T(s, max_idx, voltage_points, max_d2vpp_idx)
+max_d2vpp_idx = findMax(d2, voltage_points);
+max_d2vpp_t_idx = transV2T(s, max_idx, voltage_points, max_d2vpp_idx);
 
 %# Local maximum of d3vpp, closest to max_d2vpp_idx, candidate for APthr
 max_d3vpp_idx = maxima(d3);
 
 if length(max_d3vpp_idx) > 0
   [sorted, sorted_idx] = sort(abs(max_d3vpp_idx - max_d2vpp_idx));
-  max_d3vpp_idx = max_d3vpp_idx(sorted_idx(1))
-  max_d3vpp_t_idx = transV2T(s, max_idx, voltage_points, max_d3vpp_idx)
+  max_d3vpp_idx = max_d3vpp_idx(sorted_idx(1));
+  max_d3vpp_t_idx = transV2T(s, max_idx, voltage_points, max_d3vpp_idx);
 else
   warning('Cannot find local maxima in d3vpp');
 end
@@ -102,8 +102,8 @@ k = d2 ./ sqrt(k1 .* k1 .* k1);
 %# Highest maximum
 [sorted, sorted_idx] = sort(k(max_k_idcs));
 
-sorted
-voltage_points(max_k_idcs(sorted_idx) + 2)
+%#sorted
+%#voltage_points(max_k_idcs(sorted_idx) + 2)
 
 if length(max_k_idcs) == 0 
   error('calcInitVm:failed', 'No local maxima found!');
@@ -119,26 +119,33 @@ else
   end
 end
 
-max_k_idx = idx
-max_k_t_idx = transV2T(s, max_idx, voltage_points, max_k_idx)
+max_k_idx = idx;
+max_k_t_idx = transV2T(s, max_idx, voltage_points, max_k_idx);
 
-thr_vol = voltage_points(max_k_idx + 2)
+thr_vol = voltage_points(max_k_idx + 2);
 
 %# Find highest local maximum of k closest to max_d2vpp_idx
 distance = max_k_idcs - max_d2vpp_idx;
 [sorted, sorted_idx] = sort(distance .* distance ./ k(max_k_idcs));
 
-sorted
-voltage_points(max_k_idcs(sorted_idx) + 2)
+%#sorted
+%#voltage_points(max_k_idcs(sorted_idx) + 2)
 
 %# Skip negative peaks
 max_k_near_d2vpp_idx = find(sorted >= 0);
 
-max_k_near_d2vpp_idx = max_k_idcs(sorted_idx(max_k_near_d2vpp_idx(1)))
-max_k_near_d2vpp_t_idx = transV2T(s, max_idx, voltage_points, max_k_near_d2vpp_idx)
+max_k_near_d2vpp_idx = max_k_idcs(sorted_idx(max_k_near_d2vpp_idx(1)));
+max_k_near_d2vpp_t_idx = transV2T(s, max_idx, voltage_points, max_k_near_d2vpp_idx);
 
 %# Return all candidates
-init_idx = [max_k_t_idx, max_k_near_d2vpp_t_idx, max_d2vpp_t_idx, max_d3vpp_t_idx]
+init_idx = [max_k_t_idx, max_k_near_d2vpp_t_idx, max_d2vpp_t_idx, max_d3vpp_t_idx];
+
+if interp_vpp(max_k_near_d2vpp_idx + 2) > s.props.init_threshold
+  warning(['vPP curvature ignored, v'' > ' num2str(s.props.init_threshold) ]);
+  fail_cond = true(1);
+else
+  fail_cond = false(1);
+end
 
 if plotit
   class_name = strrep(class(s), '_', ' ');
@@ -189,8 +196,8 @@ function idx = findMax(data, voltage_points)
   %# Highest maximum
   [sorted, sorted_idx] = sort(data(max_idcs));
 
-  sorted
-  voltage_points(max_idcs(sorted_idx) + 2)
+  %#sorted
+  %#voltage_points(max_idcs(sorted_idx) + 2)
 
   if length(max_idcs) == 0 
     error('calcInitVm:failed', 'No local maxima found!');

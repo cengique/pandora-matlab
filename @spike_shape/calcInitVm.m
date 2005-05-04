@@ -99,8 +99,15 @@ switch method
 
   %# Point of maximum curvature in phase-plane: Kp = V''[1 + (V')^2]^(-3/2)
   case 8
-    [idx, a_plot] = calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit);
-    idx = idx(1);
+    [idx, a_plot, fail_cond] = ...
+	calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit);
+    if ~ fail_cond
+      idx = idx(2);
+    else
+      [idx, a_plot] = ...
+	  calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
+					    s.props.init_threshold, plotit);
+    end
 
   %# Combined methods for time-domain derivatives: h and Kp
   case 9
