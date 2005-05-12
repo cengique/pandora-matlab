@@ -1,9 +1,9 @@
-function db_obj = params_tests_db(obj, props)
+function db_obj = params_tests_db(obj, items, props)
 
 % params_tests_db - Generates a params_tests_db object from the dataset.
 %
 % Usage:
-% db_obj = params_tests_db(obj, props)
+% db_obj = params_tests_db(obj, items, props)
 %
 % Description:
 %   This is a converter method to convert from params_tests_dataset to
@@ -14,6 +14,7 @@ function db_obj = params_tests_db(obj, props)
 %
 %   Parameters:
 %	obj: A params_tests_dataset object.
+%	items: (Optional) List of item indices to use to create the db.
 %	props: Any optional params to pass to params_tests_db.
 %		
 %   Returns:
@@ -29,7 +30,13 @@ if ~ exist('props')
   props = struct([]);
 end
 
-[params, param_names, tests, test_names] = readDBItems(obj);
+if exist('items')
+  args = {obj, items};
+else
+  args = {obj};
+end
+
+[params, param_names, tests, test_names] = readDBItems(args{:});
 
 db_obj = params_tests_db(params, param_names, tests, test_names, ...
 			 obj.id, props);
