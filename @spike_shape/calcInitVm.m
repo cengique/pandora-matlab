@@ -51,6 +51,15 @@ max_val = s.trace.data(max_idx);
 %# Find spike initial voltage
 method = s.props.init_Vm_method;
 
+vs = warning('query', 'verbose');
+verbose = vs.state;
+
+if strcmp(verbose, 'on')
+  disp([get(s, 'id') ', max_idx=' num2str(max_idx) ])
+end
+
+%# Filter out some spikes
+
 try
 switch method
 
@@ -99,15 +108,33 @@ switch method
 
   %# Point of maximum curvature in phase-plane: Kp = V''[1 + (V')^2]^(-3/2)
   case 8
-    [idx, a_plot, fail_cond] = ...
-	calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit);
-    if ~ fail_cond
-      idx = idx(2);
-    else
-      [idx, a_plot] = ...
-	  calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
-					    s.props.init_threshold, plotit);
+    try 
+      [idx, a_plot, fail_cond] = ...
+	  calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit);
+
+      if ~ fail_cond
+	idx = idx(2);
+      else
+	[idx, a_plot] = ...
+	    calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
+					      s.props.init_threshold, plotit);
+      end
+
+    catch
+      err = lasterror;
+      if strcmp(err.identifier, 'calcInitVm:failed')
+	warning('calcInitVm:info', ...
+		['Warning: ' err.message ...
+		 ' Falling back to supersampled threshold method.']);
+	[idx, a_plot] = ...
+	    calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
+					      s.props.init_threshold, plotit);
+      else
+	warning('calcInitVm:info', ['Rethrowing: ']);
+	rethrow(err);
+      end
     end
+
 
   %# Combined methods for time-domain derivatives: h and Kp
   case 9
@@ -122,8 +149,9 @@ end
 catch
   err = lasterror;
   if strcmp(err.identifier, 'calcInitVm:failed')
-    disp(['Warning: ' err.message ...
-	  ' Taking the fist point in the trace as AP threshold.']);
+    warning('calcInitVm:info', ...
+	    ['Warning: ' err.message ...
+	     ' Taking the fist point in the trace as AP threshold.']);
     idx = 1;
   else
     rethrow(err);
@@ -134,7 +162,9 @@ end
 init_idx = idx;
 
 %# AP init. Vm
-if (ceil(init_idx) - floor(init_idx)) > 0
+if floor(init_idx) == 0 
+  init_val = s.trace.data(1);
+elseif (ceil(init_idx) - floor(init_idx)) > 0 
   init_val = interp1([floor(init_idx), ceil(init_idx)], ...
 		     [s.trace.data(floor(init_idx)), s.trace.data(ceil(init_idx))], ...
 		     init_idx);

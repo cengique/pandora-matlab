@@ -51,8 +51,8 @@ sm7 = set(s, 'props', struct('init_Vm_method', 7, 'init_threshold', th));
 resultsm7 = getResults(sm7);
 
 %# Method 8 (non-parameteric): maximal curvature in phase-plane
-sm8 = set(s, 'props', struct('init_Vm_method', 8));
-[init_idx, d_plot] = calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, 1);
+sm8 = set(s, 'props', struct('init_Vm_method', 8, 'init_threshold', 15));
+[init_idx, d_plot] = calcInitVmMaxCurvPhasePlane(sm8, max_idx, min_idx, 1);
 vpp_plots_row = plot_stack({r3_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		     struct('titlesPos', 'none'));
 
