@@ -1,3 +1,4 @@
+
 function [times, peaks, n] = ...
       findFilteredSpikes(t, a_period, plotit)
 
@@ -41,16 +42,17 @@ dn_threshold = -2;
 %# Scale to mV for spike finder
 mV_factor = 1e3 * t.dy;
 
-%# Prepend some activity for filter distortion
+%# Append and prepend some activity for filter distortion
 prepend_size = floor(20e-3 / t.dt);
-data = [t.data(a_period.start_time:(a_period.start_time + prepend_size - 1)); ...
-	t.data(a_period.start_time:a_period.end_time) ] * mV_factor;
+data = [t.data(a_period.start_time:(a_period.start_time + prepend_size - 2)); ...
+	t.data(a_period.start_time:a_period.end_time) ; ...
+	t.data((a_period.end_time - prepend_size + 1):a_period.end_time)] * mV_factor;
 
 filtered = filtfilt(fd.tf.num, fd.tf.den, data);
 
-%# ignore the prepended part
-filtered = filtered(prepend_size:end);
-data = data(prepend_size:end);
+%# ignore the added parts
+filtered = filtered(prepend_size:(end - prepend_size));
+data = data(prepend_size:(end - prepend_size));
 [times, peaks, n] = findspikes(filtered, up_threshold, plotit);
 
 newtimes = [];
