@@ -1,6 +1,6 @@
 function obj = withinPeriod(s, a_period)
 
-% withinPeriod - Returns a spikes object valid only within the given period.
+% withinPeriod - Returns a spikes object valid only within the given period, subtracts the offset.
 %
 % Usage:
 % obj = withinPeriod(s, a_period)
@@ -22,11 +22,10 @@ function obj = withinPeriod(s, a_period)
 %# TODO:
 %# - Relate this method by overloading an abstract class/interface periodable(?) 
 
-s.times = s.times(s.times > a_period.start_time & s.times <= a_period.end_time);
-s.num_samples = a_period.end_time - a_period.start_time;
+s = withinPeriodWOffset(s, a_period);
 
 %# reset the offset
-s.times = s.times - a_period.start_time;
+s.times = s.times - a_period.start_time + 1; 
 
 obj = s;
 
