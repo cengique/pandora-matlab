@@ -28,9 +28,23 @@ if ~ exist('plotit')
   plotit = 0;
 end
 
-ini_spikes = spikes(t.trace, periodIniSpont(t), plotit);
-cip_spikes = spikes(t.trace, periodPulse(t), plotit);
-rec_spikes = spikes(t.trace, periodRecSpont(t), plotit);
+%# Allow some tolerance for spike finding and then cur them off
+tolerance = 5e-3 / get(t, 'dt');
+ini_period = periodIniSpont(t);
+ini_period = set(ini_period, 'end_time', ini_period.end_time + tolerance);
+ini_spikes = withinPeriodWOffset(spikes(t.trace, ini_period, plotit), ...
+				 periodIniSpont(t));
+
+cip_period = periodPulse(t);
+cip_period = set(cip_period, 'start_time', cip_period.start_time - tolerance);
+cip_period = set(cip_period, 'end_time', cip_period.end_time + tolerance);
+cip_spikes = withinPeriodWOffset(spikes(t.trace, cip_period, plotit), ...
+				 periodPulse(t));
+
+rec_period = periodRecSpont(t);
+rec_period = set(rec_period, 'start_time', rec_period.start_time - tolerance);
+rec_spikes = withinPeriodWOffset(spikes(t.trace, rec_period, plotit), ...
+				 periodRecSpont(t));
 
 obj = spikes([ini_spikes.times, cip_spikes.times, rec_spikes.times], ...
 	     length(t.trace.data), t.trace.dt, t.trace.id);

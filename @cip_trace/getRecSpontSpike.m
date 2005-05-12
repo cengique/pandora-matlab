@@ -1,9 +1,9 @@
-function obj = getPulseSpike(t, s, spike_num, props)
+function obj = getRecSpontSpike(t, s, spike_num, props)
 
-% getPulseSpike - Convert a spike in the CIP period to a spike_shape object.
+% getRecSpontSpike - Convert a spike in the CIP period to a spike_shape object.
 %
 % Usage:
-% obj = getPulseSpike(trace, spikes, spike_num, props)
+% obj = getRecSpontSpike(trace, spikes, spike_num, props)
 %
 %   Parameters:
 %	trace: A trace object.
@@ -17,12 +17,13 @@ function obj = getPulseSpike(t, s, spike_num, props)
 %
 % $Id$
 % Author: 
-%   Cengiz Gunay <cgunay@emory.edu>, 2005/04/19
+%   Cengiz Gunay <cgunay@emory.edu>, 2005/05/08
 
 if ~ exist('props')
   props = struct;
 end
 
 props.spike_id = 'pulse';
-obj = getSpike(withinPeriod(t, periodPulse(t)), withinPeriod(s, periodPulse(t)), ...
+obj = getSpike(withinPeriod(t, periodRecSpont(t)), ...
+	       withinPeriod(s, periodRecSpont(t)), ...
 	       spike_num, props)
