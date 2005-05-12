@@ -21,9 +21,8 @@ function obj = ...
 %		Start and width of the pulse [dt]
 %	id: An identification string
 %	props: A structure with any optional properties.
-%		channel: Channel to read from in data files (default = 1).
-%		trace_time_start: Starting of trace in file (default = 1).
-%		type: type of file (default = '')
+%	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  (All other props are passed to cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_fileset,
