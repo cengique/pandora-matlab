@@ -71,7 +71,8 @@ else
     %#props.init_threshold = 10; %# upper bound of derivative in V/s (= mV/ms)
     %# (no upper bound works more reliably)
     %# OR
-    props(1).init_Vm_method = 8; %# max vPP curvature, fallback on derivative threshold method
+    props(1).init_Vm_method = 7; %# supersampled derivative threshold method
+    %#props(1).init_Vm_method = 8; %# max vPP curvature, fallback on derivative threshold method
     props(1).init_threshold = 15; %# threshold crossing derivative in V/s (= mV/ms)
   end
   obj.props = props;
