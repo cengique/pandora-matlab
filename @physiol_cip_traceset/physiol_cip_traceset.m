@@ -24,7 +24,9 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %	treatments: Structure containing the names and concentrations
 %		    of compounds.
 %	id: Neuron name.
-%	props: A structure with any optional properties passed to cip_trace_profile.
+%	props: A structure with any optional properties.
+%	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  (All other props are passed to cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,

@@ -25,7 +25,9 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 %
 %	dt: time resolution [s].
 %	dy: y-axis resolution [V] or [A].
-%	props: A structure with any optional properties passed to cip_trace_profile.
+%	props: A structure with any optional properties.
+%	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  (All other props are passed to cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
 %	neuron_idx: A structure that points from neuron names to NeuronId numbers.
@@ -157,7 +159,4 @@ else
   obj = class(obj, 'physiol_cip_traceset_fileset', ...
 	      params_tests_dataset(list, dt, dy, ...
 	      ['tracesets from ', cells_filename ], props));
-
 end
-
-
