@@ -1,5 +1,13 @@
 TODO
 --------------------
+- improve visualization of cip_traces
+- remove not-a-spikes from spikes object
+- analyze each spike individually, then generate mean, mode, median, and unimodality score
+- create custom class to eliminate high-variance neurons? how to get sdb?
+- perl doclet generator
++ remove DAHPMag from depol_tests
+- add method in dataset to load item by reading database row or in db vice-versa.
+	- use db id for the prof id
 - ignore all parameters in comparisons?
 - plot average neuron comparison matches.
 - plot matches that vary a lot in parameter values, but same outcome
@@ -7,8 +15,12 @@ TODO
 - for version 0.6:
 	- add new physiology dataset loader
 - for version 0.7:
-	- add dataset connection to tests_db
-	- put params in dataset
+	- new AP thr method, and look at all spikes
+- for version 1.0:
+	- add dataset connection to tests_db 
+		- put it in props for now?
+		- make version-aware loader?
+	- put params in dataset, params_results_profile
 - fix fillederrorbar with new Matlab
 - Make tests_db save and load its dataset on request
 	- overload saveobj and loadobj methods

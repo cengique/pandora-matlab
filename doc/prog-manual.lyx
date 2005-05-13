@@ -156,7 +156,7 @@ today
 Introduction
 \layout Subsection
 
-What is this?
+What is DONAS?
 \layout Standard
 
 A collection of 
@@ -219,6 +219,11 @@ At the time of initial design, the author did not have access to the DB
 \layout Subsection
 
 Finding your way around
+\begin_inset LatexCommand \label{sub:Finding-your-way-around}
+
+\end_inset 
+
+
 \layout Standard
 
 The source code uses 
@@ -286,9 +291,132 @@ However, some documentation may be outdated or simply wrong.
 cgunay@emory.edu
 \family default 
 .
+\layout Subsection
+
+Overview of this document
+\layout Standard
+
+
+\begin_inset Note
+collapsed true
+
+\layout Standard
+
+put this in the preface?
+\end_inset 
+
+Next, Section 
+\begin_inset LatexCommand \ref{sec:Installation}
+
+\end_inset 
+
+ guides the reader through the installation of the package and other dependencie
+s.
+ You can skip this section if you already have a running software environment.
+ Section 
+\begin_inset LatexCommand \ref{sec:Class-hierarchies}
+
+\end_inset 
+
+ introduces the essential components of the software and talks about their
+ design decisions.
+ You can also skip this part if you're not interested in the guts of the
+ system and you are in favor of a quick start.
+ The recipes in Section 
+\begin_inset LatexCommand \ref{sec:Recipes}
+
+\end_inset 
+
+ provide a tutorial for some common tasks.
+ It may be easier for some readers to follow these recipes to jump-start
+ using the software.
+ However, it is recommended that you familiarize yourself with the basic
+ organization of the classes before proceeding into more complex tasks.
+ Section 
+\begin_inset LatexCommand \pageref{sec:Visualization}
+
+\end_inset 
+
+ takes the tutorial approach to describe common visualization tasks.
+ Finally, Section 
+\begin_inset LatexCommand \ref{sec:Function-Reference}
+
+\end_inset 
+
+ points to the list of individual methods provided by the software.
+ These methods are documented in detail using the 
+\noun on 
+Matlab
+\noun default 
+ online help system.
+\layout Section
+
+Installation
+\begin_inset LatexCommand \label{sec:Installation}
+
+\end_inset 
+
+
+\layout Standard
+
+Currently the main software classes are available under the 
+\family typewriter 
+/Lab/matlab/classes/djlab
+\family default 
+ directory at the Jaeger Lab in Emory University.
+ The 
+\family typewriter 
+djlab
+\family default 
+ directory is an alias to the latest version, while older versions are kept
+ in directories named like 
+\family typewriter 
+djlab_v0.5b
+\family default 
+.
+ The 
+\family typewriter 
+README
+\family default 
+ file under the last version directory illustrates the differences between
+ versions.
+ 
+\layout Standard
+
+The classes depend on a number of other utilities from the following directories
+: 
+\family typewriter 
+/Lab/matlab/cengiz
+\family default 
+ and 
+\family typewriter 
+/Lab/matlab/alfonso/alftoolbox
+\family default 
+.
+ These directories, together with the class directory from above, need to
+ be in your 
+\noun on 
+Matlab
+\noun default 
+ search path.
+ You can use the 
+\family typewriter 
+addpath
+\family default 
+ command to add them interactively, or you can simply put the commands in
+ a startup script (e.g., 
+\family typewriter 
+~/matlab/startup.m
+\family default 
+).
 \layout Section
 
 The Main Class Hierarchies
+\begin_inset LatexCommand \label{sec:Class-hierarchies}
+
+\end_inset 
+
+
 \layout Subsection
 
 Databases hold all the information
@@ -335,14 +463,106 @@ tests_db
  which contains a two-dimensional matrix of real-number data with associated
  information.
  The associated information consist of meta-data such as column labels (e.g.,
- measures), a dataset label, and data properties (e.g., time resolution).
+ measure names), a dataset label, and data properties (e.g., time resolution).
 \layout Standard
 
 The preferred way to create a database object is using a dataset object.
  This maintains a connection from the elements of the database (e.g., neurons)
  to raw data.
- Thus raw data associated with database contents can be visualized during
- database analysis.
+ Thus, raw data associated with database contents can be visualized during
+ analysis.
+\layout Standard
+
+Some specialized subclasses of 
+\family typewriter 
+tests_db
+\family default 
+ are as follows:
+\begin_inset Note
+collapsed true
+
+\layout Standard
+
+put links to reference section?
+\end_inset 
+
+
+\layout Description
+
+
+\family typewriter 
+params_tests_db 
+\family default 
+The first 
+\family typewriter 
+num_params
+\family default 
+ columns are reserved for parameters that were changed between different
+ rows.
+ It contains methods that treat these columns specially.
+\layout Description
+
+
+\family typewriter 
+tests_3D_db 
+\family default 
+Contains a three-dimensional data matrix that has additional pages of informatio
+n.
+ This is useful when one wants to look at how everything changes with one
+ other parameter.
+ The natural way to obtain a 3D database is using the 
+\family typewriter 
+invarParam
+\family default 
+ method of 
+\family typewriter 
+params_tests_db
+\family default 
+.
+\layout Description
+
+
+\family typewriter 
+stats_db
+\family default 
+ Contains few rows that describe the statistics of another database.
+ It can contain the mean and standard deviation or error, or in some cases,
+ the minimal and maximal entries in a database.
+ It contains special plotting functions.
+ Also, other methods may require this object to make use of the statistics.
+\layout Description
+
+
+\family typewriter 
+ranked_db
+\family default 
+ Contains distances that resulted from a comparison of a database with a
+ criterion.
+ Contains methods to generate reports of mathing information.
+\layout Description
+
+
+\family typewriter 
+histogram_db
+\family default 
+ Each row corresponds to a histogram bin.
+ Contains plotting methods.
+\layout Description
+
+
+\family typewriter 
+corrcoefs_db
+\family default 
+ Each row corresponds to a correlation coefficient.
+ Contains plotting methods.
+\layout Description
+
+
+\family typewriter 
+cluster_db
+\family default 
+ Each row corresponds to a cluster centroid.
+ Contains plotting methods.
 \layout Standard
 
 
@@ -388,6 +608,19 @@ Dataset class hierarchy.
 \end_inset 
 
 
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+clearpage
+\end_inset 
+
+
 \layout Subsection
 
 Data wrappers hold the raw data
@@ -417,6 +650,19 @@ collapsed true
 \end_inset 
 
 Data wrapper class hierarchy.
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+clearpage
 \end_inset 
 
 
@@ -452,6 +698,19 @@ Profile class hierarchy.
 \end_inset 
 
 
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+clearpage
+\end_inset 
+
+
 \layout Subsection
 
 Plots provide easy visualization
@@ -460,7 +719,7 @@ Plots provide easy visualization
 
 \begin_inset Float figure
 wide false
-collapsed true
+collapsed false
 
 \layout Standard
 \align center 
@@ -484,9 +743,27 @@ Plots class hierarchy.
 \end_inset 
 
 
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+clearpage
+\end_inset 
+
+
 \layout Section
 
 Recipes for Routine Tasks
+\begin_inset LatexCommand \label{sec:Recipes}
+
+\end_inset 
+
+
 \layout Subsection
 
 How to load a database
@@ -1226,16 +1503,20 @@ db1
 If we want more constrains it is straightforward to use any logical operation
  such as AND (
 \family typewriter 
-&&
+&
 \family default 
-) or OR (
+), OR (
 \family typewriter 
-||
+|
+\family default 
+) and NOT(
+\family typewriter 
+~
 \family default 
 ) on these logical arrays such as 
 \layout LyX-Code
 
->> db2 = db1((rows || rows2) && rows3, :);
+>> db2 = db1((rows | rows2) & rows3, :);
 \layout Standard
 
 which says choose all rows from 
@@ -1258,7 +1539,7 @@ rows3
  All these operations can be specified in-place such as in 
 \layout LyX-Code
 
->> db2 = db1(db1(:, 'IniSpontSpikeRate') > 10 && 
+>> db2 = db1(db1(:, 'IniSpontSpikeRate') > 10 & 
 \layout LyX-Code
 
              db1(:, 'IniSpontSpikeRate') <= 20, :);
@@ -1269,6 +1550,11 @@ which will create a database of neurons that spontaneously fire between
 \layout Section
 
 Visualization
+\begin_inset LatexCommand \label{sec:Visualization}
+
+\end_inset 
+
+
 \layout Subsection
 
 Plotting all measure histograms
@@ -1282,6 +1568,22 @@ params_tests_db
 \layout LyX-Code
 
 >> mp1 = plotTestsHistsMatrix(sdball);
+\layout LyX-Code
+
+>> plotFigure(mp1);
+\layout Subsection
+
+Plotting all parameter histograms
+\layout Standard
+
+For plotting all parameter histograms in a DB, the following method of 
+\family typewriter 
+params_tests_db
+\family default 
+ creates a horizontal plot stack:
+\layout LyX-Code
+
+>> mp1 = plotParamsHists(sdball);
 \layout LyX-Code
 
 >> plotFigure(mp1);
@@ -1501,6 +1803,23 @@ tex_string
 \layout Section
 
 Function Reference
+\begin_inset LatexCommand \label{sec:Function-Reference}
+
+\end_inset 
+
+
+\layout Standard
+
+See Section 
+\begin_inset LatexCommand \vref{sub:Finding-your-way-around}
+
+\end_inset 
+
+ on how to get online help about the software within 
+\noun on 
+Matlab
+\noun default 
+.
 \layout Standard
 
 [Supposed to have all class and method documentation automagically generated
