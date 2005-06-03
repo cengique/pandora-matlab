@@ -6,5 +6,6 @@ try
   b = a;
 catch
   errstr = lasterror;
-  b = set(a.plot_abstract, attr, val);
+  a.plot_abstract = set(a.plot_abstract, attr, val);
+  b = a;
 end

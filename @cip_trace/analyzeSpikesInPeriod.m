@@ -84,7 +84,7 @@ function [results a_spikes_db spikes_stats_db spikes_hists_dbs] = ...
   
   %# make a small db from results
   %# TODO: make a spikes_db for customized result collection (why?)
-  %# TODO: add spike number as parameter
+  %# TODO: add spike number/time as parameter
   results_matx = cell2mat(struct2cell(spike_results))';
   a_spikes_db = tests_db(results_matx, test_names, {}, ...
 		       [ prefix_str ' spikes of ' get(a_cip_trace, 'id') ]);

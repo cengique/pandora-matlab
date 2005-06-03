@@ -57,7 +57,17 @@ vpp_plots_row = plot_stack({r3_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		     struct('titlesPos', 'none'));
 
 %# Method 9: combined time-domain derivative methods h and Kp
-[m9_init_idx, d_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, 5, 50, 1);
+try 
+  [m9_init_idx, d_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, 5, 50, 1);
+catch
+  err = lasterror;
+  if strcmp(err.identifier, 'calcInitVm:failed')
+    %# Set to beginning of trace just to recover form error
+    [m9_init_idx(1:2)] = deal(1);
+  else
+    rethrow(err);
+  end
+end 
 
 %# plot with all derivatives, h and Kp
 %#d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);

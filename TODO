@@ -21,6 +21,7 @@ TODO
 		- put it in props for now?
 		- make version-aware loader?
 	- put params in dataset, params_results_profile
+	- remove redundant props from subclasses
 - fix fillederrorbar with new Matlab
 - Make tests_db save and load its dataset on request
 	- overload saveobj and loadobj methods

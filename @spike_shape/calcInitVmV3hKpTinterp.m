@@ -62,9 +62,19 @@ d1 = d1(3:(end - 2));
 
 %# Find desired lower boundary of region of interest
 low_d1_idx = find(d1 > lo_thr);
+if length(low_d1_idx) == 0 
+  error('calcInitVm:failed', ...
+	['Failed to find any points below low derivative threshold ' ...
+	 num2str(lo_thr) ]);
+end
 low_d1_idx = low_d1_idx(1);
 
 hi_d1_idx = find(d1 < hi_thr);
+if length(hi_d1_idx) == 0 
+  error('calcInitVm:failed', ...
+	['Failed to find any points above high derivative threshold ' ...
+	 num2str(hi_thr) ]);
+end
 hi_d1_idx = hi_d1_idx(end);
 
 [max_d1, max_d1_idx] = max(d1);

@@ -34,14 +34,26 @@ plots = cell(num_rows, 1);
 for row_num=1:num_rows
   %# inverse order for plot_stack
   if row_num == num_rows
-    plots{num_rows - row_num + 1} = ...
-	plotrow(a_tests_db, row_num, struct('putLabels', 1));
+     row_plot = ...
+	plotrow(a_tests_db, row_num, struct('putLabels', 1))
+     row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]})
+     plots{num_rows - row_num + 1} = row_plot;
   else
-    plots{num_rows - row_num + 1} = plotrow(a_tests_db, row_num);
+    row_plot = plotrow(a_tests_db, row_num);
+    row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]});
+    plots{num_rows - row_num + 1} = row_plot;
   end
 end
 
 props(1).xLabelsPos = 'bottom';
 %#props.xTicksPos = 'bottom';
 props.titlesPos = 'none';
-a_plot = plot_stack(plots, axis_limits, orientation, get(a_tests_db, 'id'), props);
+
+tests_props = get(a_tests_db, 'props');
+if isfield(tests_props, 'quiet') && tests_props.quiet == 1
+  title_str = 'Rows';
+else 
+  title_str = get(a_tests_db, 'id');
+end
+
+a_plot = plot_stack(plots, axis_limits, orientation, title_str, props);

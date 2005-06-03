@@ -13,12 +13,5 @@ disp(sprintf('%s, %s', class(t), get(t, 'id')));
 
 struct(t)
 
-if ~ isempty(t.props)
-  disp(['Optional properties of ' class(t) ':']);
-  struct(t.props)
-else
-  disp(['No optional properties of ' class(t) '.']);
-end
-
 display(t.tests_db);
 

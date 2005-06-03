@@ -64,7 +64,7 @@ end
 [min_val, min_idx] = calcMinVm(s, max_idx);
 
 %# Sanity check for AHP 
-if (max_val - min_val) * mV_factor < 20
+if (max_val - min_val) * mV_factor < 10
   error('spike_shape:not_a_spike', '%s not a spike! Too short.', ...
 	get(s, 'id'));
 end
