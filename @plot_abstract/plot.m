@@ -47,7 +47,7 @@ if ~isfield(a_plot_props, 'XTickLabel') || ~isempty(a_plot_props.XTickLabel)
 end
 
 if ~isfield(a_plot_props, 'noYLabel') || a_plot_props.noYLabel == 0
-  x_strut = decosize;
+  x_strut = decosize / 2;
   left_side = left_side + x_strut;
   width = width - x_strut;
 end

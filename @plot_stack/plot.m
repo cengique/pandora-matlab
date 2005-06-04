@@ -92,11 +92,12 @@ else
   end
 end
 
+x_strut = decosize / 2;
 if isfield(a_plot.props, 'yLabelsPos') 
   switch a_plot.props.yLabelsPos
       case 'left'
-	left_side = left_side + decosize / 2;
-	width = width - decosize / 2;
+	left_side = left_side + x_strut;
+	width = width - x_strut;
 	labelwidth = 0;
       case 'none'
 	labelwidth = 0;
@@ -107,16 +108,17 @@ else
   if isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 0
     labelwidth = 0;
   else
-    left_side = left_side + decosize / 2;
-    labelwidth = decosize / 2;
+    left_side = left_side + x_strut;
+    labelwidth = x_strut;
   end
 end
 
+x_strut = decosize;
 if isfield(a_plot.props, 'yTicksPos') 
   switch a_plot.props.yTicksPos
       case 'left'
-	left_side = left_side + decosize / 2;
-	width = width - decosize / 2;
+	left_side = left_side + x_strut;
+	width = width - x_strut;
 	tickwidth = 0;
       case 'none'
 	tickwidth = 0;
@@ -127,8 +129,8 @@ else
   if isfield(a_plot.props, 'YTickLabel') && isempty(a_plot.props.YTickLabel)
     tickwidth = 0;
   else
-    left_side = left_side + decosize / 2;
-    tickwidth = decosize / 2;
+    left_side = left_side + x_strut;
+    tickwidth = x_strut;
   end
 end
 
