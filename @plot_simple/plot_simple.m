@@ -36,8 +36,8 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 if nargin == 0 %# Called with no params
-   a_plot.props = struct([]);
-   a_plot = class(a_plot, 'plot_simple', plot_abstract);
+   %#a_plot.props = struct([]);
+   a_plot = class(struct, 'plot_simple', plot_abstract);
  elseif isa(data_x, 'plot_simple') %# copy constructor?
    a_plot = data_x;
  else
@@ -49,9 +49,9 @@ if nargin == 0 %# Called with no params
      command = 'plot';
    end
 
-   a_plot.props = props;
+   %#a_plot.props = props;
 
-   a_plot = class(a_plot, 'plot_simple', ...
+   a_plot = class(struct, 'plot_simple', ...
 		  plot_abstract({data_x, data_y}, {label_x, label_y}, ...
 				title, {legend}, command, props));
 end

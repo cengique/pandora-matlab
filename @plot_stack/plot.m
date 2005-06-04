@@ -27,12 +27,15 @@ if ~ exist('layout_axis') || isempty(layout_axis)
   layout_axis = [ 0 0 1 1];
 end
 
-axes('position', layout_axis);
+this_axis = axes('position', layout_axis);
 
 left_side = layout_axis(1);
 bottom_side = layout_axis(2);
 width = layout_axis(3);
 height = layout_axis(4);
+
+disp(sprintf('Position: %0.3f+%0.3f+%0.3fx%0.3f', ...
+	     left_side, bottom_side, width, height));
 
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
@@ -45,7 +48,7 @@ border = 1;
 %#tickextent = get(ticklabel, 'Extent');
 
 %# Fixed size for ticks and labels
-decosize = 0.03;
+decosize = 0.04;
 
 %# Handle special label and tick placements to create maximal plotting area
 if isfield(a_plot.props, 'xLabelsPos') 
@@ -64,6 +67,7 @@ else
   if isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 0
     labelheight = 0;
   else
+    bottom_side = bottom_side + decosize / 2;
     labelheight = decosize / 2;
   end
 end
@@ -83,6 +87,7 @@ else
   if isfield(a_plot.props, 'XTickLabel') && isempty(a_plot.props.XTickLabel)
     tickheight = 0;
   else
+    bottom_side = bottom_side + decosize / 2;
     tickheight = decosize / 2;
   end
 end
@@ -102,7 +107,8 @@ else
   if isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 0
     labelwidth = 0;
   else
-    labelwidth = decosize;
+    left_side = left_side + decosize / 2;
+    labelwidth = decosize / 2;
   end
 end
 
@@ -121,8 +127,25 @@ else
   if isfield(a_plot.props, 'YTickLabel') && isempty(a_plot.props.YTickLabel)
     tickwidth = 0;
   else
+    left_side = left_side + decosize / 2;
     tickwidth = decosize / 2;
   end
+end
+
+%# Title math
+y_strut = decosize;
+if isfield(a_plot.props, 'titlesPos') 
+  switch a_plot.props.titlesPos
+      case 'top'
+	height = height - y_strut;
+	titleheight = 0;
+      case 'none'
+	titleheight = 0;
+      otherwise
+	error(['titlesPos=' a_plot.props.titlesPos ' not recognized.' ]);
+    end
+else
+  titleheight = y_strut;
 end
 
 if strcmp(a_plot.orient, 'x')
@@ -134,11 +157,23 @@ elseif strcmp(a_plot.orient, 'y')
 end
 
 %# Put a title first
-text(left_side + width / 2, ...
-     1, ... %#bottom_side + 1.5 * height + 0.0, ...
-     get(a_plot, 'title'), ...
-     'Units', 'Normalized', ...
-     'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
+%# Position the title using relative measurement
+set(this_axis, 'Units', 'characters');
+axis_position = get(this_axis, 'Position')
+set(this_axis, 'Units', 'normalized');
+
+title_handle = text(axis_position(3) / 2, ...
+		    axis_position(4) + 0.5, ... %#bottom_side + 1.5 * height + 0.0, ...
+		    get(a_plot, 'title'), ...
+		    'Units', 'characters', ...
+		    'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
+set(title_handle, 'Units', 'normalized');
+
+%#text(left_side + width / 2, ...
+%#     1.05, ... %#bottom_side + 1.5 * height + 0.0, ...
+%#     get(a_plot, 'title'), ...
+%#     'Units', 'Normalized', ...
+%#     'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
 
 %# The textbox opens an unwanted axis, so hide it
 set(gca, 'Visible', 'off');
@@ -199,13 +234,19 @@ for plot_num=1:num_plots
   %# Set the modified properties back to the plot
   one_plot = set(one_plot, 'props', its_props);
   %# Calculate subplot positioning
-  x_offset = left_side + (1 - scale_down) * tilewidth / 2 + ...
+  disp(sprintf('left=%.3f, tilewidth=%.3f, tickwidth=%.3f, labelwidth=%.3f', ...
+	       left_side, tilewidth, tickwidth, labelwidth));
+  disp(sprintf('bottom=%.3f, tileheight=%.3f, tickheight=%.3f, labelheight=%.3f, titleheight=%.3f', ...
+	       bottom_side, tileheight, tickheight, labelheight, titleheight));
+  %# (1 - scale_down) * tilewidth / 2
+  %# (1 - scale_down) * tileheight / 2 +
+  x_offset = left_side + ...
       strcmp(a_plot.orient, 'x') * (plot_num - 1) * tilewidth;
-  y_offset = bottom_side + (1 - scale_down) * tileheight / 2 + ...
+  y_offset = bottom_side + ...
       strcmp(a_plot.orient, 'y') * (plot_num - 1) * tileheight;
   position = [x_offset, y_offset, ...
-	      max(scale_down * tilewidth - tickwidth - labelwidth, minwidth), ...
-	      max(scale_down * tileheight - tickheight - labelheight, minheight) ];
+	      max(tilewidth - tickwidth - labelwidth, minwidth), ...
+	      max(tileheight - tickheight - labelheight - titleheight, minheight) ];
   plot(one_plot, position);
   %# Set its axis limits if requested
   current_axis = axis;

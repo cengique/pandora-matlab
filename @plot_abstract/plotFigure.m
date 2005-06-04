@@ -25,7 +25,7 @@ set(handle, 'Name', title);
 if isempty(title)
   titleheight = 0;
 else
-  titleheight = 0.03;
+  titleheight = 0.05;
 end
 
 if isfield(a_plot.props, 'border')
@@ -33,6 +33,21 @@ if isfield(a_plot.props, 'border')
 else
   border = 0.15;
 end
-plot(a_plot, [border/2, border/2, ...
-	      (1 - border), (1-border - titleheight)]);
+
+axis_labels = get(a_plot, 'axis_labels');
+if length(axis_labels) < 1 || isempty(axis_labels(1))
+  left_border = 0;
+else
+  left_border = border / 2;
+end
+
+if length(axis_labels) < 2 || isempty(axis_labels(2))
+  bottom_border = 0;
+else
+  bottom_border = border / 2;
+end
+
+%# Put default borders: less border for top title, no border on right side
+plot(a_plot, [left_border, bottom_border, ...
+	      1, (1 - titleheight)]);
 decorate(a_plot);

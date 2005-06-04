@@ -57,7 +57,6 @@ else
 end
 
 %# Z-axis?
-
 if isfield(a_plot.props, 'XTickLabel')
   set(gca, 'XTickLabel', a_plot.props.XTickLabel);
 end
