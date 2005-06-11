@@ -65,11 +65,15 @@ for item_num=1:num_items
   %# Read the neuron name from the id field of traceset and translate to NeuronId
   neuron_id = obj.neuron_idx.(get(item, 'id'));
 
-  row_range = rows : (rows + num_traces - 1);
-  params(row_range, :) = [item_params, repmat(neuron_id, num_traces,1), ...
-			  repmat(item_num, num_traces,1) ];
-  tests(row_range, :) = item_tests;
-  rows = rows + num_traces;
+  if size(item_params, 1) > 0  %# Unless reading traceset failed and truncated
+    row_range = rows : (rows + num_traces - 1);
+    params(row_range, :) = [item_params, repmat(neuron_id, num_traces,1), ...
+			    repmat(item_num, num_traces,1) ];
+    tests(row_range, :) = item_tests;
+    rows = rows + num_traces;
+  else
+    break; %# Out of for
+  end
 end
 
 end_time = cputime;

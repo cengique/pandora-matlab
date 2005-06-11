@@ -30,6 +30,8 @@
 %			   capable of creating a params_tests_db.
 %   params_cip_trace_fileset - Fileset from which cip_trace objects can be created. 
 %   cip_traces_dataset  - Dataset of cip_traces objects.
+%   physiol_cip_traceset - Dataset of a traceset from a single file.
+%   physiol_cip_traceset_fileset - Dataset of a tracesets from many files.
 % 
 % Profile database classes created from datasets:
 %   tests_db		- General test results database class that 
