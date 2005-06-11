@@ -44,5 +44,5 @@ else
 			  [get(traceset, 'id') '(' num2str(trace_index) ')'], ...
 			  mergeStructs(get(traceset, 'props'), props));
   a_cip_trace_profile = ...
-      feval(get(get(traceset, 'props'), 'profile_class_name), a_cip_trace);
+      feval(get(get(traceset, 'props'), 'profile_class_name'), a_cip_trace);
 end
