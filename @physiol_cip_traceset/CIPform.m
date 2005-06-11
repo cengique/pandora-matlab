@@ -28,7 +28,7 @@ function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
 	bsln = median(filtcurr(1:100));
 	if (maxc - minc) < 10 % No cip found.
 %		sprintf('0 cip')
-		on = 1;
+		on = length(current);
 		off = length(current);
 		ciptype = 0;
 	elseif (maxc - bsln) > (bsln - minc)	% is +cip trace

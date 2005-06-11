@@ -63,8 +63,6 @@ catch
 	   num2str(item_index) ': ' err.message '. Truncating database.']);
   params(row_index:size(params, 1), :) = [];
   tests(row_index:size(tests, 1), :) = [];
-  size(params)
-  size(tests)
 end
 
 end_time = cputime;

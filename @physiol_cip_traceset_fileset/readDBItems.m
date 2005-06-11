@@ -72,6 +72,7 @@ for item_num=1:num_items
     tests(row_range, :) = item_tests;
     rows = rows + num_traces;
   else
+    %# TODO: truncate database here!
     break; %# Out of for
   end
 end
