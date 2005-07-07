@@ -23,6 +23,14 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %	id: An identification string
 %	props: A structure with any optional properties.
 %		num_params: Number of parameters that appear in filenames.
+%		param_row_filename: If given, the 'trial' parameter will be used
+%			to address rows from this file and acquire parameters.
+%		param_desc_filename: Contains the parameter range descriptions one per 
+%			each row. The parameter names are acquired from this file.
+%		param_names: Cell array of parameter names corresponding to the 
+%			param_row_filename columns can be specified as an alternative to
+%			specifying param_desc_filename. These names are not for the 
+%			parameters present in the data filename.
 %		(See parent classes and cip_trace object for more props)
 %		
 %   Returns a structure object with the following fields:
@@ -57,7 +65,6 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 
 if nargin == 0 %# Called with no params
   obj.path='';
-  obj.props = struct([]);
   obj = class(obj, 'params_tests_fileset', params_tests_dataset);
 elseif isa(file_pattern, 'params_tests_fileset') %# copy constructor?
   obj = file_pattern;
@@ -67,16 +74,34 @@ else
     props = struct([]);
   end
 
+
   %# First find all filenames matching the pattern
   
   %# Separate filename components
   [obj.path, name, ext, ver] = fileparts(file_pattern);
 
-  obj.props = props;  
-
   filestruct = dir(file_pattern);
   entries = size(filestruct, 1);
   [filenames{1:entries}] = deal(filestruct(:).name);
+
+  %# Read parameters if specified
+  if isfield(props, 'param_row_filename')
+    param_rows = dlmread(props.param_row_filename, ' ');
+    props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); %# strip off excess columns
+
+    %# Check for names
+    if ~ isfield(props, 'param_names')
+      %# Then read the parameter description file to get the names
+      if ~ isfield(props, 'param_desc_filename')
+	error(['If param_row_filename is specified, one needs to specify ' ...
+	      ' a method to get parameter names. Use either param_names ' ...
+	       'or param_desc_filename.']);
+      end
+      param_names = textread(props.param_desc_filename, '%s %*s %*s %*s', ...
+			     'commentstyle', 'shell');
+      props.param_names = param_names';
+    end
+  end
 
   %# then create the object 
   obj = class(obj, 'params_tests_fileset', ...
