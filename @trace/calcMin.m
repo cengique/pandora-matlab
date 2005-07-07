@@ -26,4 +26,9 @@ elseif nargin == 1
   a_period = periodWhole(t);
 end
 
-[min_val, min_idx] = min(t.data(a_period.start_time:a_period.end_time));
+if (a_period.end_time - a_period.start_time) >= 0
+  [min_val, min_idx] = min(t.data(a_period.start_time:a_period.end_time));
+else
+ min_idx = NaN;
+ min_val = NaN;
+end

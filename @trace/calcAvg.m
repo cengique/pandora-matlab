@@ -22,4 +22,8 @@ elseif nargin == 1
   a_period = periodWhole(t);
 end
 
-avg_val = mean(t.data(a_period.start_time:a_period.end_time));
+if (a_period.end_time - a_period.start_time) >= 0
+  avg_val = mean(t.data(a_period.start_time:a_period.end_time));
+else
+  avg_val = NaN;
+end
