@@ -20,10 +20,12 @@ function a_cip_trace_profile = cip_trace_profile(fileset, file_index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
+props = get(fileset, 'props');
+
 filename = getItem(fileset, file_index);
 fullname = fullfile(get(fileset, 'path'), filename);
 
-if ~ isfield(fileset.props, 'profile_class_name')
+if ~ isfield(props, 'profile_class_name')
   %# Load a cip_trace_profile object
   a_cip_trace_profile = ...
       cip_trace_profile(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
@@ -38,5 +40,5 @@ else
 			  [get(fileset, 'id') '(' num2str(file_index) ')'], ...
 			  get(fileset, 'props'));
   a_cip_trace_profile = ...
-      feval(fileset.props.profile_class_name, a_cip_trace);
+      feval(props.profile_class_name, a_cip_trace);
 end

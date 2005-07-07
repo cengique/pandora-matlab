@@ -52,7 +52,6 @@ function obj = ...
 if nargin == 0 %# Called with no params
   obj.pulse_time_start = 1;
   obj.pulse_time_width = 0;
-  obj.props = struct([]);
   obj = class(obj, 'params_cip_trace_fileset', params_tests_fileset);
 elseif isa(file_pattern, 'params_cip_trace_fileset') %# copy constructor?
   obj = file_pattern;
@@ -64,7 +63,6 @@ else
 
   obj.pulse_time_start = pulse_time_start;
   obj.pulse_time_width = pulse_time_width;
-  obj.props = props;
 
   %# Create the object 
   obj = class(obj, 'params_cip_trace_fileset', ...

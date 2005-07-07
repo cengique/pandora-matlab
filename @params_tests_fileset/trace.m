@@ -24,4 +24,4 @@ fullname = fullfile(fileset.path, filename);
 
 %# Load a trace object
 a_trace = trace(fullname, fileset.dt, fileset.dy, ...
-		[fileset.id '(' num2str(file_index) ')'], fileset.props);
+		[fileset.id '(' num2str(file_index) ')'], get(fileset, 'props'));
