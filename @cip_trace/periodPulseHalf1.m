@@ -20,4 +20,4 @@ function the_period = periodPulseHalf1(t)
 time_start = t.pulse_time_start;
 time_end = t.pulse_time_start + t.pulse_time_width - 1;
 
-the_period = period(time_start, time_start + t.pulse_time_width / 2);
+the_period = period(time_start, time_start + t.pulse_time_width / 2 - 1);
