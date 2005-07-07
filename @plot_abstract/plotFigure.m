@@ -34,7 +34,7 @@ else
   border = 0.15;
 end
 
-axis_labels = get(a_plot, 'axis_labels');
+axis_labels = get(a_plot, 'axis_labels')
 if length(axis_labels) < 1 || isempty(axis_labels(1))
   left_border = 0;
 else
@@ -48,6 +48,7 @@ else
 end
 
 %# Put default borders: less border for top title, no border on right side
-plot(a_plot, [left_border, bottom_border, ...
-	      1, (1 - titleheight)]);
+position = [left_border, bottom_border, ...
+	      1 - left_border - border/4, (1 - titleheight - bottom_border)]
+plot(a_plot, position);
 decorate(a_plot);
