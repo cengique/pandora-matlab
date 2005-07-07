@@ -55,7 +55,7 @@ peak_vals = data(s.times) * mV_factor;
 
 if pcoefs(1) < 0 
   %# Assumptions:
-  a_max = peak_vals(1);
+  [a_max a_max_idx] = max(peak_vals);
   %# Mean of last few peak values
   da_inf = a_max - mean(peak_vals(max(1, end - 4):end));
 
@@ -65,7 +65,7 @@ if pcoefs(1) < 0
 
   
   if length(recover_times) > 0
-    a_tau = s.times(recover_times(end)) * ms_factor;
+    a_tau = (s.times(recover_times(end)) - s.times(a_max_idx)) * ms_factor;
   else
     a_tau = NaN;
   end
