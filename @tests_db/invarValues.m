@@ -1,9 +1,9 @@
-function a_tests_3D_db = invarValues(db, cols)
+function a_tests_3D_db = invarValues(db, cols, main_cols)
 
 % invarValues - Generates a 3D database of invariant values of given columns.
 %
 % Usage:
-% a_tests_3D_db = invarValues(db, cols)
+% a_tests_3D_db = invarValues(db, cols, main_cols)
 %
 % Description:
 % The invariant values of a column are its values when all other 
@@ -18,6 +18,9 @@ function a_tests_3D_db = invarValues(db, cols)
 %   Parameters:
 %	db: A tests_db object.
 %	cols: Vector of column numbers to find invariant values.
+%	main_cols: Vector of columns that need to be unique in each page 
+% 		(Optional; used only if database is not symmetric, to ignore 
+%		missing values of main_cols)
 %		
 %   Returns:
 %	a_tests_3D_db: A tests_3D_db object of organized values.
@@ -45,24 +48,71 @@ sorted = db.data(idx, :);
 
 %# Initialize
 num_rows = length(unique_idx);
-page_rows = floor(size(sorted, 1) / num_rows);
 
+%# TODO: handle this error here
 if mod(size(sorted, 1), num_rows) ~= 0
-  error('Database does not contain equal rows of each unique combination. Cannot fold.');
+  if ~ exist('main_cols')
+    error('Database does not contain equal rows of each unique combination and main_cols is not specified. Cannot fold.');
+  end
+
+  main_cols = tests2cols(db, main_cols);
+
+  %# Assert main_cols are included in cols
+  if ~ all(ismember(main_cols, cols))
+    error('main_cols should be included in cols.');
+  end
+
+  %# Sort and keep the unique values of main_cols
+  unique_main_vals = uniqueValues(sorted(:, main_cols))
+  num_uniques = size(unique_main_vals, 1);
+  max_page_rows = num_uniques;
+else
+  max_page_rows = floor(size(sorted, 1) / num_rows);
 end
 
-data = repmat(NaN, [page_rows, (length(cols) + 1), num_rows]);
+data = repmat(NaN, [max_page_rows, (length(cols) + 1), num_rows]);
 
 %# For each unique row to next, create a new page
 for row_num=1:num_rows
   if row_num < num_rows
-    rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
+    page_rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
   else
-    rows = unique_idx(row_num):size(sorted, 1);
+    page_rows = unique_idx(row_num):size(sorted, 1);
   end
 
-  %# Fill page
-  data(:, :, row_num) = [sorted(rows, cols), idx(rows) ];
+  page_size = length(page_rows);
+  if exist('unique_main_vals')
+    %# sort main_cols first
+    [page_main_vals page_idx] = sortrows(sorted(page_rows, main_cols));
+
+    %# Match each page entry to uniques
+    unique_index = 1;
+    for page_index = 1:page_size
+      unique_index = find(page_main_vals(page_index) == unique_main_vals);
+
+      %# Check for errors
+      if num_uniques - unique_index < page_size - page_index
+	error('Fatal: cannot match within page values of main_cols to uniques?');
+      end
+
+      %# Check if remaining page size is equal to remaining uniques size,
+      %# if so just copy the rest of the page.
+      if page_size - page_index == num_uniques - unique_index
+	%# Copy contents verbatim from this index onwards
+	data(unique_index:end, :, row_num) = ...
+	  [sorted(page_rows(page_idx(page_index:end)), cols), ...
+	   idx(page_rows(page_idx(page_index:end))) ];
+      else
+	%# Copy only this row
+	data(unique_index, :, row_num) = ...
+	    [sorted(page_rows(page_idx(page_index)), cols), ...
+	     idx(page_rows(page_idx(page_index))) ];
+      end
+    end
+  else
+    %# Fill page from fixed-size unique values
+    data(:, :, row_num) = [sorted(page_rows, cols), idx(page_rows) ];
+  end
 end
 
 %# Create the 3D database

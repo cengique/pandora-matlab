@@ -1,7 +1,6 @@
 function a_3D_db = invarParam(db, param)
 
-% invarParam - Generates a 3D database of invariant values of 
-%		a parameter and all test columns. 
+% invarParam - Generates a 3D database of invariant values of a parameter and all test columns. 
 %
 % Usage:
 % a_3D_db = invarParam(db, param)
@@ -36,4 +35,4 @@ props(1).invarName = col_name_cell{col};
 db = set(db, 'props', props);
 
 %# Get invarValues for these
-a_3D_db = invarValues(db, cols);
+a_3D_db = invarValues(db, cols, col);
