@@ -1,14 +1,14 @@
-function a_db = join(db, tests, with_db, w_tests)
+function a_db = joinPages(db, tests, with_db, w_tests)
 
-% join - Joins the rows of the given db to the with_db rows matching with the PageIndex
+% joinPages - Joins the rows of the given db to the with_db rows matching with the PageIndex
 % 	column.
 %
 % Usage:
-% a_db = join(db, tests, with_db, w_tests)
+% a_db = joinPages(db, tests, with_db, w_tests)
 %
 % Description:
 %   Replicates the desired columns in the with_db with rows having a 
-% page index and joins them next to dedired columns from the current 3D_db. Flattens 
+% page index and joins them next to desired columns from the current 3D_db. Flattens 
 % the resulting 3D_db to become a 2D db. Assumes each page index only 
 % appears once in with_db.
 %

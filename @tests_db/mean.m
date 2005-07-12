@@ -7,8 +7,7 @@ function s = mean(db, dim)
 %
 % Description:
 %   Does a recursive operation over dimensions in order to remove NaN values.
-% This takes considerable amount of time compared with a straightforward mean 
-% operation. 
+% This takes more time, compared with a straightforward mean operation. 
 %
 %   Parameters:
 %	db: A tests_db object.
