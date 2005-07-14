@@ -65,10 +65,10 @@ wghd_data = diff_data ./ rep_weight;
 
 %# Sum of squares: distance measure
 %# Look for NaN values, skip them and count the non-NaN values to normalize the SS
-ss_data = wghd_data .* wghd_data;
+ss_data = abs(wghd_data); %# .* wghd_data;
 if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
   nans = isnan(ss_data);
-  ss_data(nans) = 9; %# Replace NaNs with 0s, 3 for 3 STDs different
+  ss_data(nans) = 3; %# Replace NaNs with 0s, 3 for 3 STDs different
   summed_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
 else
   summed_data = sum(ss_data, 2) ./ size(ss_data, 2);
