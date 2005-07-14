@@ -49,7 +49,7 @@ sorted = db.data(idx, :);
 %# Initialize
 num_rows = length(unique_idx);
 
-%# TODO: handle this error here
+%# If not symmetric
 if mod(size(sorted, 1), num_rows) ~= 0
   if ~ exist('main_cols')
     error('Database does not contain equal rows of each unique combination and main_cols is not specified. Cannot fold.');

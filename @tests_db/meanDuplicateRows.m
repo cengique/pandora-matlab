@@ -92,4 +92,4 @@ end
 a_tests_db = set(sorted_db, 'data', data);
 a_tests_db = set(a_tests_db, 'col_idx', makeIdx(col_names));
 a_tests_db = set(a_tests_db, 'num_params', num_params + 2);
-a_tests_db = set(a_tests_db, 'id', ['Averaged ' a_tests_db.id]);
+a_tests_db = set(a_tests_db, 'id', ['averaged ' a_tests_db.id]);
