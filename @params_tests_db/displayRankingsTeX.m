@@ -19,6 +19,8 @@ function tex_string = displayRankingsTeX(a_db, crit_db, props)
 %		caption: Identification of the criterion db (not needed/used?).
 %		a_dataset: Dataset for a_db.
 %		crit_dataset: Dataset for crit_db.
+%		num_matches: Number of best matches to display (default=10).
+%		rotate: Rotation angle for best matches table (default=90).
 %
 %   Returns:
 %	tex_string: LaTeX document string.
@@ -44,13 +46,18 @@ crit_db_id = strrep(lower(get(crit_db, 'id')), '_', '\_');
 
 if ranked_num_rows > 0
   %# Display values of 10 best matches
-  num_best = 8;
+  if isfield(props, 'num_matches')
+    num_best = props.num_matches;
+  else
+    num_best = 10;
+  end
   top_ranks = onlyRowsTests(ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
   short_caption = [ a_db_id ' ranked to the ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' Only ' num2str(num_best) ' best matches are shown.' ];
   tex_string = [ tex_string displayRowsTeX(top_ranks, caption, ...
-					   struct('shortCaption', short_caption)) ];
+					   struct('shortCaption', short_caption, ...
+						  'rotate', 0)) ];
 
   %# Display parameter distributions of 50 best matches
   num_best = 50;
@@ -66,6 +73,7 @@ if ranked_num_rows > 0
   %# Replace all white space with underscores
   filename = strrep(filename, ' ', '_');
   filename = strrep(filename, '.', '_');
+  filename = strrep(filename, '/', '+');  %# And the /'s with +'s
   print('-depsc', [ filename '.eps' ]);
 
   %# Put it in a figure float
