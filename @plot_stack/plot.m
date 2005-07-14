@@ -113,7 +113,7 @@ else
   end
 end
 
-x_strut = decosize;
+x_strut = decosize / 4;
 if isfield(a_plot.props, 'yTicksPos') 
   switch a_plot.props.yTicksPos
       case 'left'
