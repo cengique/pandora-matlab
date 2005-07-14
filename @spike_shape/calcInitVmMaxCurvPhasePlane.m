@@ -231,9 +231,16 @@ end
 function t_idx = transV2T(s, start_idx, max_idx, voltage_points, idx)
   times = find((s.trace.data((start_idx + 2) : (max_idx + 2)) * s.trace.dy) > ...
 	       voltage_points(idx + 2));
-  t_idx = start_idx + times(1) + ...
-      (voltage_points(idx + 2) / s.trace.dy - s.trace.data(times(1) + start_idx)) / ...
-      (s.trace.data(times(1) + start_idx + 1) - s.trace.data(times(1) + start_idx));
+  denom = s.trace.data(times(1) + start_idx + 1) - ...
+      s.trace.data(times(1) + start_idx);
+  %# No slope? Just return the base value
+  if denom == 0
+    t_idx = start_idx + times(1);
+  else %# Otherwise, calculate rational value using linear interpolation
+    t_idx = start_idx + times(1) + ...
+	(voltage_points(idx + 2) / s.trace.dy - ...
+	 s.trace.data(times(1) + start_idx)) / denom;
+  end
 
 function idx = findMax(data, voltage_points)
   [max_idcs] = maxima(data);

@@ -56,14 +56,16 @@ end
 %# Sanity check for peak
 if max_idx == 1 || max_idx == length(s.trace.data) || ...
       max_idx < 1e-3 / s.trace.dt || ... %# less than 1ms on the left side
-  ( length(s.trace.data) - max_idx ) < 3e-3 / s.trace.dt %# less than 3ms on the right 
+  ... %# less than 3ms on the right 
+  ( length(s.trace.data) - max_idx ) < 3e-3 / s.trace.dt 
+  
   error('spike_shape:not_a_spike', 'Peak at beginning or end of %s! Not a spike.', ...
 	get(s, 'id'));
 end
 
 [min_val, min_idx] = calcMinVm(s, max_idx);
 
-%# Sanity check for AHP 
+%# Sanity check for Max AHP
 if (max_val - min_val) * mV_factor < 10
   error('spike_shape:not_a_spike', '%s not a spike! Too short.', ...
 	get(s, 'id'));
@@ -72,6 +74,13 @@ end
 [init_val, init_idx, rise_time, amplitude, ...
  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx, ...
  peak_mag, peak_idx, a_plot] = calcInitVm(s, max_idx, min_idx, plotit);
+
+%# Sanity check for amplitude
+if  (max_val - init_val) * mV_factor < 10 
+  error('spike_shape:not_a_spike', '%s not a spike! Too short.', ...
+	get(s, 'id'));
+end
+
 [base_width, half_width, half_Vm, fall_time] = ...
       calcWidthFall(s, peak_idx, peak_mag, min_idx, init_idx, init_val);
 
