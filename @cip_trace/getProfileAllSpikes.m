@@ -35,6 +35,8 @@ a_spikes = spikes(a_cip_trace);
     analyzeSpikesInPeriod(a_cip_trace, a_spikes, ...
 			  periodRecSpont(a_cip_trace), 'Recov');
 
+%# TODO: rebuild the a_spikes object here, based on the spike dbs
+
 %# Misc measures
 misc_results.PulseSpontAmpRatio = ...
     pulse_results.PulseSpikeAmplitudeMean / spont_results.SpontSpikeAmplitudeMean;

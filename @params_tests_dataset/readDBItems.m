@@ -3,7 +3,7 @@ function [params, param_names, tests, test_names] = readDBItems(obj, items)
 % readDBItems - Reads all items to generate a params_tests_db object.
 %
 % Usage:
-% [params, param_names, tests, test_names] = readDBItems(obj)
+% [params, param_names, tests, test_names] = readDBItems(obj, items)
 %
 % Description:
 %   This is a generic method to convert from params_tests_fileset to

@@ -62,8 +62,7 @@ function [results, a_spikes_db, spikes_stats_db, spikes_hists_dbs] = ...
       try 
 	s = getSpike(period_trace, period_spikes, spike_num, ...
 		     struct('spike_id', prefix_str));
-	spike_results(spike_num) = ...
-	    getResults(s);
+	spike_results(spike_num) = getResults(s);
       catch
 	err = lasterror;
 	if strcmp(err.identifier, 'spike_shape:not_a_spike')
