@@ -1,9 +1,9 @@
-function [params, param_names, tests, test_names] = readDBItems(obj)
+function [params, param_names, tests, test_names] = readDBItems(obj, items)
 
 % readDBItems - Reads all items to generate a params_tests_db object.
 %
 % Usage:
-% [params, param_names, tests, test_names] = readDBItems(obj)
+% [params, param_names, tests, test_names] = readDBItems(obj, items)
 %
 % Description:
 %   This is a specific method to convert from physiol_cip_traceset_fileset to
@@ -13,6 +13,7 @@ function [params, param_names, tests, test_names] = readDBItems(obj)
 %
 %   Parameters:
 %	obj: A physiol_cip_traceset_fileset 
+%	items: (Optional) List of item indices to use to create the db.
 %		
 %   Returns:
 %	params, param_names, tests, test_names: See params_tests_db.
@@ -23,14 +24,18 @@ function [params, param_names, tests, test_names] = readDBItems(obj)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/24
 
+if ~ exist('items')
+  items = 1:length(get(obj, 'list'));
+end
+
 %# Collect info for generating the DB
-num_items = length(get(obj, 'list'));
+num_items = length(items);
 rows = 0;
 
 %# For loop to figure out the number of rows in database
-for item_num=1:num_items 
+for item_num=items 
     item = getItem(obj, item_num);
-    rows = rows+ length(get(item, 'list'));
+    rows = rows + length(get(item, 'list'));
 end
 
 %# Get generic fileset information from the first traceset item
@@ -49,30 +54,32 @@ start_time = cputime;
 println(java.lang.System.out, 'Reading fileset: ');
 
 rows = 1;
-for item_num=1:num_items
-  %print(java.lang.System.out, [ num2str(item_num) ', ' ]);
-  %if mod(item_num, 20) == 0
-  %  disp(' ');
-  %end
-
+for item_num=items
   item = getItem(obj, item_num);
 
   disp(['Loading traceset ' get(item , 'id') ' on row ' num2str(item_num) ]);
 
   [item_params, tmp_param_names, item_tests, tmp_test_names] = readDBItems(item);
-  num_traces = length(get(item, 'list'));
+  %#num_traces = length(get(item, 'list'));
+  num_traces = size(item_tests, 1);
 
-  %# Read the neuron name from the id field of traceset and translate to NeuronId
+  %# Read the neuron name from the id field of traceset 
+  %# and translate to NeuronId
   neuron_id = obj.neuron_idx.(get(item, 'id'));
 
-  if size(item_params, 1) > 0  %# Unless reading traceset failed and truncated
+  if num_traces > 0  %# Unless reading traceset failed and truncated
     row_range = rows : (rows + num_traces - 1);
     params(row_range, :) = [item_params, repmat(neuron_id, num_traces,1), ...
 			    repmat(item_num, num_traces,1) ];
     tests(row_range, :) = item_tests;
     rows = rows + num_traces;
-  else
-    %# TODO: truncate database here!
+  end
+
+  %# Reading traceset failed and sub-db was truncated
+  if num_traces < length(get(item, 'list'))
+    %# Truncate database here
+    params = params(1:rows, :);
+    tests = tests(1:rows, :);
     break; %# Out of for
   end
 end
