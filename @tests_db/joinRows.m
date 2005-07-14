@@ -1,10 +1,10 @@
-function a_db = joinRows(db, tests, with_db, w_tests)
+function a_db = joinRows(db, tests, with_db, w_tests, index_col_name)
 
 % joinRows - Joins the rows of the given db with rows of with_db with matching
 %  	RowIndex values.
 %
 % Usage:
-% a_db = joinRows(db, tests, with_db, w_tests)
+% a_db = joinRows(db, tests, with_db, w_tests, index_col_name)
 %
 % Description:
 %   Takes the desired columns in with_db with rows having a 
@@ -14,7 +14,10 @@ function a_db = joinRows(db, tests, with_db, w_tests)
 %
 %   Parameters:
 %	db: A param_tests_db object.
+%	tests: Test columns to take from db.
 %	with_db: A tests_db object with a RowIndex column.
+%	w_tests: Test columns to take from with_db.
+%	index_col_name: (Optional) Name of row index column (default='RowIndex').
 %		
 %   Returns:
 %	a_db: A tests_db object.
@@ -27,8 +30,16 @@ function a_db = joinRows(db, tests, with_db, w_tests)
 data = get(db, 'data');
 w_data = get(with_db, 'data');
 
-join_col = tests2cols(with_db, 'RowIndex');
+if ~ exist('index_col_name')
+  index_col_name = 'RowIndex';
+end
+
+join_col = tests2cols(with_db, index_col_name);
 joins = w_data(:, join_col);
+
+if any(isnan(joins))
+  error(['NaNs in ' index_col_name ' column. Cannot proceed.']);
+end
 
 size_db = dbsize(db);
 size_wdb = dbsize(with_db);

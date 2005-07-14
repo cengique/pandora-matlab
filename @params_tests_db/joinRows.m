@@ -1,10 +1,10 @@
-function a_db = joinRows(db, tests, with_db, w_tests)
+function a_db = joinRows(db, tests, with_db, w_tests, index_col_name)
 
 % joinRows - Joins the rows of the given db with rows of with_db with matching
 %  	RowIndex values.
 %
 % Usage:
-% a_db = joinRows(db, tests, with_db, w_tests)
+% a_db = joinRows(db, tests, with_db, w_tests, index_col_name)
 %
 % Description:
 %   Takes the desired columns in with_db with rows having a 
@@ -14,7 +14,10 @@ function a_db = joinRows(db, tests, with_db, w_tests)
 %
 %   Parameters:
 %	db: A param_tests_db object.
+%	tests: Test columns to take from db.
 %	with_db: A tests_db object with a RowIndex column.
+%	w_tests: Test columns to take from with_db.
+%	index_col_name: (Optional) Name of row index column (default='RowIndex').
 %		
 %   Returns:
 %	a_db: A params_tests_db object.
@@ -29,7 +32,11 @@ function a_db = joinRows(db, tests, with_db, w_tests)
 cols = sort(tests2cols(db, tests));
 num_params = sum(cols <= db.num_params);
 
+if ~ exist('index_col_name')
+  index_col_name = 'RowIndex';
+end
+
 %# Call super class method
 a_db = params_tests_db(num_params, ...
-		       joinRows(db.tests_db, tests, with_db, w_tests), ...
+		       joinRows(db.tests_db, tests, with_db, w_tests, index_col_name), ...
 		       db.props);
