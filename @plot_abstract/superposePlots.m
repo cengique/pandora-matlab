@@ -1,9 +1,9 @@
-function a_plot = superposePlots(plots, axis_labels, title, command, props)
+function a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 
 % superposePlots - Superpose multiple plots with common command onto a single axis.
 %
 % Usage:
-% a_plot = superposePlots(plots, axis_labels, title, command, props)
+% a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 %
 % Description:
 %   The plot decoration will be taken from the last plot in the list, 
@@ -12,7 +12,7 @@ function a_plot = superposePlots(plots, axis_labels, title, command, props)
 %   Parameters:
 %	plots: Array of plot_abstract or subclass objects.
 %	axis_labels: Cell array of axis label strings (optional, taken from plots).
-%	title: Plot description string (optional, taken from plots).
+%	title_str: Plot description string (optional, taken from plots).
 %	command: Plotting command to use (optional, taken from plots)
 %	props: A structure with any optional properties.
 %		
@@ -33,3 +33,15 @@ end
 
 a_plot = set(one_plot, 'data', data);
 a_plot = set(a_plot, 'legend', legend);
+
+if exist('title_str') && ~ isempty(title_str)
+  a_plot = set(a_plot, 'title', title_str);
+end
+
+if exist('command') && ~ isempty(command)
+  a_plot = set(a_plot, 'command', command);
+end
+
+if exist('axis_labels') && ~ isempty(axis_labels)
+  a_plot = set(a_plot, 'axis_labels', axis_labels);
+end
