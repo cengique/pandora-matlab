@@ -30,6 +30,9 @@ function a_tests_3D_db = invarValues(db, cols, main_cols)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 cols = tests2cols(db, cols);
 
 %# Remove given columns
@@ -63,7 +66,10 @@ if mod(size(sorted, 1), num_rows) ~= 0
   end
 
   %# Sort and keep the unique values of main_cols
-  unique_main_vals = uniqueValues(sorted(:, main_cols))
+  unique_main_vals = sort(uniqueValues(sorted(:, main_cols)));
+  if verbose
+    unique_main_vals
+  end
   num_uniques = size(unique_main_vals, 1);
   max_page_rows = num_uniques;
 else
@@ -92,6 +98,7 @@ for row_num=1:num_rows
 
       %# Check for errors
       if num_uniques - unique_index < page_size - page_index
+	page_main_vals
 	error('Fatal: cannot match within page values of main_cols to uniques?');
       end
 
