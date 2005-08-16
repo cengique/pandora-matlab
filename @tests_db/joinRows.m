@@ -34,11 +34,27 @@ if ~ exist('index_col_name')
   index_col_name = 'RowIndex';
 end
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 join_col = tests2cols(with_db, index_col_name);
 joins = w_data(:, join_col);
 
 if any(isnan(joins))
-  error(['NaNs in ' index_col_name ' column. Cannot proceed.']);
+  if verbose
+    warning(['NaNs in ' index_col_name ' column. Proceeding with caution.']);
+  end
+
+  %# Find all RowIndex columns
+  row_index_cols = strmatch('RowIndex', fieldnames(get(with_db, 'col_idx')));
+
+  %# Then look for missing values in other columns
+  all_joins = w_data(:, row_index_cols);
+  all_non_nans = ~isnan(all_joins);
+  for joins_row = 1:size(all_joins, 1)
+    tmp_j = all_joins(joins_row, all_non_nans(joins_row, :));
+    joins(joins_row) = tmp_j(1);
+  end
 end
 
 size_db = dbsize(db);
