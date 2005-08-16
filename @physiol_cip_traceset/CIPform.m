@@ -1,11 +1,42 @@
 function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
+
+% CIPform - Extracts current bias and pulse information from the current channel.
+%
+% Usage:
+% [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
+%
+% Description:
+%
+%   Parameters:
+%	traceset: A physiol_cip_traceset object.
+%	trace_index: Index of item in traceset
+%
+% See also: cip_traces, params_tests_dataset, params_tests_db
+%
+% $Id$
+% Author: Thomas Sangrey, 2005
+ 
+% Modified by: 
+%   Jeremy Edgerton, 2005.
+%   Cengiz Gunay, 08/15/2005. Added property to specify cipList externally.
+
+% TODO:
+% - if current level is way off, this script should signal an error. Currently 
+% there is no way to tell how much it was off.
+
 	warning off MATLAB:divideByZero;
 	warning off MATLAB:polyfit:PolyNotUnique;
 
 	%#sprintf('data file: %s, trace number: %d', traceset.data_src, trace_index)
 
 	% Create list of all available cip step amplitudes.
-	cipList = [-200,-150,[-100:10:100],150,200,250,300,400,500];
+	traceset_props = get(traceset, 'props');
+	if isfield(traceset_props, 'cip_list') 
+	  cipList = traceset_props.cip_list; %# get it from props
+	else
+	  %# static list of cips
+	  cipList = [-200,-150,[-100:10:100],150,200,250,300,400,500];
+	end
 %	cipList = [-200:100:500];
 	nSD = 10;	% number of standard deviations for transition threshold
 	hfig = 1;	% figure number on which to plot

@@ -26,6 +26,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %	id: Neuron name.
 %	props: A structure with any optional properties.
 %	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  cip_list: Vector of cip levels to which the current trace will be matched.
 %	  (All other props are passed to cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
