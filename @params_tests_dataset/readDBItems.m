@@ -29,10 +29,21 @@ if ~ exist('items')
   items = 1:length(obj.list);
 end
 
-%# Collect info for generating the DB
-param_names = paramNames(obj);
-test_names = testNames(obj);
-num_items = length(items);
+try 
+  %# Collect info for generating the DB
+  param_names = paramNames(obj);
+  test_names = testNames(obj);
+  num_items = length(items);
+catch
+  err = lasterror;
+  warning(['Error caught during database creation, before starting to ' ...
+	   'read items: ' err.message '. Returning empty database.']);
+  test_names = [];
+  param_names = [];
+  params = [];
+  tests = [];
+  return
+end
 
 %# Preallocating matrices dramatically speeds up the filling process
 params = repmat(0, num_items, length(param_names));
