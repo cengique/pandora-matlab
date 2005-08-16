@@ -37,11 +37,10 @@ function a_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
-%# TODO: automatically derive the correct RowIndices, by filling in missing values?
-%#	 do this in invarParam??
+cip_sorted_db = sortrows(db, 'pAcip');
 
 %# Fold into multiple pages, according to cip values
-cip_fold_db = swapRowsPages(invarParam(sortrows(db, 'pAcip'), 'pAcip'));
+cip_fold_db = swapRowsPages(invarParam(cip_sorted_db, 'pAcip'));
 
 num_pages = dbsize(cip_fold_db, 3);
 
@@ -60,7 +59,7 @@ merged_db = mergePages(cip_fold_db, tests_cell, page_suffixes);
 %# Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
-joined_db = joinRows(db, wo_cip_params, merged_db, ':', index_col_name);
+joined_db = joinRows(cip_sorted_db, wo_cip_params, merged_db, ':', index_col_name);
 
 %# Remove the RowIndex columns
 test_names = fieldnames(get(joined_db, 'col_idx'));
