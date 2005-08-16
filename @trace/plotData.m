@@ -3,7 +3,7 @@ function a_plot = plotData(t, title_str)
 % plotData - Plots a trace.
 %
 % Usage: 
-% a_plot = plotData(t)
+% a_plot = plotData(t, title_str)
 %
 % Description:
 %   Parameters:
