@@ -1,9 +1,9 @@
-function s = displayRow(db, rows, pages)
+function s = displayRows(db, rows, pages)
 
-% displayRow - Displays a row of data with associated column labels.
+% displayRows - Displays rows of data with associated column labels.
 %
 % Usage:
-% s = displayRow(db, rows)
+% s = displayRows(db, rows, pages)
 %
 % Description:
 %
@@ -13,12 +13,15 @@ function s = displayRow(db, rows, pages)
 %	pages: Pages of db.
 %		
 %   Returns:
-%	s: A structure of column name and value pairs.
+%	s: A cell array of trasposed database contents, prefixed with 
+%	   column names on each row. Meant to be displayed on the screen.
 %
 % See also: tests_db
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/15
+
+% Modified: CG 2005/08/17 - Renamed from displayRow
 
 if ~ exist('pages')
   pages = 1;
