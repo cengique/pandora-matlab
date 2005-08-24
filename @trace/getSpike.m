@@ -29,6 +29,16 @@ if nargin < 3 %# Called with insufficient params
   error('Need parameters.');
 end
 
+trace_props = get(trace, 'props');
+
+%# Copy some props from trace to spike_shape
+copy_from_trace = {'init_Vm_method', 'init_threshold', 'init_lo_thr', 'init_hi_thr'};
+for i=1:length(copy_from_trace)
+  if isfield(trace_props, copy_from_trace{i})
+    props.(copy_from_trace{i}) = trace_props.(copy_from_trace{i});
+  end
+end
+
 if spike_num < 1 || spike_num > length(s.times)
   error('getSpike:no_spikes', ['Spike index ' num2str(spike_num) ' is out of range. Only ' ...
 	 num2str(length(s.times)) ' spikes in object.' ]);

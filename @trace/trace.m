@@ -23,6 +23,11 @@ function obj = trace(data_src, dt, dy, id, props)
 %		traces: Traces to read from PCDX file.
 %		spike_finder: Method of finding spikes 
 %		(1 for findFilteredSpikes, 2 for findspikes).
+%		init_Vm_method: Method of finding spike thresholds 
+%				(see spike_shape/spike_shape).
+%		init_threshold: Spike initiation threshold (deriv or accel).
+%				(see above methods and implementation in calcInitVm)
+%		init_lo_thr, init_hi_thr: Low and high thresholds for slope.
 %		threshold: Spike threshold.
 %		quiet: Reduces the amount of textual description in plots, etc.
 %	(see below for the rest)
