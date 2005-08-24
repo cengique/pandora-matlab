@@ -27,7 +27,7 @@ end
 
 a_db = onlyRowsTests(db, ':', tests, ':');
 means = mean(a_db, 1);
-test_results = [means; std(a_db, 0, 1) ./ means];
+test_results = [means; std(a_db, 0, 1) ./ dbsize(a_db, 1)];
 row_names = {'mean', 'se'};
 
 %# Original column names
