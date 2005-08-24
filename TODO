@@ -12,10 +12,15 @@ TODO
 - plot average neuron comparison matches.
 - plot matches that vary a lot in parameter values, but same outcome
 - make dualcip a new db and make it load profiles, etc.
-- for version 0.6:
++ for version 0.6:
 	- add new physiology dataset loader
-- for version 0.7:
++ for version 0.7:
 	- new AP thr method, and look at all spikes
+- for version 0.8:
+	- move props to bottom of params_tests_dataset and tests_db
+	+ also look at phys spikes, needs some smoothing
+	+ rename displayRow to displayRows
+	+ fix SE calc
 - for version 1.0:
 	- add dataset connection to tests_db 
 		- put it in props for now?
