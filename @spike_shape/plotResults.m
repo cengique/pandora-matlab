@@ -1,5 +1,7 @@
 function a_plot = plotResults(s)
 
+% OBSOLETE! Use spike_shape_profile/plot_abstract.
+%
 % plotResults - Plots the spike shape annotated with result characteristics.
 %
 % Usage:

@@ -31,21 +31,25 @@ end
 ms_factor = 1e3 * s.trace.dt;
 mV_factor = 1e3 * s.trace.dy;
 
+%# set defaults to NaN for all available measures
+results.MinVm = NaN;
+results.PeakVm = NaN;
+results.InitVm = NaN;
+results.InitVmBySlope = NaN;
+results.MaxVmSlope = NaN;
+results.HalfVm = NaN;
+results.Amplitude = NaN;
+results.MaxAHP = NaN;
+results.DAHPMag = NaN;
+results.InitTime = NaN;
+results.RiseTime = NaN;
+results.FallTime = NaN;
+results.MinTime = NaN;
+results.BaseWidth = NaN;
+results.HalfWidth = NaN;
+
 %# Check for empty spike_shape object first.
 if isempty(s.trace.data) 
-  results.MinVm = NaN;
-  results.PeakVm = NaN;
-  results.InitVm = NaN;
-  results.HalfVm = NaN;
-  results.Amplitude = NaN;
-  results.MaxAHP = NaN;
-  results.DAHPMag = NaN;
-  results.InitTime = NaN;
-  results.RiseTime = NaN;
-  results.FallTime = NaN;
-  results.MinTime = NaN;
-  results.BaseWidth = NaN;
-  results.HalfWidth = NaN;
   a_plot = plot_simple;
   return;
 end
@@ -65,31 +69,44 @@ end
 
 [min_val, min_idx] = calcMinVm(s, max_idx);
 
-%# Sanity check for Max AHP
-if (max_val - min_val) * mV_factor < 10
-  error('spike_shape:not_a_spike', '%s not a spike! Too short.', ...
-	get(s, 'id'));
-end
-
 [init_val, init_idx, rise_time, amplitude, ...
- max_ahp, ahp_decay_constant, dahp_mag, dahp_idx, ...
- peak_mag, peak_idx, a_plot] = calcInitVm(s, max_idx, min_idx, plotit);
+ peak_mag, peak_idx, max_d1o, a_plot] = calcInitVm(s, max_idx, min_idx, plotit);
+
+%# Calculate secondary threshold point based on interpolated slope threshold crossing
+try 
+  [init_st_idx] = ...
+      calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s.props.init_threshold, 0);
+  init_st_val = interpValByIndex(init_st_idx, s.trace.data);
+catch 
+  err = lasterror;
+  if strcmp(err.identifier, 'calcInitVm:failed')
+    init_st_val = NaN;
+  else
+    rethrow(err);
+  end
+end
 
 %# Sanity check for amplitude
 if  (max_val - init_val) * mV_factor < 10 
-  error('spike_shape:not_a_spike', '%s not a spike! Too short.', ...
-	get(s, 'id'));
+  error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
 end
 
-[base_width, half_width, half_Vm, fall_time] = ...
-      calcWidthFall(s, peak_idx, peak_mag, min_idx, init_idx, init_val);
+[base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
+ max_ahp, ahp_decay_constant, dahp_mag, dahp_idx] = ...
+      calcWidthFall(s, peak_idx, peak_mag, init_idx, init_val);
 
+%# Sanity check for amplitude (2)
+if (max_val - min_val) * mV_factor < 10
+  error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
+end
 
 %# If you change any of the following names, 
 %# make sure to change the above NaN names, too.
 results.MinVm = min_val * mV_factor;
 results.PeakVm = peak_mag * mV_factor;
 results.InitVm = init_val * mV_factor;
+results.InitVmBySlope = init_st_val * mV_factor;
+results.MaxVmSlope = max_d1o * mV_factor;
 results.HalfVm = half_Vm * mV_factor;
 results.Amplitude = amplitude * mV_factor;
 results.MaxAHP = max_ahp * mV_factor;

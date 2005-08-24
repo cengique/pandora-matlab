@@ -31,6 +31,10 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
+%# Apply a median filter to reduce noise
+smooth_data = medfilt1(s.trace.data, 5);
+s = set(s, 'trace', set(s.trace, 'data', smooth_data));
+
 %# Supersampling factor (times as many new data points)
 int_fac = 4; 
 

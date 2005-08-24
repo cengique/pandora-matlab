@@ -1,10 +1,11 @@
-function [init_idx, a_plot, fail_cond] = ...
+function [init_idx, max_d1o, a_plot, fail_cond] = ...
       calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit)
 
 % calcInitVmMaxCurvPhasePlane - Calculates the voltage at the maximum curvature in the phase plane as action potential threshold.
 %
 % Usage:
-% [init_idx, a_plot] = calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit)
+% [init_idx, max_d1o, a_plot, fail_cond] = 
+%	calcInitVmMaxCurvPhasePlane(s, max_idx, min_idx, plotit)
 %
 % Description:
 %   First take the phase-plane v'-v from the beginning to max(v'). Then regulate 
@@ -21,7 +22,9 @@ function [init_idx, a_plot, fail_cond] = ...
 %
 %   Returns:
 %	init_idx: AP threshold index in the spike_shape [dt].
+%	max_d1o: Maximal value of first voltage derivative [dy].
 %	a_plot: plot_abstract, if requested.
+%	fail_cond: True if this algorithm fails to be trustable.
 %
 % See also: calcInitVm
 %
@@ -36,8 +39,22 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-%#d2 = diff2T(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
-d1o = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+%# Apply a median filter to reduce noise
+%#medfilt1(s.trace.data, windowsize);
+windowsize = 6;
+%#filter(ones(1, windowsize)/windowsize, 1, s.trace.data); 
+smooth_data = medfilt1([s.trace.data(1); s.trace.data], windowsize);
+smooth_data = smooth_data(2:end); %# drop first sample which has noise from medfilt1
+
+%# Decimate using very low order low-pass filter
+dec_factor = 2;
+%#trace_data = smooth_data;
+
+trace_data = decimate(smooth_data, dec_factor, min(floor(length(smooth_data)/3), 30), 'FIR');
+
+%#d2 = diff2T(trace_data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+d1o = diffT(trace_data(1 : (floor(max_idx/dec_factor) + 2)) * s.trace.dy, ...
+	    s.trace.dt * dec_factor);
 %#d2 = d2(3:(end -2));
 d1o = d1o(3:(end -2));
 
@@ -45,19 +62,19 @@ d1o = d1o(3:(end -2));
 [max_d1o, max_d1o_idx] = max(d1o);
 
 %# Find min in voltage before end
-[min_v, min_v_idx] = min(s.trace.data(1 : max_d1o_idx));
+[min_v, min_v_idx] = min(trace_data(1 : max_d1o_idx));
 
 %# Interpolate to find a regular intervalled phase-plane representation
-%# Voltage range is from the intial resting point to the spike peak.
+%# Voltage range is from the initial resting point to the spike peak.
 %# Tried both spline and pchip, spline overfits.
 num_points = 200;
 start_idx = max(1, min_v_idx - 1);
-dv = (s.trace.data(max_d1o_idx + 2) - s.trace.data(start_idx + 2))/num_points;
+dv = (trace_data(max_d1o_idx + 2) - trace_data(start_idx + 2))/num_points;
 voltage_points = ...
-    (s.trace.data(start_idx + 2):dv:s.trace.data(max_d1o_idx + 2)) * s.trace.dy;
+    (trace_data(start_idx + 2):dv:trace_data(max_d1o_idx + 2)) * s.trace.dy;
 
-%# arbitrarily remove duplicate values from voltage values
-[orig_v_points unique_idx] = unique(s.trace.data((start_idx + 2) : (max_d1o_idx + 2)));
+%# Arbitrarily remove duplicate values from voltage values
+[orig_v_points unique_idx] = unique(trace_data((start_idx + 2) : (max_d1o_idx + 2)));
 d1o_points = d1o(start_idx:max_d1o_idx);
 
 %# Check if there are enough points to interpolate
@@ -69,6 +86,16 @@ end
 interp_vpp = ...
     pchip(orig_v_points * s.trace.dy, ...
 	  d1o_points(unique_idx), voltage_points);
+
+%# Put lower bound on vpp?
+windowsize = 10;
+filtered_vpp = filter(ones(1, windowsize)/windowsize, 1, interp_vpp);
+low_bound = find(filtered_vpp >= 2); %# 2 mV/ms crossing is the lower bound
+
+if length(low_bound) > 0
+  interp_vpp = interp_vpp(low_bound(1):end);
+  voltage_points = voltage_points(low_bound(1):end);
+end
 
 if (1 == 1) 
   %# Estimations from Taylor series, error = O(dv^4)
@@ -97,7 +124,7 @@ d1 = d1(1:max_vpp_idx);
 %# Maximal d2vpp, one candidate for APthr
 try 
   max_d2vpp_idx = findMax(d2, voltage_points);
-  max_d2vpp_t_idx = transV2T(s, start_idx, max_idx, voltage_points, max_d2vpp_idx);
+  max_d2vpp_t_idx = transV2T(s, start_idx * dec_factor, max_idx, voltage_points, max_d2vpp_idx);
 
   %# Local maximum of d3vpp, closest to max_d2vpp_idx, candidate for APthr
   max_d3vpp_idx = maxima(d3);
@@ -105,7 +132,7 @@ try
   if length(max_d3vpp_idx) > 0
     [sorted, sorted_idx] = sort(abs(max_d3vpp_idx - max_d2vpp_idx));
     max_d3vpp_idx = max_d3vpp_idx(sorted_idx(1));
-    max_d3vpp_t_idx = transV2T(s, start_idx, max_idx, voltage_points, max_d3vpp_idx);
+    max_d3vpp_t_idx = transV2T(s, start_idx * dec_factor, max_idx, voltage_points, max_d3vpp_idx);
   else
     warning('calcInitVm:info', 'Cannot find local maxima in d3vpp for %s', get(s, 'id'));
   end
@@ -152,7 +179,7 @@ else
 end
 
 max_k_idx = idx;
-max_k_t_idx = transV2T(s, start_idx, max_idx, voltage_points, max_k_idx);
+max_k_t_idx = transV2T(s, start_idx * dec_factor, max_idx, voltage_points, max_k_idx);
 
 thr_vol = voltage_points(max_k_idx + 2);
 
@@ -160,7 +187,7 @@ if ~ isnan(max_d2vpp_idx)
 
   %# Find highest local maximum of k closest to max_d2vpp_idx
   distance = max_k_idcs - max_d2vpp_idx;
-  [sorted, sorted_idx] = sort(distance .* distance ./ k(max_k_idcs));
+  [sorted, sorted_idx] = sort(distance .* distance ./ sqrt(k(max_k_idcs)));
 
   %#sorted
   %#voltage_points(max_k_idcs(sorted_idx) + 2)
@@ -170,7 +197,7 @@ if ~ isnan(max_d2vpp_idx)
 
   if length(max_k_near_d2vpp_idx) > 0
     max_k_near_d2vpp_idx = max_k_idcs(sorted_idx(max_k_near_d2vpp_idx(1)));
-    max_k_near_d2vpp_t_idx = transV2T(s, start_idx, max_idx, voltage_points, max_k_near_d2vpp_idx);
+    max_k_near_d2vpp_t_idx = transV2T(s, start_idx * dec_factor, max_idx, voltage_points, max_k_near_d2vpp_idx);
   else
     warning('calcInitVm:info', sprintf('Cannot find nearby positive peak in d2vpp of %s. Using global max k idx instead.', get(s, 'id')));
     max_k_near_d2vpp_idx = max_k_idx;
@@ -203,7 +230,9 @@ if plotit
     title_str = [ strrep(class(s), '_', ' ') ': ' get(s, 'id') ', ' ];
   end
   a_plot = ...
-      plot_abstract({s.trace.data(3 : max_idx) * s.trace.dy * 1e3, ...
+      plot_abstract({s.trace.data((3 * dec_factor): dec_factor : max_idx) * s.trace.dy * 1e3, ...
+		     d1o/max(abs(d1o)), ...
+		     trace_data(3 : floor(max_idx / dec_factor)) * s.trace.dy * 1e3, ...
 		     d1o/max(abs(d1o)), ...
 		     v, interp_vpp(3:(max_vpp_idx + 2))/max(abs(interp_vpp)), ...
 		     v, d1/max(abs(d1)), v, d2/max(abs(d2)), v, d3/max(abs(d3)),...
@@ -216,6 +245,7 @@ if plotit
 		    [ title_str 'phase-plane methods, max of derivatives and curvature ' ...
 		     'K_p = d^2v\prime/dv^2[1 + dv\prime/dv^2]^{-3/2}, v\prime=dv/dt' ], ...
 		    {['v\prime / ' sprintf('%.2f', max(abs(d1o)))], ...
+		     ['v\prime / ' sprintf('%.2f', max(abs(d1o))) ' (smooth)' ], ...
 		     ['v\prime / ' sprintf('%.2f', max(abs(interp_vpp))) ' (interp)' ], ...
 		     ['dv\prime/dv / ' sprintf('%.2f', max(abs(d1))) ], ...
 		     [ 'd^2v\prime/dv^2 / ' sprintf('%.2f', max(abs(d2)))], ...

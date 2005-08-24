@@ -22,14 +22,17 @@ function obj = spike_shape(data, dt, dy, id, props)
 %			1- maximum acceleration point
 %			2- threshold crossing of acceleration (needs threshold)
 %			3- threshold crossing of slope (needs threshold)
-%			4- maximum second derivative in the phase space
+%			4- maximum acceleration in phase space
 %			   (optionally specify maximal threshold as init_threshold)
 %			5- point of maximum curvature, when slope is between 
 %			   init_lo_thr and init_hi_thr
 %			6- local maximum of second derivative in the phase space
 %			   nearest slope crossing init_threshold
+%			7- threshold crossing of interpolated slope (needs threshold)
+%			8- maximum curvature in phase-plane
+%			9- Combined curvature and inflection method in time-domain.
 %		init_threshold: Spike initiation threshold (deriv or accel).
-%				(see calcInitVm)
+%				(see above methods and implementation in calcInitVm)
 %		init_lo_thr, init_hi_thr: Low and high thresholds for slope.
 %
 %   Returns a structure object with the following fields:
