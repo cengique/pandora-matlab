@@ -33,7 +33,7 @@ function [times, peaks, n] = ...
 % Modified:
 % - Adapted to the trace object, CG 2004/07/30
 
-s = load('spike_filter_50_300Hz_ChebII.mat');
+s = load('spike_filter_50_3000Hz_ChebII.mat');
 fields = fieldnames(s);
 fd = getfield(s, fields{1});	%# Assuming there's only one element
 up_threshold = 10;
@@ -76,9 +76,9 @@ for i=1:n
     times(i) = old_time;
   end
 
-  %# There should be a trough within 3ms before and within 6ms after the peak
+  %# There should be a trough within 3ms before and within 15ms after the peak
   period_before = floor(3e-3 / t.dt);
-  period_after = floor(6e-3 / t.dt);
+  period_after = floor(15e-3 / t.dt);
   min1 = min(filtered(max(1, times(i) - period_before) : times(i)));
   min2 = min(filtered(times(i) : min(times(i) + period_after, length(filtered))));
 
