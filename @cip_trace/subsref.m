@@ -10,7 +10,7 @@ else
     case '()'
       b = a(index.subs{:});
     case '.'
-      b = eval(['a.' index.subs]);
+      b = get(a, index.subs);
     case '{}'
       b = a{index.subs{:}};
   end
