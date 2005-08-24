@@ -1,13 +1,14 @@
-function obj = results_profile(results, id)
+function obj = results_profile(results, id, props)
 
 % results_profile - Creates and collects result profiles for data objects.
 %
 % Usage:
-% obj = results_profile(results, id)
+% obj = results_profile(results, id, props)
 %
 %   Parameters:
 %	results: A structure containing test results.
 %	id: Identification string.
+%	props: A structure with any optional properties.
 %
 % Description:
 % This is the base class for all profile classes.
@@ -33,12 +34,18 @@ function obj = results_profile(results, id)
 if nargin == 0 %# Called with no params, creates empty object
   obj.results = struct([]);
   obj.id = '';
+  obj.props = struct([]);
   obj = class(obj, 'results_profile');
 elseif isa(results, 'results_profile') %# copy constructor?
   obj = results;
 else
+  if ~ exist('props')
+    props = struct([]);
+  end
+
   obj.results = results;
   obj.id = id;
+  obj.props = props;
 
   %# Create the object
   obj = class(obj, 'results_profile');
