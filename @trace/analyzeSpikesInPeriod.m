@@ -32,19 +32,21 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
 
+  ms_factor = 1e3 * get(a_cip_trace, 'dt');
+
   period_trace = withinPeriod(a_cip_trace, period);
   period_spikes = withinPeriod(a_spikes, period);
   num_spikes = length(period_spikes.times);
 
+  %# pre-allocate struct array with empty spike shape
+  empty_results = getResults(spike_shape);
+  empty_results.Index = NaN;
+  empty_results.Time = NaN;
+  [spike_results(1:max(num_spikes, 1), 1)] = deal(empty_results);
+
   %# Collect spike shape analysis results,
-  %# pre-allocate struct array with results from first spike
-  %# TODO: pre-allocate only with empty spike shape
-  %#  - add -Index and -Time fields to be able to regenerate spikes object?
+  %# -Index and -Time fields allow to regenerate spikes object.
   if num_spikes > 0
-    empty_results = getResults(spike_shape);
-    empty_results.Index = NaN;
-    empty_results.Time = NaN;
-    [spike_results(1:num_spikes, 1)] = deal(empty_results);      
     period_spikes_new = set(period_spikes, 'times', []);
 	  
     for spike_num = 1:num_spikes
@@ -53,9 +55,10 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 		     struct('spike_id', prefix_str));
 	a_results = getResults(s);
 	a_results.Index = spike_num;
-	a_results.Time = period_spikes.times(spike_num);
+	spike_time = period_spikes.times(spike_num);
+	period_spikes_new = addSpikes(period_spikes_new, spike_time);
+	a_results.Time = spike_time * ms_factor;
 	spike_results(spike_num) = a_results;
-	period_spikes_new = addSpikes(period_spikes_new, a_results.Time);
       catch
 	err = lasterror;
 	if strcmp(err.identifier, 'spike_shape:not_a_spike')
@@ -69,8 +72,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
       end
     end
   else %# No spikes
-    %# Assign empty shape object
-    [spike_results(1, 1)] = deal(getResults(spike_shape));
+    %# Keep empty shape results
     period_spikes_new = period_spikes;
   end
 
@@ -81,8 +83,8 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
   %# TODO: make a spikes_db for customized result collection (to plot results?)
   %# TODO: add spike number/time as parameter
   results_matx = cell2mat(struct2cell(spike_results))';
-  a_spikes_db = tests_db(results_matx, test_names, {}, ...
-			 [ prefix_str ' spikes of ' get(a_cip_trace, 'id') ]);
+  a_spikes_db = spikes_db(results_matx, test_names, period_trace, period_spikes, ...
+			  [ prefix_str ' spikes of ' get(a_cip_trace, 'id') ]);
 
   %# find mean, std (except the -Index and -Time fields)
   spikes_stats_db = statsMeanStd(onlyRowsTests(a_spikes_db, ':', 1:(num_tests - 2)));
