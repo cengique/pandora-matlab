@@ -16,7 +16,7 @@ function tex_string = displayRowsTeX(a_db, caption, props)
 %   Returns:
 %	tex_string: LaTeX string for table float.
 %
-% See also: displayRow, TeXtable, cell2TeX
+% See also: displayRows, TeXtable, cell2TeX
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/16
@@ -36,6 +36,6 @@ props = mergeStructs(props, struct('rotate', 90, ...
 
 %# List all db rows in a table
 %# TODO: need to pass hasTitleRow to cell2TeX for ranked_db
-tex_string = [ TeXtable(cell2TeX(displayRow(a_db, ':')), ...
+tex_string = [ TeXtable(cell2TeX(displayRows(a_db, ':')), ...
 			caption, props) ...
 	      sprintf('\n') ];

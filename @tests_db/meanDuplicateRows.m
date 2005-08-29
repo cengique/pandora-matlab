@@ -67,7 +67,7 @@ for row_num=1:num_rows
   rows_db = onlyRowsTests(sorted_db, rows, ':');
   new_row = mean(rows_db);
   new_vals = [length(rows), idx(rows(1))];
-  %#displayRow(rows_db(:, 'NeuronId'))
+  %#displayRows(rows_db(:, 'NeuronId'))
 
   %# Insert new values as parameters
   if num_cols > num_params

@@ -28,7 +28,7 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %   addRow		- Add a single row to DB.
 %   addLastRow		- Add a single row to the end of DB.
 %   display		- Returns and displays the identification string.
-%   displayRow		- Display one row of data from the DB.
+%   displayRows		- Display one row of data from the DB.
 %   subsref		- Allows referencing rows/cols via () to get new 
 %			  tests_db objects and allows usage of . operator.
 %   eq			- Overloaded == operator that returns row indices.
