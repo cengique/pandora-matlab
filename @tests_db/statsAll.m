@@ -29,9 +29,9 @@ if ~ exist('tests')
 end
 
 a_db = onlyRowsTests(db, ':', tests, ':');
-means = mean(a_db, 1);
+[means n] = mean(a_db, 1);
 stds = std(a_db, 0, 1);
-test_results = [means; stds; stds ./ dbsize(a_db, 1); stds ./ means];
+test_results = [means; stds; stds ./ n; stds ./ means];
 row_names = {'mean', 'STD', 'SE', 'CV'};
 
 %# Original column names

@@ -1,9 +1,9 @@
-function s = mean(db, dim)
+function [s, varargout] = mean(db, dim)
 
 % mean - Returns the mean of the data matrix of db. Ignores NaN values.
 %
 % Usage:
-% s = mean(db, dim)
+% [s, n] = mean(db, dim)
 %
 % Description:
 %   Does a recursive operation over dimensions in order to remove NaN values.
@@ -15,6 +15,7 @@ function s = mean(db, dim)
 %		
 %   Returns:
 %	s: The mean values.
+%	n: (Optional) Numbers of non-NaN rows included in calculating each column.
 %
 % See also: mean, tests_db
 %
@@ -40,17 +41,24 @@ db_size = size(data);
 s = repmat(NaN, [1 db_size(2:end)]);
 
 %# Do a loop over EACH other dimension (!)
-s = recmean(data, length(db_size));
+[s, n] = recmean(data, length(db_size));
 
 if dim ~= 1
   s = ipermute(s, order);
 end
 
+nout = max(nargout,1) - 1;
+
+if nout > 0
+  varargout{1} = n;
+end
+
 %# Recursive std needed for stripping NaNs in each dimension
-function s = recmean(data, dim)
+function [s, n] = recmean(data, dim)
   if dim == 1
     sdata = data(~isnan(data(:)));
-    if size(sdata, 1) == 0
+    n = size(sdata, 1);
+    if n == 0
       %# If a divide by zero error occured, 
       %# give it NaN value instead of an empty matrix.
       s = NaN;
@@ -62,7 +70,7 @@ function s = recmean(data, dim)
       %# Otherwise recurse
       [dims{1:(dim-1)}] = deal(':');
       dims{dim} = num;
-      s(dims{:}) = recmean(data(dims{:}), dim - 1);
+      [s(dims{:}) n(dims{:})] = recmean(data(dims{:}), dim - 1);
     end
   end
 

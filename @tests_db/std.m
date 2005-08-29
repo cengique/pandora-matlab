@@ -1,9 +1,9 @@
-function s = std(db, sflag, dim)
+function [s, varargout] = std(db, sflag, dim)
 
 % std - Returns the std of the data matrix of db. Ignores NaN values.
 %
 % Usage:
-% s = std(db, sflag, dim)
+% [s, n] = std(db, sflag, dim)
 %
 % Description:
 %   Does a recursive operation over dimensions in order to remove NaN values.
@@ -16,6 +16,7 @@ function s = std(db, sflag, dim)
 %		
 %   Returns:
 %	s: The std values.
+%	n: (Optional) Numbers of non-NaN rows included in calculating each column.
 %
 % See also: std, tests_db
 %
@@ -45,17 +46,25 @@ db_size = size(data);
 s = repmat(NaN, [1 db_size(2:end)]);
 
 %# Do a loop over EACH other dimension (!)
-s = recstd(data, sflag, length(db_size));
+[s, n] = recstd(data, sflag, length(db_size));
 
 if dim ~= 1
   s = ipermute(s, order);
 end
 
+nout = max(nargout,1) - 1;
+
+if nout > 0
+  varargout{1} = n;
+end
+
 %# Recursive std needed for stripping NaNs in each dimension
-function s = recstd(data, sflag, dim)
+%# s is the std, and n is the number of non-NaN rows used to obtain it.
+function [s, n] = recstd(data, sflag, dim)
   if dim == 1
     sdata = data(~isnan(data(:)));
-    if size(sdata, 1) == 0
+    n = size(sdata, 1);
+    if n == 0
       %# If no data exists, give it NaN value instead of an empty
       %# matrix.
       s = NaN;
@@ -67,6 +76,6 @@ function s = recstd(data, sflag, dim)
       %# Otherwise recurse
       [dims{1:(dim-1)}] = deal(':');
       dims{dim} = num;
-      s(dims{:}) = recstd(data(dims{:}), sflag, dim - 1);
+      [s(dims{:}) n(dims{:})]  = recstd(data(dims{:}), sflag, dim - 1);
     end
   end

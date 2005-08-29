@@ -26,8 +26,8 @@ if ~ exist('props')
 end
 
 a_db = onlyRowsTests(db, ':', tests, ':');
-means = mean(a_db, 1);
-test_results = [means; std(a_db, 0, 1) ./ dbsize(a_db, 1)];
+[means n] = mean(a_db, 1);
+test_results = [means; std(a_db, 0, 1) ./ n];
 row_names = {'mean', 'se'};
 
 %# Original column names
