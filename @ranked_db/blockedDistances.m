@@ -50,7 +50,7 @@ for row_num=rows
   %# Get blocked parameter scan
   blocked_rows_db = getBlockedParamRows(joined_db, row_num, blocked_param_indices, ...
 					block_levels);
-  %#displayRow(blocked_rows_db)
+  %#displayRows(blocked_rows_db)
 
   %# Find matching indices
   row_indices = getParamRowIndices(blocked_rows_db, ':', blocked_db);
@@ -67,7 +67,7 @@ for row_num=rows
 
   %# Get the distances
   this_dists = onlyRowsTests(this_ranked, ':', 'Distance');
-  %#displayRow(this_dists)
+  %#displayRows(this_dists)
 
   %#size(data(out_row, ~isnan(row_indices)))
   %#dbsize(this_dists)

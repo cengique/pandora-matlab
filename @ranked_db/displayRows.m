@@ -1,9 +1,9 @@
-function s = displayRow(db, rows)
+function s = displayRows(db, rows)
 
-% displayRow - Displays a row of data with associated column labels.
+% displayRows - Displays a row of data with associated column labels.
 %
 % Usage:
-% s = displayRow(db, rows)
+% s = displayRows(db, rows)
 %
 % Description:
 %

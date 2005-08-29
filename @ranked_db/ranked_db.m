@@ -25,7 +25,7 @@ function a_ranked_db = ranked_db(data, col_names, orig_db, crit_db, id, props)
 %
 % General operations on ranked_db objects:
 %   ranked_db		- Construct a new ranked_db object.
-%   displayRow		- Overloaded to provide individual distances for each column.
+%   displayRows		- Overloaded to provide individual distances for each column.
 %   joinedOriginal	- Joins the Distance column with the original DB.
 %
 % Additional methods:

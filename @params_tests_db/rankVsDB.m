@@ -41,5 +41,5 @@ max_distance = max(dist_db(:, 'Distance').data);
 %# TODO: that may need to be instructed to joinOriginal from here.
 a_ranked_db = joinOriginal(dist_db);
 
-%# a=displayRow(a_ranked_db, 1:10)
+%# a=displayRows(a_ranked_db, 1:10)
 %# s = cell2TeX(a)
