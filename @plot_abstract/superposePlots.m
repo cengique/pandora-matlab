@@ -31,7 +31,7 @@ for one_plot = plots
   legend = {legend{:}, one_plot.legend{:}};
 end
 
-a_plot = set(one_plot, 'data', data);
+a_plot = set(plots(1), 'data', data);
 a_plot = set(a_plot, 'legend', legend);
 
 if exist('title_str') && ~ isempty(title_str)
