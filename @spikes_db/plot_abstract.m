@@ -26,7 +26,7 @@ if ~ exist('title_str')
 end
 
 %# first plot the trace
-trace_plot = plotData(a_db.trace);
+trace_plot = plotData(a_db.trace, title_str);
 
 num_spikes = dbsize(a_db, 1);
 
