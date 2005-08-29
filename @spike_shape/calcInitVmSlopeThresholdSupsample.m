@@ -35,19 +35,54 @@ a_plot = [];
 smooth_data = medfilt1(s.trace.data, 5);
 s = set(s, 'trace', set(s.trace, 'data', smooth_data));
 
+if max_idx < 2
+  error('calcInitVm:failed', 'Less than two v data points in the stem of %s.', ...
+	get(s, 'id'));
+end
+
 %# Supersampling factor (times as many new data points)
 int_fac = 4; 
 
 t_vals = 1 : (max_idx + 2);
 int_vals = 1 : int_fac * (max_idx + 2);
-interp = spline(t_vals * s.trace.dt, s.trace.data(t_vals) * s.trace.dy, ...
-		int_vals * s.trace.dt / int_fac);
+interp = pchip(t_vals * s.trace.dt, s.trace.data(t_vals) * s.trace.dy, ...
+	       int_vals * s.trace.dt / int_fac);
 
 deriv = diffT(interp, s.trace.dt / int_fac);
 deriv = deriv(3:(end-2));
 
+deriv2 = diff2T_h4(interp, s.trace.dt / int_fac);
+deriv2 = deriv2(3:(end-2));
+
+%#figure; plot(t_vals*int_fac, s.trace.data(t_vals) * s.trace.dy /max(interp), 1:length(interp), [interp/max(interp)], 1:length(deriv), [thr*ones(1, length(deriv))/max(deriv); deriv/max(deriv); deriv2/max(deriv2)]'); 
+%#legend(['v /' num2str(max(interp))], 'v (interp)', 'thr', ['v\prime /' num2str(max(deriv)) ], ['v\prime\prime / ' num2str(max(deriv2))]);
+
+%# Find all positive part in derivative until voltage peak
+last_pos_d = find(deriv(1:end) > 0);
+if length(last_pos_d) == 0
+  error('calcInitVm:failed', 'No positive slope before peak of %s.', ...
+	get(s, 'id'));
+else
+  last_pos_d_idx = last_pos_d(end);
+end
+
+last_neg_d = find(deriv(1:last_pos_d_idx) < -10);
+if length(last_neg_d) == 0
+  last_neg_d_idx = 1;
+elseif last_neg_d(end) == last_pos_d_idx  %# can never happen?
+  error('calcInitVm:failed', 'Negative slope right before peak of %s.', ...
+	get(s, 'id'));
+else
+  last_neg_d_idx = last_neg_d(end);
+end
+
+start_idx = max(1, last_neg_d_idx - 1);
+
+deriv = deriv(start_idx:end);
+deriv2 = deriv2(start_idx:end);
+
 %# threshold voltage derivative
-idx = find(deriv >= thr); 
+idx = find(deriv >= thr & deriv2 >= 0); %# Slope of slope should be non-negative
 if length(idx) == 0 
   %# Raise error and catch it in the caller function
   error('calcInitVm:failed', ...
@@ -56,12 +91,12 @@ if length(idx) == 0
 end
 
 %# Cannot be less than 1
-init_idx = max((idx(1) + 2) / int_fac, 1);
+init_idx = max((idx(1) + start_idx - 1 + 2 ) / int_fac, 1);
 
 if plotit
   class_name = strrep(class(s), '_', ' ');
-  t = (3 : max_idx) * s.trace.dt * 1e3;
-  t_data = s.trace.data(3 : max_idx);
+  t = (3 : (max_idx + 2)) * s.trace.dt * 1e3;
+  t_data = s.trace.data(3 : (max_idx + 2));
   threshold_estimate = interp1([floor(init_idx), ceil(init_idx)], ...
 		   [s.trace.data(floor(init_idx)), s.trace.data(ceil(init_idx))], ...
 		   init_idx);

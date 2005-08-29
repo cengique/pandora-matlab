@@ -58,7 +58,7 @@ vpp_plots_row = plot_stack({r3_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 
 %# Method 9: combined time-domain derivative methods h and Kp
 try 
-  [m9_init_idx, d_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, 5, 50, 1);
+  [m9_init_idx, d_plot] = calcInitVmV3hKpTinterp(sm8, max_idx, min_idx, 5, 50, 1);
 catch
   err = lasterror;
   if strcmp(err.identifier, 'calcInitVm:failed')
@@ -114,5 +114,12 @@ a_plot = plot_stack({vpp_plots_row, t_plots_row}, [], 'y', ...
 		     title_str ]);
 
 function voltage = interpV(s, idx)
-  voltage = s.trace.data(floor(idx)) + ...
-      (s.trace.data(ceil(idx)) - s.trace.data(floor(idx)))*(idx - floor(idx));
+  fi = floor(idx);
+  if fi <= 0
+    voltage = s.trace.data(1);
+  elseif idx - fi > 0
+    voltage = s.trace.data(fi) + ...
+	(s.trace.data(ceil(idx)) - s.trace.data(fi))*(idx - fi);
+  else
+    voltage = s.trace.data(fi);
+  end

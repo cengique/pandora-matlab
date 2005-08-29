@@ -65,7 +65,7 @@ end_depol = depol(1) + max_idx - 1;
 %# Interpolate to find the threshold crossing point
 denum = (s.trace.data(floor(end_depol)) - s.trace.data(floor(end_depol) + 1));
 if denum ~= 0
-  extra_time = (s.trace.data(floor(end_depol)) - init_val) / denum; 
+  extra_time = (s.trace.data(floor(end_depol)) - init_val - 1) / denum;
 else 
   extra_time = 0;
 end
@@ -191,19 +191,31 @@ function [min_val, min_idx, max_ahp] = find_max_ahp(s, max_idx, fall_time, init_
   start_from = min(length(s.trace.data), ...
 		   ceil(max_idx + fall_time + 1e-3/s.trace.dt)); %# plus some ms  
   windowsize = 6;
-  after_fall = medfilt1(s.trace.data((start_from-1):end), windowsize);
-  after_fall = after_fall(2:end); %#  remove medfilt artifact from first sample
-  %#after_fall = s.trace.data(start_from:end);
+  if length(s.trace.data) - start_from + 1 > windowsize
+    after_fall = medfilt1(s.trace.data((start_from-1):end), windowsize);
+    after_fall = after_fall(2:end); %#  remove medfilt artifact from first sample
+  else
+    after_fall = s.trace.data(start_from:end);
+  end
+
+  first_thr_crossing = find(after_fall <= (init_val + 1));
+  if length(first_thr_crossing) == 0
+    first_thr_crossing_idx = 1;
+  else
+    first_thr_crossing_idx = first_thr_crossing(1);
+  end
 
   %# find next time potential rises to threshold value
-  next_thr_crossing = find(after_fall > (init_val + 1));
+  next_thr_crossing = find(after_fall(first_thr_crossing_idx:end) > (init_val + 1));
   
   if length(next_thr_crossing) == 0
-    next_thr_crossing(1) = length(after_fall);
+    end_at = length(after_fall);
+  else
+    end_at = next_thr_crossing(1) + first_thr_crossing_idx - 1;
   end
 
   %# Max AHP must be the minimal point in between
-  [min_val, min_idx] = min(after_fall(1:next_thr_crossing(1)));
+  [min_val, min_idx] = min(after_fall(1:end_at));
 
   min_idx = min_idx + start_from - 1;
 

@@ -46,11 +46,11 @@ windowsize = 6;
 smooth_data = medfilt1([s.trace.data(1); s.trace.data], windowsize);
 smooth_data = smooth_data(2:end); %# drop first sample which has noise from medfilt1
 
-%# Decimate using very low order low-pass filter
-dec_factor = 2;
-%#trace_data = smooth_data;
-
-trace_data = decimate(smooth_data, dec_factor, min(floor(length(smooth_data)/3), 30), 'FIR');
+%#end
+%# Decimate using FIR low-pass filter (doesn't work: adds ringing artifact)
+dec_factor = 1;
+trace_data = smooth_data;
+%#trace_data = decimate(smooth_data, dec_factor, min(floor(length(smooth_data)/3), 30), 'FIR');
 
 %#d2 = diff2T(trace_data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1o = diffT(trace_data(1 : (floor(max_idx/dec_factor) + 2)) * s.trace.dy, ...
@@ -61,25 +61,51 @@ d1o = d1o(3:(end -2));
 %# Find max in derivative
 [max_d1o, max_d1o_idx] = max(d1o);
 
+%# Find all positive part in derivative until voltage peak
+last_pos_d = find(d1o >= 0);
+if length(last_pos_d) == 0
+  error('calcInitVm:failed', 'No positive slope before peak of %s.', ...
+	get(s, 'id'));
+else
+  last_pos_d_idx = last_pos_d(end);
+end
+
+%# put arbitrary negativeness limit on slope
+last_neg_d = find(d1o(1:last_pos_d_idx) < -1);
+if length(last_neg_d) == 0
+  last_neg_d_idx = 1;
+elseif last_neg_d(end) == last_pos_d_idx   %# can never happen?
+  error('calcInitVm:failed', 'Negative slope right before peak of %s.', ...
+	get(s, 'id'));
+else
+  last_neg_d_idx = last_neg_d(end);
+end
+
 %# Find min in voltage before end
 [min_v, min_v_idx] = min(trace_data(1 : max_d1o_idx));
 
 %# Interpolate to find a regular intervalled phase-plane representation
-%# Voltage range is from the initial resting point to the spike peak.
+%# Voltage range is from the dip in voltage point to the spike peak.
 %# Tried both spline and pchip, spline overfits.
 num_points = 200;
-start_idx = max(1, min_v_idx - 1);
+start_idx = max(1, last_neg_d_idx - 1);
 dv = (trace_data(max_d1o_idx + 2) - trace_data(start_idx + 2))/num_points;
 voltage_points = ...
     (trace_data(start_idx + 2):dv:trace_data(max_d1o_idx + 2)) * s.trace.dy;
 
 %# Arbitrarily remove duplicate values from voltage values
+trace_data((start_idx + 2) : (max_d1o_idx + 2));
 [orig_v_points unique_idx] = unique(trace_data((start_idx + 2) : (max_d1o_idx + 2)));
 d1o_points = d1o(start_idx:max_d1o_idx);
 
 %# Check if there are enough points to interpolate
-if length(d1o_points) < 2
+if length(unique_idx) < 2
   error('calcInitVm:failed', 'Less than two vPP data points in the stem of %s.', ...
+	get(s, 'id'));
+end
+
+if length(voltage_points) < 2
+  error('calcInitVm:failed', 'Less than two v data points in the stem of %s.', ...
 	get(s, 'id'));
 end
 
@@ -90,7 +116,11 @@ interp_vpp = ...
 %# Put lower bound on vpp?
 windowsize = 10;
 filtered_vpp = filter(ones(1, windowsize)/windowsize, 1, interp_vpp);
-low_bound = find(filtered_vpp >= 2); %# 2 mV/ms crossing is the lower bound
+low_bound = find(filtered_vpp >= 1); %# mV/ms crossing is the lower bound
+
+%#figure; plot(orig_v_points * s.trace.dy, d1o_points(unique_idx), ...
+%#	     voltage_points, [interp_vpp; filtered_vpp]'); 
+%#legend('orig', 'interp', 'filtered');
 
 if length(low_bound) > 0
   interp_vpp = interp_vpp(low_bound(1):end);
