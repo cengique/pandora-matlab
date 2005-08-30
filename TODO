@@ -1,11 +1,8 @@
 TODO
 --------------------
 - improve visualization of cip_traces
-- remove not-a-spikes from spikes object
-- analyze each spike individually, then generate mean, mode, median, and unimodality score
 - create custom class to eliminate high-variance neurons? how to get sdb?
 - perl doclet generator
-+ remove DAHPMag from depol_tests
 - add method in dataset to load item by reading database row or in db vice-versa.
 	- use db id for the prof id
 - ignore all parameters in comparisons?
@@ -15,12 +12,12 @@ TODO
 + for version 0.6:
 	- add new physiology dataset loader
 + for version 0.7:
-	- new AP thr method, and look at all spikes
-- for version 0.8:
-	- move props to bottom of params_tests_dataset and tests_db
+	+ new AP thr method, and look at all spikes
 	+ also look at phys spikes, needs some smoothing
 	+ rename displayRow to displayRows
 	+ fix SE calc
+- for version 0.8:
+	- move props to bottom of params_tests_dataset and tests_db
 - for version 1.0:
 	- add dataset connection to tests_db 
 		- put it in props for now?
@@ -75,6 +72,9 @@ TODO
 	- clustering (use for finding multiple solutions?)
 		- use ANOVA for showing different distributions
 		- need this for finding parameter clusters matching phys data?
++ remove DAHPMag from depol_tests
++ remove not-a-spikes from spikes object
++ analyze each spike individually, then generate mean, mode, median, and unimodality score
 + add an addItem method to datasets
 + new subclass for custom analysis
 	- add plotTestStats function to group things together [?]
