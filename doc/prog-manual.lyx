@@ -70,6 +70,18 @@
 
 %% ignore inside this
 \providecommand{\mycomment}{}
+
+\renewenvironment{lyxcode}
+   {\begin{list}{}{
+     \setlength{\leftmargin}{-30pt}
+     \setlength{\rightmargin}{\leftmargin}
+     \setlength{\listparindent}{0pt}% needed for AMS classes
+     \raggedright
+     \setlength{\itemsep}{0pt}
+     \setlength{\parsep}{0pt}
+     \normalfont\ttfamily}%
+    \item[]}
+   {\end{list}}
 \end_preamble
 \language english
 \inputencoding auto
@@ -409,6 +421,30 @@ addpath
 ~/matlab/startup.m
 \family default 
 ).
+ An example for this startup script would be as follows:
+\layout LyX-Code
+
+%--- startup.m for matlab
+\layout LyX-Code
+
+addpath 
+\family typewriter 
+/Lab/matlab/alfonso/alftoolbox
+\layout LyX-Code
+
+addpath 
+\family typewriter 
+/Lab/matlab/
+\family default 
+cengiz
+\layout LyX-Code
+
+addpath 
+\family typewriter 
+/Lab/matlab/classes/djlab
+\layout LyX-Code
+
+%--- end startup.m
 \layout Section
 
 The Main Class Hierarchies
@@ -417,6 +453,51 @@ The Main Class Hierarchies
 \end_inset 
 
 
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed false
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename db-overview
+	width 100text%
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Database-overview}
+
+\end_inset 
+
+Schematic overview of the database software.
+\end_inset 
+
+The general scheme of how this software can be used is described in Figure
+ 
+\begin_inset LatexCommand \ref{figcap:Database-overview}
+
+\end_inset 
+
+.
+ In the figure, flow starts from the dataset object on the top left.
+ The raw data is loaded using information in the dataset, and measures are
+ calculated to be entered into the matrix of the database object on the
+ top right.
+ The arrows going to bottom objects and corresponding plots show the types
+ of possible analyses that can be done on the database object.
+ The red arrow is a speacial analysis for searching and matching rows between
+ different databases.
+ This time, the match is done by taking a row from a physiology database
+ and finding best matching model neurons in a simulation database.
+ Subsequent sections describe the entities in the figure.
 \layout Subsection
 
 Databases hold all the information
@@ -448,7 +529,13 @@ collapsed true
 Database class hierarchy.
 \end_inset 
 
-The database object is the center of this software package.
+The database object is at the center of this software package as can be
+ seen from the schema in Figure 
+\begin_inset LatexCommand \ref{figcap:Database-overview}
+
+\end_inset 
+
+.
  A database object can be created from any of the classes in the class hierarchy
  in Figure 
 \begin_inset LatexCommand \ref{figcap:Database-class-hierarchy}
@@ -527,9 +614,9 @@ stats_db
 \family default 
  Contains few rows that describe the statistics of another database.
  It can contain the mean and standard deviation or error, or in some cases,
- the minimal and maximal entries in a database.
+ the minimal and maximal values of columns in a database.
  It contains special plotting functions.
- Also, other methods may require this object to make use of the statistics.
+ Some methods access this object to make use of the statistics.
 \layout Description
 
 
@@ -538,7 +625,23 @@ ranked_db
 \family default 
  Contains distances that resulted from a comparison of a database with a
  criterion.
- Contains methods to generate reports of mathing information.
+ Contains methods to generate reports from information about matching neurons.
+\layout Description
+
+
+\family typewriter 
+spikes_db
+\family default 
+ Contains results from individual spike shapes in a period of a 
+\family typewriter 
+trace
+\family default 
+ object.
+ Obtained using the 
+\family typewriter 
+trace/analyzeSpikesInPeriod
+\family default 
+ method.
 \layout Description
 
 
@@ -581,6 +684,23 @@ clearpage
 Datasets create the databases
 \layout Standard
 
+The dataset object is responsible for creating the database objects as seen
+ from the schema in Figure 
+\begin_inset LatexCommand \ref{figcap:Database-overview}
+
+\end_inset 
+
+.
+ It defines where the raw data is stored and what parameters are used to
+ load and analyze it.
+ It knows that raw data has parameters associated which individual raw data
+ traces and how and which measures will be generated.
+ This information is used to automatically generate a database from the
+ dataset.
+ It also allows reaching back the raw data from rows of an analyzed database.
+ 
+\layout Standard
+
 
 \begin_inset Float figure
 wide false
@@ -607,7 +727,100 @@ collapsed true
 Dataset class hierarchy.
 \end_inset 
 
+Figure 
+\begin_inset LatexCommand \ref{figcap:Dataset-class-hierarchy}
 
+\end_inset 
+
+ shows the hierarchy for the dataset classes.
+ The top-level dataset class is 
+\family typewriter 
+params_tests_dataset
+\family default 
+ which is an incomplete class.
+ That is, this class defines general utilities that can work for a variety
+ of dataset subclasses, but one cannot make a object from the 
+\family typewriter 
+params_tests_dataset
+\family default 
+ class directly.
+ Instead, one of its subclasses must be chosen and used.
+ Some of these specialized subclasses are as follows:
+\layout Description
+
+
+\family typewriter 
+params_tests_fileset
+\family default 
+ This class assumes each raw data item resides in a file and all of these
+ files are in the same directory.
+ The parameter names and values are obtained from each file name itself.
+ This class is mostly useful for simulation filesets.
+\layout Description
+
+
+\family typewriter 
+params_cip_trace_fileset
+\family default 
+ This is a subclass of 
+\family typewriter 
+params_tests_fileset
+\family default 
+, therefore it inherits the notion of one file per data item.
+ The files must conform to the current-pulse injection experiments and have
+ a starting time and duration for the pulses.
+ The pulse magnitude is read from the 
+\family typewriter 
+pAcip
+\family default 
+ parameter.
+ This class is mostly useful for simulation filesets.
+\layout Description
+
+
+\family typewriter 
+physiol_cip_traceset
+\family default 
+ This is a subclass of 
+\family typewriter 
+params_tests_dataset
+\family default 
+.
+ It is designed to load a set of physiology traces from a single file generated
+ by the PCDX stimulation and acquisition software.
+ 
+\layout Description
+
+
+\family typewriter 
+physiol_cip_traceset_fileset
+\family default 
+ This is a subclass of 
+\family typewriter 
+params_tests_dataset
+\family default 
+.
+ It is designed to load traces from multiple PCDX data files.
+ It uses the 
+\family typewriter 
+physiol_cip_traceset
+\family default 
+ class for this purpose.
+ 
+\layout Description
+
+
+\family typewriter 
+cip_traces_dataset,\SpecialChar ~
+cip_traceset,\SpecialChar ~
+cip_traceset_dataset
+\family default 
+ These are obsolete classes that allow loading physiology traces from older
+ 
+\noun on 
+Matlab
+\noun default 
+ formatted objects.
 \layout Standard
 
 
@@ -624,6 +837,40 @@ clearpage
 \layout Subsection
 
 Data wrappers hold the raw data
+\layout Standard
+
+Data wrappers are classes designed to hold data of sorts.
+ These can be raw data, or they can be the byproduct of an analysis routine
+ that operates on raw data.
+ In the overall schema of Figure 
+\begin_inset LatexCommand \ref{figcap:Database-overview}
+
+\end_inset 
+
+, the raw traces obtained from the dataset object are examples of data wrapper
+ objects.
+ An example of a class that holds raw data would be the 
+\family typewriter 
+trace
+\family default 
+ class, which holds raw traces of entities such as voltage or current.
+ The 
+\family typewriter 
+spikes
+\family default 
+ object, however, contains the spike times obtained by analyzing a 
+\family typewriter 
+trace
+\family default 
+ object.
+\layout Standard
+
+A data wrapper class does more than just holding the data.
+ It defines a set of operations in terms of method functions that can work
+ on the data held by the class.
+ As a rule of thumb, if one needs to add some new functionality into the
+ software, it should be added as a method into the class which holds the
+ data on which the method operates.
 \layout Standard
 
 
@@ -652,7 +899,55 @@ collapsed true
 Data wrapper class hierarchy.
 \end_inset 
 
+Figure 
+\begin_inset LatexCommand \ref{figcap:Datawrapper-class-hierarchy}
 
+\end_inset 
+
+ shows the hierarchy for the data wrapper classes.
+ Some of these classes are as follows:
+\layout Description
+
+
+\family typewriter 
+trace
+\family default 
+ Generic object that holds a vector of data that changes over time.
+ It has a time resolution and y-axis resolution.
+ Contains many analysis routines.
+\layout Description
+
+
+\family typewriter 
+cip_trace
+\family default 
+ A subclass of 
+\family typewriter 
+trace
+\family default 
+ class which defines a pulse period.
+ It contains period-specific analyses.
+\layout Description
+
+
+\family typewriter 
+spike_shape
+\family default 
+ A subclass of 
+\family typewriter 
+trace
+\family default 
+ that holds the shape of a single spike.
+ It contains spike shape measurements.
+\layout Description
+
+
+\family typewriter 
+spikes
+\family default 
+ A generic class to hold the event times for spikes.
+ It contains routined for making measurements based on spike times, such
+ as rate and ISI calculations.
 \layout Standard
 
 
@@ -792,6 +1087,11 @@ which initiates the loading of files.
 \layout Subsubsection
 
 Creating a dataset for physiology data
+\begin_inset LatexCommand \label{sub:loading-phys}
+
+\end_inset 
+
+
 \layout Standard
 
 Physiology data can be obtained from multiple sources.
@@ -822,7 +1122,16 @@ physiol_cip_traceset_fileset
                                   struct('profile_class_name', 
 \layout LyX-Code
 
-                                         'getProfileAllSpikes'))
+                                         'getProfileAllSpikes',
+\layout LyX-Code
+
+                                         'offset_y', -9,
+\layout LyX-Code
+
+                                         'cip_list', 
+\layout LyX-Code
+
+                                         [-200 -100:20:100 200 300]))
 \layout Standard
 
 This command reads the 
@@ -848,6 +1157,45 @@ params_tests_db
 physiol_cip_traceset
 \family default 
  object for each line in the text file.
+ 
+\layout Standard
+
+The 
+\family typewriter 
+cip_list
+\family default 
+ optional parameter must be used with caution.
+ To determine actual CIP-levels, the current channel of the trace is analyzed.
+ 
+\family typewriter 
+cip_list
+\family default 
+ entries are used to discretize the noisy current channel.
+ Current levels will coerce to the nearest entry from 
+\family typewriter 
+cip_list
+\family default 
+.
+ In the above example, all current levels below 
+\begin_inset Formula $-200$
+\end_inset 
+
+\SpecialChar ~
+pA will be assumed to be 
+\begin_inset Formula $-200$
+\end_inset 
+
+\SpecialChar ~
+pA.
+ The default 
+\family typewriter 
+cip_list
+\family default 
+ resides in the 
+\family typewriter 
+physiol_cip_traceset/CIPform
+\family default 
+ method.
 \layout Paragraph
 
 Loading data from existing 
@@ -985,6 +1333,725 @@ Genesis
  indicated.
  Note that, using an absolute path to refer to data files ensures that they
  can be reached from different directories after the fileset object is saved.
+ 
+\layout Subsection
+
+Finding constrained subsets in a database
+\layout Standard
+
+Once a database with more-than-sufficient number of measures is available,
+ subsets of this database can be extracted easily for other tasks.
+ New databases can be formed by filtering rows, columns or pages of an existing
+ database.
+ For choosing any of these dimensions, the user can specify an array of
+ indices, or a logical array.
+ For instance, 
+\layout LyX-Code
+
+>> db2 = db1(1:10, :);
+\layout Standard
+
+creates a database object 
+\family typewriter 
+db2
+\family default 
+ by the first ten rows of 
+\family typewriter 
+db1
+\family default 
+ and all its columns.
+ For three-dimensional databases, a third parameter can be specified, as
+ in 
+\layout LyX-Code
+
+>> db2 = db1(1:10, :, [1 3]);
+\layout Standard
+
+which will take only the first and third page from 
+\family typewriter 
+db1
+\family default 
+.
+\layout Standard
+
+For measures, columns can also be specified as a single string value, or
+ a cell array of strings, as in 
+\layout LyX-Code
+
+>> db2 = db1(1:10, 'pAcip');
+\layout Standard
+
+which chooses only the 
+\family typewriter 
+pAcip
+\family default 
+ column of the first 10 rows of 
+\family typewriter 
+db1
+\family default 
+ or 
+\layout LyX-Code
+
+>> db2 = db1(1:10, {'pAcip', 'IniSpontSpikeRate'});
+\layout Standard
+
+which chooses two columns.
+ 
+\layout Standard
+
+Rows of the database signify neurons or simulation runs.
+ Therefore it is important to find subset of neurons that match a certain
+ criteria.
+ This can be done specifying a list of rows that is the result of a logical
+ operation.
+ A logical operation finds rows that satisfy constraints on a single parameter
+ or measure of a database.
+ For instance, 
+\layout LyX-Code
+
+>> rows = db1(:, 'IniSpontSpikeRate') > 10;
+\layout Standard
+
+gives a logical array that contains a 
+\family typewriter 
+true
+\family default 
+ value for all rows in 
+\family typewriter 
+db1
+\family default 
+ that has spontaneous firing faster than 10 Hz.
+ If this is used as the row specifier in a subset operation, a new database
+ with only these neurons can be obtained by 
+\layout LyX-Code
+
+>> db2 = db1(rows, :);
+\layout Standard
+
+If we want more constrains it is straightforward to use any logical operation
+ such as AND (
+\family typewriter 
+&
+\family default 
+), OR (
+\family typewriter 
+|
+\family default 
+) and NOT(
+\family typewriter 
+~
+\family default 
+) on these logical arrays such as 
+\layout LyX-Code
+
+>> db2 = db1((rows | rows2) & rows3, :);
+\layout Standard
+
+which says choose all rows from 
+\family typewriter 
+db1
+\family default 
+ where either the tests 
+\family typewriter 
+rows
+\family default 
+ and 
+\family typewriter 
+rows2
+\family default 
+ are satisfied and while 
+\family typewriter 
+rows3
+\family default 
+ is always satisfied.
+ All these operations can be specified in-place such as in 
+\layout LyX-Code
+
+>> db2 = db1(db1(:, 'IniSpontSpikeRate') > 10 & 
+\layout LyX-Code
+
+             db1(:, 'IniSpontSpikeRate') <= 20, :);
+\layout Standard
+
+which will create a database of neurons that spontaneously fire between
+ 10--20 Hz.
+\layout Subsection
+
+Sorting the database according to a measure
+\begin_inset LatexCommand \label{sub:Sorting-the-database}
+
+\end_inset 
+
+
+\layout Standard
+
+First, all rows where the desired measure value is 
+\family typewriter 
+NaN
+\family default 
+ should be eliminated:
+\layout LyX-Code
+
+>> ampDecayTau_nonNaN_db = 
+\layout LyX-Code
+
+     dball(~isnan(dball(:, 'PulseSpikeAmpDecayTau')), :)
+\layout Standard
+
+This finds all rows in 
+\family typewriter 
+dball
+\family default 
+ that the 
+\family typewriter 
+PulseSpikeAmpDecayTau
+\family default 
+ measure is not 
+\family typewriter 
+NaN
+\family default 
+ and creates a new DB object 
+\family typewriter 
+ampDecayTau_nonNaN_db
+\family default 
+, which includes these rows with all measures from 
+\family typewriter 
+dball
+\family default 
+.
+ Notice that the newly created DB contains less rows than the original DB.
+ The number of rows in the new DB can be obtained by just typing the name
+ of the DB and pressing enter at the 
+\noun on 
+Matlab
+\noun default 
+ prompt.
+\layout Standard
+
+Then, one can sort the new database using:
+\layout LyX-Code
+
+>> ampDecayTau_sorted_db = sortrows(ampDecayTau_nonNaN_db, 
+\layout LyX-Code
+
+                                    'PulseSpikeAmpDecayTau') 
+\layout Standard
+
+This will create DB which is sorted with increasing values of the 
+\family typewriter 
+PulseSpikeAmpDecayTau
+\family default 
+ measure.
+ Displaying the first few rows gives lowest values:
+\layout LyX-Code
+
+>> displayRows(ampDecayTau_sorted_db, 1:3)
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    'NaF'                    [      1000]    [     250]    [     250]
+\layout LyX-Code
+
+    'NaP'                    [    0.5000]    [  0.5000]    [  2.5000]
+\layout LyX-Code
+
+    'Kv3'                    [        60]    [      15]    [      30]
+\layout LyX-Code
+
+    'Kv2'                    [         9]    [       3]    [       3]
+\layout LyX-Code
+
+    'Kv4f'                   [         5]    [       1]    [      25]
+\layout LyX-Code
+
+    'KCNQ'                   [    0.1000]    [  0.0100]    [  0.1000]
+\layout LyX-Code
+
+    'SK'                     [    8.5000]    [      34]    [  8.5000]
+\layout LyX-Code
+
+    'CaHVA'                  [        10]    [  0.1000]    [      10]
+\layout LyX-Code
+
+    'HCN'                    [        30]    [  0.3000]    [      30]
+\layout LyX-Code
+
+    'pAcip'                  [       100]    [     100]    [     100]
+\layout LyX-Code
+
+    'IniSpontISICV'          [3.9448e-04]    [  0.0051]    [  0.0452]
+\layout LyX-Code
+
+    'IniSpontPotAvg'         [  -64.9161]    [-52.6859]    [-41.5876]
+\layout LyX-Code
+
+    'IniSpontSpikeRate'      [   14.0014]    [ 18.0018]    [ 81.0081]
+\layout LyX-Code
+
+    'PulseISICV'             [    0.0226]    [       0]    [  0.0366]
+\layout LyX-Code
+
+    'PulseIni100msISICV'     [    0.0541]    [       0]    [  0.0814]
+\layout LyX-Code
+
+              [1x27 char]    [   28.8953]    [       0]    [ 88.9086]
+\layout LyX-Code
+
+              [1x27 char]    [   26.6785]    [       0]    [ 86.7052]
+\layout LyX-Code
+
+              [1x22 char]    [        30]    [      20]    [     100]
+\layout LyX-Code
+
+              [1x25 char]    [   29.4118]    [166.6667]    [ 96.0512]
+\layout LyX-Code
+
+    'PulsePotAvg'            [  -61.0044]    [-32.7775]    [-34.1518]
+\layout LyX-Code
+
+    'PulsePotMin'            [       NaN]    [     NaN]    [     NaN]
+\layout LyX-Code
+
+    'PulsePotSag'            [       NaN]    [     NaN]    [     NaN]
+\layout LyX-Code
+
+    'PulseSFA'               [    1.1254]    [     NaN]    [  1.3571]
+\layout LyX-Code
+
+    'PulseSpikeAmpDecayDelta'[    4.2764]    [  9.2041]    [ 17.8389]
+\layout LyX-Code
+
+    'PulseSpikeAmpDecayTau'  [    0.2000]    [  0.2000]    [  0.3000]
+\layout LyX-Code
+
+    'PulseSpikeRate'         [   28.0028]    [  2.0002]    [ 89.0089]
+\layout LyX-Code
+
+...
+\layout Standard
+
+Displaying the last few rows gives the highest values:
+\layout LyX-Code
+
+>> displayRows(ampDecayTau_sorted_db, 13879:13881)
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    'NaF'                    [     250]    [     250]    [      1000]
+\layout LyX-Code
+
+    'NaP'                    [  2.5000]    [  2.5000]    [    2.5000]
+\layout LyX-Code
+
+    'Kv3'                    [      15]    [      15]    [        60]
+\layout LyX-Code
+
+    'Kv2'                    [       3]    [       3]    [         9]
+\layout LyX-Code
+
+    'Kv4f'                   [       5]    [       5]    [        25]
+\layout LyX-Code
+
+    'KCNQ'                   [  0.1000]    [  0.1000]    [    0.0100]
+\layout LyX-Code
+
+    'SK'                     [  8.5000]    [  8.5000]    [        17]
+\layout LyX-Code
+
+    'CaHVA'                  [      10]    [      10]    [        10]
+\layout LyX-Code
+
+    'HCN'                    [      30]    [       3]    [        30]
+\layout LyX-Code
+
+    'pAcip'                  [    -100]    [    -100]    [       100]
+\layout LyX-Code
+
+    'IniSpontISICV'          [  0.0027]    [  0.0027]    [9.1376e-04]
+\layout LyX-Code
+
+    'IniSpontPotAvg'         [-28.5685]    [-28.5687]    [  -67.7567]
+\layout LyX-Code
+
+    'IniSpontSpikeRate'      [ 69.0069]    [ 69.0069]    [   14.0014]
+\layout LyX-Code
+
+    'PulseISICV'             [  0.0046]    [  0.0046]    [    0.0091]
+\layout LyX-Code
+
+    'PulseIni100msISICV'     [  0.0080]    [  0.0080]    [         0]
+\layout LyX-Code
+
+              [1x27 char]    [ 71.1269]    [ 71.1269]    [   24.4499]
+\layout LyX-Code
+
+              [1x27 char]    [ 71.1427]    [ 71.1427]    [   26.6785]
+\layout LyX-Code
+
+              [1x22 char]    [      80]    [      80]    [        20]
+\layout LyX-Code
+
+              [1x25 char]    [ 70.6357]    [ 70.6357]    [   25.4453]
+\layout LyX-Code
+
+    'PulsePotAvg'            [-30.1705]    [-30.1718]    [  -65.2721]
+\layout LyX-Code
+
+    'PulsePotMin'            [     NaN]    [     NaN]    [       NaN]
+\layout LyX-Code
+
+    'PulsePotSag'            [     NaN]    [     NaN]    [       NaN]
+\layout LyX-Code
+
+    'PulseSFA'               [  0.9792]    [  0.9792]    [    1.0407]
+\layout LyX-Code
+
+    'PulseSpikeAmpDecayDelta'[ -1.2791]    [ -1.2868]    [    1.2201]
+\layout LyX-Code
+
+    'PulseSpikeAmpDecayTau'  [999.6000]    [999.6000]    [      1000]
+\layout LyX-Code
+
+    'PulseSpikeRate'         [ 72.0072]    [ 72.0072]    [   25.0025]
+\layout LyX-Code
+
+...
+\layout Subsection
+
+Preprocessing a raw (physiology) database by elimination and averaging 
+\begin_inset OptArg
+collapsed true
+
+\layout Standard
+
+Preprocessing a raw (physiology) database
+\end_inset 
+
+
+\layout Standard
+
+Mostly, raw physiology databases are subject to redundancies and unwanted
+ recordings.
+ We usually apply the following steps before we start analyzing a raw physiology
+ database.
+ Similar steps may be employed for simulation databases, too.
+\layout Subsubsection
+
+Limiting range of bias currents
+\layout Standard
+
+Recordings with high bias current are undesirable.
+ We commonly filter-out high bias currents with:
+\layout LyX-Code
+
+>> db_bias_small = 
+\layout LyX-Code
+
+     phys_dball(phys_dball(:, 'pAbias') > -30 & 
+\layout LyX-Code
+
+                phys_dball(:, 'pAbias') < 30, :)
+\layout Standard
+
+which will limit the bias current, 
+\begin_inset Formula $i_{b}$
+\end_inset 
+
+, to 
+\begin_inset Formula $-30\,\mathrm{pA}<i_{b}<30\,\mathrm{pA}$
+\end_inset 
+
+.
+ 
+\layout Subsubsection
+
+Choosing few current levels
+\layout Standard
+
+To get a profile for a neuron, usually both hyperpolarizing and depolarizing
+ CIP-levels need to be included.
+ Moreover, to capture the spiking frequency vs.
+ current response of the neuron, multiple depolarizing CIP-level information
+ may need to be included.
+ 
+\layout Standard
+
+There are two counterparts to selecting which CIP-levels to include in a
+ DB.
+ First, one can select what CIP-levels are available in the raw data and
+ what discretization levels should be used while loading the database.
+ This is done with the 
+\family typewriter 
+cip_list
+\family default 
+ optional parameter described in Section 
+\begin_inset LatexCommand \ref{sub:loading-phys}
+
+\end_inset 
+
+.
+ GP recordings prior to mid-2005 have current channel data which are too
+ noisy to be quantized to levels of 10 pA.
+ Instead, at least a step size of 20 pA needs to be used.
+ Later recordings have both better recordings, and feature 20 pA steps in
+ the experimental protocol anyway.
+ 
+\layout Standard
+
+Second, after the database is loaded, one can filter-out unwanted CIP-level
+ traces:
+\layout LyX-Code
+
+>> phys_dball_limitedcip = 
+\layout LyX-Code
+
+     phys_dball_big(phys_dball_big(:, 'pAcip') == -100 | 
+\layout LyX-Code
+
+                    phys_dball_big(:, 'pAcip') == 0 | 
+\layout LyX-Code
+
+                    phys_dball_big(:, 'pAcip') == 50 | 
+\layout LyX-Code
+
+                    phys_dball_big(:, 'pAcip') == 100 | 
+\layout LyX-Code
+
+                    phys_dball_big(:, 'pAcip') == 200, :)
+\layout Subsubsection
+
+Averaging multiple traces of same neuron with same CIP-level and (pharmacologica
+l) parameters 
+\begin_inset OptArg
+collapsed true
+
+\layout Standard
+
+Averaging multiple traces of same neuron
+\end_inset 
+
+
+\layout Standard
+
+In making a one-row-per-CIP-level database, it is essential to include all
+ available information from the raw database.
+ Especially in physiology datasets, there may be multiple traces of a neuron
+ where the same CIP-level and the same pharmacological conditions were applied.
+ These rows can be averaged to obtain a single row for each CIP-level of
+ a neuron.
+\layout Standard
+
+Before doing this, the parameters of the raw database should only include
+ parameters that uniquely distinguish neurons.
+ The averaging operation tries to find each distinct set of parameters and
+ then averages all rows that has this combination.
+ For example, the 
+\family typewriter 
+NeuronId
+\family default 
+ and 
+\family typewriter 
+pAcip
+\family default 
+ parameters need to be distinct.
+ However, the 
+\family typewriter 
+pAbias
+\family default 
+ parameter does not need to be distinct for each neuron.
+ The non-unique parameters need to be filtered-out before the averaging
+ process.
+ The following shows all the parameters of a raw physiology database:
+\layout LyX-Code
+
+>> phys_db
+\layout LyX-Code
+
+params_tests_db, tracesets from .../cip_traces_all_axoclamp.txt
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    num_params: 16
+\layout LyX-Code
+
+         props: [0x0 struct]
+\layout LyX-Code
+
+      tests_db: [1x1 tests_db]
+\layout LyX-Code
+
+Optional properties of params_tests_db:
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+0x0 struct array with no fields.
+\layout LyX-Code
+
+tests_db, tracesets from .../cip_traces_all_axoclamp.txt
+\layout LyX-Code
+
+1527 rows in database with 182 columns, and 1 pages.
+\layout LyX-Code
+
+Column names:
+\layout LyX-Code
+
+    [  1]    'pulseOn'                    
+\layout LyX-Code
+
+    [  2]    'pulseOff'                   
+\layout LyX-Code
+
+    [  3]    'traceEnd'                   
+\layout LyX-Code
+
+    [  4]    'pAcip'                      
+\layout LyX-Code
+
+    [  5]    'pAbias'                     
+\layout LyX-Code
+
+    [  6]    'Cadmium'                    
+\layout LyX-Code
+
+    [  7]    'PicroTx'                    
+\layout LyX-Code
+
+    [  8]    'Apamin'                     
+\layout LyX-Code
+
+    [  9]    'Glycine'                    
+\layout LyX-Code
+
+    [ 10]    'KynAcid'                    
+\layout LyX-Code
+
+    [ 11]    'TTX'                        
+\layout LyX-Code
+
+    [ 12]    'XE991'                      
+\layout LyX-Code
+
+    [ 13]    'drug_4AP'                   
+\layout LyX-Code
+
+    [ 14]    'EBIO'                       
+\layout LyX-Code
+
+    [ 15]    'NeuronId'                   
+\layout LyX-Code
+
+    [ 16]    'TracesetIndex'            
+\layout LyX-Code
+
+...
+\layout Standard
+
+One can choose which parameters need to be distinct for each row by specifying
+ as the second argument in the call to the 
+\family typewriter 
+meanDuplicateRows
+\family default 
+ method, whereas the third argument specifies the measures to be averaged:
+\layout LyX-Code
+
+>> phys_mean_db = meanDuplicateRows(phys_db, [4 6:15], [17:161])
+\layout LyX-Code
+
+params_tests_db, averaged tracesets from .../cip_traces_all.txt
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    num_params: 13
+\layout LyX-Code
+
+         props: [0x0 struct]
+\layout LyX-Code
+
+      tests_db: [1x1 tests_db]
+\layout LyX-Code
+
+Optional properties of params_tests_db:
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+0x0 struct array with no fields.
+\layout LyX-Code
+
+tests_db, averaged tracesets from .../cip_traces_all.txt
+\layout LyX-Code
+
+690 rows in database with 158 columns, and 1 pages.
+\layout LyX-Code
+
+Column names:
+\layout LyX-Code
+
+    [  1]    'pAcip'                      
+\layout LyX-Code
+
+    [  2]    'Cadmium'                    
+\layout LyX-Code
+
+    [  3]    'PicroTx'                    
+\layout LyX-Code
+
+    [  4]    'Apamin'                     
+\layout LyX-Code
+
+    [  5]    'Glycine'                    
+\layout LyX-Code
+
+    [  6]    'KynAcid'                    
+\layout LyX-Code
+
+    [  7]    'TTX'                        
+\layout LyX-Code
+
+    [  8]    'XE991'                      
+\layout LyX-Code
+
+    [  9]    'drug_4AP'                   
+\layout LyX-Code
+
+    [ 10]    'EBIO'                       
+\layout LyX-Code
+
+    [ 11]    'NeuronId'                   
+\layout LyX-Code
+
+    [ 12]    'NumDuplicates'              
+\layout LyX-Code
+
+    [ 13]    'RowIndex'                   
+\layout LyX-Code
+
+    [ 14]    'IniSpontISICV'    
+\layout LyX-Code
+
+...
+\layout Standard
+
+This command ignores the pulse time information and the bias current, but
+ includes all the pharmacological parameters, in distinguising the unique
+ traces.
+ It also eliminates some measures, such as the 
+\family typewriter 
+ItemIndex
+\family default 
+, from averaging.
 \layout Subsection
 
 Making a database by merging multiple rows from another database
@@ -993,21 +2060,22 @@ Making a database by merging multiple rows from another database
 A simple example for making a new database out of multiple rows in an existing
  database is combining multiple traces from the same neuron with different
  current pulse injection (CIP) levels.
- The initial database contains a row for each CIP level (one positive and
- one negative) with redundant information, such as spontaneous period measuremen
-ts.
+ The initial database contains a row for each CIP level with redundant informati
+on, such as spontaneous period measurements.
  
+\layout Subsubsection
+
+Making a one-row-per-neuron DB from multiple CIP-level rows
+\layout Subsubsection
+
+Making a one-row-per-neuron DB from dual CIP-level rows
 \layout Standard
 
 The following statement uses the 
 \family typewriter 
-getDualCIPdb
+params_tests_db/getDualCIPdb
 \family default 
- method in 
-\family typewriter 
-params_tests_db
-\family default 
- to do this conversion.
+ method to merge rows of depolarizing and hyperpolarizing CIP-levels:
 \layout LyX-Code
 
 >> sdball = getDualCIPdb(dball, depol_tests, hyper_tests, 
@@ -1265,7 +2333,7 @@ ans =
 0x0 struct array with no fields.
 \layout Standard
 
-After the merging is becomes 
+After merging, it becomes 
 \layout LyX-Code
 
 >> sdball
@@ -1464,306 +2532,31 @@ ans =
 \layout LyX-Code
 
 0x0 struct array with no fields.
+\layout Section
+
+Visualization
+\begin_inset LatexCommand \label{sec:Visualization}
+
+\end_inset 
+
+
 \layout Subsection
 
-Finding constrained subsets in a database
+Displaying database contents
 \layout Standard
 
-Once a database with more-than-sufficient number of measures is available,
- subsets of this database can be extracted easily for other tasks.
- New databases can be formed by filtering rows, columns or pages of an existing
- database.
- For choosing any of these dimensions, the user can specify an array of
- indices, or a logical array.
- For instance, 
-\layout LyX-Code
-
->> db2 = db1(1:10, :);
-\layout Standard
-
-creates a database object 
+The 
 \family typewriter 
-db2
+displayRows
 \family default 
- by the first ten rows of 
+ method of 
 \family typewriter 
-db1
+tests_db
 \family default 
- and all its columns.
- For three-dimensional databases, a third parameter can be specified, as
- in 
+ can be used to display rows of a database:
 \layout LyX-Code
 
->> db2 = db1(1:10, :, [1 3]);
-\layout Standard
-
-which will take only the first and third page from 
-\family typewriter 
-db1
-\family default 
-.
-\layout Standard
-
-For measures, columns can also be specified as a single string value, or
- a cell array of strings, as in 
-\layout LyX-Code
-
->> db2 = db1(1:10, 'pAcip');
-\layout Standard
-
-which chooses only the 
-\family typewriter 
-pAcip
-\family default 
- column of the first 10 rows of 
-\family typewriter 
-db1
-\family default 
- or 
-\layout LyX-Code
-
->> db2 = db1(1:10, {'pAcip', 'IniSpontSpikeRate'});
-\layout Standard
-
-which chooses two columns.
- 
-\layout Standard
-
-Rows of the database signify neurons or simulation runs.
- Therefore it is important to find subset of neurons that match a certain
- criteria.
- This can be done specifying a list of rows that is the result of a logical
- operation.
- A logical operation finds rows that satisfy constraints on a single parameter
- or measure of a database.
- For instance, 
-\layout LyX-Code
-
->> rows = db1(:, 'IniSpontSpikeRate') > 10;
-\layout Standard
-
-gives a logical array that contains a 
-\family typewriter 
-true
-\family default 
- value for all rows in 
-\family typewriter 
-db1
-\family default 
- that has spontaneous firing faster than 10 Hz.
- If this is used as the row specifier in a subset operation, a new database
- with only these neurons can be obtained by 
-\layout LyX-Code
-
->> db2 = db1(rows, :);
-\layout Standard
-
-If we want more constrains it is straightforward to use any logical operation
- such as AND (
-\family typewriter 
-&
-\family default 
-), OR (
-\family typewriter 
-|
-\family default 
-) and NOT(
-\family typewriter 
-~
-\family default 
-) on these logical arrays such as 
-\layout LyX-Code
-
->> db2 = db1((rows | rows2) & rows3, :);
-\layout Standard
-
-which says choose all rows from 
-\family typewriter 
-db1
-\family default 
- where either the tests 
-\family typewriter 
-rows
-\family default 
- and 
-\family typewriter 
-rows2
-\family default 
- are satisfied and while 
-\family typewriter 
-rows3
-\family default 
- is always satisfied.
- All these operations can be specified in-place such as in 
-\layout LyX-Code
-
->> db2 = db1(db1(:, 'IniSpontSpikeRate') > 10 & 
-\layout LyX-Code
-
-             db1(:, 'IniSpontSpikeRate') <= 20, :);
-\layout Standard
-
-which will create a database of neurons that spontaneously fire between
- 10--20 Hz.
-\layout Subsection
-
-Sorting the database according to a measure
-\layout Standard
-
-First, all rows where the desired measure value is 
-\family typewriter 
-NaN
-\family default 
- should be eliminated:
-\layout LyX-Code
-
->> ampDecayTau_nonNaN_db = 
-\layout LyX-Code
-
-     dball(~isnan(dball(:, 'PulseSpikeAmpDecayTau')), :)
-\layout Standard
-
-This finds all rows in 
-\family typewriter 
-dball
-\family default 
- that the 
-\family typewriter 
-PulseSpikeAmpDecayTau
-\family default 
- measure is not 
-\family typewriter 
-NaN
-\family default 
- and creates a new DB object 
-\family typewriter 
-ampDecayTau_nonNaN_db
-\family default 
-, which includes these rows with all measures from 
-\family typewriter 
-dball
-\family default 
-.
- Notice that the newly created DB contains less rows than the original DB.
- The number of rows in the new DB can be obtained by just typing the name
- of the DB and pressing enter at the 
-\noun on 
-Matlab
-\noun default 
- prompt.
-\layout Standard
-
-Then, one can sort the new database using:
-\layout LyX-Code
-
->> ampDecayTau_sorted_db = sortrows(ampDecayTau_nonNaN_db, 
-\layout LyX-Code
-
-                                    'PulseSpikeAmpDecayTau') 
-\layout Standard
-
-This will create DB which is sorted with increasing values of the 
-\family typewriter 
-PulseSpikeAmpDecayTau
-\family default 
- measure.
- Displaying the first few rows gives lowest values:
-\layout LyX-Code
-
->> displayRow(ampDecayTau_sorted_db, 1:3)
-\layout LyX-Code
-
-ans = 
-\layout LyX-Code
-
-    'NaF'                    [      1000]    [     250]    [     250]
-\layout LyX-Code
-
-    'NaP'                    [    0.5000]    [  0.5000]    [  2.5000]
-\layout LyX-Code
-
-    'Kv3'                    [        60]    [      15]    [      30]
-\layout LyX-Code
-
-    'Kv2'                    [         9]    [       3]    [       3]
-\layout LyX-Code
-
-    'Kv4f'                   [         5]    [       1]    [      25]
-\layout LyX-Code
-
-    'KCNQ'                   [    0.1000]    [  0.0100]    [  0.1000]
-\layout LyX-Code
-
-    'SK'                     [    8.5000]    [      34]    [  8.5000]
-\layout LyX-Code
-
-    'CaHVA'                  [        10]    [  0.1000]    [      10]
-\layout LyX-Code
-
-    'HCN'                    [        30]    [  0.3000]    [      30]
-\layout LyX-Code
-
-    'pAcip'                  [       100]    [     100]    [     100]
-\layout LyX-Code
-
-    'IniSpontISICV'          [3.9448e-04]    [  0.0051]    [  0.0452]
-\layout LyX-Code
-
-    'IniSpontPotAvg'         [  -64.9161]    [-52.6859]    [-41.5876]
-\layout LyX-Code
-
-    'IniSpontSpikeRate'      [   14.0014]    [ 18.0018]    [ 81.0081]
-\layout LyX-Code
-
-    'PulseISICV'             [    0.0226]    [       0]    [  0.0366]
-\layout LyX-Code
-
-    'PulseIni100msISICV'     [    0.0541]    [       0]    [  0.0814]
-\layout LyX-Code
-
-              [1x27 char]    [   28.8953]    [       0]    [ 88.9086]
-\layout LyX-Code
-
-              [1x27 char]    [   26.6785]    [       0]    [ 86.7052]
-\layout LyX-Code
-
-              [1x22 char]    [        30]    [      20]    [     100]
-\layout LyX-Code
-
-              [1x25 char]    [   29.4118]    [166.6667]    [ 96.0512]
-\layout LyX-Code
-
-    'PulsePotAvg'            [  -61.0044]    [-32.7775]    [-34.1518]
-\layout LyX-Code
-
-    'PulsePotMin'            [       NaN]    [     NaN]    [     NaN]
-\layout LyX-Code
-
-    'PulsePotSag'            [       NaN]    [     NaN]    [     NaN]
-\layout LyX-Code
-
-    'PulseSFA'               [    1.1254]    [     NaN]    [  1.3571]
-\layout LyX-Code
-
-    'PulseSpikeAmpDecayDelta'[    4.2764]    [  9.2041]    [ 17.8389]
-\layout LyX-Code
-
-    'PulseSpikeAmpDecayTau'  [    0.2000]    [  0.2000]    [  0.3000]
-\layout LyX-Code
-
-    'PulseSpikeRate'         [   28.0028]    [  2.0002]    [ 89.0089]
-\layout LyX-Code
-
-...
-\layout Standard
-
-Displaying the last few rows gives the highest values:
-\layout LyX-Code
-
->> displayRow(ampDecayTau_sorted_db, 13879:13881)
-\layout LyX-Code
-
-displayRow(ampDecayTau_sorted_db, 13879:13881)
+>> displayRows(sdball, 1:3)
 \layout LyX-Code
 
 ans = 
@@ -1802,60 +2595,182 @@ ans =
     'IniSpontISICV'          [  0.0027]    [  0.0027]    [9.1376e-04]
 \layout LyX-Code
 
-    'IniSpontPotAvg'         [-28.5685]    [-28.5687]    [  -67.7567]
-\layout LyX-Code
-
-    'IniSpontSpikeRate'      [ 69.0069]    [ 69.0069]    [   14.0014]
-\layout LyX-Code
-
-    'PulseISICV'             [  0.0046]    [  0.0046]    [    0.0091]
-\layout LyX-Code
-
-    'PulseIni100msISICV'     [  0.0080]    [  0.0080]    [         0]
-\layout LyX-Code
-
-              [1x27 char]    [ 71.1269]    [ 71.1269]    [   24.4499]
-\layout LyX-Code
-
-              [1x27 char]    [ 71.1427]    [ 71.1427]    [   26.6785]
-\layout LyX-Code
-
-              [1x22 char]    [      80]    [      80]    [        20]
-\layout LyX-Code
-
-              [1x25 char]    [ 70.6357]    [ 70.6357]    [   25.4453]
-\layout LyX-Code
-
-    'PulsePotAvg'            [-30.1705]    [-30.1718]    [  -65.2721]
-\layout LyX-Code
-
-    'PulsePotMin'            [     NaN]    [     NaN]    [       NaN]
-\layout LyX-Code
-
-    'PulsePotSag'            [     NaN]    [     NaN]    [       NaN]
-\layout LyX-Code
-
-    'PulseSFA'               [  0.9792]    [  0.9792]    [    1.0407]
-\layout LyX-Code
-
-    'PulseSpikeAmpDecayDelta'[ -1.2791]    [ -1.2868]    [    1.2201]
-\layout LyX-Code
-
-    'PulseSpikeAmpDecayTau'  [999.6000]    [999.6000]    [      1000]
-\layout LyX-Code
-
-    'PulseSpikeRate'         [ 72.0072]    [ 72.0072]    [   25.0025]
-\layout LyX-Code
-
 ...
-\layout Section
+\layout Standard
 
-Visualization
-\begin_inset LatexCommand \label{sec:Visualization}
+Note that, in the output, database rows appear as columns, and database
+ columns appear as rows.
+ See in above Section 
+\begin_inset LatexCommand \ref{sub:Sorting-the-database}
 
 \end_inset 
 
+ for more example outputs from 
+\family typewriter 
+displayRows
+\family default 
+.
+\layout Standard
 
+
+\family typewriter 
+displayRows
+\family default 
+ returns a cell array of column names justapoxed to a matrix of values.
+ This cell array is intended for display on the screen and for generating
+ reports.
+ The 
+\family typewriter 
+displayRowsTeX
+\family default 
+ method uses output from 
+\family typewriter 
+displayRows
+\family default 
+ to generate a LaTeX table that can be printed or converted to PDF:
+\layout LyX-Code
+
+>> tex_string = 
+\layout LyX-Code
+
+     displayRowsTeX(a_db(:, rows), 
+\layout LyX-Code
+
+                    'Selected rows indicating fast spiking neurons',
+\layout LyX-Code
+
+                    struct('height', '!'));
+\layout LyX-Code
+
+>> string2File(tex_string, 'fast_spiking.tex');
+\layout Standard
+
+With this the LaTeX code to generate a table with the given caption is saved
+ in a text file called 
+\family typewriter 
+fast_spiking.tex
+\family default 
+.
+ This file can then be included from a regular LaTeX document to generate
+ PDF output.
+ See a LaTeX manual on how to do that.
+\layout Standard
+
+An alternative to 
+\family typewriter 
+displayRows
+\family default 
+ is using the rows2Struct method of 
+\family typewriter 
+tests_db
+\family default 
+:
+\layout LyX-Code
+
+>> s = rows2Struct(dball_full, 54023)
+\layout LyX-Code
+
+s = 
+\layout LyX-Code
+
+                            NaF: 500
+\layout LyX-Code
+
+                            NaP: 2
+\layout LyX-Code
+
+                            Kv2: 1
+\layout LyX-Code
+
+                            Kv3: 10
+\layout LyX-Code
+
+                           Kv4f: 40
+\layout LyX-Code
+
+                           KCNQ: 2
+\layout LyX-Code
+
+                             SK: 4
+\layout LyX-Code
+
+                          CaHVA: 0.0300
+\layout LyX-Code
+
+                            HCN: 1
+\layout LyX-Code
+
+                          trial: 7739
+\layout LyX-Code
+
+                          pAcip: 100
+\layout LyX-Code
+
+                  IniSpontISICV: NaN
+\layout LyX-Code
+
+                 IniSpontPotAvg: NaN
+\layout LyX-Code
+
+              IniSpontSpikeRate: 0
+\layout LyX-Code
+
+           IniSpontSpikeRateISI: 0
+\layout LyX-Code
+
+                     PulseISICV: 0.0265
+\layout LyX-Code
+
+             PulseIni100msISICV: 0.0584
+\layout LyX-Code
+
+    PulseIni100msRest1SpikeRate: 40.0089
+\layout LyX-Code
+
+    PulseIni100msRest2SpikeRate: 40.0178
+\layout LyX-Code
+
+         PulseIni100msSpikeRate: 50
+\layout LyX-Code
+
+      PulseIni100msSpikeRateISI: 43.5256
+\layout LyX-Code
+
+                    PulsePotAvg: -57.3737
+\layout LyX-Code
+
+                    PulsePotMin: NaN
+\layout LyX-Code
+
+                    PulsePotSag: NaN
+\layout LyX-Code
+
+                       PulseSFA: 1.1698
+\layout LyX-Code
+
+...
+\layout Standard
+
+This method returns the database contents as a structure array.
+ It is more natural for programming interfaces to use the database contents
+ in a structure array than a cell array.
+ The database columns become field names in the the structure.
+ If multiple rows are requested, the displayed output would not contain
+ the values.
+ The desired row can be reached via indexing (e.g., 
+\family typewriter 
+s(1)
+\family default 
+).
+ For instance, analysis in 
+\family typewriter 
+@cip_trace/getProfileAllSpikes
+\family default 
+ method is done using this method for getting statistics from the 
+\family typewriter 
+spikes_db
+\family default 
+ databases.
 \layout Subsection
 
 Plotting all measure histograms
