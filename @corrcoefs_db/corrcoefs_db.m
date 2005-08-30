@@ -19,7 +19,7 @@ function a_coef_db = ...
 %	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
-%	tests_db, props.
+%	tests_db.
 %
 % General operations on corrcoefs_db objects:
 %   corrcoefs_db		- Construct a new corrcoefs_db object.
@@ -35,7 +35,6 @@ function a_coef_db = ...
 
 if nargin == 0 %# Called with no params
   a_coef_db.col_name = '';
-  a_coef_db.props = struct([]);
   a_coef_db = class(a_coef_db, 'corrcoefs_db', tests_3D_db);
 elseif isa(col_name, 'corrcoefs_db') %# copy constructor?
   a_coef_db = col_name;
@@ -51,7 +50,6 @@ else
   page_names = { 'Coefs', 'Rlo', 'Rup' };
 
   a_coef_db.col_name = col_name;
-  a_coef_db.props = props;
 
   a_coef_db = class(a_coef_db, 'corrcoefs_db', ...
 		    tests_3D_db(test_results, col_names, {}, page_names, id, props));

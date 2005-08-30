@@ -31,7 +31,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,
-%	data_src, ichan, vchan, vgain, igain, treatments, id
+%	data_src, ichan, vchan, vgain, igain, treatments, id.
 %
 % General operations on physiol_cip_traceset objects:
 %   physiol_cip_traceset - Construct a new object.

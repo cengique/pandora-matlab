@@ -26,7 +26,7 @@ function obj = ...
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_fileset,
-%	pulse_time_start, pulse_time_width, props (see above).
+%	pulse_time_start, pulse_time_width.
 %
 % General operations on params_cip_trace_fileset objects:
 %   params_cip_trace_fileset - Construct a new object.

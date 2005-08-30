@@ -48,7 +48,6 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 
 if nargin == 0 %# Called with no params
   obj.neuron_idx = struct([]);
-  obj.props = struct([]);
   obj = class(obj, 'physiol_cip_traceset_fileset', params_tests_dataset);
 elseif isa(cells_filename, 'physiol_cip_traceset_fileset') %# copy constructor?
   obj = cells_filename;
@@ -59,7 +58,7 @@ else
   end
    
   obj.neuron_idx = struct;
-  obj.props = props;
+
   %# read ASCII file, make each line an item in a cell array
   tcell = textread(cells_filename, '%s', 'delimiter', '\n');
   %# Parse each line, organize items by line number.
@@ -158,5 +157,5 @@ else
   %# Create the fileset object
   obj = class(obj, 'physiol_cip_traceset_fileset', ...
 	      params_tests_dataset(list, dt, dy, ...
-	      ['tracesets from ', cells_filename ], props));
+				   ['tracesets from ', cells_filename ], props));
 end

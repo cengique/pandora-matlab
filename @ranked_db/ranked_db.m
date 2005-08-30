@@ -39,7 +39,6 @@ function a_ranked_db = ranked_db(data, col_names, orig_db, crit_db, id, props)
 if nargin == 0 %# Called with no params
    a_ranked_db.orig_db = tests_db;
    a_ranked_db.crit_db = tests_db;
-   a_ranked_db.props = struct([]);
    a_ranked_db = class(a_ranked_db, 'ranked_db', tests_db);
  elseif isa(data, 'ranked_db') %# copy constructor?
    a_ranked_db = data;
@@ -51,7 +50,6 @@ if nargin == 0 %# Called with no params
 
    a_ranked_db.orig_db = orig_db;
    a_ranked_db.crit_db = crit_db;
-   a_ranked_db.props = props;
 
    %# Sort increasing with distances
    a_ranked_db = class(a_ranked_db, 'ranked_db', ...

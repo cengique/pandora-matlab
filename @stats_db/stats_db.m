@@ -26,7 +26,7 @@ function a_stats_db = ...
 %		xTicksPos: 'bottom' means only put x-axis ticks to lowest plot.
 %		
 %   Returns a structure object with the following fields:
-%	tests_3D_db, props.
+%	tests_3D_db.
 %
 % General operations on stats_db objects:
 %   stats_db		- Construct a new stats_db object.
@@ -41,7 +41,6 @@ function a_stats_db = ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 if nargin == 0 %# Called with no params
-  a_stats_db.props = struct([]);
   a_stats_db = class(a_stats_db, 'stats_db', tests_3D_db);
 elseif isa(test_results, 'stats_db') %# copy constructor?
   a_stats_db = test_results;
@@ -50,8 +49,6 @@ else
   if ~ exist('props')
     props = struct([]);
   end
-
-  a_stats_db.props = props;
 
   a_stats_db = class(a_stats_db, 'stats_db', ...
 		     tests_3D_db(test_results, col_names, row_names, ...

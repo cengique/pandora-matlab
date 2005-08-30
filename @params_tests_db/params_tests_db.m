@@ -32,7 +32,6 @@ function obj = params_tests_db(params, param_names, ...
 % Returns a structure object with the following fields:
 %	tests_db
 %	num_params: Number of variable parameters in simulations.
-%	props.
 %
 % General operations on params_tests_db objects:
 %   params_tests_db		- Construct a new params_tests_db object.
@@ -50,7 +49,6 @@ function obj = params_tests_db(params, param_names, ...
 
 if nargin == 0 %# Called with no params
   obj.num_params=0;
-  obj.props = struct([]);
   obj = class(obj, 'params_tests_db', tests_db);
 elseif isa(params, 'params_tests_db') %# copy constructor?
   obj = params;
@@ -62,7 +60,7 @@ elseif isa(param_names, 'tests_db')
   else
     props = struct([]);
   end
-  obj.props = props;
+  %#obj.props = props; % this usage loses props
   obj = class(obj, 'params_tests_db', param_names);
 else
   %# Usage 1
@@ -88,7 +86,6 @@ else
   col_names = [param_names, test_names];
   
   obj.num_params = length(param_names);
-  obj.props = props;
   obj = class(obj, 'params_tests_db', tests_db(data, col_names, {}, id, props));
 end
 

@@ -22,7 +22,7 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 %		invarName: Name of the invariant parameter for this db.
 %		
 %   Returns a structure object with the following fields:
-%	tests_db, page_idx, props.
+%	tests_db, page_idx.
 %
 % General operations on tests_3D_db objects:
 %   tests_3D_db		- Construct a new tests_3D_db object.
@@ -41,7 +41,6 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 
 if nargin == 0 %# Called with no params
   a_3D_db.page_idx = struct([]);
-  a_3D_db.props = struct([]);
   a_3D_db = class(a_3D_db, 'tests_3D_db', tests_db);
 elseif isa(data, 'tests_3D_db') %# copy constructor?
   a_3D_db = data;
@@ -52,7 +51,6 @@ else
    end
 
    a_3D_db.page_idx = makeIdx(page_names);
-   a_3D_db.props = props;
 
    a_3D_db = class(a_3D_db, 'tests_3D_db', ...
 		     tests_db(data, col_names, row_names, id, props));
