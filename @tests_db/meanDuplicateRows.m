@@ -39,7 +39,7 @@ wo_cols = db.data(:, main_cols);
 [sorted idx] = sortrows(wo_cols);
 
 %# Find unique rows
-[unique_rows unique_idx] = sortedUniqueValues(sorted)
+[unique_rows unique_idx] = sortedUniqueValues(sorted);
 
 %# Get the columns back
 sorted = db.data(idx, [main_cols rest_cols]);
@@ -79,7 +79,6 @@ for row_num=1:num_rows
   %# Write row in place
   data(row_num, :) = new_row;
 end
-
 
 if num_cols > num_params
   col_names = {col_names{1:num_params}, 'NumDuplicates', 'RowIndex', ...
