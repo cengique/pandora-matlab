@@ -2,6 +2,7 @@ SHELL=/bin/bash
 EPSFILES=Dataset-classes.eps \
 data-wrapper-diagram.eps \
 DB-classes.eps \
+db-overview.eps \
 plots.eps \
 Profiles.eps \
 
@@ -9,6 +10,7 @@ PSTEXFILES=
 PDFFILES=Dataset-classes.pdf \
 data-wrapper-diagram.pdf \
 DB-classes.pdf \
+db-overview.pdf \
 plots.pdf \
 Profiles.pdf \
 

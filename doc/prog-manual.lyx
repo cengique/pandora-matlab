@@ -72,7 +72,7 @@
 \providecommand{\mycomment}{}
 
 \renewenvironment{lyxcode}
-   {\begin{list}{}{
+   {\small\begin{list}{}{
      \setlength{\leftmargin}{-30pt}
      \setlength{\rightmargin}{\leftmargin}
      \setlength{\listparindent}{0pt}% needed for AMS classes
@@ -1475,6 +1475,46 @@ rows3
 
 which will create a database of neurons that spontaneously fire between
  10--20 Hz.
+\layout Subsubsection
+
+Complex Queries
+\layout Standard
+
+Complex queries can be constructed using results of queries in nested fashion.
+ The following example shows an example of finding all neurons that match
+ any of the neurons in another database and then find the ones that match
+ certain criteria:
+\layout LyX-Code
+
+>> sub_phys_es2 = phys_joined_db(phys_joined_db(:, 'NeuronId') == es2(:,
+ 'NeuronId'), :); 
+\layout LyX-Code
+
+>> displayRows(sub_phys_es2(sub_phys_es2(:, 'Apamin') > 0, 'NeuronId'))
+\layout Standard
+
+Here, the first query returns all rows that match the 
+\family typewriter 
+NeuronId
+\family default 
+s from the 
+\family typewriter 
+es3
+\family default 
+ database.
+ The inner term in the second query finds among these neurons the ones for
+ which apamin blocker data is present.
+ The final enclosing block uses these rows to get a subset of the 
+\family typewriter 
+phys_joined_db
+\family default 
+ with only the 
+\family typewriter 
+NeuronId
+\family default 
+ column.
+ This type query has equivalent computational power to using nested SELECT
+ statements in the SQL language.
 \layout Subsection
 
 Sorting the database according to a measure
@@ -2066,6 +2106,169 @@ on, such as spontaneous period measurements.
 \layout Subsubsection
 
 Making a one-row-per-neuron DB from multiple CIP-level rows
+\layout Standard
+
+Measures of same cell obtained with multiple CIP-levels can be merged to
+ make a single row.
+ Note that, different pharmacological conditions applied to one cell must
+ be kept in a different rows.
+ The following command selects measures from each of the 
+\begin_inset Formula $\{-100,0,40,100,200\}$
+\end_inset 
+
+ CIP levels to be included in the merged database:
+\layout LyX-Code
+
+>> phys_joined_db = 
+\layout LyX-Code
+
+     mergeMultipleCIPsInOne(phys_mean_db(:, [1:13 16:180]), 
+\layout LyX-Code
+
+                            {'_H100pA', 13 + [5:14 19:24 (119 + spike_tests)
+ 165],
+\layout LyX-Code
+
+                             '_0pA', 13 + [1:4 (27 + spike_tests)], 
+\layout LyX-Code
+
+                             '_D40pA', 13 + [5:11 19:24 (73 + spike_tests)
+ 165],
+\layout LyX-Code
+
+                             '_D100pA', 13 + [5:11 14:16 19:24 (73 + spike_tests
+) 
+\layout LyX-Code
+
+                                              (119 + spike_tests) 165],
+ 
+\layout LyX-Code
+
+                             '_D200pA', 13 + [5:11 19:24 (73 + spike_tests)
+ 165]},
+\layout LyX-Code
+
+                            'RowIndex_D200pA')
+\layout Standard
+
+This command operates on the previously averaged database, 
+\family typewriter 
+phys_mean_db
+\family default 
+, where each CIP level only occurs once for each distinct pharmacological
+ setting for each neuron.
+ Note that, we filter-out columns 14 and 15 from the averaged DB while supplying
+ the first argument to 
+\family typewriter 
+mergeMultipleCIPsInOne
+\family default 
+, which are artifacts of the averaging process and need not be included
+ in the merged database.
+ The second argument is a cell array of pairs of a suffix string and a correspon
+ding list of measures for each of the CIP levels in 
+\family typewriter 
+phys_mean_db
+\family default 
+, in increasing order.
+ The merged 
+\family typewriter 
+phys_joined_db
+\family default 
+ looks like this:
+\layout LyX-Code
+
+params_tests_db, averaged tracesets from .../cip_traces_all_axoclamp.txt mult
+ CIP
+\layout LyX-Code
+
+ans = 
+\layout LyX-Code
+
+    num_params: 12
+\layout LyX-Code
+
+      tests_db: [1x1 tests_db]
+\layout LyX-Code
+
+tests_db, averaged tracesets from .../cip_traces_all_axoclamp.txt mult CIP
+\layout LyX-Code
+
+179 rows in database with 258 columns, and 1 pages.
+\layout LyX-Code
+
+Column names:
+\layout LyX-Code
+
+    [  1]    'Cadmium'                           
+\layout LyX-Code
+
+    [  2]    'PicroTx'                           
+\layout LyX-Code
+
+    [  3]    'Apamin'                            
+\layout LyX-Code
+
+    [  4]    'Glycine'                           
+\layout LyX-Code
+
+    [  5]    'KynAcid'                           
+\layout LyX-Code
+
+    [  6]    'TTX'                               
+\layout LyX-Code
+
+    [  7]    'XE991'                             
+\layout LyX-Code
+
+    [  8]    'drug_4AP'                          
+\layout LyX-Code
+
+    [  9]    'EBIO'                              
+\layout LyX-Code
+
+    [ 10]    'Gabazine'                          
+\layout LyX-Code
+
+    [ 11]    'NeuronId'                          
+\layout LyX-Code
+
+    [ 12]    'TracesetIndex'                     
+\layout LyX-Code
+
+    [ 13]    'PulseISICV_H100pA'                 
+\layout LyX-Code
+
+    [ 14]    'PulseIni100msISICV_H100pA'         
+\layout LyX-Code
+
+    [ 15]    'PulseIni100msRest1SpikeRate_H100pA'
+\layout LyX-Code
+
+    [ 16]    'PulseIni100msRest2SpikeRate_H100pA'
+\layout LyX-Code
+
+    [ 17]    'PulseIni100msSpikeRate_H100pA'     
+\layout LyX-Code
+
+    [ 18]    'PulseIni100msSpikeRateISI_H100pA'  
+\layout LyX-Code
+
+    ...
+\layout LyX-Code
+
+    [255]    'PulseSpikeRiseTimeMean_D200pA'     
+\layout LyX-Code
+
+    [256]    'PulseSpikeRiseTimeMode_D200pA'     
+\layout LyX-Code
+
+    [257]    'PulseSpikeRiseTimeSTD_D200pA'      
+\layout LyX-Code
+
+    [258]    'PulseSpontAmpRatio_D200pA'         
+\layout Standard
+
+Note how each measure suffix indicate the CIP-level it belongs.
 \layout Subsubsection
 
 Making a one-row-per-neuron DB from dual CIP-level rows
@@ -2660,11 +2863,11 @@ An alternative to
 \family typewriter 
 displayRows
 \family default 
- is using the rows2Struct method of 
+ is using the 
 \family typewriter 
-tests_db
+tests_db/rows2Struct
 \family default 
-:
+ method:
 \layout LyX-Code
 
 >> s = rows2Struct(dball_full, 54023)
@@ -2764,7 +2967,7 @@ s(1)
 ).
  For instance, analysis in 
 \family typewriter 
-@cip_trace/getProfileAllSpikes
+cip_trace/getProfileAllSpikes
 \family default 
  method is done using this method for getting statistics from the 
 \family typewriter 
