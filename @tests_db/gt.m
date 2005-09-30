@@ -20,4 +20,5 @@ function rows = gt(db, row)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
-rows = compareRows(db, row) > 0;
+[rows comparison] = compareRows(db, row);
+rows = comparison > 0;

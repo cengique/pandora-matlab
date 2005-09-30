@@ -20,5 +20,5 @@ function rows = ge(db, row)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
-comparison = compareRows(db, row);
+[rows comparison] = compareRows(db, row);
 rows = comparison > 0 | comparison == 0;
