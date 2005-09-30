@@ -35,7 +35,7 @@ wcol_names = fieldnames(get(with_db, 'col_idx'));
 if dbsize(db, 2) ~= dbsize(with_db, 2) || ... %# Same number of columns
   ((~ isempty(col_names) || ~ isempty(wcol_names)) && ... %# If any names are specified,
    ~ all(ismember(col_names, wcol_names))) 	          %# make sure they're same 
-  error('Need to have same number of columns with same names in db and with_db.');
+  error('Need to have same columns with same names in db and with_db.');
 end
 
 a_db = set(db, 'data', [ get(db, 'data'); get(with_db, 'data') ] );
