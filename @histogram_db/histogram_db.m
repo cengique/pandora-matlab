@@ -34,6 +34,7 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/20
 
 if nargin == 0 %# Called with no params
+   a_hist_db = struct;
    a_hist_db = class(a_hist_db, 'histogram_db', tests_db);
  elseif isa(col_name, 'histogram_db') %# copy constructor?
    a_hist_db = col_name;
@@ -55,6 +56,7 @@ if nargin == 0 %# Called with no params
    test_results = [bins, hist_results];
    col_names = { col_name, 'histVal' };
 
+   a_hist_db = struct;
    a_hist_db = class(a_hist_db, 'histogram_db', ...
 		     tests_db(test_results, col_names, {}, id, props));
 end
