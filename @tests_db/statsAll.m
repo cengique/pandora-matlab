@@ -31,8 +31,8 @@ end
 a_db = onlyRowsTests(db, ':', tests, ':');
 [means n] = mean(a_db, 1);
 stds = std(a_db, 0, 1);
-test_results = [means; stds; stds ./ n; stds ./ means];
-row_names = {'mean', 'STD', 'SE', 'CV'};
+test_results = [means; stds; stds ./ n; stds ./ means; n];
+row_names = {'mean', 'STD', 'SE', 'CV', 'n'};
 
 %# Original column names
 cols = tests2cols(db, tests);
