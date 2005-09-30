@@ -1,16 +1,16 @@
-function a_plot = matrixPlots(plots, axis_labels, title, props)
+function a_plot = matrixPlots(plots, axis_labels, title_str, props)
 
 % matrixPlots - Superpose multiple plots with common command onto a single axis.
 %
 % Usage:
-% a_plot = matrixPlots(plots, axis_labels, title, props)
+% a_plot = matrixPlots(plots, axis_labels, title_str, props)
 %
 % Description:
 %
 %   Parameters:
 %	plots: Array of plot_abstract or subclass objects.
 %	axis_labels: Cell array of axis label strings (optional, taken from plots).
-%	title: Plot description string (optional, taken from plots).
+%	title_str: Plot description string (optional, taken from plots).
 %	props: A structure with any optional properties passed to the Y stack_plot.
 %		
 %   Returns:
@@ -21,8 +21,8 @@ function a_plot = matrixPlots(plots, axis_labels, title, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/07
 
-if ~ exist('title')
-  title = '';
+if ~ exist('title_str')
+  title_str = '';
 end
 
 if ~ exist('props')
@@ -104,13 +104,13 @@ for y = 1:height
   end
   vert_stacks{y} = plot_stack(horz_stacks, [], 'x', '', horz_props);
 end
-a_plot = plot_stack(vert_stacks, [], 'y', title, props)
+a_plot = plot_stack(vert_stacks, [], 'y', title_str, props)
 
 function good = goodRatio(side1, side2, cost, iter_num)
   %# Try to see if it is within some % of the 3/4 ratio
   ratio = min([side1 side2])/max([side1 side2])
   goldratio = 3/4;
-  margin = .2 * cost;		%# Increasing marginas cost rises
+  margin = .2 * cost;		%# Increasing margin as cost rises
   if ratio > (1 - margin) * goldratio && ratio < (1 + margin) * goldratio
     good = true(1);
   else
