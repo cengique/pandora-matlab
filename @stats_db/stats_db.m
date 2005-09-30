@@ -41,6 +41,7 @@ function a_stats_db = ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 if nargin == 0 %# Called with no params
+  a_stats_db = struct;
   a_stats_db = class(a_stats_db, 'stats_db', tests_3D_db);
 elseif isa(test_results, 'stats_db') %# copy constructor?
   a_stats_db = test_results;
@@ -50,7 +51,7 @@ else
     props = struct([]);
   end
 
-  a_stats_db = class(a_stats_db, 'stats_db', ...
+  a_stats_db = class(struct, 'stats_db', ...
 		     tests_3D_db(test_results, col_names, row_names, ...
 				 page_names, id, props));
 end
