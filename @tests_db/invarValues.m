@@ -13,7 +13,7 @@ function a_tests_3D_db = invarValues(db, cols, main_cols)
 % for each such combination in a page of a three-dimensional vector; 
 % i.e. a tests_3D_db. Each matrix page will contain an additional 
 % column for the original row index for the invariant values. This
-% index can be used to find the test values that are omitted.
+% index can be used to find the test columns that were omitted.
 %
 %   Parameters:
 %	db: A tests_db object.
@@ -44,7 +44,7 @@ wo_cols = db.data(:, ~log_cols);
 [sorted idx] = sortrows(wo_cols);
 
 %# Find unique rows
-[unique_rows unique_idx] = sortedUniqueValues(sorted);
+[unique_rows unique_idx] = sortedUniqueValues(sorted)
 
 %# Get the columns back
 sorted = db.data(idx, :);
@@ -60,13 +60,8 @@ if mod(size(sorted, 1), num_rows) ~= 0
 
   main_cols = tests2cols(db, main_cols);
 
-  %# Assert main_cols are included in cols
-  if ~ all(ismember(main_cols, cols))
-    error('main_cols should be included in cols.');
-  end
-
   %# Sort and keep the unique values of main_cols
-  unique_main_vals = sort(uniqueValues(sorted(:, main_cols)));
+  unique_main_vals = sortrows(uniqueValues(sorted(:, main_cols)));
   if verbose
     unique_main_vals
   end
@@ -94,10 +89,15 @@ for row_num=1:num_rows
     %# Match each page entry to uniques
     unique_index = 1;
     for page_index = 1:page_size
-      unique_index = find(page_main_vals(page_index) == unique_main_vals);
+      unique_index = findVectorInMatrix(unique_main_vals, ...
+					page_main_vals(page_index, :))
 
       %# Check for errors
       if num_uniques - unique_index < page_size - page_index
+	num_uniques
+	unique_index
+	page_size
+	page_index
 	page_main_vals
 	error('Fatal: cannot match within page values of main_cols to uniques?');
       end
