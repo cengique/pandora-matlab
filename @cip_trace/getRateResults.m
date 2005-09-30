@@ -20,6 +20,7 @@ function results = getRateResults(a_cip_trace, a_spikes)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/30
 
 %# Spike rates [Hz] in total spikes over time method for all periods
+ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
 %# Whole periods first
 results.IniSpontSpikeRate = ...
@@ -51,12 +52,10 @@ results.RecSpont1SpikeRate = ...
 results.RecSpont2SpikeRate = ...
     spikeRate(a_spikes, periodRecSpont2(a_cip_trace));
 
-if results.IniSpontSpikeRate ~= 0 
-  results.RecIniSpontRateRatio = ...
-      results.RecSpont1SpikeRate / results.IniSpontSpikeRate;
-else
-  results.RecIniSpontRateRatio = NaN;
-end
+%# Add one to both num and denum to avoid Inf and NaNs, 
+%# and still have discernible results
+results.RecIniSpontRateRatio = ...
+    (results.RecSpont1SpikeRate + 1) / (results.IniSpontSpikeRate + 1);
 
 %# Whole pulse period rate methods compared
 results.PulseSpikeRateISI = ...
@@ -75,3 +74,14 @@ results.PulseSFA = SFA(a_spikes, periodPulse(a_cip_trace));
 			       periodPulse(a_cip_trace));
 results.PulseSpikeAmpDecayTau = a_tau;
 results.PulseSpikeAmpDecayDelta = a_inf;
+
+%# Recovery period
+recov_spikes = withinPeriod(a_spikes, periodRecSpont(a_cip_trace));
+if length(recov_spikes.times) > 1
+  results.RecSpontFirstSpikeTime = recov_spikes.times(1) * ms_factor;
+  recov_ISIs = getISIs(recov_spikes);
+  results.RecSpontFirstISI = recov_ISIs(1) * ms_factor;
+else
+  results.RecSpontFirstSpikeTime = NaN;
+  results.RecSpontFirstISI = NaN;
+end

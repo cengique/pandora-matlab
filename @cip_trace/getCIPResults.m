@@ -21,6 +21,7 @@ function results = getCIPResults(a_cip_trace, a_spikes)
 
 %# convert all to ms/mV
 mV_factor = 1e3 * getDy(a_cip_trace);
+ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
 results.IniSpontPotAvg = calcAvg(a_cip_trace.trace, ...
 				 periodIniSpont(a_cip_trace));
@@ -29,13 +30,39 @@ results.RecSpontPotAvg = calcRecSpontPotAvg(a_cip_trace) * mV_factor;
 results.RecIniSpontPotRatio = results.RecSpontPotAvg / results.IniSpontPotAvg;
 
 %# Only if no spikes during pulse period
-pulseSpikes = withinPeriod(a_spikes, periodPulse(a_cip_trace));
-if length(pulseSpikes.times) == 0
+pulse_period = periodPulse(a_cip_trace);
+pulse_spikes = withinPeriod(a_spikes, pulse_period);
+if length(pulse_spikes.times) == 0
   [min_val, min_idx, sag_val] = calcPulsePotSag(a_cip_trace);
   results.PulsePotMin = min_val * mV_factor;
+  results.PulsePotMinTime = (get(pulse_period, 'start_time') + min_idx) * ms_factor;
   results.PulsePotSag = sag_val * mV_factor;
+  if ~ isnan(min_idx)
+    results.PulsePotTau = ...
+	memTimeConstant(a_cip_trace, min_idx, min_val) * ms_factor;
+  else
+    results.PulsePotTau = NaN;
+  end
 else
   results.PulsePotMin = NaN;
+  results.PulsePotMinTime = NaN;
   results.PulsePotSag = NaN;
+  results.PulsePotTau = NaN;
 end
-%# TODO: sag time constant?
+
+%# membrane time constant from sag
+function time_constant = memTimeConstant(a_cip_trace, min_idx, min_val)
+  pulse_data = get(withinPeriod(a_cip_trace, periodPulse(a_cip_trace)), 'data');
+  
+  rest_val = pulse_data(1);
+  drop_val = rest_val - min_val;
+
+  decay_constant_threshold = rest_val - drop_val * (1 - exp(-1));
+
+  recover_times = find(pulse_data(1:min_idx) > decay_constant_threshold);
+  
+  if length(recover_times) > 0
+    time_constant = recover_times(end);
+  else
+    time_constant = NaN;
+  end
