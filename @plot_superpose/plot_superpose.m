@@ -1,9 +1,9 @@
-function obj = plot_superpose(plots, axis_labels, title, props)
+function obj = plot_superpose(plots, axis_labels, title_str, props)
 
 % plot_superpose - Multiple plot_abstract objects superposed on the same axis.
 %
 % Usage:
-% obj = plot_superpose(plots, axis_labels, title, props)
+% obj = plot_superpose(plots, axis_labels, title_str, props)
 %
 % Description:
 %   Subclass of plot_abstract. Contains multiple plot_abstract objects
@@ -17,7 +17,7 @@ function obj = plot_superpose(plots, axis_labels, title, props)
 %   Parameters:
 %	plots: Cell array of plot_abstract or subclass objects.
 %	axis_labels: Cell array of axis label strings.
-%	title: Plot description string.
+%	title_str: Plot description string.
 %	props: A structure with any optional properties (passed to plot_abstract).
 %		
 %   Returns a structure object with the following fields:
@@ -49,10 +49,39 @@ else
      props = struct([]);
    end
 
+   if ~ exist('axis_labels')
+     axis_labels = [];
+   end
+
+   if ~ exist('title_str')
+     title_str = '';
+   end
+
+   if iscell(plots)
+     plots = cell2num(plots);
+   end
+
   obj.plots = plots;
   obj.props = props;
 
-  obj = class(obj, 'plot_superpose', plot_abstract({}, axis_labels, title, ...
+  %# Check if contained plots feature axis_labels
+  for plot_num=1:length(plots)
+    if iscell(plots)
+      plot_axis_labels = plots{plot_num}.axis_labels;
+    else
+      plot_axis_labels = plots(plot_num).axis_labels;
+    end
+    if ~isempty(plot_axis_labels) 
+      if ~isempty(plot_axis_labels{1})
+	axis_labels{1} = plot_axis_labels{1};
+      end
+      if ~isempty(plot_axis_labels{2})
+	axis_labels{2} = plot_axis_labels{2};
+      end
+    end
+  end
+
+  obj = class(obj, 'plot_superpose', plot_abstract({}, axis_labels, title_str, ...
 						   {}, '', props));
 end
 
