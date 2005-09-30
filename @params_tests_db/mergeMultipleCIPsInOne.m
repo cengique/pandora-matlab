@@ -48,9 +48,16 @@ num_pages = dbsize(cip_fold_db, 3);
 page_suffixes = {names_tests_cell{1:2:end}};
 tests_cell = {names_tests_cell{2:2:end}};
 
+%#end
+%# Rewrite and convert from column numbers to test names for using in cip_fold_db
+orig_test_names = fieldnames(get(db, 'col_idx'));
+for page_num = 1:length(tests_cell)
+  tests_cell{page_num} = { orig_test_names{tests2cols(db, tests_cell{page_num})} };
+end
+
 if length(page_suffixes) ~= num_pages
-  error(['Number of items in names_tests_cell does not match with ' num2str(num_pages) ...
-	 ' unique CIP valus in the database.']);
+  error(['Number of items in names_tests_cell does not match with ' ...
+	 num2str(num_pages) ' unique CIP values in the database.']);
 end
 
 %# Merge the selected tests from each page
