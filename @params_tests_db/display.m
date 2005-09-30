@@ -6,8 +6,5 @@ function s = display(t)
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 struct(t)
 
-disp(['Optional properties of ' class(t) ':']);
-struct(t.props)
-
 display(t.tests_db);
 
