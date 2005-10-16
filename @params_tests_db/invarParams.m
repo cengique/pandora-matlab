@@ -21,7 +21,7 @@ function p_t3ds = invarParams(a_db)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params; 
 
 p_t3ds = cell(1, num_params);
 for param_num=1:num_params

@@ -25,7 +25,7 @@ function [pt_hists, p_stats] = paramsTestsHistsStats(a_db, p_t3ds)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params;
 
 pt_hists = cell(num_tests, num_params);
 p_stats = cell(1, num_params);
