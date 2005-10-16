@@ -96,6 +96,7 @@ function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
 		pulse = 0;
 	else
     	bias=round(median(current(1:on-10)));
+	%# If we don't round here, it may be more accurate -CG
     	pulse = round(maxc-minc) * ciptype;
 %    	pulse = round(median(current(on+10:off-10)) - bias);
 %		sprintf('raw pulse: %g', pulse)
@@ -107,7 +108,7 @@ function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
 			pulse = tvec(2);
 		elseif pulseidx == length(tvec)
 			pulse = tvec(pulseidx - 1);
-		elseif tvec(pulseidx + 1) - pulse > pulse - tvec(pulseidx - 1)
+		elseif abs(tvec(pulseidx + 1) - pulse) > abs(pulse - tvec(pulseidx - 1))
 			pulse = tvec(pulseidx - 1);
 		else
 			pulse = tvec(pulseidx + 1);
