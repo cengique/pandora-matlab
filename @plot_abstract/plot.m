@@ -35,8 +35,8 @@ else
   [ left_side bottom_side width height ] = deal(0, 0, 1, 1);
 end
 
+a_plot_props = get(a_plot, 'props');
 if ~isnan(layout_axis)
-  a_plot_props = get(a_plot, 'props');
   plot_axis_labels = get(a_plot, 'axis_labels');
   %# Adjust the axis according to decorations
   if (~isempty(plot_axis_labels) && ~isempty(plot_axis_labels{1})) && ...
@@ -69,7 +69,7 @@ if ~isnan(layout_axis)
 end
 
 if isfield(a_plot_props, 'LineStyleOrder')
-  set(gca, 'LineStyleOrder', {a_plot_props.LineStyleOrder});
+  set(gca, 'LineStyleOrder', a_plot_props.LineStyleOrder);
   set(gca, 'NextPlot', 'replacechildren');
 end
 
