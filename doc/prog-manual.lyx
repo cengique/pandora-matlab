@@ -345,7 +345,7 @@ s.
  However, it is recommended that you familiarize yourself with the basic
  organization of the classes before proceeding into more complex tasks.
  Section 
-\begin_inset LatexCommand \pageref{sec:Visualization}
+\begin_inset LatexCommand \ref{sec:Visualization}
 
 \end_inset 
 
@@ -1862,6 +1862,42 @@ Second, after the database is loaded, one can filter-out unwanted CIP-level
 \layout LyX-Code
 
                     phys_dball_big(:, 'pAcip') == 200, :)
+\layout Standard
+
+This operation can be simplified to take advantage of complex query form:
+\layout LyX-Code
+
+>> phys_dball_limitedcip = 
+\layout LyX-Code
+
+     phys_dball_big(phys_dball_big(:, 'pAcip') == [-100; 0; 50; 100; 200])
+ 
+\layout Standard
+
+which will choose rows with current levels matching any of the given values.
+\layout Subsubsection
+
+Adding new columns calculated from existing measures
+\layout Standard
+
+Some measures can be deduced from measures collected from raw data.
+ These do not need to be calculated at time of loading the raw data, but
+ rather can be added to the database later.
+ Some measures must be added later because they may be composed of measurements
+ from multiple traces or averages.
+ Here is an example for adding a new measure:
+\layout LyX-Code
+
+>> phys_db_limitedcip_addedcols = 
+\layout LyX-Code
+
+     addColumn(phys_db_limitedcip, 'PulsePotSagDivMin', 
+\layout LyX-Code
+
+               phys_db_limitedcip(:, 'PulsePotSag').data ./ 
+\layout LyX-Code
+
+               phys_db_limitedcip(:, 'PulsePotMin').data)
 \layout Subsubsection
 
 Averaging multiple traces of same neuron with same CIP-level and (pharmacologica
