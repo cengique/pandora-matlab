@@ -36,7 +36,7 @@ end
 %# If multiple rows in row
 if size(row, 1) > 1
   %# recurse
-  rows = compareRows(db, row(1, 1)) & compareRows(db, row(2:end, 1));
+  rows = compareRows(db, row(1, :)) & compareRows(db, row(2:end, :));
   compared = NaN;
 else
   %# Find doesn't work in two dimension comparisons
@@ -48,5 +48,5 @@ else
   %# - subtract from db
   compared = db.data - row_matx;
 
-  rows = sum(compared, 2) ~= 0;
+  rows = abs(sum(compared, 2)) > eps(0);
 end
