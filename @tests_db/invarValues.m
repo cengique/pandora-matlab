@@ -44,7 +44,7 @@ wo_cols = db.data(:, ~log_cols);
 [sorted idx] = sortrows(wo_cols);
 
 %# Find unique rows
-[unique_rows unique_idx] = sortedUniqueValues(sorted)
+[unique_rows unique_idx] = sortedUniqueValues(sorted);
 
 %# Get the columns back
 sorted = db.data(idx, :);
@@ -90,7 +90,7 @@ for row_num=1:num_rows
     unique_index = 1;
     for page_index = 1:page_size
       unique_index = findVectorInMatrix(unique_main_vals, ...
-					page_main_vals(page_index, :))
+					page_main_vals(page_index, :));
 
       %# Check for errors
       if num_uniques - unique_index < page_size - page_index
