@@ -38,4 +38,6 @@ if dbsize(db, 2) ~= dbsize(with_db, 2) || ... %# Same number of columns
   error('Need to have same columns with same names in db and with_db.');
 end
 
-a_db = set(db, 'data', [ get(db, 'data'); get(with_db, 'data') ] );
+%# concatenate and preserve column order of first DB
+a_db = set(db, 'data', [ get(db, 'data'); ...
+			get(onlyRowsTests(with_db, ':', col_names'), 'data') ] );
