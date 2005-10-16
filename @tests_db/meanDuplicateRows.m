@@ -21,9 +21,10 @@ function a_tests_db = meanDuplicateRows(db, main_cols, rest_cols)
 %	rest_cols: Vector of columns to be averaged for duplicate main_cols.
 %		
 %   Returns:
-%	a_tests_db: A tests_3D_db object of organized values.
+%	a_tests_db: The db object of with the means on page 1 
+%		    and standard deviations on page 2.
 %
-% See also: tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair
+% See also: tests_db/mean, tests_db/std, sortedUniqueValues
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
@@ -64,20 +65,27 @@ for row_num=1:num_rows
     rows = unique_idx(row_num):size(sorted, 1);
   end
 
-  rows_db = onlyRowsTests(sorted_db, rows, ':');
-  new_row = mean(rows_db);
+  rows_db = ...
+      onlyRowsTests(sorted_db, rows, ...
+		    (length(main_cols) + 1):(length(main_cols) + length(rest_cols)));
+  no_mean_rows_db = onlyRowsTests(sorted_db, rows(1), 1:length(main_cols));
+  new_row = [ get(no_mean_rows_db, 'data'), mean(rows_db) ];
+  new_std = [ get(no_mean_rows_db, 'data'), std(rows_db) ];
   new_vals = [length(rows), idx(rows(1))];
   %#displayRows(rows_db(:, 'NeuronId'))
 
   %# Insert new values as parameters
   if num_cols > num_params
     new_row = [new_row(1:num_params) new_vals new_row((num_params + 1):num_cols)];
+    new_std = [new_std(1:num_params) new_vals new_std((num_params + 1):num_cols)];
   else
     new_row = [new_row new_vals];
+    new_std = [new_std new_vals];
   end
 
   %# Write row in place
-  data(row_num, :) = new_row;
+  data(row_num, :, 1) = new_row;
+  data(row_num, :, 2) = new_std;
 end
 
 if num_cols > num_params
