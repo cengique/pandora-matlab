@@ -85,7 +85,7 @@ else
 
   %# Read parameters if specified
   if isfield(props, 'param_row_filename')
-    param_rows = dlmread(props.param_row_filename, ' ');
+    param_rows = dlmread(props.param_row_filename);
     props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); %# strip off excess columns
 
     %# Check for names
