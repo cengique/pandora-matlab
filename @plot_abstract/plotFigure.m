@@ -1,4 +1,4 @@
-function handle = plotFigure(a_plot)
+function handle = plotFigure(a_plot, title_str)
 
 % plotFigure - Draws this plot alone in a new figure window.
 %
@@ -9,6 +9,7 @@ function handle = plotFigure(a_plot)
 %
 %   Parameters:
 %	a_plot: A plot_abstract object, or a subclass object.
+%	title_str: (Optional) String to append to plot title.
 %		
 %   Returns:
 %	handle: Handle of new figure.
@@ -18,37 +19,53 @@ function handle = plotFigure(a_plot)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
-handle = figure;
-title = get(a_plot, 'title');
-set(handle, 'Name', title);
-
-if isempty(title)
-  titleheight = 0;
-else
-  titleheight = 0.05;
+if ~ exist('title_str')
+  title_str = '';
 end
 
-if isfield(a_plot.props, 'border')
-  border = a_plot.props.border;
+s = size(a_plot);
+if max(s) > 1
+  %# Column vector
+  if s(1) > s(2)
+    %# Make a vertical stack plot (default)
+    orientation = 'y';
+  else
+    orientation = 'x';		%# or horizontal
+  end
+  plotFigure(plot_stack(num2cell(a_plot), [], orientation, title_str));
 else
-  border = 0.15;
-end
+  handle = figure;
+  title = [ get(a_plot, 'title') title_str ];
+  set(handle, 'Name', title);
 
-axis_labels = get(a_plot, 'axis_labels')
-if length(axis_labels) < 1 || isempty(axis_labels(1))
-  left_border = 0;
-else
-  left_border = border / 2;
-end
+  if isempty(title)
+    titleheight = 0;
+  else
+    titleheight = 0.05;
+  end
 
-if length(axis_labels) < 2 || isempty(axis_labels(2))
-  bottom_border = 0;
-else
-  bottom_border = border / 2;
-end
+  if isfield(a_plot.props, 'border')
+    border = a_plot.props.border;
+  else
+    border = 0.15;
+  end
 
-%# Put default borders: less border for top title, no border on right side
-position = [left_border, bottom_border, ...
+  axis_labels = get(a_plot, 'axis_labels')
+  if length(axis_labels) < 1 || isempty(axis_labels(1))
+    left_border = 0;
+  else
+    left_border = border / 2;
+  end
+
+  if length(axis_labels) < 2 || isempty(axis_labels(2))
+    bottom_border = 0;
+  else
+    bottom_border = border / 2;
+  end
+
+  %# Put default borders: less border for top title, no border on right side
+  position = [left_border, bottom_border, ...
 	      1 - left_border - border/4, (1 - titleheight - bottom_border)]
-plot(a_plot, position);
-decorate(a_plot);
+  plot(a_plot, position);
+  decorate(a_plot);
+end
