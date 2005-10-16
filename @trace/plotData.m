@@ -22,14 +22,6 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-time = (1:length(t.data)) * t.dt * 1e3; %# in ms
-
-if isfield(t.props, 'y_label')
-  ylabel = t.props.y_label;
-else
-  ylabel = 'voltage [mV]';
-end
-
 %# If input is an array, then return array of plots
 num_dbs = length(t);
 if num_dbs > 1 
@@ -39,6 +31,14 @@ if num_dbs > 1
     a_plot(plot_num) = plotData(t(plot_num), title_str);
   end
   return;
+end
+
+time = (1:length(t.data)) * t.dt * 1e3; %# in ms
+
+if isfield(t.props, 'y_label')
+  ylabel = t.props.y_label;
+else
+  ylabel = 'voltage [mV]';
 end
 
 %# Remove all '_' characters, because they interfere with TeX interpretation
