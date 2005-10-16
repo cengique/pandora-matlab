@@ -1,5 +1,6 @@
 TODO
 --------------------
+- put ItemIndex as param
 - improve visualization of cip_traces
 - create custom class to eliminate high-variance neurons? how to get sdb?
 - perl doclet generator
@@ -17,18 +18,19 @@ TODO
 	+ rename displayRow to displayRows
 	+ fix SE calc
 - for version 0.8:
-	- move props to bottom of params_tests_dataset and tests_db
+	+ move props to bottom of params_tests_dataset and tests_db
+	+ remove redundant props from subclasses
 - for version 1.0:
 	- add dataset connection to tests_db 
 		- put it in props for now?
 		- make version-aware loader?
 	- put params in dataset, params_results_profile
-	- remove redundant props from subclasses
+
 - fix fillederrorbar with new Matlab
 - Make tests_db save and load its dataset on request
 	- overload saveobj and loadobj methods
 - tests_db
-	- add arithmetic operations that operate on the data matrix
+	+ add arithmetic operations that operate on the data matrix [can add columns]
 	+ add horzcat, vertcat methods to concat rows or columns (!)
 	+ print column numbers in display
 	+ define all operations as row logical functions
