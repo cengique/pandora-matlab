@@ -33,7 +33,8 @@ num_rows = dbsize(a_db, 1);
 first_row = [ num2str(num_rows) ' ' num2str(a_db.num_params) sprintf('\n') ];
 
 %# Rest contains param values and zeros appended at the end of row
-data_rows = [num2str( [get(a_db, 'data'), zeros(num_rows, 1) ]), ...
+data_rows = [num2str( [get(onlyRowsTests(a_db, ':', 1:a_db.num_params), 'data'), ...
+			   zeros(num_rows, 1) ]), ...
 	     repmat(sprintf('\n'), num_rows, 1) ];
 
 data_str = reshape(data_rows', 1, prod(size(data_rows)));
