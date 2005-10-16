@@ -50,8 +50,9 @@ if isfield(row_idx, 'max')
   highs = data(row_idx.max, :, :) - data(1, :, :);
 end
 
-if isfield(a_stats_db.props, 'axis_limits')
-  axis_limits = a_stats_db.props.axis_limits;
+a_stats_db_props = get(a_stats_db, 'props');
+if isfield(a_stats_db_props, 'axis_limits')
+  axis_limits = a_stats_db_props.axis_limits;
 else
   axis_limits = [];
 end
@@ -59,7 +60,7 @@ end
 col1name = col_names{col1};
 col2name = col_names{col2};
 
-props = mergeStructs(props, a_stats_db.props);
+props = mergeStructs(props, a_stats_db_props);
 
 a_plot = plot_errorbar(data(1, col1, :), data(1, col2, :), ...
 		       lows(1, col2, :), highs(1, col2, :), '', ...
