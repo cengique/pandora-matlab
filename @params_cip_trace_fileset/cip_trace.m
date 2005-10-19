@@ -19,13 +19,24 @@ function a_cip_trace = cip_trace(fileset, file_index)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
-filename = getItem(fileset, file_index);
-fullname = fullfile(get(fileset, 'path'), filename);
+if isa(file_index, 'tests_db')
+  a_db = file_index;
+  col_data = get(onlyRowsTests(a_db, ':', 'ItemIndex'), 'data');
+  num_rows = dbsize(a_db, 1);
+  a_cip_trace = repmat(cip_trace, 1, num_rows);
+  for row_num = 1:num_rows
+    %# recurse
+    a_cip_trace(row_num) = ...
+	cip_trace(fileset, col_data(row_num, 1));
+  end
+else
+  filename = getItem(fileset, file_index);
+  fullname = fullfile(get(fileset, 'path'), filename);
 
-%# Load a cip_trace object
-a_cip_trace = ...
-    cip_trace(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
-	      fileset.pulse_time_start, fileset.pulse_time_width, ...
-	      [get(fileset, 'id') '(' num2str(file_index) ')'], ...
-	      get(fileset, 'props'));
-
+  %# Load a cip_trace object
+  a_cip_trace = ...
+      cip_trace(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
+		fileset.pulse_time_start, fileset.pulse_time_width, ...
+		[get(fileset, 'id') '(' num2str(file_index) ')'], ...
+		get(fileset, 'props'));
+end
