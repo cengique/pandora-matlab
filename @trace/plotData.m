@@ -6,6 +6,8 @@ function a_plot = plotData(t, title_str)
 % a_plot = plotData(t, title_str)
 %
 % Description:
+%   If t is a vector of traces, returns a vector of plot objects.
+%
 %   Parameters:
 %	t: A trace object.
 %
@@ -13,7 +15,7 @@ function a_plot = plotData(t, title_str)
 %	a_plot: A plot_abstract object that can be visualized.
 %	title_str: (Optional) String to append to plot title.
 %
-% See also: trace, plot_abstract
+% See also: trace, trace/plot, plot_abstract
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/17
