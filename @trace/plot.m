@@ -15,7 +15,7 @@ function h = plot(t, title_str)
 %
 % See also: trace, plot_abstract
 %
-% %Id$
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 
 if ~ exist('title_str')

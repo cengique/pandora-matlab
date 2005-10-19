@@ -28,7 +28,7 @@ if ~ exist('title_str')
 end
 
 if ~ exist('props')
-  props = struct([]);
+  props = struct;
 end
 
 col1 = tests2cols(a_db, test1);
