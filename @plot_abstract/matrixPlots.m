@@ -85,8 +85,8 @@ end
 width = max([side1 side2])
 height = min([side1 side2])
 
-horz_props = struct('titlesPos', 'none', ...
-		    'yLabelsPos', 'left', 'rotateYLabel', 30);
+%# 'titlesPos', 'none',
+horz_props = struct('yLabelsPos', 'left', 'rotateYLabel', 30);
 
 %# Create matrix of plots
 vert_stacks = cell(1, height);
