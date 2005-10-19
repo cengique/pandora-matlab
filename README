@@ -21,3 +21,8 @@ v0_6b: Cengiz Gunay & Jeremy Edgerton, 2005/03/14. Beta version that can
 
 v0_7b: Cengiz Gunay, 2005/05/04. Beta version that analyzes each spike individually
 	and uses improved threshold finding method.
+
+v0_8b: Cengiz Gunay, 2005/10/19. Beta version that has improved analysis and 
+	plotting functionality, and documentation. Database object format
+	has changed, which makes this revision binary incompatible with
+	earlier created DB and dataset objects.
