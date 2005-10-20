@@ -38,6 +38,7 @@ else
   title = [ get(a_plot, 'title') title_str ];
   set(handle, 'Name', title);
 
+
   if isempty(title)
     titleheight = 0;
   else
@@ -65,7 +66,12 @@ else
 
   %# Put default borders: less border for top title, no border on right side
   position = [left_border, bottom_border, ...
-	      1 - left_border - border/4, (1 - titleheight - bottom_border)]
-  plot(a_plot, position);
+	      1 - left_border - border/4, (1 - titleheight - bottom_border)];
+
+  %# Save plot_abstract object in the figure
+  set(handle, 'UserData', a_plot);
+  set(handle, 'ResizeFcn', ['clf; plot(get(gcf, ''UserData''), [' num2str(position) '])']);
+
+  %#plot(a_plot, position);
   decorate(a_plot);
 end

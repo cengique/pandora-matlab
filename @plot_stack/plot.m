@@ -43,12 +43,20 @@ num_plots = length(a_plot.plots);
 scale_down = .9;
 border = 1;
 
-%# Find the width of a regular y-axis label (DOESN'T WORK!)
-%#ticklabel = text(0, 0, 'xxx', 'Visible', 'off');
-%#tickextent = get(ticklabel, 'Extent');
+%# Find the width of a regular y-axis label 
+old_units = get(gca, 'Units');
+set(gca, 'Units', 'points');
+axis_pos_pt = get(gca, 'Position')
+axis_width_pt = axis_pos_pt(3)
+axis_height_pt = axis_pos_pt(4)
 
 %# Fixed size for ticks and labels
-decosize = 0.04;
+%# Assume 10 pt font
+decosize = 10 * height / axis_height_pt;
+%#decosize = 0.04;
+
+%#ticklabel = text(0, 0, 'xxx', 'Visible', 'off');
+%#tickextent = get(ticklabel, 'Extent');
 
 %# Handle special label and tick placements to create maximal plotting area
 if isfield(a_plot.props, 'xLabelsPos') 
