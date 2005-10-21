@@ -1,13 +1,13 @@
 
 function [times, peaks, n] = ...
-      findFilteredSpikes(t, a_period, plotit)
+      findFilteredSpikes(t, a_period, plotit, minamp)
 
 % findFilteredSpikes - Runs a frequency filter over the data and then 
 %			finds all peaks using findspikes.
 %
 % Usage:
 % [times, peaks, n] = 
-%	findFilteredSpikes(t, a_period, plotit)
+%	findFilteredSpikes(t, a_period, plotit, minamp)
 %
 % Description:
 %   Runs a 50-300 Hz band-pass filter over the data and then calls findspikes.
@@ -21,6 +21,8 @@ function [times, peaks, n] = ...
 %		t: Trace object
 %		a_period: Period of interest.
 %		plotit: Plots the spikes found if 1.
+%		minamp (optional): minimum amplitude above baseline that must be reached.
+%			--> adjust as necessary to discriminate spikes from EPSPs.
 %	Returns:
 %		times: The times of spikes [dt].
 %		peaks: The peaks corresponding to the times of spikes.
@@ -32,11 +34,17 @@ function [times, peaks, n] = ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/03/08
 % Modified:
 % - Adapted to the trace object, CG 2004/07/30
+% - minamp parameter added, JRE 2005/10/10
+
+if nargin < 4
+	up_threshold = 10;	% default.
+else
+	up_threshold = minamp;
+end
 
 s = load('spike_filter_50_3000Hz_ChebII.mat');
 fields = fieldnames(s);
 fd = getfield(s, fields{1});	%# Assuming there's only one element
-up_threshold = 10;
 dn_threshold = -2;
 
 %# Scale to mV for spike finder
@@ -96,9 +104,9 @@ for i=1:n
     %# Check again if new time is very close to last time
     if real_time < (lasttime + 3e-3 / t.dt)
       if plotit ~= 0 & plotit ~= 2
-	disp(sprintf('Skip real %f from filtered %f, orig %f', ...
-		     real_time, times(i), old_time));
-      end
+  	disp(sprintf('Skip real %f from filtered %f, orig %f', ...
+  		     real_time, times(i), old_time));
+     end
       continue;
     end
 
