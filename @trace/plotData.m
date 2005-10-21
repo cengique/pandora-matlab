@@ -46,7 +46,11 @@ end
 %# Remove all '_' characters, because they interfere with TeX interpretation
 
 if isfield(t.props, 'quiet') 
-  the_title = title_str;
+  if isempty(title_str)
+    the_title = t.id;
+  else
+    the_title = title_str;
+  end
 else
   class_name = strrep(class(t), '_', ' ');
   the_title = [ sprintf('%s: %s', class_name, t.id) title_str ];
