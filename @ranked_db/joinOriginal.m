@@ -28,6 +28,9 @@ end
 crit_cols = fieldnames(get(a_ranked_db.crit_db, 'col_idx'));
 %# Remove the RowIndex and ItemIndex columns, if exists
 all_test_cols(1:length(crit_cols)) = true(1);
+if isa(a_ranked_db.crit_db, 'params_tests_db')
+  all_test_cols(1:get(a_ranked_db.crit_db, 'num_params')) = false;
+end
 if any(ismember(crit_cols, 'RowIndex'))
   all_test_cols(tests2cols(a_ranked_db.crit_db, 'RowIndex')) = false(1);
 end
