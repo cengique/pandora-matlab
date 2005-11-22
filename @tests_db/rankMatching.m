@@ -35,6 +35,11 @@ else
 end
 
 crit_tests = fieldnames(crit_db.col_idx);
+if isa(crit_db, 'params_tests_db')
+  %# If params_tests_db ignore params
+  crit_tests = {crit_tests{(get(crit_db, 'num_params') + 1):dbsize(crit_db, 2)}};
+end
+
 itemIndices = strmatch('ItemIndex', crit_tests);
 
 %# Strip out the NeuronId, RowIndex, and ItemIndex columns from criterion db
