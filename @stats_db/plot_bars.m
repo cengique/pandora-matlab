@@ -29,7 +29,7 @@ if ~ exist('title_str')
 end
 
 %# Setup lookup tables
-col_names = fieldnames(get(a_stats_db, 'col_idx'));
+col_names = strrep(fieldnames(get(a_stats_db, 'col_idx')), '_', ' ');
 data = get(a_stats_db, 'data');
 row_idx = get(a_stats_db, 'row_idx');
 num_cols = dbsize(a_stats_db, 2);
