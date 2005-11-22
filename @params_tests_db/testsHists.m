@@ -1,15 +1,17 @@
-function t_hists = testsHists(a_db)
+function t_hists = testsHists(a_db, num_bins)
 
 % testsHists - Calculates histograms for all tests and returns them in a cell array.
 %
 % Usage:
-% t_hists = testsHists(a_db)
+% t_hists = testsHists(a_db, num_bins)
 %
 % Description:
 %   Skips the 'ItemIndex' test.
 %
 %   Parameters:
 %	a_db: A tests_db object.
+%	num_bins: Number of histogram bins (Optional, default=100), or
+%		  vector of histogram bin centers.
 %		
 %   Returns:
 %	t_hists: An array of histograms for each test in a_db.
@@ -36,4 +38,10 @@ num_params = reduced_db.num_params;
 reduced_db = onlyRowsTests(reduced_db, ':', ...
 			   (num_params + 1):(dbsize(reduced_db, 2)));
 
-t_hists = testsHists(reduced_db.tests_db);
+if exist('num_bins')
+  hist_pars = {reduced_db.tests_db, num_bins};
+else
+  hist_pars = {reduced_db.tests_db};
+end
+
+t_hists = testsHists(hist_pars{:});
