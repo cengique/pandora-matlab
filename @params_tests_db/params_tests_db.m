@@ -1,19 +1,19 @@
 function obj = params_tests_db(params, param_names, ...
-			       test_results, test_names, id, props)
+			       a_test_results, test_names, id, props)
 
 % params_tests_db - A generic database of test results varying with 
 %		parameter values, organized in a matrix format.
 %
 % Usage 1:
-% obj = params_tests_db(params, param_names, test_results, 
+% obj = params_tests_db(params, param_names, a_test_results, 
 %			test_names, id, props)
 %
 %
 %   Parameters:
-%	params, test_results: Matrices that contain columns associated with
+%	params, a_test_results: Matrices that contain columns associated with
 %		values and rows for separate observations.
 %	param_names, test_names: Cell arrays of column names of params, 
-%			and test_results, respectively.
+%			and a_test_results, respectively.
 %	id: An identifying string.
 %	props: A structure with any optional properties.
 %		
@@ -55,8 +55,8 @@ elseif isa(params, 'params_tests_db') %# copy constructor?
 elseif isa(param_names, 'tests_db')
   %# Usage 2
   obj.num_params = params;
-  if exist('test_results')
-    props = test_results;
+  if exist('a_test_results')
+    props = a_test_results;
   else
     props = struct([]);
   end
@@ -68,21 +68,21 @@ else
     props = struct([]);
   end
 
-  %# Only allow numeric arrays as params & test_results
+  %# Only allow numeric arrays as params & a_test_results
   %# TODO: add cell arrays?
-  if ~ isnumeric(test_results) || ~ isnumeric(params)
-    error('Only numeric arrays allowed as params or test_results.');
+  if ~ isnumeric(a_test_results) || ~ isnumeric(params)
+    error('Only numeric arrays allowed as params or a_test_results.');
   end
   
-  if ((size(test_results, 1) == 0 && size(params, 1) == 0) || ...
-      size(test_results, 2) ~= length(test_names) || ...
+  if ((size(a_test_results, 1) == 0 && size(params, 1) == 0) || ...
+      size(a_test_results, 2) ~= length(test_names) || ...
 	size(params, 2) ~= length(param_names))
-    error(['Number of columns in params or test_results ', ...
+    error(['Number of columns in params or a_test_results ', ...
 	   'and items in param_names or test_names must match. ' ...
 	   'And there should be some data to create the db.']);
   end
   
-  data = [params, test_results];
+  data = [params, a_test_results];
   col_names = [param_names, test_names];
   
   obj.num_params = length(param_names);
