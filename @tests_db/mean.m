@@ -56,7 +56,7 @@ end
 %# Recursive std needed for stripping NaNs in each dimension
 function [s, n] = recmean(data, dim)
   if dim == 1
-    sdata = data(~isnan(data(:)));
+    sdata = data(~isnan(data(:)) & ~isinf(data(:)));
     n = size(sdata, 1);
     if n == 0
       %# If a divide by zero error occured, 

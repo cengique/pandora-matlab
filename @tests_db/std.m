@@ -62,7 +62,7 @@ end
 %# s is the std, and n is the number of non-NaN rows used to obtain it.
 function [s, n] = recstd(data, sflag, dim)
   if dim == 1
-    sdata = data(~isnan(data(:)));
+    sdata = data(~isnan(data(:)) & ~isinf(data(:)));
     n = size(sdata, 1);
     if n == 0
       %# If no data exists, give it NaN value instead of an empty
