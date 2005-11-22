@@ -58,7 +58,7 @@ else
    end
 
    if iscell(plots)
-     plots = cell2num(plots);
+     plots = cell2mat(plots);
    end
 
   obj.plots = plots;
@@ -66,11 +66,8 @@ else
 
   %# Check if contained plots feature axis_labels
   for plot_num=1:length(plots)
-    if iscell(plots)
-      plot_axis_labels = plots{plot_num}.axis_labels;
-    else
-      plot_axis_labels = plots(plot_num).axis_labels;
-    end
+    plot_axis_labels = plots(plot_num).axis_labels;
+
     if ~isempty(plot_axis_labels) 
       if ~isempty(plot_axis_labels{1})
 	axis_labels{1} = plot_axis_labels{1};
@@ -79,6 +76,10 @@ else
 	axis_labels{2} = plot_axis_labels{2};
       end
     end
+  end
+
+  if isempty(title_str)
+    title_str = plots(1).title;
   end
 
   obj = class(obj, 'plot_superpose', plot_abstract({}, axis_labels, title_str, ...
