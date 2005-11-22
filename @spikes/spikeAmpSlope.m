@@ -62,7 +62,6 @@ if pcoefs(1) < 0
   decay_constant_threshold = a_max - da_inf * (1 - exp(-1));
 
   recover_times = find(peak_vals > decay_constant_threshold);
-
   
   if length(recover_times) > 0
     a_tau = (s.times(recover_times(end)) - s.times(a_max_idx)) * ms_factor;
