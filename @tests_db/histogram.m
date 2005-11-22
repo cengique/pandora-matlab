@@ -28,8 +28,8 @@ end
 
 col_db = onlyRowsTests(db, ':', col);
 
-%# Remove NaN values 
-col_db = onlyRowsTests(col_db, ~ isnan(col_db.data), 1);
+%# Remove NaN or Inf values 
+col_db = onlyRowsTests(col_db, ~ isnan(col_db.data) & ~ isinf(col_db.data), 1);
 %#col_db = col_db( ~ isnan(col_db(:, 1)), 1);
 %# I don't know why the above doesn't work!?
 
