@@ -17,7 +17,8 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % The specific methods are loadItemProfile.
 %
 %   Parameters:
-%	file_pattern: File pattern matching all files to be loaded.
+%	file_pattern: File pattern, or cell array of patterns, matching all 
+%			files to be loaded.
 %	dt: Time resolution [s]
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: An identification string
@@ -73,15 +74,35 @@ else
     props = struct([]);
   end
 
-
   %# First find all filenames matching the pattern
-  
-  %# Separate filename components
-  [obj.path, name, ext, ver] = fileparts(file_pattern);
 
-  filestruct = dir(file_pattern);
-  entries = size(filestruct, 1);
-  [filenames{1:entries}] = deal(filestruct(:).name);
+  %# Multiple patterns in cell array allowed
+  if iscell(file_pattern)
+    num_patterns = length(file_pattern);
+
+    %# Separate filename components
+    [obj.path, name, ext, ver] = fileparts(file_pattern{1});
+  else
+    num_patterns = 1;
+
+    %# Separate filename components
+    [obj.path, name, ext, ver] = fileparts(file_pattern);
+  end
+
+  %# Loop over patterns (or do one pattern only)
+  total_entries = 0;
+  for pattern_num = 1:num_patterns
+    if iscell(file_pattern)
+      this_pattern = file_pattern{pattern_num};
+    else
+      this_pattern = file_pattern;
+    end
+
+    filestruct = dir(this_pattern);
+    entries = size(filestruct, 1);
+    [filenames{total_entries + (1:entries)}] = deal(filestruct(:).name);
+    total_entries = total_entries + entries;
+  end
 
   %# Read parameters if specified
   if isfield(props, 'param_row_filename')
