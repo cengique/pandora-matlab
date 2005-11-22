@@ -24,6 +24,9 @@ function a_db = vertcat(db, varargin)
 %# Recurse to support variable number of inputs
 if length(varargin) > 1
   with_db = vertcat(varargin{1}, varargin{2:end});
+elseif length(varargin) == 0
+  a_db = db;
+  return;
 else
   with_db = varargin{1};
 end
