@@ -70,7 +70,10 @@ end
 
 if isfield(a_plot_props, 'LineStyleOrder')
   set(gca, 'LineStyleOrder', a_plot_props.LineStyleOrder);
-  set(gca, 'NextPlot', 'replacechildren');
+  if ~isnan(layout_axis)
+    %# Otherwise messes with superposed plots, by removing the "hold" state
+    set(gca, 'NextPlot', 'replacechildren');
+  end
 end
 
 %# Run the plot command
