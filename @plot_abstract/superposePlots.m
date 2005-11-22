@@ -15,6 +15,7 @@ function a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 %	title_str: Plot description string (optional, taken from plots).
 %	command: Plotting command to use (optional, taken from plots)
 %	props: A structure with any optional properties.
+%		NoLegends: If exists, no legends are created.
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
@@ -24,11 +25,19 @@ function a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/23
 
+if ~ exist('props')
+  props = struct;
+end
+
 data = {};
 legend = {};
 for one_plot = plots
   data = {data{:}, one_plot.data{:}};
-  legend = {legend{:}, one_plot.legend{:}};
+  if ~isfield(props, 'NoLegends')
+    legend = {legend{:}, one_plot.legend{:}};
+  else
+    legend = {};
+  end
 end
 
 a_plot = set(plots(1), 'data', data);
