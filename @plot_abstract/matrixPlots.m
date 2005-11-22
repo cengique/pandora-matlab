@@ -12,6 +12,9 @@ function a_plot = matrixPlots(plots, axis_labels, title_str, props)
 %	axis_labels: Cell array of axis label strings (optional, taken from plots).
 %	title_str: Plot description string (optional, taken from plots).
 %	props: A structure with any optional properties passed to the Y stack_plot.
+%		titlesPos: if specified, passed to the X stack_plots.
+%		rotateYLabel: if specified, passed to the X stack_plots.
+%		goldratio: try to make the figure in this aspect ratio.
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
@@ -29,6 +32,12 @@ if ~ exist('props')
   props = struct([]);
 end
 
+if isfield(props, 'goldratio')
+  goldratio = props.goldratio;
+else
+  goldratio = 3/4;
+end
+
 %# Find best fit rectangular arrangement
 num_plots = length(plots);
 
@@ -42,7 +51,7 @@ while iter_num < 10
 
   if length(factors) == 1
     %# Only one factor
-    if goodRatio(1, factors, iter_num)
+    if goodRatio(1, factors, iter_num, goldratio)
       side1 = 1;
       side2 = factors;
       break;
@@ -50,7 +59,8 @@ while iter_num < 10
       num_max = num_max + 1;
       continue;  %# Start over
     end
-  elseif goodRatio(prod(factors(1:2:end)), prod(factors(2:2:end)), iter_num)
+  elseif goodRatio(prod(factors(1:2:end)), prod(factors(2:2:end)), ...
+		   iter_num, goldratio)
     %# interleaved product of factors
     side1 = prod(factors(1:2:end));
     side2 = prod(factors(2:2:end));
@@ -62,17 +72,17 @@ while iter_num < 10
       for frow=combs'
 	side1 = prod(frow)
 	side2 = num_max / side1
-	if goodRatio(side1, side2, iter_num)
+	if goodRatio(side1, side2, iter_num, goldratio)
 	  break;
 	end
       end
-      if goodRatio(side1, side2, iter_num)
+      if goodRatio(side1, side2, iter_num, goldratio)
 	break;
       end
     end
   end
 
-  if goodRatio(side1, side2, iter_num)
+  if goodRatio(side1, side2, iter_num, goldratio)
     break;
   else
     num_max = num_max + 1;
@@ -85,8 +95,12 @@ end
 width = max([side1 side2])
 height = min([side1 side2])
 
-%# 'titlesPos', 'none',
 horz_props = struct('yLabelsPos', 'left', 'rotateYLabel', 30);
+if isfield(props, 'titlesPos')
+  horz_props.titlesPos = props.titlesPos;
+else
+  horz_props.titlesPos = 'none';
+end
 
 %# Create matrix of plots
 vert_stacks = cell(1, height);
@@ -106,14 +120,14 @@ for y = 1:height
 end
 a_plot = plot_stack(vert_stacks, [], 'y', title_str, props)
 
-function good = goodRatio(side1, side2, cost, iter_num)
-  %# Try to see if it is within some % of the 3/4 ratio
+function good = goodRatio(side1, side2, cost, goldratio)
+  %# Try to see if it is within some % of the gold ratio
   ratio = min([side1 side2])/max([side1 side2])
-  goldratio = 3/4;
+
   margin = .2 * cost;		%# Increasing margin as cost rises
   if ratio > (1 - margin) * goldratio && ratio < (1 + margin) * goldratio
     good = true(1);
   else
     good = false(1);
   end
-  disp(['Good: ' num2str(good) ' for ratio: ' num2str(ratio) ' ~= ' num2str(goldratio) ' +/- ' num2str(margin*goldratio) ]);
+  %#disp(['Good: ' num2str(good) ' for ratio: ' num2str(ratio) ' ~= ' num2str(goldratio) ' +/- ' num2str(margin*goldratio) ]);
