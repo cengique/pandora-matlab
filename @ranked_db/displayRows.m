@@ -30,6 +30,9 @@ joined_data = joined_db.data;
 %# Ignore NeuronId?
 crit_cols = fieldnames(db.crit_db.col_idx);
 all_test_cols(1:length(crit_cols)) = true(1);
+if isa(db.crit_db, 'params_tests_db')
+  all_test_cols(1:get(db.crit_db, 'num_params')) = false;
+end
 if any(ismember(crit_cols, 'NeuronId'))
   all_test_cols(tests2cols(db.crit_db, 'NeuronId')) = false(1);
 end
@@ -37,13 +40,15 @@ crit_cols = {crit_cols{all_test_cols}};
 
 %# Insert crit_db's values in proper columns
 cols = tests2cols(joined_db, crit_cols);
-[critcol{1:dbsize(joined_db, 2), 1}] = deal(''); %# value doesn't exist
-cells = num2cell(db.crit_db.data(1, tests2cols(db.crit_db, crit_cols)));
-[critcol{cols}] = deal(cells{:}); %# Fill available values from crit_db
+[critcol{1:dbsize(joined_db, 2), 1:2}] = deal(''); %# value doesn't exist
+cells = num2cell(db.crit_db.data(1:2, tests2cols(db.crit_db, crit_cols)));
+[critcol{cols, 1}] = deal(cells{1, :}); %# Fill available values from crit_db
+[critcol{cols, 2}] = deal(cells{2, :}); %# Fill available values from crit_db
+
 
 %# Make a cell array out of db contents
 s = cat(2, fieldnames(get(joined_db, 'col_idx')), critcol);
-names = {'', 'Criterion'};
+names = {'', 'Criterion', 'Crit.~STD'};
 
 %# The distance values for each individual measure has the same names in ranked_db
 %# Find columns in ranked_db that are also in joined_db except 'Distance'
