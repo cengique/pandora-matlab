@@ -21,7 +21,7 @@ function obj = addRow(obj, row, index)
 %   Returns:
 %	obj: The tests_db object that includes the new row.
 %
-% See also: allocateRows, tests_db
+% See also: addLastRow, allocateRows, tests_db
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
