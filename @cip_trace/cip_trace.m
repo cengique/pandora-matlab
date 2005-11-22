@@ -49,7 +49,6 @@ if nargin == 0 %# Called with no params
   trace_obj = trace;
   obj.pulse_time_start = 1;
   obj.pulse_time_width = 1;
-  obj.props = struct([]);
   obj = class(obj, 'cip_trace', trace_obj);
 elseif isa(datasrc, 'cip_trace') %# copy constructor?
   obj = datasrc;
@@ -67,7 +66,6 @@ else
 
   obj.pulse_time_start = pulse_time_start;
   obj.pulse_time_width = pulse_time_width;
-  obj.props = props;
 
   obj = class(obj, 'cip_trace', trace_obj);
 end
