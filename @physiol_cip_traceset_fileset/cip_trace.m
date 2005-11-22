@@ -36,5 +36,6 @@ if isa(traceset_index, 'tests_db')
   end
 else
   %# Delegate to the traceset to load the cip_trace object
-  a_cip_trace = cip_trace(getItem(fileset, traceset_index), trace_index);
+  a_cip_trace = cip_trace(getItem(fileset, traceset_index), trace_index, ...
+			  struct('TracesetIndex', traceset_index));
 end
