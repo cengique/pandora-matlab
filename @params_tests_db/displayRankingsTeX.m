@@ -3,7 +3,7 @@ function tex_string = displayRankingsTeX(a_db, crit_db, props)
 % displayRankingsTeX - Generates and displays a ranking DB by comparing rows of a_db with the given match criteria.
 %
 % Usage:
-% tex_string = displayRankingsTeX(a_db, crit_db)
+% tex_string = displayRankingsTeX(a_db, crit_db, props)
 %
 % Description:
 %   Generates a LaTeX document with:
@@ -18,7 +18,9 @@ function tex_string = displayRankingsTeX(a_db, crit_db, props)
 %	props: A structure with any optional properties.
 %		caption: Identification of the criterion db (not needed/used?).
 %		a_dataset: Dataset for a_db.
+%		a_dball: The non-joined DB for for a_db.
 %		crit_dataset: Dataset for crit_db.
+%		crit_dball: Dataset for crit_db.
 %		num_matches: Number of best matches to display (default=10).
 %		rotate: Rotation angle for best matches table (default=90).
 %
@@ -49,7 +51,7 @@ if ranked_num_rows > 0
   if isfield(props, 'num_matches')
     num_best = props.num_matches;
   else
-    num_best = 10;
+    num_best = 13;
   end
   top_ranks = onlyRowsTests(ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
   short_caption = [ a_db_id ' ranked to the ' crit_db_id '.' ];
@@ -62,7 +64,9 @@ if ranked_num_rows > 0
   %# Display parameter distributions of 50 best matches
   num_best = 50;
   top_ranks = onlyRowsTests(joined_db, 1:min(num_best, ranked_num_rows), ':', ':');
-  p_hists = paramsHists(top_ranks);
+  all_param_cols = true(1, get(top_ranks, 'num_params'));
+  all_param_cols(tests2cols(top_ranks, 'trial')) = false;
+  p_hists = paramsHists(onlyRowsTests(top_ranks, ':', all_param_cols));
   plotFigure(plot_stack(num2cell(plotEqSpaced(p_hists)), [], 'x', ...
 			['Parameter distribution histograms of ' num2str(num_best) ...
 			 ' best matches' ], ...
@@ -90,87 +94,110 @@ if ranked_num_rows > 0
 					 'shortCaption', short_caption)) ];
 
   %# Display raw data traces from dataset
-  if isfield(props, 'a_dataset') && isfield(props, 'crit_dataset')
+  if isfield(props, 'a_dataset') && isfield(props, 'a_dball') && ...
+	isfield(props, 'crit_dataset')
     %# prepare a landscape figure with two rows
     %# one row for original and 5 matching data traces
     %# second row for original and 5 matching spike shapes
     %# TODO: This should be in a *_profile class
-    try 
-      orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'NeuronId'), 'data'), get(onlyRowsTests(crit_db, 1, 'ItemIndex'), 'data'));
-    catch
-      errstr = lasterror;
+    crit_rows = onlyRowsTests(props.crit_dball, ':', 'TracesetIndex') == ...
+	onlyRowsTests(crit_db, 1, 'TracesetIndex');
+    crit_trace_d100 = ...
+	cip_trace(props.crit_dataset, ...
+		  onlyRowsTests(props.crit_dball, crit_rows & ...
+				onlyRowsTests(props.crit_dball, ':', 'pAcip') == 100, ':'));
+    crit_trace_h100 = ...
+	cip_trace(props.crit_dataset, ...
+		  onlyRowsTests(props.crit_dball, crit_rows & ...
+				onlyRowsTests(props.crit_dball, ':', 'pAcip') == -100, ':'));
+    crit_trace_id = strrep(get(crit_trace_d100(1), 'id'), '_', '\_');
 
-      if strcmp(errstr.identifier, 'MATLAB:nonExistentField')
-	orig_prof = loadItemProfile(props.crit_dataset, get(onlyRowsTests(crit_db, 1, 'ItemIndex'), 'data'), 1);
-      else
-	rethrow(errstr);
-      end
-    end
-    trace_plots = cell(1, 6);
-    spont_shape_plots = cell(1, 6);
-    pulse_shape_plots = cell(1, 6);
-    trace_plots{1} = plotData(orig_prof.trace);
+    num_plots = 5;
+    trace_d100_plots = cell(1, num_plots);
+    trace_h100_plots = cell(1, num_plots);
 
-    spont_results  = getResults(orig_prof.spont_spike_shape);
-    spont_xmax = spont_results.MinTime * 1.1;
-    spont_shape_plots{1} = set(plotResults(orig_prof.spont_spike_shape), ...
-			       'title', 'Criterion');
-
-    pulse_results  = getResults(orig_prof.pulse_spike_shape);
-    pulse_xmax = pulse_results.MinTime * 1.1;
-    pulse_shape_plots{1} = plotResults(orig_prof.pulse_spike_shape);
-    %# = setProp(, 'title', 'Criterion');
-
-    for plot_num=1:5
+    for plot_num=1:num_plots
       rank_num = (plot_num - 1) * 10 + 1;
-      prof = loadItemProfile(props.a_dataset, ...
-			     get(onlyRowsTests(joined_db, rank_num , ...
-					       'ItemIndex'), 'data'));
-      trace_plots{1 + plot_num} = plotData(prof.trace);
-      spont_results  = getResults(prof.spont_spike_shape);
-      spont_xmax = max(spont_xmax, spont_results.MinTime * 1.1);
-      spont_shape_plots{1 + plot_num} = ...
-	  set(plotResults(prof.spont_spike_shape), ...
-	      'title', ['Rank ' num2str(rank_num) ]);
+      trial_num = get(onlyRowsTests(joined_db, rank_num , 'trial'), 'data');
+      if plot_num > 1
+	sup_props = struct('NoLegends', 1);
+	crit_traces = 1;
+      else
+	sup_props = struct;
+	crit_traces = ':';
+      end
+      plot_matching_d100 = ...
+	  plotConcatSpontCIP(props.a_dataset, props.a_dball, trial_num, 100);
+      trace_d100_plots{plot_num} = ...
+	  superposePlots([plotData(crit_trace_d100(crit_traces)), ...
+			  plot_matching_d100], {}, ...
+			 ['Rank ' num2str(rank_num) ', t' num2str(trial_num)], ...
+			 'plot', sup_props);
+      plot_matching_h100 = ...
+	  plotConcatSpontCIP(props.a_dataset, props.a_dball, trial_num, -100);
+      trace_h100_plots{plot_num} = ...
+	  superposePlots([plotData(crit_trace_h100(crit_traces)), ...
+			  plot_matching_h100], {}, '', ...
+			 'plot', sup_props);
 
-      pulse_results  = getResults(prof.pulse_spike_shape);
-      pulse_xmax = max(pulse_xmax, pulse_results.MinTime * 1.1);
-      pulse_shape_plots{1 + plot_num} = plotResults(prof.pulse_spike_shape);
     end
-    horiz_props = struct('titlesPos', 'none', 'yLabelsPos', 'left', 'xLabelsPos', 'none');
-    top_row_plot = plot_stack(trace_plots, [], 'x', ...
-			      'Raw traces', ...
-			      mergeStructs(struct('xLabelsPos', 'bottom'), horiz_props));
-    bottom_row_plot2 = plot_stack(pulse_shape_plots, [0, pulse_xmax, NaN, NaN], 'x', ...
-				 'Pulse spike shapes', ...
-				 horiz_props);
-    bottom_row_plot = plot_stack(spont_shape_plots, [0, spont_xmax, NaN, NaN], 'x', ...
-				 'Spontaneous spike shapes', ...
-				 mergeStructs(struct('titlesPos', 'all'), horiz_props));
 
-    plotFigure(plot_stack({top_row_plot, bottom_row_plot2, bottom_row_plot}, ...
-			  [], 'y', '', struct('titlesPos', 'none')));
+    %# Make a full figure with the best matching guy
+    plotFigure(plot_stack([trace_d100_plots{1}, trace_h100_plots{1}], ...
+			  [0 3000 -150 80], 'y', ...
+			  ['The best match to ' crit_trace_id ], ...
+			  struct('xLabelsPos', 'bottom', 'titlesPos', 'none')));
+    best_filename = [ lower(get(crit_db, 'id')) ' - best matching model trace' ];
 
-    filename = [ lower(get(crit_db, 'id')) ' - some matching raw traces' ];
+    %# Replace all white space with underscores for LaTeX
+    best_filename = strrep(best_filename, ' ', '_');
+    best_filename = strrep(best_filename, '.', '_');
+    orient tall; print('-depsc', [ best_filename '.eps' ] );
+
+    horiz_props = struct('titlesPos', 'all', 'yLabelsPos', 'left', 'xLabelsPos', 'none');
+    d100_row_plot = plot_stack([trace_d100_plots{2:num_plots}], [0 3000 -80 80], 'x', '', ... %#+100 pA CIP
+			      mergeStructs(struct('xLabelsPos', 'none'), horiz_props));
+    h100_row_plot = plot_stack([trace_h100_plots{2:num_plots}], [0 3000 -150 80], 'x', '-100 pA CIP', ...
+			       mergeStructs(struct('titlesPos', 'none'), horiz_props));
+
+    plotFigure(plot_stack({d100_row_plot, h100_row_plot}, [], 'y', ...
+			  ['Best matches to ' crit_trace_id ], ...
+			  struct('titlesPos', 'none')));
+
+    filename = [ lower(get(crit_db, 'id')) ' - top matching model traces' ];
 
     %# Replace all white space with underscores for LaTeX
     filename = strrep(filename, ' ', '_');
     filename = strrep(filename, '.', '_');
     print('-depsc', [ filename '.eps' ] );
 
-    %# Put it in a figure float
-    %# TODO: indicate distances of best and furthest matches
-    short_caption = [ 'Raw traces of the ranked to the ' crit_db_id '.' ];
+    %# Put the best match in a figure float
+    short_caption = [ 'Best matching model to ' crit_db_id ...
+		     ' (' crit_trace_id ').' ];
     caption = [ short_caption ...
-	       ' Leftmost trace and spike shape from ' crit_db_id ...
-	       '. Other traces are taken from 5 equidistant matches from the best' ...
+	       ' All available raw traces from the criterion cell are shown.' ];
+    tex_string = [ tex_string ...
+		  TeXtable([ '\includegraphics{' best_filename '}' ], ...
+			   caption, struct('floatType', 'figure', ...
+					   'center', 1, ...
+					   'height', '.9\textheight', ...
+					   'shortCaption', short_caption)) ...
+		  '\clearpage%' sprintf('\n') ];
+
+    %# Put other matches in a figure float
+    %# TODO: indicate distances of best and furthest matches
+    short_caption = [ 'Raw traces of the ranked to the ' crit_db_id  ...
+		     ' (' crit_trace_id ').' ];
+    caption = [ short_caption ...
+	       ' Leftmost trace and spike shape from the criterion cell. '  ...
+	       'Other traces are taken from 5 equidistant matches from the best' ...
 	       ' 50 matches from ' a_db_id '.' ];
     tex_string = [ tex_string ...
 		  TeXtable([ '\includegraphics{' filename '}' ], ...
 			   caption, struct('floatType', 'figure', ...
 					   'center', 1, ...
 					   'rotate', 90, ...
-					   'width', '1\textwidth', ...
+					   'height', '.9\textheight', ...
 					   'shortCaption', short_caption)) ...
 		  '\clearpage%' sprintf('\n') ];
     
