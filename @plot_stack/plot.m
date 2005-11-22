@@ -34,36 +34,33 @@ bottom_side = layout_axis(2);
 width = layout_axis(3);
 height = layout_axis(4);
 
-disp(sprintf('Position: %0.3f+%0.3f+%0.3fx%0.3f', ...
-	     left_side, bottom_side, width, height));
+%#disp(sprintf('Position: %0.3f+%0.3f+%0.3fx%0.3f', ...
+%#	     left_side, bottom_side, width, height));
 
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-scale_down = .9;
 border = 1;
 
 %# Find the width of a regular y-axis label 
 old_units = get(gca, 'Units');
 set(gca, 'Units', 'points');
-axis_pos_pt = get(gca, 'Position')
-axis_width_pt = axis_pos_pt(3)
-axis_height_pt = axis_pos_pt(4)
+axis_pos_pt = get(gca, 'Position');
+axis_width_pt = axis_pos_pt(3);
+axis_height_pt = axis_pos_pt(4);
 
 %# Fixed size for ticks and labels
 %# Assume 10 pt font
-decosize = 10 * height / axis_height_pt;
+decosize_x = 10 * width / axis_width_pt;
+decosize_y = 10 * height / axis_height_pt;
 %#decosize = 0.04;
-
-%#ticklabel = text(0, 0, 'xxx', 'Visible', 'off');
-%#tickextent = get(ticklabel, 'Extent');
 
 %# Handle special label and tick placements to create maximal plotting area
 if isfield(a_plot.props, 'xLabelsPos') 
   switch a_plot.props.xLabelsPos
       case 'bottom'
-	bottom_side = bottom_side + decosize / 2;
-	height = height - decosize / 2;
+	bottom_side = bottom_side + decosize_y / 2;
+	height = height - decosize_y / 2;
 	labelheight = 0;
       case 'none'
 	labelheight = 0;
@@ -75,16 +72,16 @@ else
   if isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 0
     labelheight = 0;
   else
-    bottom_side = bottom_side + decosize / 2;
-    labelheight = decosize / 2;
+    bottom_side = bottom_side + decosize_y / 2;
+    labelheight = decosize_y / 2;
   end
 end
 
 if isfield(a_plot.props, 'xTicksPos') 
   switch a_plot.props.xTicksPos
       case 'bottom'
-	bottom_side = bottom_side + decosize / 2;
-	height = height - decosize / 2;
+	bottom_side = bottom_side + decosize_y / 2;
+	height = height - decosize_y / 2;
 	tickheight = 0;
       case 'none'
 	tickheight = 0;
@@ -95,12 +92,12 @@ else
   if isfield(a_plot.props, 'XTickLabel') && isempty(a_plot.props.XTickLabel)
     tickheight = 0;
   else
-    bottom_side = bottom_side + decosize / 2;
-    tickheight = decosize / 2;
+    bottom_side = bottom_side + decosize_y / 2;
+    tickheight = decosize_y / 2;
   end
 end
 
-x_strut = decosize / 2;
+x_strut = decosize_x / 2;
 if isfield(a_plot.props, 'yLabelsPos') 
   switch a_plot.props.yLabelsPos
       case 'left'
@@ -121,7 +118,7 @@ else
   end
 end
 
-x_strut = decosize / 4;
+x_strut = decosize_x / 4;
 if isfield(a_plot.props, 'yTicksPos') 
   switch a_plot.props.yTicksPos
       case 'left'
@@ -143,19 +140,26 @@ else
 end
 
 %# Title math
-y_strut = decosize;
-if isfield(a_plot.props, 'titlesPos') 
-  switch a_plot.props.titlesPos
+y_strut = decosize_y / 2;
+if ~ isempty(get(a_plot, 'title'))
+  if isfield(a_plot.props, 'titlesPos') 
+    switch a_plot.props.titlesPos
       case 'top'
 	height = height - y_strut;
 	titleheight = 0;
       case 'none'
 	titleheight = 0;
+      case 'all'
+	height = height - y_strut;
+	titleheight = 0;
       otherwise
 	error(['titlesPos=' a_plot.props.titlesPos ' not recognized.' ]);
     end
+  else
+    titleheight = y_strut;
+  end
 else
-  titleheight = y_strut;
+  titleheight = 0;
 end
 
 if strcmp(a_plot.orient, 'x')
@@ -169,11 +173,11 @@ end
 %# Put a title first
 %# Position the title using relative measurement
 set(this_axis, 'Units', 'characters');
-axis_position = get(this_axis, 'Position')
+axis_position = get(this_axis, 'Position');
 set(this_axis, 'Units', 'normalized');
 
 title_handle = text(axis_position(3) / 2, ...
-		    axis_position(4) + 0.5, ... %#bottom_side + 1.5 * height + 0.0, ...
+		    axis_position(4) + 1.2, ... %#bottom_side + 1.5 * height + 0.0, ...
 		    get(a_plot, 'title'), ...
 		    'Units', 'characters', ...
 		    'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
@@ -193,10 +197,16 @@ minheight = 0.01;
 
 %# Lay them out
 for plot_num=1:num_plots
-  if iscell(a_plot.plots)
-    one_plot = a_plot.plots{plot_num};
+  if strcmp(a_plot.orient, 'x')
+    plot_seq = plot_num;
   else
-    one_plot = a_plot.plots(plot_num);
+    %# invert the sequence, because matlab starts from bottom in Y axis
+    plot_seq = num_plots - plot_num + 1;
+  end
+  if iscell(a_plot.plots)
+    one_plot = a_plot.plots{plot_seq};
+  else
+    one_plot = a_plot.plots(plot_seq);
   end
   its_props = one_plot.props;
   %# Check if y-ticks only for the leftmost plot
@@ -244,12 +254,10 @@ for plot_num=1:num_plots
   %# Set the modified properties back to the plot
   one_plot = set(one_plot, 'props', its_props);
   %# Calculate subplot positioning
-  disp(sprintf('left=%.3f, tilewidth=%.3f, tickwidth=%.3f, labelwidth=%.3f', ...
-	       left_side, tilewidth, tickwidth, labelwidth));
-  disp(sprintf('bottom=%.3f, tileheight=%.3f, tickheight=%.3f, labelheight=%.3f, titleheight=%.3f', ...
-	       bottom_side, tileheight, tickheight, labelheight, titleheight));
-  %# (1 - scale_down) * tilewidth / 2
-  %# (1 - scale_down) * tileheight / 2 +
+  %#disp(sprintf('left=%.3f, tilewidth=%.3f, tickwidth=%.3f, labelwidth=%.3f', ...
+  %#	       left_side, tilewidth, tickwidth, labelwidth));
+  %#disp(sprintf('bottom=%.3f, tileheight=%.3f, tickheight=%.3f, labelheight=%.3f, titleheight=%.3f', ...
+  %#	       bottom_side, tileheight, tickheight, labelheight, titleheight));
   x_offset = left_side + ...
       strcmp(a_plot.orient, 'x') * (plot_num - 1) * tilewidth;
   y_offset = bottom_side + ...
@@ -280,4 +288,3 @@ for plot_num=1:num_plots
 end
 
 hold off;
-
