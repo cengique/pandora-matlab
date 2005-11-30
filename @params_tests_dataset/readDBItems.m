@@ -53,14 +53,30 @@ tests = repmat(0, num_items, length(test_names));
 start_time = cputime;
 
 print(java.lang.System.out, 'Reading: ');
+line_buffer = '';
 
 try 
   row_index = 1;
   for item_index=items
     %#disp(sprintf('File number: %d\r', item_index));
-    print(java.lang.System.out, [ num2str(item_index) ', ' ]);
-    if mod(row_index, 20) == 0
-      disp(' ');
+    
+    %# doesn't work on the cluster
+    if false && usejava('jvm')
+      if checkError(java.lang.System.out)
+	disp('error in System.out stream!');
+      else
+	flush(java.lang.System.out);
+	print(java.lang.System.out, [ num2str(item_index) ', ' ]);	
+      end
+      if mod(row_index, 20) == 0
+	disp(' ');
+      end
+    else
+      line_buffer = [line_buffer num2str(item_index) ', ' ];
+      if length(line_buffer) > 70
+	disp(line_buffer);
+	line_buffer = '';
+      end
     end
     [params_row, tests_row] = itemResultsRow(obj, item_index);
     
