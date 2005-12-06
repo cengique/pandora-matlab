@@ -64,7 +64,7 @@ end_depol = depol(1) + max_idx - 1;
 
 %# Interpolate to find the threshold crossing point
 denum = (s.trace.data(floor(end_depol)) - s.trace.data(floor(end_depol) + 1));
-if denum ~= 0
+if denum < -15
   extra_time = (s.trace.data(floor(end_depol)) - init_val - 1) / denum;
 else 
   extra_time = 0;
@@ -92,7 +92,7 @@ else
 end
 
 %# Find the last discontinuity to match only the last up ramp
-some_of_the_above = above_half(above_half < floor(max_idx));
+some_of_the_above = above_half(above_half < floor(max_idx + 1));
 start_of_last_ramp = find(diff(some_of_the_above) > 1);
 if length(start_of_last_ramp) > 0
   start_of_last_ramp = floor(max_idx) - (length(some_of_the_above) - ...
@@ -113,7 +113,7 @@ half_end = end_of_first_hump + ...
 half_width = half_end - half_start;
 
 %# Now look for max AHP right after fall_time
-[min_val, min_idx, max_ahp] = find_max_ahp(s, max_idx, fall_time, init_val);
+[min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = find_max_ahp(s, max_idx, fall_time, init_val);
 
 %# Calculate AHP decay time constant approx: 
 %# min_val - max_ahp * (1 - exp(-t/decay_constant))
@@ -122,7 +122,7 @@ half_width = half_end - half_start;
 after_ahp = [s.trace.data(min_idx:end)];
 
 %# Find double AHP is it exists
-[dahp_mag, dahp_idx] = find_double_ahp(after_ahp, min_idx, s.trace.dt);
+%#[dahp_mag, dahp_idx] = find_double_ahp(after_ahp, min_idx, s.trace.dt);
 
 %# Threshold set at one time constant
 %#decay_constant_threshold = min_val + max_ahp * (1 - exp(-1))
@@ -187,9 +187,9 @@ function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
     dahp_mag = max_val - duration(1);
   end
 
-function [min_val, min_idx, max_ahp] = find_max_ahp(s, max_idx, fall_time, init_val)
-  start_from = min(length(s.trace.data), ...
-		   ceil(max_idx + fall_time + 1e-3/s.trace.dt)); %# plus some ms  
+function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
+      find_max_ahp(s, max_idx, fall_time, init_val)
+  start_from = min(length(s.trace.data), ceil(max_idx + fall_time));
   windowsize = 6;
   if length(s.trace.data) - start_from + 1 > windowsize
     after_fall = medfilt1(s.trace.data((start_from-1):end), windowsize);
@@ -198,7 +198,8 @@ function [min_val, min_idx, max_ahp] = find_max_ahp(s, max_idx, fall_time, init_
     after_fall = s.trace.data(start_from:end);
   end
 
-  first_thr_crossing = find(after_fall <= (init_val + 1));
+  thr_start_from =  1; %# floor(1e-3/s.trace.dt); %# plus some ms  
+  first_thr_crossing = thr_start_from - 1 + find(after_fall(thr_start_from:end) <= (init_val + 1));
   if length(first_thr_crossing) == 0
     first_thr_crossing_idx = 1;
   else
@@ -215,8 +216,12 @@ function [min_val, min_idx, max_ahp] = find_max_ahp(s, max_idx, fall_time, init_
   end
 
   %# Max AHP must be the minimal point in between
-  [min_val, min_idx] = min(after_fall(1:end_at));
+  [min_val, min_fall_idx] = min(after_fall(1:end_at));
 
-  min_idx = min_idx + start_from - 1;
+  min_idx = min_fall_idx + start_from - 1;
 
   max_ahp = max(0, init_val - min_val); 	%# maximal AHP amplitude
+  
+  [dahp_mag, dahp_idx] = find_double_ahp(after_fall(min_fall_idx:end_at), ...
+					 min_fall_idx, s.trace.dt);
+
