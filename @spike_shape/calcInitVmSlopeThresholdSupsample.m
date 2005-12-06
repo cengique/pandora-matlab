@@ -54,8 +54,14 @@ deriv = deriv(3:(end-2));
 deriv2 = diff2T_h4(interp, s.trace.dt / int_fac);
 deriv2 = deriv2(3:(end-2));
 
-%#figure; plot(t_vals*int_fac, s.trace.data(t_vals) * s.trace.dy /max(interp), 1:length(interp), [interp/max(interp)], 1:length(deriv), [thr*ones(1, length(deriv))/max(deriv); deriv/max(deriv); deriv2/max(deriv2)]'); 
-%#legend(['v /' num2str(max(interp))], 'v (interp)', 'thr', ['v\prime /' num2str(max(deriv)) ], ['v\prime\prime / ' num2str(max(deriv2))]);
+if (plotit == 2)
+  figure; plot(t_vals, s.trace.data(t_vals) * s.trace.dy /max(interp), ...
+	       (1:length(interp))./int_fac, [interp/max(interp)], ...
+	       (1:length(deriv))./int_fac, [thr*ones(1, length(deriv))/max(deriv); ...
+					    deriv/max(deriv); deriv2/max(deriv2)]'); 
+  legend(['v /' num2str(max(interp))], 'v (interp)', 'thr', ['v\prime /' num2str(max(deriv)) ], ['v\prime\prime / ' num2str(max(deriv2))]);
+  grid on;
+end
 
 %# Find all positive part in derivative until voltage peak
 last_pos_d = find(deriv(1:end) > 0);
@@ -66,7 +72,7 @@ else
   last_pos_d_idx = last_pos_d(end);
 end
 
-last_neg_d = find(deriv(1:last_pos_d_idx) < -10);
+last_neg_d = find(deriv(1:last_pos_d_idx) < -.1*max(abs(deriv)));
 if length(last_neg_d) == 0
   last_neg_d_idx = 1;
 elseif last_neg_d(end) == last_pos_d_idx  %# can never happen?
