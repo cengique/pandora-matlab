@@ -102,7 +102,7 @@ for i=1:n
     real_time = max(1, real_time - real_pm) + peak_time - 1;
 
     %# Check again if new time is very close to last time
-    if real_time < (lasttime + 3e-3 / t.dt)
+    if real_time < (lasttime + 2e-3 / t.dt)
       if plotit ~= 0 & plotit ~= 2
   	disp(sprintf('Skip real %f from filtered %f, orig %f', ...
   		     real_time, times(i), old_time));

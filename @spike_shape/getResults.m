@@ -59,9 +59,9 @@ end
 
 %# Sanity check for peak
 if max_idx == 1 || max_idx == length(s.trace.data) || ...
-      max_idx < 1e-3 / s.trace.dt || ... %# less than 1ms on the left side
-  ... %# less than 3ms on the right 
-  ( length(s.trace.data) - max_idx ) < 3e-3 / s.trace.dt 
+      max_idx < 1e-3 / s.trace.dt || ... %# less than  some ms on the left side
+  ... %# less than some ms on the right 
+  ( length(s.trace.data) - max_idx ) < 1e-3 / s.trace.dt 
   
   error('spike_shape:not_a_spike', 'Peak at beginning or end of %s! Not a spike.', ...
 	get(s, 'id'));

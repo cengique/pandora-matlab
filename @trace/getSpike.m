@@ -59,7 +59,7 @@ left = floor(min(7e-3 / t.dt, max_left));
 if spike_num == length(s.times) %# if last spike
   max_right = length(get(t, 'data')) - spike_idx;
 else
-  max_right = max(0, s.times(spike_num + 1) - spike_idx - 2e-3 / t.dt);
+  max_right = max(0, s.times(spike_num + 1) - spike_idx - 1e-3 / t.dt);
 end
 
 %# Calculate right side accordingly
