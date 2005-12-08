@@ -20,7 +20,7 @@ function t_hists = testsHists(a_db, num_bins)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/27
 
-num_tests = dbsize(a_db, 2);
+num_tests = dbsize(a_db(1), 2);
 
 if exist('num_bins')
   bin_param = { num_bins };
@@ -28,8 +28,8 @@ else
   bin_param = {};
 end
 
-[t_hists(1:num_tests)] = deal(histogram_db);
+[t_hists{1:num_tests}] = deal(histogram_db);
 for test_num=1:num_tests
   params = {a_db, test_num, bin_param{:}};
-  t_hists(test_num) = histogram(params{:});
+  t_hists{test_num} = histogram(params{:});
 end
