@@ -43,6 +43,22 @@ if ~ exist('whis')
   whis = 1.5;
 end
 
+%# Assuming the 3D_db is made especially for test1, it can be reused for multiple test2s.
+if ischar(test2)
+  num_test2s = 1;
+else
+  num_test2s = length(test2);
+end
+if num_test2s > 1
+  %# Then, vectorize the plots
+  [a_plot(1:num_test2s)] = deal(plot_abstract);
+  for test2_num = 1:num_test2s
+    a_plot(test2_num) = plotVarBox(a_db, test1, test2{test2_num}, ...
+				   notch, sym, vert, whis, props);
+  end
+
+else
+
 col1 = tests2cols(a_db, test1);
 col2 = tests2cols(a_db, test2);
 
@@ -62,12 +78,19 @@ bicoldata = [reshape(col1data, prod(size(col1data)), 1), ...
 	     reshape(col2data, prod(size(col2data)), 1)];
 
 %# Remove rows with any NaN values since they will disrupt the statistics
-bicoldata = bicoldata(~any(isnan(bicoldata), 2), :);
+bicoldata = bicoldata(~any(isnan(bicoldata), 2) & ~any(isinf(bicoldata), 2), :);
 
-col1name = col_names{col1};
-col2name = col_names{col2};
+col1name = strrep(col_names{col1}, '_', ' ');
+col2name = strrep(col_names{col2}, '_', ' ');
+
+if isfield(props, 'quiet')
+  all_title = '';
+else
+  all_title = ['Variations in ' lower(get(a_db, 'id')) ];
+end
 
 a_plot = plot_abstract({bicoldata(:, 2), bicoldata(:, 1), ...
 			notch, sym, vert, whis, struct('nooutliers', 1)}, ...
 		       {col1name, col2name}, ...
-		       ['Variations in ' get(a_db, 'id') ], {}, 'boxplotp', props);
+		       all_title, {}, 'boxplotp', props);
+end
