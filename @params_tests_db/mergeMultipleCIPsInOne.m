@@ -1,4 +1,4 @@
-function a_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name)
+function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name)
 
 % mergeMultipleCIPsInOne - Merges multiple rows with different CIP data into one, generating a database of one row per neuron.
 %
@@ -37,10 +37,11 @@ function a_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
-cip_sorted_db = sortrows(db, 'pAcip');
+%# WARNING: db must be sorted by pAcip before!
+%#db = sortrows(db, 'pAcip');
 
 %# Fold into multiple pages, according to cip values
-cip_fold_db = swapRowsPages(invarParam(cip_sorted_db, 'pAcip'));
+cip_fold_db = swapRowsPages(invarParam(db, 'pAcip'));
 
 num_pages = dbsize(cip_fold_db, 3);
 
@@ -61,19 +62,19 @@ if length(page_suffixes) ~= num_pages
 end
 
 %# Merge the selected tests from each page
-merged_db = mergePages(cip_fold_db, tests_cell, page_suffixes);
+cip_fold_db = mergePages(cip_fold_db, tests_cell, page_suffixes);
 
 %# Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
-joined_db = joinRows(cip_sorted_db, wo_cip_params, merged_db, ':', index_col_name);
+cip_fold_db = joinRows(db, wo_cip_params, cip_fold_db, ':', index_col_name);
 
 %# Remove the RowIndex columns
-test_names = fieldnames(get(joined_db, 'col_idx'));
+test_names = fieldnames(get(cip_fold_db, 'col_idx'));
 found_indices = strmatch('RowIndex', test_names);
-wo_index = true(1, dbsize(joined_db, 2));
+wo_index = true(1, dbsize(cip_fold_db, 2));
 wo_index(found_indices) = false(1);
-a_db = onlyRowsTests(joined_db, ':', wo_index);
+cip_fold_db = onlyRowsTests(cip_fold_db, ':', wo_index);
 
 %# TODO: give a better name?
-a_db = set(a_db, 'id', [ get(db, 'id') ' mult CIP' ]);
+cip_fold_db = set(cip_fold_db, 'id', [ get(db, 'id') ' mult CIP' ]);
