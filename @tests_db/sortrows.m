@@ -26,8 +26,7 @@ if ~ exist('cols')
   cols = ':';
 end
 
-data = get(db, 'data');
-db_size = size(data);
+db_size = size(db.data);
 if length(db_size) > 2
   num_pages = db_size(3);
 else
@@ -38,12 +37,18 @@ pages=1:num_pages;
 cols = tests2cols(db, cols);
 %#idx = repmat(NaN, [db_size(1) 1]);
 
-%# Sort the first page
-[a idx] = sortrows(data(:,:,1), cols);
+if num_pages > 1
+  %# Sort the first page
+  [db.data(:,:,1) idx] = sortrows(db.data(:,:,1), cols);
 
-%# Sort each page with the first page idx
-for page_num=pages
-  data(:, :, page_num) = data(idx, :, page_num);
+
+  %# Sort each page with the first page idx
+  for page_num=2:num_pages
+    db.data(:, :, page_num) = db.data(idx, :, page_num);
+  end
+else
+  %# Sort all
+  [db.data idx] = sortrows(db.data, cols);
 end
 
 %# Reorder row_idx if it exists
@@ -52,7 +57,7 @@ if ~ isempty(row_names)
   row_names = row_names(idx);
 end
 
-sorted = set(db, 'data', data);
+sorted = db;
 sorted = set(sorted, 'row_idx', makeIdx(row_names));
 
 %# Create a new db (or maybe only set fields so that the object stays the same?)

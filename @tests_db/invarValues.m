@@ -14,6 +14,7 @@ function a_tests_3D_db = invarValues(db, cols, main_cols)
 % i.e. a tests_3D_db. Each matrix page will contain an additional 
 % column for the original row index for the invariant values. This
 % index can be used to find the test columns that were omitted.
+% Note: the trial column will be ignored for finding invariant values.
 %
 %   Parameters:
 %	db: A tests_db object.
@@ -35,9 +36,14 @@ verbose = strcmp(vs.state, 'on');
 
 cols = tests2cols(db, cols);
 
+%# Remove trial column from parameters that define character of data
+test_names = fieldnames(get(db, 'col_idx'));
+trial_col = strmatch('trial', test_names);
+
 %# Remove given columns
 log_cols = false(1, dbsize(db, 2));
 log_cols(cols) = true(1);
+log_cols(trial_col) = true(1);
 wo_cols = db.data(:, ~log_cols);
 
 %# Sort rows
@@ -46,14 +52,15 @@ wo_cols = db.data(:, ~log_cols);
 %# Find unique rows
 [unique_rows unique_idx] = sortedUniqueValues(sorted);
 
-%# Get the columns back
-sorted = db.data(idx, :);
+%# Get the columns back [no need for duplicate memory matrix, just use idx below]
+%# sorted = db.data(idx, :);
 
 %# Initialize
 num_rows = length(unique_idx);
+num_total_rows = dbsize(db, 1);
 
 %# If not symmetric
-if mod(size(sorted, 1), num_rows) ~= 0
+if mod(num_total_rows, num_rows) ~= 0
   if ~ exist('main_cols')
     error('Database does not contain equal rows of each unique combination and main_cols is not specified. Cannot fold.');
   end
@@ -61,30 +68,36 @@ if mod(size(sorted, 1), num_rows) ~= 0
   main_cols = tests2cols(db, main_cols);
 
   %# Sort and keep the unique values of main_cols
-  unique_main_vals = sortrows(uniqueValues(sorted(:, main_cols)));
+  unique_main_vals = sortrows(uniqueValues(db.data(idx, main_cols)));
   if verbose
     unique_main_vals
   end
   num_uniques = size(unique_main_vals, 1);
   max_page_rows = num_uniques;
 else
-  max_page_rows = floor(size(sorted, 1) / num_rows);
+  max_page_rows = floor(num_total_rows / num_rows);
 end
 
 data = repmat(NaN, [max_page_rows, (length(cols) + 1), num_rows]);
+
+if exist('unique_main_vals')
+  unique_main_vals_exist = true;
+else
+  unique_main_vals_exist = false;
+end
 
 %# For each unique row to next, create a new page
 for row_num=1:num_rows
   if row_num < num_rows
     page_rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
   else
-    page_rows = unique_idx(row_num):size(sorted, 1);
+    page_rows = unique_idx(row_num):num_total_rows;
   end
 
   page_size = length(page_rows);
-  if exist('unique_main_vals')
+  if unique_main_vals_exist
     %# sort main_cols first
-    [page_main_vals page_idx] = sortrows(sorted(page_rows, main_cols));
+    [page_main_vals page_idx] = sortrows(db.data(idx(page_rows), main_cols));
 
     %# Match each page entry to uniques
     unique_index = 1;
@@ -107,18 +120,19 @@ for row_num=1:num_rows
       if page_size - page_index == num_uniques - unique_index
 	%# Copy contents verbatim from this index onwards
 	data(unique_index:end, :, row_num) = ...
-	  [sorted(page_rows(page_idx(page_index:end)), cols), ...
+	  [db.data(idx(page_rows(page_idx(page_index:end))), cols), ...
 	   idx(page_rows(page_idx(page_index:end))) ];
       else
 	%# Copy only this row
 	data(unique_index, :, row_num) = ...
-	    [sorted(page_rows(page_idx(page_index)), cols), ...
+	    [db.data(idx(page_rows(page_idx(page_index))), cols), ...
 	     idx(page_rows(page_idx(page_index))) ];
       end
     end
   else
     %# Fill page from fixed-size unique values
-    data(:, :, row_num) = [sorted(page_rows, cols), idx(page_rows) ];
+    this_page_idx = idx(page_rows);
+    data(:, :, row_num) = [db.data(this_page_idx, cols), this_page_idx ];
   end
 end
 
