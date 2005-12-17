@@ -96,6 +96,10 @@ if isfield(a_plot.props, 'YTickLabel')
   set(gca, 'YTickLabel', a_plot.props.YTickLabel);
 end
 
+if isfield(a_plot.props, 'YTick')
+  set(gca, 'YTick', a_plot.props.YTick);
+end
+
 if isfield(a_plot.props, 'grid')
   grid;
 end
