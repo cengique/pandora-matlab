@@ -1,6 +1,6 @@
 function s = displayRows(db, rows)
 
-% displayRows - Displays a row of data with associated column labels.
+% displayRows - Displays rows of rankings together with errors associated with each measure.
 %
 % Usage:
 % s = displayRows(db, rows)
