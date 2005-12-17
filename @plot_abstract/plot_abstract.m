@@ -32,9 +32,8 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %		rotateYLabel: Rotates the Y-axis label for smaller width.
 %		numXTicks: Number of ticks on X-axis.
 %		formatXTickLabels: The sprintf format string for tick labels.
-%		XTick: Point locations for X-axis ticks.
-%		XTickLabel: X-axis tick labels.
-%		YTickLabel: Y-axis tick labels.
+%		XTick, YTick: Point locations for axis ticks.
+%		XTickLabel, YTickLabel: Axis tick labels.
 %		LineStyleOrder: Set the LineStyleOrder of the axis.
 %		
 %   Returns a structure object with the following fields:
