@@ -11,6 +11,8 @@ function a_cip_trace = cip_trace(traceset, trace_index, props)
 %	traceset: A physiol_cip_traceset object.
 %	trace_index: Index of file in traceset.
 %	props: A structure with any optional properties.
+%	  TracesetIndex: Indicates in the id field.
+%	  showParamsList: Cell array of params to add to id field.
 %		
 %   Returns:
 %	a_cip_trace: A cip_trace object that holds the raw data.
@@ -37,6 +39,22 @@ if isfield(props, 'TracesetIndex')
   trace_id = [ 's' num2str(props.TracesetIndex) ',t' num2str(trace_index) ];
 else
   trace_id = [ 't' num2str(trace_index) ];
+end
+
+if isfield(props, 'showParamsList')
+  if ischar(props.showParamsList)
+    num_params = 1;
+  else
+    num_params = length(props.showParamsList);
+  end
+  param_names = paramNames(traceset);
+  param_vals = getItemParams(traceset, trace_index, ...
+			     results_profile(struct, '', new_props));
+  
+  for param_num=1:num_params
+    param_idx = strmatch(props.showParamsList{param_num}, param_names);
+    trace_id = [trace_id ',' param_names{param_idx} '=' num2str(param_vals(param_idx))];
+  end
 end
 
 traceset_props = get(traceset, 'props');
