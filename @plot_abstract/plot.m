@@ -77,13 +77,15 @@ if isfield(a_plot_props, 'LineStyleOrder')
 end
 
 %# Run the plot command
-if strcmp(a_plot.command, 'boxplot') || strcmp(a_plot.command, 'boxplotp')
+if ischar(a_plot.command) && (strcmp(a_plot.command, 'boxplot') || ...
+			      strcmp(a_plot.command, 'boxplotp'))
   feval(a_plot.command, a_plot.data{:});
   ph = []; %# boxplot returns no handle???
-elseif strcmp(a_plot.command, 'silhouette')
+elseif ischar(a_plot.command) && strcmp(a_plot.command, 'silhouette')
   %# silhouette plot requires two return values
   [silh, ph] = feval(a_plot.command, a_plot.data{:});
 else
+  %# Should work string or function name the same way
   ph = feval(a_plot.command, a_plot.data{:});
 end
 
