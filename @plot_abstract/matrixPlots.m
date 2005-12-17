@@ -14,6 +14,7 @@ function a_plot = matrixPlots(plots, axis_labels, title_str, props)
 %	props: A structure with any optional properties passed to the Y stack_plot.
 %		titlesPos: if specified, passed to the X stack_plots.
 %		rotateYLabel: if specified, passed to the X stack_plots.
+%		axisLimits: if specified, passed to the X stack_plots.
 %		goldratio: try to make the figure in this aspect ratio.
 %		
 %   Returns:
@@ -95,11 +96,17 @@ end
 width = max([side1 side2])
 height = min([side1 side2])
 
-horz_props = struct('yLabelsPos', 'left', 'rotateYLabel', 30);
+horz_props = struct('yLabelsPos', 'left', 'xLabelsPos', 'none', 'rotateYLabel', 30);
 if isfield(props, 'titlesPos')
   horz_props.titlesPos = props.titlesPos;
 else
   horz_props.titlesPos = 'none';
+end
+
+if isfield(props, 'axisLimits')
+  axis_limits = props.axisLimits;
+else
+  axis_limits = [];
 end
 
 %# Create matrix of plots
@@ -109,6 +116,7 @@ for y = 1:height
     horz_stacks = cell(1, width);
   else
     horz_stacks = cell(1, mod(length(plots), width) );
+    horz_props.xLabelsPos = 'bottom';
   end
   for x = 1:width
     plot_num = x + (y - 1) * width;
@@ -116,7 +124,7 @@ for y = 1:height
       horz_stacks{x} = plots(plot_num);
     end
   end
-  vert_stacks{y} = plot_stack(horz_stacks, [], 'x', '', horz_props);
+  vert_stacks{y} = plot_stack(horz_stacks, axis_limits, 'x', '', horz_props);
 end
 a_plot = plot_stack(vert_stacks, [], 'y', title_str, props)
 
