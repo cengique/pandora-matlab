@@ -25,6 +25,6 @@ function a_3D_db = swapRowsPages(db)
 
 %# Reorder the row and page dimensions
 a_3D_db = set(db, 'data', permute(get(db, 'data'), [3, 2, 1]));
-a_3D_db = set(a_3D_db, 'row_idx', get(db, 'col_idx'));
-a_3D_db = set(a_3D_db, 'col_idx', get(db, 'row_idx'));
+a_3D_db = set(a_3D_db, 'row_idx', get(db, 'page_idx'));
+a_3D_db = set(a_3D_db, 'page_idx', get(db, 'row_idx'));
 
