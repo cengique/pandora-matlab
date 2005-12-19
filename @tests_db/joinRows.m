@@ -71,7 +71,6 @@ new_data = [ data(joins, cols), w_data(:, w_cols) ];
 %# Get the column names straight
 cols_cell1 = fieldnames(get(db, 'col_idx'));
 cols_cell2 = fieldnames(get(with_db, 'col_idx'));
-a_db = tests_db(new_data, ...
-		{ cols_cell1{cols}, cols_cell2{w_cols} }, ...
-		fieldnames(get(db, 'row_idx')), ...
-		[ get(db, 'id') ' joined with ' get(with_db, 'id')], db.props);
+a_db = set(db, 'data', new_data);
+a_db = set(a_db, 'col_idx', makeIdx({ cols_cell1{cols}, cols_cell2{w_cols} }));
+a_db = set(a_db, 'id', [ get(db, 'id') ' joined with ' get(with_db, 'id')]);

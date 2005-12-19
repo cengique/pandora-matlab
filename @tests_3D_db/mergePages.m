@@ -26,7 +26,7 @@ function a_db = mergePages(db, page_tests, page_suffixes)
 %# For each page to get tests from
 num_pages = length(page_tests);
 
-dbs = repmat(tests_3D_db, num_pages, 1);
+%#dbs = repmat(tests_3D_db, num_pages, 1);
 
 row_index_col = tests2cols(db, 'RowIndex');
 
@@ -43,8 +43,7 @@ for page_num=1:num_pages
     tests = [tests, row_index_col];
   end
 
-  %# Get one database per page
-  dbs(page_num) = onlyRowsTests(db, ':', tests, page_num);
+  %# Count tests
   num_tests = num_tests + length(tests);
   tests_list{page_num} = tests;
 end
@@ -55,13 +54,17 @@ data = repmat(NaN, dbsize(db, 1), num_tests);
 %# Fill data matrix
 num_tests = 0;
 all_tests = {};
+orig_tests = fieldnames(get(db, 'col_idx'));
 for page_num=1:num_pages
-  these_tests = fieldnames(get(dbs(page_num), 'col_idx'));
+  tests = tests_list{page_num};
+  %#these_tests = fieldnames(get(dbs(page_num), 'col_idx'));
+  these_tests = orig_tests(tests);
   for test_num = 1:length(these_tests)
     these_tests{test_num} = [ these_tests{test_num} page_suffixes{page_num} ];
   end
   all_tests = { all_tests{:}, these_tests{:}};
-  data(:, (num_tests + 1):(num_tests + length(these_tests))) = get(dbs(page_num), 'data');
+  data(:, (num_tests + 1):(num_tests + length(these_tests))) = ...
+      get(onlyRowsTests(db, ':', tests, page_num), 'data');
   num_tests = num_tests + length(these_tests);
 end
 
