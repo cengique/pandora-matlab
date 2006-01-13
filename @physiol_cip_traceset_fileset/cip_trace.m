@@ -16,8 +16,7 @@ function a_cip_trace = cip_trace(fileset, traceset_index, trace_index, props)
 %			to row in cells_filename) to find the cell information.
 %	trace_index: Index of item in the traceset.
 %	a_db: A DB created by this fileset to read the traceset and item indices from.
-%	props: A structure with any optional properties.
-%	  showParamsList: Cell array of params or treatments to include in the id field.
+%	props: A structure with any optional properties, passed to physiol_cip_traceset/cip_trace.
 %		
 %   Returns:
 %	a_cip_trace: One or more cip_trace object that holds the raw data.
@@ -41,6 +40,11 @@ if isa(traceset_index, 'tests_db')
 	cip_trace(fileset, col_data(row_num, 1), col_data(row_num, 2), props);
   end
 else
+  %# If trace_index is ':', then load all in traceset.
+  if ischar(trace_index) && strcmp(trace_index, ':')
+    trace_index = 1:length(get(getItem(fileset, traceset_index), 'list'));
+  end
+
   num_traces = length(trace_index);
   if num_traces > 1
     [ a_cip_trace(1:num_traces) ] = deal(cip_trace);
