@@ -50,23 +50,20 @@ crit_row_db = onlyRowsTests(crit_db, 1, crit_tests);
 nonnans = ~ isnan(crit_row_db.data);
 crit_tests = crit_tests(nonnans);
 
-%# Filter relevant columns
-reduced_db = db(':', crit_tests);
-
 %# Vectorize diff over cols and do the diff^2
 %#####
 
 %# Replicate 1st row of crit_db
 first_row = onlyRowsTests(crit_db, 1, crit_tests);
-rep_crit = ones(dbsize(db, 1), 1) * first_row.data;
-
-%# Subtract from db
-diff_data = reduced_db.data - rep_crit;
 
 %# Weigh according to 2nd row of crit_db
 second_row = onlyRowsTests(crit_db, 2, crit_tests);
-rep_weight = ones(dbsize(db, 1), 1) * second_row.data;
-wghd_data = diff_data ./ rep_weight;
+
+%# Filter relevant columns, subtract from db and weight
+%# (do all at once without using temporary variables to save memory)
+wghd_data = (get(db(':', crit_tests), 'data') - ...
+	     (ones(dbsize(db, 1), 1) * first_row.data)) ./ ...
+    (ones(dbsize(db, 1), 1) * second_row.data);
 
 %# Sum of squares: distance measure
 %# Look for NaN values, skip them and count the non-NaN values to normalize the SS
@@ -74,19 +71,22 @@ ss_data = abs(wghd_data); %# .* wghd_data;
 if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
   nans = isnan(ss_data);
   ss_data(nans) = 3; %# Replace NaNs with 0s, 3 for 3 STDs different
-  summed_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
+  ss_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
 else
-  summed_data = sum(ss_data, 2) ./ size(ss_data, 2);
+  ss_data = sum(ss_data, 2) ./ size(ss_data, 2);
 end
 
 %# Ignore NaN rows (there will be non NaN rows after the above)
-nans = isnan(summed_data);
-summed_data = summed_data(~nans);
+nans = isnan(ss_data);
+ss_data = ss_data(~nans);
 row_index = row_index(~nans);
 wghd_data = wghd_data(~nans, :);
 
+%# put all into one variable to free the memory for the next step
+wghd_data = [wghd_data, ss_data, row_index];
+
 %# Create a ranked_db with distances and row indices, sorted with distances
-a_ranked_db = ranked_db([wghd_data, summed_data, row_index], ...
+a_ranked_db = ranked_db(wghd_data, ...
 			{crit_tests{:}, 'Distance', 'RowIndex'}, db, crit_db, ...
 			[ lower(get(db, 'id')) ' ranked to ' ...
 			 lower(get(crit_db, 'id')) ], props);
