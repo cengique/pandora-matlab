@@ -1,15 +1,18 @@
-function a_plot = plotRowErrors(db, rows)
+function a_plot = plotRowErrors(db, rows, props)
 
 % plotRowErrors - Create plot of rankings with errors associated with each measure color-coded.
 %
 % Usage:
-% a_plot = plotRowErrors(db, rows)
+% a_plot = plotRowErrors(db, rows, props)
 %
 % Description:
 %
 %   Parameters:
 %	db: A tests_db object.
 %	rows: Indices of rows in db.
+%	props: A structure with any optional properties.
+%	  sortMeasures: If specified, measure order is determined with increasing 
+%		overall distance.
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
@@ -21,6 +24,10 @@ function a_plot = plotRowErrors(db, rows)
 
 if ~ exist('rows')
   rows = ':';
+end
+
+if ~ exist('props')
+  props = struct;
 end
 
 %# Join with original here. Only joins the requested rows.
@@ -42,26 +49,31 @@ common_cols = setdiff(intersect(fieldnames(joined_db.col_idx), ...
 
 num_std_colors = 10; %# colors for one STD of variance
 num_rows = dbsize(joined_db, 1);
-distmatx = repmat(NaN, length(common_cols), num_rows);
 
-%# Go through all rows and generate matrix
-for row_num = 1:num_rows
-  for dist_num = 1:length(common_cols)
-    %# Add distance values into matrix
-    col = tests2cols(joined_db, common_cols{dist_num});
-    distmatx(dist_num, row_num) = ...
-	abs(get(onlyRowsTests(db, row_num, common_cols(dist_num)), 'data')) * num_std_colors;
-  end
-  %names = {names{:}, ['Rank ' num2str(row_num) ], ''};
+%# Sanity check
+if num_rows > 500
+  error('Too many rows to display!');
 end
 
-props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols));
-props.YTickLabel = common_cols;
+%# Get matrix of desired rows and columns
+distmatx = (abs(get(onlyRowsTests(db, 1:num_rows, common_cols), 'data')) * num_std_colors)';
+
+%# Replace NaNs in distmatx with 3 STD
+distmatx(isnan(distmatx)) = 3 * num_std_colors;
+
+if isfield(props, 'sortMeasures')
+  [a sorted_idx] = sortrows(sum(distmatx, 2));
+  distmatx = distmatx(sorted_idx, :);
+  common_cols = common_cols(sorted_idx);
+end
+
+plot_props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols));
+plot_props.YTickLabel = common_cols;
 
 a_plot = plot_abstract({distmatx, num_std_colors}, {'Ranks', 'Measures'}, ...
 		       ['Per-measure errors in ranking ' ...
 			strrep(get(db, 'id'), '_', ' ') ], ...
-		       {}, @plot_image, props);
+		       {}, @plot_image, plot_props);
 end
 
 %# Small function for creating matrix plot
