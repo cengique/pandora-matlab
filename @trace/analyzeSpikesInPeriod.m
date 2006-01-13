@@ -102,7 +102,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 	spikes_stats_db.data(1, test_num);
     results.([prefix_str test_names{test_num} 'STD' ]) = ...
 	spikes_stats_db.data(2, test_num);
-    [mode_val, mode_mag] = mode(spikes_hists_dbs(test_num));
+    [mode_val, mode_mag] = calcMode(spikes_hists_dbs{test_num});
     if verbose
       disp([ prefix_str ' ' test_names{test_num} ':  mode_val=' num2str(mode_val) ...
 	    ', mode_mag=' num2str(mode_mag)]);
