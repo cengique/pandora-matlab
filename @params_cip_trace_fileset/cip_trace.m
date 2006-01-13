@@ -2,14 +2,18 @@ function a_cip_trace = cip_trace(fileset, file_index)
 
 % cip_trace - Loads a raw cip_trace given a file_index to this fileset.
 %
-% Usage:
+% Usage 1:
 % a_cip_trace = cip_trace(fileset, file_index)
+%
+% Usage 2:
+% a_cip_trace = cip_trace(fileset, a_db)
 %
 % Description:
 %
 %   Parameters:
 %	fileset: A params_tests_fileset.
 %	file_index: Index of file in fileset.
+%	a_db: A DB created by this fileset to read the item indices from.
 %		
 %   Returns:
 %	a_cip_trace: A cip_trace object.
