@@ -13,6 +13,7 @@ function a_cip_trace = cip_trace(traceset, trace_index, props)
 %	props: A structure with any optional properties.
 %	  TracesetIndex: Indicates in the id field.
 %	  showParamsList: Cell array of params to add to id field.
+%	  showName: Show the name of the cell in the id field (default=1).
 %		
 %   Returns:
 %	a_cip_trace: A cip_trace object that holds the raw data.
@@ -57,9 +58,14 @@ if isfield(props, 'showParamsList')
   end
 end
 
+%# Put id of traceset as id
+if ~ isfield(props, 'showName') || props.showName == 1
+  trace_id = [get(traceset, 'id') '(' trace_id ')'];
+end
+
 traceset_props = get(traceset, 'props');
 a_cip_trace = cip_trace(traceset.data_src, get(traceset, 'dt'), ...
 			get(traceset, 'dy'), ...
 			pulse_time_start, pulse_time_width, ...
-			[get(traceset, 'id') '(' trace_id ')'], ...
+			trace_id, ...
 			mergeStructs(traceset_props, new_props));
