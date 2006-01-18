@@ -108,7 +108,8 @@
 
 \layout Title
 
-The DJLAB Database Oriented Neuroscientific Analysis Software --- 
+Plotting and Analysis of Neural Database Applications (PANDA) Toolbox ---
+ 
 \newline 
 An Advanced User's and Programmer's Manual
 \layout Author
@@ -126,7 +127,7 @@ status Collapsed
 unay 
 \layout Date
 
-Revision 
+Manual Revision 
 \begin_inset ERT
 status Collapsed
 
@@ -168,7 +169,7 @@ today
 Introduction
 \layout Subsection
 
-What is DONAS?
+What is the PANDA Toolbox?
 \layout Standard
 
 It is a software package which consists of a collection of 
@@ -1334,6 +1335,57 @@ Genesis
  Note that, using an absolute path to refer to data files ensures that they
  can be reached from different directories after the fileset object is saved.
  
+\layout Paragraph
+
+Loading heterogeneous set of simulation files
+\layout Standard
+
+Sometimes not all data files in a simulation set would have the same length,
+ or CIP start time.
+ The brute-force simulation set is such an example, where the spontaneous
+ trace and different CIP level traces are in different files.
+ I have a special superclass that contains multiple fileset objects to automatic
+ally handle this kind of data.
+ It resides not in the general distribution directory, but in my personal
+ directory 
+\family typewriter 
+/Lab/matlab/classes/cengiz
+\family default 
+.
+ This class is an example of how to create composite fileset objects.
+ An instance of this class can be created with:
+\layout LyX-Code
+
+>> m_filesetall = 
+\layout LyX-Code
+
+     multi_fileset_gpsim_cns2005('.../data', '.../paramRanges.txt', 
+\layout LyX-Code
+
+                                 '.../all_0.par', 'sim db gpsc0502')
+\layout Standard
+
+which will find all the files in the given directory and put them in separate
+ pre-defined fileset objects according to their 
+\family typewriter 
+_pAcip_
+\family default 
+ suffixes.
+ Parameter range definition and value files are used to read parameter values
+ for each simulation.
+ A single database object can be loaded using the 
+\family typewriter 
+params_tests_db
+\family default 
+ method on the 
+\family typewriter 
+m_filesetall
+\family default 
+ object above.
+ The help on this method explains how to load only certain filesets at a
+ time.
+ This helps to load different filesets in parallel, since databases can
+ be concatanated easily afterwards.
 \layout Subsection
 
 Finding constrained subsets in a database
