@@ -15,7 +15,8 @@ else
   switch index.type
     case '()'
       %# Delegate to base class
-      b = a.tests_db(index.subs{:});
+      error('indexing operator not defined.');
+      %#b = a(index.subs{:});
     case '.'
       b = get(a, index.subs); 
     case '{}'
