@@ -1,6 +1,6 @@
 function tex_string = rankingReportTeX(a_bundle, crit_bundle, crit_db, props)
 
-% rankingReportTeX - Generates a LaTeX document with figures of the ranking DB obtained by comparing rows of a_db with the given match criteria, crit_db.
+% rankingReportTeX - Generates a report by comparing a_bundle with the given match criteria, crit_db from crit_bundle.
 %
 % Usage:
 % tex_string = rankingReportTeX(a_bundle, crit_bundle, crit_db, props)
@@ -36,9 +36,9 @@ end
 
 tex_string = '';
 
-ranked_db = rankMatching(a_bundle.joined_db, crit_db);
-joined_db = joinOriginal(ranked_db);
-ranked_num_rows = dbsize(ranked_db, 1);
+a_ranked_db = rankMatching(a_bundle.joined_db, crit_db);
+joined_db = joinOriginal(a_ranked_db);
+ranked_num_rows = dbsize(a_ranked_db, 1);
 
 %# LaTeX likes '_' to be '\_' 
 a_db_id = strrep(lower(get(a_bundle.joined_db, 'id')), '_', '\_');
@@ -77,12 +77,12 @@ if ranked_num_rows > 0
     end
     trace_d100_plots{plot_num} = ...
 	superposePlots([plotData(crit_trace_d100(crit_traces)), ...
-			ctFromRows(a_bundle, trial_num, 100)], {}, ...
+			plotData(ctFromRows(a_bundle, trial_num, 100))], {}, ...
 		       ['Rank ' num2str(rank_num) ', t' num2str(trial_num)], ...
 		       'plot', sup_props);
     trace_h100_plots{plot_num} = ...
 	superposePlots([plotData(crit_trace_h100(crit_traces)), ...
-			ctFromRows(a_bundle, trial_num, -100)], {}, '', ...
+			plotData(ctFromRows(a_bundle, trial_num, -100))], {}, '', ...
 		       'plot', sup_props);
   end
   
@@ -91,7 +91,7 @@ if ranked_num_rows > 0
 			[0 3000 -150 80], 'y', ...
 			['The best match to ' crit_trace_id ], ...
 			struct('xLabelsPos', 'bottom', 'titlesPos', 'none')));
-  best_filename = properFilename([crit_db_id  ' - best matching model from ' a_db_id ]);
+  best_filename = properTeXFilename([crit_db_id  ' - best matching model from ' a_db_id ]);
   orient tall; print('-depsc2', [ best_filename '.eps' ] );
 
   horiz_props = struct('titlesPos', 'all', 'yLabelsPos', 'left', 'xLabelsPos', 'none');
@@ -104,7 +104,7 @@ if ranked_num_rows > 0
 			['Best matches to ' crit_trace_id ], ...
 			struct('titlesPos', 'none')));
 
-  filename = properFilename([ crit_db_id ' - top matching models from ' a_db_id ]);
+  filename = properTeXFilename([ crit_db_id ' - top matching models from ' a_db_id ]);
   print('-depsc2', [ filename '.eps' ] );
 
   %# Put the best match in a figure float
@@ -142,7 +142,7 @@ if ranked_num_rows > 0
   else
     num_best = 13;
   end
-  top_ranks = onlyRowsTests(ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
+  top_ranks = onlyRowsTests(a_ranked_db, 1:min(num_best, ranked_num_rows), ':', ':');
   short_caption = [ a_db_id ' ranked to the ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' Only ' num2str(num_best) ' best matches are shown.' ];
@@ -152,10 +152,10 @@ if ranked_num_rows > 0
 
   %# Display colored-plot of top 50 matches
   num_best = min(50, ranked_num_rows);
-  plotFigure(plotRowErrors(ranked_db, 1:num_best));
+  plotFigure(plotRowErrors(a_ranked_db, 1:num_best));
 
   %# Save it as a picture 
-  filename = properFilename([ crit_db_id ' - colorgraph of ' num2str(num_best) ...
+  filename = properTeXFilename([ crit_db_id ' - colorgraph of ' num2str(num_best) ...
 			     ' top matching models from ' a_db_id ]);
   orient tall; print('-depsc2', [ filename '.eps' ]);
 
@@ -175,10 +175,10 @@ if ranked_num_rows > 0
 					 'shortCaption', short_caption)) ];
 
   %# Display sorted colored-plot of top 50 matches
-  plotFigure(plotRowErrors(ranked_db, 1:num_best, struct('sortMeasures', 1)));
+  plotFigure(plotRowErrors(a_ranked_db, 1:num_best, struct('sortMeasures', 1)));
 
   %# Save it as a picture 
-  filename = properFilename([ crit_db_id ' - sorted colorgraph of ' num2str(num_best) ...
+  filename = properTeXFilename([ crit_db_id ' - sorted colorgraph of ' num2str(num_best) ...
 			     ' top matching models from ' a_db_id ]);
   orient tall; print('-depsc2', [ filename '.eps' ]);
 
@@ -209,7 +209,7 @@ if ranked_num_rows > 0
 			struct('yLabelsPos', 'left', 'titlesPos', 'none')));
 
   %# Save it as a picture 
-  filename = properFilename([ crit_db_id ' - params distribution of top 50 matches to ' ...
+  filename = properTeXFilename([ crit_db_id ' - params distribution of top 50 matches to ' ...
 			     a_db_id ]);
   print('-depsc2', [ filename '.eps' ]);
 
