@@ -60,7 +60,7 @@ else
   obj.neuron_idx = struct;
 
   %# read ASCII file, make each line an item in a cell array
-  tcell = textread(cells_filename, '%s', 'delimiter', '\n');
+  tcell = textread(cells_filename, '%s', 'delimiter', '\n', 'commentstyle','matlab');
   %# Parse each line, organize items by line number.
   tmtstruct = struct('tmp', 0);	% keep track of treatments in use.
   names = cell(length(tcell), 1);
