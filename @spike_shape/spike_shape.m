@@ -58,12 +58,11 @@ function obj = spike_shape(data, dt, dy, id, props)
 
 if nargin == 0 %# Called with no params
   trace_obj = trace;
-  obj.props = struct([]);
-  obj = class(obj, 'spike_shape', trace_obj);
+  obj = class(struct([]), 'spike_shape', trace_obj);
 elseif isa(data, 'spike_shape') %# copy constructor?
   obj = data;
 else
-  trace_obj = trace(data, dt, dy, id, struct([]));
+
 
   if ~ exist('props')
     props = struct([]);
@@ -78,8 +77,7 @@ else
     props(1).init_Vm_method = 8; %# max vPP curvature, fallback on derivative threshold method
     props(1).init_threshold = 15; %# threshold crossing derivative in V/s (= mV/ms)
   end
-  obj.props = props;
 
-  obj = class(obj, 'spike_shape', trace_obj);
+  trace_obj = trace(data, dt, dy, id, props);
+  obj = class(struct([]), 'spike_shape', trace_obj);
 end
-
