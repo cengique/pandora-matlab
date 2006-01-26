@@ -72,10 +72,12 @@ end
 [init_val, init_idx, rise_time, amplitude, ...
  peak_mag, peak_idx, max_d1o, a_plot] = calcInitVm(s, max_idx, min_idx, plotit);
 
+s_props = get(s, 'props');
+
 %# Calculate secondary threshold point based on interpolated slope threshold crossing
 try 
   [init_st_idx] = ...
-      calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s.props.init_threshold, 0);
+      calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s_props.init_threshold, 0);
   init_st_val = interpValByIndex(init_st_idx, s.trace.data);
 catch 
   err = lasterror;

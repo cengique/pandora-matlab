@@ -241,8 +241,10 @@ end
 %# Return all candidates
 init_idx = [max_k_t_idx, max_k_near_d2vpp_t_idx, max_d2vpp_t_idx, max_d3vpp_t_idx];
 
-if interp_vpp(max_k_near_d2vpp_idx + 2) > s.props.init_threshold
-  warning('calcInitVm:info', ['vPP curvature ignored, v'' > ' num2str(s.props.init_threshold) ' for ' ...
+s_props = get(s, 'props');
+
+if interp_vpp(max_k_near_d2vpp_idx + 2) > s_props.init_threshold
+  warning('calcInitVm:info', ['vPP curvature ignored, v'' > ' num2str(s_props.init_threshold) ' for ' ...
 	   get(s, 'id')]);
   fail_cond = true(1);
 else
@@ -254,7 +256,7 @@ if plotit
   v = voltage_points(3:(max_vpp_idx + 2)) * 1e3;
   t = (3 : max_idx) * s.trace.dt * 1e3;
   t_data = s.trace.data(3 : max_idx);
-  if isfield(s.props, 'quiet') || isfield(s.trace.props, 'quiet')
+  if isfield(s_props, 'quiet') || isfield(s.trace.props, 'quiet')
     title_str = '';
   else
     title_str = [ strrep(class(s), '_', ' ') ': ' get(s, 'id') ', ' ];
