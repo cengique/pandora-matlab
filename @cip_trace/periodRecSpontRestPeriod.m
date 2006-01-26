@@ -1,4 +1,4 @@
-function the_period = periodRecSpontIniPeriod(t, IniPeriod)
+function the_period = periodRecSpontRestPeriod(t, IniPeriod)
 
 % periodRecSpont - Returns the recovery spontaneous activity period 
 %		of cip_trace, t. 
@@ -9,8 +9,8 @@ function the_period = periodRecSpontIniPeriod(t, IniPeriod)
 % Description:
 %   Parameters:
 %	t: A trace object.
-%   iniPeriod: the time following pulse offset that is kept, the rest of
-%   the time is ignored.
+%   iniPeriod: the time following pulse offset that is ignored. The rest of
+%   the time is kept
 %
 %   Returns:
 %	the_period: A period object.
@@ -23,4 +23,4 @@ function the_period = periodRecSpontIniPeriod(t, IniPeriod)
 time_start = t.pulse_time_start + t.pulse_time_width;
 time_end = length(t.trace.data);
 
-the_period = period(time_start, time_start +IniPeriod);
+the_period = period(time_start +IniPeriod, time_end);
