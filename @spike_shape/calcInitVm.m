@@ -45,7 +45,8 @@ max_val = s.trace.data(max_idx);
 max_d1o = NaN;			%# comes from calcInitVmMaxCurvPhasePlane
 
 %# Find spike initial voltage
-method = getfield(get(s, 'props'), 'init_Vm_method');
+s_props = get(s, 'props');
+method = s_props.init_Vm_method;
 
 vs = warning('query', 'verbose');
 verbose = vs.state;
@@ -69,19 +70,23 @@ switch method
   case 2
     deriv = diff(s.trace.data);
     accel = diff(deriv);
+<<<<<<< calcInitVm.m
+    idx = find(accel(1 : max_idx) >= s_props.init_threshold); 
+=======
     idx = find(accel(1 : max_idx) >= getfield(get(s, 'props'), 'init_threshold')); 
+>>>>>>> 1.14
     if length(idx) == 0 
       error('calcInitVm:failed', ...
 	    sprintf(['Threshold %f failed to find ', ...
 		     ' spike initiation acceleration.'], ...
-		    s.props.init_threshold));
+		    s_props.init_threshold));
     end
     idx = idx(1);
 
   %# threshold voltage slope
   case 3
     [idx, a_plot] = ...
-	calcInitVmSlopeThreshold(s, max_idx, min_idx, s.props.init_threshold, plotit);
+	calcInitVmSlopeThreshold(s, max_idx, min_idx, s_props.init_threshold, plotit);
 
   %# Sekerli's method: maximum second derivative in the phase space
   case 4
@@ -89,18 +94,18 @@ switch method
 
   %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
   case 5
-    [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, s.props.init_lo_thr, ...
-					 s.props.init_hi_thr, plotit);
+    [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, s_props.init_lo_thr, ...
+					 s_props.init_hi_thr, plotit);
 
   %# Sekerli's method with a twist
   case 6
     [idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, ...
-					s.props.init_threshold, plotit);
+					s_props.init_threshold, plotit);
 
   %# threshold voltage derivative by first supersampling using interpolation
   case 7
     [idx, a_plot] = ...
-	calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s.props.init_threshold, plotit);
+	calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s_props.init_threshold, plotit);
 
   %# Point of maximum curvature in phase-plane: Kp = V''[1 + (V')^2]^(-3/2)
   case 8
@@ -113,7 +118,7 @@ switch method
       else
 	[idx, a_plot] = ...
 	    calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
-					      s.props.init_threshold, plotit);
+					      s_props.init_threshold, plotit);
       end
 
     catch
@@ -124,7 +129,7 @@ switch method
 		 ' Falling back to supersampled threshold method.']);
 	[idx, a_plot] = ...
 	    calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
-					      s.props.init_threshold, plotit);
+					      s_props.init_threshold, plotit);
       else
 	warning('calcInitVm:info', ['Rethrowing: ']);
 	rethrow(err);
@@ -135,8 +140,8 @@ switch method
   %# Combined methods for time-domain derivatives: h and Kp
   case 9
     [idx, a_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, ...
-					   s.props.init_lo_thr, ...
-					   s.props.init_hi_thr, plotit);
+					   s_props.init_lo_thr, ...
+					   s_props.init_hi_thr, plotit);
     idx = idx(1);
 
   otherwise
