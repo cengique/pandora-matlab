@@ -45,7 +45,7 @@ max_val = s.trace.data(max_idx);
 max_d1o = NaN;			%# comes from calcInitVmMaxCurvPhasePlane
 
 %# Find spike initial voltage
-method = s.props.init_Vm_method;
+method = getfield(get(s, 'props'), 'init_Vm_method');
 
 vs = warning('query', 'verbose');
 verbose = vs.state;
@@ -69,7 +69,7 @@ switch method
   case 2
     deriv = diff(s.trace.data);
     accel = diff(deriv);
-    idx = find(accel(1 : max_idx) >= s.props.init_threshold); 
+    idx = find(accel(1 : max_idx) >= getfield(get(s, 'props'), 'init_threshold')); 
     if length(idx) == 0 
       error('calcInitVm:failed', ...
 	    sprintf(['Threshold %f failed to find ', ...
