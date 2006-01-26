@@ -20,4 +20,4 @@ function results = getResults(a_cip_trace, a_spikes)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 results = mergeStructs(getRateResults(a_cip_trace, a_spikes), ...
-		       getCIPResults(a_cip_trace, a_spikes));
+		       getCIPResults(a_cip_trace, a_spikes), getBurstResults(a_cip_trace, a_spikes));
