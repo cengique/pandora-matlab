@@ -70,11 +70,7 @@ switch method
   case 2
     deriv = diff(s.trace.data);
     accel = diff(deriv);
-<<<<<<< calcInitVm.m
     idx = find(accel(1 : max_idx) >= s_props.init_threshold); 
-=======
-    idx = find(accel(1 : max_idx) >= getfield(get(s, 'props'), 'init_threshold')); 
->>>>>>> 1.14
     if length(idx) == 0 
       error('calcInitVm:failed', ...
 	    sprintf(['Threshold %f failed to find ', ...
