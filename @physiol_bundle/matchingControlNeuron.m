@@ -1,9 +1,9 @@
-function crit_db = matchingControlNeuron(a_bundle, neuron_id, props)
+function a_crit_bundle = matchingControlNeuron(a_bundle, neuron_id, props)
 
 % matchingControlNeuron - Creates a criterion database for matching the neuron at traceset_index.
 %
 % Usage:
-% crit_db = matchingControlNeuron(a_bundle, neuron_id, props)
+% a_crit_bundle = matchingControlNeuron(a_bundle, neuron_id, props)
 %
 % Description:
 %   Copies selected test values from row as the first row into the 
@@ -15,11 +15,12 @@ function crit_db = matchingControlNeuron(a_bundle, neuron_id, props)
 %	props: A structure with any optional properties.
 %		
 %   Returns:
-%	crit_db: A tests_db with two rows for values and STDs.
+%	a_crit_bundle: A tests_db with two rows for values and STDs.
 %
 %   Example:
 %	Matches gpd0421c from cip_traces_all_axoclamp.txt:
-%	>> crit_db = matchingControlNeuron(pbundle, 33)
+%	>> a_crit_bundle = matchingControlNeuron(pbundle, 33)
+%	(see example in matchingRow)
 %
 % See also: rankMatching, tests_db, tests2cols
 %
@@ -35,4 +36,4 @@ t_idx = ...
     a_bundle.joined_control_db(a_bundle.joined_control_db(:, 'NeuronId') == neuron_id, ...
 			       'TracesetIndex').data;
 %# Delegate to TracesetIndex version
-crit_db = matchingRow(a_bundle, t_idx, props);
+a_crit_bundle = matchingRow(a_bundle, t_idx, props);

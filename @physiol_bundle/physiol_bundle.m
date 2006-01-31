@@ -7,8 +7,8 @@ function a_bundle = physiol_bundle(a_dataset, a_db, a_joined_db, props)
 %
 %   Parameters:
 %	a_dataset: A physiol_cip_traceset_fileset object.
-%	a_db: The raw params_tests_db object created from the dataset. It only needs
-%		to have the pAcip, pAbias, TracesetIndex, and ItemIndex columns.
+%	a_db: The raw params_tests_db object created from the dataset. 
+%		It only needs to have the pAcip, pAbias, TracesetIndex, and ItemIndex columns.
 %	a_joined_db: The one-treatment-per-line DB created from the raw DB.
 %	props: A structure with any optional properties.
 %		
