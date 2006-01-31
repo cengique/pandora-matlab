@@ -25,4 +25,4 @@ end
 
 props.spike_id = 'pulse';
 obj = getSpike(withinPeriod(t, periodPulse(t)), withinPeriod(s, periodPulse(t)), ...
-	       spike_num, props)
+	       spike_num, props);
