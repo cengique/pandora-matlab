@@ -33,10 +33,32 @@ if ~ exist('props')
   props = struct;
 end
 
-j_db = get(a_bundle, 'joined_db');
+num_tracesets = length(traceset_index);
+if num_tracesets > 1
+  %# If called with vectorized indices
+  [ a_crit_bundle(1:num_tracesets) ] = deal(physiol_bundle);
+  for traceset_num = 1:num_tracesets
+    a_crit_bundle(traceset_num) = matchingRow(a_bundle, traceset_index(traceset_num), props);
+  end
+else
+  %# Called with one index
+  j_db = get(a_bundle, 'joined_db');
 
-%# Warning: doesn't call parent function, directly calls tests_db/matchingRow
-a_crit_bundle = ...
-    set(a_bundle, 'joined_db', ...
-	matchingRow(j_db, find(j_db(:, 'TracesetIndex') == traceset_index), ...
-		    struct('std_db', a_bundle.joined_control_db)));
+  row_num = find(j_db(:, 'TracesetIndex') == traceset_index);
+
+  if isempty(row_num)
+    error(['Cannot find TracesetIndex ' num2str(traceset_index) ]);
+  end
+
+  %# Get crit_db and rename to a more human-readable form
+  crit_db = set(matchingRow(j_db, row_num, ...
+			    struct('std_db', a_bundle.joined_control_db)), 'id', ...
+		[ 'Matching traceset ' ...
+		 num2str(traceset_index) ' of neuron ' ...
+		 get(getItem(get(a_bundle, 'dataset'), traceset_index), 'id') ...
+		 ' of ' j_db.id ]);
+  clear j_db
+  
+  %# Warning: doesn't call parent function, directly calls tests_db/matchingRow
+  a_crit_bundle = set(a_bundle, 'joined_db', crit_db );
+end
