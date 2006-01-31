@@ -35,7 +35,7 @@ pulse_spikes = withinPeriod(a_spikes, pulse_period);
 if length(pulse_spikes.times) == 0
   [min_val, min_idx, sag_val] = calcPulsePotSag(a_cip_trace);
   results.PulsePotMin = min_val * mV_factor;
-  results.PulsePotMinTime = (get(pulse_period, 'start_time') + min_idx) * ms_factor;
+  results.PulsePotMinTime = min_idx * ms_factor;
   results.PulsePotSag = sag_val * mV_factor;
   if ~ isnan(min_idx)
     results.PulsePotTau = ...
