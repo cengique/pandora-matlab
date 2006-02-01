@@ -1,3 +1,1295 @@
+2006-02-01  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/trace.m: Added .genflac support.
+
+	* @trace/plotData.m: Fixed legend.
+
+	* @tests_db/rankMatching.m: Added weighing of measures.
+
+	* @tests_db/plotYTests.m: Initial version, works.
+
+	* @tests_db/addLastRow.m: Fixed coumentation.
+
+	* @stats_db/plotYTests.m:
+	Initial version copied from test_db/plotYTests. Works.
+
+	* @spikes/get.m: Generic method.
+
+	* @ranked_db/joinOriginal.m: Documentation update.
+
+	* @plot_superpose/decorate.m, @plot_superpose/plot.m, @plot_superpose/plot_superpose.m:
+	Modified to use cell arrays instead of regular array, because regular array does not accept mixed subclasses. Also keps more info at plot_superpose class, rather than getting decorations from the first given plot.
+
+2006-01-31  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @physiol_bundle/set.m: Generic method.
+
+	* @physiol_bundle/physiol_bundle.m: Updated doc.
+
+	* @physiol_bundle/matchingRow.m: Vectorized function.
+
+	* @physiol_bundle/matchingControlNeuron.m: Updated doc.
+
+	* @physiol_bundle/constrainedMeasuresPreset.m, @model_ranked_to_physiol_bundle/plotfICurve.m:
+	Initial version, works.
+
+	* @model_ranked_to_physiol_bundle/plotCompareRanks.m:
+	Return more in plots struct.
+
+	* @model_ranked_to_physiol_bundle/comparisonReport.m:
+	Started modularizing, and uniformalized filenames. Also minimized filenames. Still need to call the reportCompareModelToPhysiolNeuron from here?
+
+	* @model_ct_bundle/reportCompareModelToPhysiolNeuron.m, @model_ct_bundle/reportRankingToPhysiolNeuronsTeXFile.m:
+	Working version, but needs improvement.
+
+	* @model_ct_bundle/rankMatching.m: Updated doc.
+
+	* @model_ct_bundle/collectPhysiolMatches.m: INitial version, works.
+
+	* @doc_generate/printTeXFile.m: Imrpoved to handle extension checks.
+
+	* @dataset_db_bundle/display.m: Generic display method.
+
+	* @cip_trace/getPulseSpike.m: No change.
+
+	* @cip_trace/getCIPResults.m:
+	Changed definition of pulse min time to count from beginning of pulse.
+
+2006-01-27  sangrey  <sangrey@laotse>
+
+	* @period/SpikeTimesinPeriod.m:
+	added a @spikes method that calulates spiketimes in an arbitrary period
+
+2006-01-26  sangrey  <sangrey@laotse>
+
+	* @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/getResults.m:
+	fixed bunch of bugs with spike_shape.props
+
+2006-01-26  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @spike_shape/calcInitVm.m: Fixed forgotten conflict remark.
+
+	* @spike_shape/calcInitVm.m:
+	Fixed bugs arising from removing props from spike_shape.
+
+2006-01-26  sangrey  <sangrey@laotse>
+
+	* @spike_shape/calcInitVm.m:
+	fixed bug in accessing removed props from spike_shape
+
+	* @cip_trace/periodRecSpontIniPeriod.m, @cip_trace/periodRecSpontRestPeriod.m:
+	added method periodRecSpontRestPeriod.m
+
+	* @cip_trace/periodRecSpontIniPeriod.m:
+	added a new method periodRecSpontIniPeriod.m
+
+	* @cip_trace/getBurstResults.m, @cip_trace/getResults.m:
+	aadded getBurstResults.m and put a call to that function in getRateResults.m
+
+2006-01-24  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @spike_shape/display.m, @spike_shape/spike_shape.m:
+	Removed props from subclass spike_shape. It should only exist in base class.
+
+2006-01-23  sangrey  <sangrey@laotse>
+
+	* @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m:
+	allowed comments in cell file
+
+2006-01-18  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/prog-manual.lyx: New acronym and minor changes.
+
+	* @plot_abstract/subsref.m: Bugfix.
+
+	* @physiol_bundle/matchingRow.m:
+	Now returns a crit_bundle. No need to supply both crit_db and crit_bundle anymore.
+
+	* @model_ranked_to_physiol_bundle/comparisonReport.m, @model_ranked_to_physiol_bundle/model_ranked_to_physiol_bundle.m, @model_ranked_to_physiol_bundle/plotCompareRanks.m:
+	Initial version, works.
+
+	* @model_ct_bundle/rankMatching.m:
+	Initial version, works. Returns a model_ranked_to_physiol_bundle to do the comparison.
+
+	* @doc_generate/display.m, @doc_generate/doc_generate.m, @doc_generate/get.m, @doc_generate/getTeXString.m, @doc_generate/printTeXFile.m, @doc_generate/subsref.m, @doc_multi/doc_multi.m, @doc_multi/get.m, @doc_multi/getTeXString.m, @doc_plot/doc_plot.m, @doc_plot/get.m, @doc_plot/getTeXString.m:
+	Initial version of automated document generators. They work.
+
+	* @dataset_db_bundle/rankingReportTeX.m:
+	Obsolete. See model_ranked_to_physiol_bundle/comparisonReport.
+
+2006-01-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/analyzeSpikesInPeriod.m: Fix for histogram cells.
+
+	* @tests_db/rankMatching.m: Optimized for memory usage.
+
+	* @ranked_db/plotRowErrors.m:
+	Improved efficiency and added sanity checks.
+
+	* @physiol_cip_traceset_fileset/cip_trace.m:
+	':' loads all traces, updated docs.
+
+	* @physiol_cip_traceset/cip_trace.m:
+	Showing name of neuron is now optional.
+
+	* @params_cip_trace_fileset/cip_trace.m: Updated docs.
+
+	* @model_ct_bundle/ctFromRows.m, @model_ct_bundle/get.m, @model_ct_bundle/model_ct_bundle.m, @model_ct_bundle/set.m, @physiol_bundle/ctFromRows.m, @physiol_bundle/get.m, @physiol_bundle/matchingControlNeuron.m, @physiol_bundle/matchingRow.m, @physiol_bundle/physiol_bundle.m, @dataset_db_bundle/dataset_db_bundle.m, @dataset_db_bundle/get.m, @dataset_db_bundle/matchingRow.m, @dataset_db_bundle/rankingReportTeX.m, @dataset_db_bundle/set.m, @dataset_db_bundle/subsref.m:
+	Added dataset_db_bundle and two subclasses. Works.
+
+2006-01-10  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/calcMode.m, @histogram_db/mode.m:
+	Renamed due to incompat with Matlab R14.3.
+
+2005-12-19  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_3D_db/mergePages.m, @tests_db/joinRows.m:
+	Optimized for memory usage.
+
+	* @tests_3D_db/swapRowsPages.m: bugfix!
+
+	* @params_tests_db/mergeMultipleCIPsInOne.m: no change
+
+2005-12-17  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/sortrows.m, @tests_db/invarValues.m:
+	Optimized for reduced memory and time.
+
+	* @tests_3D_db/swapRowsPages.m: Streamlined for reduced memory usage.
+
+	* @tests_3D_db/plotVarBox.m: Vectorized input to add many boxplots.
+
+	* @ranked_db/plotRowErrors.m: Initial version, works.
+
+	* @ranked_db/displayRows.m: Updated documentation.
+
+	* @plot_abstract/plot_abstract.m: Added documentation for new YTicks.
+
+	* @plot_abstract/plot.m: Now supports calling function handles.
+
+	* @plot_abstract/matrixPlots.m:
+	Now can specify axis limits for horizontal stack plots.
+
+	* @plot_abstract/decorate.m: Added optional YTick specification.
+
+	* @physiol_cip_traceset_fileset/cip_trace.m, @physiol_cip_traceset/cip_trace.m:
+	Added feature to create id fields by choosing some parameters. These go on the plot titles.
+
+	* @params_tests_db/mergeMultipleCIPsInOne.m:
+	Optimized to use less memory by removing redundant duplications by calling functions in wrong order.
+
+2005-12-08  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/testsHists.m: Switched to using cell arrays.
+
+	* @tests_db/statsBounds.m: Minor fix and doc update.
+
+	* @tests_db/plotTestsHistsMatrix.m:
+	Special plot for multiple-test, multiple-DB histograms.
+
+	* @tests_db/histogram.m:
+	Use same bins when multiple DBs are scanned for histograms.
+
+	* @params_tests_db/testsHists.m:
+	Changed to handle array of DBs to make sure to create same-looking histograms.
+
+	* @params_tests_db/subsref.m:
+	Major change to allow indexing DB arrays with the '.' operator.
+
+	* @tests_db/get.m, @params_tests_db/get.m: Simplified.
+
+	* @params_tests_db/displayRankingsTeX.m:
+	More info on filenames, fixed wrong sentence in doc.
+
+	* @params_tests_db/display.m:
+	Civilized to display info about DB arrays.
+
+2005-12-06  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/findFilteredSpikes.m, @trace/getSpike.m, @spike_shape/getResults.m:
+	Relaxed spike width and frequency requirements, since models can fire much faster with new morphologies.
+
+	* @spike_shape/calcWidthFall.m:
+	Fixed AHP calculation, and fall time calc. is more robust now.
+
+	* @spike_shape/calcInitVmSlopeThresholdSupsample.m:
+	Fixed bug to ignore artifactual ditches at spike peak.
+
+2005-11-30  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_dataset/readDBItems.m:
+	Replaced buggy java printout with matlab-style printout.
+
+	* @params_cip_trace_fileset/cip_trace_profile.m:
+	No change, added commented-out print statements.
+
+2005-11-29  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @plot_abstract/get.m: minor fix.
+
+	* @script_factory/get.m, @script_factory/script_factory.m:
+	initial version.
+
+2005-11-22  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/vertcat.m: Handle special case with one argument.
+
+	* @tests_db/rankMatching.m:
+	Special handling from params_tests_db objects.
+
+	* @tests_db/plotTestsHistsMatrix.m:
+	More controls and beautified display.
+
+	* @tests_db/plotScatter.m: Integrated regression analysis.
+
+	* @tests_db/mean.m, @tests_db/std.m: ignore inf values, as well.
+
+	* @tests_db/matchingRow.m:
+	work on original DB object, rather than creating a new one. (for preserving params_tests_db objs)
+
+	* @tests_db/histogram.m: remove Inf values as well.
+
+	* @tests_db/addRow.m: doc update.
+
+	* @stats_db/plot_bars.m: fixed col name problems.
+
+	* @spikes/spikeAmpSlope.m: no change.
+
+	* @spikes/plotISIs.m: new ISI-time plot.
+
+	* @spikes/plotData.m: Improved title.
+
+	* @spikes/plot.m: new default method.
+
+	* @ranked_db/joinOriginal.m: handle params specially in join operation.
+
+	* @ranked_db/displayRows.m: added STD column in criterion DB display
+
+	* @plot_superpose/set.m:
+	added exception for not accepting RHS invocations.
+
+	* @plot_superpose/plot_superpose.m: use numeric array consistently.
+
+	* @plot_stack/plot.m:
+	adjusted title position, and now calculate both x and y strut sizes dynamically after window resize.
+
+	* @plot_bars/plot_bars.m: switched labels to y-axis from x-axis.
+
+	* @plot_abstract/superposePlots.m: added legend appearence option.
+
+	* @plot_abstract/plotFigure.m: added decorate function in resizeFcn
+
+	* @plot_abstract/plot.m: added NaN control for handling superposedPlots
+
+	* @plot_abstract/matrixPlots.m:
+	partameterized goldRatio, the requested aspect of the matrix plot.
+
+	* @physiol_cip_traceset_fileset/cip_trace.m:
+	passes the tracesetindex as an identifier.
+
+	* @physiol_cip_traceset/cip_trace.m:
+	added the tracesetindex as the name, to be clear on plot titles.
+
+	* @params_tests_fileset/trace.m:
+	Reads parameter names and values from file name.
+
+	* @params_tests_fileset/params_tests_fileset.m:
+	Now accepts multiple file patterns in a cell array.
+
+	* @params_tests_db/testsHists.m:
+	Now passes requested number of bins to histogram object.
+
+	* @params_tests_db/params_tests_db.m: Minor name change.
+
+	* @params_tests_db/matchingRow.m:
+	No need to overload this method anymore.
+
+	* @params_tests_db/displayRankingsTeX.m:
+	Changed best match display to reflect no-average-spike analysis. Needs to be improved to not take datasets separately, but use a composite object that contains both dataset and DB.
+
+	* @params_cip_trace_fileset/cip_trace.m:
+	Read parameter names and values from param file, like loadItemProfile.
+
+	* @histogram_db/plot_abstract.m: Improved histogram plotting.
+
+	* @cip_trace/set.m: Generic method.
+
+	* @cip_trace/getRateResults.m: Added more rateISI measures.
+
+	* @cip_trace/display.m: Handles vector of objects.
+
+	* @cip_trace/cip_trace.m:
+	Removed props, kept it only at top level class.
+
+2005-10-21  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/findFilteredSpikes.m, @trace/spikes.m:
+	Jeremy added minamp param.
+
+	* @trace/set.m, @trace/setProp.m, @trace/plotData.m: Improved plotting.
+
+2005-10-20  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @plot_abstract/plotFigure.m, @plot_abstract/set.m, @plot_stack/plot.m, @plot_stack/set.m:
+	Self-resizing plot system!
+
+2005-10-19  Cengiz Gunay  <cgunay@emory.edu>
+
+	* README, @trace/plotData.m: Updated documentation, labeled v0.8b.
+
+	* @trace/plot.m, @tests_db/plotScatter.m: Bugfix.
+
+	* @plot_abstract/matrixPlots.m: Keep titles in matrix plots.
+
+	* @params_cip_trace_fileset/cip_trace.m, @physiol_cip_traceset_fileset/cip_trace.m:
+	Allows loading items referenced from DB rows.
+
+	* @cip_trace/getRateResults.m:
+	Improved calculation for rate ratio between recovery and spont periods.
+
+2005-10-16  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/prog-manual.lyx: Added some examples.
+
+	* @trace/plot.m, @trace/plotData.m:
+	Allow stack plots with vector notation shorthand.
+
+	* @tests_db/vertcat.m: preserve column order during concatenation.
+
+	* @tests_db/plotScatter.m:
+	Takes optional property to define line styles.
+
+	* @tests_db/noNaNRows.m: Also filters out inf values.
+
+	* @tests_db/meanDuplicateRows.m:
+	Now returns devitions in the second page of 3D_db
+
+	* @tests_db/invarValues.m: Removed verbose output.
+
+	* @tests_db/delColumns.m: Utility to delete some columns.
+
+	* @tests_db/crossProd.m: Initial version, works.
+
+	* @tests_db/compareRows.m:
+	Allows comparing multiple values at the same time.
+
+	* @tests_db/addColumn.m, @tests_db/addColumns.m: Name change.
+
+	* @tests_3D_db/histograms.m, @stats_db/plotVar.m: Minor change.
+
+	* @plot_abstract/plotFigure.m: Added some layout controls here.
+
+	* @plot_abstract/plot.m: Fixed minor bugs.
+
+	* @physiol_cip_traceset/CIPform.m:
+	Fixed bug with comparing distance to negative CIP levels.
+
+	* @params_tests_fileset/params_tests_fileset.m:
+	Fixed bug with param file reader.
+
+	* @params_tests_db/makeGenesisParFile.m:
+	Fixed bug with taking more than params in DB.
+
+	* @params_tests_db/invarParams.m, @params_tests_db/paramsTestsHistsStats.m, @params_tests_db/plotVarMatrix.m:
+	Removed assumption that last test is the itemindex.
+
+	* @params_tests_db/crossProd.m: Initial version, works.
+
+	* @params_tests_db/addParams.m, @params_tests_db/delColumns.m:
+	overloaded functions for adding/removing columns from DB.
+
+	* @histogram_db/plot_abstract.m: Minor beautification on plot title.
+
+	* @cip_trace/getCIPResults.m: Improved membrane TC calc.
+
+	* TODO: updated documentation.
+
+2005-09-30  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/Makefile, doc/prog-manual.lyx:
+	Documentation update and added some more examples.
+
+	* @tests_db/vertcat.m: Documentation update.
+
+	* @tests_db/statsAll.m, @tests_db/statsMeanSE.m, @tests_db/statsMeanStd.m:
+	Added the number of rows used for statistics.
+
+	* @tests_db/princomp.m, @tests_db/plotScatter.m, @tests_db/noNaNRows.m:
+	Initial version.
+
+	* @tests_db/invarValues.m:
+	Bugfix and extended to work with missing values.
+
+	* @tests_db/ge.m, @tests_db/gt.m, @tests_db/le.m, @tests_db/lt.m:
+	Updated to conform to new compareRows return values.
+
+	* @tests_db/compareRows.m:
+	Extended comparison to handle multiple rows. This allows computations similar to nested SQL queries.
+
+	* @tests_db/addColumn.m: Initial version.
+
+	* @stats_db/stats_db.m: Props fix.
+
+	* @stats_db/plot_bars.m: Initial version.
+
+	* @stats_db/plot_abstract.m: Minor fixes.
+
+	* @stats_db/compareStats.m: Allows comparing multiple stats_dbs.
+
+	* @plot_superpose/plot.m, @plot_superpose/plot_superpose.m:
+	Improved plot_superpose to be more intelligent.
+
+	* @plot_errorbars/plot_errorbars.m: Documentation update.
+
+	* @plot_bars/plot_bars.m: New plot for famous "bar plots".
+
+	* @plot_abstract/plot_abstract.m:
+	Added LineStyleOrder optional property.
+
+	* @plot_abstract/plot.m:
+	Made layout_axis to have NaN value to not open new axis. Added new layout algorithm for more consistent operation. Added LineStyleOrder optional property.
+
+	* @params_tests_db/mergeMultipleCIPsInOne.m: Bugfix with column names.
+
+	* @plot_abstract/matrixPlots.m, @plot_stack/plot_stack.m:
+	Renamed title to title_str for not mixing with command.
+
+	* @params_tests_db/display.m, @params_tests_db/joinRows.m, @tests_3D_db/display.m, @tests_3D_db/swapRowsPages.m:
+	Minor fix for moving props down to tests_db.
+
+	* @histogram_db/histogram_db.m: Minor fix.
+
+	* @cluster_db/plot_abstract.m:
+	Added support for plotting PCA components.
+
+	* @cip_trace/getCIPResults.m, @cip_trace/getRateResults.m:
+	Added new measures for better understanding phys. data.
+
+2005-08-30  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @corrcoefs_db/corrcoefs_db.m, @histogram_db/histogram_db.m, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_db/params_tests_db.m, @params_tests_fileset/params_tests_fileset.m, @physiol_cip_traceset/physiol_cip_traceset.m, @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m, @ranked_db/ranked_db.m, @stats_db/stats_db.m, @tests_3D_db/tests_3D_db.m:
+	Removed props from all subclasses of tests_db and also from physiol_cip_traceset_fileset.
+
+	* doc/db-overview.eps, doc/prog-manual.lyx:
+	Filled in some back-edn stuff and more description on phys operations and preprocessing.
+
+	* @tests_db/meanDuplicateRows.m: Removed stupid output.
+
+	* TODO: Add more things in v0.7b. Gonna make it incompatible in v0.8b.
+
+2005-08-29  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/mean.m, @tests_db/statsAll.m, @tests_db/statsMeanSE.m, @tests_db/std.m:
+	Improved SE calculation by counting non-NaN rows included in mean and STD calculations.
+
+	* @tests_db/statsAll.m: Initial version, SE still needs to be improved.
+
+	* @tests_db/tests_db.m, @tests_db/meanDuplicateRows.m, @tests_db/displayRowsTeX.m:
+	Renamed displayRow to displayRows
+
+	* @spikes_db/plot_abstract.m: Added optional title string.
+
+	* @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/calcInitVmSlopeThresholdSupsample.m, @spike_shape/calcInitVmV3hKpTinterp.m, @spike_shape/calcWidthFall.m, @spike_shape/plotCompareMethodsSimple.m:
+	Major fixes after second iteration of loading phys db and first iteration of sim db with new threshold finding algorithm.
+
+	* @params_tests_db/rankVsDB.m, @ranked_db/blockedDistances.m, @ranked_db/ranked_db.m, @ranked_db/displayRow.m, @ranked_db/displayRows.m:
+	Renamed from displayRow to displayRows
+
+	* @plot_abstract/superposePlots.m:
+	Now uses the first plot in array as template.
+
+	* @cip_trace/getRateResults.m:
+	Added RateISI calculations for whole periods.
+
+2005-08-24  Cengiz Gunay  <cgunay@emory.edu>
+
+	* TODO: Minor documentation update.
+
+	* @trace/trace.m, @trace/getSpike.m:
+	Spike shape properties inherited from trace.
+
+	* @trace/findFilteredSpikes.m:
+	Changed the filter used to allow hi-freq spikes pass unmodified. Also relaxed some strict spike shape requirements.
+
+	* @trace/analyzeSpikesInPeriod.m:
+	Added more info in the spike database to be able to annotate raw trace with correct timings.
+
+	* @tests_db/statsMeanSE.m: Fixed SE calculation error.
+
+	* @tests_db/plot_abstract.m:
+	Added default way of visualization by plotting test histograms.
+
+	* @spikes_db/plot_abstract.m, @spikes_db/spikes_db.m:
+	Custom spike database class with its own visualization routine.
+
+	* @spike_shape_profile/get.m, @spike_shape_profile/plot_abstract.m, @spike_shape_profile/spike_shape_profile.m:
+	Class to keep results from a single spike shape.
+
+	* @spike_shape/spike_shape.m, @spike_shape/calcInitVm.m, @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/calcInitVmSlopeThresholdSupsample.m, @spike_shape/calcWidthFall.m, @spike_shape/getResults.m, @spike_shape/plotCompareMethodsSimple.m, @spike_shape/plotResults.m:
+	Major fixes to the way spike shape measures are calculated were needed because physiology spikes are noisier than simulation spikes. The new algorithm failed miserably due to slight noise. Multiple levels of smoothing and careful tuning applied to get results. Still needs more testing.
+
+	* @results_profile/results_profile.m: Added props.
+
+	* @results_profile/plot.m: Generic plot command.
+
+	* @physiol_cip_traceset_fileset/setProp.m:
+	Fixed problem with not accepting multiple props at one time.
+
+	* @physiol_cip_traceset/physiol_cip_traceset.m: No change.
+
+	* @cip_trace/subsref.m: Fixed to new style.
+
+2005-08-17  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/rows2Struct.m: Initial version, works.
+
+	* @tests_db/displayRows.m, @tests_db/displayRow.m:
+	Renamed from displayRow to correct displayRows since it can return multiple rows for a while now.
+
+	* @cip_trace/analyzeSpikesInPeriod.m, @trace/analyzeSpikesInPeriod.m:
+	Moved from cip_trace to more general trace. Analyzes individual spikes in a period and return spike database together with statistical summary.
+
+	* @spikes/addSpikes.m, @spikes/intoPeriod.m, @spikes/plotData.m, @spikes/vertcat.m:
+	Added additional tools into spikes object for improved manipulation.
+
+	* @cip_trace/getProfileAllSpikes.m, @cip_trace/analyzeSpikesInPeriod.m:
+	Now reconstructs the spikes object after eliminating bad spikes.
+
+2005-08-16  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/plotData.m: Fixed documentation.
+
+	* @tests_db/matchingRow.m:
+	Added optional param for external db to take the STDs from.
+
+	* @tests_db/joinRows.m:
+	Now can work with NaN-filled pages. It looks for at least one non-NaN entry to get the indices.
+
+	* @tests_db/isinf.m: *** empty log message ***
+
+	* @tests_db/invarValues.m:
+	Added verbosity flag and fixed issue with inconsitent sort commands.
+
+	* @plot_abstract/superposePlots.m:
+	Now uses the decoration parameters, if specified.
+
+	* @plot_abstract/plot.m:
+	Fixed issue with tiny plots by putting minimal frame size.
+
+	* @physiol_cip_traceset_fileset/display.m: Added missing method
+
+	* @physiol_cip_traceset/physiol_cip_traceset.m, @physiol_cip_traceset/CIPform.m:
+	Added documentation and introduced optional param for specifying list of CIP levels externally.
+
+	* @params_tests_db/mergeMultipleCIPsInOne.m:
+	Fixed major hidden bug with inconsistent sort commands during the split-merge process.
+
+	* @params_tests_db/matchingRow.m:
+	Added an option to take the STD db externally.
+
+	* @params_tests_dataset/readDBItems.m:
+	Fixed problem with not cleaning up correctly at error and losing db built up to that point.
+
+2005-07-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_db/mergeMultipleCIPsInOne.m:
+	More advanced version of getDualCIPdb. Can bring together multiple cip levels and create a single row from them.
+
+	* @tests_db/rankMatching.m:
+	Changed distance measure to mean absolute error and adjusted NaN penalty to 3.
+
+	* @tests_db/invarValues.m, @tests_db/meanDuplicateRows.m:
+	Minor documentation update.
+
+	* @tests_3D_db/mergePages.m:
+	Adds rowindices in each page automatically.
+
+	* @spike_shape/getResults.m, @spike_shape/calcInitVmMaxCurvPhasePlane.m:
+	Added more stringent check on spike eligibility and bugfix for finding time indices.
+
+	* @plot_stack/plot.m: Really decreased the y-ticks spacing.
+
+	* @physiol_cip_traceset_fileset/readDBItems.m:
+	Allowed specifying which items to load, not to load the whole fileset. Also improved error handling once a traceet load is aborted by an error. NOw gracefully exits and returns the database created thus far.
+
+	* @physiol_cip_traceset_fileset/cip_trace.m, @physiol_cip_traceset/cip_trace.m, @physiol_cip_traceset/cip_trace_profile.m:
+	Added a method to get only the cip_trace object without running the tests, for debug purposes.
+
+	* @params_tests_db/joinRows.m, @tests_db/joinRows.m:
+	Added an option to specify the RowIndex column name.
+
+	* @params_tests_db/displayRankingsTeX.m:
+	Added a rotate and num_matches prop for display control.
+
+	* @params_tests_dataset/readDBItems.m, @cip_trace/analyzeSpikesInPeriod.m, @cip_trace/getProfileAllSpikes.m:
+	Minor documentation update.
+
+2005-07-12  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_3D_db/joinPages.m, @tests_db/mean.m:
+	Minor documentation update.
+
+	* @tests_db/invarValues.m, @tests_db/meanDuplicateRows.m, @params_tests_db/invarParam.m:
+	Added utilities to allow folding of non-symmetric databases, such as physiology data with incomplete sets of experiments.
+
+2005-07-07  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/prog-manual.lyx: Added some more subsections.
+
+	* @params_tests_fileset/getItemParams.m, @params_tests_fileset/paramNames.m, @params_tests_fileset/params_tests_fileset.m:
+	Added code to read parameter values from param rows file if requested. Changed to read rows and also decription file for names.
+
+	* @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_cip_trace_fileset/subsref.m, @params_tests_fileset/display.m, @params_tests_fileset/subsref.m, @params_tests_fileset/trace.m, @params_tests_fileset/trace_profile.m:
+	Changed dataset class hierarchy to only contain one copy of the props structure at the top-level class. This breaks compatibility with previously saved objects. Should be published as v0.8b.
+
+	* @plot_abstract/plotFigure.m:
+	Fixed bug with frame size going out of the window.
+
+	* @spikes/spikeAmpSlope.m:
+	Improved method for to start looking from the peak amplitude rather than first spike's amplitude.
+
+	* @spike_shape/calcWidthFall.m:
+	Improved method for finding the up-ramp of spike.
+
+	* @trace/calcAvg.m, @trace/calcMin.m:
+	Improved for skipping zero-length periods.
+
+	* @cip_trace/periodPulseHalf1.m:
+	Bugfix for skipping zero-length periods.
+
+2005-06-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @plot_errorbars/plot_errorbars.m:
+	Revert back to use matlab errorbar instead of fillederrorbar due to uncompat prob w/ R14.
+
+2005-06-11  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace/spikes.m, @params_tests_dataset/readDBItems.m, @physiol_cip_traceset/CIPform.m, @physiol_cip_traceset_fileset/readDBItems.m:
+	Fixed issues with no cip traces.
+
+	* @cip_trace/getProfileAllSpikes.m, @cip_trace_allspikes_profile/cip_trace_allspikes_profile.m:
+	Added props into cip_trace_allspikes_profile.
+
+	* @cip_trace/analyzeSpikesInPeriod.m: Backwards compat fix with R13.
+
+	* @params_tests_dataset/readDBItems.m, @physiol_cip_traceset/cip_trace_profile.m, @physiol_cip_traceset_fileset/readDBItems.m, Contents.m:
+	Tested and corrected problems with forgotten physiol_* functionality.
+
+	* @physiol_cip_traceset/cip_trace_profile.m: *** empty log message ***
+
+	* @physiol_cip_traceset/cip_trace_profile.m: One more get() method fix.
+
+	* @physiol_cip_traceset/cip_trace_profile.m: Minor fix with props.
+
+2005-06-04  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @plot_abstract/plot.m, @plot_stack/plot.m:
+	More fixes for shrunk edge columns.
+
+	* @plot_abstract/decorate.m, @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_simple/plot_simple.m, @plot_stack/plot.m:
+	Fixed a bunch of positioning problems, imrpoved efficiency in stacked plots. Still need smore work. Remove props from plot_stack.
+
+2005-06-03  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace/analyzeSpikesInPeriod.m, @cip_trace_allspikes_profile/plotRowSpontSpikeAnal.m, @cluster_db/cluster_db.m, @cluster_db/display.m, @cluster_db/plotHist.m, @cluster_db/plotQuality.m, @cluster_db/plot_abstract.m, @plot_superpose/set.m, @spike_shape/calcInitVmV3hKpTinterp.m, @spike_shape/getResults.m, @spike_shape/plotCompareMethodsSimple.m, @tests_db/plotrows.m, @tests_db/setProp.m, @trace/plot.m, @trace/plotData.m, TODO:
+	Improved all plotting and visualization methods to work with clustering and allspikes profile.
+
+2005-05-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @physiol_cip_traceset/set.m, @physiol_cip_traceset/setProp.m, @physiol_cip_traceset_fileset/set.m, @physiol_cip_traceset_fileset/setProp.m:
+	Generic set and setProp convenience methods.
+
+	* @physiol_cip_traceset/cip_trace_profile.m, @physiol_cip_traceset/physiol_cip_traceset.m, @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m:
+	Added optional prop profile_class_name to physiol_cip_traceset and physiol_cip_traceset_fileset classes
+
+	* @spike_shape/spike_shape.m, README, TODO, doc/prog-manual.lyx:
+	For version 0.7
+
+2005-05-12  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_allspikes_profile/cip_trace_allspikes_profile.m, @cip_trace_allspikes_profile/display.m, @cip_trace_allspikes_profile/get.m, @cip_trace_allspikes_profile/set.m:
+	Works, but needs more visualization support.
+
+	* @spike_shape/spike_shape.m:
+	Reverted to old threshold method to release back in v0.6.
+
+	* @trace/getSpike.m: Fixed bugs with after loading a bunch of spikes
+
+	* @trace/findFilteredSpikes.m:
+	Fixed bug with spikes at the very end of the period.
+
+	* @spikes/withinPeriod.m, @spikes/withinPeriodWOffset.m:
+	Fixed bug with period calculation and added new method.
+
+	* @spike_shape/calcInitVm.m, @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/calcMaxVm.m, @spike_shape/getResults.m, @spike_shape/plotCompareMethodsSimple.m:
+	After bugfixing many many issues that came up with the new threshold finding algorithm.
+
+	* @period/set.m: Generic method.
+
+	* @params_tests_db/plotTestsHistsMatrix.m, @tests_db/plotTestsHistsMatrix.m:
+	Moved up to tests_db.
+
+	* @params_tests_dataset/params_tests_db.m, @params_tests_dataset/readDBItems.m:
+	Now allows truncating the database when an error interrupts the analysis. You can continue from where it was left.
+
+	* @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/params_cip_trace_fileset.m:
+	Made the profile to load an optional property.
+
+	* @cip_trace/getProfileAllSpikes.m, @cip_trace/getPulseSpike.m, @cip_trace/getRecSpontSpike.m, @cip_trace/spikes.m, @cip_trace/analyzeSpikesInPeriod.m:
+	Essential and convenience methods for analyzing individual spikes and creating mini databases out of them are added.
+
+2005-05-04  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @spike_shape/calcInitVm.m, @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/spike_shape.m:
+	Finalized new ap threshold finding method.
+
+	* @cip_trace/getProfileAllSpikes.m, @histogram_db/mode.m, @trace/getSpike.m:
+	Added methods that enable analyzing each spike.
+
+	* @params_tests_db/testsHists.m, @tests_db/testsHists.m:
+	Improved batch histogram findings and moved down to tests_db.
+
+2005-04-25  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/setProp.m: Convenience method.
+
+	* @trace/trace.m: Added the "quiet" option for less verbose titles.
+
+	* @tests_db/plotrows.m:
+	Inverted order of rows plotted to appear upright in vertical plot_stacks.
+
+	* @spike_shape/calcInitVm.m, @spike_shape/calcInitVmLtdMaxCurv.m, @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/calcInitVmSekerliV2.m, @spike_shape/calcInitVmSlopeThresholdSupsample.m, @spike_shape/calcInitVmV2PPLocal.m, @spike_shape/calcInitVmV3hKpTinterp.m, @spike_shape/plotCompareMethods.m, @spike_shape/plotCompareMethodsSimple.m, @spike_shape/plotTPP.m, @spike_shape/set.m:
+	Improved AP threshold calculations.
+
+	* @plot_stack/plot.m: Minor reduction in borders.
+
+	* @plot_abstract/decorate.m, @plot_abstract/plot_abstract.m, @plot_abstract/superposePlots.m:
+	Added optional property tightLimits and improved documentation.
+
+	* @params_tests_db/invarParam.m: No change
+
+	* @cip_trace/getPulseSpike.m, @trace/getSpike.m:
+	Added methods for getting individual spikes rather than average spike traces.
+
+	* @cip_trace_profile/plot.m: Improved plots.
+
+2005-04-12  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/kmeansCluster.m, @tests_db/plot.m, @tests_db/plotrow.m, @tests_db/plotrows.m:
+	Added clustering method and imroved plotting functions.
+
+	* @plot_abstract/decorate.m, @plot_abstract/matrixPlots.m, @plot_abstract/plot.m, @plot_abstract/plot_abstract.m, @plot_abstract/set.m, @spikes/plot.m, @spikes/plotData.m:
+	Plotting functions updated.
+
+	* @plot_superpose/decorate.m, @plot_superpose/display.m, @plot_superpose/get.m, @plot_superpose/plot.m, @plot_superpose/plot_superpose.m, @plot_superpose/set.m, @cluster_db/cluster_db.m, @cluster_db/display.m, @cluster_db/get.m, @cluster_db/plotHist.m, @cluster_db/plotQuality.m, @cluster_db/plot_abstract.m:
+	Initial version, works.
+
+2005-04-07  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/histogram_db.m: Fixed problem with transposed inputs.
+
+	* @params_tests_db/paramsHists.m, @params_tests_db/plotParamsHists.m, @params_tests_db/plotTestsHistsMatrix.m, @params_tests_db/subsref.m, @params_tests_db/testsHists.m, @params_tests_db/onlyRowsTests.m:
+	Improved plot functions, together with rox/column addressing in params_tests_db.
+
+2005-04-06  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_profile/plot.m: Minor cosmetic changes.
+
+	* @trace/plotData.m: Supports plotting an array of traces.
+
+	* @tests_db/vertcat.m: Allows concatting multiple dbs with recursion.
+
+	* @tests_db/sortrows.m:
+	Robust handling of different tests_db subclasses.
+
+	* @tests_db/rankMatching.m: Added tolerateNaNs prop.
+
+	* @tests_db/matchingRow.m: Minor fix.
+
+	* @tests_db/isnan.m: Fixed bug with column selection.
+
+	* @tests_db/invarValues.m: Fixed problem with ids.
+
+	* @tests_3D_db/set.m: Fixed broken function.
+
+	* @tests_3D_db/histograms.m: Accepts test names.
+
+	* @stats_db/plot_abstract.m: Fixed problem with propagation of props.
+
+	* @spike_shape/calcInitVm.m, @spike_shape/calcInitVmSlopeThreshold.m, @spike_shape/calcInitVmSlopeThresholdSupsample.m:
+	Added new interpolated supersampled slope calculation threshold. Still in testing phase.
+
+	* @spike_shape/plotCompareMethods.m: Improved decorations.
+
+	* @spike_shape/getResults.m: init_val can now take fractional values.
+
+	* @spike_shape/calcWidthFall.m:
+	Fixed documentation, takes init_val from outside.
+
+	* @ranked_db/ranked_db.m: Accepts a new property: tolerateNaNs
+
+	* @ranked_db/blockedDistances.m:
+	Additional decorations and some controls.
+
+	* @plot_stack/plot.m: Support for cell and normal arrays.
+
+	* @params_tests_db/matchingRow.m: Ignores parameters during matching.
+
+	* @params_tests_db/getDualCIPdb.m:
+	Fixed bug to work with invariant cip magnitude order in the initial db.
+
+	* @cip_trace_profile/cip_trace_profile.m:
+	Fixed bug with passing parameters.
+
+2005-03-15  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_traces_dataset/cip_trace_profile.m, @cip_traces_dataset/cip_traces_dataset.m, @physiol_cip_traceset/physiol_cip_traceset.m, @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m, @tests_db/invarValues.m, @trace/trace.m:
+	Added a offset_y parameter to trace and made it accessible through dataset constructors.
+
+2005-03-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @physiol_cip_traceset/CIPform.m, @physiol_cip_traceset_fileset/readDBItems.m, @trace/trace.m:
+	Made the physiol db loading quieter.
+
+	* README, TODO: Ready for version 0.6.
+
+	* @physiol_cip_traceset_fileset/loadItemProfile.m, @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m, @physiol_cip_traceset_fileset/readDBItems.m:
+	Added unique NeuronId for each item and the traceset_index.
+
+	* @params_tests_db/displayRankingsTeX.m, @params_tests_db/getBlockedParamRows.m, @params_tests_db/getDualCIPdb.m, @params_tests_db/makeGenesisParFile.m, @params_tests_db/rankVsAllDB.m, @ranked_db/blockedDistances.m, @ranked_db/displayRow.m, @ranked_db/joinOriginal.m, @tests_db/displayRowsTeX.m, @tests_db/mean.m, @tests_db/rankMatching.m, @tests_db/std.m:
+	Added examples in documentation, fixed issues with blocking simulations.
+
+	* @params_cip_trace_fileset/params_cip_trace_fileset.m:
+	Added example in documentation.
+
+	* @plot_errorbar/plot_errorbar.m:
+	Matlab 7.1 quick fix to go back to normal errorbars.
+
+	* @physiol_cip_traceset/cip_trace_profile.m, @physiol_cip_traceset/get.m, @physiol_cip_traceset/getItemParams.m, @physiol_cip_traceset/itemResultsRow.m, @physiol_cip_traceset/loadItemProfile.m, @physiol_cip_traceset/paramNames.m, @physiol_cip_traceset/physiol_cip_traceset.m, @physiol_cip_traceset/subsref.m, @physiol_cip_traceset_fileset/get.m, @physiol_cip_traceset_fileset/loadItemProfile.m, @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m, @physiol_cip_traceset_fileset/readDBItems.m, @physiol_cip_traceset/CIPform.m:
+	Initial version imported from Jeremy. Contains my initial version modified by Tom and Jeremy.
+
+	* @trace/trace.m: Improved case-insensitive file extension matching.
+
+	* doc/Makefile, doc/prog-manual.lyx: Adding more examples and sections.
+
+2005-03-10  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_traceset/get.m, @cip_traceset/getItemParams.m, @cip_traceset/loadItemProfile.m, @cip_traceset/paramNames.m, @cip_traceset_dataset/cip_traceset_dataset.m, @cip_traceset_dataset/display.m, @cip_traceset_dataset/get.m, @cip_traceset_dataset/loadItemProfile.m, @cip_traceset_dataset/readDBItems.m, @cip_traceset/cip_trace_profile.m, @cip_traceset/cip_traceset.m, @cip_traceset/display.m:
+	Initial version. Works, but need to work more on interactions.
+
+	* doc/prog-manual.lyx: Started filling in the manual.
+
+2005-03-09  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_fileset/getItemParams.m:
+	Use new style parameter acquisition.
+
+	* @cip_trace_profile/cip_trace_profile.m: Fixed documentation.
+
+	* @cip_traces_dataset/cip_traces_dataset.m: Added comments.
+
+	* @histogram_db/plot_abstract.m: Fixed documentation.
+
+	* @params_tests_dataset/getItemParams.m, @params_tests_dataset/itemResultsRow.m:
+	New style parameter acquisition.
+
+	* @params_tests_dataset/get.m: Improved.
+
+	* @params_tests_db/getDualCIPdb.m, @params_tests_db/plotTestsHistsMatrix.m, @params_tests_db/plotVarMatrix.m:
+	Improved convenience methods.
+
+	* @plot_abstract/matrixPlots.m: Documentation fix.
+
+	* @tests_db/std.m: Bugfix with the flag parameter.
+
+	* @spikes/withinPeriod.m: Bugfix with period ranges.
+
+2005-03-08  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace/periodRecSpont.m, @cip_trace/periodRecSpont1.m, @cip_trace/periodRecSpont2.m, @cip_trace/periodPulse.m, @cip_trace/periodPulseHalf1.m, @cip_trace/periodPulseIni100msRest1.m, @cip_trace/periodPulseIni100msRest2.m, @cip_trace/periodPulseIni50msRest1.m, @cip_trace/periodPulseIni50msRest2.m:
+	Bugfix in period calcs.
+
+	* @trace/spikes.m: Bugfix for 0-length requests.
+
+2005-02-24  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace/calcPulsePotSag.m: Changed from error to warning.
+
+2005-02-03  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/plots.eps, doc/prog-manual.lyx, doc/DB-classes.eps, doc/Dataset-classes.eps, doc/Profiles.eps, doc/data-wrapper-diagram.eps:
+	Initial version of programmer's manual
+
+2005-01-28  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_fileset/paramNames.m, @params_tests_fileset/getItemParams.m, @params_tests_fileset/params_tests_fileset.m:
+	Fixed documentation and added num_params as optional parameter.
+
+2005-01-25  Cengiz Gunay  <cgunay@emory.edu>
+
+	* TODO: Patch to v0.5b.
+
+	* @params_tests_dataset/addItem.m, @tests_db/vertcat.m:
+	Initial version, works.
+
+	* @spike_shape/spike_shape.m, @trace/spike_shape.m:
+	Take props for spike_shape.
+
+	* @ranked_db/blockedDistances.m:
+	Creates a distance db from an existing set of blocked parameter levels.
+
+	* @params_tests_db/getParamRowIndices.m:
+	Finds row indices of matching parameter values.
+
+	* @params_tests_db/getBlockedParamRows.m:
+	Blocks given parameters for desired number of levels, vreating a params_tests_db.
+
+	* @params_tests_db/params_tests_db.m:
+	Relaxed requirements in constructor.
+
+	* README, TODO: Tagging v0_5b
+
+	* @trace/trace.m: Added support for loading PCDX files.
+
+	* @tests_db/displayRow.m: Handles non-existing column names.
+
+	* @plot_stack/plot.m: Reordered changed axis limit calculation.
+
+2005-01-24  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_db/getDualCIPdb.m:
+	Now checks if correct polarity of current exists in each 3d_db page.
+
+2005-01-20  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_dataset/subsref.m: Cleaned up not-applicable code.
+
+	* @params_tests_dataset/get.m: Fixed typo.
+
+2005-01-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/rankMatching.m: Remove more indices and fixed some bugs.
+
+	* @tests_3D_db/mergePages.m: Works.
+
+	* @tests_3D_db/joinPages.m: Documentation.
+
+	* @spike_shape/plotResults.m: Fixed bug with DAHP visualization.
+
+	* @plot_stack/plot.m:
+	Asserted dependence on layout direction for props interpretation.
+
+	* @plot_abstract/setProp.m: Now accepts multiple pairs.
+
+	* @params_tests_db/rankVsAllDB.m:
+	Minor fix to not scale some results pages.
+
+	* @params_tests_db/joinRows.m:
+	Fixed bug with maintaining number of parameters.
+
+	* @params_tests_db/getDualCIPdb.m: Initial version, works.
+
+	* @params_tests_db/displayRankingsTeX.m:
+	Added support to display pulse spike shapes.
+
+	* @params_tests_dataset/set.m, @cip_traces_dataset/set.m:
+	Minor improvement.
+
+	* @cip_traces_dataset/getItemParams.m, @cip_traces_dataset/paramNames.m:
+	Added a NeuronId for allowing invarParam on pAcip
+
+2005-01-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/rankMatching.m:
+	Made the distance calculation NaN-aware and scaling the results with number of non-NaN entries in measures.
+
+	* @ranked_db/joinOriginal.m:
+	Fixed the kludge to exclude the RowIndex column.
+
+	* @params_tests_db/rankVsAllDB.m:
+	Now includes the ItemIndex column in the criterion db, but it is excluded in rankMatching.
+
+	* @params_tests_db/paramsHists.m:
+	Fixed major issue with single valued parameter histograms.
+
+	* @params_tests_db/displayRankingsTeX.m:
+	Minor fixes for getting correct dataset items and now displays distance values for each measure in TeX tables.
+
+	* @histogram_db/plotEqSpaced.m: Updated documentation.
+
+2005-01-11  Cengiz Gunay  <cgunay@emory.edu>
+
+	* README: Added version string.
+
+	* TODO: Minor.
+
+	* @trace/spike_shape.m: Bugfix to remove warnings.
+
+	* @stats_db/plotVar.m: Support for standard error plots.
+
+	* @spike_shape/calcWidthFall.m: Bugfix.
+
+	* @plot_abstract/plot.m: Added support for boxed plots.
+
+	* @params_tests_db/rankVsDB.m: Documentation.
+
+	* @params_tests_db/plotVarBoxMatrix.m: Accepts user properties.
+
+	* @params_cip_trace_fileset/cip_trace.m: Bugfix.
+
+	* @cip_trace_profile/plot.m: Now displays pulse spike shape, too.
+
+2004-12-22  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_profile/cip_trace_profile.m:
+	Added pulse spike characteristics.
+
+2004-12-21  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_db/rankVsDB.m, @ranked_db/displayRow.m, @ranked_db/get.m, @ranked_db/joinOriginal.m, @ranked_db/ranked_db.m, @ranked_db/subsref.m, @tests_db/displayRowsTeX.m, @tests_db/rankMatching.m:
+	Separated rankings utilities into a new class ranked_db. A special LaTeX display with individual measure distances is available.
+
+2004-12-20  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace/cip_trace.m, @cip_traces_dataset/cip_trace_profile.m, @cip_traces_dataset/cip_traces_dataset.m, @cip_traces_dataset/getItemParams.m, @cip_traces_dataset/subsref.m, @histogram_db/plotEqSpaced.m, @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/display.m, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_dataset/subsref.m, @params_tests_db/displayRankingsTeX.m, @params_tests_db/joinRows.m, @params_tests_db/rankVsAllDB.m, @params_tests_db/rankVsDB.m, @params_tests_db/set.m, @params_tests_db/subsref.m, @params_tests_fileset/params_tests_fileset.m, TODO, @plot_abstract/decorate.m, @plot_abstract/matrixPlots.m, @plot_abstract/plot_abstract.m, @spike_shape/spike_shape.m, @tests_db/displayRow.m, @tests_db/displayRowsTeX.m, @tests_db/joinRows.m, @tests_db/matchingRow.m, @tests_db/rankMatching.m, @tests_db/set.m, @tests_db/statsMeanStd.m, @tests_db/tests2cols.m:
+	DB comparison and visualization works.
+
+2004-12-09  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/plotEqSpaced.m, @histogram_db/plot_abstract.m, @histogram_db/subsref.m, @params_tests_dataset/params_tests_dataset.m, @params_tests_db/paramsHists.m, @params_tests_db/params_tests_db.m, @params_tests_db/subsref.m, @params_tests_db/testsHists.m, @params_tests_fileset/display.m, @params_tests_fileset/get.m, @plot_abstract/display.m, @plot_abstract/matrixPlots.m, @plot_abstract/subsref.m, @plot_simple/plot_simple.m, @plot_stack/plot.m, @tests_db/dbsize.m, @tests_db/display.m, @tests_db/joinRows.m, @tests_db/matchingRow.m, @tests_db/rankMatching.m, @tests_db/subsref.m, TODO:
+	Param histograms are improved. Physiology db matching and ranking works.
+
+2004-12-08  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_profile/set.m, @cip_traces_dataset/set.m, TODO, @corrcoefs_db/corrcoefs_db.m, @histogram_db/plotPages.m, @histogram_db/plot_abstract.m, @params_tests_dataset/params_tests_db.m, @params_tests_dataset/set.m, @params_tests_db/getProfile.m, @params_tests_db/invarParam.m, @params_tests_db/invarParams.m, @params_tests_db/paramsCoefs.m, @params_tests_db/paramsHists.m, @params_tests_db/paramsParamsCoefs.m, @params_tests_db/paramsTestsCoefsHists.m, @params_tests_db/paramsTestsHistsStats.m, @params_tests_db/plotVarBoxMatrix.m, @params_tests_db/plotVarMatrix.m, @params_tests_db/testsHists.m, @plot_abstract/superposePlots.m, @tests_3D_db/display.m, @tests_3D_db/histograms.m, @tests_3D_db/joinPages.m, @tests_3D_db/set.m, @tests_db/addLastRow.m, @tests_db/addRow.m, @tests_db/allocateRows.m, @tests_db/compareRows.m, @tests_db/corrCoefs.m, @tests_db/dbsize.m, @tests_db/display.m, @tests_db/histogram.m, @tests_db/invarValues.m, @tests_db/joinRows.m, @tests_db/mean.m, @tests_db/plotrow.m, @tests_db/plotrows.m, @tests_db/setRows.m, @tests_db/shufflerows.m, @tests_db/size.m, @tests_db/sortrows.m, @tests_db/statsBounds.m, @tests_db/std.m:
+	Renamed size to dbsize because it interferes with object array information.
+
+2004-12-06  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace_profile/get.m: Minor edit.
+
+	* @spike_shape/calcInitVm.m: Fixed issue in dahp detection.
+
+	* Contents.m: Updated documentation.
+
+	* @params_cip_trace_fileset/loadFileProfile.m, @params_cip_trace_fileset/loadItemProfile.m, @params_cip_trace_fileset/params_cip_trace_fileset.m:
+	Renamed things according to new hierarchy.
+
+	* @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/get.m, @params_tests_fileset/getItemParams.m, @params_tests_fileset/loadFileProfile.m, @params_tests_fileset/loadItemProfile.m, @params_tests_fileset/paramNames.m, @params_tests_fileset/params_tests_db.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/readDBFiles.m, @params_tests_fileset/testNames.m, @params_tests_fileset/trace.m, @params_tests_fileset/trace_profile.m:
+	Moved contents to new base class params_tests_dataset.
+
+	* @cip_traces_dataset/cip_trace_profile.m, @cip_traces_dataset/cip_traces_dataset.m, @cip_traces_dataset/display.m, @cip_traces_dataset/get.m, @cip_traces_dataset/getItemParams.m, @cip_traces_dataset/loadItemProfile.m, @cip_traces_dataset/paramNames.m:
+	New class for loading older physiology data in cip_traces format.
+
+	* @params_tests_dataset/display.m, @params_tests_dataset/get.m, @params_tests_dataset/getItem.m, @params_tests_dataset/getItemParams.m, @params_tests_dataset/itemResultsRow.m, @params_tests_dataset/params_tests_dataset.m, @params_tests_dataset/params_tests_db.m, @params_tests_dataset/readDBItems.m, @params_tests_dataset/testNames.m:
+	Moved methods from params_tests_fileset to create new base class for
+	dataset/fileset classes.
+
+2004-12-01  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/spike_shape.m:
+	Minor fixes for reading in db for comparing AP threshold methods. Still doesn't work.
+
+2004-11-24  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_fileset/params_tests_db.m, @params_tests_fileset/readDBFiles.m, @spike_shape/calcInitVm.m, @spike_shape/calcInitVmLtdMaxCurv.m, @spike_shape/calcInitVmSlopeThreshold.m, @spike_shape/calcInitVmV2PPLocal.m, @spike_shape/calcWidthFall.m, @spike_shape/plotCompareMethods.m, @spike_shape/spike_shape.m, @trace/spike_shape.m:
+	Improved spike threshold finding methods. Working on generating a comparison database.
+
+2004-11-23  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/plotData.m: Improved visual aspects.
+
+	* @trace/subsref.m, @tests_db/subsref.m:
+	Improved generic method to use get method.
+
+	* @tests_db/sortrows.m: Fixed bug with 3D-2D stuff.
+
+	* @cip_trace_profile/plot.m:
+	Improved error handling for empty spike shapes.
+
+	* @spike_shape/calcInitVm.m, @spike_shape/calcInitVmLtdMaxCurv.m, @spike_shape/calcInitVmMaxCurvature.m, @spike_shape/calcInitVmSekerliV2.m, @spike_shape/calcInitVmV2PPLocal.m, @spike_shape/getResults.m, @spike_shape/plotCompareMethods.m, @spike_shape/plotResults.m, @spike_shape/spike_shape.m:
+	Used Sekerli's proposed methods and improved on them. Also added method to visually
+	compare different methods.
+
+	* @plot_stack/plot.m: Fixed subplot title placement (finally).
+
+	* @plot_abstract/setProp.m, @plot_abstract/subsref.m:
+	Improve generic methods.
+
+	* @plot_abstract/set.m: indicates errors.
+
+	* @plot_abstract/decorate.m, @plot_abstract/plot_abstract.m:
+	Added new option "axisLimits" for specifying axis limits for any plot_abstract object.
+
+2004-11-17  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_profile/plot.m, @spike_shape/getResults.m, @spike_shape/plotResults.m, @trace/plot.m, @trace/plotData.m, TODO:
+	Upgraded older plotting system to first generate an plot_abstract.
+
+	* @cip_trace_profile/plot.m, TODO, @params_tests_db/plotVarBoxMatrix.m, @params_tests_db/plotVarMatrix.m, @plot_abstract/decorate.m, @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_abstract/plot_abstract.m, @plot_abstract/superposePlots.m, @spike_shape/calcInitVm.m, @spike_shape/calcWidthFall.m, @spike_shape/display.m, @spike_shape/get.m, @spike_shape/getResults.m, @spike_shape/plotPP.m, @spike_shape/plotTPP.m, @spike_shape/set.m, @spike_shape/spike_shape.m, @spikes/set.m, @tests_3D_db/plotVarBox.m, @trace/set.m, @trace/spike_shape.m:
+	Added boxplot implementation for visualizing matrix representations.
+	Implemented additional action potential thresholds from Sekerli's paper.
+
+2004-11-10  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/shufflerows.m:
+	Allows shuffling rows of certain columns so that the results can be compared with
+	high-order analyses.
+
+	* @corrcoefs_db/corrcoefs_db.m, @params_tests_db/getProfile.m, @params_tests_db/paramsParamsCoefs.m, @params_tests_db/params_tests_profile.m, @params_tests_fileset/loadFileProfile.m, @params_tests_profile/params_tests_profile.m, @plot_abstract/decorate.m, @plot_abstract/plot_abstract.m, @plot_errorbars/plot_errorbars.m, @plot_stack/plot.m, @plot_stack/plot_stack.m, @tests_db/corrCoefs.m, @tests_db/display.m, @tests_db/factoran.m, @tests_db/isnanrows.m, @tests_db/plotrow.m, @tests_db/plotrows.m:
+	Factor analysis works.
+
+2004-11-04  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/subsref.m, @params_tests_db/paramsHists.m, @params_tests_db/paramsTestsHistsStats.m, @params_tests_db/plotVarMatrix.m, @plot_abstract/decorate.m, @plot_abstract/plotFigure.m, @plot_abstract/plot_abstract.m, @plot_errorbar/axis.m, @plot_errorbar/get.m, @plot_errorbar/plot_errorbar.m, @plot_errorbars/plot_errorbars.m, @plot_stack/plot.m, @plot_stack/plot_stack.m, @plot_stack/set.m, @stats_db/plotVar.m, @stats_db/plot_abstract.m, @tests_db/histogram.m, @tests_db/statsMeanSE.m:
+	Fine tune and a lot of additional features for producing the final version of the SfN poster.
+
+2004-10-19  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_db/plotVarMatrix.m:
+	Got it working correctly with respect to labels and layout.
+
+	* @plot_stack/plot.m: Remove debug statements.
+
+	* @plot_stack/plot.m:
+	Finally got the layout to work correctly. Found a bunch of bugs that impeded the results.
+
+2004-10-18  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @plot_abstract/plotFigure.m, @plot_stack/plot.m, @tests_db/statsBounds.m:
+	Minor fixes to get the preview version of the poster ready!
+
+	* @tests_db/ge.m, @tests_db/histogram.m, @tests_db/invarValues.m, @tests_db/joinRows.m, @tests_db/le.m, @tests_db/sortrows.m, @tests_db/statsMeanStd.m, @tests_db/std.m, @tests_db/tests2cols.m, @tests_db/tests_db.m, @histogram_db/plotPages.m, @params_tests_db/display.m, @params_tests_db/invarParam.m, @params_tests_db/invarParams.m, @params_tests_db/paramsCoefs.m, @params_tests_db/paramsParamsCoefs.m, @params_tests_db/paramsTestsCoefsHists.m, @params_tests_db/paramsTestsHistsStats.m, @params_tests_db/params_tests_profile.m, @params_tests_db/plotVarMatrix.m, @params_tests_db/subsref.m, @params_tests_db/testsHists.m, @params_tests_profile/params_tests_profile.m, @plot_abstract/axis.m, @plot_abstract/decorate.m, @plot_abstract/display.m, @plot_abstract/plotFigure.m, @plot_abstract/plot_abstract.m, @plot_stack/display.m, @plot_stack/plot.m, @stats_db/plotVar.m, @stats_db/plot_abstract.m, @stats_db/stats_db.m, @tests_3D_db/display.m, @tests_3D_db/histograms.m, @tests_3D_db/joinPages.m, @tests_db/corrCoefs.m, @tests_db/display.m, @tests_db/displayRow.m, TODO:
+	Major fixes to make poster plots possible. Dependency coefficients still don't work
+
+2004-10-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/mean.m: Made it work for N-D arrays.
+
+	* @tests_db/std.m:
+	Made it work on N-D arrays by uding recursion. It's slow.
+
+2004-10-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @corrcoefs_db/corrcoefs_db.m, @histogram_db/histogram_db.m, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_db/params_tests_db.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_profile/params_tests_profile.m, Contents.m, TODO:
+	Minor and documentation-related changes.
+
+	* @histogram_db/plotPages.m: Added parameter name-values.
+
+	* @plot_abstract/decorate.m, @plot_abstract/plot.m, @plot_abstract/set.m, @plot_abstract/superposePlots.m:
+	A lot of improvements on improving visualization.
+
+	* @plot_stack/plot.m, @plot_stack/plot_stack.m:
+	A lot of fixes and improvements for layout and additional information. Now uses axes
+	instead of subplot.
+
+	* @spike_shape/spike_shape.m: Documentation fixes.
+
+	* @stats_db/plot_abstract.m: Minor fixes.
+
+	* @tests_3D_db/set.m, @tests_3D_db/tests_3D_db.m: Documentation fixes.
+
+	* @tests_3D_db/histograms.m:
+	Improved to include the changing parameter name-value for paged histograms.
+
+	* @trace_profile/trace_profile.m, @trace/trace.m: Documentation fixes.
+
+	* @tests_db/corrCoefs.m, @tests_db/set.m, @tests_db/sortrows.m, @tests_db/tests_db.m:
+	Documentation fixes and introduction of sortrows for paged histograms.
+
+	* @tests_db/mean.m, @tests_db/statsBounds.m, @tests_db/statsMeanStd.m, @tests_db/std.m:
+	Created custom mean-std functions to get valid results due to NaNs. Tested and
+	fixed the stats_db converter methods.
+
+	* @tests_db/invarValues.m: Clean-up.
+
+2004-10-11  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @cip_trace_profile/cip_trace_profile.m, @cip_trace_profile/display.m, @cip_trace_profile/get.m, @params_tests_db/invarParam.m, @params_tests_profile/get.m, @params_tests_profile/params_tests_profile.m, @plot_abstract/plotFigure.m, @plot_stack/plot.m, Contents.m, TODO, @profile/display.m, @profile/get.m, @profile/getResults.m, @profile/profile.m, @results_profile/.cvsignore, @results_profile/display.m, @results_profile/get.m, @results_profile/getResults.m, @results_profile/results_profile.m, @results_profile/subsref.m, @tests_db/corrCoefs.m, @tests_db/histogram.m, @trace_profile/trace_profile.m:
+	Fixing multiple issues testing the database analysis. Initial version of the profile
+	is made. Needs refinesments. Dieter's comments suggest a new data structure and new plots
+	to come.
+
+2004-10-09  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @corrcoefs_db/corrcoefs_db.m: Fixed minor bug in default constructor.
+
+	* @tests_db/corrCoefs.m: Optimized, need to check speed.
+
+2004-10-08  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/plot.m, @histogram_db/plotPages.m, @histogram_db/plot_abstract.m, @plot_abstract/decorate.m, @plot_abstract/plot_abstract.m, @plot_abstract/set.m, @plot_errorbar/plot_errorbar.m, @plot_simple/plot_simple.m, @plot_stack/decorate.m, @plot_stack/plot.m, @plot_stack/plot_stack.m, @stats_db/plot_abstract.m, @stats_db/stats_db.m, @stats_db/subsref.m, @tests_db/mean.m, @tests_db/plot.m, @tests_db/statsBounds.m:
+	Alpha version of plotting stuff. Errorbar needs to be adjusted a little more.
+
+2004-10-07  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_db/invarParam.m, @stats_db/.cvsignore, @stats_db/stats_db.m, @tests_3D_db/display.m, @tests_db/corrCoefs.m, @tests_db/display.m, @tests_db/invarValues.m, @tests_db/size.m, @tests_db/statsBounds.m, @tests_db/statsMeanStd.m, allmfiles.lst, @tests_db/private/tests2cols.m, @tests_db/tests2cols.m:
+	Beta version of new dbs with additional info. Working on displaying
+	statistical results.
+
+	* .cvsignore, @cip_trace/.cvsignore, @cip_trace/getRateResults.m, @cip_trace_profile/.cvsignore, @corrcoefs_db/.cvsignore, @corrcoefs_db/corrcoefs_db.m, @histogram_db/.cvsignore, @histogram_db/histogram_db.m, allmfiles.lst, @histogram_db/plot.m, @histogram_db/plotPages.m, @params_cip_trace_fileset/.cvsignore, @params_tests_db/.cvsignore, @params_tests_db/params_tests_db.m, @params_tests_fileset/.cvsignore, @period/.cvsignore, @plot_abstract/.cvsignore, @plot_abstract/plotFigure.m, @plot_simple/.cvsignore, @plot_stack/.cvsignore, @profile/.cvsignore, @spike_shape/.cvsignore, @spike_shape/calcInitVm.m, @spike_shape/calcWidthFall.m, @spike_shape/spike_shape.m, @spikes/.cvsignore, @tests_3D_db/.cvsignore, @tests_3D_db/swapRowsPages.m, @tests_3D_db/tests_3D_db.m, @tests_db/.cvsignore, @tests_db/compareRows.m, @tests_db/corrCoefs.m, @tests_db/histogram.m, @tests_db/invarCorrCoefs.m, @tests_db/invarValues.m, @tests_db/isnan.m, @tests_db/onlyRowsTests.m, @tests_db/private/.cvsignore, @tests_db/private/makeColIdx.m, @tests_db/private/tests2cols.m, @tests_db/size.m, @tests_db/tests_db.m, @trace/.cvsignore, @trace/findFilteredSpikes.m, @trace_profile/.cvsignore, @trace_profile/trace_profile.m:
+	Alpha version right after modifying a major issue: Adding a row_idx field
+	to tests_db and a page_idx to tests_3D_db. It was stupid not to commit before
+	doing that. Before this point the database was loading successfully, and
+	most simple operations succeeded after fixing numerous bugs. This commit
+	contains those fixes.
+
+	* @tests_db/invarCorrCoefs.m: Minor fixes.
+
+2004-10-05  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_fileset/params_tests_db.m, @params_tests_fileset/params_tests_fileset.m, @plot_simple/get.m, @spike_shape/calcInitVm.m, @spike_shape/calcMaxVm.m, @spike_shape/calcWidthFall.m, @spikes/spikeAmpSlope.m, @trace/findFilteredSpikes.m, @trace/spike_shape.m:
+	Prioritizing loading the database first. Fixed a number of issues
+	with test calculations. May still need to adjust initialization point
+	calculation. Also need to test the new spike finder with random traces.
+	Try to find a measure of error by looking at examples that it fails.
+
+2004-10-04  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/plotPages.m, @plot_abstract/display.m, @plot_abstract/get.m, @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_abstract/subsref.m, @plot_stack/decorate.m, @plot_stack/get.m, @plot_stack/plot.m, @plot_stack/plot_stack.m, @tests_3D_db/corrCoefs.m, @tests_3D_db/histograms.m, @tests_3D_db/swapRowsPages.m, @tests_db/corrCoefs.m, @tests_db/display.m, @tests_db/histogram.m, @tests_db/invarCorrCoefs.m, @tests_db/onlyRowsTests.m, @tests_db/subsref.m:
+	3D database and associated plots matured. Tested, but needs more work.
+	Correlation coefficients can now be found for many tests.
+
+2004-10-01  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_3D_db/corrCoefs.m: No change.
+
+2004-09-30  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_3D_db/corrCoefs.m, @tests_3D_db/display.m, @tests_3D_db/get.m, @tests_3D_db/tests_3D_db.m, @tests_db/invarValues.m:
+	Initial version, tested of 3D db.
+
+2004-09-28  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/plot_abstract.m, @params_tests_db/subsref.m, @plot_abstract/decorate.m, @spike_shape/calcMinVm.m, @tests_db/histogram.m, @tests_db/invarCorrCoefs.m, @tests_db/tests_db.m:
+	Now can plot invariant correlation coefficients by reusing the histogram_db.
+
+2004-09-24  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @histogram_db/get.m, @histogram_db/histogram_db.m, @histogram_db/plot_abstract.m, @histogram_db/subsref.m, @plot_abstract/decorate.m, @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_abstract/plot_abstract.m, @plot_abstract/superposePlots.m, @plot_simple/plot_simple.m, @tests_db/histogram.m, TODO:
+	Generating plots is still experimental. Need to add correlations, variations, etc.
+
+2004-09-20  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_db/subsref.m, @tests_db/compareRows.m, @tests_db/display.m, @tests_db/eq.m, @tests_db/ge.m, @tests_db/gt.m, @tests_db/le.m, @tests_db/lt.m, @tests_db/ne.m, @tests_db/onlyRowsTests.m, @tests_db/private/makeColIdx.m, @tests_db/subsref.m, @tests_db/tests_db.m, README, TODO:
+	Added overloaded operators and subsref operations to tests_db. Works nice!
+
+2004-09-16  Cengiz Gunay  <cgunay@emory.edu>
+
+	* Contents.m, @cip_trace/cip_trace.m, @cip_trace_profile/cip_trace_profile.m, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_db/params_tests_db.m, @params_tests_fileset/params_tests_fileset.m, @period/period.m, @profile/profile.m, @spike_shape/spike_shape.m, @spikes/spikes.m, @tests_db/tests_db.m, @trace/trace.m:
+	Updated documentation.
+
+	* @cip_trace_profile/plot.m, @params_cip_trace_fileset/get.m, @params_cip_trace_fileset/subsref.m, @params_tests_db/display.m, @params_tests_db/get.m, @params_tests_db/params_tests_db.m, @params_tests_db/subsref.m, @params_tests_fileset/display.m, @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/get.m, @params_tests_fileset/params_tests_db.m, @params_tests_fileset/subsref.m, @params_tests_fileset/testNames.m, @period/display.m, @period/get.m, @profile/display.m, @profile/get.m, @spike_shape/calcInitVm.m, @spike_shape/getResults.m, @spikes/SFA.m, @spikes/spikeAmpSlope.m, @tests_db/display.m, @tests_db/displayRow.m, @tests_db/get.m, @tests_db/subsref.m, @trace/display.m, @trace/findFilteredSpikes.m, @trace/get.m, @trace/plot.m, @trace/trace.m, @cip_trace/cip_trace.m, @cip_trace/get.m, @cip_trace/getCIPResults.m, @cip_trace/getRateResults.m, @cip_trace/periodIniSpont.m, @cip_trace/periodPulseIni100ms.m, @cip_trace/periodPulseIni100msRest1.m, @cip_trace/periodPulseIni100msRest2.m, @cip_trace/periodPulseIni50ms.m, @cip_trace_profile/cip_trace_profile.m, @cip_trace_profile/display.m, @cip_trace_profile/get.m, @params_cip_trace_fileset/cip_trace.m, @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/display.m, TODO:
+	Major and minor fixes after testing. Next step is testing and improving DB access and manipulation methods.
+
+2004-09-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* ChangeLog: Update.
+
+	* @cip_trace/getCIPResults.m, @cip_trace/getRateResults.m, @cip_trace/getResults.m, @cip_trace_profile/cip_trace_profile.m, @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/loadFileProfile.m, Contents.m, TODO, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_db/params_tests_db.m, @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/loadFileProfile.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/testNames.m, @profile/getResults.m, @profile/profile.m, @trace_profile/trace_profile.m:
+	Finished coding a consistent base for analyzing cip_trace filesets. Needs tesintg.
+
 2004-09-14  Cengiz Gunay  <cgunay@emory.edu>
 
 	* @cip_trace/getCIPResults.m, @cip_trace/getRateResults.m, @cip_trace/getResults.m, @cip_trace_profile/cip_trace_profile.m, @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/loadFileProfile.m, Contents.m, TODO, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_db/params_tests_db.m, @params_tests_fileset/fileResultsRow.m, @params_tests_fileset/loadFileProfile.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/testNames.m, @profile/getResults.m, @profile/profile.m, @trace_profile/trace_profile.m:
