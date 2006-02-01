@@ -45,11 +45,13 @@ end
 
 %# Remove all '_' characters, because they interfere with TeX interpretation
 
+the_legend = t.id;
 if isfield(t.props, 'quiet') 
   if isempty(title_str)
     the_title = t.id;
   else
     the_title = title_str;
+    the_legend = title_str;
   end
 else
   class_name = strrep(class(t), '_', ' ');
@@ -59,4 +61,4 @@ end
 a_plot = plot_abstract({time, t.dy * t.data * 1e3}, ...
 		       {'time [ms]', ylabel}, ...
 		       the_title, ...
-		       {t.id});
+		       {the_legend});
