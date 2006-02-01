@@ -84,7 +84,7 @@ if nargin == 0 %# Called with no params
 
      ext = lower(ext); %# Case insensitive matches for file extension
 
-     %# TODO: Also load PCDX and LabVIEW files
+     %# TODO: Also load LabVIEW files
 
      if strcmp(ext, '.bin') %# Genesis file
        channel = 1; %# by default
@@ -100,6 +100,14 @@ if nargin == 0 %# Called with no params
 	 %# Use regular (i386 PCs) little-endian version of readgenesis
 	 data = readgenesis(data_src, channel);
        end
+
+     elseif strcmp(ext, '.genflac') %# Compressed 16-bit genesis file
+       channel = 1; %# by default
+       if isfield(props, 'channel')
+	 channel = props.channel;
+       end
+       data = readgenesis16bit(data_src);
+       data = data(channel, :);
 
      elseif strcmp(ext, '.all') %# PCDX file
        %#disp('Loading PCDX trace');
