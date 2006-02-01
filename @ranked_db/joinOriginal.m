@@ -1,9 +1,9 @@
-function a_db = joinedOriginal(a_ranked_db, rows)
+function a_db = joinOriginal(a_ranked_db, rows)
 
-% joinedOriginal - Joins the distance values to the original db rows with matching row indices.
+% joinOriginal - Joins the distance values to the original db rows with matching row indices.
 %
 % Usage:
-% a_db = joinedOriginal(a_ranked_db, rows)
+% a_db = joinOriginal(a_ranked_db, rows)
 %
 % Description:
 %   Takes the parameter columns from orig_db and all tests from crit_db.
