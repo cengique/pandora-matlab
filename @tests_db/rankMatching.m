@@ -6,13 +6,15 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % a_ranked_db = rankMatching(db, crit_db)
 %
 % Description:
-%   crit_db can be created with the matchingRow method.
+%   crit_db can be created with the matchingRow method. TestWeights modify the importance 
+% of each measure.
 %
 %   Parameters:
 %	db: A tests_db to rank.
 %	crit_db: A tests_db object holding the match criterion tests and stds.
 %	props: A structure with any optional properties.
 %	  tolerateNaNs: If 0, rows with any NaN values are skipped (default=1).
+%	  testWeights: Structure array associating tests and multiplicative weights.
 %		
 %   Returns:
 %	a_ranked_db: A ranked_db object.
@@ -58,12 +60,27 @@ first_row = onlyRowsTests(crit_db, 1, crit_tests);
 
 %# Weigh according to 2nd row of crit_db
 second_row = onlyRowsTests(crit_db, 2, crit_tests);
+second_row_data = second_row.data;
+
+if isfield(props, 'testWeights')
+  tests_weights = props.testWeights;
+elseif isfield(crit_db.props, 'testWeights')
+  tests_weights = crit_db.props.testWeights;
+end
+
+if exist('tests_weights')
+  [tests_names order] = intersect(fieldnames(tests_weights), crit_tests);
+  weights_cell = struct2cell(tests_weights);
+  weights_tests = tests2cols(second_row, tests_names);
+  second_row_data(weights_tests) = ...
+      second_row_data(weights_tests) ./ cell2mat(weights_cell(order)');
+end
 
 %# Filter relevant columns, subtract from db and weight
 %# (do all at once without using temporary variables to save memory)
 wghd_data = (get(db(':', crit_tests), 'data') - ...
 	     (ones(dbsize(db, 1), 1) * first_row.data)) ./ ...
-    (ones(dbsize(db, 1), 1) * second_row.data);
+    (ones(dbsize(db, 1), 1) * second_row_data);
 
 %# Sum of squares: distance measure
 %# Look for NaN values, skip them and count the non-NaN values to normalize the SS
