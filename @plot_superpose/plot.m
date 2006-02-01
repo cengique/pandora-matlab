@@ -31,9 +31,9 @@ for plot_num = 1:num_plots
   if plot_num > 1
     %# only allow the first plot to open the axis
     layout_axis = NaN; %# NaN means don't open new axis
-    hold on;
+    hold all;
   end
-  handles = plot(a_plot.plots(plot_num), layout_axis); 
+  handles = plot(a_plot.plots{plot_num}, layout_axis); 
   all_handles = [all_handles, handles];
 end
 hold off;

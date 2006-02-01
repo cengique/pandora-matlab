@@ -19,7 +19,7 @@ function handles = decorate(a_plot)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/11
 
 %# Get props from plot_superpose
-to_plot = set(a_plot.plots(1), 'props', ...
-	      mergeStructs(a_plot.props, get(a_plot.plots(1), 'props')));
+to_plot = set(a_plot, 'props', ...
+	      mergeStructs(a_plot.props, get(a_plot.plots{1}, 'props')));
 
-handles = decorate(to_plot);
+handles = decorate(to_plot.plot_abstract);

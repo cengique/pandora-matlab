@@ -57,16 +57,17 @@ else
      title_str = '';
    end
 
-   if iscell(plots)
-     plots = cell2mat(plots);
+   if ~ iscell(plots)
+     plots = mat2cell(plots);
    end
 
   obj.plots = plots;
   obj.props = props;
 
+  legend = {};
   %# Check if contained plots feature axis_labels
   for plot_num=1:length(plots)
-    plot_axis_labels = plots(plot_num).axis_labels;
+    plot_axis_labels = plots{plot_num}.axis_labels;
 
     if ~isempty(plot_axis_labels) 
       if ~isempty(plot_axis_labels{1})
@@ -76,13 +77,20 @@ else
 	axis_labels{2} = plot_axis_labels{2};
       end
     end
+
+    plot_legend = plots{plot_num}.legend;
+    if ~ isempty(plot_legend)
+      legend = { legend{:}, plot_legend{1}};
+    else
+      legend = { legend{:}, ''};
+    end
   end
 
   if isempty(title_str)
-    title_str = plots(1).title;
+    title_str = plots{1}.title;
   end
 
   obj = class(obj, 'plot_superpose', plot_abstract({}, axis_labels, title_str, ...
-						   {}, '', props));
+						   legend, '', props));
 end
 
