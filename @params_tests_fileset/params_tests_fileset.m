@@ -1,7 +1,6 @@
 function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 
-% params_tests_fileset - Description of a set of data files of
-%		raw data varying with parameter values.
+% params_tests_fileset - Description of a set of data files of raw data varying with parameter values.
 %
 % Usage:
 % obj = params_tests_fileset(file_pattern, dt, dy, id, props)
@@ -32,6 +31,8 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %			param_row_filename columns can be specified as an alternative to
 %			specifying param_desc_filename. These names are not for the 
 %			parameters present in the data filename.
+%		profile_method_name: It can be one of the profile-creating methods in this
+%			class. E.g., 'trace_profile', 'srp_trace_profile', etc.
 %		(See parent classes and cip_trace object for more props)
 %		
 %   Returns a structure object with the following fields:
