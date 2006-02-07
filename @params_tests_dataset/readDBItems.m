@@ -31,8 +31,8 @@ end
 
 try 
   %# Collect info for generating the DB
-  param_names = paramNames(obj);
-  test_names = testNames(obj);
+  param_names = paramNames(obj, items(1));
+  test_names = testNames(obj, items(1));
   num_items = length(items);
 catch
   err = lasterror;

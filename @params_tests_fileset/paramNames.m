@@ -1,15 +1,16 @@
-function param_names = paramNames(fileset)
+function param_names = paramNames(fileset, item)
 
 % paramNames - Returns the ordered names of parameters for this fileset.
 %
 % Usage:
-% param_names = paramNames(fileset)
+% param_names = paramNames(fileset, item)
 %
 % Description:
 % Looks at the filename of the first file to find the parameter names.
 %
 %   Parameters:
 %	fileset: A params_tests_fileset.
+%	item: (Optional) If given, read param names by loading item at this index.
 %		
 %   Returns:
 %	params_names: Cell array with ordered parameter names.
@@ -19,9 +20,13 @@ function param_names = paramNames(fileset)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
+if ~ exist('item')
+  item = 1;
+end
+
 props = get(fileset, 'props');
 
-filename = getItem(fileset, 1);
+filename = getItem(fileset, item);
 fullname = fullfile(fileset.path, filename);
 
 names_vals = parseGenesisFilename(fullname);
