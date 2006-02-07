@@ -9,7 +9,7 @@ function a_script_cluster = script_array_for_cluster(num_runs, sge_wrapper_scrip
 %	num_runs: The number of times the runJob script should be evoked.
 %	sge_wrapper_script: A script that can be submitted with qsub and can execute arbitrary
 %		Matlab commands on the cluster nodes. It can have qsub options prepended to it
-%		such as '-p -100 -q all.q sge_matlab.sh'.
+%		such as '-p -100 -q all.q <abs_path_to>/sge_matlab.sh'.
 %	id: Identification string.
 %	props: A structure with any optional properties.
 %	  notifyByMail: An SGE notification email is sent to this address after lastJob.

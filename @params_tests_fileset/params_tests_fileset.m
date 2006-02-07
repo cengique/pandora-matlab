@@ -37,8 +37,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,
-%	path: The pathname to files,
-%	filenames: Cell array of filenames corresponding to DB entries.
+%	path: The pathname to files.
 %
 % General operations on params_tests_fileset objects:
 %   params_tests_fileset - Construct a new object.
