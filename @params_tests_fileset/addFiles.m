@@ -1,17 +1,21 @@
-function [a_fileset, index_list] = addFiles(a_fileset, file_pattern)
+function [a_fileset, index_list] = addFiles(a_fileset, file_pattern, props)
 
 % addFiles - Adds to existing list of files in set.
 %
 % Usage:
-% a_fileset = addFiles(a_fileset, file_pattern)
+% [a_fileset, index_list] = addFiles(a_fileset, file_pattern, props)
 %
 % Description:
 %
 % Parameters:
+%	a_fileset: A params_tests_fileset object.
 %	file_pattern: File pattern, or cell array of patterns, matching additional files.
+%	props: A structure with any optional properties.
+%	  param_row_filename: Update parameters from here. The 'trial' parameter is used
+%			to address rows from this file and acquire parameters.
 %
 % Returns:
-%	a_fileset: The augmented params_tests_fileset object.
+%	a_fileset: The augmented fileset object.
 %	index_list: The vector of index numbers of the new files added. Can be used
 %		to selectively load the new files into a DB using params_test_db.
 %		
@@ -19,6 +23,10 @@ function [a_fileset, index_list] = addFiles(a_fileset, file_pattern)
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/01
+
+if ~ exist('props')
+  props = struct([]);
+end
 
 %# First find all filenames matching the pattern
 
@@ -55,3 +63,11 @@ existing_list = get(a_fileset, 'list');
 num_existing = length(existing_list);
 a_fileset = set(a_fileset, 'list', { existing_list{:}, filenames{:}});
 index_list = (num_existing + 1):(num_existing + length(filenames));
+
+%# Update the parameter values
+if isfield(props, 'param_row_filename')
+  param_rows = dlmread(props.param_row_filename);
+  props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); %# strip off excess columns
+
+  a_fileset = set(a_fileset, 'props', mergeStructs(props, get(a_fileset, 'props')));
+end
