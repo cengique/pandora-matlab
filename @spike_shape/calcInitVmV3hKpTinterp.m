@@ -82,15 +82,17 @@ hi_d1_idx = hi_d1_idx(end);
 %# Sekerli's method, max of second derivative
 h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
 
+s_props = get(s, 'props');
+
 %# OBSOLETE, SEE BELOW.
 %# If specified, use threshold as upper limit
-if isfield(s.props, 'init_threshold')
-  add_h_title = [', while v\prime < ' num2str(s.props.init_threshold)];
-  constrained_idx = find(d1 < s.props.init_threshold);
+if isfield(s_props, 'init_threshold')
+  add_h_title = [', while v\prime < ' num2str(s_props.init_threshold)];
+  constrained_idx = find(d1 < s_props.init_threshold);
   if length(constrained_idx) == 0 
     error('calcInitVm:failed', ...
 	    ['Failed to find any points below derivative threshold ' ...
-	     num2str(s.props.init_threshold) ]);
+	     num2str(s_props.init_threshold) ]);
   else    
     [val, max_h_idx] = max(h(constrained_idx)); 
     max_h_idx = constrained_idx(max_h_idx);
@@ -116,7 +118,7 @@ if length(constrained_idx) == 0
   max_h_idx = NaN;
   [max_slope_idx a_plot] = ...
       calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
-					s.props.init_threshold, plotit);
+					s_props.init_threshold, plotit);
 else    
   [val, max_k_idx] = max(k(constrained_idx)); 
   max_k_idx = (constrained_idx(max_k_idx) + 2) / int_fac;
@@ -128,7 +130,7 @@ end
 
 if plotit
   t = (3 : (int_fac * max_idx - 2)) * dt * 1e3;
-  if isfield(s.props, 'quiet') || isfield(s.trace.props, 'quiet')
+  if isfield(s_props, 'quiet') || isfield(s.trace.props, 'quiet')
     title_str = '';
   else
     title_str = [ strrep(class(s), '_', ' ') ': ' get(s, 'id') ', ' ];

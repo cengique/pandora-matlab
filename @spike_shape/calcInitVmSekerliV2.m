@@ -29,6 +29,7 @@ if ~ exist('plotit')
   plotit = 0;
 end
 a_plot = [];
+s_props = get(s, 'props');
 
 d3 = diff3T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
@@ -38,13 +39,13 @@ d3 = d3(4:(end - 3));
 d2 = d2(4:(end - 3));
 d1 = d1(4:(end - 3));
 h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
-if isfield(s.props, 'init_threshold')
-  add_title = [', while v\prime < ' num2str(s.props.init_threshold)];
-  constrained_idx = find(d1 < s.props.init_threshold);
+if isfield(s_props, 'init_threshold')
+  add_title = [', while v\prime < ' num2str(s_props.init_threshold)];
+  constrained_idx = find(d1 < s_props.init_threshold);
   if length(constrained_idx) == 0 
     error('calcInitVm:failed', ...
 	    ['Failed to find any points below derivative threshold ' ...
-	     num2str(s.props.init_threshold) ]);
+	     num2str(s_props.init_threshold) ]);
   else    
     [val, idx] = max(h(constrained_idx)); 
     idx = constrained_idx(idx);

@@ -34,6 +34,9 @@ function [init_idx, a_plot] = ...
 if ~ exist('plotit')
   plotit = 0;
 end
+
+s_props = get(s, 'props');
+
 a_plot = [];
 
 d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
@@ -51,7 +54,7 @@ if length(constrained_idx) == 0
 	   'Using supersampled slope threhold crossing method (7) instead.']);
   [init_idx a_plot] = ...
       calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, ...
-					s.props.init_threshold, plotit);
+					s_props.init_threshold, plotit);
   return;
 else    
   [val, idx] = max(k(constrained_idx)); 
