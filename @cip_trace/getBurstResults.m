@@ -23,7 +23,6 @@ function results = getBurstResults(a_cip_trace, a_spikes)
 %# Spike rates [Hz] in total spikes over time method for all periods
 ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
-
 %# Exponential approximation to amplitude decay for slow inactivating channels
 [a_tau, a_inf] = spikeAmpSlope(a_spikes, a_cip_trace, ...
 			       periodPulse(a_cip_trace));
