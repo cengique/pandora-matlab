@@ -26,6 +26,11 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 %# Setup lookup tables
 col_names = fieldnames(obj.col_idx);
 
+%# Pages
+if ~ exist('tests')
+  tests = ':';
+end
+
 %# translate tests spec to array form
 cols = tests2cols(obj, tests);
 
