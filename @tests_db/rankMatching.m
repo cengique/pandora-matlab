@@ -3,7 +3,7 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % rankMatching - Create a ranking db of row distances of db to given criterion db.
 %
 % Usage:
-% a_ranked_db = rankMatching(db, crit_db)
+% a_ranked_db = rankMatching(db, crit_db, props)
 %
 % Description:
 %   crit_db can be created with the matchingRow method. TestWeights modify the importance 
@@ -15,6 +15,7 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 %	props: A structure with any optional properties.
 %	  tolerateNaNs: If 0, rows with any NaN values are skipped (default=1).
 %	  testWeights: Structure array associating tests and multiplicative weights.
+%	  topRows: If given, only return this many of the top rows.
 %		
 %   Returns:
 %	a_ranked_db: A ranked_db object.
@@ -100,7 +101,13 @@ row_index = row_index(~nans);
 wghd_data = wghd_data(~nans, :);
 
 %# put all into one variable to free the memory for the next step
-wghd_data = [wghd_data, ss_data, row_index];
+%# Sort increasing with distances
+wghd_data = sortrows([wghd_data, ss_data, row_index], size(wghd_data, 2) + 1);
+
+%# Prune rest, if requested
+if isfield(props, 'topRows')
+  wghd_data = wghd_data(1:props.topRows, :);
+end
 
 %# Create a ranked_db with distances and row indices, sorted with distances
 a_ranked_db = ranked_db(wghd_data, ...
