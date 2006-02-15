@@ -1,4 +1,84 @@
+2006-02-15  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/rankMatching.m:
+	Added prop to specify to only keep a top portion of the best matching ranks. Therefore the sorting is also done here rather than in constructor of ranked_db.
+
+	* @tests_db/onlyRowsTests.m: Minor check added.
+
+	* @tests_db/subsasgn.m, @tests_db/assignRowsTests.m:
+	Addressed modification of DB contents now possible.
+
+	* @ranked_db/ranked_db.m:
+	Sorting not done here anymore. See rankMatching?
+
+	* @ranked_db/plotRowErrors.m: Put a limit to font resizing.
+
+	* @plot_abstract/plot_abstract.m:
+	Legend location and orientation props.
+
+	* @plot_abstract/plotFigure.m:
+	Found missing semicolon causing unwanted messages.
+
+	* @plot_abstract/decorate.m:
+	Added props for controlling location and orientation of figure legends.
+
+	* @physiol_bundle/constrainedMeasuresPreset.m:
+	Added minimal set of measures as presets 5 and 6.
+
+	* @physiol_bundle/matchingRow.m:
+	Now returns a crit_db rather than a crit_bundle. Unnecessary bundling needs to be avoided for memory reasons.
+
+	* @model_ranked_to_physiol_bundle/comparisonReport.m, @model_ranked_to_physiol_bundle/model_ranked_to_physiol_bundle.m, @model_ranked_to_physiol_bundle/plotCompareRanks.m, @model_ranked_to_physiol_bundle/plotfICurve.m:
+	OBSOLETE, because putting a copy of the model_ct_bundle bundle in here duplicates the memory required for the huge data matrix. Methods moved out to model_ct_bundle.
+
+	* @model_ct_bundle/addToDB.m, @model_ct_bundle/plotCompareRanks.m, @model_ct_bundle/plotComparefICurve.m, @model_ct_bundle/rankMatching.m, @model_ct_bundle/reportRankingToPhysiolNeuronsTeXFile.m:
+	Adding to existing DB and more memory-optimized version of generating rankings now work. Obsoleted the model_ranked_to_physiol_bundle class. Those methods are now in this model_ct_bundle class.
+
+2006-02-08  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @model_ct_bundle/addToDB.m: Initial version, not tested.
+
+	* @cip_trace/getBurstResults.m: No change.
+
+2006-02-07  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @spike_shape/calcInitVmLtdMaxCurv.m, @spike_shape/calcInitVmSekerliV2.m, @spike_shape/calcInitVmSlopeThreshold.m, @spike_shape/calcInitVmSlopeThresholdSupsample.m, @spike_shape/calcInitVmV3hKpTinterp.m:
+	Shameful fixes that came too late after removing props from spike_shape.
+
+	* @script_array_for_cluster/script_array_for_cluster.m: Doc update.
+
+	* @script_array_for_cluster/runFirst.m:
+	Fixed bunch of bugs. Now works and submits jobs to SGE.
+
+	* @script_array_for_cluster/set.m, @script_array/set.m, @script_array/subsasgn.m:
+	Getting and setting member variables works.
+
+	* @params_tests_fileset/params_tests_fileset.m: Doc update.
+
+	* @params_tests_fileset/addFiles.m:
+	Allowed passing the updated parameter file.
+
+	* @params_tests_dataset/readDBItems.m, @params_tests_dataset/testNames.m, @params_tests_fileset/paramNames.m:
+	Load the first in a set of items rather than the absolute first when looking for parameter and test names.
+
+2006-02-03  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @params_tests_fileset/addFiles.m, @params_tests_fileset/params_tests_fileset.m:
+	Fixed documentation and now allows adding files to existing fileset.
+
+2006-02-02  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @script_array/get.m, @script_array/subsref.m: Generic methods.
+
+	* @script_array_for_cluster/get.m, @script_array_for_cluster/runFirst.m, @script_array_for_cluster/script_array_for_cluster.m:
+	Initial version, compiles but not thoroughly tested. Committed to be tested on cluster.
+
+	* @script_array/runFirst.m, @script_array/runJob.m, @script_array/runLast.m, @script_array/script_array.m:
+	Initial version, works.
+
 2006-02-01  Cengiz Gunay  <cgunay@emory.edu>
+
+	* ChangeLog: Doc auto-update.
 
 	* @trace/trace.m: Added .genflac support.
 

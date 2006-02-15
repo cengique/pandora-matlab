@@ -6,23 +6,42 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
-v0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
-	spike_shape, period, and cip_trace.
-
-v0_2b: Cengiz Gunay, 2004/09/16. Beta version of fileset and db classes.
-
-v0_4b: Cengiz Gunay, 2005/01/11. Beta version with pulse spike
-	characteristics and database matching tools.
-
-v0_5b: Cengiz Gunay, 2005/01/25. Beta version that can work with PCDX files.
-
-v0_6b: Cengiz Gunay & Jeremy Edgerton, 2005/03/14. Beta version that can 
-	load physiology filesets with pharmacology data.
-
-v0_7b: Cengiz Gunay, 2005/05/04. Beta version that analyzes each spike individually
-	and uses improved threshold finding method.
+v0_9b: Cengiz Gunay, 2006/02/15. Beta version. 
+	- Improved plotting in many ways including with self-resizing plots. 
+	- Vectorized many functions to operate on multiple inputs. 
+	- Improved spike shape measurements based on results from new morphologies. 
+	- Optimized for memory usage in merging, joining and ranking databases.
+	- Compatibility issues with Matlab R14.3 fixed.
+	- Added the concept of a bundle of a dataset and DB.
+	- Allow comments in physiol cell files by Tom Sangrey.
+	- Moved props out of spike_shape, into base class trace.
+	- Added automated document generators that can hold plots or tables, etc.
+	- Organized and automated how ranking documents are generated and added more plots.
+	- Added specialized plot that can do  f-I curves and similar plots.
+	- Added script_array and subclasses to do automated analysis on the cluster.
+	- Added .genflac support.
+	- Allow adding files to existing filesets and loading DBs of added files only.
+	- Added presets for comparing a limited set of measures and specify weighting.
+	- Allow modifying DB contents with paren addressing rows and columns.
 
 v0_8b: Cengiz Gunay, 2005/10/19. Beta version that has improved analysis and 
 	plotting functionality, and documentation. Database object format
 	has changed, which makes this revision binary incompatible with
 	earlier created DB and dataset objects.
+
+v0_7b: Cengiz Gunay, 2005/05/04. Beta version that analyzes each spike individually
+	and uses improved threshold finding method.
+
+v0_6b: Cengiz Gunay & Jeremy Edgerton, 2005/03/14. Beta version that can 
+	load physiology filesets with pharmacology data.
+
+v0_5b: Cengiz Gunay, 2005/01/25. Beta version that can work with PCDX files.
+
+v0_4b: Cengiz Gunay, 2005/01/11. Beta version with pulse spike
+	characteristics and database matching tools.
+
+v0_2b: Cengiz Gunay, 2004/09/16. Beta version of fileset and db classes.
+
+v0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
+	spike_shape, period, and cip_trace.
+

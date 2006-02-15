@@ -1,15 +1,14 @@
 TODO
 --------------------
+- make a paper production class capable of generating figures for paper automatically
+- make plan and requisites for version procession
 - put ItemIndex as param
 - improve visualization of cip_traces
 - create custom class to eliminate high-variance neurons? how to get sdb?
-- perl doclet generator
-- add method in dataset to load item by reading database row or in db vice-versa.
-	- use db id for the prof id
-- ignore all parameters in comparisons?
-- plot average neuron comparison matches.
 - plot matches that vary a lot in parameter values, but same outcome
-- make dualcip a new db and make it load profiles, etc.
+- move multi_fileset_gpsim_cns2005 into djlab
++ move plotfICurve to model_ct_bundle
+- make comparisonReport use reportCompareModelToPhysiolNeuron
 + for version 0.6:
 	- add new physiology dataset loader
 + for version 0.7:
@@ -21,11 +20,10 @@ TODO
 	+ move props to bottom of params_tests_dataset and tests_db
 	+ remove redundant props from subclasses
 - for version 1.0:
-	- add dataset connection to tests_db 
-		- put it in props for now?
+	+ add dataset connection to tests_db [created the bundle concept]
 		- make version-aware loader?
-	- put params in dataset, params_results_profile
-
+		X put it in props for now?
+	- put params in dataset, params_results_profile [?]
 - fix fillederrorbar with new Matlab
 - Make tests_db save and load its dataset on request
 	- overload saveobj and loadobj methods
@@ -36,12 +34,14 @@ TODO
 	+ define all operations as row logical functions
 	+ complex subsref for tests_db. 
 - add plot-frame and docgen classes
-  - allow fontsize change to fit more on a single page [can use export size for that]
+  - add a PaperPosition property to figures to make printable figures.
+  - allow adding insets to plots
   - clustering histograms?
   - fix varboxplot to return correct y-axis limits
-  - Replace older plot methods with plotFigure(plot_abstract(.)) combinations
+  + allow fontsize change to fit more on a single page [can use export size for that]
+  + Replace older plot methods with plotFigure(plot_abstract(.)) combinations
 	- what to do with Interpreter=None stuff?
-  - matrix color plot
+  + matrix color plot
   + allow adjusting location of title in stack plots
   + invar param value should be indicated on plotPages
   + classes should have function that returns plot_abstract
@@ -52,28 +52,42 @@ TODO
   + @plot_abstract/superposePlots, superposes plots on same axis, and 
     return a new plot_abstract object
 - objects don't take more space when they're used again, has implications on design:
-	- put link to dataset from db
-	- put links to previous db's for a chain of operations
+  - put links to previous db's for a chain of operations, but they must not be saved!
+  + put link to dataset from db [made bundles]
 - comparing physiology data
-	+ make tabular display
+  - improve convenience by adding custom functions to bundle classes
+  - cluster params of best matches
+  - collect params of all best matches and cluster
+  + allow easily choosing subset of measures
+  + made color-coded error distance display
+  + make tabular display
 - Make params_tests_profile to use arrays rather than cell arrays
-	- do for rest of profile elements
-	+ had to remove size member function
-	+ may need to modify subsref [if an array is passed, then call built-in function]
-	+ then make plot methods operate on arrays and return plot arrays
+  - do for rest of profile elements
+  + had to remove size member function
+  + may need to modify subsref [if an array is passed, then call built-in function]
+  + then make plot methods operate on arrays and return plot arrays
 - update documentation 
-	+ update README
-	- make first description no longer than one line on all constructors
-	- Make PDF with code design
-		- add class diagram with converter methods
+  - perl doclet generator
+  - make first description no longer than one line on all constructors
+  - Make PDF with code design
+	- add class diagram with converter methods
+	- add diagram for bundles
+  + update README
 - high-order methods:
 	+ factor analysis
 	+ shuffle predicition
 	- pca
 	- ica
 	- clustering (use for finding multiple solutions?)
-		- use ANOVA for showing different distributions
 		- need this for finding parameter clusters matching phys data?
+		- no, use hierarchical clustering to find number of clusters and centers
+		- use PCA to display clustering results
+		- use ANOVA for showing significance of separation
++ make dualcip a new db and make it load profiles, etc. [made multi_fileset]
++ add method in dataset to load item by reading database row or in db vice-versa.
+	- use db id for the prof id
++ ignore all parameters in comparisons?
++ plot average neuron comparison matches.
 + remove DAHPMag from depol_tests
 + remove not-a-spikes from spikes object
 + analyze each spike individually, then generate mean, mode, median, and unimodality score
