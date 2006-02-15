@@ -1,9 +1,10 @@
-function a_bundle = model_ranked_to_physiol_bundle(a_dataset, a_db, a_ranked_db, a_crit_bundle, props)
+function r_bundle = ...
+      model_ranked_to_physiol_bundle(m_bundle, a_ranked_db, a_crit_bundle, props)
 
 % model_ranked_to_physiol_bundle - A DB bundled with its dataset, ranked to a physiology DB bundle.
 %
 % Usage:
-% a_bundle = model_ranked_to_physiol_bundle(a_dataset, a_db, a_ranked_db, a_crit_bundle, props)
+% r_bundle = model_ranked_to_physiol_bundle(a_dataset, a_db, a_ranked_db, a_crit_bundle, props)
 %
 %   Parameters:
 %	a_dataset: A params_cip_trace_fileset object.
@@ -34,18 +35,20 @@ function a_bundle = model_ranked_to_physiol_bundle(a_dataset, a_db, a_ranked_db,
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/13
 
 if nargin == 0 %# Called with no params
-  a_bundle.crit_bundle = dataset_db_bundle;
-  a_bundle = class(a_bundle, 'model_ranked_to_physiol_bundle', model_ct_bundle);
-elseif isa(a_dataset, 'model_ranked_to_physiol_bundle') %# copy constructor?
-  a_bundle = a_dataset;
+  r_bundle.m_bundle = dataset_db_bundle;
+  r_bundle.ranked_db = tests_db;
+  r_bundle.crit_bundle = dataset_db_bundle;
+  r_bundle = class(r_bundle, 'model_ranked_to_physiol_bundle');
+elseif isa(m_bundle, 'model_ranked_to_physiol_bundle') %# copy constructor?
+  r_bundle = m_bundle;
 else
   if ~ exist('props')
     props = struct([]);
   end
 
-  a_bundle.crit_bundle = a_crit_bundle;
-  a_bundle = class(a_bundle, 'model_ranked_to_physiol_bundle', ...
-		   model_ct_bundle(a_dataset, a_db(:, {'pAcip', 'trial', 'ItemIndex'}), ...
-				   a_ranked_db, props));
+  r_bundle.m_bundle = m_bundle;
+  r_bundle.ranked_db = a_ranked_db;
+  r_bundle.crit_bundle = a_crit_bundle;
+  r_bundle = class(r_bundle, 'model_ranked_to_physiol_bundle');
 end
 

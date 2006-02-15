@@ -34,7 +34,7 @@ if ~ exist('props')
   props = struct([]);
 end
 
-a_ranked_db = get(r_bundle, 'joined_db');
+a_ranked_db = r_bundle.ranked_db
 ranked_num_rows = dbsize(a_ranked_db, 1);
 
 %# adjust labels for LaTeX
@@ -68,13 +68,14 @@ if ranked_num_rows > 0
   fIcurve_doc = plotfICurve(r_bundle, 1);
 
   %# Also include spike shape comparisons for the best
+  best_trial_num = joined_db(1, 'trial').data;
   short_caption = [ 'Spike shapes of best matching model to ' crit_db_id '.' ];
   caption = [ short_caption ];
   crit_trace_d100 = setProp(plots.crit_trace_d100(1), 'quiet', 1);
   crit_spikes = spikes(crit_trace_d100);
   crit_spont_sshape = setProp(getSpike(crit_trace_d100, crit_spikes, 2), 'quiet', 1);
   crit_pulse_sshape = setProp(getPulseSpike(crit_trace_d100, crit_spikes, 2), 'quiet', 1);
-  best_trace = setProp(ctFromRows(r_bundle, best_trial_num, 100), 'quiet', 1);
+  best_trace = setProp(ctFromRows(r_bundle.m_bundle, best_trial_num, 100), 'quiet', 1);
   best_spikes = spikes(best_trace);
   best_spont_sshape = setProp(getSpike(best_trace, best_spikes, 2), 'quiet', 1);
   best_pulse_sshape = setProp(getPulseSpike(best_trace, best_spikes, 2), 'quiet', 1);

@@ -24,7 +24,7 @@ function a_doc = docfICurve(r_bundle, rank_num, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/16
 
-a_ranked_db = get(r_bundle, 'joined_db');
+a_ranked_db = r_bundle.ranked_db;
 joined_db = joinOriginal(a_ranked_db, 1); %# Get only the best
 
 %# adjust labels for LaTeX
