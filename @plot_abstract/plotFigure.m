@@ -51,7 +51,7 @@ else
     border = 0.15;
   end
 
-  axis_labels = get(a_plot, 'axis_labels')
+  axis_labels = get(a_plot, 'axis_labels');
   if length(axis_labels) < 1 || isempty(axis_labels(1))
     left_border = 0;
   else
