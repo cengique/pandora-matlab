@@ -82,5 +82,8 @@ function h = plot_image(distmatx, num_std_colors)
   %# Show up to some number of STDs
   colormap(jet(3 * num_std_colors)); 
   %# scale font to fit measure names on y-axis
-  set(gca, 'FontUnit', 'normalized', 'FontSize', 1/size(distmatx, 1));
+  num_rows = size(distmatx, 1);
+  if num_rows > 50
+    set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
+  end
 end
