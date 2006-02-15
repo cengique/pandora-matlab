@@ -110,7 +110,17 @@ end
 
 %# Only put legend when there is more than one trace
 if (length(a_plot.legend) > 1)
-  lh = legend(a_plot.legend);
+  legend_opts = { a_plot.legend };
+
+  if isfield(a_plot.props, 'legendLocation')
+    legend_opts = {legend_opts{:}, 'Location', a_plot.props.legendLocation};
+  end
+
+  if isfield(a_plot.props, 'legendOrientation')
+    legend_opts = {legend_opts{:}, 'Orientation', a_plot.props.legendOrientation};
+  end
+  
+  lh = legend(legend_opts{:});
 else
   lh = [];
 end
