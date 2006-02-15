@@ -44,5 +44,5 @@ end
 a_mbundle = set(a_mbundle, 'db' , [get(a_mbundle, 'db'); ...
 				   a_raw_db(:, {'pAcip', 'trial', 'ItemIndex'})]);
 a_mbundle = set(a_mbundle, 'joined_db', ...
-		[ get(a_mbundle, 'db'); j_db ]) ;
+		[ get(a_mbundle, 'joined_db'); j_db ]) ;
 

@@ -1,4 +1,4 @@
-function a_ranked_bundle = rankMatching(a_mbundle, a_crit_bundle, props)
+function a_ranked_bundle = rankMatching(a_mbundle, a_crit_db, props)
 
 % rankMatching - Create a model_ranked_to_physiol_bundle from given criterion db.
 %
@@ -9,7 +9,7 @@ function a_ranked_bundle = rankMatching(a_mbundle, a_crit_bundle, props)
 %
 % Parameters:
 %	a_mbundle: A model_ct_bundle object.
-%	a_crit_bundle: A physiol_bundle having a crit_db as its joined_db.
+%	a_crit_db: A crit_db created by a matchingRow method.
 %	props: A structure with any optional properties.
 %	  (passed to tests_db/rankMatching)
 %		
@@ -27,8 +27,10 @@ if ~exist('props')
   props = struct;
 end
 
-a_ranked_bundle = ...
-    model_ranked_to_physiol_bundle(get(a_mbundle, 'dataset'), get(a_mbundle, 'db'), ...
-				   rankMatching(get(a_mbundle, 'joined_db'), ...
-						get(a_crit_bundle, 'joined_db'), props), ...
-				   a_crit_bundle);
+a_ranked_db = rankMatching(get(a_mbundle, 'joined_db'), a_crit_db, props);
+
+%a_ranked_bundle = ...
+%    model_ranked_to_physiol_bundle(a_mbundle, ...
+%				   rankMatching(get(a_mbundle, 'joined_db'), ...
+%						get(a_crit_bundle, 'joined_db'), props), ...
+%				   a_crit_bundle);
