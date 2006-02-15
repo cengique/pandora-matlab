@@ -48,5 +48,5 @@ else
   %# - subtract from db
   compared = db.data - row_matx;
 
-  rows = abs(sum(compared, 2)) > eps(0);
+  rows = sum(abs(compared), 2) > eps(0);
 end
