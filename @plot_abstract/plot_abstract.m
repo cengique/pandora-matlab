@@ -35,6 +35,8 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %		XTick, YTick: Point locations for axis ticks.
 %		XTickLabel, YTickLabel: Axis tick labels.
 %		LineStyleOrder: Set the LineStyleOrder of the axis.
+%		legendLocation: Passed to legend(..., 'location', legendLocation).
+%		legendOrientation: Passed to legend(..., 'orientation', legendLocation).
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props
