@@ -48,7 +48,8 @@ end
 
 existing_cols = ismember(test_names, fieldnames(get(obj, 'col_idx')));
 if any(existing_cols)
-  error(['Column(s) ' test_names{existing_cols} ' already exist in DB.']);
+  error('tests_db:col_exists', ...
+	['Column(s) ' test_names{existing_cols} ' already exist in DB.']);
 end
 
 %# Add the column
