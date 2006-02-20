@@ -15,7 +15,7 @@ function row_indices = getParamRowIndices(a_db, rows, to_db)
 %   Returns:
 %	row_indices: Array of row indices.
 %
-% See also: getBlockedParamRows
+% See also: makeModifiedParamDB, scanParamAllRows, scaleParamsOneRow, makeGenesisParFile
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/14
