@@ -52,7 +52,7 @@ tests = repmat(0, num_items, length(test_names));
 %# Batch process all items
 start_time = cputime;
 
-print(java.lang.System.out, 'Reading: ');
+disp('Reading: ');
 line_buffer = '';
 
 try 

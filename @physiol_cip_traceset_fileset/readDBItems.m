@@ -51,7 +51,7 @@ tests = repmat(NaN, rows, length(test_names));
 %# Batch process all items
 start_time = cputime;
 
-println(java.lang.System.out, 'Reading fileset: ');
+disp('Reading fileset: ');
 
 rows = 1;
 for item_num=items
