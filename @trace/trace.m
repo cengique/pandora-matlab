@@ -107,7 +107,7 @@ if nargin == 0 %# Called with no params
 	 channel = props.channel;
        end
        data = readgenesis16bit(data_src);
-       data = data(channel, :);
+       data = data(channel, :)';
 
      elseif strcmp(ext, '.all') %# PCDX file
        %#disp('Loading PCDX trace');
