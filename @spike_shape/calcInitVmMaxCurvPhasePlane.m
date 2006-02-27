@@ -95,7 +95,8 @@ voltage_points = ...
 
 %# Arbitrarily remove duplicate values from voltage values
 trace_data((start_idx + 2) : (max_d1o_idx + 2));
-[orig_v_points unique_idx] = unique(trace_data((start_idx + 2) : (max_d1o_idx + 2)));
+[orig_v_points unique_idx] = ...
+    unique(trace_data((start_idx + 2) : (max_d1o_idx + 2)) * s.trace.dy);
 d1o_points = d1o(start_idx:max_d1o_idx);
 
 %# Check if there are enough points to interpolate
@@ -109,9 +110,7 @@ if length(voltage_points) < 2
 	get(s, 'id'));
 end
 
-interp_vpp = ...
-    pchip(orig_v_points * s.trace.dy, ...
-	  d1o_points(unique_idx), voltage_points);
+interp_vpp = pchip(orig_v_points, d1o_points(unique_idx), voltage_points);
 
 %# Put lower bound on vpp?
 windowsize = 10;
