@@ -67,7 +67,7 @@ if isfield(props, 'sortMeasures')
   common_cols = common_cols(sorted_idx);
 end
 
-plot_props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols));
+plot_props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols), 'border', 0.2);
 plot_props.YTickLabel = common_cols;
 
 a_plot = plot_abstract({distmatx, num_std_colors}, {'Ranks', 'Measures'}, ...
@@ -82,8 +82,6 @@ function h = plot_image(distmatx, num_std_colors)
   %# Show up to some number of STDs
   colormap(jet(3 * num_std_colors)); 
   %# scale font to fit measure names on y-axis
-  num_rows = size(distmatx, 1);
-  if num_rows > 50
-    set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
-  end
+  num_rows = max(100, size(distmatx, 1));
+  set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
 end
