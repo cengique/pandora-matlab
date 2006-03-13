@@ -32,7 +32,7 @@ end
 a_db = onlyRowsTests(db, ':', tests, ':');
 [means, n] = mean(a_db, 1);
 test_results = [means; std(a_db, 0, 1); n];
-row_names = {'mean', 'std', 'n'};
+row_names = {'mean', 'STD', 'n'};
 
 %# Original column names
 cols = tests2cols(db, tests);

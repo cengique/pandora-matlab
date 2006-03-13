@@ -1,6 +1,6 @@
 function a_plot = plot_abstract(a_stats_db, title_str, props)
 
-% plot_abstract - Generates an error bar graph for each db columns. Looks for 'min', 'max', and 'std' labels in the row_idx for drawing the errorbars.
+% plot_abstract - Generates an error bar graph for each db columns. Looks for 'min', 'max', and 'STD' labels in the row_idx for drawing the errorbars.
 %
 % Usage:
 % a_plot = plot_abstract(a_stats_db, title_str, props)
@@ -30,18 +30,18 @@ if ~ exist('props')
 end
 
 %# Setup lookup tables
-col_names = fieldnames(get(a_stats_db, 'col_idx'));
+col_names = properTeXLabel(fieldnames(get(a_stats_db, 'col_idx')));
 data = get(a_stats_db, 'data');
 row_idx = get(a_stats_db, 'row_idx');
 
 if isfield(row_idx, 'min')
   lows = data(row_idx.min,:) - data(1,:);
-elseif isfield(row_idx, 'std')
-  lows = -data(row_idx.std,:);  
-  highs = data(row_idx.std,:);
-elseif isfield(row_idx, 'se')
-  lows = -data(row_idx.se,:);  
-  highs = data(row_idx.se,:);
+elseif isfield(row_idx, 'STD')
+  lows = -data(row_idx.STD,:);  
+  highs = data(row_idx.STD,:);
+elseif isfield(row_idx, 'SE')
+  lows = -data(row_idx.SE,:);  
+  highs = data(row_idx.SE,:);
 end
 
 if isfield(row_idx, 'max')

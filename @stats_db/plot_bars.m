@@ -1,6 +1,6 @@
 function a_plot = plot_bars(a_stats_db, title_str, props)
 
-% plot_bars - Creates an bar graph with errorbars for each db column. Looks for 'min', 'max', and 'std' labels in the row_idx for drawing the errorbars.
+% plot_bars - Creates an bar graph with errorbars for each db column. Looks for 'min', 'max', and 'STD' labels in the row_idx for drawing the errorbars.
 %
 % Usage:
 % a_plot = plot_bars(a_stats_db, title_str, props)
@@ -37,12 +37,12 @@ num_pages = dbsize(a_stats_db, 3);
 
 if isfield(row_idx, 'min')
   lows = data(row_idx.min,:, :) - data(1,:, :);
-elseif isfield(row_idx, 'std')
+elseif isfield(row_idx, 'STD')
   lows = zeros(1, num_cols, num_pages);  
-  highs = data(row_idx.std,:,:);
-elseif isfield(row_idx, 'se')
+  highs = data(row_idx.STD,:,:);
+elseif isfield(row_idx, 'SE')
   lows = zeros(1, num_cols, num_pages);  
-  highs = data(row_idx.se,:,:);
+  highs = data(row_idx.SE,:,:);
 end
 
 if isfield(row_idx, 'max')
@@ -68,7 +68,7 @@ lows = permute(lows, swaprowspages);
 highs = permute(highs, swaprowspages);
 ns = permute(ns, swaprowspages);
 
-if ~isfield(props, 'quiet') && ~isfield(a_stats_db.props, 'quiet')
+if ~isfield(props, 'quiet') && ~isfield(get(a_stats_db, 'props'), 'quiet')
   title_str = [ get(a_stats_db, 'id') title_str ];
 end
 
