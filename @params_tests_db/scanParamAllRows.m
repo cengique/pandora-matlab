@@ -19,6 +19,8 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 %	num_levels: Number of levels to produce, including the boundaries.
 %	props: A structure with any optional properties.
 %	  renameTrial: If given, the 'trial' column is renamed to this name.
+%	  levelFunc: Use this function to get the parameter range with 
+%		feval(levelFunc, min_val, max_val, num_levels). Example: 'logLevels'
 %
 %   Returns:
 %	a_params_db: A db only with params.
@@ -27,7 +29,7 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 % Sets NaF to given range with 100 levels:
 % >> naf_rows_db = scanParamAllRows(a_db(desired_rows, :), 'NaF', 0, 1000, 100);
 %
-% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices
+% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices, logLevels
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/16
@@ -40,10 +42,15 @@ if ~ iscell(param)
   param = {param};
 end
 
+if isfield(props, 'levelFunc')
+  levels = feval(props.levelFunc, min_val, max_val, num_levels);
+else
+  %# O/w use aritmetic series
+  levels = min_val + (0:(num_levels - 1))' * (max_val - min_val) / (num_levels - 1);
+end
+
 %# Create params DB with desired values
-a_params_db = params_tests_db(min_val + ...
-			      (0:(num_levels - 1))' * (max_val - min_val) / (num_levels - 1), ...
-			      param, [], {}, [ param{:} ' DB']);
+a_params_db = params_tests_db(levels, param, [], {}, [ param{:} ' DB']);
 
 %# Get cross product with original DB with the param removed
 a_params_db = crossProd(delColumns(a_db, param), a_params_db);
@@ -53,4 +60,6 @@ a_params_db = vertcat(onlyRowsTests(a_db, [], ':'), a_params_db);
 
 if isfield(props, 'renameTrial')
   a_params_db = renameColumns(a_params_db, 'trial', props.renameTrial);
+end
+
 end
