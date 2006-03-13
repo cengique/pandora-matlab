@@ -84,10 +84,10 @@ wghd_data = (get(db(':', crit_tests), 'data') - ...
     (ones(dbsize(db, 1), 1) * second_row_data);
 
 %# Sum of squares: distance measure
-%# Look for NaN values, skip them and count the non-NaN values to normalize the SS
+%# Look for NaN & Inf values, skip them and count the non-NaN values to normalize the SS
 ss_data = abs(wghd_data); %# .* wghd_data;
 if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
-  nans = isnan(ss_data);
+  nans = isnan(ss_data) | isinf(ss_data);
   ss_data(nans) = 3; %# Replace NaNs with 0s, 3 for 3 STDs different
   ss_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
 else
@@ -95,7 +95,7 @@ else
 end
 
 %# Ignore NaN rows (there will be non NaN rows after the above)
-nans = isnan(ss_data);
+nans = isnan(ss_data) | isinf(ss_data);
 ss_data = ss_data(~nans);
 row_index = row_index(~nans);
 wghd_data = wghd_data(~nans, :);
