@@ -28,7 +28,7 @@ function [a_db, ranked_dbs] = ...
 %
 %       where super_db is a simulation dual-cip database and rsuper_phys_db is a physiology dual-cip database.
 %
-% See also: getBlockedParamRows, getParamRowIndices
+% See also: makeModifiedParamDB, getParamRowIndices
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/14
@@ -48,7 +48,7 @@ ranked_dbs = cell(1, length(rows));
 out_row = 1;
 for row_num=rows
   %# Get blocked parameter scan
-  blocked_rows_db = getBlockedParamRows(joined_db, row_num, blocked_param_indices, ...
+  blocked_rows_db = makeModifiedParamDB(joined_db, row_num, blocked_param_indices, ...
 					block_levels);
   %#displayRows(blocked_rows_db)
 
