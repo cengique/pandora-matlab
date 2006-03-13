@@ -42,22 +42,18 @@ num_plots = length(a_plot.plots);
 
 border = 1;
 
-%# Find the width of a regular y-axis label 
-old_units = get(gca, 'Units');
-set(gca, 'Units', 'points');
-axis_pos_pt = get(gca, 'Position');
-axis_width_pt = axis_pos_pt(3);
-axis_height_pt = axis_pos_pt(4);
-
 %# Fixed size for ticks and labels
 %# Assume 10 pt font
-decosize_x = 10 * width / axis_width_pt;
-decosize_y = 10 * height / axis_height_pt;
-%#decosize = 0.04;
+%# Fixed size for ticks and labels, scaled to 10pt font size for current figure
+[dx, dy] = calcGraphNormPtsRatio(gca);
+decosize_x = 10 * dx;
+decosize_y = 10 * dy;
+
+a_plot_props = get(a_plot, 'props');
 
 %# Handle special label and tick placements to create maximal plotting area
-if isfield(a_plot.props, 'xLabelsPos') 
-  switch a_plot.props.xLabelsPos
+if isfield(a_plot_props, 'xLabelsPos') 
+  switch a_plot_props.xLabelsPos
       case 'bottom'
 	bottom_side = bottom_side + decosize_y / 2;
 	height = height - decosize_y / 2;
@@ -65,11 +61,11 @@ if isfield(a_plot.props, 'xLabelsPos')
       case 'none'
 	labelheight = 0;
       otherwise
-	error(['xLabelsPos=' a_plot.props.xLabelsPos ' not recognized.' ]);
+	error(['xLabelsPos=' a_plot_props.xLabelsPos ' not recognized.' ]);
     end
 else
   %# Check if a parent stacker already separated space for the decorations
-  if isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 0
+  if isfield(a_plot_props, 'noXLabel') && a_plot_props.noXLabel == 0
     labelheight = 0;
   else
     bottom_side = bottom_side + decosize_y / 2;
@@ -77,8 +73,8 @@ else
   end
 end
 
-if isfield(a_plot.props, 'xTicksPos') 
-  switch a_plot.props.xTicksPos
+if isfield(a_plot_props, 'xTicksPos') 
+  switch a_plot_props.xTicksPos
       case 'bottom'
 	bottom_side = bottom_side + decosize_y / 2;
 	height = height - decosize_y / 2;
@@ -86,10 +82,10 @@ if isfield(a_plot.props, 'xTicksPos')
       case 'none'
 	tickheight = 0;
       otherwise
-	error(['xTicksPos=' a_plot.props.xTicksPos ' not recognized.' ]);
+	error(['xTicksPos=' a_plot_props.xTicksPos ' not recognized.' ]);
     end
 else
-  if isfield(a_plot.props, 'XTickLabel') && isempty(a_plot.props.XTickLabel)
+  if isfield(a_plot_props, 'XTickLabel') && isempty(a_plot_props.XTickLabel)
     tickheight = 0;
   else
     bottom_side = bottom_side + decosize_y / 2;
@@ -98,8 +94,8 @@ else
 end
 
 x_strut = decosize_x / 2;
-if isfield(a_plot.props, 'yLabelsPos') 
-  switch a_plot.props.yLabelsPos
+if isfield(a_plot_props, 'yLabelsPos') 
+  switch a_plot_props.yLabelsPos
       case 'left'
 	left_side = left_side + x_strut;
 	width = width - x_strut;
@@ -107,20 +103,20 @@ if isfield(a_plot.props, 'yLabelsPos')
       case 'none'
 	labelwidth = 0;
       otherwise
-	error(['yLabelsPos=' a_plot.props.yLabelsPos ' not recognized.' ]);
+	error(['yLabelsPos=' a_plot_props.yLabelsPos ' not recognized.' ]);
     end
 else
-  if isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 0
+  if isfield(a_plot_props, 'noYLabel') && a_plot_props.noYLabel == 0
     labelwidth = 0;
   else
-    left_side = left_side + x_strut;
-    labelwidth = x_strut;
+    %#left_side = left_side + x_strut;
+    labelwidth = 0; %# x_strut
   end
 end
 
 x_strut = decosize_x / 4;
-if isfield(a_plot.props, 'yTicksPos') 
-  switch a_plot.props.yTicksPos
+if isfield(a_plot_props, 'yTicksPos') 
+  switch a_plot_props.yTicksPos
       case 'left'
 	left_side = left_side + x_strut;
 	width = width - x_strut;
@@ -128,22 +124,23 @@ if isfield(a_plot.props, 'yTicksPos')
       case 'none'
 	tickwidth = 0;
       otherwise
-	error(['yTicksPos=' a_plot.props.yTicksPos ' not recognized.' ]);
+	error(['yTicksPos=' a_plot_props.yTicksPos ' not recognized.' ]);
     end
 else
-  if isfield(a_plot.props, 'YTickLabel') && isempty(a_plot.props.YTickLabel)
+  if isfield(a_plot_props, 'YTickLabel') && isempty(a_plot_props.YTickLabel)
     tickwidth = 0;
   else
-    left_side = left_side + x_strut;
-    tickwidth = x_strut;
+    %#left_side = left_side + x_strut;
+    %#tickwidth = x_strut;
+    tickwidth = 0;
   end
 end
 
 %# Title math
-y_strut = decosize_y / 2;
+y_strut = decosize_y;
 if ~ isempty(get(a_plot, 'title'))
-  if isfield(a_plot.props, 'titlesPos') 
-    switch a_plot.props.titlesPos
+  if isfield(a_plot_props, 'titlesPos') 
+    switch a_plot_props.titlesPos
       case 'top'
 	height = height - y_strut;
 	titleheight = 0;
@@ -153,7 +150,7 @@ if ~ isempty(get(a_plot, 'title'))
 	height = height - y_strut;
 	titleheight = 0;
       otherwise
-	error(['titlesPos=' a_plot.props.titlesPos ' not recognized.' ]);
+	error(['titlesPos=' a_plot_props.titlesPos ' not recognized.' ]);
     end
   else
     titleheight = y_strut;
@@ -177,7 +174,7 @@ axis_position = get(this_axis, 'Position');
 set(this_axis, 'Units', 'normalized');
 
 title_handle = text(axis_position(3) / 2, ...
-		    axis_position(4) + 1.2, ... %#bottom_side + 1.5 * height + 0.0, ...
+		    axis_position(4) - 1, ... %#bottom_side + 1.5 * height + 0.0, ...
 		    get(a_plot, 'title'), ...
 		    'Units', 'characters', ...
 		    'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
@@ -192,8 +189,8 @@ set(title_handle, 'Units', 'normalized');
 %# The textbox opens an unwanted axis, so hide it
 set(gca, 'Visible', 'off');
 
-minwidth = 0.01;
-minheight = 0.01;
+minwidth = 0.001;
+minheight = 0.001;
 
 %# Lay them out
 for plot_num=1:num_plots
@@ -208,46 +205,46 @@ for plot_num=1:num_plots
   else
     one_plot = a_plot.plots(plot_seq);
   end
-  its_props = one_plot.props;
+  its_props = get(one_plot, 'props');
   %# Check if y-ticks only for the leftmost plot
-  if isfield(a_plot.props, 'yTicksPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.yTicksPos, 'left') && ...
+  if isfield(a_plot_props, 'yTicksPos') && ...
+	((plot_num > 1 && strcmp(a_plot_props.yTicksPos, 'left') && ...
 	  strcmp(a_plot.orient, 'x')) || ...
-	 strcmp(a_plot.props.yTicksPos, 'none'))
+	 strcmp(a_plot_props.yTicksPos, 'none'))
     its_props(1).YTickLabel = {};
   else
     %#its_props(1).YTickLabel = 1; is this required?    
   end
-  if isfield(a_plot.props, 'yLabelsPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.yLabelsPos, 'left') && ...
+  if isfield(a_plot_props, 'yLabelsPos') && ...
+	((plot_num > 1 && strcmp(a_plot_props.yLabelsPos, 'left') && ...
 	  strcmp(a_plot.orient, 'x')) || ...
-	 strcmp(a_plot.props.yLabelsPos, 'none'))
+	 strcmp(a_plot_props.yLabelsPos, 'none'))
     its_props(1).noYLabel = 1;
   else
     its_props(1).noYLabel = 0;
   end
-  if isfield(a_plot.props, 'xTicksPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.xTicksPos, 'bottom') && ...
+  if isfield(a_plot_props, 'xTicksPos') && ...
+	((plot_num > 1 && strcmp(a_plot_props.xTicksPos, 'bottom') && ...
 	  strcmp(a_plot.orient, 'y')) || ...
-	 strcmp(a_plot.props.xTicksPos, 'none'))
+	 strcmp(a_plot_props.xTicksPos, 'none'))
     its_props(1).XTickLabel = {};
   else
     %#its_props(1).XTickLabel = 1;
   end
-  if isfield(a_plot.props, 'xLabelsPos') && ...
-	((plot_num > 1 && strcmp(a_plot.props.xLabelsPos, 'bottom') && ...
+  if isfield(a_plot_props, 'xLabelsPos') && ...
+	((plot_num > 1 && strcmp(a_plot_props.xLabelsPos, 'bottom') && ...
 	  strcmp(a_plot.orient, 'y')) || ...
-	 strcmp(a_plot.props.xLabelsPos, 'none'))
+	 strcmp(a_plot_props.xLabelsPos, 'none'))
     its_props(1).noXLabel = 1;
   else
     %# Signal to plot that it has space to put its labels
     its_props(1).noXLabel = 0;
   end
   %# Check if title only for the topmost plot
-  if isfield(a_plot.props, 'titlesPos') 
-    if 	(plot_num < num_plots && strcmp(a_plot.props.titlesPos, 'top') && ...
+  if isfield(a_plot_props, 'titlesPos') 
+    if 	(plot_num < num_plots && strcmp(a_plot_props.titlesPos, 'top') && ...
 	 strcmp(a_plot.orient, 'y')) || ...
-	  strcmp(a_plot.props.titlesPos, 'none')
+	  strcmp(a_plot_props.titlesPos, 'none')
       its_props(1).noTitle = 1;
     end
   end
@@ -273,7 +270,7 @@ for plot_num=1:num_plots
     nonnans = ~isnan(a_plot.axis_limits);
     current_axis(nonnans) = a_plot.axis_limits(nonnans);
   end
-  if isfield(a_plot.props, 'relaxedLimits') && a_plot.props.relaxedLimits == 1
+  if isfield(a_plot_props, 'relaxedLimits') && a_plot_props.relaxedLimits == 1
     %# Set axis limits to +/- 10% of bounds
     axis_width = current_axis(2) - current_axis(1);
     axis_height = current_axis(4) - current_axis(3);
