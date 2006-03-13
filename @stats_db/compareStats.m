@@ -1,6 +1,6 @@
 function a_mult_stats_db = compareStats(a_stats_db, varargin)
 
-% compareStats - Merges multiple stats_dbs together to be able to compare similar measures.
+% compareStats - Merges multiple stats_dbs into pages of a single stats_db for comparison.
 %
 % Usage:
 % a_mult_stats_db = compareStats(a_stats_db)
