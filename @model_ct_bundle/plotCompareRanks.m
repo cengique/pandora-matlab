@@ -60,7 +60,7 @@ if ranked_num_rows > 0
     rank_num = ranks(plot_num);
     trial_num = get(onlyRowsTests(joined_db, rank_num , 'trial'), 'data');
     if plot_num > 1
-      sup_props = struct('NoLegends', 1);
+      sup_props = struct('noLegends', 1);
       crit_traces = 1;
     else
       sup_props = struct;
