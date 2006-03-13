@@ -7,5 +7,4 @@ disp(sprintf('%s, %s', class(t), get(t, 'title')));
 %#disp(t);
 struct(t)
 
-disp(['Optional properties of ' class(t) ':']);
-struct(t.props)
+disp(t.plot_abstract)

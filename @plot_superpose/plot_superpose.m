@@ -21,7 +21,7 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 %	props: A structure with any optional properties (passed to plot_abstract).
 %		
 %   Returns a structure object with the following fields:
-%	plot_abstract, plots, props
+%	plot_abstract, plots
 %
 % General operations on plot_superpose objects:
 %   plot_superpose	- Construct a new plot_superpose object.
@@ -39,8 +39,7 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 %# TODO: decoration controls imposed by plot_stack is ignored!
 
 if nargin == 0 %# Called with no params
-  obj.plots = [];
-  obj.props = struct([]);
+  obj.plots = {};
   obj = class(obj, 'plot_superpose', plot_abstract);
 elseif isa(plots, 'plot_superpose') %# copy constructor?
   obj = plots;
@@ -62,7 +61,6 @@ else
    end
 
   obj.plots = plots;
-  obj.props = props;
 
   legend = {};
   %# Check if contained plots feature axis_labels
