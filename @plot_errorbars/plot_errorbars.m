@@ -21,7 +21,7 @@ function a_plot = plot_errorbars(mid_vals, lo_vals, hi_vals, labels, ...
 %	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
-%	plot_abstract, labels, props.
+%	plot_abstract, labels.
 %
 % General operations on plot_errorbars objects:
 %   plot_errorbars	- Construct a new plot_errorbars object.
@@ -36,7 +36,6 @@ function a_plot = plot_errorbars(mid_vals, lo_vals, hi_vals, labels, ...
 
 if nargin == 0 %# Called with no params
    a_plot.labels = {};
-   a_plot.props = struct([]);
    a_plot = class(a_plot, 'plot_errorbars', plot_abstract);
  elseif isa(labels, 'plot_errorbars') %# copy constructor?
    a_plot = labels;
@@ -51,7 +50,6 @@ if nargin == 0 %# Called with no params
    end
 
    a_plot.labels = labels;
-   a_plot.props = props;
 
    num_plots = size(mid_vals, 2);
    plots = cell(1, num_plots);

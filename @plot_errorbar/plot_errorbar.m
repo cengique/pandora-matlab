@@ -24,7 +24,7 @@ function a_plot = plot_errorbar(x_vals, mid_vals, lo_vals, hi_vals, line_spec, .
 %	props: A structure with any optional properties to be passed to plot_abstract.
 %		
 %   Returns a structure object with the following fields:
-%	plot_abstract, props.
+%	plot_abstract.
 %
 % General operations on plot_errorbar objects:
 %   plot_errorbar	- Construct a new plot_errorbar object.
@@ -37,8 +37,9 @@ function a_plot = plot_errorbar(x_vals, mid_vals, lo_vals, hi_vals, line_spec, .
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
+%# Note: class exists only because the axis method needs to be overridden
+
 if nargin == 0 %# Called with no params
-  a_plot.props = struct([]);
   a_plot = class(a_plot, 'plot_errorbar', plot_abstract);
 elseif isa(x_vals, 'plot_errorbar') %# copy constructor?
   a_plot = x_vals;
@@ -47,9 +48,7 @@ else
     props = struct([]);
   end
 
-  a_plot.props = props;
-  
-  a_plot = class(a_plot, 'plot_errorbar', ...
+  a_plot = class(struct, 'plot_errorbar', ...
 		 plot_abstract({x_vals, mid_vals, lo_vals, hi_vals}, ...
 			       axis_labels, title, legend, 'errorbar', ...
 			       props));

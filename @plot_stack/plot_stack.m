@@ -23,7 +23,7 @@ function a_plot = plot_stack(plots, axis_limits, orientation, title_str, props)
 %		relaxedLimits: Add 10% to all axis limits, overriding Matlab's layout
 %		
 %   Returns a structure object with the following fields:
-%	plot_abstract, plots, axis_limits, orient, props.
+%	plot_abstract, plots, axis_limits, orient.
 %
 % General operations on plot_stack objects:
 %   plot_stack		- Construct a new plot_stack object.
@@ -41,7 +41,6 @@ if nargin == 0 %# Called with no params
   a_plot.plots = {};
   a_plot.axis_limits = [];
   a_plot.orient = 'y';
-  a_plot.props = struct([]);
   a_plot = class(a_plot, 'plot_stack', plot_abstract);
  elseif isa(plots, 'plot_stack') %# copy constructor?
    a_plot = plots;
@@ -67,11 +66,10 @@ if nargin == 0 %# Called with no params
    a_plot.plots = plots;
    a_plot.axis_limits = axis_limits;
    a_plot.orient = orientation;
-   a_plot.props = props;
 
    %# Initialize with empty plot_abstract instance
    %# because we override most of the default behavior
    %# defined there anyway.
-   a_plot = class(a_plot, 'plot_stack', plot_abstract([], {}, title_str, {}, ''));
+   a_plot = class(a_plot, 'plot_stack', plot_abstract([], {}, title_str, {}, '', props));
 end
 

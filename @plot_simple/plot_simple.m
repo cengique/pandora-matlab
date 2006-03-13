@@ -22,7 +22,7 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 %	props: A structure with any optional properties.
 %		
 %   Returns a structure object with the following fields:
-%	plot_abstract, props.
+%	plot_abstract.
 %
 % General operations on plot_simple objects:
 %   plot_simple		- Construct a new plot_simple object.
@@ -35,8 +35,9 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
+%# TODO: redundant class. Make this a method in plot_abstract
+
 if nargin == 0 %# Called with no params
-   %#a_plot.props = struct([]);
    a_plot = class(struct, 'plot_simple', plot_abstract);
  elseif isa(data_x, 'plot_simple') %# copy constructor?
    a_plot = data_x;
@@ -48,8 +49,6 @@ if nargin == 0 %# Called with no params
    if ~ exist('command')
      command = 'plot';
    end
-
-   %#a_plot.props = props;
 
    a_plot = class(struct, 'plot_simple', ...
 		  plot_abstract({data_x, data_y}, {label_x, label_y}, ...
