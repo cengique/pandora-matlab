@@ -73,7 +73,7 @@
 
 \renewenvironment{lyxcode}
    {\small\begin{list}{}{
-     \setlength{\leftmargin}{-30pt}
+     \setlength{\leftmargin}{-60pt}
      \setlength{\rightmargin}{\leftmargin}
      \setlength{\listparindent}{0pt}% needed for AMS classes
      \raggedright
@@ -106,12 +106,27 @@
 \papersides 1
 \paperpagestyle fancy
 
+\layout Standard
+
+
+\begin_inset ERT
+status Inlined
+
+\layout Standard
+
+\backslash 
+newcommand{
+\backslash 
+appname}{PANDORA}
+\end_inset 
+
+
 \layout Title
 
-Plotting and Analysis of Neural Database Applications (PANDA) Toolbox ---
- 
+Plotting and Analysis of Neural Database-Oriented Research Applications
+ (PANDORA) Toolbox --- 
 \newline 
-An Advanced User's and Programmer's Manual
+User's and Programmer's Manual
 \layout Author
 
 Cengiz G
@@ -127,7 +142,7 @@ status Collapsed
 unay 
 \layout Date
 
-Manual Revision 
+Document Revision 
 \begin_inset ERT
 status Collapsed
 
@@ -169,7 +184,17 @@ today
 Introduction
 \layout Subsection
 
-What is the PANDA Toolbox?
+What is the 
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+appname{}
+\end_inset 
+
+ Toolbox?
 \layout Standard
 
 It is a software package which consists of a collection of 
@@ -1085,6 +1110,17 @@ Once the dataset object is obtained, the database object can be created
 which initiates the loading of files.
  This operation is the same no matter what type of dataset or fileset object
  is used.
+ You may want to issue the following commands to reduce the verbosity of
+ output during this long process:
+\layout LyX-Code
+
+>> warning off verbose
+\layout LyX-Code
+
+>> warning off backtrace
+\layout LyX-Code
+
+>> warning off calcInitVm:info
 \layout Subsubsection
 
 Creating a dataset for physiology data
@@ -3094,6 +3130,253 @@ params_tests_db
 \layout LyX-Code
 
 >> plotFigure(mp1);
+\layout Subsection
+
+Plotting database statistics
+\layout Standard
+
+The 
+\family typewriter 
+stats_db
+\family default 
+ object allows keeping statistical information obtained from a database.
+ Statistics are calculated using one of the 
+\family typewriter 
+tests_db
+\family default 
+ converter methods, such as 
+\family typewriter 
+statsAll
+\family default 
+, 
+\family typewriter 
+statsMeanStd
+\family default 
+, etc.: 
+\layout LyX-Code
+
+>> my_stats = statsMeanStd(my_db(:, {'IniSpontSpikeRate', 'PulseSpikeRate'}));
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed false
+
+\layout Standard
+\align center 
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+subfigure[
+\end_inset 
+
+Default visualization for 
+\family typewriter 
+stats_db
+\family default 
+.
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+]{
+\end_inset 
+
+
+\begin_inset Graphics
+	filename plot_stats_abstract.eps
+	display none
+	scale 50
+
+\end_inset 
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+}
+\end_inset 
+
+ 
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+subfigure[
+\end_inset 
+
+Optional 
+\family typewriter 
+plot_bars 
+\family default 
+visualization for 
+\family typewriter 
+stats_db
+\family default 
+.
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+]{
+\end_inset 
+
+
+\begin_inset Graphics
+	filename plot_stats_bars_single.eps
+	display none
+	scale 50
+
+\end_inset 
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+}
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+subfigure[
+\end_inset 
+
+Comparing multiple 
+\family typewriter 
+stats_db
+\family default 
+s with 
+\family typewriter 
+plot_bars
+\family default 
+.
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+]{
+\end_inset 
+
+
+\begin_inset Graphics
+	filename plot_stats_bars_multi.eps
+	display none
+	scale 50
+
+\end_inset 
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+}
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:Statistics-plots}
+
+\end_inset 
+
+Plotting statistics for two selected measures.
+\end_inset 
+
+Then, the statistics can be plotted with diamonds indicating the mean and
+ symmetric errorbars indicating upper and lower extensions (SE or Std):
+\layout Standard
+
+
+\family typewriter 
+>> plot(my_stats);
+\layout Standard
+
+which is equivalent to:
+\layout LyX-Code
+
+>> plotFigure(plot_abstract(my_stats));
+\layout Standard
+
+An alternative plotting form is using filled bars with extending errorbars:
+\layout LyX-Code
+
+>> plotFigure(plot_bars(my_stats));
+\layout Standard
+
+which are both seen in Figure 
+\begin_inset LatexCommand \ref{figcap:Statistics-plots}
+
+\end_inset 
+
+ (a) and (b).
+ The 
+\family typewriter 
+plot_bars
+\family default 
+ method is better suited for comparing statistics from multiple 
+\family typewriter 
+stats_db
+\family default 
+s coming from different sources.
+ In this case, we take the first 1000 rows from the DB as a subset, and
+ compare it with the statistics from the second 1000 rows:
+\layout LyX-Code
+
+>> compared_two_subset_stats = 
+\layout LyX-Code
+
+     compareStats(statsAll(mbundle.joined_db(1:1000, 
+\layout LyX-Code
+
+                                             {'IniSpontSpikeRateISI_0pA',
+\layout LyX-Code
+
+                                              'PulseIni100msSpikeRateISI_D100pA'
+})), 
+\layout LyX-Code
+
+                  statsAll(mbundle.joined_db(1001:2000, 
+\layout LyX-Code
+
+                                             {'IniSpontSpikeRateISI_0pA',
+\layout LyX-Code
+
+                                              'PulseIni100msSpikeRateISI_D100pA'
+})))));
+\layout Standard
+
+The combined statistics object can then be fed into 
+\family typewriter 
+plot_bars
+\family default 
+ as seen in Figure 
+\begin_inset LatexCommand \ref{figcap:Statistics-plots}
+
+\end_inset 
+
+ (c):
+\layout LyX-Code
+
+>> plotFigure(plot_bars(compared_two_subset_stats));
 \layout Subsection
 
 Plotting all parameter-measure variations
