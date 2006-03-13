@@ -32,13 +32,27 @@ if max(s) > 1
   else
     orientation = 'x';		%# or horizontal
   end
-  plotFigure(plot_stack(num2cell(a_plot), [], orientation, title_str));
+  handle = plotFigure(plot_stack(num2cell(a_plot), [], orientation, title_str));
 else
   handle = figure;
   title = [ get(a_plot, 'title') title_str ];
   set(handle, 'Name', title);
 
+  if isfield(a_plot.props, 'PaperPosition')
+    set(handle, 'PaperPosition', a_plot.props.PaperPosition);
+  end
 
+  position = [0 0 1 1];
+  %# Save plot_abstract object in the figure
+  set(handle, 'UserData', a_plot);
+  set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot, [' num2str(position) ']); decorate(a_plot);']);
+
+  plot(a_plot, position);
+  decorate(a_plot);
+end
+
+%# REdundant! These are already considered in plot.m
+function position = allocateBorders(a_plot, title)
   if isempty(title)
     titleheight = 0;
   else
@@ -67,11 +81,4 @@ else
   %# Put default borders: less border for top title, no border on right side
   position = [left_border, bottom_border, ...
 	      1 - left_border - border/4, (1 - titleheight - bottom_border)];
-
-  %# Save plot_abstract object in the figure
-  set(handle, 'UserData', a_plot);
-  set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot, [' num2str(position) ']); decorate(a_plot);']);
-
-  plot(a_plot, position);
-  decorate(a_plot);
-end
+  
