@@ -37,6 +37,7 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %		LineStyleOrder: Set the LineStyleOrder of the axis.
 %		legendLocation: Passed to legend(..., 'location', legendLocation).
 %		legendOrientation: Passed to legend(..., 'orientation', legendLocation).
+%		noLegends: If exists, no legends are displayed.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props

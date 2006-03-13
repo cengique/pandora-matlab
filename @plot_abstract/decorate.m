@@ -109,7 +109,8 @@ if isfield(a_plot.props, 'tightLimits') && a_plot.props.tightLimits == 1
 end
 
 %# Only put legend when there is more than one trace
-if (length(a_plot.legend) > 1)
+if (length(a_plot.legend) > 1 && ...
+    (~isfield(a_plot.props, 'noLegends') || a_plot.props.noLegends == 0))
   legend_opts = { a_plot.legend };
 
   if isfield(a_plot.props, 'legendLocation')
