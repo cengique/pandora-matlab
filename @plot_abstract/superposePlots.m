@@ -31,6 +31,7 @@ end
 
 data = {};
 legend = {};
+if length(plots) > 1
 for one_plot = plots
   data = {data{:}, one_plot.data{:}};
   if ~isfield(props, 'noLegends')
@@ -39,8 +40,13 @@ for one_plot = plots
     legend = {};
   end
 end
+else
+  data = plots.data;
+  legend = plots.legend;
+end
 
 a_plot = set(plots(1), 'data', data);
+a_plot = set(a_plot, 'props', mergeStructs(props, a_plot.props));
 a_plot = set(a_plot, 'legend', legend);
 
 if exist('title_str') && ~ isempty(title_str)
