@@ -1,4 +1,162 @@
+2006-05-12  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/prog-manual.lyx: Minor addition.
+
+	* @trace/analyzeSpikesInPeriod.m: Fixed doc.
+
+	* @tests_db/plot_bars.m: Initial version, works.
+
+	* @tests_db/invarValues.m, @stats_db/plot_bars.m: Fixed doc.
+
+	* @stats_db/plotYTests.m, @stats_db/plotVar.m:
+	Updated to uppercase version of stats_db abbreviations.
+
+	* @spikes/plotFreqVsTime.m: Initial version, works.
+
+	* @spike_shape_profile/spike_shape_profile.m: Fixed doc.
+
+	* @spike_shape/plotResults.m:
+	Fixed doc, added a optioanl title parameter.
+
+	* @plot_stack/plot.m: Repositioned title.
+
+	* @plot_bars/plot_bars.m: Made displaying N values optional.
+
+	* @plot_abstract/superposePlots.m: Added special case for single plot.
+
+	* @plot_abstract/subsref.m: Improved indexing operator.
+
+	* @plot_abstract/setProp.m, @tests_db/setProp.m:
+	Fixed bug that appeared when more than one pair of props are given.
+
+	* @physiol_bundle/getNeuronLabel.m: Simple initial version.
+
+	* @params_tests_db/plotVarMatrix.m:
+	Added optional parameters, but no specific option. Got title from stats_sb directly.
+
+	* @params_tests_db/paramsTestsHistsStats.m:
+	Allowed choosing appropriate stats_db.
+
+	* @model_ct_bundle/reportCompareModelToPhysiolNeuron.m:
+	Polished to initial get paper figures. Still has way to go.
+
+	* @dataset_db_bundle/reportNeuron.m:
+	Initial version, simple trace+spike shape reports possible.
+
+	* @dataset_db_bundle/dataset_db_bundle.m: updated doc.
+
+	* TAGS: updated
+
+2006-03-14  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @script_array_for_cluster/runFirst.m: Minor fix.
+
+2006-03-13  Cengiz Gunay  <cgunay@emory.edu>
+
+	* doc/plot_stats_abstract.eps, doc/plot_stats_bars_multi.eps, doc/plot_stats_bars_single.eps, doc/prog-manual.lyx:
+	Added section on stats_db visualization.
+
+	* @tests_db/statsMeanSE.m, @tests_db/statsMeanStd.m:
+	Made STD and SE uppercase consistently everywhere.
+
+	* @tests_db/rankMatching.m: Ignore Infs as well as NaNs.
+
+	* @stats_db/plot_abstract.m, @stats_db/plot_bars.m:
+	Made STD and SE uppercase consistently everywhere.
+
+	* @stats_db/compareStats.m: Updated doc.
+
+	* @ranked_db/plotCompareDistMatx.m, @ranked_db/plotDistMatrix.m, @ranked_db/getDistMatrix.m:
+	Added functions to visualize and quantify 2D landscape changes in or between two parameter databases.
+
+	* @ranked_db/plotRowErrors.m: Adjusted border and changed font scaling.
+
+	* @ranked_db/blockedDistances.m:
+	Updated doc, but not used anymore anyway.
+
+	* @plot_stack/plot.m:
+	Transferred most border calculations to the plot_abstract class. Still some mistakes exist that make the first in a stack shrink.
+
+	* @plot_superpose/display.m, @plot_superpose/plot_superpose.m, @plot_superpose/decorate.m:
+	Moved props to base class.
+
+	* @plot_stack/set.m: Fixed bug.
+
+	* @plot_bars/plot_bars.m, @plot_errorbar/plot_errorbar.m, @plot_errorbars/plot_errorbars.m, @plot_simple/plot_simple.m, @plot_stack/display.m, @plot_stack/plot_stack.m:
+	Moved props to base class. This is hopefully the last place I need to do this.
+
+	* @plot_abstract/superposePlots.m: Prop name change.
+
+	* @plot_abstract/subsasgn.m: Works.
+
+	* @plot_abstract/plot.m, @plot_abstract/plotFigure.m:
+	Changed the way plotFigure allocated spaces. Now everything is allocated in plot_abstract/plot.m. It is totally based on current figure normalized size/points ratio.
+
+	* @plot_abstract/decorate.m, @plot_abstract/plot_abstract.m:
+	Carried the noLegends prop here from superposePlots. Still exists in the former location, though.
+
+	* @physiol_bundle/constrainedMeasuresPreset.m:
+	Removed all spontanous spike measures. Now more tolerant to non-spont-firing cases, but loses changes between spont and pulse periods.
+
+	* @params_tests_db/scanParamAllRows.m:
+	Now allows external function for scaling of parameter values. NAmely a log-scale can be applied using logLevels.
+
+	* @params_tests_db/getBlockedParamRows.m:
+	Replaced with scanParamAllRows and scaleParamsOneRow. makeModifiedParamDB is still pending.
+
+	* @params_tests_db/displayRankingsTeX.m, @model_ranked_to_physiol_bundle/plotCompareRanks.m:
+	Prop name change.
+
+	* @model_ct_bundle/rankMatching.m:
+	Fixed conflicting contents. Still probably not used. Only exists for conveninence.
+
+	* @model_ct_bundle/plotComparefICurve.m: Improved presentation.
+
+	* @model_ct_bundle/reportCompareModelToPhysiolNeuron.m:
+	Prop name change and major change to allow all-in-one-row type representation for comparing a model with a neuron.
+
+	* @dataset_db_bundle/rankingReportTeX.m, @model_ct_bundle/plotCompareRanks.m:
+	Prop name change.
+
+2006-02-27  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @trace/trace.m:
+	Fixed transposition of matrix coming from readgenesis16bit.
+
+	* @spike_shape/calcInitVm.m: Added warning.
+
+	* @spike_shape/calcInitVmMaxCurvPhasePlane.m:
+	Fixed subtle bug in finding distinct points before interpolating phase-plane trajectory.
+
+	* @script_array_for_cluster/runFirst.m:
+	Added quoting for spce-including file names.
+
+	* @params_tests_dataset/readDBItems.m, @physiol_cip_traceset_fileset/readDBItems.m:
+	Removed Java-based print statements due to suspect in causing hangs in cluster nodes.
+
+	* TAGS: List of files in this project. To be used from Emacs.
+
+2006-02-20  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/renameColumns.m: Added for in-place renaming of columns.
+
+	* @tests_db/addColumns.m:
+	Throws identifiable error when columns to be added already exist.
+
+	* @params_tests_db/scanParamAllRows.m, @params_tests_db/scaleParamsOneRow.m:
+	Added new methods to generate parameter sequences scanning ranges or modifying existing parameter values by percentage.
+
+	* @params_tests_db/makeGenesisParFile.m:
+	Added optional property to add a counting trial parameter to the file.
+
+	* @params_tests_db/getParamRowIndices.m: Doc update.
+
 2006-02-15  Cengiz Gunay  <cgunay@emory.edu>
+
+	* @tests_db/compareRows.m: Fixed major bug with array matches.
+
+	* ChangeLog, Contents.m, README, TODO:
+	Updated documentation and labeled for version 0.9b.
 
 	* @tests_db/rankMatching.m:
 	Added prop to specify to only keep a top portion of the best matching ranks. Therefore the sorting is also done here rather than in constructor of ranked_db.

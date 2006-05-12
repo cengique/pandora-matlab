@@ -69,6 +69,7 @@ TODO
 - update documentation 
   - perl doclet generator
   - make first description no longer than one line on all constructors
+  - make sure an example accompanies each function
   - Make PDF with code design
 	- add class diagram with converter methods
 	- add diagram for bundles
