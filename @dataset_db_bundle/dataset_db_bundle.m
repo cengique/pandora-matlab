@@ -23,6 +23,8 @@ function a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 %
 % General operations on dataset_db_bundle objects:
 %   dataset_db_bundle 	- Construct a new dataset_db_bundle object.
+%   ctFromRows		- Given an index and CIP level, returns a cip_trace of neuron.
+%   getNeuronLabel	- Given an index, returns neuron label.
 %   display		- Returns and displays the identification string.
 %   get			- Gets attributes of this object and parents.
 %   subsref		- Allows usage of . operator.
