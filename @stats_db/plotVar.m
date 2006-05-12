@@ -38,12 +38,12 @@ col2 = tests2cols(a_stats_db, test2);
 
 if isfield(row_idx, 'min')
   lows = data(row_idx.min, :, :) - data(1, :, :);
-elseif isfield(row_idx, 'std')
-  lows = -data(row_idx.std, :, :);  
-  highs = data(row_idx.std, :, :);
-elseif isfield(row_idx, 'se')
-  lows = -data(row_idx.se, :, :);  
-  highs = data(row_idx.se, :, :);
+elseif isfield(row_idx, 'STD')
+  lows = -data(row_idx.STD, :, :);  
+  highs = data(row_idx.STD, :, :);
+elseif isfield(row_idx, 'SE')
+  lows = -data(row_idx.SE, :, :);  
+  highs = data(row_idx.SE, :, :);
 end
 
 if isfield(row_idx, 'max')

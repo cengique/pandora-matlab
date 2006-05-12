@@ -72,12 +72,12 @@ row_idx = get(a_stats_db, 'row_idx');
 
 if isfield(row_idx, 'min')
   lows = data(row_idx.min, :, :) - c_data;
-elseif isfield(row_idx, 'std')
-  lows = -data(row_idx.std, :, :);  
-  highs = data(row_idx.std, :, :);
-elseif isfield(row_idx, 'se')
-  lows = -data(row_idx.se, :, :);  
-  highs = data(row_idx.se, :, :);
+elseif isfield(row_idx, 'STD')
+  lows = -data(row_idx.STD, :, :);  
+  highs = data(row_idx.STD, :, :);
+elseif isfield(row_idx, 'SE')
+  lows = -data(row_idx.SE, :, :);  
+  highs = data(row_idx.SE, :, :);
 end
 
 a_p = plot_errorbar(x_vals, data(1, :, :)', lows', highs', '', axis_labels, ...
