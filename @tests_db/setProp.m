@@ -1,4 +1,4 @@
-function b = setProp(obj, varargin)
+function obj = setProp(obj, varargin)
 % setProp - Generic method for setting optional object properties.
 %
 % Usage:
@@ -27,7 +27,7 @@ for index=1:2:length(varargin)
   try
     a = obj.props;
     a(1).(attr) = val;
-    b = set(obj, 'props', a);
+    obj = set(obj, 'props', a);
   catch
     rethrow(lasterror);
   end
