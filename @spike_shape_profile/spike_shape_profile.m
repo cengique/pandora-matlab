@@ -1,6 +1,6 @@
 function a_ss_profile = spike_shape_profile(results, a_spike_shape, props)
 
-% spike_shape_profile - Holds the results profile from a params_tests_db.
+% spike_shape_profile - Holds the results profile from a spike_shape object.
 %
 % Usage:
 % a_ss_profile = spike_shape_profile(results, a_spike_shape, props)

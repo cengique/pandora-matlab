@@ -27,8 +27,6 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/05/04
 
-%# TODO: move this to trace?
-
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
 

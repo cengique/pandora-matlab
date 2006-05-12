@@ -6,10 +6,9 @@ function a_plot = plot_bars(a_stats_db, title_str, props)
 % a_plot = plot_bars(a_stats_db, title_str, props)
 %
 % Description:
-%   Generates a plot_simple object from this histogram.
 %
 %   Parameters:
-%	a_stats_db: A histogram_db object.
+%	a_stats_db: A stats_db object.
 %	command: Plot command (Optional, default='bar')
 %		
 %   Returns:

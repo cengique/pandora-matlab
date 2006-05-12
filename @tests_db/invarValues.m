@@ -40,7 +40,7 @@ cols = tests2cols(db, cols);
 test_names = fieldnames(get(db, 'col_idx'));
 trial_col = strmatch('trial', test_names);
 
-%# Remove given columns
+%# Remove all given columns, left with surrounding parameters
 log_cols = false(1, dbsize(db, 2));
 log_cols(cols) = true(1);
 log_cols(trial_col) = true(1);
@@ -61,6 +61,9 @@ num_total_rows = dbsize(db, 1);
 
 %# If not symmetric
 if mod(num_total_rows, num_rows) ~= 0
+  if verbose
+    disp('Warning: non-symmetric database.');
+  end
   if ~ exist('main_cols')
     error('Database does not contain equal rows of each unique combination and main_cols is not specified. Cannot fold.');
   end
