@@ -1484,7 +1484,15 @@ db1
 \layout Standard
 
 which chooses two columns.
- 
+ Finally, composite queries can be formed when cell arrays are used for
+ addressing:
+\layout LyX-Code
+
+>> db2 = db1(1:10, {1:10, 'IniSpontSpikeRate', 234});
+\layout Standard
+
+which will select the first ten measures, the spontaneous spike rate, and
+ the measure number 234.
 \layout Standard
 
 Rows of the database signify neurons or simulation runs.
