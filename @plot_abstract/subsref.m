@@ -14,8 +14,12 @@ if size(index, 2) > 1
 else
   switch index.type
     case '()'
-      %# Delegate to base class
-      error('indexing operator not defined.');
+      %# Accept b = a(1), croak for everything else
+      if length(index.subs) == 1 && index.subs{1} == 1
+	b = a;
+      else
+	error('indexing operator not defined.');
+      end
       %#b = a(index.subs{:});
     case '.'
       b = get(a, index.subs); 
