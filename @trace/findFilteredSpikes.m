@@ -51,10 +51,21 @@ dn_threshold = -2;
 mV_factor = 1e3 * t.dy;
 
 %# Append and prepend some activity for filter distortion
-prepend_size = floor(20e-3 / t.dt);
-data = [t.data(a_period.start_time:(a_period.start_time + prepend_size - 2)); ...
-	t.data(a_period.start_time:a_period.end_time) ; ...
-	t.data((a_period.end_time - prepend_size + 1):a_period.end_time)] * mV_factor;
+prepend_msec = 20;
+prepend_size = floor(prepend_msec * 1e-3 / t.dt);
+try
+  data = [t.data(a_period.start_time:(a_period.start_time + prepend_size - 2)); ...
+	  t.data(a_period.start_time:a_period.end_time) ; ...
+	  t.data((a_period.end_time - prepend_size + 1):a_period.end_time)] * mV_factor;
+catch
+  err = lasterror;
+  if strcmp(err.identifier, 'MATLAB:exceedsdims')
+    error(['Buffer prepend before filtering failed due to trace size. '...
+	   'Period of interest in the trace must at least be ' prepend_msec ' msec.']);
+  else
+    rethrow(err);
+  end
+end
 
 filtered = filtfilt(fd.tf.num, fd.tf.den, data);
 
