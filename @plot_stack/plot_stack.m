@@ -69,7 +69,11 @@ if nargin == 0 %# Called with no params
 
    %# Initialize with empty plot_abstract instance
    %# because we override most of the default behavior
-   %# defined there anyway.
-   a_plot = class(a_plot, 'plot_stack', plot_abstract([], {}, title_str, {}, '', props));
+   %# defined there anyway. 
+   %# By default, plot_stack has no labels or ticks.
+   a_plot = class(a_plot, 'plot_stack', ...
+		  plot_abstract([], {}, title_str, {}, '', ...
+				mergeStructs(props, ...
+					     struct('XTickLabel', [], 'YTickLabel', []))));
 end
 

@@ -20,19 +20,43 @@ function handles = plot(a_plot, layout_axis)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
-%# TODO: spare fixed space for axis labels if they exist, not rational space.
+a_plot_props = get(a_plot, 'props');
 
-if ~ exist('layout_axis') || isempty(layout_axis)
-  %# By default the whole figure area is taken
-  layout_axis = [ 0 0 1 1];
+minwidth = 0.001;
+minheight = 0.001;
+
+%# Setting up the layout_axis is the same as in plot_abstract/plot.m
+%# This must be the only code repeated between the two.
+if isfield(a_plot_props, 'border')
+  border = a_plot_props.border;
+else
+  border = 0;
 end
 
-this_axis = axes('position', layout_axis);
+plot_stack_id = [ 'plot_stack(' a_plot.orient ')' ];
+
+if ~ exist('layout_axis')
+  layout_axis = [];
+end
+
+%# Call parent plot_abstract/plot.m to set up the axis position
+%# Open this axis for putting the title only
+handles = plot(a_plot.plot_abstract, layout_axis);
+
+this_axis = handles.axis;
+layout_axis = get(this_axis, 'Position');
 
 left_side = layout_axis(1);
 bottom_side = layout_axis(2);
 width = layout_axis(3);
 height = layout_axis(4);
+
+%# Put the plot_stack title first
+th = title(get(a_plot, 'title'));
+
+%# Hide the axis, but not the title
+set(this_axis, 'Visible', 'off');
+set(th, 'Visible', 'on')
 
 %#disp(sprintf('Position: %0.3f+%0.3f+%0.3fx%0.3f', ...
 %#	     left_side, bottom_side, width, height));
@@ -40,160 +64,63 @@ height = layout_axis(4);
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
 
-border = 1;
-
 %# Fixed size for ticks and labels
 %# Assume 10 pt font
 %# Fixed size for ticks and labels, scaled to 10pt font size for current figure
-[dx, dy] = calcGraphNormPtsRatio(gca);
+[dx, dy] = calcGraphNormPtsRatio(gcf);
 decosize_x = 10 * dx;
 decosize_y = 10 * dy;
 
-a_plot_props = get(a_plot, 'props');
+%# These values are only used to spare space for the first plot,
+%# and only if its specified that they have labels or ticks and the rest don't.
+%# This added space will be undone in plot_abstract/plot.m so that the 
+%# actual plots are the same size as other tiles.
+tickheight = 0;
+tickwidth = 0;
+labelheight = 0;
+labelwidth = 0;
+titleheight = 0;
 
-%# Handle special label and tick placements to create maximal plotting area
-if isfield(a_plot_props, 'xLabelsPos') 
-  switch a_plot_props.xLabelsPos
-      case 'bottom'
-	bottom_side = bottom_side + decosize_y / 2;
-	height = height - decosize_y / 2;
-	labelheight = 0;
-      case 'none'
-	labelheight = 0;
-      otherwise
-	error(['xLabelsPos=' a_plot_props.xLabelsPos ' not recognized.' ]);
-    end
-else
-  %# Check if a parent stacker already separated space for the decorations
-  if isfield(a_plot_props, 'noXLabel') && a_plot_props.noXLabel == 0
-    labelheight = 0;
-  else
-    bottom_side = bottom_side + decosize_y / 2;
-    labelheight = decosize_y / 2;
+if strcmp(a_plot.orient, 'x') 
+  if isfield(a_plot_props, 'yLabelsPos') && strcmp(a_plot_props.yLabelsPos, 'left')
+    labelwidth = decosize_x;
+  end
+  
+  if isfield(a_plot_props, 'yTicksPos') && strcmp(a_plot_props.yTicksPos, 'left')
+    tickwidth = 3 * decosize_x;
   end
 end
 
-if isfield(a_plot_props, 'xTicksPos') 
-  switch a_plot_props.xTicksPos
-      case 'bottom'
-	bottom_side = bottom_side + decosize_y / 2;
-	height = height - decosize_y / 2;
-	tickheight = 0;
-      case 'none'
-	tickheight = 0;
-      otherwise
-	error(['xTicksPos=' a_plot_props.xTicksPos ' not recognized.' ]);
-    end
-else
-  if isfield(a_plot_props, 'XTickLabel') && isempty(a_plot_props.XTickLabel)
-    tickheight = 0;
-  else
-    bottom_side = bottom_side + decosize_y / 2;
-    tickheight = decosize_y / 2;
+if strcmp(a_plot.orient, 'y') 
+  if isfield(a_plot_props, 'xLabelsPos') && strcmp(a_plot_props.xLabelsPos, 'bottom')
+    labelheight = 2 * decosize_y;
+  end
+
+  if isfield(a_plot_props, 'xTicksPos') && strcmp(a_plot_props.xTicksPos, 'bottom')
+    tickheight = decosize_y;
   end
 end
 
-x_strut = decosize_x / 2;
-if isfield(a_plot_props, 'yLabelsPos') 
-  switch a_plot_props.yLabelsPos
-      case 'left'
-	left_side = left_side + x_strut;
-	width = width - x_strut;
-	labelwidth = 0;
-      case 'none'
-	labelwidth = 0;
-      otherwise
-	error(['yLabelsPos=' a_plot_props.yLabelsPos ' not recognized.' ]);
-    end
-else
-  if isfield(a_plot_props, 'noYLabel') && a_plot_props.noYLabel == 0
-    labelwidth = 0;
-  else
-    %#left_side = left_side + x_strut;
-    labelwidth = 0; %# x_strut
-  end
-end
-
-x_strut = decosize_x / 4;
-if isfield(a_plot_props, 'yTicksPos') 
-  switch a_plot_props.yTicksPos
-      case 'left'
-	left_side = left_side + x_strut;
-	width = width - x_strut;
-	tickwidth = 0;
-      case 'none'
-	tickwidth = 0;
-      otherwise
-	error(['yTicksPos=' a_plot_props.yTicksPos ' not recognized.' ]);
-    end
-else
-  if isfield(a_plot_props, 'YTickLabel') && isempty(a_plot_props.YTickLabel)
-    tickwidth = 0;
-  else
-    %#left_side = left_side + x_strut;
-    %#tickwidth = x_strut;
-    tickwidth = 0;
-  end
-end
-
-%# Title math
-y_strut = decosize_y;
-if ~ isempty(get(a_plot, 'title'))
-  if isfield(a_plot_props, 'titlesPos') 
-    switch a_plot_props.titlesPos
-      case 'top'
-	height = height - y_strut;
-	titleheight = 0;
-      case 'none'
-	titleheight = 0;
-      case 'all'
-	height = height - y_strut;
-	titleheight = 0;
-      otherwise
-	error(['titlesPos=' a_plot_props.titlesPos ' not recognized.' ]);
-    end
-  else
-    titleheight = y_strut;
-  end
-else
-  titleheight = 0;
+%# If only topmost plot has title, give it more space
+if isfield(a_plot_props, 'titlesPos') && strcmp(a_plot_props.titlesPos, 'top')
+  titleheight = 2 * decosize_y;
 end
 
 if strcmp(a_plot.orient, 'x')
-  tilewidth = border * width / num_plots;
-  tileheight = border * height;
+  tilewidth = max(width - labelwidth - tickwidth, minwidth) / num_plots;
+  tileheight = height;
 elseif strcmp(a_plot.orient, 'y')
-  tilewidth = border * width;
-  tileheight = border * height / num_plots;
+  tilewidth = width;
+  tileheight = max(height - labelheight - tickheight - titleheight, minheight) / num_plots;
 end
 
-%# Put a title first
-%# Position the title using relative measurement
-set(this_axis, 'Units', 'characters');
-axis_position = get(this_axis, 'Position');
-set(this_axis, 'Units', 'normalized');
-
-title_handle = text(axis_position(3) / 2, ...
-		    axis_position(4) - 0.9, ... %#bottom_side + 1.5 * height + 0.0, ...
-		    get(a_plot, 'title'), ...
-		    'Units', 'characters', ...
-		    'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
-set(title_handle, 'Units', 'normalized');
-
-%#text(left_side + width / 2, ...
-%#     1.05, ... %#bottom_side + 1.5 * height + 0.0, ...
-%#     get(a_plot, 'title'), ...
-%#     'Units', 'Normalized', ...
-%#     'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline' );
-
-%# The textbox opens an unwanted axis, so hide it
-set(gca, 'Visible', 'off');
-
-minwidth = 0.001;
-minheight = 0.001;
-
-%# Lay them out
+%# Lay the stack out in a loop
 for plot_num=1:num_plots
+  %# Initialize space variables
+  left_space = 0;
+  bottom_space = 0;
+  title_space = 0;
+
   if strcmp(a_plot.orient, 'x')
     plot_seq = plot_num;
   else
@@ -206,29 +133,41 @@ for plot_num=1:num_plots
     one_plot = a_plot.plots(plot_seq);
   end
   its_props = get(one_plot, 'props');
+
   %# Check if y-ticks only for the leftmost plot
-  if isfield(a_plot_props, 'yTicksPos') && ...
-	((plot_num > 1 && strcmp(a_plot_props.yTicksPos, 'left') && ...
-	  strcmp(a_plot.orient, 'x')) || ...
-	 strcmp(a_plot_props.yTicksPos, 'none'))
-    its_props(1).YTickLabel = {};
-  else
-    %#its_props(1).YTickLabel = 1; is this required?    
+  if isfield(a_plot_props, 'yTicksPos') 
+    if ((plot_num > 1 && strcmp(a_plot_props.yTicksPos, 'left') && ...
+	 strcmp(a_plot.orient, 'x')) || ...
+	strcmp(a_plot_props.yTicksPos, 'none'))
+      its_props(1).YTickLabel = {};
+    else
+      %# Then, allocate space only for this first plot.
+      left_space = tickwidth;
+      %#its_props(1).YTickLabel = 1; is this required?    
+      disp([ plot_stack_id ': allocating one-time space for y-ticks.' ]);
+    end
   end
-  if isfield(a_plot_props, 'yLabelsPos') && ...
-	((plot_num > 1 && strcmp(a_plot_props.yLabelsPos, 'left') && ...
-	  strcmp(a_plot.orient, 'x')) || ...
-	 strcmp(a_plot_props.yLabelsPos, 'none'))
-    its_props(1).noYLabel = 1;
-  else
-    its_props(1).noYLabel = 0;
+  if isfield(a_plot_props, 'yLabelsPos') 
+    if ((plot_num > 1 && strcmp(a_plot_props.yLabelsPos, 'left') && ...
+	 strcmp(a_plot.orient, 'x')) || ...
+	strcmp(a_plot_props.yLabelsPos, 'none'))
+      its_props(1).noYLabel = 1;
+    else
+      %# Then, allocate space only for this first plot.
+      left_space = left_space + labelwidth;
+      its_props(1).noYLabel = 0;
+      disp([[ plot_stack_id ': allocating one-time ' num2str(left_space) ' space for y-label.' ]]);
+    end
   end
+
   if isfield(a_plot_props, 'xTicksPos') && ...
 	((plot_num > 1 && strcmp(a_plot_props.xTicksPos, 'bottom') && ...
 	  strcmp(a_plot.orient, 'y')) || ...
 	 strcmp(a_plot_props.xTicksPos, 'none'))
     its_props(1).XTickLabel = {};
   else
+    bottom_space = tickheight;
+    disp([ plot_stack_id ': allocating one-time space for x-ticks.' ]);
     %#its_props(1).XTickLabel = 1;
   end
   if isfield(a_plot_props, 'xLabelsPos') && ...
@@ -238,13 +177,19 @@ for plot_num=1:num_plots
     its_props(1).noXLabel = 1;
   else
     %# Signal to plot that it has space to put its labels
+    bottom_space = bottom_space + labelheight;
     its_props(1).noXLabel = 0;
+    disp([ plot_stack_id ': allocating one-time ' num2str(bottom_space) ' space for x-label.' ]);
   end
   %# Check if title only for the topmost plot
   if isfield(a_plot_props, 'titlesPos') 
     if 	(plot_num < num_plots && strcmp(a_plot_props.titlesPos, 'top') && ...
-	 strcmp(a_plot.orient, 'y')) || ...
-	  strcmp(a_plot_props.titlesPos, 'none')
+	 strcmp(a_plot.orient, 'y'))
+      its_props(1).noTitle = 1;
+    else
+      title_space = titleheight;
+    end
+    if strcmp(a_plot_props.titlesPos, 'none')
       its_props(1).noTitle = 1;
     end
   end
@@ -255,13 +200,20 @@ for plot_num=1:num_plots
   %#	       left_side, tilewidth, tickwidth, labelwidth));
   %#disp(sprintf('bottom=%.3f, tileheight=%.3f, tickheight=%.3f, labelheight=%.3f, titleheight=%.3f', ...
   %#	       bottom_side, tileheight, tickheight, labelheight, titleheight));
-  x_offset = left_side + ...
+  %#x_offset = left_side + ...
+  %#    strcmp(a_plot.orient, 'x') * (plot_num - 1) * tilewidth;
+  %#y_offset = bottom_side + ...
+  %#    strcmp(a_plot.orient, 'y') * (plot_num - 1) * tileheight;
+  %#position = [x_offset, y_offset, ...
+  %#	      max(tilewidth - tickwidth - labelwidth, minwidth), ...
+  %#	      max(tileheight - tickheight - labelheight - titleheight, minheight) ];
+  x_offset = left_side + labelwidth + tickwidth - left_space + ...
       strcmp(a_plot.orient, 'x') * (plot_num - 1) * tilewidth;
-  y_offset = bottom_side + ...
+  y_offset = bottom_side  + labelheight + tickheight - bottom_space + ...
       strcmp(a_plot.orient, 'y') * (plot_num - 1) * tileheight;
   position = [x_offset, y_offset, ...
-	      max(tilewidth - tickwidth - labelwidth, minwidth), ...
-	      max(tileheight - tickheight - labelheight - titleheight, minheight) ];
+  	      tilewidth + left_space, ...
+  	      tileheight + bottom_space + title_space ];
   plot(one_plot, position);
   %# Set its axis limits if requested
   current_axis = axis;

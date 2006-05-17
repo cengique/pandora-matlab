@@ -22,7 +22,7 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %	props: A structure with any optional properties.
 %		axisLimits: Sets axis limits of non-NaN values in vector.
 %		tightLimits: If 1, issues an "axis tight" command (default=0)
-%		border: Size of border spacing around axis (default=0.01)
+%		border: Size of border spacing around axis, between 0 - 1. (default=0)
 %		fontSize: Set the fontsize.
 %		grid: Display dashed grid in background.
 %		noXLabel: No X-axis label.

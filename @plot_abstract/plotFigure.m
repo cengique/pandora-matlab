@@ -59,11 +59,6 @@ function position = allocateBorders(a_plot, title)
     titleheight = 0.05;
   end
 
-  if isfield(a_plot.props, 'border')
-    border = a_plot.props.border;
-  else
-    border = 0.15;
-  end
 
   axis_labels = get(a_plot, 'axis_labels');
   if length(axis_labels) < 1 || isempty(axis_labels(1))
