@@ -42,12 +42,12 @@ else
     set(handle, 'PaperPosition', a_plot.props.PaperPosition);
   end
 
-  position = [0 0 1 1];
+  %#position = [0 0 1 1];
   %# Save plot_abstract object in the figure
   set(handle, 'UserData', a_plot);
-  set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot, [' num2str(position) ']); decorate(a_plot);']);
+  set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot); decorate(a_plot);']);
 
-  plot(a_plot, position);
+  plot(a_plot);
   decorate(a_plot);
 end
 
