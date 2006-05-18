@@ -20,6 +20,10 @@ function handles = plot(a_plot, layout_axis)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
+%# Get generic verbose switch setting
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 a_plot_props = get(a_plot, 'props');
 
 minwidth = 0.001;
@@ -144,7 +148,9 @@ for plot_num=1:num_plots
       %# Then, allocate space only for this first plot.
       left_space = tickwidth;
       %#its_props(1).YTickLabel = 1; is this required?    
-      disp([ plot_stack_id ': allocating one-time space for y-ticks.' ]);
+      if verbose
+	disp([ plot_stack_id ': allocating one-time space for y-ticks.' ]);
+      end
     end
   end
   if isfield(a_plot_props, 'yLabelsPos') 
@@ -156,7 +162,9 @@ for plot_num=1:num_plots
       %# Then, allocate space only for this first plot.
       left_space = left_space + labelwidth;
       its_props(1).noYLabel = 0;
-      disp([[ plot_stack_id ': allocating one-time ' num2str(left_space) ' space for y-label.' ]]);
+      if verbose
+	disp([[ plot_stack_id ': allocating one-time ' num2str(left_space) ' space for y-label.' ]]);
+      end
     end
   end
 
@@ -167,7 +175,9 @@ for plot_num=1:num_plots
     its_props(1).XTickLabel = {};
   else
     bottom_space = tickheight;
-    disp([ plot_stack_id ': allocating one-time space for x-ticks.' ]);
+    if verbose
+      disp([ plot_stack_id ': allocating one-time space for x-ticks.' ]);
+    end
     %#its_props(1).XTickLabel = 1;
   end
   if isfield(a_plot_props, 'xLabelsPos') && ...
@@ -179,7 +189,9 @@ for plot_num=1:num_plots
     %# Signal to plot that it has space to put its labels
     bottom_space = bottom_space + labelheight;
     its_props(1).noXLabel = 0;
-    disp([ plot_stack_id ': allocating one-time ' num2str(bottom_space) ' space for x-label.' ]);
+    if verbose
+      disp([ plot_stack_id ': allocating one-time ' num2str(bottom_space) ' space for x-label.' ]);
+      end
   end
   %# Check if title only for the topmost plot
   if isfield(a_plot_props, 'titlesPos') 
@@ -229,7 +241,7 @@ for plot_num=1:num_plots
     current_axis(1) = current_axis(1) - axis_width * .1;
     current_axis(2) = current_axis(2) + axis_width * .1;
     current_axis(3) = current_axis(3) - axis_height * .1;
-    current_axis(4) = current_axis(4) + axis_height * .1
+    current_axis(4) = current_axis(4) + axis_height * .1;
   end
   axis(current_axis);
   %# Place other decorations
