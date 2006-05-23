@@ -1,20 +1,24 @@
 function a_plot = plot_bars(a_stats_db, title_str, props)
 
-% plot_bars - Creates an bar graph with errorbars for each db column. Looks for 'min', 'max', and 'STD' labels in the row_idx for drawing the errorbars.
+% plot_bars - Creates a bar graph with errorbars for each db column. 
 %
 % Usage:
 % a_plot = plot_bars(a_stats_db, title_str, props)
 %
 % Description:
+%   Looks for 'min', 'max', and 'STD' labels in the row_idx for drawing the errorbars. 
+% Each page of the DB will produce grouped bars.
 %
 %   Parameters:
 %	a_stats_db: A stats_db object.
-%	command: Plot command (Optional, default='bar')
+%	title_str: The plot title.
+%	props: A structure with any optional properties, passed to plot_bars/plot_bars.
+%	  pageVariable: The column used for denoting page values.
 %		
 %   Returns:
 %	a_plot: A object of plot_bars or one of its subclasses.
 %
-% See also: plot_abstract, plot_simple
+% See also: plot_abstract, plot_bars/plot_bars
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/08
@@ -25,6 +29,15 @@ end
 
 if ~ exist('title_str')
   title_str = '';
+end
+
+if isfield(props, 'pageVariable')
+  %# Use this column as the per-page information value
+  page_vals = squeeze(get(onlyRowsTests(a_stats_db, 1, props.pageVariable, ':'), 'data'));
+  %# put it in props to pass to plot_bars
+  props.groupValues = page_vals;
+  %# Then, remove the column
+  a_stats_db = delColumns(a_stats_db, props.pageVariable);
 end
 
 %# Setup lookup tables
@@ -40,7 +53,7 @@ elseif isfield(row_idx, 'STD')
   lows = zeros(1, num_cols, num_pages);  
   highs = data(row_idx.STD,:,:);
 elseif isfield(row_idx, 'SE')
-  lows = zeros(1, num_cols, num_pages);  
+  lows = zeros(1, num_cols, num_pages);
   highs = data(row_idx.SE,:,:);
 end
 
@@ -67,7 +80,7 @@ lows = permute(lows, swaprowspages);
 highs = permute(highs, swaprowspages);
 ns = permute(ns, swaprowspages);
 
-if ~isfield(props, 'quiet') && ~isfield(get(a_stats_db, 'props'), 'quiet')
+if ~isfield(props, 'quiet') && ~isfield(stats_props, 'quiet')
   title_str = [ get(a_stats_db, 'id') title_str ];
 end
 
