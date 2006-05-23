@@ -1,7 +1,6 @@
 function a_plot = plotPages(a_hist_db, command, an_orient)
 
-% plotPages - Generates a plot containing subplots of histograms in
-%		each page.
+% plotPages - Generates a plot containing subplots of histograms in each page.
 %
 % Usage:
 % a_plot = plotPages(a_hist_db, command, an_orient)
