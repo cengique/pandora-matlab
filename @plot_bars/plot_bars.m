@@ -1,7 +1,7 @@
 function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
 			    title, axis_limits, props)
 
-% plot_bars - Bar plot for mean and variation of variables in separate axes.
+% plot_bars - Bar plot with error lines in individual axes for each variable.
 %
 % Usage:
 % a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
@@ -9,20 +9,22 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
 %
 % Description:
 %   Subclass of plot_abstract. The plot_abstract/plot command can be used to
-% plot this data.
+% plot this data. Rows of *_vals will create grouped bars, columns will
+% create new axes.
 %
 %   Parameters:
 %	mid_vals: Middle points of error bars.
 %	lo_vals: Low points of error bars.
 %	hi_vals: High points of error bars.
 %	n_vals: Number of samples used for the statistic (Optional).
-%	labels: Labels of parameters to appear at bottom of each errorbar.
+%	labels: Labels of variables at bottom of each bar group. Must match with data columns.
 %	title: Plot description.
 %	axis_limits: If given, all plots contained will have these axis limits.
 %	props: A structure with any optional properties.
 %	  dispErrorbars: If 1, display errorbars for lo_vals and hi_vals deviation from mid_vals 
 %		     (default=1).
 %	  dispNvals: If 1, display n_vals on top of each bar.
+%	  groupValues: Array of within-group numeric labels, instead of just a sequence of numbers.
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract, labels, props.
@@ -49,6 +51,12 @@ if nargin == 0 %# Called with no params
      %#props.XTickLabel = 1;
    end
 
+   group_locs = 1:size(mid_vals, 1);
+   if isfield(props, 'groupValues') && ...
+	 ~(isfield(props, 'XTickLabel') && isempty(props.XTickLabel))
+     props.XTickLabel = num2cell(props.groupValues);
+   end
+
    if ~ exist('axis_limits')
      axis_limits = []; %# Degrees
    end
@@ -60,13 +68,13 @@ if nargin == 0 %# Called with no params
    %# Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
      plot_components = ...
-	 {plot_abstract({1:size(mid_vals, 1), mid_vals(:,plot_num)}, ...
+	 {plot_abstract({group_locs, mid_vals(:,plot_num)}, ...
 			{'', labels{plot_num}}, '', {}, 'bar', props)};
 
      if ~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1
        plot_components = ...
 	   {plot_components{:}, ...
-	    plot_abstract({1:size(mid_vals, 1), mid_vals(:,plot_num), ...
+	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
 			   lo_vals(:,plot_num), hi_vals(:,plot_num), '+'}, ...
 			  {'', labels{plot_num}}, '', {}, 'errorbar', props)};
      end
@@ -74,7 +82,7 @@ if nargin == 0 %# Called with no params
      if ~isfield(props, 'dispNvals') || props.dispNvals == 1
        plot_components = ...
 	   {plot_components{:}, ...
-	    plot_abstract({1:size(mid_vals, 1), ...
+	    plot_abstract({group_locs, ...
 			   mid_vals(:,plot_num) + hi_vals(:,plot_num), ...
 			   cellstr(strcat('n=', ...
 					  num2str(n_vals(:,plot_num)))), ...
@@ -90,4 +98,3 @@ if nargin == 0 %# Called with no params
    a_plot = class(a_plot, 'plot_bars', ...
 		  plot_stack(plots, axis_limits, 'x', title, props));
 end
-
