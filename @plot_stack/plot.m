@@ -55,12 +55,14 @@ bottom_side = layout_axis(2);
 width = layout_axis(3);
 height = layout_axis(4);
 
-%# Put the plot_stack title first
-th = title(get(a_plot, 'title'));
-
 %# Hide the axis, but not the title
 set(this_axis, 'Visible', 'off');
-set(th, 'Visible', 'on')
+
+%# Put the plot_stack title first
+if ~isfield(a_plot_props, 'noTitle') || a_plot_props.noTitle == 0
+  th = title(get(a_plot, 'title'));
+  set(th, 'Visible', 'on')
+end
 
 %#disp(sprintf('Position: %0.3f+%0.3f+%0.3fx%0.3f', ...
 %#	     left_side, bottom_side, width, height));
@@ -136,6 +138,9 @@ for plot_num=1:num_plots
   else
     one_plot = a_plot.plots(plot_seq);
   end
+  %# Warning: one_plot's props are superceded by the plot_stack props
+  %# done for getting the correct label behaviro, etc. (experimental)
+  %#its_props = mergeStructs(a_plot_props, get(one_plot, 'props'));
   its_props = get(one_plot, 'props');
 
   %# Check if y-ticks only for the leftmost plot
