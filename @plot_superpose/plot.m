@@ -20,9 +20,10 @@ function handles = plot(a_plot, layout_axis)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/08
 
 %# TODO: save the axis handle!
-%#if exist('layout_axis')
+if ~ exist('layout_axis')
+  layout_axis = [];
 %#  axes('position', layout_axis);
-%#end
+end
 
 num_plots = length(a_plot.plots);
 
