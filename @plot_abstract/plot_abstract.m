@@ -75,6 +75,18 @@ else
      props = struct([]);
    end
 
+   if ~ exist('axis_labels')
+     axis_labels = {};
+   end
+
+   if ~ exist('title')
+     title = '';
+   end
+
+   if ~ exist('legend')
+     legend = {};
+   end
+
    if ~ exist('command')
      command = 'plot';
    end
@@ -88,4 +100,3 @@ else
 
   obj = class(obj, 'plot_abstract');
 end
-
