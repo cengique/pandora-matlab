@@ -3,7 +3,7 @@ function obj = delColumns(obj, tests)
 % delColumns - Deletes columns from tests_db.
 %
 % Usage:
-% index = delColumns(obj, tests)
+% obj = delColumns(obj, tests)
 %
 % Description:
 %   Deletes test columns from the database and returns the new DB.
@@ -30,7 +30,7 @@ cols = tests2cols(obj, tests);
 mask = true(1, dbsize(obj, 2));
 
 %# delete the columns
-obj.data(:, cols) = [];
+obj.data(:, cols, :) = [];
 
 %# Update the meta-data
 col_idx = get(obj, 'col_idx');
