@@ -13,6 +13,8 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats, props)
 %	p_stats: Cell array of invariant parameter databases obtained from
 %		calling paramsTestsHistsStats.
 %	props: A structure with any optional properties, passed to plot_stack.
+%	  plotMethod: 'plotVar' uses stats_db/plotVar (default)
+%		      'plot_bars' uses stats_db/plot_bars
 %		
 %   Returns:
 %	a_plot_stack: A plot_stack with the plots organized in matrix form
@@ -37,14 +39,33 @@ for test_num=1:num_tests
   ranges = [];
   for param_num=1:num_params
     a_stats_db = p_stats{param_num};
-    a_plot = plotVar(p_stats{param_num}, 1, test_num + 1, ...
-		     struct('rotateYLabel', 60));
-    %# Calculate the maximal axis range
-    if isempty(ranges)
-      ranges = axis(a_plot);
+    if isfield(props, 'plotMethod') && strcmp(props.plotMethod, 'plot_bars')
+      row_props = struct;
+      if param_num > 1
+	row_props = struct('noYLabel', 1, 'YTickLabel', []);
+      end
+      if test_num < num_tests
+	row_props = mergeStructs(struct('noXLabel', 1, 'XTickLabel', []), row_props);
+      end
+      a_plot = ...
+	  plot_bars(onlyRowsTests(p_stats{param_num}, ':', [1, test_num + 1], ':'), ...
+		    '', mergeStructs(row_props, ...
+				     struct('dispNvals', 0, 'pageVariable', 1, ...
+					    'rotateYLabel', 60)));
+      axis_ranges = axis(a_plot.plot_stack.plots{1});
     else
-      ranges = growRange([ranges; axis(a_plot)]);
+      a_plot = plotVar(p_stats{param_num}, 1, test_num + 1, ...
+		       struct('rotateYLabel', 60));
+      %# Calculate the maximal axis range
+      axis_ranges = axis(a_plot);
     end
+
+    if isempty(ranges)
+      ranges = axis_ranges;
+    else
+      ranges = growRange([ranges; axis_ranges]);
+    end
+
     plots{param_num} = setProp(a_plot, 'tightLimits', 1);
   end
   if test_num == num_tests
