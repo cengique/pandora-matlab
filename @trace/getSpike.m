@@ -2,7 +2,10 @@ function obj = getSpike(t, s, spike_num, props)
 
 % getSpike - Convert a spike in the trace to a spike_shape object.
 %
-% Usage:
+% Usage 1:
+% obj = getSpike(trace, spike_num, props)
+%
+% Usage 2:
 % obj = getSpike(trace, spikes, spike_num, props)
 %
 %   Parameters:
@@ -13,7 +16,8 @@ function obj = getSpike(t, s, spike_num, props)
 %	  spike_id: A prefix string added to the spike_shape object's id.
 %
 % Description:
-%   Creates a spike_shape object from desired spike.
+%   Creates a spike_shape object from desired spike. Usage 2 is more efficient if
+% you already have the spikes object. In usage 1, the spikes object will be created.
 %		
 % See also: spike_shape
 %
@@ -25,8 +29,14 @@ if ~ exist('props')
   props = struct([]);
 end
 
-if nargin < 3 %# Called with insufficient params
-  error('Need parameters.');
+if isnumeric(s)
+  if exist('spike_num')
+    props = spike_num;
+  else
+    props = struct;
+  end
+  spike_num = s;
+  s = spikes(t);
 end
 
 trace_props = get(trace, 'props');
