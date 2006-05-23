@@ -41,21 +41,30 @@ end
 
 %# Put some extra space on right hand side
 %# TODO: save the axis handle!
-if exist('layout_axis') == 1 && ~isempty(layout_axis) && ~all(isnan(layout_axis))
-  left_side = layout_axis(1);
-  bottom_side = layout_axis(2);
-  width = layout_axis(3) - decosize_x;
-  height = layout_axis(4);
-  if verbose
-    disp([ 'plot_abstract, called with axis.' sprintf('\n') ...
-	  'axis: ' num2str([ left_side bottom_side width height ]) ]);
-  end
-else
-  [ left_side bottom_side width height ] = ...
-      deal(border, border, 1 - 2 * border - decosize_x, 1 - 2 * border);
-  if verbose
-    disp([ 'plot_abstract: Opening new axis.' sprintf('\n') ...
-	  'axis: ' num2str([ left_side bottom_side width height ]) ]);
+if ~ exist('layout_axis')
+  layout_axis = [];
+end
+
+%# If a new axis need to be opened, calculate dimensions
+if ~all(isnan(layout_axis))
+  %# If an axis is specified
+  if ~isempty(layout_axis)
+    left_side = layout_axis(1);
+    bottom_side = layout_axis(2);
+    width = layout_axis(3) - decosize_x;
+    height = layout_axis(4);
+    if verbose
+      disp([ 'plot_abstract, called with axis.' sprintf('\n') ...
+	    'axis: ' num2str([ left_side bottom_side width height ]) ]);
+    end
+  else  %# Open full size axis
+    [ left_side bottom_side width height ] = ...
+	deal(border, border, 1 - 2 * border - decosize_x, 1 - 2 * border);
+    layout_axis = [ left_side bottom_side width height ];
+    if verbose
+      disp([ 'plot_abstract: Opening new axis.' sprintf('\n') ...
+	    'axis: ' num2str([ left_side bottom_side width height ]) ]);
+    end
   end
 end
 
