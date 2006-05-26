@@ -161,12 +161,14 @@ for plot_num=1:num_plots
   if isfield(a_plot_props, 'yLabelsPos') 
     if ((plot_num > 1 && strcmp(a_plot_props.yLabelsPos, 'left') && ...
 	 strcmp(a_plot.orient, 'x')) || ...
-	strcmp(a_plot_props.yLabelsPos, 'none'))
+	strcmp(a_plot_props.yLabelsPos, 'none')) 
       its_props(1).noYLabel = 1;
     else
       %# Then, allocate space only for this first plot.
       left_space = left_space + labelwidth;
-      its_props(1).noYLabel = 0;
+      if ~isfield(its_props, 'noYLabel') || its_props.noYLabel == 0
+	its_props(1).noYLabel = 0;
+      end
       if verbose
 	disp([[ plot_stack_id ': allocating one-time ' num2str(left_space) ' space for y-label.' ]]);
       end
@@ -193,7 +195,9 @@ for plot_num=1:num_plots
   else
     %# Signal to plot that it has space to put its labels
     bottom_space = bottom_space + labelheight;
-    its_props(1).noXLabel = 0;
+    if ~isfield(its_props, 'noXLabel') || its_props.noXLabel == 0
+      its_props(1).noXLabel = 0;
+    end
     if verbose
       disp([ plot_stack_id ': allocating one-time ' num2str(bottom_space) ' space for x-label.' ]);
       end
