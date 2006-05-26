@@ -9,7 +9,7 @@ if max(num) > 1
   struct(t(1))
 else
   s = sprintf('%s', t.trace.id);
-  disp(t);
+  disp(s);
   struct(t)
 end
 
