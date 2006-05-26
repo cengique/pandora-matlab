@@ -51,7 +51,7 @@ else
   decorate(a_plot);
 end
 
-%# REdundant! These are already considered in plot.m
+%# OBSOLETE, REDUNDANT! These are already considered in plot.m
 function position = allocateBorders(a_plot, title)
   if isempty(title)
     titleheight = 0;

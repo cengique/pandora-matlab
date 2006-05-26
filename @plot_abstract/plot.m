@@ -24,6 +24,11 @@ function handles = plot(a_plot, layout_axis)
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
+%# Verbose greeting
+if verbose
+  disp([ 'plot_abstract, plot(' display(a_plot) ') {' ]);
+end
+
 %# Fixed size for ticks and labels, scaled to 10pt font size for current figure
 [dx, dy] = calcGraphNormPtsRatio(gcf);
 decosize_x = 10 * dx;
@@ -46,7 +51,7 @@ if ~ exist('layout_axis')
 end
 
 %# If a new axis need to be opened, calculate dimensions
-if ~all(isnan(layout_axis))
+if isempty(layout_axis) || ~all(isnan(layout_axis))
   %# If an axis is specified
   if ~isempty(layout_axis)
     left_side = layout_axis(1);
@@ -54,7 +59,7 @@ if ~all(isnan(layout_axis))
     width = layout_axis(3) - decosize_x;
     height = layout_axis(4);
     if verbose
-      disp([ 'plot_abstract, called with axis.' sprintf('\n') ...
+      disp([ 'plot_abstract, called with axis ->' sprintf('\n') ...
 	    'axis: ' num2str([ left_side bottom_side width height ]) ]);
     end
   else  %# Open full size axis
@@ -62,7 +67,7 @@ if ~all(isnan(layout_axis))
 	deal(border, border, 1 - 2 * border - decosize_x, 1 - 2 * border);
     layout_axis = [ left_side bottom_side width height ];
     if verbose
-      disp([ 'plot_abstract: Opening new axis.' sprintf('\n') ...
+      disp([ 'plot_abstract: Opening new axis ->' sprintf('\n') ...
 	    'axis: ' num2str([ left_side bottom_side width height ]) ]);
     end
   end
@@ -128,7 +133,7 @@ if ~isnan(layout_axis)
   end
 
   if verbose
-    disp(['plot_abstract: Creating the axis.' sprintf('\n') ...
+    disp(['plot_abstract: Creating the axis ->' sprintf('\n') ...
 	  'axis: ' num2str([left_side bottom_side width height])]);
   end
   axes('position', [left_side bottom_side width height]);
@@ -164,3 +169,7 @@ end
 %# Add plot handle
 handles.plot = ph;
 handles.axis = gca;
+
+if verbose
+  disp([ 'plot_abstract, plot() }' ]);
+end

@@ -41,41 +41,43 @@ else %# Assume spike_finder 57,1511
 obj 62,1650
 obj 66,1706
 
-@trace/findFilteredSpikes.m,731
+@trace/findFilteredSpikes.m,776
 function 2,1
 function [times,times2,1
 function [times, peaks,2,1
-	up_threshold 42,1401
-s 45,1430
-fields 46,1477
-fd 47,1501
-dn_threshold = -2;É48,1567
-data 55,1738
-	t.data((a_period.end_time - prepend_size + 1):a_period.end_time)] * mV_factor;57,1873
-filtered 59,1954
-filtered 62,2030
-data 63,2086
-[times,times64,2134
-[times, peaks,64,2134
-newtimes 66,2199
-newpeaks 67,2214
-newn 68,2229
-lasttime 70,2268
-  old_time 77,2494
-  period_before 88,2848
-  period_after 89,2886
-  min1 90,2924
-  min2 91,2993
-    real_time 98,3267
-    real_time 102,3414
-      continue;110,3726
-    newtimes 114,3778
-    newpeaks 115,3816
-    newn 116,3854
-    lasttime 117,3875
-times 133,4247
-peaks 134,4291
-n 135,4309
+	up_threshold 42,1402
+s 45,1431
+fields 46,1478
+fd 47,1502
+dn_threshold = -2;È48,1568
+prepend_size 55,1722
+  data 57,1776
+	  t.data((a_period.end_time - prepend_size + 1):a_period.end_time)] * mV_factor;59,1915
+  err 61,2003
+filtered 70,2264
+filtered 73,2340
+data 74,2396
+[times,times75,2444
+[times, peaks,75,2444
+newtimes 77,2509
+newpeaks 78,2524
+newn 79,2539
+lasttime 81,2578
+  old_time 88,2804
+  period_before 99,3158
+  period_after 100,3196
+  min1 101,3234
+  min2 102,3303
+    real_time 109,3577
+    real_time 113,3724
+      continue;121,4036
+    newtimes 125,4088
+    newpeaks 126,4126
+    newn 127,4164
+    lasttime 128,4185
+times 144,4557
+peaks 145,4601
+n 146,4619
 
 @trace/calcAvg.m,62
 function avg_val 1,0
@@ -136,19 +138,22 @@ s 25,430
     orientation 32,567
   h 39,755
 
-@trace/getSpike.m,247
+@trace/getSpike.m,298
 function obj 1,0
-trace_props 32,766
-copy_from_trace 35,847
-spike_idx 47,1289
-  max_left 53,1409
-%# Points from left side of peak,56,1495
-left 57,1561
-  max_right 62,1708
-right 67,1856
-  spike_id_prefix 73,2033
-data 76,2062
-obj 77,2085
+    props 36,924
+  spike_num 38,950
+  s 39,967
+trace_props 42,989
+copy_from_trace 45,1070
+spike_idx 57,1512
+  max_left 63,1632
+%# Points from left side of peak,66,1718
+left 67,1784
+  max_right 72,1931
+right 77,2079
+  spike_id_prefix 83,2256
+data 86,2285
+obj 87,2308
 
 @trace/withinPeriod.m,30
 function obj 1,0
@@ -605,10 +610,13 @@ function the_period 1,0
 time_end 22,555
 the_period 24,612
 
-@cip_trace/getPulseSpike.m,62
+@cip_trace/getPulseSpike.m,113
 function obj 1,0
-props.spike_id spike_id26,585
-obj 27,611
+    props 38,930
+  spike_num 40,956
+  s 41,973
+props.spike_id spike_id44,995
+obj 45,1021
 
 @cip_trace/getRateResults.m,1700
 function results 1,0
@@ -880,6 +888,12 @@ function s 1,0
 col_names 32,593
 s 33,629
 
+@tests_db/getColNames.m,73
+function col_names 1,0
+cols 27,562
+col_names 29,592
+col_names 30,636
+
 @tests_db/plotrow.m,218
 function a_plot 1,0
 data 28,630
@@ -987,6 +1001,11 @@ row_names 43,919
 @tests_db/addLastRow.m,18
 function obj 1,0
 
+@tests_db/diff.m,45
+function a_db 1,0
+a_db 32,673
+a_db 33,728
+
 @tests_db/plot_abstract.m,32
 function a_pm 1,0
 a_pm 32,855
@@ -1093,12 +1112,12 @@ obj 65,2156
 
 @tests_db/delColumns.m,122
 function obj 1,0
-mask 30,946
-col_idx 36,1050
-test_names 37,1081
-test_names 41,1156
-new_col_idx 44,1210
-obj 45,1245
+mask 30,944
+col_idx 36,1051
+test_names 37,1082
+test_names 41,1157
+new_col_idx 44,1211
+obj 45,1246
 
 @tests_db/factoran.m,155
 function a_factors_db 1,0
@@ -1272,34 +1291,34 @@ function b 1,0
 function b 1,0
   b 8,236
 
-@plot_abstract/plotFigure.m,272
+@plot_abstract/plotFigure.m,263
 function handle 1,0
 s 26,583
     orientation 33,725
   handle 35,772
   handle 37,858
   title 38,877
-  position 45,1067
-function position 55,1404
-    titleheight 59,1503
-    border 65,1612
-  axis_labels 68,1638
-    left_border 72,1766
-    bottom_border 78,1889
+  %#position position45,1067
+function position 55,1371
+    titleheight 59,1470
+  axis_labels 63,1502
+    left_border 67,1630
+    bottom_border 73,1753
 
-@plot_abstract/axis.m,21
+@plot_abstract/axis.m,40
 function ranges 1,0
+    ranges 26,676
 
 @plot_abstract/superposePlots.m,153
 function a_plot 1,0
-data 32,1044
-legend 33,1055
-    legend 40,1235
-  data 44,1267
-  legend 45,1288
-a_plot 48,1318
-a_plot 49,1356
-a_plot 50,1422
+data 32,1045
+legend 33,1056
+    legend 40,1236
+  data 44,1268
+  legend 45,1289
+a_plot 48,1319
+a_plot 49,1357
+a_plot 50,1423
 
 @plot_abstract/matrixPlots.m,507
 function a_plot 1,0
@@ -1325,22 +1344,22 @@ vert_stacks 113,2779
 a_plot 129,3206
     good 139,3589
 
-@plot_abstract/plot_abstract.m,394
+@plot_abstract/plot_abstract.m,396
 function obj 1,0
-  obj.axis_labels axis_labels65,2746
-  obj.title title66,2770
-  obj.legend legend67,2788
-  obj.command command68,2807
-  obj.props props69,2827
-  obj 70,2853
-  obj 72,2945
-  obj.data data82,3076
-  obj.axis_labels axis_labels83,3095
-  obj.title title84,3128
-  obj.legend legend85,3149
-  obj.command command86,3172
-  obj.props props87,3197
-  obj 89,3219
+  obj.axis_labels axis_labels66,2829
+  obj.title title67,2853
+  obj.legend legend68,2871
+  obj.command command69,2890
+  obj.props props70,2910
+  obj 71,2936
+  obj 73,3028
+  obj.data data95,3317
+  obj.axis_labels axis_labels96,3336
+  obj.title title97,3369
+  obj.legend legend98,3390
+  obj.command command99,3413
+  obj.props props100,3438
+  obj 102,3460
 
 @plot_abstract/subsref.m,80
 function b 1,0
@@ -1349,34 +1368,39 @@ function b 1,0
       b 25,556
       b 27,601
 
-@plot_abstract/plot.m,574
+@plot_abstract/plot.m,740
 function handles 1,0
-decosize_x 25,661
-decosize_y 26,683
-%#decosize decosize28,706
-minwidth 29,725
-minheight 30,743
-  bottom_side 35,881
-  width 36,913
-  height 37,939
-else38,966
-a_plot_props 42,1037
-    %#bottom_side bottom_side50,1270
-    height 51,1313
-    bottom_side 58,1557
-    height 59,1598
-    bottom_side 65,1783
-    height 66,1824
-    width 67,1871
-    left_side 74,2154
-    width 75,2191
-    left_side 82,2403
-    width 83,2440
-  ph 101,2994
-  ph 107,3270
-%# Add titles,110,3321
-%#handles handles111,3368
-handles.plot plot114,3418
+verbose 25,614
+decosize_x 29,768
+decosize_y 30,790
+%#decosize decosize32,813
+minwidth 33,832
+minheight 34,850
+  border 39,942
+%# If a new axis need to be opened,48,1086
+    bottom_side 53,1259
+    width 54,1293
+    height 55,1334
+  else  %# Open full size axis60,1518
+    layout_axis 63,1666
+a_plot_props 71,1890
+    %#bottom_side bottom_side80,2196
+    height 81,2239
+    bottom_side 91,2559
+    height 92,2600
+    bottom_side 101,2868
+    height 102,2909
+    left_side 112,3232
+    width 113,3269
+    left_side 123,3564
+    width 124,3601
+  ph 149,4382
+  %# do nothing,154,4654
+  ph 155,4700
+  ph 158,4772
+%# Add titles,161,4823
+%#handles handles162,4870
+handles.plot plot165,4920
 
 @plot_abstract/subsasgn.m,44
 function a 1,0
@@ -2210,70 +2234,59 @@ function b 1,0
     b 12,287
     b.plot_abstract plot_abstract13,298
 
-@plot_stack/plot.m,1363
+@plot_stack/plot.m,1110
 function handles 1,0
-this_axis 30,758
-left_side 32,802
-bottom_side 33,830
-width 34,860
-height 35,884
-num_plots 41,1081
-border 43,1116
-decosize_x 49,1304
-decosize_y 50,1326
-a_plot_props 52,1349
-	height 59,1601
-	labelheight 60,1636
-	labelheight 62,1672
-    bottom_side 71,1960
-    labelheight 72,2008
-	height 80,2189
-	tickheight 81,2224
-	tickheight 83,2259
-    bottom_side 91,2476
-    tickheight 92,2524
-x_strut 96,2568
-	width 101,2719
-	labelwidth 102,2745
-	labelwidth 104,2780
-    %#left_side left_side112,2991
-    labelwidth 113,3030
-x_strut 117,3072
-	width 122,3221
-	tickwidth 123,3247
-	tickwidth 125,3281
-    %#left_side left_side133,3496
-    %#tickwidth tickwidth134,3535
-    tickwidth 135,3562
-y_strut 140,3606
-	titleheight 146,3783
-	titleheight 148,3819
-	height 150,3854
-	titleheight 151,3882
-    titleheight 156,3998
-  titleheight 159,4036
-  tileheight 164,4132
-elseif strcmp(165,4164
-    %# invert the sequence,200,5228
-    plot_seq 201,5300
-    one_plot 206,5419
-  its_props 208,5464
-    %#its_props(1).YTickLabel YTickLabel216,5784
-    its_props(1).noYLabel noYLabel224,6080
-    %#its_props(1).XTickLabel XTickLabel232,6352
-    its_props(1).noXLabel noXLabel241,6686
-  one_plot 252,7063
-  x_offset 258,7471
-  y_offset 260,7563
-  position 262,7658
-    axis_height 276,8314
-hold off;287,8680
+verbose 25,621
+a_plot_props 27,656
+minwidth 29,694
+minheight 30,712
+  border 37,929
+plot_stack_id 40,948
+this_axis 50,1214
+layout_axis 51,1240
+left_side 53,1283
+bottom_side 54,1311
+width 55,1341
+height 56,1365
+%# Hide the axis,58,1391
+  set(64,1598
+decosize_x 77,2011
+decosize_y 78,2033
+tickwidth 85,2339
+labelheight 86,2354
+labelwidth 87,2371
+titleheight 88,2387
+%# If only topmost plot has title,110,2965
+  tileheight 117,3238
+elseif strcmp(118,3261
+  bottom_space 127,3519
+  title_space 128,3539
+    %# invert the sequence,133,3623
+    plot_seq 134,3695
+    one_plot 139,3814
+  its_props 144,4067
+      %# Then,153,4390
+      %#its_props(1).YTickLabel YTickLabel155,4476
+      %# Then,167,4881
+    bottom_space 184,5459
+    %#its_props(1).XTickLabel XTickLabel188,5587
+    bottom_space 197,5921
+      title_space 211,6442
+  one_plot 218,6625
+  %#x_offset x_offset224,7033
+  %#y_offset y_offset226,7129
+  %#position position228,7228
+  x_offset 231,7416
+  y_offset 233,7546
+  position 235,7684
+    axis_height 249,8289
+hold off;260,8656
 
 @plot_stack/decorate.m,52
 function handles 1,0
 %#handles.title title24,498
 
-@plot_stack/plot_stack.m,258
+@plot_stack/plot_stack.m,284
 function a_plot 1,0
   a_plot.axis_limits axis_limits42,1623
   a_plot.orient orient43,1650
@@ -2282,7 +2295,8 @@ function a_plot 1,0
    a_plot.plots plots66,2085
    a_plot.axis_limits axis_limits67,2110
    a_plot.orient orient68,2147
-   a_plot 73,2314
+   %# By default,73,2315
+   a_plot 74,2368
 
 @script_array_for_cluster/runFirst.m,177
 function job_results 1,0
@@ -2590,6 +2604,14 @@ a_db 64,1791
 function s 1,0
 page_names 8,163
 
+@tests_3D_db/diff2D.m,115
+function a_tests_db 1,0
+test_names 33,792
+col_names 35,840
+a_db_props 40,955
+db_id 42,989
+a_tests_db 45,1100
+
 @tests_3D_db/get.m,32
 function b 1,0
   errstr 7,180
@@ -2717,33 +2739,51 @@ function obj 1,0
       legend 83,2502
   obj 91,2613
 
-@plot_superpose/plot.m,138
+@plot_superpose/axis.m,36
+function ranges 1,0
+ranges 23,513
+
+@plot_superpose/plot.m,179
 function handles 1,0
-num_plots 27,578
-all_handles 29,613
-    hold all;34,782
-  handles 36,802
-  all_handles 37,858
-hold off;39,902
+%#  axes('position', layout_axis)25,556
+num_plots 28,596
+all_handles 30,631
+    hold all;35,800
+  handles 37,820
+  all_handles 38,876
+hold off;40,920
 
 @plot_superpose/decorate.m,38
 function handles 1,0
 handles 25,616
 
-@stats_db/plotVar.m,238
+@stats_db/onlyRowsTests.m,18
+function obj 1,0
+
+@stats_db/get.m,32
+function b 1,0
+  errstr 7,163
+
+@stats_db/set.m,51
+function a 1,0
+  a.tests_3D_db tests_3D_db7,167
+
+@stats_db/plotVar.m,296
 function a_plot 1,0
-col_names 32,969
-data 33,1021
-row_idx 34,1053
-col1 36,1092
-col2 37,1130
-elseif isfield(41,1246
-a_stats_db_props 53,1537
-  axis_limits 57,1677
-col1name 60,1702
-col2name 61,1730
-props 63,1759
-a_plot 65,1807
+% See also: plotVar,24,835
+% $Id: plotVar.m,m26,870
+col_names 34,1051
+data 35,1103
+row_idx 36,1135
+col1 38,1174
+col2 39,1212
+elseif isfield(43,1328
+a_stats_db_props 55,1619
+  axis_limits 59,1759
+col1name 62,1784
+col2name 63,1812
+props 65,1841
+  a_plot 74,2160
 
 @stats_db/plot_abstract.m,152
 function a_plot 1,0
@@ -2788,33 +2828,39 @@ function a_stats_db 1,0
   a_stats_db 47,1611
   a_stats_db 54,1701
 
-@stats_db/plot_bars.m,279
+@stats_db/plot_bars.m,410
 function a_plot 1,0
-col_names 31,740
-data 32,810
-row_idx 33,842
-num_cols 34,880
-num_pages 35,914
-elseif isfield(39,1025
-  ns 54,1378
-stats_props 57,1394
-  axis_limits 61,1519
-swaprowspages 64,1544
-mids 65,1569
-lows 66,1613
-highs 67,1650
-ns 68,1689
-a_plot 74,1854
+  props.groupValues groupValues38,1122
+  page_names 39,1155
+  %# Then,40,1219
+  a_stats_db 41,1248
+  page_names 43,1312
+col_names 47,1361
+data 48,1431
+row_idx 49,1463
+num_cols 50,1501
+num_pages 51,1535
+elseif isfield(57,1709
+  ns 79,2278
+stats_props 82,2294
+  axis_limits 86,2419
+swaprowspages 89,2444
+mids 90,2469
+lows 91,2513
+highs 92,2550
+ns 93,2589
+a_plot 99,2741
 
-@plot_bars/plot_bars.m,195
+@plot_bars/plot_bars.m,204
 function a_plot 1,0
-   a_plot 43,1468
-   a_plot 45,1577
-     %#props.XTickLabel XTickLabel49,1667
-   a_plot.labels labels56,1775
-   num_plots 58,1803
-   plots 59,1837
-   a_plot 90,2970
+   a_plot 45,1656
+   a_plot 47,1767
+     %#props.XTickLabel XTickLabel51,1859
+   group_locs 54,1896
+   a_plot 64,2171
+   num_plots 66,2192
+   plots 67,2226
+   a_plot 99,3421
 
 @physiol_bundle/getNeuronLabel.m,38
 function a_label 1,0
@@ -2984,18 +3030,21 @@ props 33,900
 props(1).invarName invarName34,926
 db 35,967
 
-@params_tests_db/plotVarMatrix.m,236
+@params_tests_db/plotVarMatrix.m,322
 function a_plot_stack 1,0
-num_params 29,812
-num_tests 30,842
-plot_rows 33,938
-  ranges 37,1029
-    a_plot 40,1110
-      ranges 46,1309
-    props 55,1532
-  %# fixed y-axis bounds,62,1702
-title_str 66,1835
-a_plot_stack 69,1913
+num_params 33,980
+num_tests 34,1010
+plot_rows 37,1106
+  ranges 41,1197
+      a_plot 52,1587
+      axis_ranges 57,1812
+      a_plot 59,1875
+      axis_ranges 62,2019
+      ranges 68,2122
+    horiz_props 78,2384
+  %# fixed y-axis bounds,85,2556
+title_str 89,2695
+a_plot_stack 92,2773
 
 @params_tests_db/params_tests_db.m,237
 function obj 1,0
@@ -3044,14 +3093,14 @@ tex_string 51,1610
 tex_string 55,1807
     tex_string 68,2311
 
-@params_tests_db/paramsTestsHistsStats.m,141
+@params_tests_db/paramsTestsHistsStats.m,142
 function 1,0
 function [pt_hists,pt_hists1,0
-num_tests 30,994
-  stats_func 39,1152
-pt_hists 42,1187
-p_stats 43,1227
-  ass_t3d 48,1387
+num_tests 31,1071
+  stats_func 40,1229
+pt_hists 43,1264
+p_stats 44,1304
+  ass_t3d 52,1550
 
 @params_tests_db/addParams.m,90
 function obj 1,0
@@ -3919,14 +3968,14 @@ function b 1,0
 
 @histogram_db/plotPages.m,186
 function a_plot 1,0
-num_pages 34,804
-pages=35,847
-ranges 38,901
-    axis_labels 45,1165
-    axis_labels{axis_labels46,1211
-    a_plot 47,1278
-    ranges 53,1431
-a_plot 58,1521
+num_pages 33,801
+pages=34,844
+ranges 37,898
+    axis_labels 44,1162
+    axis_labels{axis_labels45,1208
+    a_plot 46,1275
+    ranges 52,1428
+a_plot 57,1518
 
 @histogram_db/histogram_db.m,134
 function a_hist_db 1,0

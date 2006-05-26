@@ -9,7 +9,8 @@ if length(t) > 1
   return;
 end
 
-disp(sprintf('%s, %s', class(t), get(t, 'title')));
+s = sprintf('%s, %s', class(t), get(t, 'title'));
+disp(s);
 %#disp(t);
 struct(t)
 
