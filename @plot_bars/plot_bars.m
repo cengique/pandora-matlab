@@ -1,10 +1,10 @@
-function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
+function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labels, ...
 			    title, axis_limits, props)
 
 % plot_bars - Bar plot with error lines in individual axes for each variable.
 %
 % Usage:
-% a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
+% a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labels, ...
 %		     title, axis_limits, props)
 %
 % Description:
@@ -17,7 +17,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
 %	lo_vals: Low points of error bars.
 %	hi_vals: High points of error bars.
 %	n_vals: Number of samples used for the statistic (Optional).
-%	labels: Labels of variables at bottom of each bar group. Must match with data columns.
+%	x_labels, y_labels: Axis labels for each bar group. Must match with data columns.
 %	title: Plot description.
 %	axis_limits: If given, all plots contained will have these axis limits.
 %	props: A structure with any optional properties.
@@ -27,7 +27,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
 %	  groupValues: Array of within-group numeric labels, instead of just a sequence of numbers.
 %		
 %   Returns a structure object with the following fields:
-%	plot_abstract, labels, props.
+%	plot_abstract
 %
 % General operations on plot_bars objects:
 %   plot_bars	- Construct a new plot_bars object.
@@ -41,10 +41,10 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, labels, ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 if nargin == 0 %# Called with no params
-   a_plot.labels = {};
+   a_plot = struct;
    a_plot = class(a_plot, 'plot_bars', plot_abstract);
- elseif isa(labels, 'plot_bars') %# copy constructor?
-   a_plot = labels;
+ elseif isa(mid_vals, 'plot_bars') %# copy constructor?
+   a_plot = mid_vals;
  else
    if ~ exist('props')
      props.rotateXLabel = 45; %# Degrees
@@ -61,7 +61,7 @@ if nargin == 0 %# Called with no params
      axis_limits = []; %# Degrees
    end
 
-   a_plot.labels = labels;
+   a_plot = struct;
 
    num_plots = size(mid_vals, 2);
    plots = cell(1, num_plots);
@@ -69,14 +69,14 @@ if nargin == 0 %# Called with no params
    for plot_num=1:num_plots
      plot_components = ...
 	 {plot_abstract({group_locs, mid_vals(:,plot_num)}, ...
-			{'', labels{plot_num}}, '', {}, 'bar', props)};
+			{x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'bar', props)};
 
      if ~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1
        plot_components = ...
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
 			   lo_vals(:,plot_num), hi_vals(:,plot_num), '+'}, ...
-			  {'', labels{plot_num}}, '', {}, 'errorbar', props)};
+			  {x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'errorbar', props)};
      end
 
      if ~isfield(props, 'dispNvals') || props.dispNvals == 1
@@ -88,11 +88,12 @@ if nargin == 0 %# Called with no params
 					  num2str(n_vals(:,plot_num)))), ...
 			   'HorizontalAlignment', 'center', ...
 			   'VerticalAlignment', 'bottom'}, ...
-			  {'', labels{plot_num}}, ...
+			  {x_labels{plot_num}, y_labels{plot_num}}, ...
 			  '', {}, 'text', props)};
      end
 
-     plots{plot_num} = plot_superpose(plot_components, {}, '', struct('noLegends', 1));
+     plots{plot_num} = plot_superpose(plot_components, {}, '', ...
+				      mergeStructs(props, struct('noLegends', 1)));
    end
 
    a_plot = class(a_plot, 'plot_bars', ...
