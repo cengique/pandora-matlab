@@ -36,8 +36,11 @@ if isfield(props, 'pageVariable')
   page_vals = squeeze(get(onlyRowsTests(a_stats_db, 1, props.pageVariable, ':'), 'data'));
   %# put it in props to pass to plot_bars
   props.groupValues = page_vals;
+  page_names = { getColNames(a_stats_db, props.pageVariable) };
   %# Then, remove the column
   a_stats_db = delColumns(a_stats_db, props.pageVariable);
+else
+  page_names = {''};
 end
 
 %# Setup lookup tables
@@ -47,6 +50,8 @@ row_idx = get(a_stats_db, 'row_idx');
 num_cols = dbsize(a_stats_db, 2);
 num_pages = dbsize(a_stats_db, 3);
 
+page_names{1:num_cols} = deal(page_names{ones(1, num_cols)});
+
 if isfield(row_idx, 'min')
   lows = data(row_idx.min,:, :) - data(1,:, :);
 elseif isfield(row_idx, 'STD')
@@ -55,6 +60,13 @@ elseif isfield(row_idx, 'STD')
 elseif isfield(row_idx, 'SE')
   lows = zeros(1, num_cols, num_pages);
   highs = data(row_idx.SE,:,:);
+end
+
+%# If there are negative elements, put STD and SE on the lows
+if (isfield(row_idx, 'STD') || isfield(row_idx, 'SE'))
+  neg_data = sign(data(1,:, :)) < 0;
+  lows(neg_data) = highs(neg_data);
+  highs(neg_data) = 0;
 end
 
 if isfield(row_idx, 'max')
@@ -85,5 +97,5 @@ if ~isfield(props, 'quiet') && ~isfield(stats_props, 'quiet')
 end
 
 a_plot = plot_bars(mids, lows, highs, ns, ...
-		   col_names, title_str, axis_limits, ...
+		   page_names, col_names, title_str, axis_limits, ...
 		   mergeStructs(props, stats_props));
