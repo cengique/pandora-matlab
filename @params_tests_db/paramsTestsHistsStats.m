@@ -15,6 +15,7 @@ function [pt_hists, p_stats] = paramsTestsHistsStats(a_db, p_t3ds, props)
 %		calling the invarParams method.
 %	props: Optional properties.
 %	  statsMethod: method to call to get a stats_db (default='statsMeanSE')
+%	  useDiff: If 1, takes the derivative with diff on the 3D DBs (default=0).
 %		
 %   Returns:
 %	pt_hists: A cell array of 3D histograms for each pair of param 
@@ -44,6 +45,9 @@ p_stats = cell(1, num_params);
 for param_num=1:num_params
   %# Sort the param column first
   as_t3d = sortrows(p_t3ds{param_num}, 1);
+  if isfield(props, 'useDiff') && props.useDiff == 1
+    as_t3d = diff(as_t3d);
+  end
   %# Then swap dimensions
   ass_t3d = swapRowsPages(as_t3d);
   p_stats{param_num} = feval(stats_func, ass_t3d, ':');
