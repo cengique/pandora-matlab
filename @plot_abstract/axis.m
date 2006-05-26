@@ -18,6 +18,12 @@ function ranges = axis(a_plot)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/13
 
-ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
-	  min(a_plot.data{2}) max(a_plot.data{2})];
+switch a_plot.command
+  case 'errorbar'
+    ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
+	      min(a_plot.data{2} - a_plot.data{3}) max(a_plot.data{2} + a_plot.data{4})];
+  otherwise
+    ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
+	      min(a_plot.data{2}) max(a_plot.data{2})];
+end
 
