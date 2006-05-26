@@ -24,6 +24,8 @@ function a_plot_stack = plotVarMatrix(a_db, p_stats, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
+%# TODO: use only p_stats, guess num_params by number of pages
+
 if ~ exist('props')
   props = struct([]);
 end
