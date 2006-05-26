@@ -1,5 +1,6 @@
 TODO
 --------------------
+- open tools/utils dir and move needed stuff from cen_matlab into there.
 - make a paper production class capable of generating figures for paper automatically
 - make plan and requisites for version procession
 - put ItemIndex as param
@@ -34,10 +35,13 @@ TODO
 	+ define all operations as row logical functions
 	+ complex subsref for tests_db. 
 - add plot-frame and docgen classes
-  - add a PaperPosition property to figures to make printable figures.
+  - plot_bars puts too much x-margin space
+	- move plot_bars to utils/?
+  - make plot_superpose return correct errorbar extents
   - allow adding insets to plots
   - clustering histograms?
-  - fix varboxplot to return correct y-axis limits
+  + fix varboxplot to return correct y-axis limits
+  + add a PaperPosition property to figures to make printable figures.
   + allow fontsize change to fit more on a single page [can use export size for that]
   + Replace older plot methods with plotFigure(plot_abstract(.)) combinations
 	- what to do with Interpreter=None stuff?
