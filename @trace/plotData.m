@@ -1,9 +1,9 @@
-function a_plot = plotData(t, title_str)
+function a_plot = plotData(t, title_str, props)
 
 % plotData - Plots a trace.
 %
 % Usage: 
-% a_plot = plotData(t, title_str)
+% a_plot = plotData(t, title_str, props)
 %
 % Description:
 %   If t is a vector of traces, returns a vector of plot objects.
@@ -14,11 +14,18 @@ function a_plot = plotData(t, title_str)
 %   Returns:
 %	a_plot: A plot_abstract object that can be visualized.
 %	title_str: (Optional) String to append to plot title.
+%	props: A structure with any optional properties.
+%	  timeScale: 's' for seconds, or 'ms' for milliseconds.
+%	  (rest passed to plot_abstract.)
 %
 % See also: trace, trace/plot, plot_abstract
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/17
+
+if ~ exist('props')
+  props = struct;
+end
 
 if ~ exist('title_str')
   title_str = '';
@@ -30,12 +37,23 @@ if num_dbs > 1
   %# Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_abstract);
   for plot_num = 1:num_dbs
-    a_plot(plot_num) = plotData(t(plot_num), title_str);
+    a_plot(plot_num) = plotData(t(plot_num), title_str, props);
   end
   return;
 end
 
-time = (1:length(t.data)) * t.dt * 1e3; %# in ms
+if ~isfield(props, 'timeScale')
+  props.timeScale = 'ms';
+end
+
+switch props.timeScale
+  case 's'
+    time = (1:length(t.data)) * t.dt; %# in s
+    xlabel = 'time [s]';
+  case 'ms'
+    time = (1:length(t.data)) * t.dt * 1e3; %# in ms
+    xlabel = 'time [ms]';
+end
 
 if isfield(t.props, 'y_label')
   ylabel = t.props.y_label;
@@ -59,6 +77,6 @@ else
 end
 
 a_plot = plot_abstract({time, t.dy * t.data * 1e3}, ...
-		       {'time [ms]', ylabel}, ...
+		       {xlabel, ylabel}, ...
 		       the_title, ...
-		       {the_legend});
+		       {the_legend}, 'plot', props);
