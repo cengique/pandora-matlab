@@ -1,4 +1,4 @@
-function a_plot = plotRowErrors(db, rows, props)
+function a_plot = plotRowErrors(db, rows, title_str, props)
 
 % plotRowErrors - Create plot of rankings with errors associated with each measure color-coded.
 %
@@ -10,9 +10,11 @@ function a_plot = plotRowErrors(db, rows, props)
 %   Parameters:
 %	db: A tests_db object.
 %	rows: Indices of rows in db.
+%	title_str: (Optional) String to append to plot title.
 %	props: A structure with any optional properties.
 %	  sortMeasures: If specified, measure order is determined with increasing 
 %		overall distance.
+%	  (rest passed to plot_abstract)
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
@@ -28,6 +30,10 @@ end
 
 if ~ exist('props')
   props = struct;
+end
+
+if ~ exist('title_str')
+  title_str = '';
 end
 
 %# Join with original here. Only joins the requested rows.
@@ -58,6 +64,8 @@ end
 %# Get matrix of desired rows and columns
 distmatx = (abs(get(onlyRowsTests(db, 1:num_rows, common_cols), 'data')) * num_std_colors)';
 
+size(distmatx)
+
 %# Replace NaNs in distmatx with 3 STD
 distmatx(isnan(distmatx)) = 3 * num_std_colors;
 
@@ -67,13 +75,20 @@ if isfield(props, 'sortMeasures')
   common_cols = common_cols(sorted_idx);
 end
 
-plot_props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols), 'border', 0.2);
-plot_props.YTickLabel = common_cols;
+plot_props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols), 'border', 0.07);
+plot_props.YTickLabel = properTeXLabel(common_cols);
+
+if isfield(props, 'quiet') || isfield(get(db, 'props'), 'quiet')
+  if ~ isempty(title_str)
+    the_title = title_str;
+  end
+else
+  the_title = ['Per-measure errors in ranking ' ...
+	       properTeXLabel(get(db, 'id')) title_str ];
+end
 
 a_plot = plot_abstract({distmatx, num_std_colors}, {'Ranks', 'Measures'}, ...
-		       ['Per-measure errors in ranking ' ...
-			strrep(get(db, 'id'), '_', ' ') ], ...
-		       {}, @plot_image, plot_props);
+		       the_title, {}, @plot_image, mergeStructs(props, plot_props));
 end
 
 %# Small function for creating matrix plot
@@ -82,6 +97,8 @@ function h = plot_image(distmatx, num_std_colors)
   %# Show up to some number of STDs
   colormap(jet(3 * num_std_colors)); 
   %# scale font to fit measure names on y-axis
-  num_rows = max(100, size(distmatx, 1));
-  set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
+  num_rows = size(distmatx, 1);
+  if num_rows > 30
+    set(gca, 'FontUnit', 'normalized', 'FontSize', 1/max(100, num_rows));
+  end
 end
