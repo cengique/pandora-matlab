@@ -8,8 +8,8 @@ function a_row_index = getNeuronRowIndex(a_bundle, trial_num, props)
 % Description:
 %
 %   Parameters:
-%	a_bundle: A physiol_cip_traceset_fileset object.
-%	trial_num: The trial number of model neuron.
+%	a_bundle: A model_ct_bundle object.
+%	trial_num: The trial number of model neuron, or a DB row containing this.
 %	props: A structure with any optional properties.
 %		
 %   Returns:
