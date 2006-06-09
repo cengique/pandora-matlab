@@ -39,16 +39,18 @@ end
 
 plot_stack_id = [ 'plot_stack(' a_plot.orient ')' ];
 
+if verbose
+  disp([ plot_stack_id ': starting with props' ]);
+  disp(a_plot_props);
+end
+
 if ~ exist('layout_axis')
   layout_axis = [];
 end
 
 %# Call parent plot_abstract/plot.m to set up the axis position
 %# Open this axis for putting the title only
-handles = plot(a_plot.plot_abstract, layout_axis);
-
-this_axis = handles.axis;
-layout_axis = get(this_axis, 'Position');
+[this_axis, layout_axis] = openAxis(a_plot, layout_axis);
 
 left_side = layout_axis(1);
 bottom_side = layout_axis(2);
@@ -66,6 +68,23 @@ end
 
 %#disp(sprintf('Position: %0.3f+%0.3f+%0.3fx%0.3f', ...
 %#	     left_side, bottom_side, width, height));
+
+%# Pass the spacing cues from the parent plot to the children
+if isfield(a_plot_props, 'noXLabel') && a_plot_props.noXLabel == 1
+  a_plot_props.xLabelsPos = 'none';
+end
+
+if isfield(a_plot_props, 'XTickLabel') && isempty(a_plot_props.XTickLabel)
+  a_plot_props.xTicksPos = 'none';
+end
+
+if isfield(a_plot_props, 'noYLabel') && a_plot_props.noYLabel == 1
+  a_plot_props.yLabelsPos = 'none';
+end
+
+if isfield(a_plot_props, 'YTickLabel') && isempty(a_plot_props.YTickLabel)
+  a_plot_props.yTicksPos = 'none';
+end
 
 %# Divide the layout area according to number of plots contained
 num_plots = length(a_plot.plots);
