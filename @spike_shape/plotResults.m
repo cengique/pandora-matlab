@@ -1,9 +1,9 @@
-function a_plot = plotResults(s, title_str)
+function a_plot = plotResults(s, title_str, props)
 
 % plotResults - Plots the spike shape annotated with result characteristics.
 %
 % Usage:
-% a_plot = plotResults(s, title_str)
+% a_plot = plotResults(s, title_str, props)
 %
 % Description:
 %   Parameters:
@@ -12,6 +12,7 @@ function a_plot = plotResults(s, title_str)
 %   Returns:
 %	a_plot: A plot_abstract object that can be visualized.
 %	title_str: (Optional) String to append to plot title.
+%	props: A structure with any optional properties, passed to trace/plotData.
 %
 % See also: spike_shape, plot_abstract
 %
@@ -20,6 +21,10 @@ function a_plot = plotResults(s, title_str)
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/17
 
 % Note: There was a time this could be obsolete and used spike_shape_profile/plot_abstract.
+
+if ~ exist('props')
+  props = struct;
+end
 
 if ~ exist('title_str')
   title_str = '';
@@ -69,7 +74,7 @@ if ~isnan(dahp_mag)
 end
 
 %# Get regular spike shape plot first
-spsh_plot = plotData(s, title_str);
+spsh_plot = plotData(s, title_str, props);
 
 %# Create annotation plot using the above as template
 annot_plot = set(spsh_plot, 'data', plot_data);
