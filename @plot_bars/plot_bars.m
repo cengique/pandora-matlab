@@ -25,6 +25,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %		     (default=1).
 %	  dispNvals: If 1, display n_vals on top of each bar.
 %	  groupValues: Array of within-group numeric labels, instead of just a sequence of numbers.
+%	  truncateDecDigits: Truncate labels to this many decimal digits.
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract
@@ -50,10 +51,14 @@ if nargin == 0 %# Called with no params
      props.rotateXLabel = 45; %# Degrees
      %#props.XTickLabel = 1;
    end
-
+   
    group_locs = 1:size(mid_vals, 1);
    if isfield(props, 'groupValues') && ...
 	 ~(isfield(props, 'XTickLabel') && isempty(props.XTickLabel))
+     if isfield(props, 'truncateDecDigits')
+       dig_exp = 10^props.truncateDecDigits;
+       props.groupValues = round(dig_exp * props.groupValues) / dig_exp;
+     end
      props.XTickLabel = num2cell(props.groupValues);
    end
 
