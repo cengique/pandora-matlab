@@ -6,6 +6,12 @@ function b = subsref(a,index)
   %# However, here we return a regular array of tests_dbs. TODO: Maybe change this 
   %# to return cell array to be consistent with matlab convention. -CG 2005/12/08
 
+%# If a is an array, use built-in methods
+if length(a) > 1
+  b = builtin('subsref', a, index);
+  return;
+end
+
 if size(index, 2) > 1
   %# if a sequence of indexing operators present
   first = subsref(a, index(1));
