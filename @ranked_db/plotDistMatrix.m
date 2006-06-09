@@ -16,7 +16,7 @@ function a_plot = ...
 %	db: A ranked_db object.
 %	rows: Indices of rows in db after joining (and sorting).
 %	col_size: Number of rows to take from DB to form the columns of matrix plot.
-%	col_name, row_name: DB column to use fot the figure column and row, respectively.
+%	col_name, row_name: DB column to use for the figure column and row, respectively.
 %	num_col_labels, num_row_labels: Number of labels to put on each axis.
 %	title_str: If non-empty, replaces generic title with db name. 
 %	props: A structure with any optional properties.
