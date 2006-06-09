@@ -1,4 +1,4 @@
-function a_plot = plotFreqVsTime(s, title_str)
+function a_plot = plotFreqVsTime(s, title_str, props)
 
 % plotFreqVsTime - Plots a frequency-time graph from the spikes object.
 %
@@ -10,6 +10,9 @@ function a_plot = plotFreqVsTime(s, title_str)
 %
 %   Parameters:
 %	s: A spikes object.
+%	title_str: (Optional) String to append to plot title.
+%	props: A structure with any optional properties.
+%		(passed to plot_abstract)
 %
 %   Returns:
 %	a_plot: A plot_abstract object that can be visualized.
@@ -35,12 +38,27 @@ if num_dbs > 1
   return;
 end
 
-ms_factor = s.dt * 1e3;
+if ~isfield(props, 'timeScale')
+  props.timeScale = 'ms';
+end
+
+switch props.timeScale
+  case 's'
+    time_factor = s.dt;
+    x_label = 'time [s]';
+  case 'ms'
+    time_factor = s.dt * 1e3;
+    x_label = 'time [ms]';
+end
+
+
 
 %# Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(s), '_', ' ');
 freqs = 1 ./ getISIs(s) ./ s.dt;
-a_plot = plot_abstract({s.times(1:end-1) * ms_factor, freqs}, ...
-		       {'time [ms]', 'firing rate [Hz]'}, ...
+a_plot = plot_abstract({[ (s.times(1) - .1 * time_factor) s.times(1:end-1) ...
+			 (s.times(end - 1) + .1 * time_factor) ] * time_factor, ...
+			[ 0 freqs 0 ]}, ...
+		       {x_label, 'firing rate [Hz]'}, ...
 		       [ sprintf('%s freq-vs-time: %s', class_name, s.id) title_str], ...
-		       {s.id}, 'plot', struct);
+		       {s.id}, 'plot', props);
