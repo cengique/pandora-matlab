@@ -141,7 +141,7 @@ fIcurve_doc = ...
 		      'width', '.7\textwidth', 'shortCaption', short_caption), ...
 	       'frequency-current curve', struct);
 
-%# time vs. freq plot for +100 pA CIP
+%# time vs. freq plot for +/- 100 pA CIP
 phys_spikes_d100 = spikes(phys_trace_d100(1));
 phys_spikes_h100 = spikes(phys_trace_h100(1));
 model_spikes_d100 = spikes(model_trace_d100);
