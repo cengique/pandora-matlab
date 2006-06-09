@@ -1,6 +1,6 @@
 function a_plot = plot_bars(a_tests_db, title_str, props)
 
-% plot_bars - Creates a bar graph comparing all DB rows, with a separate axis for each column.
+% plot_bars - Creates a bar graph comparing all DB rows in groups, with a separate axis for each column.
 %
 % Usage:
 % a_plot = plot_bars(a_tests_db, title_str, props)
@@ -9,7 +9,8 @@ function a_plot = plot_bars(a_tests_db, title_str, props)
 %
 %   Parameters:
 %	a_tests_db: A tests_db object.
-%	command: Plot command (Optional, default='bar')
+%	title_str: (Optional) The plot title.
+%	props: A structure with any optional properties.
 %		
 %   Returns:
 %	a_plot: A object of plot_bars or one of its subclasses.
@@ -45,6 +46,9 @@ if ~isfield(props, 'quiet') && ~isfield(get(a_tests_db, 'props'), 'quiet')
   title_str = [ get(a_tests_db, 'id') title_str ];
 end
 
+props.dispErrorbars = 0;
+props.dispNvals = 0;
+
 a_plot = plot_bars(data, zeros(size(data)), zeros(size(data)), ones(size(data)), ...
-		   col_names, title_str, axis_limits, ...
+		   cell(1, length(col_names)), col_names, title_str, axis_limits, ...
 		   mergeStructs(props, stats_props));
