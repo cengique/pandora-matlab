@@ -50,7 +50,7 @@ row_idx = get(a_stats_db, 'row_idx');
 num_cols = dbsize(a_stats_db, 2);
 num_pages = dbsize(a_stats_db, 3);
 
-page_names{1:num_cols} = deal(page_names{ones(1, num_cols)});
+[page_names{1:num_cols}] = deal(page_names{ones(1, num_cols)});
 
 if isfield(row_idx, 'min')
   lows = data(row_idx.min,:, :) - data(1,:, :);
