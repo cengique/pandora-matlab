@@ -10,7 +10,6 @@ function a_db = diff(a_db, props)
 %
 %   Parameters:
 %	a_db: A tests_db object.
-%	test: Test column.
 %	props: Optional properties.
 %		
 %   Returns:

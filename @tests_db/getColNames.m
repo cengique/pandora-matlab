@@ -1,16 +1,16 @@
-function col_names = getColNames(db, cols)
+function col_names = getColNames(db, tests)
 
 % getColNames - Gets column names.
 %
 % Usage:
-% col_names = getColNames(db, cols)
+% col_names = getColNames(db, tests)
 %
 % Description:
 %   Performs a light operation without touching the data matrix.
 %
 %   Parameters:
 %	db: A tests_db object.
-%	cols: Columns for which to get names (Optional, default = ':')
+%	tests: Columns for which to get names (Optional, default = ':')
 %		
 %   Returns:
 %	col_names: A cell array of strings.
@@ -20,11 +20,11 @@ function col_names = getColNames(db, cols)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
 
-if ~ exist('cols')
-  cols = ':';
+if ~ exist('tests')
+  tests = ':';
 end
 
-cols = tests2cols(db, cols);
+cols = tests2cols(db, tests);
 
 col_names = fieldnames(get(db, 'col_idx'));
-col_names = col_names{cols};
+col_names = {col_names{cols}};
