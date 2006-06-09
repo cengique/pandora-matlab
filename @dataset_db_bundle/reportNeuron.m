@@ -18,9 +18,12 @@ function a_doc_multi = reportNeuron(a_bundle, an_index, props)
 %	props: A structure with any optional properties.
 %	  reportLayout: Allows choosing one of predefined report types:
 %		1: Only +/- 100 pA traces in one plot (default).
-%		2: Only +/- 100 pA traces and spike shapes in one horiz. plot (default).
-%		3: 5-piece trace, spike shape, f-I curve, f-t curve horizontal plot. (N/A)
+%		2: Only +/- 100 pA traces and spike shapes in one horiz. plot.
+%		3: +100 pA raw trace and rate profile stacked vertically.
+%		4: Horiz stack of +/- 100 pA raw trace with rate profiles underneath.
+%		x: 5-piece trace, spike shape, f-I curve, f-t curve horizontal plot. (N/A)
 %	  numTraces: Limit number of traces to show in plot (>=1).
+%	  traceAxisLimits: If given, use these limits for traces.
 %
 % Returns:
 %	a_doc_multi: A doc_multi object that can be printed as a PS or PDF file.
@@ -69,8 +72,20 @@ else
 	     ' All available raw traces from the neuron are shown.' ];
 end
 
-a_d100_plot = superposePlots(plotData(trace_d100), {}, '+100 pA CIP');
-a_h100_plot = superposePlots(plotData(trace_h100), {}, '-100 pA CIP');
+if isfield(props, 'traceAxisLimits')
+  trace_axis_limits = props.traceAxisLimits;
+else
+  trace_axis_limits = [0 3 -150 50];
+end
+
+a_d100_plot = ...
+    superposePlots(plotData(trace_d100, '', ...
+			    struct('axisLimits', trace_axis_limits, 'timeScale', 's')), ...
+		   {}, '+100 pA CIP');
+a_h100_plot = ...
+    superposePlots(plotData(trace_h100, '', ...
+			    struct('axisLimits', trace_axis_limits, 'timeScale', 's')), ...
+		   {}, '-100 pA CIP');
 
 orientation = 'x';
 %# remove legends
@@ -88,12 +103,14 @@ plot_title = short_caption;
 
 trace_plot = ...
     plot_stack([a_d100_plot, a_h100_plot], ...
-	       [0 3000 -150 50], orientation, plot_title, ...
+	       trace_axis_limits, orientation, plot_title, ...
 	       struct('xLabelsPos', 'bottom', 'yLabelsPos', 'left', ...
 		      'yTicksPos', 'left', 'PaperPosition', [0 0 4 3]));
 
 trace_doc = ...
     horizRowTraces(trace_plot, [0 0 4 3], plot_title, caption, short_caption);
+
+%# freq
 
 %# spike shape comparisons 
 plot_title = '';
@@ -129,6 +146,16 @@ switch (props.reportLayout)
       a_doc_multi = trace_doc;
     case 2
       a_doc_multi = trace_sshape_doc;
+    case 3
+      a_doc_multi = traceRateDoc(trace_d100, a_d100_plot, trace_id);
+    case 4
+      a_doc_multi = traceRateDoc(trace_d100, a_d100_plot, trace_id);
+      a_doc_multi = ...
+	  set(a_doc_multi, 'plot', ...
+	      plot_stack({a_doc_multi.plot, ...
+			  get(traceRateDoc(trace_h100, a_h100_plot, trace_id), 'plot')}, ...
+			 [], 'x', '', ...
+			 mergeStructs(props, struct('yLabelsPos', 'left', 'yTicksPos', 'left'))));
 
 %# rest not implemented yet.
 end
@@ -153,4 +180,29 @@ function sshape = get2ndSpike(ct, period_func)
   else
     sshape = spike_shape;
   end
+end
+
+function a_doc = traceRateDoc(trace_d100, a_d100_plot, trace_id)
+  if ~exist('a_d100_plot')
+    a_d100_plot = superposePlots(plotData(trace_d100), {}, '+100 pA CIP');
+  end
+
+  a_spikes_d100 = spikes(trace_d100);
+  
+
+  a_trace_freq_plot = ...
+      plot_stack({a_d100_plot, plotFreqVsTime(a_spikes_d100, '', ...
+					      struct('axisLimits', [0 3 0 100], ...
+						     'timeScale', 's'))}, ...
+		 [0 3 NaN NaN], 'y', '+100 pA', ...
+		 struct('titlesPos', 'none', 'xLabelsPos', 'bottom', 'xTicksPos', 'bottom'));
+
+  short_caption = ['Raw traces and corresponding rate profile of ' trace_id ...
+		   ' for +100 pA injected current.' ];
+  caption = short_caption;
+
+  a_doc = doc_plot(a_trace_freq_plot, caption, short_caption, ...
+		   struct('floatType', 'figure', 'center', 1, ...
+			  'width', '.8\textwidth', 'shortCaption', short_caption), ...
+		   'raw trace and rate profile figure');
 end
