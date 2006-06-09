@@ -8,4 +8,4 @@ disp(s);
 %#disp(t);
 struct(t)
 
-disp(t.plot_abstract);
+display(t.plot_abstract);
