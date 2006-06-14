@@ -3,7 +3,7 @@ function a_plot = plotFreqVsTime(s, title_str, props)
 % plotFreqVsTime - Plots a frequency-time graph from the spikes object.
 %
 % Usage: 
-% a_plot = plotFreqVsTime(s, title_str)
+% a_plot = plotFreqVsTime(s, title_str, props)
 %
 % Description:
 %   If s is a vector of spikes objects, returns a vector of plot objects.
@@ -22,6 +22,10 @@ function a_plot = plotFreqVsTime(s, title_str, props)
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/05
+
+if ~ exist('props')
+  props = struct;
+end
 
 if ~ exist('title_str')
   title_str = '';
@@ -56,9 +60,14 @@ end
 %# Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(s), '_', ' ');
 freqs = 1 ./ getISIs(s) ./ s.dt;
-a_plot = plot_abstract({[ (s.times(1) - .1 * time_factor) s.times(1:end-1) ...
-			 (s.times(end - 1) + .1 * time_factor) ] * time_factor, ...
-			[ 0 freqs 0 ]}, ...
+if length(s.times) > 1
+  times = [ (s.times(1) - .1 * time_factor) s.times(1:end-1) ...
+	   (s.times(end - 1) + .1 * time_factor) ] * time_factor;
+else
+  times = [ 0 0 ];
+end
+
+a_plot = plot_abstract({times, [ 0 freqs 0 ]}, ...
 		       {x_label, 'firing rate [Hz]'}, ...
 		       [ sprintf('%s freq-vs-time: %s', class_name, s.id) title_str], ...
 		       {s.id}, 'plot', props);
