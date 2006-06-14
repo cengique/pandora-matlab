@@ -73,10 +73,18 @@ else
   if ~ isnumeric(a_test_results) || ~ isnumeric(params)
     error('Only numeric arrays allowed as params or a_test_results.');
   end
+
+  if ~ iscell(test_names) || ~ iscell(param_names)
+    error('Only cell arrays of strings allowed as param_names or test_names.');
+  end
   
   if ((size(a_test_results, 1) == 0 && size(params, 1) == 0) || ...
       size(a_test_results, 2) ~= length(test_names) || ...
 	size(params, 2) ~= length(param_names))
+    disp(['size of a_test_results: ' num2str(size(a_test_results))]);
+    disp(['size of test_names: ' num2str(size(test_names))]);
+    disp(['size of params: ' num2str(size(params))]);
+    disp(['size of param_names: ' num2str(size(param_names))]);
     error(['Number of columns in params or a_test_results ', ...
 	   'and items in param_names or test_names must match. ' ...
 	   'And there should be some data to create the db.']);
