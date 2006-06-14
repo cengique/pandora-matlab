@@ -9,7 +9,7 @@ function tex_string = getTeXString(a_doc, props)
 %   Plots, prints EPS files and generates the necessary LaTeX code.
 %
 %   Parameters:
-%	a_doc: A tests_db object.
+%	a_doc: A doc_plot object.
 %	props: A structure with any optional properties.
 %		
 %   Returns:
@@ -27,13 +27,7 @@ function tex_string = getTeXString(a_doc, props)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
-fig_num = plotFigure(get(a_doc, 'plot'));
-
-doc_props = get(a_doc, 'props');
-
-if isfield(doc_props, 'orient')
-  orient(fig_num, doc_props.orient);
-end
+fig_num = plot(a_doc);
 
 filename = properTeXFilename(a_doc.plot_filename);
 
