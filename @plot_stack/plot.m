@@ -131,12 +131,27 @@ if isfield(a_plot_props, 'titlesPos') && strcmp(a_plot_props.titlesPos, 'top')
   titleheight = 2 * decosize_y;
 end
 
+%# If a relative sizing given
+if isfield(a_plot_props, 'relativeSizes')
+  relative_sizes = a_plot_props.relativeSizes;
+  if length(a_plot.plots) ~= length(relative_sizes)
+    error([ 'Property relativeSizes (' num2str(length(relative_sizes)) ...
+   	    ' items) should have same length as the plots array (' ...
+ 	    num2str(length(a_plot.plots)) ' items).' ]);
+  end
+else
+  %# otherwise all plots are equal size
+  relative_sizes = ones(1, length(a_plot.plots));
+end
+
 if strcmp(a_plot.orient, 'x')
-  tilewidth = max(width - labelwidth - tickwidth, minwidth) / num_plots;
+  tilewidth = max(width - labelwidth - tickwidth, minwidth) / sum(relative_sizes);
   tileheight = height;
 elseif strcmp(a_plot.orient, 'y')
   tilewidth = width;
-  tileheight = max(height - labelheight - tickheight - titleheight, minheight) / num_plots;
+  tileheight = ...
+	  max(height - labelheight - tickheight - titleheight, minheight) / ...
+	  sum(relative_sizes);
 end
 
 %# Lay the stack out in a loop
@@ -236,24 +251,20 @@ for plot_num=1:num_plots
   %# Set the modified properties back to the plot
   one_plot = set(one_plot, 'props', its_props);
   %# Calculate subplot positioning
-  %#disp(sprintf('left=%.3f, tilewidth=%.3f, tickwidth=%.3f, labelwidth=%.3f', ...
-  %#	       left_side, tilewidth, tickwidth, labelwidth));
-  %#disp(sprintf('bottom=%.3f, tileheight=%.3f, tickheight=%.3f, labelheight=%.3f, titleheight=%.3f', ...
-  %#	       bottom_side, tileheight, tickheight, labelheight, titleheight));
-  %#x_offset = left_side + ...
-  %#    strcmp(a_plot.orient, 'x') * (plot_num - 1) * tilewidth;
-  %#y_offset = bottom_side + ...
-  %#    strcmp(a_plot.orient, 'y') * (plot_num - 1) * tileheight;
-  %#position = [x_offset, y_offset, ...
-  %#	      max(tilewidth - tickwidth - labelwidth, minwidth), ...
-  %#	      max(tileheight - tickheight - labelheight - titleheight, minheight) ];
   x_offset = left_side + labelwidth + tickwidth - left_space + ...
-      strcmp(a_plot.orient, 'x') * (plot_num - 1) * tilewidth;
+      strcmp(a_plot.orient, 'x') * sum(relative_sizes(1:(plot_num - 1))) * tilewidth;
   y_offset = bottom_side  + labelheight + tickheight - bottom_space + ...
-      strcmp(a_plot.orient, 'y') * (plot_num - 1) * tileheight;
+      strcmp(a_plot.orient, 'y') * sum(relative_sizes((plot_seq + 1):end)) * tileheight;
+  if strcmp(a_plot.orient, 'x')
+    this_width = relative_sizes(plot_num) * tilewidth;
+    this_height = tileheight;
+  else
+    this_width = tilewidth;
+    this_height = relative_sizes(plot_seq) * tileheight;
+  end
   position = [x_offset, y_offset, ...
-  	      tilewidth + left_space, ...
-  	      tileheight + bottom_space + title_space ];
+  	      this_width + left_space, ...
+  	      this_height + bottom_space + title_space ];
   plot(one_plot, position);
   %# Set its axis limits if requested
   current_axis = axis;
