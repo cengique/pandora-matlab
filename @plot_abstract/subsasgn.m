@@ -18,7 +18,8 @@ if size(index, 2) > 1
 else
   switch index.type
     case '()'
-      error(['Operator () not defined for ' class(a) '.']);
+      a = builtin('subsasgn', a, index, val);
+      return;
     case '.'
       a = set(a, index.subs, val);
     case '{}'
