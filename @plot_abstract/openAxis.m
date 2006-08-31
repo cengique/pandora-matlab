@@ -44,6 +44,11 @@ else
   border = 0;
 end
 
+if length(border) == 1
+  %# Convert to margins for each edge
+  border = [border border border border];
+end
+
 %# Put some extra space on right hand side
 %# TODO: save the axis handle!
 if ~ exist('layout_axis')
@@ -74,7 +79,8 @@ if isempty(layout_axis) || ~all(isnan(layout_axis))
     end
   else  %# Open full size axis
     [ left_side bottom_side width height ] = ...
-	deal(border, border, 1 - 2 * border - right_margin, 1 - 2 * border - top_margin);
+	deal(border(1), border(2), 1 - (border(1) + border(3)) - right_margin, ...
+	     1 - (border(2) + border(4)) - top_margin);
     layout_axis = [ left_side bottom_side width height ];
     if verbose
       disp([ 'plot_abstract: Opening new axis ->' sprintf('\n') ...
