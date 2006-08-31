@@ -29,17 +29,27 @@ if ~ exist('props')
   props = struct;
 end
 
+command = '';
 data = {};
 legend = {};
 if length(plots) > 1
-for one_plot = plots
-  data = {data{:}, one_plot.data{:}};
-  if ~isfield(props, 'noLegends')
-    legend = {legend{:}, one_plot.legend{:}};
-  else
-    legend = {};
+  for one_plot = plots
+    if isempty(command)
+      command = one_plot.command;
+    else
+      if ~strcmp(command, one_plot.command)
+	warning('mixed-command plot, using plot_superpose instead.');
+	a_plot = plot_superpose(num2cell(plots));
+	return;
+      end
+    end
+    data = {data{:}, one_plot.data{:}};
+    if ~isfield(props, 'noLegends')
+      legend = {legend{:}, one_plot.legend{:}};
+    else
+      legend = {};
+    end
   end
-end
 else
   data = plots.data;
   legend = plots.legend;
