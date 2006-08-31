@@ -43,7 +43,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 
 if nargin == 0 %# Called with no params
    a_plot = struct;
-   a_plot = class(a_plot, 'plot_bars', plot_abstract);
+   a_plot = class(a_plot, 'plot_bars', plot_stack);
  elseif isa(mid_vals, 'plot_bars') %# copy constructor?
    a_plot = mid_vals;
  else
@@ -80,7 +80,7 @@ if nargin == 0 %# Called with no params
        plot_components = ...
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
-			   lo_vals(:,plot_num), hi_vals(:,plot_num), '+'}, ...
+			   lo_vals(:,plot_num), hi_vals(:,plot_num), 'LineStyle', 'none'}, ... %# '+'
 			  {x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'errorbar', props)};
      end
 
