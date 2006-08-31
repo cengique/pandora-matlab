@@ -6,6 +6,7 @@ function s = display(t)
 num = size(t);
 if max(num) > 1
   s = [ '[' sprintf('%dx', num(1:(end-1))) num2str(num(end)) ' ' class(t) ']' ];
+  disp(s);
   struct(t(1))
 else
   s = sprintf('%s', t.trace.id);
