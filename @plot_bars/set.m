@@ -9,7 +9,7 @@ else
     b = a;
   catch
     errstr = lasterror;
-    a.plot_abstract = set(a.plot_abstract, attr, val);
+    a.plot_stack = set(a.plot_stack, attr, val);
     b = a;
   end
 end
