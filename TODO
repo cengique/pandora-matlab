@@ -1,5 +1,6 @@
 TODO
 --------------------
+- generalize histogram_db to hold 2 and 3-dimensional histograms
 - open tools/utils dir and move needed stuff from cen_matlab into there.
 - make a paper production class capable of generating figures for paper automatically
 - make plan and requisites for version procession
