@@ -172,6 +172,10 @@ for plot_num=1:num_plots
   else
     one_plot = a_plot.plots(plot_seq);
   end
+  if isempty(one_plot)
+    continue;
+  end
+
   %# Warning: one_plot's props are superceded by the plot_stack props
   %# done for getting the correct label behaviro, etc. (experimental)
   %#its_props = mergeStructs(a_plot_props, get(one_plot, 'props'));
@@ -248,8 +252,10 @@ for plot_num=1:num_plots
       its_props(1).noTitle = 1;
     end
   end
+
   %# Set the modified properties back to the plot
   one_plot = set(one_plot, 'props', its_props);
+
   %# Calculate subplot positioning
   x_offset = left_side + labelwidth + tickwidth - left_space + ...
       strcmp(a_plot.orient, 'x') * sum(relative_sizes(1:(plot_num - 1))) * tilewidth;
