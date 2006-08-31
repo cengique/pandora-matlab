@@ -40,12 +40,25 @@ else
 
   if isfield(a_plot.props, 'PaperPosition')
     set(handle, 'PaperPosition', a_plot.props.PaperPosition);
+    old_units = get(handle, 'Units');
+    %# Paper position is in inches
+    set(handle, 'Units', 'inches');
+    old_pos = get(handle, 'Position');
+    %# get the width and height from the paper position
+    set(handle, 'Position', [ old_pos(1:2) a_plot.props.PaperPosition(3:4) ]);
+    set(handle, 'Units', old_units);
   end
 
   %#position = [0 0 1 1];
   %# Save plot_abstract object in the figure
   set(handle, 'UserData', a_plot);
-  set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot); decorate(a_plot);']);
+
+  if ~isfield(a_plot.props, 'resizeControl') || a_plot.props.resizeControl == 1
+    set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot); decorate(a_plot);']);
+  else
+    %# print figure at the size seen on screen
+    set(handle, 'PaperPositionMode', 'auto');
+  end
 
   plot(a_plot);
   decorate(a_plot);
