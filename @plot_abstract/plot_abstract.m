@@ -34,11 +34,15 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %		formatXTickLabels: The sprintf format string for tick labels.
 %		XTick, YTick: Point locations for axis ticks.
 %		XTickLabel, YTickLabel: Axis tick labels.
+%		ColorOrder: Set the ColorOrder of the axis.
 %		LineStyleOrder: Set the LineStyleOrder of the axis.
 %		legendLocation: Passed to legend(..., 'location', legendLocation).
 %		legendOrientation: Passed to legend(..., 'orientation', legendLocation).
 %		noLegends: If exists, no legends are displayed.
 %		PaperPosition: Sets the figure property for printing at this size.
+%		resizeControl: If 0, drawing after resize is disabled and prints at screen 
+%			size; if 1 (default), redraws figure after each resize event and 
+%			prints at PaperPosition size.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props
