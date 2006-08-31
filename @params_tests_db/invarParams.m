@@ -1,7 +1,6 @@
 function p_t3ds = invarParams(a_db)
 
-% invarParams - Calculates invariant param dbs for all parameters and returns in a 
-%		cell array.
+% invarParams - Calculates invariant param dbs for all parameters and returns in an array.
 %
 % Usage:
 % p_t3ds = invarParams(a_db)
