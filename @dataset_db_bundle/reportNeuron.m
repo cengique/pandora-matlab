@@ -16,17 +16,22 @@ function a_doc_multi = reportNeuron(a_bundle, an_index, props)
 %	a_bundle: a dataset_db_bundle object which contains the neuron
 %	an_index: The index to pass to ctFromRows method of a_bundle.
 %	props: A structure with any optional properties.
-%	  reportLayout: Allows choosing one of predefined report types:
+%	  reportLayout: Allows choosing one of predefined report types (strings):
 %		1: Only +/- 100 pA traces in one plot (default).
+%		1a/b: Either one of the +/- 100 pA traces in one plot.
 %		2: Only +/- 100 pA traces and spike shapes in one horiz. plot.
 %		3: +100 pA raw trace and rate profile stacked vertically.
+%		3b: -100 pA raw trace and rate profile stacked vertically.
 %		4: Horiz stack of +/- 100 pA raw trace with rate profiles underneath.
-%		x: 5-piece trace, spike shape, f-I curve, f-t curve horizontal plot. (N/A)
+%		5: 5-piece trace, spike shape, f-I curve, f-t curve quad-plot.
 %	  numTraces: Limit number of traces to show in plot (>=1).
+%	  traces: List of acceptable traces to load.
 %	  traceAxisLimits: If given, use these limits for trace plots.
 %	  rateAxisLimits: If given, use these limits for rate plots.
 %	  fIAxisLimits: If given, use these limits for fIcurve plots.
+%	  fIstats: Add a fI-stats plot in addition to the curve.
 %	  sshapeAxisLimits: If given, use these limits for spike shape plots.
+%	  sshapeResults: If 1, plot measures on the spike shape (default=1).
 %
 % Returns:
 %	a_doc_multi: A doc_multi object that can be printed as a PS or PDF file.
@@ -47,8 +52,34 @@ if ~ exist('props')
   props = struct;
 end
 
+if isa(an_index, 'tests_db')
+  num_items = dbsize(an_index, 1);
+else
+  num_items = length(an_index);
+end
+
+%# If input is an array, then also return array
+if num_items > 1 
+  %# Create array of outputs
+  for item_num = 1:num_items
+    if isa(an_index, 'tests_db')
+      a_doc_multi(item_num) = ...
+	  reportNeuron(a_bundle, onlyRowsTests(an_index, item_num, ':', ':'), props);
+    else
+      a_doc_multi(item_num) = ...
+	  reportNeuron(a_bundle, an_index(item_num), props);
+    end
+  end
+  return;
+end
+
 if ~ isfield(props, 'reportLayout')
   props.reportLayout = 1;		%# default report type
+end
+
+%# convert to string from numeric
+if isnumeric(props.reportLayout)
+  props.reportLayout = num2str(props.reportLayout);
 end
 
 if ~ isfield(props, 'horizRow')
@@ -59,7 +90,7 @@ db_id = properTeXLabel(get(get(a_bundle, 'joined_db'), 'id'));
 
 switch (props.reportLayout)
     %# Only trace plots
-    case 1
+    case '1'
       %# Get raw data traces from bundles
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
@@ -67,7 +98,27 @@ switch (props.reportLayout)
       a_doc_multi = ...
 	  horizRowTraces(trace_plot, [0 0 4 3], plot_title, caption, short_caption);
 
-    case 2
+    case '1a'
+      %# Get raw data traces from bundles
+      [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
+      [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
+
+      a_doc_multi = doc_plot(a_d100_plot, caption, short_caption, ...
+			     struct('floatType', 'figure', 'center', 1, ...
+				    'width', '.8\textwidth', 'shortCaption', short_caption), ...
+			     'raw +100pA trace figure');
+      
+    case '1b'
+      %# Get raw data traces from bundles
+      [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
+      [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
+      
+      a_doc_multi = doc_plot(a_h100_plot, caption, short_caption, ...
+			     struct('floatType', 'figure', 'center', 1, ...
+				    'width', '.8\textwidth', 'shortCaption', short_caption), ...
+			     'raw +100pA trace figure');
+
+    case '2'
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
       %# spike shape comparisons 
@@ -76,11 +127,17 @@ switch (props.reportLayout)
 	  spikeShapePlots(plot_title, trace_d100, props);
 
       a_doc_multi = ...
-	  horizRowTraces({trace_plot setProp(pulse_sshape_plot, 'axisLimits', [0 20 -100 50], ...
-					     'noYLabel', 1)}, ...
-			 [0 0 6 3], plot_title, caption, short_caption);
+	  doc_plot(plot_stack({set(trace_plot, 'title', ''), ...
+			       setProp(pulse_sshape_plot, 'noYLabel', 1)}, [], 'x', ...
+			      short_caption, ...
+			      struct('PaperPosition', [0 0 6 3], ...
+				     'relativeSizes', [2 1])), ... 
+		   caption, properTeXFilename([ trace_id '_raw_traces_sshapes']), ...
+		   struct('floatType', 'figure', 'center', 1, ...
+			  'height', '.8\textheight', 'shortCaption', short_caption), ...
+		   'raw trace sshape figure');
 
-    case 3
+    case '3'
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
       a_trace_rate_plot = traceRatePlot(trace_d100, a_d100_plot, trace_id, props);
@@ -91,8 +148,20 @@ switch (props.reportLayout)
 			     struct('floatType', 'figure', 'center', 1, ...
 				    'width', '.8\textwidth', 'shortCaption', short_caption), ...
 			     'raw trace and rate profile figure');
+
+    case '3b'
+      [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
+      [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
+      a_trace_rate_plot = traceRatePlot(trace_h100, a_h100_plot, trace_id, props);
+      short_caption = ['Raw traces and corresponding rate profile of ' trace_id ...
+		       ' for -100 pA injected current.' ];
+      caption = short_caption;
+      a_doc_multi = doc_plot(a_trace_rate_plot, caption, short_caption, ...
+			     struct('floatType', 'figure', 'center', 1, ...
+				    'width', '.8\textwidth', 'shortCaption', short_caption), ...
+			     'raw trace and rate profile figure');
       
-    case 4
+    case '4'
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
       short_caption = ['Raw traces and corresponding rate profiles of ' trace_id ...
@@ -109,7 +178,7 @@ switch (props.reportLayout)
 			  'width', '.8\textwidth', 'shortCaption', short_caption), ...
 		   'raw trace and rate profile figure');
 
-    case 5
+    case '5'
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
       trace_plot_quad = ...
@@ -126,12 +195,18 @@ switch (props.reportLayout)
 	fI_axis_limits = [0 200 0 100];
       end
 
+      fIcurve_plot = plotfICurve(a_bundle, an_index, ...
+				 mergeStructs(props, struct('axisLimits', fI_axis_limits)));
+
+      if isfield(props, 'fIstats')
+	fIcurve_plot = ...
+	    plot_superpose({fIcurve_plot, ...
+			    plotfICurveStats(a_bundle, 'avg.', struct('quiet', 1))});
+      end
+
       sshape_ratecurve_plot = ...
-	  plot_stack({pulse_sshape_plot, ...
-		      plotfICurve(a_bundle, an_index, ...
-				  struct('axisLimits', fI_axis_limits))}, ...
-		     [], 'y', '', ...
-		     mergeStructs(props, struct));
+	  plot_stack({pulse_sshape_plot, fIcurve_plot}, ...
+		     [], 'y', '', mergeStructs(props, struct));
 
       short_caption = ...
 	  ['Raw traces with corresponding rate profiles of ' trace_id ...
@@ -151,8 +226,9 @@ switch (props.reportLayout)
 
 
       %# rest not implemented yet.
+      otherwise
+	error(['reportLayout "' props.reportLayout '" not defined!']);
   end
-
 
   %# The following are nested functions, sharing this functions workspace:
 
@@ -171,21 +247,32 @@ function sshape_doc = bothSShapeDoc
 	       'spike shape comparison', struct);
 end
 
-function [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots
+function [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots()
   if isfield(props, 'traceAxisLimits')
     trace_axis_limits = props.traceAxisLimits;
   else
     trace_axis_limits = [0 3 -150 50];
   end
 
-  a_d100_plot = ...
-      superposePlots(plotData(trace_d100, '', ...
-			      struct('axisLimits', trace_axis_limits, 'timeScale', 's')), ...
-		     {}, '+100 pA');
-  a_h100_plot = ...
-      superposePlots(plotData(trace_h100, '', ...
-			      struct('axisLimits', trace_axis_limits, 'timeScale', 's')), ...
-		     {}, '-100 pA');
+  if ~ isempty(trace_d100)
+    a_d100_plot = ...
+	superposePlots(plotData(trace_d100, '', ...
+				mergeStructs(props, struct('axisLimits', trace_axis_limits, ...
+							   'timeScale', 's'))), ...
+		       {}, '+100 pA');
+  else
+    a_d100_plot = plot_abstract;
+  end
+
+  if ~ isempty(trace_h100)
+    a_h100_plot = ...
+	superposePlots(plotData(trace_h100, '', ...
+				mergeStructs(props, struct('axisLimits', trace_axis_limits, ...
+							   'timeScale', 's'))), ...
+		       {}, '-100 pA');
+  else
+    a_h100_plot = plot_abstract;
+  end
   
   %# remove legends
   a_d100_plot.legend = {};
@@ -200,8 +287,8 @@ function [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots
 end
 
 function [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData
-  trace_d100 = ctFromRows(a_bundle, an_index, 100);
-  trace_h100 = ctFromRows(a_bundle, an_index, -100);
+  trace_d100 = ctFromRows(a_bundle, an_index, 100, props);
+  trace_h100 = ctFromRows(a_bundle, an_index, -100, props);
   trace_id = getNeuronLabel(a_bundle, an_index);
 
   short_caption = ['Raw traces of ' trace_id '.' ];
@@ -233,13 +320,18 @@ function [spont_sshape_plot, pulse_sshape_plot, both_sshape_plots] = ...
     sshape_axis_limits = [0 20 -100 50];
   end
   
-
+  if isfield(props, 'sshapeResults') && props.sshapeResults == 0
+    plot_func = 'plotData'
+  else
+    plot_func = 'plotResults'
+  end
+  
   spont_sshape_plot = ...
-      plotResults(get2ndSpike(trace_d100(1), @periodIniSpont), '2nd spont. spike', ...
-		  struct('axisLimits', sshape_axis_limits));
+      feval(plot_func, get2ndSpike(trace_d100(1), @periodIniSpont), '2nd spont. spike', ...
+	    mergeStructs(props, struct('axisLimits', sshape_axis_limits)));
   pulse_sshape_plot = ...
-      plotResults(get2ndSpike(trace_d100(1), @periodPulse), '2nd pulse spike', ...
-		  struct('axisLimits', sshape_axis_limits));
+      feval(plot_func, get2ndSpike(trace_d100(1), @periodPulse), '2nd pulse spike', ...
+	    mergeStructs(props, struct('axisLimits', sshape_axis_limits)));
   both_sshape_plots = ...
       plot_stack([spont_sshape_plot, pulse_sshape_plot], ...
 		 sshape_axis_limits, 'x', plot_title, ...
@@ -276,9 +368,10 @@ function a_trace_rate_plot = traceRatePlot(a_trace, a_trace_plot, trace_id, prop
   end
 
   a_trace_rate_plot = ...
-      plot_stack({a_trace_plot, plotFreqVsTime(a_spikes_d100, '', ...
-					      struct('axisLimits', rate_axis_limits, ...
-						     'timeScale', 's'))}, ...
+      plot_stack({a_trace_plot, ...
+		  plotFreqVsTime(a_spikes_d100, '', ...
+				 mergeStructs(props, struct('axisLimits', rate_axis_limits, ...
+							    'timeScale', 's')))}, ...
 		 [0 3 NaN NaN], 'y', get(a_trace_plot, 'title'), ...
 		 struct('titlesPos', 'none', 'xLabelsPos', 'bottom', 'xTicksPos', 'bottom', ...
 			'relativeSizes', [2 1]));
