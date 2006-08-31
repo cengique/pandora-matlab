@@ -36,6 +36,25 @@ end
 %# Open the axis
 [axis_handle, layout_axis] = openAxis(a_plot, layout_axis);
 
+a_plot_props = get(a_plot, 'props');
+
+%# Apply the linestyle here instead of decorate
+if isfield(a_plot_props, 'LineStyleOrder')
+  set(gca, 'LineStyleOrder', a_plot_props.LineStyleOrder);
+  if ~isnan(layout_axis)
+    %# Otherwise messes with superposed plots, by removing the "hold" state
+    set(gca, 'NextPlot', 'replacechildren');
+  end
+end
+
+if isfield(a_plot_props, 'ColorOrder')
+  set(gca, 'ColorOrder', a_plot_props.ColorOrder);
+  if ~isnan(layout_axis)
+    %# Otherwise messes with superposed plots, by removing the "hold" state
+    set(gca, 'NextPlot', 'replacechildren');
+  end
+end
+
 %# Run the plot command
 if ischar(a_plot.command) && (strcmp(a_plot.command, 'boxplot') || ...
 			      strcmp(a_plot.command, 'boxplotp'))
