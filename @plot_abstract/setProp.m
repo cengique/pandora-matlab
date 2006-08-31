@@ -21,14 +21,11 @@ function obj = setProp(obj, varargin)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/22
 
+a = obj.props;
 for index=1:2:length(varargin)
   attr = varargin{index};
   val = varargin{index + 1};
-  try
-    a = obj.props;
-    a(1).(attr) = val;
-    obj = set(obj, 'props', a);
-  catch
-    rethrow(lasterror);
-  end
+  a(1).(attr) = val;
 end
+obj = set(obj, 'props', a);
+    
