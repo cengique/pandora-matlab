@@ -14,6 +14,7 @@ function a_plot_stack = plotVarMatrix(p_stats, props)
 %	props: A structure with any optional properties, passed to plot_stack.
 %	  plotMethod: 'plotVar' uses stats_db/plotVar (default)
 %		      'plot_bars' uses stats_db/plot_bars
+%	  rotateYLabel: Rotate row labels this much (default=60).
 %		
 % Returns:
 %	a_plot_stack: A plot_stack with the plots organized in matrix form
@@ -25,6 +26,12 @@ function a_plot_stack = plotVarMatrix(p_stats, props)
 
 if ~ exist('props')
   props = struct([]);
+end
+
+if ~ isfield(props, 'rotateYLabel')
+  rotate_labels = 60;
+else
+  rotate_labels = props.rotateYLabel;
 end
 
 num_params = length(p_stats);
@@ -50,11 +57,12 @@ for test_num=1:num_tests
 	  plot_bars(onlyRowsTests(p_stats(param_num), ':', [1, test_num + 1], ':'), ...
 		    '', mergeStructs(row_props, ...
 				     struct('dispNvals', 0, 'pageVariable', 1, ...
-					    'rotateYLabel', 60, 'truncateDecDigits', 1)));
+					    'rotateYLabel', rotate_labels, ...
+					    'truncateDecDigits', 1)));
       axis_ranges = axis(a_plot.plot_stack.plots{1});
     else
       a_plot = plotVar(p_stats(param_num), 1, test_num + 1, ...
-		       struct('rotateYLabel', 60));
+		       struct('rotateYLabel', rotate_labels));
       %# Calculate the maximal axis range
       axis_ranges = axis(a_plot);
     end
