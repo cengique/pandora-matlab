@@ -1,7 +1,6 @@
 function obj = assignRowsTests(obj, val, rows, tests, pages)
 
-% assignRowsTests - Returns a tests_db that only contains the desired 
-%		tests and rows (and pages).
+% assignRowsTests - Assign the values to the tests and rows (and pages) of the tests_db.
 %
 % Usage:
 % obj = assignRowsTests(obj, val, rows, tests, pages)
