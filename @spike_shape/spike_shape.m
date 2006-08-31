@@ -1,14 +1,16 @@
 function obj = spike_shape(data, dt, dy, id, props)
 
-% spike_shape - An averaged action potential profile from a trace.
+% spike_shape - An action potential shape trace.
 %
 % Usage:
 % obj = spike_shape(data, dt, dy, id)
 %
 % Description:
 %		
-% Uses the generic trace object to store an averaged spike shape. 
-% Inherits the common methods defined in trace.
+% Uses the generic trace object to store a spike shape that can be obtained from
+% another trace. Inherits the common methods defined in trace. See trace/spike_shape
+% for getting average spike shapes from a trace. trace/analyzeSpikesInPeriod 
+% finds each spike and analyzes separately.
 %
 %   Parameters:
 %	data: A vector of data points containing the spike shape.
@@ -49,7 +51,7 @@ function obj = spike_shape(data, dt, dy, id, props)
 % Additional methods:
 %   See methods('spike_shape')
 %
-% See also: trace/spike_shape, trace, spikes, period
+% See also: trace/spike_shape, trace/analyzeSpikesInPeriod, trace, spikes, period
 %
 % $Id$
 % Author: 
