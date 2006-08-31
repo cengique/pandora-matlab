@@ -30,6 +30,17 @@ if ~ exist('title_str')
   title_str = '';
 end
 
+%# If input is an array, then return array of plots
+num_s = length(s);
+if num_s > 1 
+  %# Create array of plots
+  [a_plot(1:num_s)] = deal(plot_abstract);
+  for plot_num = 1:num_s
+    a_plot(plot_num) = plotResults(s(plot_num), title_str, props);
+  end
+  return;
+end
+
 results = getResults(s);
 
 init_idx = results.InitTime ;
