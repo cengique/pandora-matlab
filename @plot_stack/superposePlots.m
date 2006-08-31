@@ -35,13 +35,14 @@ if num_plot_stacks > 1
   
   for plot_num = 1:num_plots
     %# group corresponding subplots in an array
-    clear plot_stacks;
+    plot_stacks = {};
     for plot_stack_num = 1:num_plot_stacks
-      plot_stacks(plot_stack_num) = plots(plot_stack_num).plots{plot_num};
+      plot_stacks{plot_stack_num} = plots(plot_stack_num).plots{plot_num};
     end
     %# recurse to handle sub-plot_stacks
     %# collect results in first plot_stack
-    plots(1).plots{plot_num} = superposePlots(plot_stacks);
+    %# plot_superpose should call superposePlots if plots are the same class
+    plots(1).plots{plot_num} = plot_superpose(plot_stacks);
   end
 end
 
