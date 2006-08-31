@@ -14,6 +14,7 @@ function a_plot = plotRowErrors(db, rows, title_str, props)
 %	props: A structure with any optional properties.
 %	  sortMeasures: If specified, measure order is determined with increasing 
 %		overall distance.
+%	  rowSteps: Steps to jump in labeling rows on the x-axis.
 %	  (rest passed to plot_abstract)
 %		
 %   Returns:
@@ -75,7 +76,12 @@ if isfield(props, 'sortMeasures')
   common_cols = common_cols(sorted_idx);
 end
 
-plot_props = struct('XTick', 1:num_rows, 'YTick', 1:length(common_cols), 'border', 0.07);
+if isfield(props, 'rowSteps')
+  row_steps = props.rowSteps;
+else
+  row_steps = 1;
+end
+plot_props = struct('XTick', 1:row_steps:num_rows, 'YTick', 1:length(common_cols), 'border', [0.07 0 0 0]);
 plot_props.YTickLabel = properTeXLabel(common_cols);
 
 if isfield(props, 'quiet') || isfield(get(db, 'props'), 'quiet')
