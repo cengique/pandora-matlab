@@ -5,7 +5,7 @@ if ~ isa(a, 'plot_abstract')
   builtin('set', a, attr, val);
 else
   try
-    eval(['a.' attr ' = val;']);
+    a.(attr) = val;
     b = a;
   catch
     errstr = lasterror;
