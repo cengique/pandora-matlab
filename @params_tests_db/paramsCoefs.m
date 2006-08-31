@@ -25,7 +25,7 @@ num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
 p_coefs = cell(1, num_params);
 for param_num=1:num_params
-  a_t3d = p_t3ds{param_num};
+  a_t3d = p_t3ds(param_num);
   all_test_cols(2:dbsize(a_t3d, 2)) = true(1);
   all_test_cols(tests2cols(a_t3d, {'RowIndex', 'ItemIndex'})) = false(1,2);
   p_coefs{param_num} = corrCoefs(a_t3d, 1, find(all_test_cols));

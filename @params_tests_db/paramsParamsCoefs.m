@@ -1,8 +1,6 @@
 function pp_coefs = paramsParamsCoefs(a_db, p_t3ds, p_coefs)
 
-% paramsParamsCoefs - Calculates a corrcoefs_db for each param from 
-%		  correlations of variant params and invariant param 
-%		  coefs and collects them in a cell array.
+% paramsParamsCoefs - Calculates a corrcoefs_db for each param from correlations of variant params and invariant param coefs and collects them in a cell array.
 %
 % Usage:
 % pp_coefs = paramsParamsCoefs(a_db, p_t3ds, p_coefs)
@@ -29,7 +27,7 @@ num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
 
 pp_coefs = cell([num_params, num_params]);
 for param_num=1:num_params
-  a_t3d = p_t3ds{param_num};
+  a_t3d = p_t3ds(param_num);
   a_coef_db = p_coefs{param_num}
   %# Remove the Index columns from this
   all_test_cols = [];
