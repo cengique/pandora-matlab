@@ -34,7 +34,7 @@ function a_ranked_db = rankVsDB(a_db, crit_db)
 dist_db = rankMatching(a_db, crit_db);
 
 min_distance = min(dist_db(:, 'Distance').data);
-avg_distance = mean(dist_db(:, 'Distance'));
+avg_distance = mean(dist_db(:, 'Distance').data);
 max_distance = max(dist_db(:, 'Distance').data);
 
 %# Take all criterion columns and parameter columns from original db
