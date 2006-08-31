@@ -9,7 +9,7 @@ function t_hists = testsHists(a_db, num_bins)
 %   Skips the 'ItemIndex' test.
 %
 %   Parameters:
-%	a_db: A tests_db object.
+%	a_db: One or more tests_db objects in an array.
 %	num_bins: Number of histogram bins (Optional, default=100), or
 %		  vector of histogram bin centers.
 %		
@@ -29,7 +29,7 @@ if num_dbs > 1
   end
   reduced_tests_db = subsref(reduced_db, substruct('.', 'tests_db'));
 else
-  reduced_tests_db = reduced_db.tests_db;
+  reduced_tests_db = a_db.tests_db;
 end
 
 if exist('num_bins')
