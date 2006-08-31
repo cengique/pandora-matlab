@@ -47,7 +47,7 @@ end
 col_added_db = addColumns(col_db, {'RowIndex'}, row);
 
 %# Add the STD row
-std_db = addLastRow(col_added_db, [ std(std_db(:, tests)), 0 ]);
+std_db = addLastRow(col_added_db, [ get(std(std_db(:, tests)), 'data'), 0 ]);
 
 %# Adjust other fields
 crit_db = set(std_db, 'row_idx', makeIdx({'Values', 'STD'}));
