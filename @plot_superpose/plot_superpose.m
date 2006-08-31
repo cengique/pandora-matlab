@@ -60,12 +60,51 @@ else
      plots = mat2cell(plots);
    end
 
+   %# Check if plots are of same kind to call preferred superposePlots method instead
+   plot_class = '';
+   plot_command = '';
+   superposable = true;
+   for plot_num=1:length(plots)
+
+     %# check if same plot classes are used
+     if isempty(plot_class)
+       plot_class = class(plots{plot_num});
+     else
+       %# break if different plot classes are combined
+       if ~strcmp(plot_class, class(plots{plot_num}))
+	 superposable = false;
+	 break;
+       end
+     end 
+
+     %# If same class, add to array
+     plot_array(plot_num) = plots{plot_num};
+
+     if strcmp(plot_class, 'plot_abstract')
+       if isempty(plot_command)
+	 plot_command = plots{plot_num}.command;
+       else
+	 %# break if different plot commands in plot_abstracts are combined
+	 if ~strcmp(plot_command, plots{plot_num}.command)
+	   superposable = false;
+	   break;
+	 end
+       end
+     end
+   end
+
+   %# Leave the constructor and call superposePlots
+   if superposable
+     obj = superposePlots(plot_array);
+     return;
+   end
+
   obj.plots = plots;
 
   legend = {};
   %# Check if contained plots feature axis_labels
   for plot_num=1:length(plots)
-    plot_axis_labels = plots{plot_num}.axis_labels;
+    plot_axis_labels = get(plots{plot_num}, 'axis_labels');
 
     if ~isempty(plot_axis_labels) 
       if ~isempty(plot_axis_labels{1})
@@ -76,7 +115,7 @@ else
       end
     end
 
-    plot_legend = plots{plot_num}.legend;
+    plot_legend = get(plots{plot_num}, 'legend');
     if ~ isempty(plot_legend)
       legend = { legend{:}, plot_legend{1}};
     else
