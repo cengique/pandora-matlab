@@ -31,7 +31,7 @@ cols = [col, (db.num_params + 1):dbsize(db, 2) ];
 
 %# Add invar test name
 props = get(db, 'props');
-props(1).invarName = col_name_cell{col};
+props(1).invarName = [ col_name_cell{col} ];
 db = set(db, 'props', props);
 
 %# Get invarValues for these
