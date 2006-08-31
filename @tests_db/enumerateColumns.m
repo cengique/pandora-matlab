@@ -1,9 +1,9 @@
-function a_db = enumerateColumns(a_db, tests)
+function a_db = enumerateColumns(a_db, tests, props)
 
-% enumerateColumns - Replaces each column value with an integer indicating its enumerated level.
+% enumerateColumns - Replaces each value with an integer pointing to the index of enumerated unique values in a column.
 %
 % Usage:
-% a_db = enumerateColumns(a_db, tests)
+% a_db = enumerateColumns(a_db, tests, props)
 %
 % Description:
 %   Finds unique values of each column, and replaces the original values
@@ -12,6 +12,10 @@ function a_db = enumerateColumns(a_db, tests)
 %
 % Parameters:
 %	a_db: A tests_db object.
+%	tests: Array of tests to be enumerated.
+%	props: Optional properties.
+%	  truncateDecDigits: Use only up to this many decimal digits after the point 
+%		when checking for uniqueness.
 %
 % Returns:
 %	a_db: The modified DB.
@@ -24,11 +28,22 @@ function a_db = enumerateColumns(a_db, tests)
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/14
 
+if ~ exist('props')
+  props = struct([]);
+end
+
 cols = tests2cols(a_db, tests);
 data = get(a_db, 'data');
 
+
 for col_num = cols
-  data(:, col_num) = enumerateColumnVector(data(:, col_num));
+  if isfield(props, 'truncateDecDigits')
+    mult_factor = 10^props.truncateDecDigits;
+    col_vals = round(data(:, col_num) * mult_factor) / mult_factor;
+  else
+    col_vals = data(:, col_num);
+  end
+  data(:, col_num) = enumerateColumnVector(col_vals);
 end
 
 a_db = set(a_db, 'data', data);
