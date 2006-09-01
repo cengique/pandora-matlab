@@ -69,8 +69,8 @@ for row_num=1:num_rows
       onlyRowsTests(sorted_db, rows, ...
 		    (length(main_cols) + 1):(length(main_cols) + length(rest_cols)));
   no_mean_rows_db = onlyRowsTests(sorted_db, rows(1), 1:length(main_cols));
-  new_row = [ get(no_mean_rows_db, 'data'), mean(rows_db) ];
-  new_std = [ get(no_mean_rows_db, 'data'), std(rows_db) ];
+  new_row = [ get(no_mean_rows_db, 'data'), get(mean(rows_db), 'data') ];
+  new_std = [ get(no_mean_rows_db, 'data'), get(std(rows_db), 'data') ];
   new_vals = [length(rows), idx(rows(1))];
   %#displayRows(rows_db(:, 'NeuronId'))
 

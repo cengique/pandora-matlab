@@ -36,7 +36,8 @@ pages=1:num_pages;
 data = repmat(0, [3, length(cols), num_pages]);
 for page_num=pages
   a_page_db = onlyRowsTests(a_db, ':', tests, page_num);
-  data(:, :, page_num) = [mean(a_page_db, 1); min(get(a_page_db, 'data'), [], 1); ...
+  data(:, :, page_num) = [get(mean(a_page_db, 1), 'data'); ...
+			  min(get(a_page_db, 'data'), [], 1); ...
 			  max(get(a_page_db, 'data'), [], 1)];
 end
 
