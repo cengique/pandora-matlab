@@ -28,8 +28,8 @@ else
   bin_param = {};
 end
 
-[t_hists{1:num_tests}] = deal(histogram_db);
+[t_hists(1:num_tests)] = deal(histogram_db);
 for test_num=1:num_tests
   params = {a_db, test_num, bin_param{:}};
-  t_hists{test_num} = histogram(params{:});
+  t_hists(test_num) = histogram(params{:});
 end
