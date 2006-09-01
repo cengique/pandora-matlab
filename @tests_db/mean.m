@@ -1,20 +1,20 @@
-function [s, varargout] = mean(db, dim)
+function [a_db, varargout] = mean(a_db, dim)
 
-% mean - Returns the mean of the data matrix of db. Ignores NaN values.
+% mean - Returns the mean of the data matrix of a_db. Ignores NaN values.
 %
 % Usage:
-% [s, n] = mean(db, dim)
+% [a_db, n] = mean(a_db, dim)
 %
 % Description:
 %   Does a recursive operation over dimensions in order to remove NaN values.
 % This takes more time, compared with a straightforward mean operation. 
 %
 %   Parameters:
-%	db: A tests_db object.
+%	a_db: A tests_db object.
 %	dim: Work down dimension.
 %		
 %   Returns:
-%	s: The mean values.
+%	a_db: The DB with one row of mean values.
 %	n: (Optional) Numbers of non-NaN rows included in calculating each column.
 %
 % See also: mean, tests_db
@@ -27,13 +27,13 @@ if ~ exist('dim')
 end
 
 %# Always do row-wise
-order = 1:length(dbsize(db));
+order = 1:length(dbsize(a_db));
 if dim ~= 1
   order(dim) = 1;
   order(1) = dim;
-  data = permute(db.data, order);
+  data = permute(a_db.data, order);
 else
-  data = db.data;
+  data = a_db.data;
 end
 
 %# Allocate results array
@@ -46,6 +46,9 @@ s = repmat(NaN, [1 db_size(2:end)]);
 if dim ~= 1
   s = ipermute(s, order);
 end
+
+a_db = set(a_db, 'id', [ 'Mean of ' get(a_db, 'id') ]);
+a_db = set(a_db, 'data', s);
 
 nout = max(nargout,1) - 1;
 
