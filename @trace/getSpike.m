@@ -2,23 +2,25 @@ function obj = getSpike(t, s, spike_num, props)
 
 % getSpike - Convert a spike in the trace to a spike_shape object.
 %
-% Usage 1:
-% obj = getSpike(trace, spike_num, props)
-%
-% Usage 2:
+% Usage:
 % obj = getSpike(trace, spikes, spike_num, props)
 %
-%   Parameters:
+% Description:
+%   Creates a spike_shape object from desired spike. It is more efficient if
+% you already have the spikes object.
+%		
+% Parameters:
 %	trace: A trace object.
-%	spikes: A spikes object on trace.
+%	spikes: (Optional) A spikes object obtained from trace, 
+%		calculated automatically if given as [].
 %	spike_num: The index of spike to extract.
 %	props: A structure with any optional properties.
 %	  spike_id: A prefix string added to the spike_shape object's id.
 %
-% Description:
-%   Creates a spike_shape object from desired spike. Usage 2 is more efficient if
-% you already have the spikes object. In usage 1, the spikes object will be created.
-%		
+% Example:
+% This will create an annotated plot of the third spike in my_trace:
+% >> plotFigure(plotResults(getSpike(my_trace, [], 3)))
+%
 % See also: spike_shape
 %
 % $Id$
@@ -29,13 +31,29 @@ if ~ exist('props')
   props = struct([]);
 end
 
-if isnumeric(s)
-  if exist('spike_num')
-    props = spike_num;
+num_traces = length(t);
+num_spikes = length(s);
+
+%# If called with array of traces
+if num_traces > 1
+  %# If also passed array of spikes objects
+  if num_spikes > 1
+    if num_spikes ~= num_traces
+      error(['Length of trace (' num_traces ') and spikes (' num_spikes ...
+							   ') arrays must be equal.']);
+    end
+    for trace_num = 1:num_traces
+      obj(trace_num) = getSpike(t(trace_num), s(trace_num), spike_num, props);
+    end
   else
-    props = struct;
+    for trace_num = 1:num_traces
+      obj(trace_num) = getSpike(t(trace_num), [], spike_num, props);
+    end
   end
-  spike_num = s;
+  return;
+end
+
+if isempty(s)
   s = spikes(t);
 end
 
