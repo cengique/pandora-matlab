@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-# Utility to scan all matlab classes and utilities to generate manual pages 
+# Utility to scan all matlab classes and utilities to generate manual pages
 # in LaTeX format with cross references and indices, which can then be converted to HTML.
 
 use strict;
@@ -101,10 +101,10 @@ sub parse_param_list {
       my $num_spaces = length($1);
       if ($num_spaces > $indent_depth) { # Deeper
 	$indent_depth = $num_spaces; $nest_level++;
-	$latex_code .= "\\begin{description}\n";
+	$latex_code .= "\\begin{description}%\n";
       } elsif ($num_spaces > $indent_depth) { # Less deep
 	$indent_depth = $num_spaces; $nest_level--;
-	$latex_code .= "\\end{description}\n";
+	$latex_code .= "\\end{description}%\n";
       }
       $latex_code .= "\\item[\\texttt{" . proper_latex_label($2) . 
 	"}:]\n" . proper_latex_label($3) . "\n";
@@ -119,7 +119,7 @@ sub parse_param_list {
   }omxeg;
   # close remaining indents
   for (; $nest_level > 0; $nest_level--) {
-    $latex_code .= "\\end{description}\n";
+    $latex_code .= "\\end{description}%\n";
   }
 
   return $latex_code;
@@ -165,38 +165,29 @@ sub process_method {
   foreach (@comment_sections) {
     print STDERR "BLOCK: '$_'\n";
     if (/^\s*$method_name\s*-\s*(.*)\s*$/s) {
-      $comment{"summary"} = "\\begin{description}\\item[Summary:]" .
-	proper_latex_label($1) . "\\end{description}";
+      $comment{"summary"} = "\\item[Summary:]" .
+	proper_latex_label($1);
     } elsif (/^\s*Usage:\s*(.*)\s*$/s) {
       $_ = proper_latex_label($1);
       $comment{"usage"} = << "ENDL";
-\\subsubsection*{Usage:}%
+\\item[Usage:]~%
 \\begin{lyxcode}%
 $_%
 \\end{lyxcode}%
 ENDL
     } elsif (/^\s*Description:\s*(?=\S)(.*)\s*$/s) {
       $_ = proper_latex_label($1);
-      $comment{"description"} = << "ENDL";
-\\subsubsection*{Description:}%
-$_%
-ENDL
+      $comment{"description"} = "\\item[Description:]%\n$_%";
     }  elsif (/^\s*Parameters?:(.*)$/s) {
       $_ = parse_param_list($1);
-      $comment{"params"} = << "ENDL";
-\\subsubsection*{Parameters:}%
-$_%
-ENDL
-    } elsif (/^\s*(?m-s)(return.*)$\s*(?s-m)(.*)$/is) {
-      my ($ret_label, $ret_list) = (proper_latex_label($1), proper_latex_label($2));
-      $comment{"returns"} = << "ENDL";
-\\subsubsection*{$ret_label}%
-$ret_list%
-ENDL
+      $comment{"params"} = "\\item[Parameters:]~\n$_";
+    } elsif (/^\s*(?m-s)(return.*)$\s*(?s-m)(.*)\s*$/is) {
+      $comment{"returns"} = "\\item[" . proper_latex_label($1) . "]~\n" .
+	proper_latex_label($2);
     } elsif (/^\s*see also:(.*)$/si) {
-      $comment{"links"} = "\\paragraph*{See also:}%\n" . parse_links($1, $class_name);
-    } elsif (/^\s*author:(.*)$/si) {
-      $comment{"author"} = "\\paragraph*{Author:}%\n" . proper_latex_label($1);
+      $comment{"links"} = "\\item[See also:]%\n" . parse_links($1, $class_name);
+    } elsif (/^\s*author:\s*(.*)\s*$/mi) {
+      $comment{"author"} = "\\item[Author:]%\n" . proper_latex_label($1);
     }
   }
 
@@ -205,10 +196,11 @@ ENDL
   my $proper_class_name = proper_latex_label($class_name);
 
   my $latex_code = << "ENDL";
-\\subsubsection{$flabel \\texttt{$proper_method_name}}%
+\\subsubsection[$flabel \\texttt{$proper_method_name}]{$flabel \\texttt{$proper_class_name/$proper_method_name}}%
 \\index[funcref]{$class_name@\\fidxlb{$proper_class_name}!$method_name@\\fidxl{$proper_method_name}}%
 \\label{ref_${class_name}__$method_name}%
 \\hypertarget{ref_${class_name}__$method_name}{}%
+\\begin{description}
 $comment{"summary"}%
 $comment{"usage"}%
 $comment{"description"}%
@@ -216,6 +208,7 @@ $comment{"params"}%
 $comment{"returns"}%
 $comment{"links"}%
 $comment{"author"}%
+\\end{description}
 \\methodline%
 ENDL
 
