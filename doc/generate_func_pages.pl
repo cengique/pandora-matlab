@@ -91,18 +91,21 @@ sub parse_param_list {
   $tabstop = 8;
   $param_text = expand($param_text);		# Expand the tabs
 
+  # remove whitespace before beginning of first line
+  $param_text =~ s/(?s:^)\s*^//m;
+
   print STDERR "list_text: '$param_text'\n";
 
   # search lines with colons, count spaces before word to estimate indent level
-  $param_text =~ s{(?:(^\s*)([\w\\]+):(.*)$)|(^.*$)}{
+  $param_text =~ s{(?:(^\s*)(\w[\w\s,\\]*):(.*)$)|(^.*$)}{
     if (defined($2)) {
-      print STDERR "Found: '$1', '$2', '$3'\n";
+      print STDERR "Found param decl: '$1', '$2', '$3'\n";
       # open new item. if indent is deeper go deeper, otherwise pop up
       my $num_spaces = length($1);
       if ($num_spaces > $indent_depth) { # Deeper
 	$indent_depth = $num_spaces; $nest_level++;
 	$latex_code .= "\\begin{description}%\n";
-      } elsif ($num_spaces > $indent_depth) { # Less deep
+      } elsif ($num_spaces < $indent_depth && $nest_level > 1) { # Less deep
 	$indent_depth = $num_spaces; $nest_level--;
 	$latex_code .= "\\end{description}%\n";
       }
@@ -112,7 +115,7 @@ sub parse_param_list {
       my $line = proper_latex_label($4);
       #$line =~ s/^\s*(\S*)\s*$/$1/;
       $line =~ s/^\s*//;
-      print STDERR "Found: '$line'\n";
+      print STDERR "Found text: '$line'\n";
       # put first into last opened item
       chomp($latex_code .= "\n". $line . "\n");
     }
@@ -175,12 +178,16 @@ sub process_method {
 $_%
 \\end{lyxcode}%
 ENDL
-    } elsif (/^\s*Description:\s*(?=\S)(.*)\s*$/s) {
+    } elsif (/^\s*Description:\s*(?=\S)(.*)\s*$/is) {
       $_ = proper_latex_label($1);
       $comment{"description"} = "\\item[Description:]%\n$_%";
-    }  elsif (/^\s*Parameters?:(.*)$/s) {
+    }  elsif (/^\s*Parameters?:(.*)$/is) {
       $_ = parse_param_list($1);
       $comment{"params"} = "\\item[Parameters:]~\n$_";
+    } elsif (/^\s*Example:\s*(?m:^)(.*)$/is) {
+      my $example_text = expand(proper_latex_label($1));
+      $example_text =~ s/\n/\\\\%\n/g;
+      $comment{"example"} = "\\item[Example:]~\n\\begin{lyxcode}" . $example_text . "\\end{lyxcode}\n";
     } elsif (/^\s*(?m-s)(return.*)$\s*(?s-m)(.*)\s*$/is) {
       $comment{"returns"} = "\\item[" . proper_latex_label($1) . "]~\n" .
 	proper_latex_label($2);
@@ -206,6 +213,7 @@ $comment{"usage"}%
 $comment{"description"}%
 $comment{"params"}%
 $comment{"returns"}%
+$comment{"example"}%
 $comment{"links"}%
 $comment{"author"}%
 \\end{description}
@@ -216,6 +224,28 @@ ENDL
 
   # Breakpoint during testing
   #exit -1;
+
+  return $latex_code;
+}
+
+sub process_methods_dir {
+  my $methods_dir = shift;
+  my $dir_label = shift;
+  my $method_label = shift;
+  my $latex_code = "";
+
+  # Do other methods
+  opendir(CDIR, $methods_dir) || die "can't opendir $code_dir";
+
+  my @method_files = grep { /\.m$/ } readdir(CDIR);
+
+  # do not include the constructor a second time if doing a class dir
+  @method_files = grep { ! /$dir_label.m/ } @method_files 
+    if $method_label == "method";
+
+  foreach (@method_files) {
+    $latex_code .= process_method("$methods_dir/$_", $dir_label, $method_label);
+  }
 
   return $latex_code;
 }
@@ -246,14 +276,8 @@ ENDL
     print STDERR "Missing constructor $constructor_file.\n";
   }
 
-  # Do other methods
-  opendir(CDIR, $class_dir) || die "can't opendir $code_dir";
-
-  my @method_files = grep { /\.m$/ } readdir(CDIR);
-
-  foreach (@method_files) {
-    $latex_code .= process_method("$class_dir/$_", $class_name, "method");
-  }
+  # Process all other methods in dir
+  $latex_code .= process_methods_dir($class_dir, $class_name, "method");
 
   return $latex_code;
 }
@@ -275,8 +299,17 @@ my @class_dirs = grep { /^\@/ } @all_files;
 
 my $class_dir;
 foreach $class_dir (sort @class_dirs) {
-  $latex_code = $latex_code . process_class_dir("$code_dir/$class_dir");
+  $latex_code .= process_class_dir("$code_dir/$class_dir");
 }
 
+# Process utils dir
+$latex_code .= << "ENDL";
+\\subsection{Utility functions}%
+\\label{ref_utils}%
+\\hypertarget{ref_utils}{}%
+ENDL
+$latex_code .= process_methods_dir("$code_dir/$utils_dir", "utils", "function");
+
+# Send created LaTeX contents to standard output
 print "$latex_code\n";
-#print "@class_dirs\n";
+
