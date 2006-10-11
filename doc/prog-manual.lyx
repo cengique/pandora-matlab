@@ -2,6 +2,11 @@
 \lyxformat 221
 \textclass article
 \begin_preamble
+\usepackage{ifthen}
+\usepackage{html}
+
+% if normal PS or PDF LaTeX processing
+%begin{latexonly}
 \newif\ifpdf 
   \ifx\pdfoutput\undefined \pdffalse % we are not running PDFLaTeX 
 \else 
@@ -20,20 +25,32 @@
   \DeclareGraphicsExtensions{.eps,.pstex,.ps}
 \fi
 
+%% following is special latex2html command:
+%end{latexonly}
+
+\begin{htmlonly}
+  \usepackage[none]{graphicx} 
+\end{htmlonly}
+
 \usepackage{epsfig}
 %\usepackage{color}
-%\usepackage{html}
-\usepackage{ifthen}
 %\usepackage{url}
 \usepackage{index}
 \usepackage{subfigure}
 
 % hyperref as last
+\begin{htmlonly}
+\newcommand{\hypertarget}[2]{#2}
+\newcommand{\hyperlink}[2]{#2}
+\end{htmlonly}
+
+%begin{latexonly}
 \ifpdf 
   \usepackage[colorlinks=true,pdftex]{hyperref}
 \else 
   \usepackage[colorlinks=false]{hyperref}
 \fi
+%end{latexonly}
 
 %\newcommand{\shorter}{} % Shorter 25 pg for Biol Cybern
 %\newcommand{\forspringer}
@@ -47,6 +64,7 @@
 %\input{../over-delays/formals.tex}
 %\input{../over-delays/preamble.tex}
 
+%begin{latexonly}
 \def\idstring{Id}
 \gdef\CVSKeyword$#1 ${\expandafter\cCVSKeyword#1\endcCVSKeyword\relax}
 \gdef\cCVSKeyword#1: #2\endcCVSKeyword{%
@@ -77,9 +95,6 @@
 \fancyhead[R]{} % otherwise they overwrite one another
 %\bibpunct{(}{)}{;}{a}{,}{,}
 
-%% ignore inside this
-\providecommand{\mycomment}{}
-
 \renewenvironment{lyxcode}
    {\small\begin{list}{}{
      \setlength{\leftmargin}{-60pt}
@@ -91,6 +106,11 @@
      \normalfont\ttfamily}%
     \item[]}
    {\end{list}}
+%end{latexonly}
+
+\begin{htmlonly}
+\renewenvironment{lyxcode}{\begin{rawhtml}<div style="font-family: monospace">\end{rawhtml}}{\begin{rawhtml}</div>\end{rawhtml}}
+\end{htmlonly}
 
 \newindex{funcref}{frx}{fnd}{Function Index}
 \end_preamble
@@ -159,6 +179,29 @@ today
 \end_inset 
 
 
+\layout Comment
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+begin{latexonly}
+\end_inset 
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+end{latexonly}
+\end_inset 
+
+
 \layout Standard
 
 
@@ -186,7 +229,7 @@ collapsed false
 TODO:
 \layout Standard
 
-- separate document into two? user's and admin manuals?
+- se parate document into two? user's and admin manuals?
 \layout Standard
 
 - get a new version of umbrello and re-do figures, or simply edit them.
@@ -572,7 +615,7 @@ Toolbox Components
 
 \begin_inset Float figure
 wide false
-collapsed false
+collapsed true
 
 \layout Standard
 \align center 
@@ -588,7 +631,8 @@ makebox[0pt]{
 
 
 \begin_inset Graphics
-	filename db-overview
+	filename db-overview.eps
+	display none
 	width 80page%
 
 \end_inset 
@@ -667,7 +711,7 @@ The database object is at the center of this toolbox (see Figure
 
 \begin_inset Float figure
 wide false
-collapsed true
+collapsed false
 
 \layout Standard
 \align center 
@@ -683,7 +727,8 @@ makebox[0pt]{
 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/DB-classes
+	filename /Lab/cengiz/work/djlab_matlab/doc/DB-classes.eps
+	display none
 	width 90page%
 
 \end_inset 
@@ -883,7 +928,7 @@ The dataset object is responsible for creating the database objects (see
 
 \begin_inset Float figure
 wide false
-collapsed true
+collapsed false
 
 \layout Standard
 \align center 
@@ -899,7 +944,8 @@ makebox[0pt]{
 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/Dataset-classes
+	filename /Lab/cengiz/work/djlab_matlab/doc/Dataset-classes.eps
+	display none
 	width 80page%
 
 \end_inset 
@@ -1044,7 +1090,7 @@ collapsed false
 \align center 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/bundle-classes
+	filename /Lab/cengiz/work/djlab_matlab/doc/bundle-classes.eps
 	display none
 	width 100text%
 
@@ -1165,13 +1211,14 @@ Data wrappers are classes designed to hold data and provide simple methods
 
 \begin_inset Float figure
 wide false
-collapsed false
+collapsed true
 
 \layout Standard
 \align center 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/data-wrapper-diagram
+	filename /Lab/cengiz/work/djlab_matlab/doc/data-wrapper-diagram.eps
+	display none
 	width 100text%
 
 \end_inset 
@@ -1284,13 +1331,14 @@ Profiles hold results of measurements
 
 \begin_inset Float figure
 wide false
-collapsed false
+collapsed true
 
 \layout Standard
 \align center 
 
 \begin_inset Graphics
-	filename Profile-classes
+	filename Profile-classes.eps
+	display none
 	width 90text%
 
 \end_inset 
@@ -1450,13 +1498,14 @@ Integrated plotting for easy visualization
 
 \begin_inset Float figure
 wide false
-collapsed true
+collapsed false
 
 \layout Standard
 \align center 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/plot-classes
+	filename /Lab/cengiz/work/djlab_matlab/doc/plot-classes.eps
+	display none
 	width 100text%
 
 \end_inset 
@@ -1964,13 +2013,15 @@ Recipes for Common Tasks
 Loading a database
 \layout Standard
 
-To load a database, first a dataset object need to be created that point
- to the data sources.
+A database can be created directly from a data matrix, or indirectly by
+ loading a dataset.
+ For the latter, first a dataset object must be created that point to the
+ data sources.
  There are different dataset classes that allow using different data sources.
  For instance, physiology and simulation data require different operations.
- In physiology data, one may want to record information about the treatments
- and other conditions, whereas in simulations one may want to keep track
- of changing parameters.
+ In physiology data, one can record information about the treatments and
+ other conditions, whereas in simulations one can keep track of changing
+ parameters.
  
 \layout Standard
 
@@ -1984,8 +2035,8 @@ Once the dataset object is obtained, the database object can be created
 which initiates the loading of files.
  This operation is the same no matter what type of dataset or fileset object
  is used.
- You may want to issue the following commands to reduce the verbosity of
- output during this long process:
+ The following commands reduce the verbosity of output during this long
+ process:
 \layout LyX-Code
 
 >> warning off verbose
@@ -4577,7 +4628,7 @@ Function Reference
 \layout Standard
 
 See Section 
-\begin_inset LatexCommand \vref{sub:Finding-your-way-around}
+\begin_inset LatexCommand \ref{sub:Finding-your-way-around}
 
 \end_inset 
 
@@ -4593,7 +4644,7 @@ Matlab
 \layout Standard
 
 
-\begin_inset Include \input{test.tex}
+\begin_inset Include \input{func-ref.tex}
 preview false
 
 \end_inset 
