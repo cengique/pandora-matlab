@@ -26,6 +26,7 @@ function [init_idx, a_plot] = ...
 % See also: calcInitVm
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/19
 %   Inspired by Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,

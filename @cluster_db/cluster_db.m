@@ -20,7 +20,10 @@ function a_cluster_db = cluster_db(data, col_names, orig_db, cluster_idx, id, pr
 %	  distanceMeasure: Measure used to find clusters (Default='correlation')
 %		
 %   Returns a structure object with the following fields:
-%	tests_db, orig_db, cluster_idx, props.
+%	tests_db, 
+%	orig_db: original DB from which clusters were obtained, 
+%	cluster_idx: Array associating rows of orig_db to each cluster here.
+%	props.
 %
 % General operations on cluster_db objects:
 %   cluster_db		- Construct a new cluster_db object.
@@ -34,6 +37,7 @@ function a_cluster_db = cluster_db(data, col_names, orig_db, cluster_idx, id, pr
 % See also: tests_db, tests_db/kmeansCluster
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/08
 
 if nargin == 0 %# Called with no params

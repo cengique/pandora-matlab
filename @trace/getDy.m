@@ -6,6 +6,7 @@ function dy = getDy(t)
 % dy = getDy(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %
@@ -15,6 +16,7 @@ function dy = getDy(t)
 % See also: trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/31
 
 if nargin == 0 %# Called with no params

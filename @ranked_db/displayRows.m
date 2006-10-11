@@ -17,6 +17,7 @@ function s = displayRows(db, rows)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/15
 
 if ~ exist('rows')

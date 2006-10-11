@@ -17,6 +17,7 @@ function a_plot = plot_abstract(a_cluster_db, title_str)
 % See also: cluster_db/plotQuality, cluster_db/plotHist
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/08
 
 if ~ exist('title_str')

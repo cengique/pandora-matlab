@@ -1,6 +1,6 @@
 function plots = plotCompareRanks(r_bundle, ranks, props)
 
-% plotCompareRanks - Generates a plots of given ranks from the ranked_bundle.
+% plotCompareRanks - OBSOLETE - Generates a plots of given ranks from the ranked_bundle.
 %
 % Usage:
 % plots = plotCompareRanks(r_bundle, crit_bundle, crit_db, props)
@@ -23,6 +23,7 @@ function plots = plotCompareRanks(r_bundle, ranks, props)
 % See also: 
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/16
 
 a_ranked_db = r_bundle.ranked_db;

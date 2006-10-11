@@ -35,6 +35,7 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_na
 % See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotVarBox
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
 %# WARNING: db must be sorted by pAcip before!

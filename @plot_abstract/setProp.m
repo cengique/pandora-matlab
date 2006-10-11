@@ -19,6 +19,7 @@ function obj = setProp(obj, varargin)
 % See also: 
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/22
 
 a = obj.props;

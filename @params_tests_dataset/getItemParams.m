@@ -21,6 +21,7 @@ function params_row = getItemParams(dataset, index, a_profile)
 % See also: itemResultsRow, params_tests_dataset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
 $# TODO: remove this method completely, collect params in profile.

@@ -17,6 +17,7 @@ function param_names = paramNames(fileset)
 % See also: params_tests_fileset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/06
 
 %# CIP magnitude in pA

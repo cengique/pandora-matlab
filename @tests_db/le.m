@@ -18,6 +18,7 @@ function rows = le(db, row)
 % See also: le, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 [rows comparison] = compareRows(db, row);

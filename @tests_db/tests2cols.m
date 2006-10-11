@@ -18,6 +18,7 @@ function cols = tests2cols(db, tests)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 col_vals = struct2cell(db.col_idx);

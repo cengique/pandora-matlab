@@ -22,6 +22,7 @@ function a_cip_trace = ctFromRows(a_pbundle, a_db, cip_levels, props)
 % See also: loadItemProfile, physiol_cip_traceset/cip_trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/07/13
 
 if ~exist('props')

@@ -21,6 +21,7 @@ function obj = spikes(t, a_period, plotit, minamp)
 % See also: spikes
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 % Modified:

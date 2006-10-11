@@ -6,7 +6,7 @@ function tex_filename = reportRankingToPhysiolNeuronsTeXFile(m_bundle, p_bundle,
 % tex_filename = reportRankingToPhysiolNeuronsTeXFile(m_bundle, p_bundle, a_crit_db, props)
 %
 % Description:
-%   A LaTeX report is generated using the model_ranked_to_physiol_bundle/comparisonReport,
+%   A LaTeX report is generated 
 % following the example in physiol_bundle/matchingRow. The filename contains the neuron
 % name, followed by the traceset index as an identifier of pharmacological applications,
 % as in gpd0421c_s34. 
@@ -27,6 +27,7 @@ function tex_filename = reportRankingToPhysiolNeuronsTeXFile(m_bundle, p_bundle,
 % See also: loadItemProfile, physiol_cip_traceset/cip_trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/18
 
 if ~exist('props')

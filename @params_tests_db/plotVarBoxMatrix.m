@@ -19,6 +19,7 @@ function a_plot_stack = plotVarBoxMatrix(a_db, p_t3ds, props)
 % See also: params_tests_profile, plotVar
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 if ~ exist('props')

@@ -31,6 +31,7 @@ function [times, peaks, n] = ...
 % See also: findspikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/03/08
 % Modified:
 % - Adapted to the trace object, CG 2004/07/30

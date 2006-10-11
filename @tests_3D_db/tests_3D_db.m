@@ -37,6 +37,7 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 % See also: tests_db, tests_db/invarValues
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
 if nargin == 0 %# Called with no params

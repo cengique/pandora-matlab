@@ -21,6 +21,7 @@ function a_db = mergePages(db, page_tests, page_suffixes)
 % See also: tests_db, tests_3D_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
 %# For each page to get tests from

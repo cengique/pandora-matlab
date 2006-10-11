@@ -15,6 +15,7 @@ function h = plot(t)
 % Plots contents of this object.
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/15
 
 %# Allow vectors of objects to be plotted at the same time

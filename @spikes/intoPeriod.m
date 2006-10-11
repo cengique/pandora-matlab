@@ -21,6 +21,7 @@ function obj = intoPeriod(s, a_period)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/31
 % Modified: (see CVS log)
 

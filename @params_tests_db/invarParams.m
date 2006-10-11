@@ -17,6 +17,7 @@ function p_t3ds = invarParams(a_db)
 % See also: params_tests_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_params = a_db.num_params;

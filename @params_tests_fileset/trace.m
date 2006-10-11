@@ -17,6 +17,7 @@ function a_trace = trace(fileset, file_index)
 % See also: trace, params_tests_fileset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 filename = getItem(fileset, file_index);

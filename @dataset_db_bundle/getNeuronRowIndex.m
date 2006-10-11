@@ -23,6 +23,7 @@ function a_row_index = getNeuronRowIndex(a_bundle, an_index, props)
 % See also: dataset_db_bundle
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/09
 
 error('This method is only defined for specific instances of dataset_db_bundle.');

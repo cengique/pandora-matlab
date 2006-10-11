@@ -23,6 +23,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 % See also: 
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/29
 
 if ~ exist('title_str')

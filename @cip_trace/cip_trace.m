@@ -43,6 +43,7 @@ function obj = cip_trace(datasrc, dt, dy, ...
 % See also: trace, spikes, spike_shape, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 
 if nargin == 0 %# Called with no params

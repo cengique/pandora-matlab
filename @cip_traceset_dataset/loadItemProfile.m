@@ -18,6 +18,7 @@ function a_profile = loadItemProfile(fileset, neuron_id, trace_index)
 % See also: itemResultsRow, params_tests_fileset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14 and Tom Sangrey
 
 %# Load a trace_profile object

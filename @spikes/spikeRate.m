@@ -6,6 +6,7 @@ function freq = spikeRate(s, a_period)
 % freq = spikeRate(s, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %	a_period: The period where spikes were found (optional)
@@ -16,6 +17,7 @@ function freq = spikeRate(s, a_period)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/03/09
 % Modified:
 % - Adapted to the spikes object, CG 2004/07/31

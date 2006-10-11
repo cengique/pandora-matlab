@@ -22,6 +22,7 @@ function a_ranked_db = rankVsDB(a_db, crit_db)
 % See also: matchingRow, rankMatching, joinRows
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/20
 
 %# Generate a criterion DB

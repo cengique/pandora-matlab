@@ -21,6 +21,7 @@ function a_plot = plot_bars(a_stats_db, title_str, props)
 % See also: plot_abstract, plot_bars/plot_bars
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/08
 
 if ~ exist('props')

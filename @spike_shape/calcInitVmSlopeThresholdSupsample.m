@@ -23,6 +23,7 @@ function [init_idx, a_plot] = ...
 % See also: calcInitVm
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2005/03/23
 

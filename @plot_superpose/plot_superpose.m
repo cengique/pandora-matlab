@@ -34,6 +34,7 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 % See also: plot_abstract/superpose, plot_superpose/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 %# TODO: decoration controls imposed by plot_stack is ignored!

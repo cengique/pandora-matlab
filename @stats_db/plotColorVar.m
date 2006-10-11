@@ -22,6 +22,7 @@ function a_plot = plotColorSumVar(p_stats, title_str, props)
 % See also: paramsTestsHistsStats, params_tests_profile, plotVar.
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 if ~ exist('props')

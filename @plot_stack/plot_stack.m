@@ -37,6 +37,7 @@ function a_plot = plot_stack(plots, axis_limits, orientation, title_str, props)
 % See also: plot_abstract, plot_abstract/plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
 if nargin == 0 %# Called with no params

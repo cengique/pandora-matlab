@@ -23,6 +23,7 @@ function job_result = runJob(a_script_array, vector_index)
 % See also: runLast, runFirst
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/01
 
 %# Call the run_job_func, if defined

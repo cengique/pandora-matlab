@@ -20,6 +20,7 @@ function a_row_index = getNeuronRowIndex(a_bundle, traceset_index, props)
 % See also: dataset_db_bundle/getNeuronRowIndex
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/09
 
 if ~exist('props')

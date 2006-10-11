@@ -18,6 +18,7 @@ function param_names = paramNames(fileset, item)
 % See also: params_tests_fileset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
 if ~ exist('item')

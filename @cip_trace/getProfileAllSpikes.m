@@ -19,6 +19,7 @@ function profile_obj = getProfileAllSpikes(a_cip_trace)
 % See also: cip_trace, cip_trace_allspikes_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/26
 
 %# Loop over spikes in each period

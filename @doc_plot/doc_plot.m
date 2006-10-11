@@ -37,6 +37,7 @@ function a_doc = doc_plot(a_plot, caption, plot_filename, float_props, id, props
 % See also: doc_generate, TeXtable
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 if nargin == 0 %# Called with no params

@@ -36,6 +36,7 @@ function a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 % See also: tests_db, params_tests_dataset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/13
 
 if nargin == 0 %# Called with no params

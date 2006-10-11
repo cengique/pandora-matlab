@@ -27,6 +27,7 @@ function a_tests_db = meanDuplicateRows(db, main_cols, rest_cols)
 % See also: tests_db/mean, tests_db/std, sortedUniqueValues
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
 %# TODO: add number column for each set and also mode, SD for each duplicate set.

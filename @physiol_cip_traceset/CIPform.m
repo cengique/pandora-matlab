@@ -14,6 +14,7 @@ function [ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace_index)
 % See also: cip_traces, params_tests_dataset, params_tests_db
 %
 % $Id$
+%
 % Author: Thomas Sangrey, 2005
  
 % Modified by: 

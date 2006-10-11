@@ -18,6 +18,7 @@ function rows = gt(db, row)
 % See also: gt, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 [rows comparison] = compareRows(db, row);

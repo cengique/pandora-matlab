@@ -22,6 +22,7 @@ function [rows, compared] = compareRows(db, row)
 % See also: eq, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 %# Compare two dbs?

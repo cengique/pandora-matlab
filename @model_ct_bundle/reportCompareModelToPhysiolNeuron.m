@@ -30,6 +30,7 @@ function a_doc_multi = ...
 % See also: doc_multi, doc_generate, doc_generate/printTeXFile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/24
 
 % TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)

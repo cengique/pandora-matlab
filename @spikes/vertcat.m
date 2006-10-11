@@ -18,6 +18,7 @@ function a_spikes = vertcat(a_spikes, varargin)
 % See also: vertcat, spikes
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/16
 
 %# Recurse to support variable number of inputs

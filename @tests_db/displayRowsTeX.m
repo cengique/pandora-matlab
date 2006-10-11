@@ -19,6 +19,7 @@ function tex_string = displayRowsTeX(a_db, caption, props)
 % See also: displayRows, TeXtable, cell2TeX
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/16
 
 if ~ exist('props')

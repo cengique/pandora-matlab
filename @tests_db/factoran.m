@@ -21,6 +21,7 @@ function a_factors_db = factoran(db, num_factors, props)
 % See also: tests_db, corrcoefs_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/08
 
 if ~ exist('props')

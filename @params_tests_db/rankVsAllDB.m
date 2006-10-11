@@ -24,6 +24,7 @@ function tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
 % See also: rankVsDB, matchingRow, rankMatching, joinRows
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/10
 
 tex_string = '';

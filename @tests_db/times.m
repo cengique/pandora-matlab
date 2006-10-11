@@ -16,6 +16,7 @@ function a_db = times(left_obj, right_obj)
 % See also: times
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
 
 if isa(left_obj, 'tests_db')

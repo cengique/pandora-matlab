@@ -18,6 +18,7 @@ function a_db = sum(a_db, props)
 % See also: sum
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
 
 %# TODO: doesn't conform to the mean, std methods here. Make them work like this, too.

@@ -19,6 +19,7 @@ function p_hists = paramsHists(a_db)
 % See also: params_tests_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/20
 
 colnames = fieldnames(get(a_db, 'col_idx'));

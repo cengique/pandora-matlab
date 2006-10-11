@@ -3,13 +3,17 @@ function a_plot = plotComparefICurve(m_bundle, m_trial, to_bundle, to_index, pro
 % plotComparefICurve - Generates a f-I curve doc_plot comparing m_trial and to_index.
 %
 % Usage:
-% a_plot = plotComparefICurve(m_bundle, trial_num, crit_bundle, index_num, props)
+% a_plot = plotComparefICurve(m_bundle, m_trial, to_bundle, to_index, props)
 %
 % Description:
+%   Note that this is not a general method. to_bundle should have been able to accept
+% any type of bundle. Most probably this method is redundant and deprecated.
 %
 %   Parameters:
-%	r_bundle: A ranked_bundle object.
-%	rank_num: Rank index for which to generate the a_plot.
+%	m_bundle: A model_ct_bundle object.
+%	m_trial: Trial number of model.
+%	to_bundle: A physiol_bundle object.
+%	to_index: TracesetIndex of neuron.
 %	props: A structure with any optional properties.
 %	  shortCaption: This appears in the figure caption.
 %	  plotMStats: If set, add the m_bundle stats plot.
@@ -28,6 +32,7 @@ function a_plot = plotComparefICurve(m_bundle, m_trial, to_bundle, to_index, pro
 % See also: plot_abstract, plot_superpose
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/16
 
 if ~ exist('props')

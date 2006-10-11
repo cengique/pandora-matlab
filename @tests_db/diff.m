@@ -18,6 +18,7 @@ function a_db = diff(a_db, props)
 % See also: diff, tests_3D_db/getDiff2DDB
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
 
 if ~ exist('props')

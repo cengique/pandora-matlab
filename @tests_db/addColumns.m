@@ -28,6 +28,7 @@ function obj = addColumns(obj, test_names, test_columns)
 % See also: allocateRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/30
 
 if isa(test_names, 'tests_db')

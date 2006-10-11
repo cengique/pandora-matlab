@@ -29,6 +29,7 @@ function [init_idx, max_d1o, a_plot, fail_cond] = ...
 % See also: calcInitVm
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2005/04/12
 %   Inspired by Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,

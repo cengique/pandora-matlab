@@ -18,6 +18,7 @@ function [axis_handle, layout_axis] = openAxis(a_plot, layout_axis)
 % See also: plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 %# Get generic verbose switch setting

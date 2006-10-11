@@ -37,6 +37,7 @@ function obj = cip_traceset(ct, cip_mags, dy, props)
 % See also: cip_traces, params_tests_fileset, params_tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/30
 
 if nargin == 0 %# Called with no params

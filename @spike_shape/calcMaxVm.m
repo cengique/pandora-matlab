@@ -6,6 +6,7 @@ function [max_val, max_idx] = calcMaxVm(s)
 % [max_val, max_idx] = calcMaxVm(s)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %
@@ -16,6 +17,7 @@ function [max_val, max_idx] = calcMaxVm(s)
 % See also: period, spike_shape, trace/calcMax
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 
 %# Look for the peak only in the first 10 ms or so.

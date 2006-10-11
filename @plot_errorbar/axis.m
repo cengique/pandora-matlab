@@ -16,6 +16,7 @@ function ranges = axis(a_plot)
 % See also: plot_abstract, plot_abstract/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/13
 
 %# Special for plot_errorbar

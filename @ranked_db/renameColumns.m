@@ -22,6 +22,7 @@ function a_db = renameColumns(a_db, test_names, new_names)
 % See also: tests_db/renameColumns
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/07
 
 a_db.tests_db = renameColumns(a_db.tests_db, test_names, new_names);

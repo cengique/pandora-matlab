@@ -22,6 +22,7 @@ function obj = getPulseSpike(t, s, spike_num, props)
 % See also: spike_shape, trace/getSpike
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2005/04/19
 

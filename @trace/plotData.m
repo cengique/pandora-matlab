@@ -21,6 +21,7 @@ function a_plot = plotData(t, title_str, props)
 % See also: trace, trace/plot, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/17
 
 if ~ exist('props')

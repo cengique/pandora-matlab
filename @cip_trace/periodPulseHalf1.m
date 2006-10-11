@@ -6,6 +6,7 @@ function the_period = periodPulseHalf1(t)
 % the_period = periodPulseHalf1(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %
@@ -15,6 +16,7 @@ function the_period = periodPulseHalf1(t)
 % See also: period, cip_trace, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 time_start = t.pulse_time_start;

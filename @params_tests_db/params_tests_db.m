@@ -45,6 +45,7 @@ function obj = params_tests_db(params, param_names, ...
 % See also: tests_db, test_variable_db (N/I)
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
 
 if nargin == 0 %# Called with no params

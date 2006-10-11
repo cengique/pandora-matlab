@@ -25,6 +25,7 @@ function [init_idx, a_plot] = calcInitVmMaxCurvature(s, max_idx, min_idx, plotit
 % See also: calcInitVm
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/19
 %   Taken from Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,

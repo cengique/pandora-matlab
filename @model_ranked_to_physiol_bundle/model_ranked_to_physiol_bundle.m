@@ -32,6 +32,7 @@ function r_bundle = ...
 % See also: model_ct_bundle, ranked_db, params_tests_dataset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/13
 
 if nargin == 0 %# Called with no params

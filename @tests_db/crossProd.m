@@ -19,6 +19,7 @@ function cross_db = crossProd(a_db, b_db)
 % See also: allocateRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/11
 
 a_size = dbsize(a_db);

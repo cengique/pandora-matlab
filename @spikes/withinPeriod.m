@@ -6,6 +6,7 @@ function obj = withinPeriod(s, a_period)
 % obj = withinPeriod(s, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %	a_period: The desired period 
@@ -16,6 +17,7 @@ function obj = withinPeriod(s, a_period)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/31
 % Modified:
 

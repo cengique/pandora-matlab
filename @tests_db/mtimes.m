@@ -16,6 +16,7 @@ function a_db = mtimes(left_obj, right_obj)
 % See also: tests_db/times, mtimes
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
 
 a_db = times(left_obj, right_obj);

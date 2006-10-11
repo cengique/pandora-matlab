@@ -17,6 +17,7 @@ function a_trace_profile = trace_profile(fileset, file_index)
 % See also: trace_profile, params_tests_fileset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 filename = getItem(fileset, file_index);

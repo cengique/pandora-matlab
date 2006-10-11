@@ -21,6 +21,7 @@ function obj = allocateRows(obj, num_rows)
 % See also: assignRowsTests, addRow, setRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
 
 if dbsize(obj, 1) ~= 0 && dbsize(obj, 2) ~= 0

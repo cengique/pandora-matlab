@@ -29,6 +29,7 @@ function obj = results_profile(results, id, props)
 % See also: trace_profile, cip_trace_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 if nargin == 0 %# Called with no params, creates empty object

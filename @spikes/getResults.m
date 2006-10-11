@@ -7,6 +7,7 @@ function results = getResults(s, plotit)
 % results = getResults(s)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %
@@ -17,6 +18,7 @@ function results = getResults(s, plotit)
 % See also: spikes
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 

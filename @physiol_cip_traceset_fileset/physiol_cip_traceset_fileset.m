@@ -43,6 +43,7 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 % See also: physiol_cip_traceset, params_tests_dataset, params_tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu> and Thomas Sangrey, 2005/01/17
 % Modified: Jeremy Edgerton
 

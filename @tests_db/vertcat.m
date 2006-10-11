@@ -19,6 +19,7 @@ function a_db = vertcat(db, varargin)
 % See also: vertcat, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/25
 
 %# Recurse to support variable number of inputs

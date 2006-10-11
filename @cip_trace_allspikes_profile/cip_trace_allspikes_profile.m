@@ -9,6 +9,7 @@ function obj = ...
 % obj = 
 %   cip_trace_allspikes_profile(a_cip_trace, a_spikes, a_spont_spike_shape, 
 %				results, id, props)
+%
 %   Parameters:
 %	a_cip_trace: A cip_trace object.
 %	a_spikes: A spikes object.
@@ -39,6 +40,7 @@ function obj = ...
 % See also: cip_trace, spikes, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/05/04
 
 if nargin == 0 %# Called with no params, creates empty object

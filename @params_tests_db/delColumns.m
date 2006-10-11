@@ -19,6 +19,7 @@ function obj = delColumns(obj, tests)
 % See also: tests_db/delColumns
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/11
 
 cols = sort(tests2cols(obj, tests));

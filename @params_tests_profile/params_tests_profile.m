@@ -30,6 +30,7 @@ function a_pt_profile = params_tests_profile(results, a_db, props)
 % See also: results_profile, params_tests_db/params_tests_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/13
 
 if nargin == 0 %# Called with no params, creates empty object

@@ -61,6 +61,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % See also: params_tests_db, tests_db, test_variable_db (N/I)
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/09
 
 if nargin == 0 %# Called with no params

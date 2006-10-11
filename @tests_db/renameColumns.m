@@ -25,6 +25,7 @@ function a_db = renameColumns(a_db, test_names, new_names)
 % See also: allocateRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/30
 
 %# For vector input, recurse in loop

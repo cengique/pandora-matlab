@@ -22,6 +22,7 @@ function b = subsref(a,index)
 % See also: subsref, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 %# If a is an array, use built-in methods

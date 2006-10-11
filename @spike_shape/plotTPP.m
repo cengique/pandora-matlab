@@ -17,6 +17,7 @@ function a_plot = plotTPP(s)
 % See also: spike_shape, plot_abstract, diffT
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/16
 

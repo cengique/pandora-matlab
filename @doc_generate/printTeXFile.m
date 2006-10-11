@@ -28,6 +28,7 @@ function printTeXFile(a_doc, filename, props)
 % See also: doc_generate, doc_plot, string2File, properFilename
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 if ~ exist('props')

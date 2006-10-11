@@ -29,6 +29,7 @@ function a_tests_3D_db = invarValues(db, cols, main_cols)
 % See also: tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
 vs = warning('query', 'verbose');

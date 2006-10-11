@@ -1,15 +1,12 @@
 function tex_string = getTeXString(a_doc, props)
 
-% getTeXString - Returns the TeX representation for the document (not implemented).
+% getTeXString - Returns the TeX representation for the document.
 %
 % Usage:
 % tex_string = getTeXString(a_doc, props)
 %
 % Description:
-%   This is an abstract placeholder for this method. It specifies what this 
-% method should do in the subclasses that implement it. This method should
-% create all the auxiliary files needed by the document. The generated tex_string
-% should be ready to be visualized.
+%   Concatenates TeX representations of doc_generate, or subclass, objects it contains.
 %
 %   Parameters:
 %	a_doc: A tests_db object.
@@ -28,6 +25,7 @@ function tex_string = getTeXString(a_doc, props)
 % See also: doc_generate, doc_plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 num_docs = length(a_doc.docs);

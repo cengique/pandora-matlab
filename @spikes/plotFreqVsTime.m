@@ -23,6 +23,7 @@ function a_plot = plotFreqVsTime(s, title_str, props)
 % See also: trace, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/05
 
 if ~ exist('props')

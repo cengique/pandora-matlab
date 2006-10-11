@@ -14,7 +14,7 @@ function obj = spikes(times, num_samples, dt, id)
 % Description:
 %		
 %   Returns a structure object with the following fields:
-%	times, dt, id.
+%	times, num_samples, dt, id.
 %
 % General methods of spikes objects:
 %   spikes		- Construct a new spikes object.
@@ -38,6 +38,7 @@ function obj = spikes(times, num_samples, dt, id)
 % See also: trace/spikes, trace, spike_shape, period
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 %   Inspired by cip_dataset of Jeremy Edgerton.

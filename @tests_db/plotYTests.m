@@ -34,6 +34,7 @@ function a_p = plotYTests(a_db, x_vals, tests, axis_labels, title_str, short_tit
 % See also: plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/23
 
 if ~ exist('title_str')

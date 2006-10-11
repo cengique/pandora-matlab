@@ -16,6 +16,7 @@ function ranges = axis(a_plot)
 % See also: plot_abstract, plot_abstract/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/22
 
 num_plots = length(a_plot.plots);

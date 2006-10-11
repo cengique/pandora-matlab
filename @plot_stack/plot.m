@@ -18,6 +18,7 @@ function handles = plot(a_plot, layout_axis)
 % See also: plot_stack, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
 %# Get generic verbose switch setting

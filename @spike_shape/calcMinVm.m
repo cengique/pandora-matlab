@@ -6,6 +6,7 @@ function [min_val, min_idx, max_min_time] = calcMinVm(s, max_idx)
 % [min_val, min_idx, max_min_time] = calcMinVm(s, max_idx)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %	max_idx: The index of the maximal point of the spike_shape [dt].
@@ -18,6 +19,7 @@ function [min_val, min_idx, max_min_time] = calcMinVm(s, max_idx)
 % See also: period, spike_shape, trace/calcMin
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.

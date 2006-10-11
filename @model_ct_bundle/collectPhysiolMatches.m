@@ -3,7 +3,7 @@ function row_index = collectPhysiolMatches(a_mbundle, a_crit_bundle, props)
 % collectPhysiolMatches - Compare model DB to given physiol criteria and return some top matches.
 %
 % Usage:
-% a_ranked_bundle = collectPhysiolMatches(a_mbundle, a_crit_bundle, props)
+% row_index = collectPhysiolMatches(a_mbundle, a_crit_bundle, props)
 %
 % Description:
 %
@@ -14,13 +14,14 @@ function row_index = collectPhysiolMatches(a_mbundle, a_crit_bundle, props)
 %	  showTopmost: Number of top matching models to return (default=50)
 %		
 % Returns: 
-%	tex_filename: Name of LaTeX file generated.
+%	row_index: Row indices of best matching models.
 %
 % Example: 
 %
 % See also: 
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/18
 
 if ~exist('props')

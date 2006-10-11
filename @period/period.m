@@ -7,6 +7,7 @@ function obj = period(start_time, end_time)
 % obj = period(start_time, end_time)
 %
 % Description:
+%
 %   Parameters:
 %	(see below for the rest)
 %		
@@ -25,6 +26,7 @@ function obj = period(start_time, end_time)
 % See also: trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 
 %# TODO:

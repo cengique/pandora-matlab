@@ -18,6 +18,7 @@ function a_plot = plotISIs(s, title_str)
 % See also: trace, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/21
 
 if ~ exist('title_str')

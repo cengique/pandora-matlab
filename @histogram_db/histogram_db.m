@@ -31,6 +31,7 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 % See also: tests_db, plot_simple, tests_db/histogram
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/20
 
 if nargin == 0 %# Called with no params

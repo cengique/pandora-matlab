@@ -8,7 +8,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %		     title, axis_limits, props)
 %
 % Description:
-%   Subclass of plot_abstract. The plot_abstract/plot command can be used to
+%   Subclass of plot_stack. The plot_abstract/plot command can be used to
 % plot this data. Rows of *_vals will create grouped bars, columns will
 % create new axes.
 %
@@ -39,6 +39,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 % See also: plot_abstract, plot_abstract/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 if nargin == 0 %# Called with no params

@@ -18,6 +18,7 @@ function [a_pbundle test_names] = constrainedMeasuresPreset(a_pbundle, preset, p
 % See also: loadItemProfile, physiol_cip_traceset/cip_trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/19
 
 if ~exist('props')

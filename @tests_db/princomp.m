@@ -18,6 +18,7 @@ function a_pca_db = princomp(db, props)
 % See also: princomp, zscore
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/21
 
 if ~ exist('props')

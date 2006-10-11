@@ -27,6 +27,7 @@ function a_crit_db = matchingRow(p_bundle, traceset_index, props)
 % See also: rankMatching, tests_db/matchingRow
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/21
 
 if ~ exist('props')

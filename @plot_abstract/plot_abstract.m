@@ -63,6 +63,7 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 % See also: plot_abstract/plot, plot_abstract/plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 if nargin == 0 %# Called with no params

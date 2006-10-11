@@ -7,6 +7,7 @@ function isi = getISIs(s, a_period)
 % isi = getISIs(s, period)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %	period: The period where spikes were found (optional)
@@ -17,6 +18,7 @@ function isi = getISIs(s, a_period)
 % See also: trace, spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/03/09
 % Modified:
 % - Adapted to the spikes object, CG 2004/07/31

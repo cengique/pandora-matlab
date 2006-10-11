@@ -25,6 +25,7 @@ function a_plot = matrixPlots(plots, axis_labels, title_str, props)
 % See also: plot_abstract, plot_abstract/plot, plot_abstract/plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/07
 
 if ~ exist('title_str')

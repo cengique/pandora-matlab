@@ -23,6 +23,7 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % See also: matchingRow, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/08
 
 if ~ exist('props')

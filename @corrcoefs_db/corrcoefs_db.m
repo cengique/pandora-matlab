@@ -8,7 +8,7 @@ function a_coef_db = ...
 % a_coef_db = corrcoefs_db(col_name, coefs, coef_names, pages, id, props)
 %
 % Description:
-%   This is a subclass of tests_db. Allows generating a plot, etc.
+%   This is a subclass of tests_3d_db. Allows generating a plot, etc.
 %
 %   Parameters:
 %	col_name: The column with which the others are correlated.
@@ -31,6 +31,7 @@ function a_coef_db = ...
 % See also: tests_db, plot_simple, tests_db/histogram
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 if nargin == 0 %# Called with no params

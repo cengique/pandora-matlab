@@ -18,6 +18,7 @@ function rows = eq(db, row)
 % See also: eq, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 %# - find 0 rows in db

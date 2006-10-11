@@ -19,6 +19,7 @@ function a_plot = plotPages(a_hist_db, command, an_orient)
 % See also: plotPages, plot_simple
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
 %# Defaults

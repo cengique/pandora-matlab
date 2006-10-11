@@ -19,6 +19,7 @@ function colors = colormapBlueCrossRed(num_half_colors)
 % See also: colormap
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/05
 
 %#num_half_colors = floor(num_colors / 2);

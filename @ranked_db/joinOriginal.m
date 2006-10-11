@@ -19,6 +19,7 @@ function a_db = joinOriginal(a_ranked_db, rows)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/21
 
 if ~exist('rows')

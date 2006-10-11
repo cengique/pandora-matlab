@@ -17,6 +17,7 @@ function rows = isinf(db, col)
 % See also: isinf, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/16
 
 if ~ exist('col')

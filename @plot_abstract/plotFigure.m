@@ -17,6 +17,7 @@ function handle = plotFigure(a_plot, title_str)
 % See also: plot_abstract, plot_abstract/plot, plot_abstract/decorate
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 if ~ exist('title_str')

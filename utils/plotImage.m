@@ -20,6 +20,7 @@ function h = plotImage(image_data, colormap_func, num_colors, props)
 % See also: colormap
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/05
 
 h = image(image_data);

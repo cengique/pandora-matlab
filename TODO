@@ -1,7 +1,8 @@
 TODO
 --------------------
+- rename plot_abstract, joined_db to more meaningful names.
 - generalize histogram_db to hold 2 and 3-dimensional histograms
-- open tools/utils dir and move needed stuff from cen_matlab into there.
+- open tools/utils dir and move needed stuff from cen_matlab and alftoolbox into there.
 - make a paper production class capable of generating figures for paper automatically
 - make plan and requisites for version procession
 - put ItemIndex as param

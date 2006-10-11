@@ -6,6 +6,7 @@ function s = addSpike(s, times)
 % s = addSpike(s, times)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %	times: Times of spikes to add
@@ -16,6 +17,7 @@ function s = addSpike(s, times)
 % See also: spikes
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/16
 
 %# TODO: need to order times?

@@ -6,6 +6,7 @@ function obj = withinPeriod(t, a_period)
 % obj = withinPeriod(t, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %	a_period: The desired period
@@ -16,6 +17,7 @@ function obj = withinPeriod(t, a_period)
 % See also: trace, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 % Modified:
 

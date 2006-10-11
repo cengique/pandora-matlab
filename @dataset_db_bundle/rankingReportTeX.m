@@ -28,6 +28,7 @@ function tex_string = rankingReportTeX(a_bundle, crit_bundle, crit_db, props)
 % See also: displayRowsTeX
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/13
 
 if ~ exist('props')

@@ -8,7 +8,7 @@ function a_plot = plot_errorbars(mid_vals, lo_vals, hi_vals, labels, ...
 %			 title, axis_limits, props)
 %
 % Description:
-%   Subclass of plot_abstract. The plot_abstract/plot command can be used to
+%   Subclass of plot_stack. The plot_abstract/plot command can be used to
 % plot this data.
 %
 %   Parameters:
@@ -32,11 +32,12 @@ function a_plot = plot_errorbars(mid_vals, lo_vals, hi_vals, labels, ...
 % See also: plot_abstract, plot_abstract/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 if nargin == 0 %# Called with no params
    a_plot.labels = {};
-   a_plot = class(a_plot, 'plot_errorbars', plot_abstract);
+   a_plot = class(a_plot, 'plot_errorbars', plot_stack);
  elseif isa(labels, 'plot_errorbars') %# copy constructor?
    a_plot = labels;
  else

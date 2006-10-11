@@ -18,6 +18,7 @@ function a_plot = plotCompareMethodsSimple(s, title_str)
 % See also: spike_shape, plot_abstract
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/19
 

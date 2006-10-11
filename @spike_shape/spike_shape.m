@@ -54,6 +54,7 @@ function obj = spike_shape(data, dt, dy, id, props)
 % See also: trace/spike_shape, trace/analyzeSpikesInPeriod, trace, spikes, period
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 %   Based on spike_trace of Jeremy Edgerton.

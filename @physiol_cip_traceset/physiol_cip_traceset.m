@@ -46,6 +46,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 % See also: cip_traces, params_tests_dataset, params_tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu> and Thomas Sangrey, 2005/01/17
 
 if nargin == 0 %# Called with no params

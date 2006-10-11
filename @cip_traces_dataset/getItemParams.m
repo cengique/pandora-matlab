@@ -17,6 +17,7 @@ function params_row = getParams(dataset, index)
 % See also: itemResultsRow, params_tests_dataset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/06
 
 %#item = getItem(dataset, index);

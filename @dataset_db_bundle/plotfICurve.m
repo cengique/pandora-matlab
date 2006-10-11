@@ -27,6 +27,7 @@ function a_plot = plotfICurve(a_bundle, an_index, props)
 % See also: plot_abstract, plot_superpose
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/16
 
 if ~ exist('props')

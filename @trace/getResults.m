@@ -7,6 +7,7 @@ function results = getResults(t, plotit)
 % results = getResults(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %
@@ -17,6 +18,7 @@ function results = getResults(t, plotit)
 % See also: spike_shape
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 

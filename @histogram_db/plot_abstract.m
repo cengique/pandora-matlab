@@ -20,6 +20,7 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 % See also: plot_abstract, plot_simple
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 if ~ exist('command') || isempty(command)

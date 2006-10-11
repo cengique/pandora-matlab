@@ -25,12 +25,13 @@ function a_doc = doc_multi(docs, id, props)
 %	See methods('doc_multi')
 %
 % Example:
-% >> mydoc = doc_multi([doc_plot(a_plot1), doc_plot(a_plot1)], 'Two plots')
+% >> mydoc = doc_multi([doc_plot(a_plot1), doc_plot(a_plot2)], 'Two plots')
 % >> printTeXFile(mydoc, 'two_plots.tex')
 %
 % See also: doc_generate, getTeXString, doc_generate/printTeXFile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 if nargin == 0 %# Called with no params

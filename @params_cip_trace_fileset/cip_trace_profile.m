@@ -18,6 +18,7 @@ function a_cip_trace_profile = cip_trace_profile(fileset, file_index)
 % See also: cip_trace_profile, params_tests_fileset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 props = get(fileset, 'props');

@@ -17,6 +17,7 @@ function params_row = getParams(dataset, index, a_profile)
 % See also: itemResultsRow, params_tests_dataset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/06
 
 props = get(a_profile, 'props');

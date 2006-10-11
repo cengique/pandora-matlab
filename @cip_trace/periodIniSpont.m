@@ -7,6 +7,7 @@ function the_period = periodIniSpont(t)
 % the_period = periodIniSpont(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %
@@ -16,6 +17,7 @@ function the_period = periodIniSpont(t)
 % See also: period, cip_trace, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 time_start = 1;

@@ -6,6 +6,7 @@ function [init_idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit)
 % [init_idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %	max_idx: The index of the maximal point of the spike_shape [dt].
@@ -20,6 +21,7 @@ function [init_idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit)
 % See also: calcInitVm
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/18
 %   Taken from Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,

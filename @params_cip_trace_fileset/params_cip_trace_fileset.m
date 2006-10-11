@@ -47,6 +47,7 @@ function obj = ...
 % See also: params_tests_fileset, params_tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 if nargin == 0 %# Called with no params

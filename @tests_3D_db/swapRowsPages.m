@@ -21,6 +21,7 @@ function a_3D_db = swapRowsPages(db)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
 %# Reorder the row and page dimensions

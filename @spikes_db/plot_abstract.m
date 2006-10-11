@@ -19,6 +19,7 @@ function a_pm = plot_abstract(a_db, title_str)
 % See also: plot_abstract/plot_abstract, tests_db/plot_abstract, plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/17
 
 if ~ exist('title_str')

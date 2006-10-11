@@ -30,6 +30,7 @@ function a_plot = plotParamPairImage(a_db, test, title_str, props)
 % See also: params_tests_db/invarParam, plotImage, plot_abstract.
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/10
 
 if ~ exist('props')

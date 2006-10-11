@@ -18,6 +18,7 @@ function a_stats_db = statsAll(db, tests, props)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/24
 
 if ~ exist('props')

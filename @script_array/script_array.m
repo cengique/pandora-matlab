@@ -38,6 +38,7 @@ function obj = script_array(num_runs, id, props)
 % See also: runFirst, runLast, runJob
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/01
 
 if nargin == 0 %# Called with no params, creates empty object

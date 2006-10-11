@@ -32,6 +32,7 @@ function a_doc = doc_generate(text_string, id, props)
 % See also: doc_plot, doc_multi
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 if nargin == 0 %# Called with no params

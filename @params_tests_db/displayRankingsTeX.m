@@ -30,6 +30,7 @@ function tex_string = displayRankingsTeX(a_db, crit_db, props)
 % See also: rankVsDB, displayRowsTeX
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/20
 
 if ~ exist('props')

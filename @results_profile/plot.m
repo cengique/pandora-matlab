@@ -18,6 +18,7 @@ function h = plot(a_tests_db, title_str)
 % See also: plot_abstract, plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 if ~ exist('title_str')

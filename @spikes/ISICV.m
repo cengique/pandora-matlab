@@ -7,6 +7,7 @@ function cv = ISICV(s, a_period)
 % cv = ISICV(s, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %	a_period: The period where spikes were found (optional)
@@ -17,6 +18,7 @@ function cv = ISICV(s, a_period)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 ISIs = getISIs(s, a_period);

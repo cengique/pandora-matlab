@@ -25,6 +25,7 @@ function a_db = joinRows(db, tests, with_db, w_tests, index_col_name)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/16
 
 %# calculate correct number of parameters left after the join

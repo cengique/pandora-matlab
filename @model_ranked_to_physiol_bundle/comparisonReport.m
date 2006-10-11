@@ -1,6 +1,6 @@
 function a_doc_multi = comparisonReport(r_bundle, props)
 
-% comparisonReport - Generates a report by comparing r_bundle with the given match criteria, crit_db from crit_bundle.
+% comparisonReport - OBSOLETE - Generates a report by comparing r_bundle with the given match criteria, crit_db from crit_bundle.
 %
 % Usage:
 % a_doc_multi = comparisonReport(r_bundle, crit_bundle, crit_db, props)
@@ -28,6 +28,7 @@ function a_doc_multi = comparisonReport(r_bundle, props)
 % See also: displayRowsTeX
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 if ~ exist('props')

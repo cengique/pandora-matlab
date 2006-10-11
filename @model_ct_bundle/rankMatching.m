@@ -1,6 +1,6 @@
 function a_ranked_db = rankMatching(a_mbundle, a_crit_db, props)
 
-% rankMatching - Create a model_ranked_to_physiol_bundle from given criterion db.
+% rankMatching - Create a ranked_db from given criterion db.
 %
 % Usage:
 % a_ranked_db = rankMatching(a_mbundle, a_crit_db, props)
@@ -14,13 +14,14 @@ function a_ranked_db = rankMatching(a_mbundle, a_crit_db, props)
 %	  (passed to tests_db/rankMatching)
 %		
 % Returns:
-%	a_ranked_bundle: a model_ranked_to_physiol_bundle object containing the rankings.
+%	a_ranked_db: a ranked_db object containing the rankings.
 %
 % Example: (see example in physiol_bundle/matchingRow)
 %
-% See also: tests_db/rankMatching, model_ranked_to_physiol_bundle
+% See also: tests_db/rankMatching, ranked_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/18
 
 if ~exist('props')

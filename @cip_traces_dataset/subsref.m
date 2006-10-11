@@ -1,5 +1,6 @@
 function b = subsref(a,index)
 % subsref - Defines generic indexing for objects.
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 if size(index, 2) > 1
   first = subsref(a, index(1));

@@ -33,6 +33,7 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 % See also: plot_abstract, plot_abstract/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 %# TODO: redundant class. Make this a method in plot_abstract

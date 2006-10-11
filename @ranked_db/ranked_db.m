@@ -33,6 +33,7 @@ function a_ranked_db = ranked_db(data, col_names, orig_db, crit_db, id, props)
 % See also: tests_db, tests_db/rankMatching, tests_db/matchingRow
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/21
 
 if nargin == 0 %# Called with no params

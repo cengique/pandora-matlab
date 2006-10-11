@@ -25,6 +25,7 @@ function tex_string = getTeXString(a_doc, props)
 % See also: doc_generate, doc_plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 fig_num = plot(a_doc);

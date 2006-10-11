@@ -3,19 +3,21 @@ function a_plot = plotRowSpontSpikeAnal(prof, title_str)
 % plotRowSpontSpikeAnal - Creates a row of plots that show spontaneous spikes, starting from the whole trace, zooming into the individual spike.
 %
 % Usage: 
-% a_plot = plotRowSpontSpikeAnal(prof)
+% a_plot = plotRowSpontSpikeAnal(prof, title_str)
 %
 % Description:
+%
 %   Parameters:
 %	prof: A cip_trace_allspikes_profile object.
+%	title_str: (Optional) String to append to plot title.
 %
 %   Returns:
 %	a_plot: A plot_abstract object that can be visualized.
-%	title_str: (Optional) String to append to plot title.
 %
 % See also: trace, cip_trace, spike_shape/plotCompareMethodsSimple, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/05/23
 
 if ~ exist('title_str')

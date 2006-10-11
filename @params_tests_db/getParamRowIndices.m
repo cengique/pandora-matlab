@@ -18,6 +18,7 @@ function row_indices = getParamRowIndices(a_db, rows, to_db)
 % See also: makeModifiedParamDB, scanParamAllRows, scaleParamsOneRow, makeGenesisParFile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/14
 
 if ischar(rows) && strcmp(rows, ':')

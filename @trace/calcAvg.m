@@ -7,6 +7,7 @@ function avg_val = calcAvg(t, a_period)
 % avg_val = calcAvg(t, period)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %	period: A period object (optional).
@@ -14,6 +15,7 @@ function avg_val = calcAvg(t, a_period)
 % See also: period, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 
 if nargin == 0 %# Called with no params

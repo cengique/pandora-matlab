@@ -30,6 +30,7 @@ function a_ss_profile = spike_shape_profile(results, a_spike_shape, props)
 % See also: results_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/17
 
 if nargin == 0 %# Called with no params, creates empty object

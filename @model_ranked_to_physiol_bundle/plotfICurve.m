@@ -1,6 +1,6 @@
 function a_doc = docfICurve(r_bundle, rank_num, props)
 
-% docfICurve - Generates a a_p of given rank_num from the ranked_bundle.
+% docfICurve - OBSOLETE - Generates a a_p of given rank_num from the ranked_bundle.
 %
 % Usage:
 % a_doc = docfICurve(r_bundle, crit_bundle, crit_db, props)
@@ -22,6 +22,7 @@ function a_doc = docfICurve(r_bundle, rank_num, props)
 % See also: doc_generate, doc_plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/16
 
 a_ranked_db = r_bundle.ranked_db;

@@ -17,6 +17,7 @@ function results = getResults(a_cip_trace, a_spikes)
 % See also: cip_trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 results = mergeStructs(getRateResults(a_cip_trace, a_spikes), ...

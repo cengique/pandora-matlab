@@ -25,6 +25,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 % See also: cip_trace, spikes, period, spike_shape, getProfileAllSpikes
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/05/04
 
   vs = warning('query', 'verbose');

@@ -20,6 +20,7 @@ function a_3D_db = invarParam(db, param)
 % See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 col_name_cell = fieldnames(get(db, 'col_idx'));

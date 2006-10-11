@@ -21,6 +21,7 @@ function a_cip_trace = cip_trace(fileset, file_index)
 % See also: cip_trace, params_tests_fileset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 if isa(file_index, 'tests_db')

@@ -24,6 +24,7 @@ function a_cip_trace = cip_trace(fileset, traceset_index, trace_index, props)
 % See also: loadItemProfile, physiol_cip_traceset/cip_trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/07/13
 
 if ~exist('props')

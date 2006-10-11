@@ -19,6 +19,7 @@ function t_hists = testsHists(a_db, num_bins)
 % See also: params_tests_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_dbs = length(a_db);

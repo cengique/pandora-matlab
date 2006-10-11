@@ -14,13 +14,14 @@ function a_cip_trace = ctFromRows(a_mbundle, a_db, cip_levels, props)
 %	cip_levels: A column vector of CIP-levels to be loaded.
 %	props: A structure with any optional properties.
 %	  (passed to a_mbundle.dataset/cip_trace)
-%		
+%
 %   Returns:
 %	a_cip_trace: One or more cip_trace objects that hold the raw data.
 %
-% See also: loadItemProfile, physiol_cip_traceset/cip_trace
+% See also: dataset_db_bundle/ctFromRows
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/07/13
 
 if ~exist('props')

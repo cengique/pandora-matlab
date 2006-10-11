@@ -21,6 +21,7 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 % See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
 %# Fold into two, according to cip values

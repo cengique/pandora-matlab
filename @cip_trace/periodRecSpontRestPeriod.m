@@ -7,6 +7,7 @@ function the_period = periodRecSpontRestPeriod(t, IniPeriod)
 % the_period = periodRecSpont(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %   iniPeriod: the time following pulse offset that is ignored. The rest of
@@ -18,6 +19,7 @@ function the_period = periodRecSpontRestPeriod(t, IniPeriod)
 % See also: period, cip_trace, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>,Tom Sangrey 2006/01/26
 
 time_start = t.pulse_time_start + t.pulse_time_width;

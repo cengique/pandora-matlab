@@ -23,6 +23,7 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 % See also: params_tests_profile, plotVar
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 if ~ exist('title_str')

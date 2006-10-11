@@ -7,6 +7,7 @@ function avg_val = calcRecSpontPotAvg(t)
 % avg_val = calcRecSpontPotAvg(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A cip_trace object.
 %
@@ -16,6 +17,7 @@ function avg_val = calcRecSpontPotAvg(t)
 % See also: period, trace, trace/calcAvg
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 avg_val = calcAvg(t.trace, periodRecSpont(t));

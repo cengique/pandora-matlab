@@ -21,6 +21,7 @@ function a_db = shufflerows(db, tests, grouped)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/10
 
 if ~ exist('grouped')

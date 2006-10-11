@@ -21,6 +21,7 @@ function [a_db, varargout] = std(a_db, sflag, dim)
 % See also: std, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 if ~ exist('dim')

@@ -21,6 +21,7 @@ function [min_val, min_idx, sag_val] = calcPulsePotSag(t)
 % See also: period, trace, trace/calcMin
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 %# Minimum of the first half of the CIP period

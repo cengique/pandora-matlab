@@ -22,6 +22,7 @@ function [a_fileset, index_list] = addFiles(a_fileset, file_pattern, props)
 % See also: params_tests_fileset, params_tests_dataset/params_test_db.
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/01
 
 if ~ exist('props')

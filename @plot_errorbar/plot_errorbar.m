@@ -35,6 +35,7 @@ function a_plot = plot_errorbar(x_vals, mid_vals, lo_vals, hi_vals, line_spec, .
 % See also: plot_abstract, plot_abstract/plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 %# Note: class exists only because the axis method needs to be overridden

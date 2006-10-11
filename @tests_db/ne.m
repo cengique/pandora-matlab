@@ -17,6 +17,7 @@ function rows = ne(db, row)
 % See also: ne, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 rows = ~ eq(db, row);

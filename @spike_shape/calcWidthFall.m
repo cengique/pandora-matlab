@@ -34,6 +34,7 @@ function [base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
 % See also: spike_shape
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.

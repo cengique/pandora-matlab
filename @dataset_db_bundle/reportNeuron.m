@@ -6,11 +6,8 @@ function a_doc_multi = reportNeuron(a_bundle, an_index, props)
 % a_doc_multi = reportNeuron(a_bundle, an_index, props)
 %
 % Description:
-%   Generates a report document with some of the following annotated plots of
-% the selected neuron:
-%	- raw traces of the neuron
-%	- f-I curves
-%	- spont and pulse spike shapes
+%   Generates a report document with preset layouts of annotated plots of
+% the selected neuron. See reportLayout below for presets.
 %
 % Parameters:
 %	a_bundle: a dataset_db_bundle object which contains the neuron
@@ -44,6 +41,7 @@ function a_doc_multi = reportNeuron(a_bundle, an_index, props)
 % See also: doc_multi, doc_generate, doc_generate/printTeXFile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/24
 
 %# TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)

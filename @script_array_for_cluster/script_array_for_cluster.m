@@ -38,6 +38,7 @@ function a_script_cluster = script_array_for_cluster(num_runs, sge_wrapper_scrip
 % See also: runFirst, runLast, runJob, script_array
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/02
 
 if nargin == 0 %# Called with no params, creates empty object

@@ -10,6 +10,7 @@ function [init_val, init_idx, rise_time, amplitude, ...
 %	calcInitVm(s, max_idx, min_idx)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %	max_idx: The index of the maximal point of the spike_shape [dt].
@@ -30,6 +31,7 @@ function [init_val, init_idx, rise_time, amplitude, ...
 % See also: spike_shape
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.

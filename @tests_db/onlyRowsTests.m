@@ -21,6 +21,7 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 % See also: subsref, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 %# Setup lookup tables

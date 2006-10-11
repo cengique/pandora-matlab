@@ -7,6 +7,7 @@ function the_period = periodPulseIni100ms(t)
 % the_period = periodPulseIni100ms(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %
@@ -16,6 +17,7 @@ function the_period = periodPulseIni100ms(t)
 % See also: period, cip_trace, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 the_period = period(t.pulse_time_start, t.pulse_time_start + ...

@@ -22,6 +22,7 @@ function a_db = joinPages(db, tests, with_db, w_tests)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/15
 
 data = get(db, 'data');

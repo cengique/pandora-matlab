@@ -19,6 +19,7 @@ function a_plot = plotEqSpaced(a_hist_db, command, props)
 % See also: plot_abstract, plot_simple
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
 if ~ exist('command') || isempty(command)

@@ -7,6 +7,7 @@ function [max_val, max_idx] = calcMax(t, a_period)
 % [max_val, max_idx] = calcMax(t, period)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %	period: A period object (optional).
@@ -18,6 +19,7 @@ function [max_val, max_idx] = calcMax(t, a_period)
 % See also: period, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 
 if nargin == 0 %# Called with no params

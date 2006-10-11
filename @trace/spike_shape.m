@@ -15,6 +15,7 @@ function obj = spike_shape(t, s, props)
 % See also: spike_shape
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 

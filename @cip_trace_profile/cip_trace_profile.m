@@ -50,6 +50,7 @@ function obj = ...
 % See also: cip_trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 if nargin == 0 %# Called with no params, creates empty object

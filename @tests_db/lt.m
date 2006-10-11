@@ -18,6 +18,7 @@ function rows = lt(db, row)
 % See also: lt, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 [rows comparison] = compareRows(db, row);

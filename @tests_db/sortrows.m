@@ -20,6 +20,7 @@ function [sorted, idx] = sortrows(db, cols)
 % See also: sortrows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/11
 
 if ~ exist('cols')

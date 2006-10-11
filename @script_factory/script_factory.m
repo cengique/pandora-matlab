@@ -31,6 +31,7 @@ function obj = script_factory(num_scripts, out_name, id, props)
 % See also: script_factory/writeScripts
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/11/28
 
 if nargin == 0 %# Called with no params, creates empty object

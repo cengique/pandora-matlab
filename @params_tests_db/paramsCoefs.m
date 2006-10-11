@@ -18,6 +18,7 @@ function p_coefs = paramsCoefs(a_db, p_t3ds)
 % See also: params_tests_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 num_params = a_db.num_params;

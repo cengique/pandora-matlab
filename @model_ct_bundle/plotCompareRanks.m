@@ -25,6 +25,7 @@ function plots = plotCompareRanks(m_bundle, p_bundle, a_ranked_db, ranks, props)
 % See also: 
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/16
 
 joined_db = joinOriginal(a_ranked_db);

@@ -20,6 +20,7 @@ function a_profile = loadItemProfile(dataset, index)
 % See also: itemResultsRow, params_tests_dataset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 %# Load a trace_profile object

@@ -19,6 +19,7 @@ function sfa = SFA(s, a_period)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 ISIs = getISIs(s, a_period);

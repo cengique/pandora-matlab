@@ -42,6 +42,7 @@ function obj = trace_profile(varargin)
 % See also: trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 %# TODO: 

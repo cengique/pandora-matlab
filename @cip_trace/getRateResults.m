@@ -17,6 +17,7 @@ function results = getRateResults(a_cip_trace, a_spikes)
 % See also: cip_trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/30
 
 %# Spike rates [Hz] in total spikes over time method for all periods

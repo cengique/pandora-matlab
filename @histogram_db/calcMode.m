@@ -17,6 +17,7 @@ function [mode_val, mode_mag] = mode(a_hist_db)
 % See also: histogram_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/27
 
 data = get(a_hist_db, 'data');

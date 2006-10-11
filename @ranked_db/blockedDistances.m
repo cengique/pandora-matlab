@@ -31,6 +31,7 @@ function [a_db, ranked_dbs] = ...
 % See also: makeModifiedParamDB, getParamRowIndices
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/14
 
 if ~exist('rows')

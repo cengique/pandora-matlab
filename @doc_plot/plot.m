@@ -18,9 +18,10 @@ function figure_handle = plot(a_doc, props)
 % Example:
 %	>> figure_handle = plot(a_doc_plot)
 %
-% See also: plotFigure, doc_generate, doc_plot
+% See also: plot_abstract/plotFigure, doc_generate, doc_plot
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 figure_handle = plotFigure(get(a_doc, 'plot'));

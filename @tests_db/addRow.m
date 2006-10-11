@@ -24,6 +24,7 @@ function obj = addRow(obj, row, index)
 % See also: addLastRow, allocateRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
 
 if (dbsize(obj, 1) > 0 && size(row, 2) ~= dbsize(obj, 2)) || ...

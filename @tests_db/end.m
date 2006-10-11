@@ -16,6 +16,7 @@ function s = end(db, index, total)
 % See also: size, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 s = dbsize(db, index);

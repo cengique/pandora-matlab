@@ -7,6 +7,7 @@ function [results, a_plot] = getResults(s, plotit)
 % [results, a_plot] = getResults(s, plotit)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %	plotit: If non-zero, plot a graph annotating the test results 
@@ -19,6 +20,7 @@ function [results, a_plot] = getResults(s, plotit)
 % See also: spike_shape
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.

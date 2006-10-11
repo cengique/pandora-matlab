@@ -25,6 +25,7 @@ function a_mbundle = addToDB(a_mbundle, a_raw_db, props)
 % See also: params_tests_fileset/addFiles, multi_fileset_gpsim_cns2005/addFileDir
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/06
 
 if ~ exist('props')

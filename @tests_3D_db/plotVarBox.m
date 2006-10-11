@@ -21,6 +21,7 @@ function a_plot = plotVarBox(a_db, test1, test2, notch, sym, vert, whis, props)
 % See also: boxplot, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/10
 
 if ~ exist('props')

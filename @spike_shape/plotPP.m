@@ -6,6 +6,7 @@ function a_plot = plotPP(s)
 % a_plot = plotPP(s)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %
@@ -15,6 +16,7 @@ function a_plot = plotPP(s)
 % See also: spike_shape, plot_abstract
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/16
 

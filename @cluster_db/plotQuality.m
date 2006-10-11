@@ -17,6 +17,7 @@ function a_plot = plotQuality(a_cluster_db, title_str)
 % See also: plot_abstract, plotFigure, silhouette
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/08
 
 tests_props = get(a_cluster_db, 'props');

@@ -19,6 +19,7 @@ function s = displayRows(db, rows, pages)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/15
 
 % Modified: CG 2005/08/17 - Renamed from displayRow

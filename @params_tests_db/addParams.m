@@ -25,6 +25,7 @@ function obj = addParams(obj, param_names, param_columns)
 % See also: allocateRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/11
 
 if (dbsize(obj, 1) > 0 && size(param_columns, 1) ~= dbsize(obj, 1))

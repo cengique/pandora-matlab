@@ -1,6 +1,6 @@
 function results = getCIPResults(a_cip_trace, a_spikes)
 
-% getCIPResults - Calculate test results related to cip_trace.
+% getCIPResults - Calculate test results about CIP protocol.
 %
 % Usage:
 % results = getCIPResults(a_cip_trace, a_spikes)
@@ -17,6 +17,7 @@ function results = getCIPResults(a_cip_trace, a_spikes)
 % See also: cip_trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/30
 
 %# convert all to ms/mV

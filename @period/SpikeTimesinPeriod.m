@@ -6,6 +6,7 @@ function SpkTimes = SpikeTimesinPeriod(period, times)
 % SpkTimes=Interval(times, period)
 %
 % Description:
+%
 %   Parameters:
 %	times: an array of spike times.
 %   period: A period object
@@ -16,6 +17,7 @@ function SpkTimes = SpikeTimesinPeriod(period, times)
 % See also: period, cip_trace, trace, spikes
 %
 % $Id$
+%
 % Author: Tom Sangrey, 2006/01/26
 
 %get period boundaries and the number of spikes

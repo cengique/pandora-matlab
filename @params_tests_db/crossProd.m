@@ -18,6 +18,7 @@ function cross_db = crossProd(a_db, b_db)
 % See also: tests_db/crossProd
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/11
 
 a_num_params = get(a_db, 'num_params');

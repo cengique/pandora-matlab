@@ -65,6 +65,7 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 % See also: params_tests_db, params_db, test_variable_db (N/I)
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/01
 
 if nargin == 0 %# Called with no params

@@ -16,6 +16,7 @@ function s = dbsize(db, dim)
 % See also: size, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 if exist('dim')

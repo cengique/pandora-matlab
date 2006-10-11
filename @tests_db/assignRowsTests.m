@@ -21,6 +21,7 @@ function obj = assignRowsTests(obj, val, rows, tests, pages)
 % See also: subsref, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/08
 
 %# Pages

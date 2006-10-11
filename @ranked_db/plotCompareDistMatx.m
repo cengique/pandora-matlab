@@ -30,6 +30,7 @@ function a_plot = ...
 % See also: tests_db, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/12
 
 if ~ exist('props')

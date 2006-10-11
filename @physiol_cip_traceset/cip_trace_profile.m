@@ -17,6 +17,7 @@ function a_profile = cip_trace_profile(traceset, trace_index)
 % See also: itemResultsRow, params_tests_fileset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu> and Thomas Sangrey, 2005/01/18
 
 traceset_props = get(traceset, 'props');

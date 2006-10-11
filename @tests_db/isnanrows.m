@@ -21,6 +21,7 @@ function rows = isnanrows(db)
 % See also: isnan, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/08
 
 if ndims(db.data) > 2 

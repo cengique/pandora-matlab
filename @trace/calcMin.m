@@ -7,6 +7,7 @@ function [min_val, min_idx] = calcMin(t, a_period)
 % [min_val, min_idx] = calcMin(t, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %	a_period: A period object (optional).
@@ -18,6 +19,7 @@ function [min_val, min_idx] = calcMin(t, a_period)
 % See also: period, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
 
 if nargin == 0 %# Called with no params

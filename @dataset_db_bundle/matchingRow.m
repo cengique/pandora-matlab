@@ -26,6 +26,7 @@ function crit_db = matchingRow(a_bundle, row, props)
 % See also: rankMatching, tests_db, tests2cols
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/21
 
 if ~ exist('props')

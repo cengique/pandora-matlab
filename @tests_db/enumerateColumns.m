@@ -26,6 +26,7 @@ function a_db = enumerateColumns(a_db, tests, props)
 % See also: uniqueValues
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/14
 
 if ~ exist('props')

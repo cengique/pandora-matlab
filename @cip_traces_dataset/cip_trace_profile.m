@@ -18,6 +18,7 @@ function a_cip_trace_profile = cip_trace_profile(dataset, index)
 % See also: cip_trace_profile, params_tests_dataset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 
 %# Load a cip_trace_profile object

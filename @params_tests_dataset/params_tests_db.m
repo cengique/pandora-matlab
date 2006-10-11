@@ -24,6 +24,7 @@ function db_obj = params_tests_db(obj, items, props)
 %	    testNames, paramNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/09
 
 if ~ exist('props')

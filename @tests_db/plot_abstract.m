@@ -23,6 +23,7 @@ function a_pm = plot_abstract(a_db, title_str)
 % See also: plot_abstract/plot_abstract, plotTestsHistsMatrix, plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/17
 
 if ~ exist('title_str')

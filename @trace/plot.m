@@ -6,6 +6,7 @@ function h = plot(t, title_str)
 % h = plot(t)
 %
 % Description:
+%
 %   Parameters:
 %	t: A trace object.
 %	title_str: (Optional) String to append to plot title.
@@ -16,6 +17,7 @@ function h = plot(t, title_str)
 % See also: trace, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/04
 
 if ~ exist('title_str')

@@ -19,6 +19,7 @@ function a_plot = plotrows(a_tests_db, axis_limits, orientation, props)
 % See also: plot_abstract, plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/09
 
 if ~ exist('props')

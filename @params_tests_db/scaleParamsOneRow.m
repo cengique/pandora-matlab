@@ -25,6 +25,7 @@ function a_params_db = scaleParamsOneRow(a_db, params, levels)
 % See also: ranked_db/blockedDistances, getParamRowIndices, makeGenesisParFile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/16
 
 if ~ iscell(params)

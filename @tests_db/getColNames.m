@@ -18,6 +18,7 @@ function col_names = getColNames(db, tests)
 % See also: getColNames, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
 
 if ~ exist('tests')

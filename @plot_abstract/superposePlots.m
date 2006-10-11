@@ -23,6 +23,7 @@ function a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 % See also: plot_abstract, plot_abstract/plot, plot_abstract/plotFigure
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/23
 
 if ~ exist('props')

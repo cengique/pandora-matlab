@@ -1,6 +1,6 @@
 function a_bundle = model_ct_bundle(a_dataset, a_db, a_joined_db, props)
 
-% model_ct_bundle - The model dataset and the DB created from it bundled together.
+% model_ct_bundle - The model cip_trace dataset and the DB created from it bundled together.
 %
 % Usage:
 % a_bundle = model_ct_bundle(a_dataset, a_db, a_joined_db, props)
@@ -30,6 +30,7 @@ function a_bundle = model_ct_bundle(a_dataset, a_db, a_joined_db, props)
 % See also: dataset_db_bundle, tests_db, params_tests_dataset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/13
 
 if nargin == 0 %# Called with no params

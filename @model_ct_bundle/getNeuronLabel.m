@@ -18,6 +18,7 @@ function a_label = getNeuronLabel(a_bundle, trial_num, props)
 % See also: dataset_db_bundle
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/26
 
 if ~exist('props')

@@ -24,6 +24,7 @@ function [pt_hists, p_stats] = paramsTestsHistsStats(p_t3ds, props)
 % See also: invarParams, params_tests_profile
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
 %# TODO: use only p_stats, guess num_params by number of pages

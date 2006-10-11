@@ -7,6 +7,7 @@ function [a_tau, da_inf] = spikeAmpSlope(a_spikes, a_trace, a_period)
 % [a_tau, da_inf] = spikeAmpSlope(a_spikes, a_trace, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	a_spikes: A spikes object.
 %	a_trace: A trace object.
@@ -19,6 +20,7 @@ function [a_tau, da_inf] = spikeAmpSlope(a_spikes, a_trace, a_period)
 % See also: period, spikes, trace
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/15
 
 %# By default apply to the whole of s, t

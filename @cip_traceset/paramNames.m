@@ -17,6 +17,7 @@ function param_names = paramNames(traceset)
 % See also: params_tests_dataset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/06
 
 %# CIP magnitude in pA

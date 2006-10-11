@@ -1,5 +1,6 @@
 function a = subsasgn(a, index, val)
 % subsasgn - Defines generic index-based assignment for objects.
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/06
 if size(index, 2) > 1
   %# recursive

@@ -20,6 +20,7 @@ function a_histogram_db = histogram(db, col, num_bins)
 % See also: histogram_db, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 if ~ exist('num_bins')

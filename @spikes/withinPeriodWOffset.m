@@ -6,6 +6,7 @@ function obj = withinPeriodWOffset(s, a_period)
 % obj = withinPeriodWOffset(s, a_period)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spikes object.
 %	a_period: The desired period 
@@ -16,6 +17,7 @@ function obj = withinPeriodWOffset(s, a_period)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/05/09
 
 s.times = s.times(s.times > a_period.start_time & s.times <= a_period.end_time);

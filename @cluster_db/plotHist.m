@@ -1,6 +1,6 @@
 function a_plot = plotHist(a_cluster_db, title_str)
 
-% plotHist - Creates a plot_abstract of the silhouette plot showing the clustering quality.
+% plotHist - Creates a histogram plot showing the clustering memberships.
 %
 % Usage:
 % a_plot = plotHist(a_cluster_db, title_str)
@@ -17,6 +17,7 @@ function a_plot = plotHist(a_cluster_db, title_str)
 % See also: plot_abstract, plotFigure, histogram_db, histogram_db/plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/08
 
 if ~ exist('title_str')

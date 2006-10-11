@@ -6,6 +6,7 @@ function a_plot = plotResults(s, title_str, props)
 % a_plot = plotResults(s, title_str, props)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %
@@ -17,6 +18,7 @@ function a_plot = plotResults(s, title_str, props)
 % See also: spike_shape, plot_abstract
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/17
 

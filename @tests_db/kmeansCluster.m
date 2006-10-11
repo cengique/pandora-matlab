@@ -23,6 +23,7 @@ function a_cluster_db = kmeansCluster(db, num_clusters, props)
 % See also: tests_db, histogram_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/06
 
 if ~ exist('props')

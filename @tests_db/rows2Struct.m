@@ -18,6 +18,7 @@ function s = rows2Struct(db, rows, pages)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/17
 
 if ~ exist('pages')

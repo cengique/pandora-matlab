@@ -20,6 +20,7 @@ function a_tests_db = diff2D(a_db, test, props)
 % See also: boxplot, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/05/22
 
 if ~ exist('props')

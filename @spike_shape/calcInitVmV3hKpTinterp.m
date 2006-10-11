@@ -29,6 +29,7 @@ function [init_idx, a_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, ...
 % See also: calcInitVm
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/11/18
 %   Taken from Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,

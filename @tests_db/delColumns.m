@@ -24,6 +24,7 @@ function obj = delColumns(obj, tests)
 % See also: allocateRows, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/06
 
 cols = tests2cols(obj, tests);

@@ -21,6 +21,7 @@ function obj = onlyRowsTests(obj, varargin)
 % See also: subsref, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
 %# Adjust the number of parameters and then delegate the filtering to 

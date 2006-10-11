@@ -22,6 +22,7 @@ function [params, param_names, tests, test_names] = readDBItems(obj, items)
   %	    testNames, paramNames, physiol_cip_traceset_fileset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/24
 
 if ~ exist('items')

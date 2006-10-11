@@ -6,8 +6,8 @@ function a_spikes_db = spikes_db(data, col_names, a_trace, a_period, id, props)
 % a_spikes_db = spikes_db(data, col_names, a_trace, a_period, id, props)
 %
 % Description:
-%   This is a subclass of tests_db. Use one of the clustering methods in 
-% tests_db, such as kmeansCluster, to get an instance of this class.
+%   This is a subclass of tests_db. Use trace/analyzeSpikesInPeriod to 
+% get an instance of this class.
 %
 %   Parameters:
 %	data: Database contents.
@@ -27,15 +27,15 @@ function a_spikes_db = spikes_db(data, col_names, a_trace, a_period, id, props)
 % Additional methods:
 %	See methods('spikes_db')
 %
-% See also: tests_db, trace, period
+% See also: tests_db, trace, period, trace/analyzeSpikesInPeriod
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/17
 
 if nargin == 0 %# Called with no params
    a_spikes_db.trace = trace;
    a_spikes_db.period = period;
-   a_spikes_db.props = struct([]);
    a_spikes_db = class(a_spikes_db, 'spikes_db', tests_db);
  elseif isa(data, 'spikes_db') %# copy constructor?
    a_spikes_db = data;
@@ -47,7 +47,6 @@ if nargin == 0 %# Called with no params
 
    a_spikes_db.trace = a_trace;
    a_spikes_db.period = a_period;
-   a_spikes_db.props = props;
 
    %# Create subclass object
    a_spikes_db = class(a_spikes_db, 'spikes_db', ...

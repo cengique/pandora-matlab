@@ -17,6 +17,7 @@ function results = getBurstResults(a_cip_trace, a_spikes)
 % See also: cip_trace, spikes, spike_shape
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/30, Tom Sangrey
 % 2006/1/23
 

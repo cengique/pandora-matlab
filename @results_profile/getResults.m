@@ -6,6 +6,7 @@ function results = getResults(p)
 % results = getResults(p)
 %
 % Description:
+%
 %   Parameters:
 %	p: A result_profile object.
 %
@@ -15,6 +16,7 @@ function results = getResults(p)
 % See also: results_profile
 %
 % $Id$
+%
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
 

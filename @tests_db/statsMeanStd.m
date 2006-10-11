@@ -19,6 +19,7 @@ function a_stats_db = statsMeanStd(db, tests, props)
 % See also: tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
 if ~ exist('props')

@@ -32,6 +32,7 @@ function a_pt_profile = getProfile(a_db, props)
 %		tests_db, tests_3D_db, histogram_db, stats_db, corrcoefs_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/13
 
 %# TODO: 

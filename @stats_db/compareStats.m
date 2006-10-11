@@ -18,6 +18,7 @@ function a_mult_stats_db = compareStats(a_stats_db, varargin)
 % See also: plot_abstract, plot_simple
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/08
 
 if ~ exist('props')

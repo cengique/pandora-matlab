@@ -32,6 +32,7 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 % See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices, logLevels
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/16
 
 if ~exist('props')

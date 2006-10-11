@@ -20,6 +20,7 @@ function a_ps = plotParamsHists(a_db, title_str, props)
 % See also: plot_stack, paramsHists, plotEqSpaced
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/07
 
 if ~exist('props')

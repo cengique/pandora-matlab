@@ -16,7 +16,8 @@ function a_bundle = physiol_bundle(a_dataset, a_db, a_joined_db, props)
 %   This is a subclass of dataset_db_bundle, specialized for physiology datasets. 
 %
 % Returns a structure object with the following fields:
-%	dataset_db_bundle.
+%	dataset_db_bundle, 
+%	joined_control_db: DB of control neurons (no pharmacological applications).
 %
 % General operations on physiol_bundle objects:
 %   physiol_bundle 	- Construct a new physiol_bundle object.
@@ -30,6 +31,7 @@ function a_bundle = physiol_bundle(a_dataset, a_db, a_joined_db, props)
 % See also: dataset_db_bundle, tests_db, params_tests_dataset
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/13
 
 if nargin == 0 %# Called with no params

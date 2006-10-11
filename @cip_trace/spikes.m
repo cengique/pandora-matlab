@@ -18,6 +18,7 @@ function obj = spikes(t, plotit)
 % See also: spikes, period
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 if nargin == 0 %# Called with no params

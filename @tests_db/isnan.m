@@ -17,6 +17,7 @@ function rows = isnan(db, col)
 % See also: isnan, tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
 if ~ exist('col')

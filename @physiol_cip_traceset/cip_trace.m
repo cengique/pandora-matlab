@@ -21,6 +21,7 @@ function a_cip_trace = cip_trace(traceset, trace_index, props)
 % See also: itemResultsRow, params_tests_fileset, paramNames, testNames
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/07/13
 
 if ~ exist('props')

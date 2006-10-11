@@ -35,6 +35,7 @@ function a_coefs_db = corrCoefs(db, col1, cols, props)
 % See also: tests_db, corrcoefs_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
 if ~ exist('props')

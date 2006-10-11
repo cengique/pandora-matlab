@@ -31,6 +31,7 @@ function obj = cip_traceset_dataset(cts, cip_mags, dy, id, props)
 % See also: physiol_cip_traceset, params_tests_dataset, params_tests_db
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/28
 %	  Based on physiol_cip_traceset_fileset created with Tom Sangrey.
 

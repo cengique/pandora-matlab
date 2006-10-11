@@ -6,6 +6,7 @@ function a_plot = plot_abstract(s, props)
 % a_plot = plot_abstract(s, props)
 %
 % Description:
+%
 %   Parameters:
 %	s: A spike_shape object.
 %	props: A structure with any optional properties.
@@ -18,6 +19,7 @@ function a_plot = plot_abstract(s, props)
 % See also: spike_shape, plot_abstract
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/08/17
 
 if ~ exist('props')
