@@ -1,0 +1,8 @@
+
+Regex to add an empty line between comment lines:
+^\(%[ \t]*Description:\)\([^%]\)\(%[ \t]*Parameter\)
+\1\2%\2\3
+
+Regex to add an empty line before Author comment line:
+^\(%[ \t]*\w.*\)\([^%]*\)\(%[ \t]*Author:\)
+\1\2%\2\3
