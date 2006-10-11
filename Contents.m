@@ -19,8 +19,8 @@
 %   cip_trace_profile	- Holds cip_trace results. Template class designed 
 %			only for subclassing.
 %   cip_trace_allspikes_profile 
-%			- Created by cip_trace/getProfileAllSpikes, contains spike shape
-%			  from individual spikes.
+%			- Created by cip_trace/getProfileAllSpikes, contains statistics
+%			  of spike shape measures from individual spikes.
 %   params_tests_profile- Collects both intermediate and result data structures 
 %			from analysis of a params_tests_db.
 %
@@ -53,7 +53,7 @@
 %   plot_simple		- Simple extension that works for most simple plots.
 %   plot_stack		- Holds horizontal or vertical stack of plot_abstract objects.
 %   plot_superpose	- Allows superposing different plot_abstract's in the same axis.
-%   plot_bars		- Bar plot with extended errorbars.
+%   plot_bars		- Multi-axis bar plot with extended errorbars.
 %   plot_errorbar	- Errorbar plot.
 %   plot_errorbars	- Multi-axis errorbar plot.
 %
@@ -65,11 +65,12 @@
 % Script control classes for cluster computing:
 %   script_factory	- Generates a set of scripts based on a recipe.
 %   script_array	- Designed to execute an array job serially on a computer.
-%   script_array_for_cluster - Executes an array job on a cluster.
+%   script_array_for_cluster - Executes an array job on a cluster computer.
 %
 % Notes:
 %
 % See also: subclasses under classes/cengiz
 %
 % $Id$
+%
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/14
