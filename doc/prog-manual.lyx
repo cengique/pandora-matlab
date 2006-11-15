@@ -222,24 +222,32 @@ end{latexonly}
 
 
 \begin_inset Note
-collapsed false
+collapsed true
 
 \layout Standard
 
 TODO:
 \layout Standard
 
-- se parate document into two? user's and admin manuals?
+- make a tutorial section that explains usage bottom-up.
+ start from trace, profile, and dataset to database.
 \layout Standard
 
-- get a new version of umbrello and re-do figures, or simply edit them.
- there's a font size calculation problem.
+- more visualization.
+ look at paper figures and do similar examples.
+ weed out obsolete methods, put examples into funcref of current usage.
 \layout Standard
 
 - add section on extensibility.
+ maybe at end of software part.
 \layout Standard
 
-- put download info in install section
+- put download info in install section.
+ before that include all external functions, choose a license, and make
+ an ant file to create binary and documentation packages.
+\layout Standard
+
+- separate document into two? user's and admin manuals? [no...]
 \end_inset 
 
 
@@ -371,6 +379,38 @@ This version of the toolbox does not yet have a general graphical user interface
  Scripts can be made to programmatically repeat these procedures.
  Existing object classes are designed with the prospect of future extension,
  to accommodate new types of data and analyses.
+\layout Subsection
+
+Who is it made for?
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+appname{}
+\end_inset 
+
+ is customized for neuroscientific research.
+ However, the concepts of a complex dataset, extraction of multiple observations
+ from each item of the dataset, and analysis of multi-dimensional parameter
+ spaces are universal.
+ In its current form the database and dataset classes can be used for data
+ other than electrophysiologic sources.
+ As this toolbox is designed for flexible extensibility, one can add extensions
+ that deal with different types of data and analyses.
+\begin_inset Note
+collapsed true
+
+\layout Standard
+
+link to extensibility section
+\end_inset 
+
+
 \layout Subsection
 
 Finding your way around
@@ -1191,11 +1231,11 @@ clearpage
 
 \layout Subsection
 
-Data wrappers hold the raw data
+Wrapper classes hold raw data
 \layout Standard
 
-Data wrappers are classes designed to hold data and provide simple methods
- that operate on them.
+Wrapper classes are designed to hold data and provide simple methods that
+ operate on them.
  They can either hold raw data, or intermediate processed forms of data
  being byproducts of analysis routines.
  In the overall schema of Figure 
@@ -3865,6 +3905,63 @@ Finally, to print the figure, consult your Matlab manual or issue a command
 See below for specific types of figures you can create.
 \layout Subsection
 
+Visualizing traces
+\layout Standard
+
+
+\begin_inset Float figure
+wide false
+collapsed false
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename cip_trace_plot_compact.eps
+	display none
+	width 50text%
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:cip_trace}
+
+\end_inset 
+
+Example trace plot.
+\end_inset 
+
+The 
+\family typewriter 
+trace,
+\family default 
+ and its subclasses such as 
+\family typewriter 
+cip_trace
+\family default 
+, has the plot command overloaded to draw the raw trace in Figure 
+\begin_inset LatexCommand \ref{figcap:cip_trace}
+
+\end_inset 
+
+:
+\layout LyX-Code
+
+>> a_ct = ctFromRows(mbundle, 9842, 100);
+\layout LyX-Code
+
+>> plot(a_ct)
+\layout Standard
+
+Note that the plot in the figure has been created with a more precise control:
+\layout LyX-Code
+
+>> plotFigure(plotData(a_ct, '', struct('PaperPosition', [0 0 3 2])))
+\layout Subsection
+
 Displaying database contents
 \layout Standard
 
@@ -4099,33 +4196,96 @@ spikes_db
 Plotting all measure histograms
 \layout Standard
 
+
+\begin_inset Float figure
+wide false
+collapsed true
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename tests_db_plot_tests.eps
+	display none
+	width 120text%
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:tests_hists}
+
+\end_inset 
+
+Example measure distribution plot.
+\end_inset 
+
 For plotting all measure histograms in a DB, the following method of 
 \family typewriter 
-params_tests_db
+tests_db
 \family default 
- creates a matrix plot:
+ creates the horizontal stack plot in Figure 
+\begin_inset LatexCommand \ref{figcap:tests_hists}
+
+\end_inset 
+
+:
 \layout LyX-Code
 
->> mp1 = plotTestsHistsMatrix(sdball);
+>> mp = plotTestsHistsMatrix(renamed_model_db(:, 2:end), '', 
 \layout LyX-Code
 
->> plotFigure(mp1);
+                             struct('orient', 'x', 'quiet', 1, 'border',
+ [0 0.05 0 0])))
+\layout LyX-Code
+
+>> plotFigure(mp);
 \layout Subsection
 
 Plotting all parameter histograms
 \layout Standard
 
+
+\begin_inset Float figure
+wide false
+collapsed true
+
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename params_tests_db_plot_param_hists.eps
+	display none
+	width 120text%
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{figcap:params_hists}
+
+\end_inset 
+
+Example parameter distribution plot.
+\end_inset 
+
 For plotting all parameter histograms in a DB, the following method of 
 \family typewriter 
 params_tests_db
 \family default 
- creates a horizontal plot stack:
+ creates the horizontal stack plot in Figure 
+\begin_inset LatexCommand \ref{figcap:params_hists}
+
+\end_inset 
+
+:
 \layout LyX-Code
 
->> mp1 = plotParamsHists(sdball);
-\layout LyX-Code
-
->> plotFigure(mp1);
+>> plotFigure(plotParamsHists(sdball));
 \layout Subsection
 
 Plotting database statistics
@@ -4299,10 +4459,8 @@ Plotting statistics for two selected measures.
 
 Then, the statistics can be plotted with diamonds indicating the mean and
  symmetric errorbars indicating upper and lower extensions (SE or Std):
-\layout Standard
+\layout LyX-Code
 
-
-\family typewriter 
 >> plot(my_stats);
 \layout Standard
 
@@ -4617,6 +4775,17 @@ tex_string
 \layout LyX-Code
 
 >> string2File(tex_string, 'myreport.tex');
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[bibtotoc,plainnat]{ref}
+
+\end_inset 
+
+
+\layout Part*
+\start_of_appendix 
+Appendices
 \layout Section
 
 Function Reference
@@ -4664,14 +4833,6 @@ addcontentsline{toc}{subsection}{Function Index}
 
 \backslash 
 printindex[funcref]
-\end_inset 
-
-
-\layout Standard
-
-
-\begin_inset LatexCommand \BibTeX[bibtotoc,plainnat]{ref}
-
 \end_inset 
 
 
