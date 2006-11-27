@@ -45,16 +45,13 @@ if isfield(props, 'param_names')
   %# in addition to the ones specified on data filenames.
 
   str_index = strmatch('trial', props.param_names);
-
-  if length(str_index) < 1
-    error(['Parameter lookup from rows is requested, but cannot find ' ...
-	   'the "trial" parameter in the parameter names: ' props.param_names ]);
-  end
-
-  %# Remove the parameter "trial" from the list of parameters 
-  %# coming from the param rows file
   trues = true(1, length(props.param_names));
-  trues(str_index) = false;
+
+  if ~ isempty(str_index)
+    %# Remove the parameter "trial" from the list of parameters 
+    %# coming from the param rows file
+    trues(str_index) = false;
+  end
 
   add_param_names = { props.param_names{trues} };
 else
