@@ -37,27 +37,28 @@ if isfield(props, 'param_rows')
   %# Take parameter values from the specified parameter file,
   %# in addition to the ones specified on data filenames.
 
-  str_index = strmatch('trial', names_vals{1:num_params, 1});
+  if ~ isfield(props, 'param_trial_name')
+    props.param_trial_name = 'trial';
+  end
+  str_index = strmatch(props.param_trial_name, names_vals{1:num_params, 1});
 
   if length(str_index) < 1
     error(['Parameter lookup from rows is requested, but cannot find ' ...
-	   'the "trial" parameter in the data filename ' fullname ]);
+	   'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
   end
   
   trial_num = names_vals{str_index, 2};
 
   %# Skip the "trial" value from the rows file
-  str_index = strmatch('trial', props.param_names);
+  str_index = strmatch(props.param_trial_name, props.param_names);
 
-  if length(str_index) < 1
-    error(['Parameter lookup from rows is requested, but cannot find ' ...
-	   'the "trial" parameter in the parameter names: ' props.param_names ]);
-  end
-
-  %# Find and ignore the parameter "trial" from the list of parameters 
-  %# coming from the param rows file
   trues = true(1, length(props.param_names));
-  trues(str_index) = false;
+
+  if ~ isempty(str_index)
+    %# If found, ignore the parameter "trial" from the list of parameters 
+    %# coming from the param rows file
+    trues(str_index) = false;
+  end
 
   add_param_vals = props.param_rows(trial_num, trues);
 else
