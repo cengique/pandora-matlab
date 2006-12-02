@@ -21,7 +21,13 @@ function obj = trace(data_src, dt, dy, id, props)
 %		offset_y: Y-axis offset to be added to loaded and scaled data.
 %		trace_time_start: Samples in the beginning to discard [dt]
 %		baseline: Resting potential.
-%		channel: Channel to read from file Genesis or PCDX file.
+%		channel: Channel to read from file Genesis, PCDX, or Neuron file.
+%		file_type: Specify file type instead of guessing from extension:
+%			'genesis': Raw binary files created with Genesis disk_out method.
+%			'genesis_flac': Compressed Genesis binary files.
+%			'neuron': Binary files created with Neuron's Vector.vwrite method.
+%			'pcdx': .ALL data acquisition files from PCDX program.
+%			'matlab': Matlab .MAT binary files with matrix data.
 %		traces: Traces to read from PCDX file.
 %		spike_finder: Method of finding spikes 
 %		(1 for findFilteredSpikes, 2 for findspikes).
@@ -86,9 +92,15 @@ if nargin == 0 %# Called with no params
 
      ext = lower(ext); %# Case insensitive matches for file extension
 
-     %# TODO: Also load LabVIEW files
+     %# TODO: Also load NeuroSAGE files
 
-     if strcmp(ext, '.bin') || strcmp(ext, '.gbin') %# Genesis file
+     %# if file type not specified, use file extension to guess it
+     if ~ isfield(props, 'file_type')
+       props.file_type = '';
+     end
+
+     if strcmpi(props.file_type, 'genesis') || ...
+	   strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') %# Genesis file
        channel = 1; %# by default
        if isfield(props, 'channel')
 	 channel = props.channel;
@@ -103,31 +115,43 @@ if nargin == 0 %# Called with no params
 	 data = readgenesis(data_src, channel);
        end
 
-     elseif strcmp(ext, '.genflac') %# Compressed 16-bit genesis file
+     elseif strcmpi(props.file_type, 'genesis_flac') || ...
+	   strcmpi(ext, '.genflac') %# Compressed 16-bit genesis file
        channel = 1; %# by default
        if isfield(props, 'channel')
 	 channel = props.channel;
        end
        data = readgenesis16bit(data_src);
-       data = data(channel, :)';
+       data = data(:, channel);
 
-     elseif strcmp(ext, '.all') %# PCDX file
+     elseif strcmpi(props.file_type, 'neuron') %# Untested!
+       [c_type, maxsize, endian] = computer;
+       data = readNeuronVecBin(data_src, endian);
+       channel = 1; %# by default
+       if isfield(props, 'channel')
+	 channel = props.channel;
+       end
+       data = data(:, channel);
+
+     elseif strcmpi(props.file_type, 'pcdx') || ...
+	   strcmpi(ext, '.all') %# PCDX file
        %#disp('Loading PCDX trace');
        data = loadtraces(data_src, props.traces, props.channel, 1);
        
-     elseif strcmp(ext, '.mat') %# MatLab file
+     elseif strcmpi(props.file_type, 'matlab') || ...
+	   strcmpi(ext, '.mat') %# MatLab file
        s = load(data_src);
        fields = fieldnames(s);
        data = getfield(s, fields{1});	%# Assuming there's only one vector
      else
-       error(['No matching load function found for ' data_src ]);
+       error(['No matching load function found for file ''' data_src ''' or specified type ''' ...
+	      props.file_type '''.']);
      end
 
      %# use the filename as id unless otherwise specified
      if ~ exist('id') | strcmp(id, '') == 1
        id = name;
      end
-
 
    elseif isa(data_src, 'double')
      data = data_src;
