@@ -48,11 +48,14 @@ else
     else
       num_params = size(names_vals, 1);
     end
-    str_index = strmatch('trial', names_vals{1:num_params, 1});
+    if ~ isfield(props, 'param_trial_name')
+      props.param_trial_name = 'trial';
+    end
+    str_index = strmatch(props.param_trial_name, names_vals{1:num_params, 1});
     
     if length(str_index) < 1
       error(['Parameter lookup from rows is requested, but cannot find ' ...
-	     'the "trial" parameter in the data filename ' fullname ]);
+	     'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
     end
     
     trial_num = names_vals{str_index, 2};
