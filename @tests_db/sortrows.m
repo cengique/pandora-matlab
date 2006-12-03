@@ -7,7 +7,7 @@ function [sorted, idx] = sortrows(db, cols)
 %
 % Description:
 %   For multi-page dbs, sorts only the first page and applies the ordering 
-% to all other pages.
+% to all other pages (which is WRONG!)
 %
 %   Parameters:
 %	db: A tests_db object.
