@@ -17,6 +17,10 @@ function a_histogram_db = histogram(db, col, num_bins)
 %   Returns:
 %	a_histogram_db: A histogram_db object containing the histogram.
 %
+% Example:
+% >> a_hist_db = histogram(my_db, 'spike_width');
+% >> plot(a_hist_db);
+%
 % See also: histogram_db, tests_db
 %
 % $Id$
