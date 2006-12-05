@@ -27,7 +27,11 @@ function a_bundle = model_ct_bundle(a_dataset, a_db, a_joined_db, props)
 % Additional methods:
 %	See methods('model_ct_bundle')
 %
-% See also: dataset_db_bundle, tests_db, params_tests_dataset
+% Example:
+% >> a_joined_db = mergeMultipleCIPsInOne(a_db, ...)
+% >> a_bundle = model_ct_bundle(a_params_cip_trace_fileset, a_db, a_joined_db)
+%
+% See also: dataset_db_bundle, tests_db, params_tests_dataset, params_tests_db/mergeMultipleCIPsInOne
 %
 % $Id$
 %
@@ -43,9 +47,20 @@ else
     props = struct([]);
   end
 
+  %# columns to keep in dball
+  col_names = {'ItemIndex'};
+
+  all_names = getColNames(a_db);
+  if ismember(all_names, 'trial')
+    col_names = {'pAcip', 'trial', col_names{:}};
+  else
+    %# if no trial identifier, we have to keep parameter columns (pAcip already there)
+    col_names = {all_names{1:a_db.num_params}, col_names{:}};
+  end
+
   a_bundle = struct;
   a_bundle = class(a_bundle, 'model_ct_bundle', ...
-		   dataset_db_bundle(a_dataset, a_db(:, {'pAcip', 'trial', 'ItemIndex'}), ...
+		   dataset_db_bundle(a_dataset, a_db(:, col_names), ...
 				     a_joined_db, props));
 end
 
