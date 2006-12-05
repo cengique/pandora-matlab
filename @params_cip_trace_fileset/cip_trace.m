@@ -1,18 +1,15 @@
 function a_cip_trace = cip_trace(fileset, file_index)
 
-% cip_trace - Loads a raw cip_trace given a file_index to this fileset.
+% cip_trace - Loads raw cip_traces for each given file_index in this fileset.
 %
-% Usage 1:
-% a_cip_trace = cip_trace(fileset, file_index)
-%
-% Usage 2:
-% a_cip_trace = cip_trace(fileset, a_db)
+% Usage:
+% a_cip_trace = cip_trace(fileset, file_index|a_db)
 %
 % Description:
 %
 %   Parameters:
 %	fileset: A params_tests_fileset.
-%	file_index: Index of file in fileset.
+%	file_index: A single or array of indices of files in fileset.
 %	a_db: A DB created by this fileset to read the item indices from.
 %		
 %   Returns:
@@ -27,47 +24,46 @@ function a_cip_trace = cip_trace(fileset, file_index)
 if isa(file_index, 'tests_db')
   a_db = file_index;
   col_data = get(onlyRowsTests(a_db, ':', 'ItemIndex'), 'data');
-  num_rows = dbsize(a_db, 1);
-  a_cip_trace = repmat(cip_trace, 1, num_rows);
-  for row_num = 1:num_rows
-    %# recurse
-    a_cip_trace(row_num) = ...
-	cip_trace(fileset, col_data(row_num, 1));
-  end
+  %# recurse
+  a_cip_trace = cip_trace(fileset, col_data);
 else
-  filename = getItem(fileset, file_index);
-  fullname = fullfile(get(fileset, 'path'), filename);
+  num_indices = length(file_index);
+  a_cip_trace(1:num_indices) = cip_trace;
+  for an_index = 1:num_indices
+    filename = getItem(fileset, file_index(an_index));
+    fullname = fullfile(get(fileset, 'path'), filename);
 
-  props = get(fileset, 'props');
-  if isfield(props, 'param_rows')
-    %# Take parameter values from the specified parameter file,
-    %# in addition to the ones specified on data filenames.
-    names_vals = parseGenesisFilename(fullname);
-    if isfield(props, 'num_params')
-      num_params = props.num_params;
+    props = get(fileset, 'props');
+    if isfield(props, 'param_rows')
+      %# Take parameter values from the specified parameter file,
+      %# in addition to the ones specified on data filenames.
+      names_vals = parseGenesisFilename(fullname);
+      if isfield(props, 'num_params')
+	num_params = props.num_params;
+      else
+	num_params = size(names_vals, 1);
+      end
+      if ~ isfield(props, 'param_trial_name')
+	props.param_trial_name = 'trial';
+      end
+      str_index = strmatch(props.param_trial_name, names_vals{1:num_params, 1});
+      
+      if length(str_index) < 1
+	error(['Parameter lookup from rows is requested, but cannot find ' ...
+	       'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
+      end
+    
+      trial_num = names_vals{str_index, 2};
+      trace_id = [ 't' num2str(trial_num) ];
     else
-      num_params = size(names_vals, 1);
-    end
-    if ~ isfield(props, 'param_trial_name')
-      props.param_trial_name = 'trial';
-    end
-    str_index = strmatch(props.param_trial_name, names_vals{1:num_params, 1});
-    
-    if length(str_index) < 1
-      error(['Parameter lookup from rows is requested, but cannot find ' ...
-	     'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
+      trace_id = num2str(file_index(an_index));
     end
     
-    trial_num = names_vals{str_index, 2};
-    trace_id = [ 't' num2str(trial_num) ];
-  else
-    trace_id = num2str(file_index);
+    %# Load a cip_trace object
+    a_cip_trace(an_index) = ...
+	cip_trace(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
+		  fileset.pulse_time_start, fileset.pulse_time_width, ...
+		  [get(fileset, 'id') '(' trace_id ')'], ...
+		  get(fileset, 'props'));
   end
-
-  %# Load a cip_trace object
-  a_cip_trace = ...
-      cip_trace(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
-		fileset.pulse_time_start, fileset.pulse_time_width, ...
-		[get(fileset, 'id') '(' trace_id ')'], ...
-		get(fileset, 'props'));
 end
