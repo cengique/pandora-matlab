@@ -24,7 +24,7 @@ function tex_filename = reportRankingToPhysiolNeuronsTeXFile(m_bundle, p_bundle,
 %
 % Example: (see example in physiol_bundle/matchingRow)
 %
-% See also: loadItemProfile, physiol_cip_traceset/cip_trace
+% See also: tests_db/rankMatching, physiol_cip_traceset/cip_trace, physiol_bundle/matchingRow
 %
 % $Id$
 %
