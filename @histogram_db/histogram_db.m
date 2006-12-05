@@ -28,6 +28,11 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 % Additional methods:
 %	See methods('histogram_db')
 %
+% Example:
+% >> [hist_results, bins] = hist(my_data);
+% >> a_hist_db = histogram_db('firing_rate', bins, hist_results, 'rate histogram db');
+% >> plot(a_hist_db);
+%
 % See also: tests_db, plot_simple, tests_db/histogram
 %
 % $Id$
