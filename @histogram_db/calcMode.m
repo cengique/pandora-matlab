@@ -1,9 +1,9 @@
-function [mode_val, mode_mag] = mode(a_hist_db)
+function [mode_val, mode_mag] = calcMode(a_hist_db)
 
-% mode - Finds the mode of the distribution, that is, the bin with the highest value.
+% calcMode - Finds the mode of the distribution, that is, the bin with the highest value.
 %
 % Usage:
-% [mode_val, mode_mag] = mode(a_hist_db)
+% [mode_val, mode_mag] = calcMode(a_hist_db)
 %
 % Description:
 %
