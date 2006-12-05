@@ -7,7 +7,9 @@ function a_db = vertcat(db, varargin)
 %
 % Description:
 %   Concatanates rows of with_db to rows of db. Overrides the built-in
-% vertcat function that is called when [db;with_db] is executed.
+% vertcat function that is called when [db;with_db] is executed. If the 
+% first argument is a array of DBs, then this functionality is not needed;
+% built-in vertcat is called.
 %
 %   Parameters:
 %	db: A tests_db object.
@@ -21,6 +23,11 @@ function a_db = vertcat(db, varargin)
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/25
+
+%# if input is already a row of DBs, allow building a DB matrix
+if length(db) > 1
+  a_db = builtin('vertcat', db, varargin{:});
+else
 
 %# Recurse to support variable number of inputs
 if length(varargin) > 1
@@ -45,3 +52,4 @@ end
 %# concatenate and preserve column order of first DB
 a_db = set(db, 'data', [ get(db, 'data'); ...
 			get(onlyRowsTests(with_db, ':', col_names'), 'data') ] );
+end

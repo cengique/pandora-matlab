@@ -1,6 +1,6 @@
 function t_hists = testsHists(a_db, num_bins)
 
-% testsHists - Calculates histograms for all tests and returns them in a cell array.
+% testsHists - Calculates histograms for all tests.
 %
 % Usage:
 % t_hists = testsHists(a_db, num_bins)
