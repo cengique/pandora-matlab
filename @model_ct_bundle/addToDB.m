@@ -1,12 +1,12 @@
 function a_mbundle = addToDB(a_mbundle, a_raw_db, props)
 
-% addToDB - Caoncatenate to existing DB in the bundle.
+% addToDB - Concatenate to existing DB in the bundle.
 %
 % Usage:
 % a_mbundle = addToDB(a_mbundle, a_raw_db, props)
 %
 % Description:
-%   If joinedDb is not given, calls treatSimDB to get the joined_db from this raw DB. 
+%   If joinedDb is not given in props, calls treatSimDB to get the joined_db from this raw DB. 
 % Then concats to both db and joined_db in bundle.
 %
 % Parameters:

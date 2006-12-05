@@ -3,13 +3,14 @@ function a_cip_trace = ctFromRows(a_mbundle, a_db, cip_levels, props)
 % ctFromRows - Loads a cip_trace object from a raw data file in the a_mbundle.
 %
 % Usage:
-% a_cip_trace = ctFromRows(a_mbundle, a_db/trials, cip_levels, props)
+% a_cip_trace = ctFromRows(a_mbundle, a_db|trials, cip_levels, props)
 %
 % Description:
+%   This is an overloaded method.
 %
 %   Parameters:
-%	a_mbundle: A physiol_cip_traceset_fileset object.
-%	a_db: A DB created by this fileset to read the trial numbers from.
+%	a_mbundle: A model_ct_bundle object.
+%	a_db: A DB created by the dataset in the a_mbundle to read the trial numbers from.
 %	trials: A column vector with trial numbers.
 %	cip_levels: A column vector of CIP-levels to be loaded.
 %	props: A structure with any optional properties.
