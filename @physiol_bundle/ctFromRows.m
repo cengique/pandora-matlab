@@ -3,7 +3,7 @@ function a_cip_trace = ctFromRows(a_pbundle, a_db, cip_levels, props)
 % ctFromRows - Loads a cip_trace object from a raw data file in the a_pbundle.
 %
 % Usage:
-% a_cip_trace = ctFromRows(a_pbundle, a_db/traceset_idx, cip_levels, props)
+% a_cip_trace = ctFromRows(a_pbundle, a_db|traceset_idx, cip_levels, props)
 %
 % Description:
 %

@@ -20,29 +20,31 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %	legend: Cell array of descriptions for each item plotted.
 %	command: Plotting command to use (Optional, default='plot')
 %	props: A structure with any optional properties.
-%		axisLimits: Sets axis limits of non-NaN values in vector.
-%		tightLimits: If 1, issues an "axis tight" command (default=0)
-%		border: Size of border spacing around axis, between 0 - 1. (default=0)
-%		fontSize: Set the fontsize.
-%		grid: Display dashed grid in background.
-%		noXLabel: No X-axis label.
-%		noYLabel: No Y-axis label.
-%		noTitle: No title.
-%		rotateXLabel: Rotates the X-axis label for smaller width.
-%		rotateYLabel: Rotates the Y-axis label for smaller width.
-%		numXTicks: Number of ticks on X-axis.
-%		formatXTickLabels: The sprintf format string for tick labels.
-%		XTick, YTick: Point locations for axis ticks.
-%		XTickLabel, YTickLabel: Axis tick labels.
-%		ColorOrder: Set the ColorOrder of the axis.
-%		LineStyleOrder: Set the LineStyleOrder of the axis.
-%		legendLocation: Passed to legend(..., 'location', legendLocation).
-%		legendOrientation: Passed to legend(..., 'orientation', legendLocation).
-%		noLegends: If exists, no legends are displayed.
-%		PaperPosition: Sets the figure property for printing at this size.
-%		resizeControl: If 0, drawing after resize is disabled and prints at screen 
-%			size; if 1 (default), redraws figure after each resize event and 
-%			prints at PaperPosition size.
+%	  axisLimits: Sets axis limits of non-NaN values in vector.
+%	  tightLimits: If 1, issues an "axis tight" command (default=0)
+%	  border: Relative size of border spacing around axis, between 0 - 1. (default=0)
+%	    If a scalar, equal border on all sides, give a four-element vector 
+%	    [left bottom right top] to define borders for each side.
+%	  fontSize: Set the fontsize.
+%	  grid: Display dashed grid in background.
+%	  noXLabel: No X-axis label.
+%	  noYLabel: No Y-axis label.
+%	  noTitle: No title.
+%	  rotateXLabel: Rotates the X-axis label for smaller width.
+%	  rotateYLabel: Rotates the Y-axis label for smaller width.
+%	  numXTicks: Number of ticks on X-axis.
+%	  formatXTickLabels: The sprintf format string for tick labels.
+%	  XTick, YTick: Point locations for axis ticks.
+%	  XTickLabel, YTickLabel: Axis tick labels.
+%	  ColorOrder: Set the ColorOrder of the axis.
+%	  LineStyleOrder: Set the LineStyleOrder of the axis.
+%	  legendLocation: Passed to legend(..., 'location', legendLocation).
+%	  legendOrientation: Passed to legend(..., 'orientation', legendLocation).
+%	  noLegends: If exists, no legends are displayed.
+%	  PaperPosition: Sets the figure property for printing at this size.
+%	  resizeControl: If 0, drawing after resize is disabled and prints at screen 
+%	    size, if 1 (default), redraws figure after each resize event and 
+%	    prints at PaperPosition size.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props
