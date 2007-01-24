@@ -7,7 +7,7 @@ function [rows, compared] = compareRows(db, row)
 %
 % Description:
 % If the row argument has multiple rows, the comparison is done separately
-% for each of its rows and the results are the logical OR of those.
+% for each of its rows and the results are the logical AND of those.
 % Note that, it uses summation of distance for magnitude comparison. 
 % That is, all columns have the same weight.
 %
@@ -16,8 +16,8 @@ function [rows, compared] = compareRows(db, row)
 %	row: Row array, matrix or database to be compared with db rows.
 %		
 %   Returns:
-%	rows: A column vector of comparison results. 
-%		(<0: db < row, 0: db == row, >0: db > row)
+%	rows: A inverted logical column vector of comparison results. 
+%		(false if db == row, true otherwise)
 %
 % See also: eq, tests_db
 %
@@ -34,20 +34,26 @@ if dbsize(db, 2) ~= size(row, 2)
   error('Row must contain same columns as the db.');
 end
 
-%# If multiple rows in row
-if size(row, 1) > 1
-  %# recurse
-  rows = compareRows(db, row(1, :)) & compareRows(db, row(2:end, :));
-  compared = NaN;
-else
+%# prepare variables for faster processing
+num_rows = size(row, 1);
+num_db_rows = dbsize(db, 1);
+ones_matx = ones(num_db_rows, 1);
+rows = true(num_db_rows, 1);
+
+%# Calculate multiple rows by tail recursion function 
+for row_num=1:num_rows
+  rows = rows & doOneRow(row(row_num, :));
+end
+
+function from_onerow = doOneRow(onerow)
   %# Find doesn't work in two dimension comparisons
   %# Thus, use algorithm:
 
   %# - duplicate row to a matrix of same size with db
-  row_matx = ones(dbsize(db, 1), 1) * row;
-
   %# - subtract from db
-  compared = db.data - row_matx;
+  compared = db.data - (ones_matx * onerow);
 
-  rows = sum(abs(compared), 2) > eps(0);
+  from_onerow = sum(abs(compared), 2) > eps(0);
+end
+
 end
