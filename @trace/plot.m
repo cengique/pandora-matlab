@@ -1,4 +1,4 @@
-function h = plot(t, title_str)
+function h = plot(t, title_str, props)
 
 % plot - Plots a trace.
 %
@@ -10,6 +10,7 @@ function h = plot(t, title_str)
 %   Parameters:
 %	t: A trace object.
 %	title_str: (Optional) String to append to plot title.
+%	props: A structure with any optional properties, passed to plot_abstract.
 %
 %   Returns:
 %	h: Handle to figure object.
@@ -24,6 +25,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
+if ~ exist('props')
+  props = struct;
+end
+
 s = size(t);
 if max(s) > 1
   %# Column vector
@@ -33,10 +38,10 @@ if max(s) > 1
   else
     orientation = 'x';		%# or horizontal
   end
-  plotFigure(plot_stack(num2cell(plotData(t)), [], orientation, title_str));
+  plotFigure(plot_stack(num2cell(plotData(t)), [], orientation, title_str, props));
   %#for i=1:length(t)
   %#  plot(t(i), title_str);
   %#end
 else
-  h = plotFigure(plotData(t, title_str));
+  h = plotFigure(plotData(t, title_str, props));
 end
