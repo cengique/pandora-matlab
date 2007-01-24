@@ -50,10 +50,28 @@ else
   caption = [ short_caption ];
 end
 
-%# TODO: get these from uniqueValues
-curve_pAvals = [0 40 100 200];
-curve_tests = {'IniSpontSpikeRateISI_0pA', 'PulseIni100msSpikeRateISI_D40pA', ...
-	       'PulseIni100msSpikeRateISI_D100pA', 'PulseIni100msSpikeRateISI_D200pA'};
+%# Get unique current values  ([0 40 100 200])
+curve_pAvals = unique(transpose(get(onlyRowsTests(get(a_bundle, 'db'), ':', 'pAcip'), 'data')));
+
+%# only get non-negative currents
+curve_pAvals = curve_pAvals(curve_pAvals >= 0);
+
+curve_tests = {};
+for pAval=curve_pAvals
+  switch pAval
+    case 0
+      curve_tests = { curve_tests{:}, 'IniSpontSpikeRateISI_0pA'};
+    case 40
+      curve_tests = { curve_tests{:}, 'PulseIni100msSpikeRateISI_D40pA'};
+    case 100
+      curve_tests = { curve_tests{:}, 'PulseIni100msSpikeRateISI_D100pA'};
+    case 200
+      curve_tests = { curve_tests{:}, 'PulseIni100msSpikeRateISI_D200pA'};
+    otherwise
+      error([ 'Unrecognized current value: ' num2str(pAval) ]);
+  end
+end
+
 curve_labels = {'current pulse [pA]', 'firing rate [Hz]'};
 
 joined_db = get(a_bundle, 'joined_db');
