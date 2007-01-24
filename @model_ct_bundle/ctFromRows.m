@@ -29,5 +29,9 @@ if ~exist('props')
   props = struct;
 end
 
+%# pass the neuron label to the dataset
+trial_num = getTrialNum(a_mbundle, a_db, props);
+props.neuronLabel = [ '(t' num2str(trial_num) ')' ];
+
 a_cip_trace = ctFromRows(get(a_mbundle, 'dataset'), get(a_mbundle, 'db'), ...
 			 a_db, cip_levels, props);

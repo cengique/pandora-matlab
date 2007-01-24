@@ -25,8 +25,6 @@ if ~exist('props')
   props = struct;
 end
 
-if isa(trial_num, 'tests_db')
-  trial_num = get(onlyRowsTests(trial_num, 1, 'trial'), 'data');
-end
+trial_num = getTrialNum(a_bundle, trial_num, props);
 
 a_label = properTeXLabel([ get(get(a_bundle, 'db'), 'id') '(t' num2str(trial_num) ')' ]);

@@ -26,9 +26,19 @@ if ~exist('props')
 end
 
 if isa(trial_num, 'tests_db')
-  trial_num = get(onlyRowsTests(trial_num, 1, 'trial'), 'data');
+  trial_num = getTrialNum(a_bundle, trial_num, props);
 end
 
 joined_db = get(a_bundle, 'joined_db');
 
-a_row_index = find(joined_db(:, 'trial') == trial_num);
+dataset_props = get(get(a_bundle, 'dataset'), 'props');
+if isfield(dataset_props, 'param_trial_name')
+  trial_name = dataset_props.param_trial_name;
+else 
+  trial_name = 'trial';
+end
+if ~isempty(trial_name)
+  a_row_index = find(joined_db(:, trial_name) == trial_num);
+else
+  a_row_index = trial_num;
+end
