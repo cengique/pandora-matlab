@@ -24,6 +24,16 @@ th = [];
 xh = [];
 yh = [];
 
+%# Do this first, since it affects axis limits
+if isfield(a_plot.props, 'axisLimits')
+  current_axis = axis;
+  %# Skip NaNs, allows fixing some ranges while keeping others flexible
+  nonnans = ~isnan(a_plot.props.axisLimits);
+  current_axis(nonnans) = a_plot.props.axisLimits(nonnans);
+  axis(current_axis);
+end
+
+
 if ~ (isfield(a_plot.props, 'noTitle') && a_plot.props.noTitle == 1)
   th = title(a_plot.title);
 end
@@ -66,28 +76,28 @@ if isfield(a_plot.props, 'XTick')
   set(gca, 'XTick', a_plot.props.XTick);
 end
 
-if isfield(a_plot.props, 'numXTicks')
-  num_ticks = a_plot.props.numXTicks - 1;
-  axis_limits = get(gca, 'Xlim')
-  xticklist = axis_limits(1) + ...
-      (0:num_ticks) * (diff(axis_limits([1 2]))) / num_ticks
-  xtickscell = cell(1, num_ticks + 1);
-  for tick_num=1:(num_ticks+1)
-    xtickscell{tick_num} = sprintf('%.2f', xticklist(tick_num));
+if ~ isfield(a_plot.props, 'XTickLabel') && ~ isfield(a_plot.props, 'XTick')
+  if isfield(a_plot.props, 'numXTicks')
+    num_ticks = a_plot.props.numXTicks - 1;
+    axis_limits = get(gca, 'Xlim');
+    xticklist = axis_limits(1) + ...
+	(0:num_ticks) * (diff(axis_limits([1 2]))) / num_ticks;
+    xtickscell = cell(1, num_ticks + 1);
+    for tick_num=1:(num_ticks+1)
+      xtickscell{tick_num} = sprintf('%.2f', xticklist(tick_num));
+    end
+    set(gca, 'XTick', xticklist);
+    set(gca, 'XTickLabel', xtickscell);
   end
-  xtickscell
-  set(gca, 'XTick', xticklist);
-  set(gca, 'XTickLabel', xtickscell);
 end
 
-if isfield(a_plot.props, 'formatXTickLabels')
+if isfield(a_plot.props, 'formatXTickLabels') && ~ isempty(get(gca, 'XTickLabel'))
   xticks = get(gca, 'XTick');
   xticklabels = get(gca, 'XTickLabel');
-  for tick_num=(xticks + 1)
-
-    newstr = sprintf(a_plot.props.formatXTickLabels, str2num(xticklabels(tick_num)));
-    xticklabels(tick_num, :) = [newstr ...
-				blanks(size(xticklabels, 2) - size(newstr, 2)) ];
+  for tick_num=1:length(xticks)
+    xticklabels{tick_num} = ...
+	sprintf(a_plot.props.formatXTickLabels, str2num(xticklabels{tick_num}));
+    %# old format required: blanks(size(xticklabels, 2) - size(newstr, 2)) ];
   end
   %#xticklist = sprintf([a_plot.props.formatXTickLabels '\n'], str2num(xticklist))
   set(gca, 'XTickLabel', xticklabels);
@@ -127,12 +137,5 @@ else
   lh = [];
 end
 
-if isfield(a_plot.props, 'axisLimits')
-  current_axis = axis;
-  %# Skip NaNs, allows fixing some ranges while keeping others flexible
-  nonnans = ~isnan(a_plot.props.axisLimits);
-  current_axis(nonnans) = a_plot.props.axisLimits(nonnans);
-  axis(current_axis);
-end
 
 handles = struct('title', th, 'axis_labels', [xh, yh], 'legend', lh);
