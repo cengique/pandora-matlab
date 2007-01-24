@@ -22,7 +22,7 @@ function a_plot = plot_bars(a_tests_db, title_str, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/03/13
 
 if ~ exist('props')
-  props = struct([]);
+  props = struct;
 end
 
 if ~ exist('title_str')
