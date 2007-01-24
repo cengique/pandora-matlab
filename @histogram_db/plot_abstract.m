@@ -35,14 +35,19 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
-num_dbs = length(a_hist_db);
+%# If input is an array, then return array of plots with the same dimensions
+size_dbs = size(a_hist_db);
+num_dbs = prod(size_dbs);
 if num_dbs > 1 
+  %# flatten to array
+  flat_dbs = reshape(a_hist_db, num_dbs, 1);
   %# Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_simple);
   for plot_num = 1:num_dbs
-    a_plot(plot_num) = plot_abstract(a_hist_db(plot_num), title_str, props);
+    a_plot(plot_num) = plot_abstract(flat_dbs(plot_num), title_str, props);
   end
+  %# reshape the output matrix
+  a_plot = reshape(a_plot, size_dbs);
   return;
 end
 
