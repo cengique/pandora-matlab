@@ -25,6 +25,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %		    of compounds.
 %	id: Neuron name.
 %	props: A structure with any optional properties.
+%	  NeuroSAGEversion: If a NeuroSAGE HDF5 is given as source, use this version.
 %	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
 %	  cip_list: Vector of cip levels to which the current trace will be matched.
 %	  (All other props are passed to cip_trace objects)
