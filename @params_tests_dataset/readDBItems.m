@@ -39,6 +39,13 @@ catch
   err = lasterror;
   warning(['Error caught during database creation, before starting to ' ...
 	   'read items: ' err.message '. Returning empty database.']);
+  if isfield(err, 'stack')
+    disp('Stack trace:');
+    for stack_item = 1:length(err.stack)
+      disp([ '  ' err.stack(stack_item).file ' at ' num2str(err.stack(stack_item).line) ...
+	    ' (' err.stack(stack_item).name ').' ]);
+    end
+  end
   test_names = [];
   param_names = [];
   params = [];
@@ -87,8 +94,18 @@ try
   end
 catch
   err = lasterror;
+  %# Matlab R2006b has debug file information in err
   warning(['Error caught during database creation at item index ' ...
 	   num2str(item_index) ': ' err.message '. Truncating database.']);
+  disp([ 'Item in question is:']);
+  disp(getItem(obj, item_index));
+  if isfield(err, 'stack')
+    disp('Stack trace:');
+    for stack_item = 1:length(err.stack)
+      disp([ '  ' err.stack(stack_item).file ' at ' num2str(err.stack(stack_item).line) ...
+	    ' (' err.stack(stack_item).name ').' ]);
+    end
+  end
   params(row_index:size(params, 1), :) = [];
   tests(row_index:size(tests, 1), :) = [];
 end
