@@ -10,13 +10,13 @@ function a_plot = plotData(t, title_str, props)
 %
 %   Parameters:
 %	t: A trace object.
-%
-%   Returns:
-%	a_plot: A plot_abstract object that can be visualized.
 %	title_str: (Optional) String to append to plot title.
 %	props: A structure with any optional properties.
 %	  timeScale: 's' for seconds, or 'ms' for milliseconds.
 %	  (rest passed to plot_abstract.)
+%
+%   Returns:
+%	a_plot: A plot_abstract object that can be visualized.
 %
 % See also: trace, trace/plot, plot_abstract
 %
