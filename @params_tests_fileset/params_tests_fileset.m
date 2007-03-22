@@ -104,7 +104,15 @@ else
     entries = size(filestruct, 1);
     [filenames{total_entries + (1:entries)}] = deal(filestruct(:).name);
     total_entries = total_entries + entries;
+    if entries == 0
+      warning([ 'Pattern "' this_pattern '" matched no files.' ]);
+    end
   end
+
+  if total_entries == 0
+    warning([ '*** Fatal: No files in dataset!!! ***' ]);
+  end
+
 
   %# Read parameters if specified
   if isfield(props, 'param_row_filename')

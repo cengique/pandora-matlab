@@ -40,7 +40,7 @@ if isfield(props, 'param_rows')
   if ~ isfield(props, 'param_trial_name')
     props.param_trial_name = 'trial';
   end
-  str_index = strmatch(props.param_trial_name, names_vals{1:num_params, 1});
+  str_index = strmatch(props.param_trial_name, {names_vals{1:num_params, 1}});
 
   if length(str_index) < 1
     error(['Parameter lookup from rows is requested, but cannot find ' ...
@@ -58,6 +58,11 @@ if isfield(props, 'param_rows')
     %# If found, ignore the parameter "trial" from the list of parameters 
     %# coming from the param rows file
     trues(str_index) = false;
+  end
+
+  if trial_num > size(props.param_rows, 1)
+    error([ 'Trial number ' num2str(trial_num) ' is larger than trials available in the ' ...
+	   'specified param_rows (' num2str(size(props.param_rows, 1)) ').'] );
   end
 
   add_param_vals = props.param_rows(trial_num, trues);
