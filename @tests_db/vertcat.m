@@ -44,5 +44,5 @@ end
 
 %# concatenate and preserve column order of first DB
 a_db = set(db, 'data', [ get(db, 'data'); ...
-			get(onlyRowsTests(with_db, ':', col_names'), 'data') ] );
+			get(onlyRowsTests(with_db, ':', col_names), 'data') ] );
 end
