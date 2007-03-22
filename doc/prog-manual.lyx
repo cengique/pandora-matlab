@@ -3,7 +3,6 @@
 \textclass article
 \begin_preamble
 \usepackage{ifthen}
-\usepackage{html}
 
 % if normal PS or PDF LaTeX processing
 %begin{latexonly}
@@ -28,9 +27,14 @@
 %% following is special latex2html command:
 %end{latexonly}
 
+\ifpdf
+\else
+\usepackage{html}
+
 \begin{htmlonly}
   \usepackage[none]{graphicx} 
 \end{htmlonly}
+\fi
 
 \usepackage{epsfig}
 %\usepackage{color}
@@ -39,10 +43,12 @@
 \usepackage{subfigure}
 
 % hyperref as last
+\ifpdf\else
 \begin{htmlonly}
 \newcommand{\hypertarget}[2]{#2}
 \newcommand{\hyperlink}[2]{#2}
 \end{htmlonly}
+\fi
 
 %begin{latexonly}
 \ifpdf 
@@ -108,9 +114,11 @@
    {\end{list}}
 %end{latexonly}
 
+\ifpdf\else
 \begin{htmlonly}
 \renewenvironment{lyxcode}{\begin{rawhtml}<div style="font-family: monospace">\end{rawhtml}}{\begin{rawhtml}</div>\end{rawhtml}}
 \end{htmlonly}
+\fi
 
 \newindex{funcref}{frx}{fnd}{Function Index}
 \end_preamble
@@ -2037,6 +2045,32 @@ n display during execution with:
 \layout LyX-Code
 
 >> warning on backtrace
+\layout Subsection
+
+Creating a new class
+\layout Standard
+
+To get the benefit of overloading, the top-level class must have the generic
+ 
+\family typewriter 
+subsref
+\family default 
+ and 
+\family typewriter 
+subsasgn
+\family default 
+ methods.
+ These methods can be copied from any of the other top-level classes.
+ Any subclasses should have the generic 
+\family typewriter 
+get
+\family default 
+ and 
+\family typewriter 
+set
+\family default 
+ methods in place.
+ 
 \layout Part
 
 User's Manual
@@ -4619,10 +4653,10 @@ invarParams
 >> p_t3ds = invarParams(sdball)
 \layout LyX-Code
 
->> [pt_hists, p_stats] = paramsTestsHistsStats(sdball, p_t3ds)
+>> [pt_hists, p_stats] = paramsTestsHistsStats(p_t3ds)
 \layout LyX-Code
 
->> ap = plotVarMatrix(sdb2, p_stats)
+>> ap = plotVarMatrix(p_stats)
 \layout LyX-Code
 
 >> plotFigure(ap)
@@ -4659,19 +4693,19 @@ by choosing all parameters in both DBs, but only some measures for each.
 >> p2_t3ds = invarParams(sdb2)
 \layout LyX-Code
 
->> [pt1_hists, p1_stats] = paramsTestsHistsStats(sdb1, p1_t3ds)
+>> [pt1_hists, p1_stats] = paramsTestsHistsStats(p1_t3ds)
 \layout LyX-Code
 
->> [pt2_hists, p2_stats] = paramsTestsHistsStats(sdb2, p2_t3ds)
+>> [pt2_hists, p2_stats] = paramsTestsHistsStats(p2_t3ds)
 \layout LyX-Code
 
->> ap1 = plotVarMatrix(sdb1, p1_stats)
+>> ap1 = plotVarMatrix(p1_stats)
 \layout LyX-Code
 
 >> plotFigure(ap1)
 \layout LyX-Code
 
->> ap2 = plotVarMatrix(sdb2, p2_stats)
+>> ap2 = plotVarMatrix(p2_stats)
 \layout LyX-Code
 
 >> plotFigure(ap2)
