@@ -1,4 +1,4 @@
-function a_pm = plot_abstract(a_db, title_str)
+function a_pm = plot_abstract(a_db, title_str, props)
 
 % plot_abstract - Default visualization for a database.
 %
@@ -12,6 +12,7 @@ function a_pm = plot_abstract(a_db, title_str)
 %   Parameters:
 %	a_db: A params_tests_db object.
 %	title_str: (Optional) A string to be concatanated to the title.
+%	props: A structure with any optional properties.
 %		
 %   Returns:
 %	a_pm: A plot_stack with the plots organized in matrix form
@@ -30,5 +31,9 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-a_pm = plotTestsHistsMatrix(a_db, title_str);
+if ~ exist('props')
+  props = struct;
+end
+
+a_pm = plotTestsHistsMatrix(a_db, title_str, props);
 
