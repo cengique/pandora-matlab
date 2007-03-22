@@ -1,4 +1,499 @@
-2006-05-12  Cengiz Gunay  <cgunay@emory.edu>
+2007-03-22  author  <author@laotse>
+
+	* doc/prog-manual.lyx: fixed examples
+
+	* @trace/withinPeriod.m: better error messages
+
+	* @trace/plotData.m: doc fix
+
+	* @tests_db/vertcat.m: fix
+
+	* @tests_db/transpose.m: works
+
+	* @tests_db/plot_abstract.m: pass props
+
+	* @tests_db/addColumns.m, @plot_superpose/plot_superpose.m:
+	fix for Matlab R2006b
+
+	* @physiol_cip_traceset/physiol_cip_traceset.m:
+	added test property for loading HDF5 files
+
+	* @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/getItemParams.m:
+	better error messages
+
+	* @params_tests_dataset/readDBItems.m:
+	better error messages and stack trace
+
+	* @dataset_db_bundle/reportNeuron.m: better control of traces to choose
+
+	* TODO: new things to do
+
+2007-01-24  author  <author@laotse>
+
+	* doc/func-ref.tex: some initial version, but works fine.
+
+	* utils/growRange.m: moved from cen_matlab
+
+	* @trace/plot.m: propagates props.
+
+	* @tests_db/vertcat.m: modularized checkConsistentCols
+
+	* @tests_db/plot_bars.m: bugfix
+
+	* @tests_db/plotXRows.m:
+	calls plotScatter after adding row index column.
+
+	* @tests_db/plot.m: passes props
+
+	* @tests_db/minus.m: works
+
+	* @tests_db/compareRows.m: converted to tail recursion and fixed docs.
+
+	* @tests_db/checkConsistentCols.m:
+	modularized by taking out from vertcat
+
+	* @plot_abstract/decorate.m: remade axis tick processing.
+
+	* @params_cip_trace_fileset/ctFromRows.m: gets neuronLabel
+
+	* @params_tests_dataset/subsasgn.m: works.
+
+	* @params_cip_trace_fileset/cip_trace.m:
+	added neuronLabel prop for specifying a display name for ct.
+
+	* @model_ct_bundle/ctFromRows.m, @model_ct_bundle/getNeuronLabel.m, @model_ct_bundle/getNeuronRowIndex.m, @model_ct_bundle/getTrialNum.m:
+	made sure models are named consistently.
+
+	* @histogram_db/plot_abstract.m:
+	support multidimensional arrays of histogram DBs.
+
+	* @histogram_db/plotRowMatrix.m, @dataset_db_bundle/subsasgn.m:
+	initial version, works.
+
+	* @dataset_db_bundle/plotfICurve.m:
+	Now gets current values from unique values in DB.
+
+2006-12-05  author  <author@laotse>
+
+	* @params_cip_trace_fileset/ctFromRows.m:
+	new method to conform to advances in other bundle classes.
+
+	* @params_cip_trace_fileset/cip_trace.m:
+	look for optional parameter instead of trial, if specified. Also bridged the gap to load raw data even though no trial information is provided in fileset.
+
+	* @model_ct_bundle/reportRankingToPhysiolNeuronsTeXFile.m: doc fix
+
+	* @model_ct_bundle/model_ct_bundle.m:
+	doc fix and made looking for trial parameter optional.
+
+	* @model_ct_bundle/ctFromRows.m, @model_ct_bundle/addToDB.m, @histogram_db/plotPages.m:
+	doc fix.
+
+	* @histogram_db/histogram_db.m: added example
+
+	* @histogram_db/calcMode.m: doc fix.
+
+	* @dataset_db_bundle/ctFromRows.m: only gives an error when called.
+
+	* @cip_trace/measureNames.m:
+	initial version, helps with picking measures for DBs.
+
+	* @params_cip_trace_fileset/set.m, @plot_simple/set.m: generic method.
+
+	* @plot_abstract/plot_abstract.m, @physiol_bundle/ctFromRows.m:
+	updated docs.
+
+	* utils/findspikes.m: Alfonso's function modified by CG.
+
+	* @tests_db/vertcat.m, @tests_db/testsHists.m: updated docs
+
+	* @tests_db/histogram.m: added docs
+
+2006-12-02  author  <author@laotse>
+
+	* @params_cip_trace_fileset/cip_trace.m:
+	added using the special trial parameter name
+
+	* @params_tests_db/invarParams.m:
+	added sort command, otherwise it was wrong.
+
+	* @tests_db/sortrows.m: entered warning into doc.
+
+	* @trace/trace.m: added docs and extensin for .gbin
+
+	* @trace/analyzeSpikesInPeriod.m: fixed histogram access to ().
+
+	* utils/collectspikes.m: need to include in pandora
+
+2006-11-27  author  <author@laotse>
+
+	* @params_tests_fileset/paramNames.m:
+	fixed logic error with trial param.
+
+	* @params_tests_fileset/getItemParams.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/set.m:
+	patched to load Dieter's simulation data. quick fix to load par files from project files.
+
+2006-11-15  author  <author@laotse>
+
+	* doc/cip_trace_plot_compact.eps, doc/params_tests_db_plot_param_hists.eps, doc/prog-manual.lyx, doc/tests_db_plot_tests.eps:
+	added few more plots before lab presentation
+
+2006-10-11  author  <author@laotse>
+
+	* @cip_trace/calcPulsePotAvg.m, @cip_trace/calcPulsePotSag.m, @cip_trace/calcRecSpontPotAvg.m, @cip_trace/cip_trace.m, @cip_trace/display.m, @cip_trace/get.m, @cip_trace/getBurstResults.m, @cip_trace/getCIPResults.m, @cip_trace/getProfileAllSpikes.m, @cip_trace/getPulseSpike.m, @cip_trace/getRateResults.m, @cip_trace/getRecSpontSpike.m, @cip_trace/getResults.m, @cip_trace/periodIniSpont.m, @cip_trace/periodPulse.m, @cip_trace/periodPulseHalf1.m, @cip_trace/periodPulseIni100ms.m, @cip_trace/periodPulseIni100msRest1.m, @cip_trace/periodPulseIni100msRest2.m, @cip_trace/periodPulseIni50ms.m, @cip_trace/periodPulseIni50msRest1.m, @cip_trace/periodPulseIni50msRest2.m, @cip_trace/periodRecSpont.m, @cip_trace/periodRecSpont1.m, @cip_trace/periodRecSpont2.m, @cip_trace/periodRecSpontIniPeriod.m, @cip_trace/periodRecSpontRestPeriod.m, @cip_trace/set.m, @cip_trace/spikes.m, @cip_trace/subsref.m, @cip_trace_allspikes_profile/cip_trace_allspikes_profile.m, @cip_trace_allspikes_profile/display.m, @cip_trace_allspikes_profile/get.m, @cip_trace_allspikes_profile/plotRowSpontSpikeAnal.m, @cip_trace_allspikes_profile/set.m, @cip_trace_profile/cip_trace_profile.m, @cip_trace_profile/display.m, @cip_trace_profile/get.m, @cip_trace_profile/plot.m, @cip_trace_profile/set.m, @cip_trace_profile/subsref.m, @cip_traces_dataset/cip_trace_profile.m, @cip_traces_dataset/cip_traces_dataset.m, @cip_traces_dataset/display.m, @cip_traces_dataset/get.m, @cip_traces_dataset/getItemParams.m, @cip_traces_dataset/loadItemProfile.m, @cip_traces_dataset/paramNames.m, @cip_traces_dataset/set.m, @cip_traces_dataset/subsref.m, @cip_traceset/cip_trace_profile.m, @cip_traceset/cip_traceset.m, @cip_traceset/display.m, @cip_traceset/get.m, @cip_traceset/getItemParams.m, @cip_traceset/loadItemProfile.m, @cip_traceset/paramNames.m, @cip_traceset_dataset/cip_traceset_dataset.m, @cip_traceset_dataset/display.m, @cip_traceset_dataset/get.m, @cip_traceset_dataset/loadItemProfile.m, @cip_traceset_dataset/readDBItems.m, @cluster_db/cluster_db.m, @cluster_db/display.m, @cluster_db/get.m, @cluster_db/plotHist.m, @cluster_db/plotQuality.m, @cluster_db/plot_abstract.m, @corrcoefs_db/corrcoefs_db.m, @dataset_db_bundle/constrainedMeasuresPreset.m, @dataset_db_bundle/dataset_db_bundle.m, @dataset_db_bundle/display.m, @dataset_db_bundle/get.m, @dataset_db_bundle/getNeuronRowIndex.m, @dataset_db_bundle/matchingRow.m, @dataset_db_bundle/plotfICurve.m, @dataset_db_bundle/rankingReportTeX.m, @dataset_db_bundle/reportNeuron.m, @dataset_db_bundle/set.m, @dataset_db_bundle/subsref.m, @doc_generate/display.m, @doc_generate/doc_generate.m, @doc_generate/get.m, @doc_generate/getTeXString.m, @doc_generate/printTeXFile.m, @doc_generate/set.m, @doc_multi/doc_multi.m, @doc_multi/get.m, @doc_multi/getTeXString.m, @doc_multi/set.m, @doc_plot/doc_plot.m, @doc_plot/get.m, @doc_plot/getTeXString.m, @doc_plot/plot.m, @doc_plot/set.m, @histogram_db/calcMode.m, @histogram_db/get.m, @histogram_db/histogram_db.m, @histogram_db/plotEqSpaced.m, @histogram_db/plotPages.m, @histogram_db/plot_abstract.m, @model_ct_bundle/addToDB.m, @model_ct_bundle/collectPhysiolMatches.m, @model_ct_bundle/ctFromRows.m, @model_ct_bundle/get.m, @model_ct_bundle/getNeuronLabel.m, @model_ct_bundle/getNeuronRowIndex.m, @model_ct_bundle/model_ct_bundle.m, @model_ct_bundle/plotCompareRanks.m, @model_ct_bundle/plotComparefICurve.m, @model_ct_bundle/rankMatching.m, @model_ct_bundle/reportCompareModelToPhysiolNeuron.m, @model_ct_bundle/reportRankingToPhysiolNeuronsTeXFile.m, @model_ct_bundle/set.m, @model_ranked_to_physiol_bundle/comparisonReport.m, @model_ranked_to_physiol_bundle/model_ranked_to_physiol_bundle.m, @model_ranked_to_physiol_bundle/plotCompareRanks.m, @model_ranked_to_physiol_bundle/plotfICurve.m, @params_cip_trace_fileset/cip_trace.m, @params_cip_trace_fileset/cip_trace_profile.m, @params_cip_trace_fileset/display.m, @params_cip_trace_fileset/get.m, @params_cip_trace_fileset/loadItemProfile.m, @params_cip_trace_fileset/params_cip_trace_fileset.m, @params_tests_dataset/addItem.m, @params_tests_dataset/display.m, @params_tests_dataset/get.m, @params_tests_dataset/getItem.m, @params_tests_dataset/getItemParams.m, @params_tests_dataset/itemResultsRow.m, @params_tests_dataset/params_tests_dataset.m, @params_tests_dataset/params_tests_db.m, TAGS, TODO, @params_tests_dataset/readDBItems.m, @params_tests_dataset/set.m, @params_tests_dataset/testNames.m, @params_tests_db/addParams.m, @params_tests_db/crossProd.m, @params_tests_db/delColumns.m, @params_tests_db/display.m, @params_tests_db/displayRankingsTeX.m, @params_tests_db/get.m, @params_tests_db/getDualCIPdb.m, @params_tests_db/getParamRowIndices.m, @params_tests_db/getProfile.m, @params_tests_db/invarParam.m, @params_tests_db/invarParams.m, @params_tests_db/joinRows.m, @params_tests_db/makeGenesisParFile.m, @params_tests_db/matchingRow.m, @params_tests_db/mergeMultipleCIPsInOne.m, @params_tests_db/onlyRowsTests.m, @params_tests_db/paramsCoefs.m, @params_tests_db/paramsHists.m, @params_tests_db/paramsParamsCoefs.m, @params_tests_db/paramsTestsCoefsHists.m, @params_tests_db/params_tests_db.m, @params_tests_db/plotParamsHists.m, @params_tests_db/plotVarBoxMatrix.m, @params_tests_db/rankVsAllDB.m, @params_tests_db/rankVsDB.m, @params_tests_db/scaleParamsOneRow.m, @params_tests_db/scanParamAllRows.m, @params_tests_db/set.m, @params_tests_db/testsHists.m, @params_tests_fileset/addFiles.m, @params_tests_fileset/display.m, @params_tests_fileset/get.m, @params_tests_fileset/getItemParams.m, @params_tests_fileset/loadItemProfile.m, @params_tests_fileset/paramNames.m, @params_tests_fileset/params_tests_fileset.m, @params_tests_fileset/trace.m, @params_tests_fileset/trace_profile.m, @params_tests_profile/get.m, @params_tests_profile/params_tests_profile.m, @period/SpikeTimesinPeriod.m, @period/display.m, @period/get.m, @period/period.m, @period/set.m, @physiol_bundle/constrainedMeasuresPreset.m, @physiol_bundle/ctFromRows.m, @physiol_bundle/get.m, @physiol_bundle/getNeuronLabel.m, @physiol_bundle/getNeuronRowIndex.m, @physiol_bundle/matchingControlNeuron.m, @physiol_bundle/matchingRow.m, @physiol_bundle/physiol_bundle.m, @physiol_bundle/plotfICurveStats.m, @physiol_bundle/set.m, @physiol_cip_traceset/CIPform.m, @physiol_cip_traceset/cip_trace.m, @physiol_cip_traceset/cip_trace_profile.m, @physiol_cip_traceset/get.m, @physiol_cip_traceset/getItemParams.m, @physiol_cip_traceset/itemResultsRow.m, @physiol_cip_traceset/loadItemProfile.m, @physiol_cip_traceset/paramNames.m, @physiol_cip_traceset/physiol_cip_traceset.m, @physiol_cip_traceset/set.m, @physiol_cip_traceset/setProp.m, @physiol_cip_traceset_fileset/cip_trace.m, @physiol_cip_traceset_fileset/display.m, @physiol_cip_traceset_fileset/get.m, @physiol_cip_traceset_fileset/loadItemProfile.m, @physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m, @physiol_cip_traceset_fileset/readDBItems.m, @physiol_cip_traceset_fileset/set.m, @physiol_cip_traceset_fileset/setProp.m, @plot_abstract/axis.m, @plot_abstract/decorate.m, @plot_abstract/display.m, @plot_abstract/get.m, @plot_abstract/matrixPlots.m, @plot_abstract/openAxis.m, @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_abstract/plot_abstract.m, @plot_abstract/set.m, @plot_abstract/setProp.m, @plot_abstract/subsasgn.m, @plot_abstract/superposePlots.m, @plot_bars/plot_bars.m, @plot_bars/set.m, @plot_errorbar/axis.m, @plot_errorbar/get.m, @plot_errorbar/plot_errorbar.m, @plot_errorbars/plot_errorbars.m, @plot_simple/get.m, @plot_simple/plot_simple.m, @plot_stack/decorate.m, @plot_stack/display.m, @plot_stack/get.m, @plot_stack/plot.m, @plot_stack/plot_stack.m, @plot_stack/set.m, @plot_stack/superposePlots.m, @plot_superpose/axis.m, @plot_superpose/decorate.m, @plot_superpose/display.m, @plot_superpose/get.m, @plot_superpose/plot.m, @plot_superpose/plot_superpose.m, @plot_superpose/set.m, @plot_superpose/superposePlots.m, @ranked_db/blockedDistances.m, @ranked_db/displayRows.m, @ranked_db/get.m, @ranked_db/getDistMatrix.m, @ranked_db/joinOriginal.m, @ranked_db/plotCompareDistMatx.m, @ranked_db/plotDistMatrix.m, @ranked_db/plotRowErrors.m, @ranked_db/ranked_db.m, @ranked_db/renameColumns.m, @ranked_db/set.m, @results_profile/display.m, @results_profile/get.m, @results_profile/getResults.m, @results_profile/plot.m, @results_profile/results_profile.m, @script_array/get.m, @script_array/runFirst.m, @script_array/runJob.m, @script_array/runLast.m, @script_array/script_array.m, @script_array/set.m, @script_array/subsasgn.m, @script_array/subsref.m, @script_array_for_cluster/get.m, @script_array_for_cluster/runFirst.m, @script_array_for_cluster/script_array_for_cluster.m, @script_array_for_cluster/set.m, @script_factory/get.m, @script_factory/script_factory.m, @spike_shape/calcInitVm.m, @spike_shape/calcInitVmLtdMaxCurv.m, @spike_shape/calcInitVmMaxCurvPhasePlane.m, @spike_shape/calcInitVmMaxCurvature.m, @spike_shape/calcInitVmSekerliV2.m, @spike_shape/calcInitVmSlopeThreshold.m, @spike_shape/calcInitVmSlopeThresholdSupsample.m, @spike_shape/calcInitVmV2PPLocal.m, @spike_shape/calcInitVmV3hKpTinterp.m, @spike_shape/calcMaxVm.m, @spike_shape/calcMinVm.m, @spike_shape/calcWidthFall.m, @spike_shape/display.m, @spike_shape/get.m, @spike_shape/getResults.m, @spike_shape/plotCompareMethods.m, @spike_shape/plotCompareMethodsSimple.m, @spike_shape/plotPP.m, @spike_shape/plotResults.m, @spike_shape/plotTPP.m, @spike_shape/set.m, @spike_shape/spike_shape.m, @spike_shape_profile/get.m, @spike_shape_profile/plot_abstract.m, @spike_shape_profile/spike_shape_profile.m, @spikes/ISICV.m, @spikes/SFA.m, @spikes/addSpikes.m, @spikes/display.m, @spikes/get.m, @spikes/getISIs.m, @spikes/getResults.m, @spikes/intoPeriod.m, @spikes/periodWhole.m, @spikes/plot.m, @spikes/plotData.m, @spikes/plotFreqVsTime.m, @spikes/plotISIs.m, @spikes/set.m, @spikes/spikeAmpSlope.m, @spikes/spikeRate.m, @spikes/spikeRateISI.m, @spikes/spikes.m, @spikes/subsref.m, @spikes/vertcat.m, @spikes/withinPeriod.m, @spikes/withinPeriodWOffset.m, @spikes_db/plot_abstract.m, @spikes_db/spikes_db.m, @stats_db/compareStats.m, @stats_db/get.m, @stats_db/onlyRowsTests.m, @stats_db/plotColorVar.m, @stats_db/plotVar.m, @stats_db/plotVarMatrix.m, @stats_db/plotYTests.m, @stats_db/plot_abstract.m, @stats_db/plot_bars.m, @stats_db/set.m, @stats_db/stats_db.m, @tests_3D_db/diff2D.m, @tests_3D_db/display.m, @tests_3D_db/get.m, @tests_3D_db/histograms.m, @tests_3D_db/joinPages.m, @tests_3D_db/mergePages.m, @tests_3D_db/paramsTestsHistsStats.m, @tests_3D_db/plotParamPairImage.m, @tests_3D_db/plotVarBox.m, @tests_3D_db/set.m, @tests_3D_db/swapRowsPages.m, @tests_3D_db/tests_3D_db.m, @tests_db/addColumns.m, @tests_db/addLastRow.m, @tests_db/addRow.m, @tests_db/allocateRows.m, @tests_db/assignRowsTests.m, @tests_db/compareRows.m, @tests_db/corrCoefs.m, @tests_db/crossProd.m, @tests_db/dbsize.m, @tests_db/delColumns.m, @tests_db/diff.m, @tests_db/display.m, @tests_db/displayRows.m, @tests_db/displayRowsTeX.m, @tests_db/end.m, @tests_db/enumerateColumns.m, @tests_db/eq.m, @tests_db/factoran.m, @tests_db/ge.m, @tests_db/get.m, @tests_db/getColNames.m, @tests_db/gt.m, @tests_db/histogram.m, @tests_db/invarValues.m, @tests_db/isinf.m, @tests_db/isnan.m, @tests_db/isnanrows.m, @tests_db/joinRows.m, @tests_db/kmeansCluster.m, @tests_db/le.m, @tests_db/lt.m, @tests_db/matchingRow.m, @tests_db/mean.m, @tests_db/meanDuplicateRows.m, @tests_db/mtimes.m, @tests_db/ne.m, @tests_db/noNaNRows.m, @tests_db/onlyRowsTests.m, @tests_db/plot.m, @tests_db/plotScatter.m, @tests_db/plotTestsHistsMatrix.m, @tests_db/plotYTests.m, @tests_db/plot_abstract.m, @tests_db/plot_bars.m, @tests_db/plotrow.m, @tests_db/plotrows.m, @tests_db/princomp.m, @tests_db/rankMatching.m, @tests_db/renameColumns.m, @tests_db/rows2Struct.m, @tests_db/set.m, @tests_db/setProp.m, @tests_db/setRows.m, @tests_db/shufflerows.m, @tests_db/sortrows.m, @tests_db/statsAll.m, @tests_db/statsBounds.m, @tests_db/statsMeanSE.m, @tests_db/statsMeanStd.m, @tests_db/std.m, @tests_db/subsasgn.m, @tests_db/subsref.m, @tests_db/sum.m, @tests_db/tests2cols.m, @tests_db/testsHists.m, @tests_db/tests_db.m, @tests_db/times.m, @tests_db/vertcat.m, @trace/analyzeSpikesInPeriod.m, @trace/calcAvg.m, @trace/calcMax.m, @trace/calcMin.m, @trace/display.m, @trace/findFilteredSpikes.m, @trace/get.m, @trace/getDy.m, @trace/getResults.m, @trace/getSpike.m, @trace/periodWhole.m, @trace/plot.m, @trace/plotData.m, @trace/set.m, @trace/setProp.m, @trace/spike_shape.m, @trace/spikes.m, @trace/subsref.m, @trace/trace.m, @trace/withinPeriod.m, @trace_profile/get.m, @trace_profile/trace_profile.m, utils/colormapBlueCrossRed.m, utils/plotImage.m:
+	Did global search-replace for changing help comment fields to conform with new autodoc-parger-generator.
+
+	* Contents.m: updated some comments.
+
+	* utils/readNeuronVecBin.m: Initial version.
+
+	* doc/scratch:
+	added search-replace regexps for multi-line fixes in help documentation.
+
+	* doc/prog-manual.lyx:
+	adapted to generating HTML reports while still keeping PDF and PS generation capabilities. Has function index.
+
+	* doc/generate_func_pages.pl: imrpoved and added author lines.
+
+2006-09-21  author  <author@laotse>
+
+	* doc/generate_func_pages.pl, doc/prog-manual.lyx:
+	Better layout for function reference pages.
+
+	* doc/DB-classes.eps, doc/Dataset-classes.eps, doc/Profile-classes.eps, doc/Profiles.eps, doc/bundle-classes.eps, doc/data-wrapper-diagram.eps, doc/generate_func_pages.pl, doc/plot-classes.eps, doc/plots.eps, doc/prog-manual.lyx:
+	Updating documentation. Automatic script works, but needs imrpovement.
+
+2006-08-31  author  <author@laotse>
+
+	* utils/plotImage.m: works.
+
+	* @trace/getSpike.m: has only one usage now.
+
+	* @trace/get.m: works on arrays.
+
+	* @trace/display.m: improved.
+
+	* @tests_db/times.m: works.
+
+	* @tests_db/testsHists.m: use arrays instead of cells.
+
+	* @tests_db/std.m: mean and std now returns DBs.
+
+	* @tests_db/statsBounds.m, @tests_db/statsMeanSE.m, @tests_db/statsMeanStd.m, @tests_db/statsAll.m:
+	fixed the way mean and std is used.
+
+	* @tests_db/mtimes.m: works.
+
+	* @tests_db/meanDuplicateRows.m: fixed the way mean and std is used.
+
+	* @tests_db/mean.m: improved.
+
+	* @tests_db/matchingRow.m: fix.
+
+	* @tests_db/enumerateColumns.m: added prop for truncating digits.
+
+	* @tests_db/end.m: works.
+
+	* @tests_db/assignRowsTests.m: fixed doc
+
+	* @tests_db/allocateRows.m: fixed doc, logic and bugs.
+
+	* @tests_3D_db/plotParamPairImage.m: works.
+
+	* @stats_db/plotVarMatrix.m: added rotateYLabel prop.
+
+	* @spikes/plotFreqVsTime.m:
+	added new default manhattan block method of plotting freq w/o any artifacts.
+
+	* @spikes/display.m: improved.
+
+	* @spike_shape/spike_shape.m: fixed doc.
+
+	* @spike_shape/plotResults.m: work on array of objects.
+
+	* @spike_shape/display.m: improved display method.
+
+	* @ranked_db/plotRowErrors.m:
+	added a rowSteps prop for skip labeling some rows.
+
+	* @plot_superpose/superposePlots.m: works.
+
+	* @plot_superpose/plot_superpose.m:
+	improved the way superposition works to call superposePlots method of object if possible.
+
+	* @plot_stack/superposePlots.m: improved the way superposition works.
+
+	* @plot_stack/set.m: modernized method.
+
+	* @plot_stack/plot.m: simple fix for empty plots.
+
+	* @plot_bars/set.m: fixed to correct parent class.
+
+	* @plot_bars/plot_bars.m: removed + from errorbars.
+
+	* @plot_abstract/superposePlots.m: improved.
+
+	* @plot_abstract/setProp.m: simplified.
+
+	* @plot_abstract/plot_abstract.m:
+	introduce doc for ColorOrder and resizeControl props.
+
+	* @plot_abstract/plotFigure.m:
+	set resize and position properties accordingly with new resizeControl prop.
+
+	* @plot_abstract/plot.m: line style and color order properties set.
+
+	* @plot_abstract/openAxis.m: allow four components in border argument.
+
+	* @plot_abstract/matrixPlots.m:
+	doc update, made verbosity controlled by matlab switch.
+
+	* @physiol_bundle/plotfICurveStats.m: works.
+
+	* @physiol_bundle/ctFromRows.m: added control of traes to include.
+
+	* @params_tests_db/testsHists.m: doc fix and rename of variable.
+
+	* @params_tests_db/rankVsDB.m: changed the mean function to use.
+
+	* @params_tests_db/paramsCoefs.m, @params_tests_db/paramsParamsCoefs.m:
+	use array instead of cell.
+
+	* @params_tests_db/invarParams.m: return array instead of cell.
+
+	* @params_tests_db/invarParam.m: minor.
+
+	* @doc_plot/get.m, @doc_multi/get.m: accepts arrays.
+
+	* @dataset_db_bundle/reportNeuron.m:
+	Several additions of presets and range options for better control of output.
+
+	* @cip_trace/getPulseSpike.m: better handling of optional arguments.
+
+	* @cip_trace/get.m: accepts arrays
+
+	* @cip_trace/display.m: fixed
+
+	* TAGS, TODO: updated
+
+2006-06-15  author  <author@laotse>
+
+	* @dataset_db_bundle/reportNeuron.m:
+	Added options for axis limits for all four types of plots, and used relative size property of plot_stack for nicer organization in layout 5.
+
+	* @plot_stack/plot.m, @plot_stack/plot_stack.m:
+	Added option to specify relative sizes of plot_stack components.
+
+	* @plot_stack/superposePlots.m: Incredibly, it works.
+
+	* @plot_abstract/subsasgn.m: Relaxed assignment checks.
+
+2006-06-14  author  <author@laotse>
+
+	* @dataset_db_bundle/reportNeuron.m: Minor quick fixes.
+
+	* @trace/trace.m: Removed neuroSAGE from supported datat types list.
+
+	* @tests_db/enumerateColumns.m:
+	Enumerates columns, for example to replace parameter values with levels.
+
+	* @spikes/plotFreqVsTime.m: Fixed bug with handling no spikes.
+
+	* @params_tests_db/matchingRow.m:
+	OVerloaded matchingRow for handling params specially.
+
+	* @params_tests_db/params_tests_db.m: Made error message more verbose.
+
+	* @doc_plot/getTeXString.m, @doc_plot/plot.m:
+	Added a generic plot command.
+
+	* @dataset_db_bundle/plotfICurve.m: minor fix.
+
+	* @dataset_db_bundle/constrainedMeasuresPreset.m, @physiol_bundle/constrainedMeasuresPreset.m:
+	Generalized to be used from all dataset_db_bundles.
+
+2006-06-13  author  <author@laotse>
+
+	* @trace/trace.m: Added .gbin support, and updated docs.
+
+2006-06-09  author  <author@laotse>
+
+	* @dataset_db_bundle/dataset_db_bundle.m, @dataset_db_bundle/getNeuronRowIndex.m, @model_ct_bundle/getNeuronRowIndex.m, @physiol_bundle/getNeuronRowIndex.m:
+	Added polymorphic method to return neuron index from bundles.
+
+	* @spike_shape/plotResults.m: Added passing props to plot_abstract.
+
+	* @model_ct_bundle/getNeuronRowIndex.m: Works.
+
+	* @dataset_db_bundle/plotfICurve.m, @dataset_db_bundle/reportNeuron.m:
+	Organized, and added new layouts to reportNeuron.
+
+	* @trace/plotData.m: Added props for time scale on plot.
+
+	* @tests_db/renameColumns.m: Doc update, added example.
+
+	* @tests_db/plot_bars.m: Doc update, added xlabels to plot_bars.
+
+	* @tests_db/getColNames.m, @tests_db/diff.m: Doc update.
+
+	* @tests_3D_db/display.m, @stats_db/subsref.m:
+	Added support for vector inputs.
+
+	* @stats_db/plot_bars.m: Minor, but fatal fix.
+
+	* @spikes/plotFreqVsTime.m:
+	Added prop for changing the timeScale on the plot.
+
+	* @ranked_db/renameColumns.m:
+	Overload method to keep many DBs included consistent.
+
+	* @ranked_db/plotRowErrors.m:
+	Added custom title and fixed font size logic.
+
+	* @ranked_db/plotDistMatrix.m: Minor doc fix.
+
+	* @plot_stack/plot_stack.m:
+	Moved some of the logic of not displaying ticks or sparing space to plot_abstract/openAxis. So no need to explicitly specify no tick marks and confuse layout algorithms here.
+
+	* @plot_stack/display.m: Minor fix.
+
+	* @plot_bars/plot_bars.m: Allow truncating digits on display.
+
+	* @plot_stack/plot.m:
+	Now passes label placement control commands to child instances of plot_stack. Needed to separate the openAxis method in plot_abstract for this.
+
+	* @plot_abstract/openAxis.m, @plot_abstract/plot.m:
+	Moved functionality to open axis to outside of plot.
+
+	* @params_tests_db/subsref.m: Added handling for vector inputs.
+
+	* @params_tests_db/plotParamsHists.m: Added props and quiet behavior.
+
+	* @params_tests_db/invarParams.m, @params_tests_db/paramsTestsHistsStats.m, @params_tests_db/plotVarMatrix.m, @stats_db/plotColorVar.m, @stats_db/plotVarMatrix.m, @tests_3D_db/paramsTestsHistsStats.m:
+	Changed the analysis of params_tests_db to yield arrays rather than cell arrays. Therefore util method working on these structures moved to appropriate classes; e.g., tests_3D_db, and stats_db.
+
+	* @tests_db/sum.m, utils/colormapBlueCrossRed.m:
+	Initial version, works.
+
+	* @params_tests_db/plotVarMatrix.m: Added limit digits on plot display.
+
+	* @model_ct_bundle/reportCompareModelToPhysiolNeuron.m, @model_ct_bundle/reportRankingToPhysiolNeuronsTeXFile.m:
+	minor fixes for changes elsewhere.
+
+	* @model_ct_bundle/getNeuronLabel.m:
+	Missing label for model neurons implemented.
+
+	* @doc_generate/set.m, @doc_multi/set.m, @doc_plot/set.m, @plot_bars/set.m, @ranked_db/set.m:
+	Generic methods.
+
+	* @dataset_db_bundle/reportNeuron.m:
+	Added rudimentary reportLayout, but also organized new props propagation.
+
+2006-05-26  author  <author@laotse>
+
+	* @plot_abstract/display.m, @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_stack/display.m, TAGS:
+	Fixed docs, debugging and a bug that caused too much space on plot_stack inits.
+
+	* @tests_3D_db/getDiffDB.m: Renamed to diff2D.m
+
+	* TODO: Update.
+
+	* @tests_db/getColNames.m: Initial version, works.
+
+	* @tests_3D_db/diff2D.m, @tests_db/diff.m:
+	Convenience methods added for diffing 2D/3D DBs.
+
+	* @stats_db/plot_bars.m:
+	Added col_labels and fixed negative error bars.
+
+	* @plot_stack/plot.m:
+	Fixed bug with plot_stack forcing diabled labels in child plots.
+
+	* @plot_bars/plot_bars.m:
+	Added x_labels as parameter, cleaned class def.
+
+	* @plot_abstract/plot_abstract.m: Doc update.
+
+	* @plot_abstract/axis.m:
+	Special addition for counting errorbar extents.
+
+	* @params_tests_db/plotVarMatrix.m: Doc update
+
+	* @params_tests_db/paramsTestsHistsStats.m:
+	Added diffing 3D DBs as an option.
+
+	* @cip_trace/display.m: Fixed bug
+
+2006-05-23  author  <author@laotse>
+
+	* @tests_db/delColumns.m: Enabled for 3D DBs.
+
+	* @tests_3D_db/getDiffDB.m: Return DB of diffed columns. Works.
+
+	* @stats_db/plot_bars.m:
+	Added optional pageVariable to take page-representative values from a test.
+
+	* @stats_db/get.m, @stats_db/onlyRowsTests.m, @stats_db/set.m:
+	Added generic methods to bridge problems.
+
+	* @plot_superpose/plot.m:
+	Fixed problem with layout_axis argument interpretation.
+
+	* @plot_superpose/axis.m: Initial version, works.
+
+	* @plot_stack/plot.m:
+	Made title apparition dependent on title positioning props.
+
+	* @plot_bars/plot_bars.m:
+	Added a groupValues prop to specify bar XTickLabels within a group. Fixed doc.
+
+	* @plot_abstract/plot_abstract.m:
+	Added default parameters for convenience of not specifying any.
+
+	* @plot_abstract/plot.m:
+	Fixed interaction with plot_superpose broken after latest fix to plot_stack
+
+	* @params_tests_db/plotVarMatrix.m:
+	Added option to use plot_bars in addition to plotVar.
+
+	* @histogram_db/plotPages.m: Fixed doc.
+
+	* @cip_trace/getPulseSpike.m, @trace/getSpike.m:
+	Added simpler usages for convenience.
+
+2006-05-18  author  <author@laotse>
+
+	* @params_tests_db/plotVarMatrix.m: Minor fix.
+
+	* doc/plotVarBoxMatrix_example.eps, doc/prog-manual.lyx:
+	Added an example for plotVarMatrix
+
+	* @plot_stack/plot.m: Fixed minor verbosity issues.
+
+	* @plot_abstract/plotFigure.m:
+	All position calculations left to plot_abstract/plot.m
+
+	* @params_tests_db/plotVarMatrix.m:
+	Fixed bug with putting x-labels on wrong plot_stack, and used tight plot limits.
+
+2006-05-17  author  <author@laotse>
+
+	* @plot_abstract/plot.m, @plot_abstract/plotFigure.m, @plot_abstract/plot_abstract.m, @plot_stack/plot.m, @plot_stack/plot_stack.m:
+	Changed way plot_stacks are generated. Delegated all single plot work to plot_abstract, and kept only handling of plot_stack specific props in plot_stack. Recognizes the verbose flag to produce debug output.
+
+	* @params_tests_db/plotVarMatrix.m:
+	Fixed bug with mixing horiz_props with global props.
+
+2006-05-15  author  <author@laotse>
+
+	* update_tags: Initial version, works.
+
+	* @trace/findFilteredSpikes.m:
+	Added error check if prepended buffers exceed the trace length and give a more sensible error message to the user.
+
+2006-05-12  author  <author@laotse>
+
+	* ChangeLog, TODO: New docs.
 
 	* doc/prog-manual.lyx: Minor addition.
 
