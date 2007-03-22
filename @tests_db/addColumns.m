@@ -59,6 +59,9 @@ obj.data(:, new_col_id:(new_col_id + size(test_columns, 2) - 1)) = test_columns;
 
 %# Update the meta-data
 new_col_idx = get(obj, 'col_idx');
+if isempty(new_col_idx)
+  new_col_idx = struct;
+end
 for test_num = 1:length(test_names)
   new_col_idx.(test_names{test_num}) = new_col_id + test_num - 1;
 end

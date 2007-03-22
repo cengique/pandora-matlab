@@ -65,6 +65,8 @@ else
    plot_class = '';
    plot_command = '';
    superposable = true;
+   %# replicate the first plot to pre-allocate the array
+   plot_array = plots{1};
    for plot_num=1:length(plots)
 
      %# check if same plot classes are used
