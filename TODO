@@ -1,5 +1,8 @@
 TODO
 --------------------
+- ask to put link on http://home.earthlink.net/~perlewitz/sftwr.html
+  comes first in google when searched for "neuroscience software".
+  also link to http://scholarpedia.org/article/Encyclopedia_of_Computational_Neuroscience
 - rename plot_abstract, joined_db to more meaningful names.
 - generalize histogram_db to hold 2 and 3-dimensional histograms
 - open tools/utils dir and move needed stuff from cen_matlab and alftoolbox into there.
