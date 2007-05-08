@@ -91,6 +91,11 @@ else
     [obj.path, name, ext, ver] = fileparts(file_pattern);
   end
 
+  %# Remove the last directory if the subdirs option is given
+  if isfield(props, 'isSubdirs')
+    [obj.path, name, ext, ver] = fileparts(obj.path);
+  end
+
   %# Loop over patterns (or do one pattern only)
   total_entries = 0;
   for pattern_num = 1:num_patterns
@@ -102,7 +107,17 @@ else
 
     filestruct = dir(this_pattern);
     entries = size(filestruct, 1);
-    [filenames{total_entries + (1:entries)}] = deal(filestruct(:).name);
+
+    %# if there's a subdir, prepend it to the filename
+    names = { filestruct(:).name };
+    if isfield(props, 'isSubdirs')
+      [path, name, ext, ver] = fileparts(this_pattern);
+      [path, subdir_name, ext, ver] = fileparts(path);
+
+      names = cellfun(@(x)sprintf([subdir_name '/%s'], x), names, 'UniformOutput', false);
+    end
+
+    [filenames{total_entries + (1:entries)}] = deal(names{:});
     total_entries = total_entries + entries;
     if entries == 0
       warning([ 'Pattern "' this_pattern '" matched no files.' ]);
