@@ -13,6 +13,7 @@ function a_ps = plotParamsHists(a_db, title_str, props)
 %	title_str: (Optional) A string to be concatanated to the title.
 %	props: A structure with any optional properties.
 %	  quiet: Do not display the DB id on the plot title.
+%	  barAxisProps: passed to plotEqSpaced for each bar axis.
 %		
 %   Returns:
 %	a_ps: A horizontal plot_stack of plots
@@ -31,9 +32,15 @@ if ~exist('title_str')
   title_str = '';
 end
 
+if isfield(props, 'barAxisProps')
+    barAxisProps = props.barAxisProps;
+else
+    barAxisProps = struct;
+end
+
 if ~ isfield(props, 'quiet') && ~ isfield(get(a_db, 'props'), 'quiet')
   title_str = ['Parameter histograms of ' get(a_db, 'id') title_str ];
 end
 
-a_ps = plot_stack(plotEqSpaced(paramsHists(a_db)), [], 'x', title_str, ...
+a_ps = plot_stack(plotEqSpaced(paramsHists(a_db), [], mergeStructs(barAxisProps, props)), [], 'x', title_str, ...
 		  mergeStructs(props, struct('titlesPos', 'none', 'yLabelsPos', 'left')));
