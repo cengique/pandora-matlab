@@ -93,7 +93,8 @@ else
 		names{n} = pars{1};
 		pars(1) = [];
 	elseif exist(pars{1}, 'file') ~= 2
-	  error('No valid data file name found.');
+	  error([ 'No valid data file name found from either "' pars{1} ...
+                  '" or "' pars{2} '".' ]);
 	else
 		slashes = strfind(pars{1}, '/');
 		if isempty(slashes) ~= 1
