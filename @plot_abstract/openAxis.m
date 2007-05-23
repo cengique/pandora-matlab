@@ -67,26 +67,22 @@ if isempty(layout_axis) || ~all(isnan(layout_axis))
     right_margin = decosize_x;
   end
 
-  %# If an axis is specified
-  if ~isempty(layout_axis)
-    left_side = layout_axis(1);
-    bottom_side = layout_axis(2);
-    width = layout_axis(3) - right_margin;
-    height = layout_axis(4) - top_margin;
-
-    if verbose
-      disp([ 'plot_abstract, called with axis ->' sprintf('\n') ...
-	    'axis: ' num2str([ left_side bottom_side width height ]) ]);
-    end
-  else  %# Open full size axis
-    [ left_side bottom_side width height ] = ...
-	deal(border(1), border(2), 1 - (border(1) + border(3)) - right_margin, ...
-	     1 - (border(2) + border(4)) - top_margin);
-    layout_axis = [ left_side bottom_side width height ];
-    if verbose
-      disp([ 'plot_abstract: Opening new axis ->' sprintf('\n') ...
-	    'axis: ' num2str([ left_side bottom_side width height ]) ]);
-    end
+  % default to fully extended axis if not specified
+  if isempty(layout_axis)
+      layout_axis = [0 0 1 1];
+      if verbose
+          disp([ 'plot_abstract: Opening new axis ->' ]);
+      end
+  end
+  
+  %# Factor in borders and special margins
+  [ left_side bottom_side width height ] = ...
+      deal(layout_axis(1) + border(1), layout_axis(2) + border(2), ...
+           layout_axis(3) - (border(1) + border(3)) - right_margin, ...
+           layout_axis(4) - (border(2) + border(4)) - top_margin);
+  layout_axis = [ left_side bottom_side width height ];
+  if verbose
+      disp(['plot_abstract: axis = ' num2str([ left_side bottom_side width height ]) ]);
   end
 end
 
