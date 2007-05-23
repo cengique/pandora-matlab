@@ -44,6 +44,8 @@ for test_num=1:num_tests
 
   plots = cell(1, num_params);  
   ranges = [];
+  relativeSizes = ones(1, num_params);
+  % Do all params in each plot row
   for param_num=1:num_params
     a_stats_db = p_stats(param_num);
     if isfield(props, 'plotMethod') && strcmp(props.plotMethod, 'plot_bars')
@@ -60,6 +62,7 @@ for test_num=1:num_tests
 				     struct('dispNvals', 0, 'pageVariable', 1, ...
 					    'rotateYLabel', rotate_labels, ...
 					    'truncateDecDigits', 1)));
+      a_plot.plot_stack.plots{1}.props.tightLimits = 1;
       axis_ranges = axis(a_plot.plot_stack.plots{1});
     else
       a_plot = plotVar(p_stats(param_num), 1, test_num + 1, ...
@@ -73,19 +76,19 @@ for test_num=1:num_tests
     else
       ranges = growRange([ranges; axis_ranges]);
     end
+    
+    % add relative size for stacking from page dimension
+    relativeSizes(param_num) = dbsize(p_stats(param_num), 3);
 
-    plots{param_num} = setProp(a_plot, 'tightLimits', 1);
+    plots{param_num} = a_plot; %setProp(a_plot, 'tightLimits', 1);
   end
   if test_num == num_tests
-    horiz_props = struct('titlesPos', 'none', ...
-			 'yLabelsPos', 'left', ...
-			 'yTicksPos', 'left');
+    horiz_props = struct('titlesPos', 'none', 'yLabelsPos', 'left', ...
+			 'yTicksPos', 'left', 'relativeSizes', relativeSizes);
   else
-    horiz_props = struct('titlesPos', 'none', ...
-			 'yLabelsPos', 'left', ...
-			 'yTicksPos', 'left', ...
-			 'xLabelsPos', 'none', ...
-			 'xTicksPos', 'none');
+    horiz_props = struct('titlesPos', 'none', 'yLabelsPos', 'left', ...
+			 'yTicksPos', 'left', 'xLabelsPos', 'none', ...
+			 'xTicksPos', 'none', 'relativeSizes', relativeSizes);
   end
 
   %# fixed y-axis bounds, but flexible x-axis
