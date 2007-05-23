@@ -26,6 +26,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %	  dispNvals: If 1, display n_vals on top of each bar.
 %	  groupValues: Array of within-group numeric labels, instead of just a sequence of numbers.
 %	  truncateDecDigits: Truncate labels to this many decimal digits.
+%	  barAxisProps: props passed to plot_abstract objects with bar commands
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract
@@ -71,11 +72,16 @@ if nargin == 0 %# Called with no params
 
    num_plots = size(mid_vals, 2);
    plots = cell(1, num_plots);
+   if isfield(props, 'barAxisProps')
+       bar_axis_props = mergeStructs(props.barAxisProps, props);
+   else
+       bar_axis_props = props;
+   end
    %# Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
      plot_components = ...
 	 {plot_abstract({group_locs, mid_vals(:,plot_num)}, ...
-			{x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'bar', props)};
+			{x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'bar', bar_axis_props)};
 
      if ~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1
        plot_components = ...
