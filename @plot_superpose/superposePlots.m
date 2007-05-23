@@ -30,6 +30,18 @@ end
 
 a_plot = plots(1);
 
+if exist('title_str')
+  a_plot = set(a_plot, 'title', title_str);
+end
+
+if exist('axis_labels')
+  a_plot = set(a_plot, 'axis_labels', axis_labels);
+end
+
+if exist('command')
+  a_plot = set(a_plot, 'command', command);
+end
+
 %# Combine plots and legend fields into one plot_superpose object
 num_plots = length(plots);
 if num_plots > 1
