@@ -13,6 +13,7 @@ function h = plotImage(image_data, colormap_func, num_colors, props)
 % 	num_colors: Parameter to be passed to the colormap_func.
 %	props: A structure with any optional properties.
 %	  colorbar: If defined, show colorbar on plot.
+%	  maxValue: Maximal value at num_colors to annotate the colorbar.
 %		
 % Returns:
 %	colors: RGB color matrix to be passed to colormap function.
@@ -30,6 +31,16 @@ colormap(feval(colormap_func, num_colors));
 
 if isfield(props, 'colorbar')
   hc = colorbar;
+  
+  if isfield(props, 'maxValue')
+      max_val = props.maxValue;
+  else
+      max_val = num_colors;             % Default normalized display
+  end
+  set(hc, 'YTickMode', 'manual');
+  set(hc, 'YTickLabelMode', 'manual');
+  yticks = get(hc, 'YTick');
+  set(hc, 'YTickLabel', yticks .* max_val ./ num_colors);
 end
 
 %# scale font to fit measure names on y-axis
