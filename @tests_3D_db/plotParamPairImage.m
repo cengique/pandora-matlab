@@ -87,6 +87,9 @@ plot_props.XTick = 1:skip_steps:num_param2;
 unique_vals = sort(uniqueValues(round(page_data(:, 2) * mult_factor) / mult_factor));
 plot_props.XTickLabel = unique_vals(1:skip_steps:end);
 
-a_plot = plot_abstract({image_data ./ max(max(image_data)) * num_colors, @gray, ...
+% send this to the plot
+props.maxValue = max(max(image_data));
+
+a_plot = plot_abstract({image_data ./ props.maxValue * num_colors, @gray, ...
 			num_colors, props}, getColNames(a_db, [2 1]), ...
 		       title_str, {}, @plotImage, mergeStructs(props, plot_props))
