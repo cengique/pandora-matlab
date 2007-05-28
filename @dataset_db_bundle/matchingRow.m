@@ -13,7 +13,7 @@ function crit_db = matchingRow(a_bundle, row, props)
 %	a_bundle: A tests_db object.
 %	row: A row index to match.
 %	props: A structure with any optional properties.
-%		std_db: Take the standard deviation from this db instead.
+%		distDB: Take the standard deviation from this db instead.
 %		
 %   Returns:
 %	crit_db: A tests_db with two rows for values and STDs.

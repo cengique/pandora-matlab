@@ -12,7 +12,7 @@ function crit_db = matchingRow(a_db, row, props)
 %	a_db: A tests_db object.
 %	row: A row index to match.
 %	props: A structure with any optional properties.
-%		std_db: Take the standard deviation from this db instead.
+%		distDB: Take the standard deviation from this db instead.
 %		
 %   Returns:
 %	crit_db: A tests_db with two rows for values and STDs.
@@ -32,9 +32,9 @@ end
 params_cols = 1:a_db.num_params;
 tests_cols = (a_db.num_params+1):dbsize(a_db, 2);
 
-if isfield(props, 'std_db')
-  %# Take params out of std_db, too
-  props.std_db = onlyRowsTests(props.std_db, ':', tests_cols);
+if isfield(props, 'distDB')
+  %# Take params out of distDB, too
+  props.distDB = onlyRowsTests(props.distDB, ':', tests_cols);
 end
 
 no_params_db = onlyRowsTests(a_db.tests_db, ':', tests_cols);
