@@ -1,9 +1,9 @@
-function [sorted, idx] = sortrows(db, cols)
+function [sorted_db, idx] = sortrows(db, cols)
 
-% sortrows - Returns a sorted db according to given columns. 
+% sortrows - Returns a sorted_db according to given columns. 
 %
 % Usage:
-% [sorted, idx] = sortrows(db, cols)
+% [sorted_db, idx] = sortrows(db, cols)
 %
 % Description:
 %   For multi-page dbs, sorts only the first page and applies the ordering 
@@ -14,8 +14,8 @@ function [sorted, idx] = sortrows(db, cols)
 %	cols: Columns to use for sorting.
 %		
 %   Returns:
-%	sorted: The sorted tests_db.
-%	idx: The row index permutation vector. 
+%	sorted_db: The sorted tests_db.
+%	idx: The row index permutation vector, such that sorted_db = db(idx, :). 
 %
 % See also: sortrows, tests_db
 %
@@ -58,8 +58,8 @@ if ~ isempty(row_names)
   row_names = row_names(idx);
 end
 
-sorted = db;
-sorted = set(sorted, 'row_idx', makeIdx(row_names));
+sorted_db = db;
+sorted_db = set(sorted_db, 'row_idx', makeIdx(row_names));
 
 %# Create a new db (or maybe only set fields so that the object stays the same?)
 %#if isa(db, 'tests_3D_db')
