@@ -16,6 +16,8 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 %	  tolerateNaNs: If 0, rows with any NaN values are skipped (default=1).
 %	  testWeights: Structure array associating tests and multiplicative weights.
 %	  topRows: If given, only return this many of the top rows.
+%	  useMahal: Use the Mahalonobis distance from the covariance
+%	  	    matrix in crit_db.
 %		
 %   Returns:
 %	a_ranked_db: A ranked_db object.
@@ -80,22 +82,45 @@ end
 
 %# Filter relevant columns, subtract from db and weight
 %# (do all at once without using temporary variables to save memory)
-wghd_data = (get(db(':', crit_tests), 'data') - ...
-	     (ones(dbsize(db, 1), 1) * first_row.data)) ./ ...
-    (ones(dbsize(db, 1), 1) * second_row_data);
 
-%# Sum of squares: distance measure
-%# Look for NaN & Inf values, skip them and count the non-NaN values to normalize the SS
-ss_data = abs(wghd_data); %# .* wghd_data;
+% Measure differences
+wghd_data = get(db(':', crit_tests), 'data') - (ones(dbsize(db, 1), 1) * first_row.data);
+
+% Replicate STD row for all
+second_row_matx = ones(dbsize(db, 1), 1) * second_row_data;
+
+%# Look for NaN & Inf values
+nans = isnan(wghd_data) | isinf(wghd_data);
 if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
-  nans = isnan(ss_data) | isinf(ss_data);
-  ss_data(nans) = 3; %# Replace NaNs with 0s, 3 for 3 STDs different
-  ss_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
+  % penalize NaNs by replacing NaNs with 3 for 3 STDs difference 
+  wghd_data(nans) = 3 * second_row_matx(nans); 
 else
-  ss_data = sum(ss_data, 2) ./ size(ss_data, 2);
+  % ignore NaNs by skipping them and count the non-NaN values to normalize the SS
+  wghd_data(nans) = 0; %# Replace NaNs with 0s
 end
 
-%# Ignore NaN rows (there will be non NaN rows after the above)
+if isfield(props, 'useMahal')
+  % Use Mahalonobis distance
+  % can we use pseudoinverse?
+  ss_data = sqrt(wghd_data' * inv(crit_db.props.cov) * wghd_data);
+else
+  % normalized scale-invariant distance by dividing with STDs
+  wghd_data = wghd_data ./ second_row_matx;
+  
+  %# Sum of absolute error: distance measure
+  ss_data = abs(wghd_data);
+
+  if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
+    ss_data = sum(ss_data, 2) ./ size(ss_data, 2); 
+  else
+    ss_data = sum(ss_data(~nans), 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
+  end
+end
+
+% clear those no longer needed
+clear second_row_matx;
+
+%# Ignore NaN rows (note: there must be non NaN rows after the above anyway!)
 nans = isnan(ss_data) | isinf(ss_data);
 ss_data = ss_data(~nans);
 row_index = row_index(~nans);
