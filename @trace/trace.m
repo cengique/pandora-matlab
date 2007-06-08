@@ -103,23 +103,23 @@ if nargin == 0 %# Called with no params
 	   strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') %# Genesis file
        channel = 1; %# by default
        if isfield(props, 'channel')
-	 channel = props.channel;
+        channel = props.channel;
        end
 
        if ~ isempty(findstr(filename, '_BE_')) | ...
 	     ~ isempty(findstr(filename, '_BE.'))
-	 %# Use big-endian (Mac, Sun) version of readgenesis
-	 data = readgenesis_BE(data_src, channel);
+         %# Use big-endian (Mac, Sun) version of readgenesis
+         data = readgenesis_BE(data_src, channel);
        else
-	 %# Use regular (i386 PCs) little-endian version of readgenesis
-	 data = readgenesis(data_src, channel);
+         %# Use regular (i386 PCs) little-endian version of readgenesis
+         data = readgenesis(data_src, channel);
        end
 
      elseif strcmpi(props.file_type, 'genesis_flac') || ...
 	   strcmpi(ext, '.genflac') %# Compressed 16-bit genesis file
        channel = 1; %# by default
        if isfield(props, 'channel')
-	 channel = props.channel;
+         channel = props.channel;
        end
        data = readgenesis16bit(data_src);
        data = data(:, channel);
@@ -129,7 +129,7 @@ if nargin == 0 %# Called with no params
        data = readNeuronVecBin(data_src, endian);
        channel = 1; %# by default
        if isfield(props, 'channel')
-	 channel = props.channel;
+         channel = props.channel;
        end
        data = data(:, channel);
 
@@ -143,6 +143,11 @@ if nargin == 0 %# Called with no params
        s = load(data_src);
        fields = fieldnames(s);
        data = getfield(s, fields{1});	%# Assuming there's only one vector
+       
+     elseif strcmpi(props.file_type, 'hdf5') || ...
+	   strcmpi(ext, '.hdf5') %# new neurosage file
+        s1 = ns_read(props.AcquisitionData{props.channel});
+        data = s1.Y';
      else
        error(['No matching load function found for file ''' data_src ''' or specified type ''' ...
 	      props.file_type '''.']);
