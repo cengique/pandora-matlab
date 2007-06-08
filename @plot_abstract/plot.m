@@ -72,6 +72,11 @@ else
   ph = feval(a_plot.command, a_plot.data{:});
 end
 
+% pass all of these to plot props
+if isfield(a_plot.props, 'plotProps')
+  set(ph, a_plot.props.plotProps);
+end
+
 %# Add titles, etc. (Not here! see plotFigure)
 %#handles = decorate(a_plot);
 

@@ -63,6 +63,12 @@ else
 
   plot(a_plot);
   decorate(a_plot);
+  
+  % pass all of these to plot props
+  if isfield(a_plot.props, 'figureProps')
+    set(handle, a_plot.props.figureProps);
+  end
+
 end
 
 %# OBSOLETE, REDUNDANT! These are already considered in plot.m

@@ -137,5 +137,9 @@ else
   lh = [];
 end
 
+% pass all of these to axis props
+if isfield(a_plot.props, 'axisProps')
+  set(gca, a_plot.props.axisProps);
+end
 
 handles = struct('title', th, 'axis_labels', [xh, yh], 'legend', lh);

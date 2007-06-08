@@ -41,6 +41,9 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %	  legendLocation: Passed to legend(..., 'location', legendLocation).
 %	  legendOrientation: Passed to legend(..., 'orientation', legendLocation).
 %	  noLegends: If exists, no legends are displayed.
+%	  axisProps: Passed to set properties of the axis drawn.
+%	  plotProps: Passed to set properties of the plot drawn.
+%	  figureProps: Passed to set properties of the figure drawn.
 %	  PaperPosition: Sets the figure property for printing at this size.
 %	  resizeControl: If 0, drawing after resize is disabled and prints at screen 
 %	    size, if 1 (default), redraws figure after each resize event and 
