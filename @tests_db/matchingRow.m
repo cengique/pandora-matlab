@@ -47,7 +47,7 @@ else
 end
 
 % Calculate covariance for using Mahalonobis distance
-cov_db = cov(dist_db(:, tests));
+cov_db = cov(noNaNRows(dist_db(:, tests)));
 
 % add the covariance matrix into the props
 crit_db = setProp(crit_db, 'cov', cov_db);
