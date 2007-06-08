@@ -1,15 +1,16 @@
-function params_row = getParams(dataset, index, a_profile)
+function params_row = getItemParams(dataset, index, a_profile)
 
-% getParams - Get the parameter values of a dataset item.
+% getItemParams - Get the parameter values of a dataset item.
 %
 % Usage:
-% params_row = getParams(dataset, index)
+% params_row = getItemParams(dataset, index, a_profile)
 %
 % Description:
 %
 %   Parameters:
 %	dataset: A params_tests_dataset.
 %	index: Index of item in dataset.
+%   a_profile: cip_trace_profile object
 %		
 %   Returns:
 %	params_row: Parameter values in the same order of paramNames

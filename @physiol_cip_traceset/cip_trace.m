@@ -29,7 +29,7 @@ if ~ exist('props')
 end
 
 %# First call CIPform and get necessary parameters
-[type, on, off, finish, bias, pulse] = CIPform(traceset, trace_index);
+[type, on, off, finish, bias, pulse] = ns_CIPform(traceset, trace_index);
 pulse_time_start=on;
 pulse_time_width= off - on + 1;
 ygain = 1 / traceset.vgain;
@@ -65,8 +65,10 @@ if ~ isfield(props, 'showName') || props.showName == 1
 end
 
 traceset_props = get(traceset, 'props');
+trace_props = traceset_props.Trials{trace_index};
+    
 a_cip_trace = cip_trace(traceset.data_src, get(traceset, 'dt'), ...
 			get(traceset, 'dy'), ...
 			pulse_time_start, pulse_time_width, ...
 			trace_id, ...
-			mergeStructs(traceset_props, new_props));
+			mergeStructs(trace_props, new_props));

@@ -11,7 +11,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 % pulse times and cip magnitude.
 %
 %   Parameters:
-%	trace_str: Trace list in the format for loadtraces.
+%	trace_str: Trace list in the format for loadtraces or just a Matlab vector.
 %	data_src: Absolute path of PCDX data source.
 %	chaninfo: 4-element array containing vchan, ichan, vgain, igain
 %	  vchan, ichan: Current and voltage channels.
@@ -63,9 +63,6 @@ elseif isa(trace_str, 'physiol_cip_traceset') %# copy constructor?
   obj = trace_str;
 else
 
-  if ~ exist('props')
-    props = struct([]);
-  end
 
   obj.data_src = data_src;
   obj.vchan = chaninfo(1);
@@ -74,10 +71,36 @@ else
   obj.igain = chaninfo(4);
   obj.treatments = treatments;
   obj.id = id;
+
+  if ~ exist('treatments') || isempty(treatments)
+      obj.treatments = struct([]);
+  end
+  
+  trace_list = [];
+  if isstr(trace_str)
+      trace_list = gettracelist2(trace_str);
+  else
+      trace_list = trace_str;
+      trace_str = num2str(trace_str);
+  end
+
+  if ~ exist('props') || isempty(props)
+      props=struct();
+      props.Trials = ns_select_trials(data_src, trace_list);
+      props.cip_list = ns_CIPlist(data_src, trace_list);
+  end
+  tr1=trace_list(1); ch=max([obj.vchan 1]);
+  if ~exist('dt') || isempty(dt)
+      dt = 1/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+  end
+  if ~exist('dy') || isempty(dy)
+      dy = 1 %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+  end
+  % reading CIP list from the file
   
   %# Create the object 
   obj = class(obj, 'physiol_cip_traceset', ...
-	      params_tests_dataset(gettracelist2(trace_str), dt, dy, ...
+	      params_tests_dataset(trace_list, dt, dy, ...
 				   [ 'traceset ' data_src ' ' ...
 				    trace_str ' ' ], props));
 
