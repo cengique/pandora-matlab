@@ -52,7 +52,7 @@ else
       if ~ isfield(f_props, 'param_trial_name')
 	f_props.param_trial_name = 'trial';
       end
-      str_index = strmatch(f_props.param_trial_name, names_vals{1:num_params, 1});
+      str_index = strmatch(f_props.param_trial_name, {names_vals{1:num_params, 1}});
       
       if length(str_index) < 1
 	error(['Parameter lookup from rows is requested, but cannot find ' ...
