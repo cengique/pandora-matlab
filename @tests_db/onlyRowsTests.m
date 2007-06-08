@@ -24,16 +24,14 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 
-%# Setup lookup tables
-col_names = fieldnames(obj.col_idx);
-
 %# Pages
 if ~ exist('tests')
   tests = ':';
 end
 
 %# translate tests spec to array form
-cols = tests2cols(obj, tests);
+cols = tests2idx(obj, 'col', tests);
+rows = tests2idx(obj, 'row', rows);
 
 %# Pages
 if ~ exist('pages')
@@ -44,7 +42,14 @@ end
 obj.data = obj.data(rows, cols, pages);
 
 %# Convert and get col_idx
-numsCell = col_names(cols);
-[only_names{1:length(cols)}] = deal(numsCell{:});
-obj.col_idx = makeIdx(only_names);
+col_names = fieldnames(obj.col_idx);
+if ~ isempty(col_names)
+  obj.col_idx = makeIdx({col_names{cols}});
+end
+
+%# Convert and get row_idx
+row_names = fieldnames(obj.row_idx);
+if ~ isempty(row_names)
+  obj.row_idx = makeIdx({row_names{rows}});
+end
 
