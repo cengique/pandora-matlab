@@ -1,4 +1,3 @@
-
 function [times, peaks, n] = ...
       findFilteredSpikes(t, a_period, plotit, minamp)
 
@@ -73,41 +72,41 @@ filtered = filtfilt(fd.tf.num, fd.tf.den, data);
 %# ignore the added parts
 filtered = filtered(prepend_size:(end - prepend_size));
 data = data(prepend_size:(end - prepend_size));
-[times, peaks, n] = findspikes(filtered, up_threshold, plotit);
+[times, peaks, n] = findspikes(filtered, 1, up_threshold);
 
 newtimes = [];
 newpeaks = [];
 newn = 0;
 %# Eliminate non-spike bumps
 lasttime = -3e-3 / t.dt;
-for i=1:n
+for k=1:n
 
   %# correct the peak by finding the absolute max within +/- 3ms
   pm = 3e-3 / t.dt;
   [m peak_time] = ...
-      max(filtered(max(1, times(i) - pm) : min(times(i) + pm, length(filtered))));
-  old_time = times(i);
-  times(i) = max(1, times(i) - pm) + peak_time - 1;
+      max(filtered(max(1, times(k) - pm) : min(times(k) + pm, length(filtered))));
+  old_time = times(k);
+  times(k) = max(1, times(k) - pm) + peak_time - 1;
 
   %# Only if there's no trough between the old and new maxs
-  if min(filtered(min(old_time, times(i)):max(old_time, times(i)))) < ...
+  if min(filtered(min(old_time, times(k)):max(old_time, times(k)))) < ...
 	up_threshold
     %#then go back
-    times(i) = old_time;
+    times(k) = old_time;
   end
 
   %# There should be a trough within 3ms before and within 15ms after the peak
   period_before = floor(3e-3 / t.dt);
   period_after = floor(15e-3 / t.dt);
-  min1 = min(filtered(max(1, times(i) - period_before) : times(i)));
-  min2 = min(filtered(times(i) : min(times(i) + period_after, length(filtered))));
+  min1 = min(filtered(max(1, times(k) - period_before) : times(k)));
+  min2 = min(filtered(times(k) : min(times(k) + period_after, length(filtered))));
 
   %# Spike shape criterion test
   if min1 <= up_threshold & min2 <= dn_threshold    
 
     %# Re-correct according to peaks in real data (filtered data is shifted)
     real_pm = 1e-3 / t.dt;
-    real_time = times(i);
+    real_time = times(k);
     [real_peak peak_time] = ...
 	max(data(max(1, real_time - real_pm) : ...
 		 min(real_time + real_pm, length(data))));
@@ -117,7 +116,7 @@ for i=1:n
     if real_time < (lasttime + 2e-3 / t.dt)
       if plotit ~= 0 & plotit ~= 2
   	disp(sprintf('Skip real %f from filtered %f, orig %f', ...
-  		     real_time, times(i), old_time));
+  		     real_time, times(k), old_time));
      end
       continue;
     end
@@ -130,13 +129,13 @@ for i=1:n
 
     if plotit ~= 0 & plotit ~= 2
       disp(sprintf('Add real %f from filtered %f, orig %f', ...
-		   real_time, times(i), old_time));
+		   real_time, times(k), old_time));
     end
 
   else
     if plotit ~= 0 & plotit ~= 2
       disp(sprintf('Failed criterion for %f, orig %f (min1=%f, min2=%f)', ...
-		   times(i), old_time, min1, min2));
+		   times(k), old_time, min1, min2));
     end    
   end
 end
