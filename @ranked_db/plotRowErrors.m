@@ -1,26 +1,28 @@
-function a_plot = plotRowErrors(db, rows, title_str, props)
+function a_plot = plotRowErrors(a_ranked_db, rows, title_str, props)
 
 % plotRowErrors - Create plot of rankings with errors associated with each measure color-coded.
 %
 % Usage:
-% a_plot = plotRowErrors(db, rows, props)
+% a_plot = plotRowErrors(a_ranked_db, rows, props)
 %
 % Description:
 %
 %   Parameters:
-%	db: A tests_db object.
-%	rows: Indices of rows in db.
+%	a_ranked_db: A ranked_db object.
+%	rows: Indices of rows in a_ranked_db.
 %	title_str: (Optional) String to append to plot title.
 %	props: A structure with any optional properties.
 %	  sortMeasures: If specified, measure order is determined with increasing 
 %		overall distance.
+%	  RowName: Label to show on X-axis (default='Ranks')
 %	  rowSteps: Steps to jump in labeling rows on the x-axis.
+% 	  superposeDistances: Superpose a white-colored distance line plot.
 %	  (rest passed to plot_abstract)
 %		
 %   Returns:
 %	a_plot: A plot_abstract object.
 %
-% See also: tests_db, plot_abstract
+% See also: ranked_db, tests_db/rankMatching, plot_abstract, plotImage
 %
 % $Id$
 %
@@ -39,20 +41,20 @@ if ~ exist('title_str')
 end
 
 %# Join with original here. Only joins the requested rows.
-joined_db = joinOriginal(db, rows);
+joined_db = joinOriginal(a_ranked_db, rows);
 joined_data = joined_db.data;
 
 %# Ignore NeuronId?
-crit_cols = fieldnames(db.crit_db.col_idx);
+crit_cols = fieldnames(a_ranked_db.crit_db.col_idx);
 all_test_cols(1:length(crit_cols)) = true(1);
-if isa(db.crit_db, 'params_tests_db')
-  all_test_cols(1:get(db.crit_db, 'num_params')) = false;
+if isa(a_ranked_db.crit_db, 'params_tests_db')
+  all_test_cols(1:get(a_ranked_db.crit_db, 'num_params')) = false;
 end
 
 %# The distance values for each individual measure has the same names in ranked_db
 %# Find columns in ranked_db that are also in joined_db except 'Distance'
 common_cols = setdiff(intersect(fieldnames(joined_db.col_idx), ...
-				fieldnames(get(db, 'col_idx'))), ...
+				fieldnames(get(a_ranked_db, 'col_idx'))), ...
 		      {'Distance', 'RowIndex'});
 
 num_std_colors = 10; %# colors for one STD of variance
@@ -64,9 +66,8 @@ if num_rows > 500
 end
 
 %# Get matrix of desired rows and columns
-distmatx = (abs(get(onlyRowsTests(db, 1:num_rows, common_cols), 'data')) * num_std_colors)';
-
-size(distmatx)
+only_ranked_rows_db = onlyRowsTests(a_ranked_db, 1:num_rows, common_cols);
+distmatx = (abs(get(only_ranked_rows_db, 'data')) * num_std_colors)';
 
 %# Replace NaNs in distmatx with 3 STD
 distmatx(isnan(distmatx)) = 3 * num_std_colors;
@@ -85,17 +86,41 @@ end
 plot_props = struct('XTick', 1:row_steps:num_rows, 'YTick', 1:length(common_cols), 'border', [0.07 0 0 0]);
 plot_props.YTickLabel = properTeXLabel(common_cols);
 
-if isfield(props, 'quiet') || isfield(get(db, 'props'), 'quiet')
+if isfield(props, 'quiet') || isfield(get(a_ranked_db, 'props'), 'quiet')
   if ~ isempty(title_str)
     the_title = title_str;
   end
 else
   the_title = ['Per-measure errors in ranking ' ...
-	       properTeXLabel(get(db, 'id')) title_str ];
+	       properTeXLabel(get(a_ranked_db, 'id')) title_str ];
 end
 
-a_plot = plot_abstract({distmatx, num_std_colors}, {'Ranks', 'Measures'}, ...
-		       the_title, {}, @plot_image, mergeStructs(props, plot_props));
+if isfield(props, 'RowName')
+  row_name = props.RowName;
+else
+  row_name = 'Ranks';
+end
+
+a_plot = plot_abstract({distmatx, num_std_colors}, {row_name, 'Measures'}, ...
+		       the_title, {}, @plot_image, mergeStructs(props, ...
+                                                  plot_props));
+
+% 'border', [0.2 0.104 0.05 0.0903], 
+
+if isfield(props, 'superposeDistances')
+  a_plot = ...
+      plot_inset({a_plot, ...
+                     plotXRows(joined_db(1:num_rows, :), 'Distance', '', '', ...
+                               struct('LineStyle', '-y', 'quiet', 1, 'tightLimits', 1, ...
+                                      'noXLabel', 1, 'numXTicks', 0, ...
+                                      'noTitle', 1, ...
+                                      'axisProps', ...
+                                      struct('Color', 'none', 'YAxisLocation', 'right'), ...
+                                      'plotProps', struct('Color', [1 1 1], 'LineWidth', 3)))}, ...
+                    [0 0 0.95 1; 0 0 1 1], title_str, mergeStructs(struct('noTitle', 1), ...
+                                                    props));
+end
+
 end
 
 %# Small function for creating matrix plot
