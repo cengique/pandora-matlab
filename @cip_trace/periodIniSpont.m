@@ -21,5 +21,4 @@ function the_period = periodIniSpont(t)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/25
 
 time_start = 1;
-
 the_period = period(time_start, t.pulse_time_start - 1);

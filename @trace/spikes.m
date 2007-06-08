@@ -56,8 +56,7 @@ if isfield(t.props, 'spike_finder') & ...
       findspikes(t.data(a_period.start_time:a_period.end_time) * mV_factor, ...
 		 t.props.threshold, plotit);
 else %# Assume spike_finder == 1 for filtered method
-	[times, peaks, n] = ...
-      	findFilteredSpikes(t, a_period, plotit, minamp);
+	[times, peaks, n] = findFilteredSpikes(t, a_period, plotit, minamp);
 end
 
 obj = spikes(times, length(t.data), t.dt, t.id);
