@@ -49,7 +49,7 @@ function 2,1
 s 46,1433
 fields 47,1480
 fd 48,1504
-dn_threshold = -2;Â49,1570
+dn_threshold = -2;Á49,1570
 prepend_size 56,1724
   data 58,1778
   err 62,2005
@@ -719,12 +719,13 @@ rows 25,532
 @tests_db/ne.m,19
 function rows 1,0
 
-@tests_db/onlyRowsTests.m,100
+@tests_db/onlyRowsTests.m,104
 function obj 1,0
-cols 36,901
-obj.data data44,991
-numsCell 47,1059
-obj.col_idx col_idx49,1137
+cols 33,840
+rows 34,877
+obj.data data42,972
+col_names 45,1040
+row_names 51,1177
 
 @tests_db/setProp.m,85
 function obj 1,0
@@ -833,15 +834,15 @@ function b 1,0
 
 @tests_db/sortrows.m,175
 function 1,0
-db_size 30,688
-  num_pages 34,767
-pages=36,788
-cols 38,808
-%#idx idx39,837
-  %# Sort all51,1115
-sorted_db 61,1304
-sorted_db 62,1320
-%#  sorted 70,1667
+db_size 30,686
+  num_pages 34,765
+pages=36,786
+cols 38,806
+%#idx idx39,835
+  %# Sort all51,1113
+sorted_db 61,1302
+sorted_db 62,1318
+%#  sorted 70,1665
 
 @tests_db/set.m,16
 function a 1,0
@@ -934,18 +935,18 @@ function obj 1,0
    obj.props props104,3812
    obj 106,3835
 
-@tests_db/matchingRow.m,199
+@tests_db/matchingRow.m,200
 function crit_db 1,0
 tests 36,1024
 cols 39,1069
 crit_db 40,1099
-  std_db 46,1219
-crit_db 53,1369
-crit_db 56,1434
-%# Add the STD row,58,1485
-crit_db 59,1529
-crit_db 62,1624
-crit_db 63,1687
+  dist_db 46,1220
+crit_db 53,1383
+crit_db 56,1448
+%# Add the STD row,58,1499
+crit_db 59,1543
+crit_db 62,1639
+crit_db 63,1702
 
 @tests_db/invarValues.m,635
 function a_tests_3D_db 1,0
@@ -1123,18 +1124,18 @@ c_data 73,2118
 
 @tests_db/plotScatter.m,257
 function a_p 1,0
-col1 37,943
-col2 38,975
-col1_db 40,1008
-col2_db 41,1050
-test_names 43,1093
-  all_title 53,1400
-  line_style 60,1501
-  props.LineStyleOrder LineStyleOrder61,1520
-  all_title 71,1811
-col_labels 74,1885
-a_p 75,1943
-  a_p 82,2214
+col1 37,946
+col2 38,978
+col1_db 40,1011
+col2_db 41,1053
+test_names 43,1096
+  all_title 53,1403
+  line_style 60,1504
+  props.LineStyleOrder LineStyleOrder61,1523
+  all_title 71,1814
+col_labels 74,1888
+a_p 75,1946
+  a_p 82,2217
 
 @tests_db/addColumns.m,141
 function obj 1,0
@@ -1144,6 +1145,14 @@ existing_cols 50,1658
 new_col_id 57,1877
 new_col_idx 61,2016
 obj 69,2210
+
+@tests_db/tests2idx.m,103
+function idx 1,0
+dim_num 27,695
+ind_struct 36,963
+  ind_vals 41,1088
+idx 45,1146
+    idx 66,1624
 
 @tests_db/delColumns.m,122
 function obj 1,0
@@ -1185,11 +1194,8 @@ function col_vector 54,1345
   %# For each unique row to next,64,1617
       page_rows 69,1825
 
-@tests_db/tests2cols.m,86
+@tests_db/tests2cols.m,19
 function cols 1,0
-cols 27,588
-elseif islogical(30,664
-    elseif isnumeric(41,947
 
 @tests_db/plotrows.m,266
 function a_plot 1,0
@@ -1213,6 +1219,31 @@ cols 39,900
 col_name_cell 40,930
 col_names 41,970
 a_stats_db 43,1004
+
+@tests_db/rankMatching-r1_14.m,559
+function a_ranked_db 1,0
+%# If not exists,33,966
+  row_index 36,1086
+  row_index 38,1118
+itemIndices 47,1359
+%# Strip out the NeuronId,49,1409
+%# Strip out the NeuronId, RowIndex,49,1409
+crit_tests 50,1486
+crit_row_db 53,1626
+nonnans 54,1679
+crit_tests 55,1716
+first_row 61,1837
+second_row 64,1930
+second_row_data 65,1982
+elseif isfield(69,2088
+  weights_cell 75,2283
+  weights_tests 76,2328
+ss_data = abs(wghd_data); %# .* wghd_data;89,2906
+  ss_data 95,3220
+ss_data 100,3378
+row_index 101,3404
+wghd_data 102,3434
+a_ranked_db 114,3831
 
 @tests_db/plot_bars.m,239
 function a_plot 1,0
@@ -1266,6 +1297,28 @@ val_size 46,1092
 num_dims 47,1114
 addr_size 48,1143
 
+@tests_db/plotCovar.m,505
+function a_plot 1,0
+% See also: tests_db/cov,cov24,787
+% See also: tests_db/cov, plotImage,24,787
+% $Id: plotCovar.m,m26,848
+image_data 37,1084
+  image_data 42,1218
+  log_cov_data 53,1454
+  image_data 56,1603
+num_colors 67,1833
+plot_props 73,1951
+col_names 75,2063
+plot_props.YTickLabel YTickLabel76,2094
+plot_props.maxValue maxValue79,2183
+a_plot 81,2233
+num_rows 91,2644
+idx=92,2676
+  cand_row_2 95,2760
+  new_image_data 97,2804
+  new_entropy 103,3036
+    total_entropy 108,3231
+
 @tests_db/isinf.m,59
 function rows 1,0
 col 27,470
@@ -1278,30 +1331,30 @@ col 27,470
 col_db 29,498
 rows 31,537
 
-@tests_db/rankMatching.m,559
+@tests_db/rankMatching.m,538
 function a_ranked_db 1,0
-%# If not exists,33,966
-  row_index 36,1086
-  row_index 38,1118
-itemIndices 47,1359
-%# Strip out the NeuronId,49,1409
-%# Strip out the NeuronId, RowIndex,49,1409
-crit_tests 50,1486
-crit_row_db 53,1626
-nonnans 54,1679
-crit_tests 55,1716
-first_row 61,1837
-second_row 64,1930
-second_row_data 65,1982
-elseif isfield(69,2088
-  weights_cell 75,2283
-  weights_tests 76,2328
-ss_data = abs(wghd_data); %# .* wghd_data;89,2906
-  ss_data 95,3220
-ss_data 100,3378
-row_index 101,3404
-wghd_data 102,3434
-a_ranked_db 114,3831
+%# If not exists,37,1148
+  row_index 40,1268
+  row_index 42,1300
+itemIndices 51,1541
+%# Strip out the NeuronId,53,1591
+%# Strip out the NeuronId, RowIndex,53,1591
+crit_tests 54,1668
+crit_row_db 57,1808
+nonnans 58,1861
+crit_tests 59,1898
+first_row 65,2019
+second_row 68,2112
+second_row_data 69,2164
+elseif isfield(73,2270
+    weights_tests 82,2576
+ss_data 118,3969
+  ss_data 123,4114
+clear second_row_matx;127,4249
+ss_data 141,4753
+row_index 142,4779
+wghd_data 143,4809
+a_ranked_db 155,5206
 
 @tests_db/statsBounds.m,164
 function a_stats_db 1,0
@@ -1341,12 +1394,12 @@ s 27,585
     old_units 44,1062
     old_pos 47,1171
   %#position position53,1389
-%# OBSOLETE,68,1829
-function position 69,1892
-    titleheight 73,1991
-  axis_labels 77,2023
-    left_border 81,2151
-    bottom_border 87,2274
+%# OBSOLETE,74,1960
+function position 75,2023
+    titleheight 79,2122
+  axis_labels 83,2154
+    left_border 87,2282
+    bottom_border 93,2405
 
 @plot_abstract/openAxis.m,680
 function 1,0
@@ -1433,20 +1486,20 @@ function good 150,3784
 
 @plot_abstract/plot_abstract.m,401
 function obj 1,0
-  obj.axis_labels axis_labels73,3232
-  obj.title title74,3256
-  obj.legend legend75,3274
-  obj.command command76,3293
-  obj.props props77,3313
-  obj 78,3339
-  obj 80,3431
-  obj.data data102,3720
-  obj.axis_labels axis_labels103,3739
-  obj.title title104,3772
-  obj.legend legend105,3793
-  obj.command command106,3816
-  obj.props props107,3841
-  obj 109,3863
+  obj.axis_labels axis_labels76,3413
+  obj.title title77,3437
+  obj.legend legend78,3455
+  obj.command command79,3474
+  obj.props props80,3494
+  obj 81,3520
+  obj 83,3612
+  obj.data data105,3901
+  obj.axis_labels axis_labels106,3920
+  obj.title title107,3953
+  obj.legend legend108,3974
+  obj.command command109,3997
+  obj.props props110,4022
+  obj 112,4044
 
 @plot_abstract/subsref.m,80
 function b 1,0
@@ -1464,10 +1517,10 @@ a_plot_props 40,874
   %# do nothing,68,1919
   ph 69,1965
   ph 72,2037
-%# Add titles,75,2088
-%#handles handles76,2135
-handles.plot plot79,2185
-handles.axis axis80,2204
+%# Add titles,80,2200
+%#handles handles81,2247
+handles.plot plot84,2297
+handles.axis axis85,2316
 
 @plot_abstract/subsasgn.m,44
 function a 1,0
@@ -1487,7 +1540,7 @@ yh 25,532
   %#xticklist xticklist102,2878
   lh 135,3787
   lh 137,3823
-handles 141,3840
+handles 145,3952
 
 @plot_simple/get.m,32
 function b 1,0
@@ -2032,11 +2085,12 @@ utils/findspikes.m,72
     peaksdy 20,671
     clear m peaks*peaks36,1018
 
-utils/plotImage.m,75
+utils/plotImage.m,98
 function h 1,0
-      max_val 38,1014
-  yticks 42,1162
-num_rows 47,1299
+  mult_factor 37,1128
+      max_val 46,1276
+  yticks 50,1424
+num_rows 55,1598
 
 utils/growRange.m,47
 function range 1,0
@@ -2062,6 +2116,36 @@ function a_coef_db 1,0
   page_names 51,1575
   a_coef_db.col_name col_name53,1618
   a_coef_db 55,1652
+
+@plot_inset/get.m,32
+function b 1,0
+  errstr 8,165
+
+@plot_inset/set.m,124
+function b 1,0
+    a.(attr)9,213
+    b 10,233
+    errstr 12,252
+    b 13,276
+    b.plot_abstract plot_abstract14,287
+
+@plot_inset/plot_inset.m,205
+function a_plot 1,0
+  a_plot.axis_locations axis_locations37,1226
+  a_plot 38,1256
+   a_plot 40,1365
+   a_plot.plots plots58,1685
+   a_plot.axis_locations axis_locations59,1710
+   a_plot 64,1889
+
+@plot_inset/plot.m,147
+function handles 1,0
+num_plots 28,579
+all_handles 30,614
+this_layout_axis 31,632
+  this_axis 42,887
+  handles 49,1129
+  all_handles 50,1190
 
 @model_ct_bundle/getNeuronLabel.m,56
 function a_label 1,0
@@ -2354,11 +2438,11 @@ function a_plot 1,0
   a_plot.orient orient46,1812
   a_plot 47,1835
    a_plot 49,1944
-   a_plot.plots plots69,2247
-   a_plot.axis_limits axis_limits70,2272
-   a_plot.orient orient71,2309
-   %# By default,76,2477
-   a_plot 77,2530
+   a_plot.plots plots74,2338
+   a_plot.axis_limits axis_limits75,2363
+   a_plot.orient orient76,2400
+   %# By default,81,2568
+   a_plot 82,2621
 
 @script_array_for_cluster/runFirst.m,147
 function job_results 1,0
@@ -2763,26 +2847,25 @@ function b 1,0
   a.tests_db tests_db9,191
   b 10,234
 
-@tests_3D_db/plotParamPairImage.m,581
+@tests_3D_db/plotParamPairImage.m,548
 function a_plot 1,0
-% See also: params_tests_db/invarParam,invarParam30,1230
-% See also: params_tests_db/invarParam, plotImage,30,1230
-% $Id: plotParamPairImage.m,m32,1298
-page_db 41,1497
-%# Enumerate the first two columns 43,1542
-num_colors 60,2047
-col_names 62,2065
-  mult_factor 72,2429
-  skip_steps 78,2526
-page_data 81,2549
-plot_props.YTick YTick82,2583
-unique_vals 83,2627
-plot_props.YTickLabel YTickLabel84,2713
-plot_props.XTick XTick86,2770
-unique_vals 87,2814
-plot_props.XTickLabel XTickLabel88,2900
-props.maxValue maxValue91,2980
-a_plot 93,3020
+% See also: params_tests_db/invarParam,invarParam31,1308
+% See also: params_tests_db/invarParam, plotImage,31,1308
+% $Id: plotParamPairImage.m,m33,1376
+page_db 42,1575
+%# Enumerate the first two columns 44,1620
+num_colors 61,2125
+col_names 63,2143
+  mult_factor 73,2507
+  skip_steps 79,2604
+page_data 82,2627
+plot_props.YTick YTick83,2661
+unique_vals 84,2705
+plot_props.YTickLabel YTickLabel85,2791
+plot_props.XTick XTick87,2848
+unique_vals 88,2892
+plot_props.XTickLabel XTickLabel89,2978
+a_plot 96,3136
 
 @tests_3D_db/tests_3D_db.m,118
 function a_3D_db 1,0
@@ -2906,18 +2989,18 @@ function b 1,0
 
 @plot_superpose/plot_superpose.m,269
 function obj 1,0
-  obj 44,1625
-  obj 46,1735
-   plot_command 66,2093
-   superposable 67,2115
-   plot_array 69,2196
-	 break;79,2514
-	   break;93,2904
-  obj.plots plots105,3080
-  legend 107,3102
-    plot_legend 121,3479
-      legend 125,3613
-  obj 133,3724
+  obj 46,1758
+  obj 48,1868
+   plot_command 68,2226
+   superposable 69,2248
+   plot_array 71,2329
+	 break;81,2647
+	   break;95,3037
+  obj.plots plots107,3213
+  legend 109,3235
+    plot_legend 123,3612
+      legend 127,3746
+  obj 135,3857
 
 @plot_superpose/axis.m,36
 function ranges 1,0
@@ -3157,9 +3240,9 @@ a_row_index 36,927
 
 @physiol_bundle/bestMatchAllNeurons.m,93
 function all_ranks_db 1,0
-  no_rows_ranks 37,1266
-  all_ranks_db 42,1422
-    a_r 50,1755
+  no_rows_ranks 38,1309
+  all_ranks_db 43,1486
+    a_r 51,1819
 
 @physiol_bundle/ctFromRows.m,100
 function a_cip_trace 1,0
@@ -3990,21 +4073,23 @@ function unbias_matx 136,4705
 function colors 149,5315
   colors 151,5397
 
-@ranked_db/plotRowErrors.m,305
+@ranked_db/plotRowErrors.m,357
 function a_plot 1,0
-joined_db 42,998
-joined_data 43,1034
-crit_cols 46,1085
-num_std_colors 58,1577
-distmatx 67,1785
-  distmatx 76,2064
-  common_cols 77,2102
-  row_steps 83,2213
-plot_props 85,2234
-plot_props.YTickLabel YTickLabel86,2342
-  the_title 93,2525
-a_plot 97,2633
-  num_rows 107,3024
+joined_db 44,1196
+joined_data 45,1241
+crit_cols 48,1292
+num_std_colors 60,1820
+only_ranked_rows_db 69,2028
+distmatx 70,2103
+  distmatx 77,2343
+  common_cols 78,2381
+  row_steps 84,2492
+plot_props 86,2513
+plot_props.YTickLabel YTickLabel87,2621
+  the_title 94,2813
+  row_name 101,2992
+a_plot 104,3019
+  num_rows 132,4301
 
 @ranked_db/displayRows.m,389
 function s 1,0
@@ -4054,6 +4139,29 @@ function 1,0
 joined_db 33,970
 joined_db 39,1083
 %#displayRows(displayRows41,1116
+
+@ranked_db/plotCovar.m,493
+function a_plot 1,0
+% See also: plotImage,24,817
+% $Id: plotCovar.m,m26,864
+cov_db 34,1022
+image_data 35,1062
+  image_data 40,1198
+  log_cov_data 51,1434
+  image_data 54,1583
+  shuffle_idx 61,1760
+num_colors 64,1804
+plot_props 71,2012
+col_names 73,2126
+plot_props.YTickLabel YTickLabel74,2159
+plot_props.maxValue maxValue77,2248
+a_plot 79,2298
+num_rows 89,2709
+idx=90,2741
+  cand_row_2 93,2825
+  new_image_data 95,2869
+  new_entropy 101,3101
+    total_entropy 106,3296
 
 @cip_trace_profile/display.m,16
 function s 1,0
@@ -4154,9 +4262,9 @@ function a_cip_trace 1,0
     f_props 42,1177
 	num_params 50,1516
       str_index 55,1656
-      trial_num 62,1954
-      trace_id 63,1998
-      trace_id 65,2052
+      trial_num 62,1956
+      trace_id 63,2000
+      trace_id 65,2054
 
 @plot_errorbar/get.m,43
 function b 1,0
