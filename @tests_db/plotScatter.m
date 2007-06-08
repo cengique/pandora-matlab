@@ -13,9 +13,9 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %	title_str: (Optional) A string to be concatanated to the title.
 %	short_title: (Optional) Few words that may appear in legends of multiplot.
 %	props: A structure with any optional properties.
-%		LineStyle: Plot line style to use. (default: 'x')
-%		Regress: Calculate and plot a linear regression.
-%		quiet: If 1, don't include database name on title.
+%	  LineStyle: Plot line style to use. (default: 'x')
+%	  Regress: Calculate and plot a linear regression.
+%	  quiet: If 1, don't include database name on title.
 %		
 %   Returns:
 %	a_p: A plot_abstract.
