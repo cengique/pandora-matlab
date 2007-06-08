@@ -52,6 +52,7 @@
 %   plot_abstract	- Base class that holds information sufficient to generate any plot.
 %   plot_simple		- Simple extension that works for most simple plots.
 %   plot_stack		- Holds horizontal or vertical stack of plot_abstract objects.
+%   plot_inset		- Places multiple plots at absolute locations in a figure. Good for insets, etc.
 %   plot_superpose	- Allows superposing different plot_abstract's in the same axis.
 %   plot_bars		- Multi-axis bar plot with extended errorbars.
 %   plot_errorbar	- Errorbar plot.
