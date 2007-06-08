@@ -14,6 +14,7 @@ function all_ranks_db = bestMatchAllNeurons(p_bundle, joined_db, props)
 %	joined_db: A database with neuron representations to rank against
 %			neurons.
 %	props: A structure with any optional properties.
+%	       (passed to rankMatching)
 %		
 %   Returns:
 %	all_ranks_db: DB of best matching from joined_db. Each row
@@ -25,7 +26,7 @@ function all_ranks_db = bestMatchAllNeurons(p_bundle, joined_db, props)
 % >> plotXRows(all_ranks_db, 'Distance', 'maxcond DB distance per neuron', 'maxcond', ...
 %              struct('LineStyle', '-', 'quiet', 1, 'PaperPosition', [0 0 4 3]))
 %
-% See also: rankMatching, tests_db/matchingRow
+% See also: tests_db/rankMatching, tests_db/matchingRow
 %
 % $Id$
 %
@@ -36,7 +37,7 @@ function all_ranks_db = bestMatchAllNeurons(p_bundle, joined_db, props)
   % Do initial ranking to get number of columns
   no_rows_ranks = ...
       rankMatching(joined_db, ...
-                   matchingRow(p_bundle, 25), struct('topRows', 0));
+                   matchingRow(p_bundle, 25), mergeStructs(props, struct('topRows', 0)));
   
   %# add the traceset_index
   all_ranks_db = ...
@@ -47,7 +48,8 @@ function all_ranks_db = bestMatchAllNeurons(p_bundle, joined_db, props)
   % Do all neurons
   for neuron_num = 1:num_neurons
     traceset_index = p_bundle.joined_control_db(neuron_num, 'TracesetIndex').data;
-    a_r = rankMatching(joined_db, matchingRow(p_bundle, traceset_index), struct('topRows', 1));
+    a_r = rankMatching(joined_db, matchingRow(p_bundle, traceset_index), ...
+                       mergeStructs(props, struct('topRows', 1)));
     all_ranks_db(neuron_num, getColNames(a_r)) = a_r;
     all_ranks_db(neuron_num, {'TracesetIndex'}) = traceset_index;
   end
