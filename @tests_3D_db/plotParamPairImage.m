@@ -19,6 +19,7 @@ function a_plot = plotParamPairImage(a_db, test, title_str, props)
 %	props: Optional properties to be passed to plot_abstract.
 %	  truncateDecDigits: Truncate labels to this many decimal digits.
 %	  labelSteps: Skip this many labels between ticks to reduce to total number.
+%	  maxValue: Maximal value to normalize colors and to annotate the colorbar.
 %		
 %   Returns:
 %	a_plot: A plot_abstract object or one of its subclasses.
@@ -88,7 +89,9 @@ unique_vals = sort(uniqueValues(round(page_data(:, 2) * mult_factor) / mult_fact
 plot_props.XTickLabel = unique_vals(1:skip_steps:end);
 
 % send this to the plot
-props.maxValue = max(max(image_data));
+if ~ isfield(props, 'maxValue')
+  props.maxValue = max(max(image_data));
+end
 
 a_plot = plot_abstract({image_data ./ props.maxValue * num_colors, @gray, ...
 			num_colors, props}, getColNames(a_db, [2 1]), ...
