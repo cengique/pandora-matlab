@@ -64,6 +64,11 @@ if nargin == 0 %# Called with no params
      title_str = '';
    end
 
+   % convert to cell if needed
+   if ~ iscell(plots)
+     plots = num2cell(plots);
+   end
+
    %# Loop through plots and set properties
 
    a_plot.plots = plots;
