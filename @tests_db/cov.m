@@ -33,6 +33,6 @@ end
 col_names = fieldnames(get(db, 'col_idx'));
 
 a_cov_db = ...
-    tests_db(cov(get(db, 'data')), col_names, col_names, [ 'covariance of ' get(db, 'id') ], props));
+    tests_db(cov(get(db, 'data')), col_names, col_names, [ 'covariance of ' get(db, 'id') ], props);
 
 
