@@ -1,6 +1,6 @@
 function a_db = noNaNRows(a_db)
 
-% noNaNRows - Returns a DB by removing any NaN or Inf containing rows.
+% noNaNRows - Returns a DB by removing rows containing any NaN or Inf.
 %
 % Usage:
 % a_db = noNaNRows(a_db)
@@ -11,7 +11,7 @@ function a_db = noNaNRows(a_db)
 %	a_db: A tests_db object.
 %		
 %   Returns:
-%	a_db: DB with rows with NaN values removed.
+%	a_db: DB with missing rows.
 %
 % See also: tests_db/isnanrows
 %

@@ -6,13 +6,15 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 % obj = plot_superpose(plots, axis_labels, title_str, props)
 %
 % Description:
-%   Subclass of plot_abstract. Contains multiple plot_abstract objects
-% to be plotted on the same axis. This is different than the 
-% plot_abstract/superpose, where only using the same plot command is allowed.
-% Here, each plot_abstract can have its own special plotting command. Subclasses
-% of plot_abstract is also allowed here. The decorations comes from this object
-% and not children plots. This behavior is different than plot_stack, where
-% each plot has its own decorations.
+%   Subclass of plot_abstract. Contains multiple plot_abstract objects to be
+% plotted on the same axis. This is different than the
+% plot_abstract/superpose, where only using the same plot command is
+% allowed.  Here, each plot_abstract can have its own special plotting
+% command. Subclasses of plot_abstract is also allowed here. The decorations
+% comes from this object and not children plots. This behavior is different
+% than plot_stack, where each plot has its own decorations. If you want each
+% plot to have its own axis (e.g. an inset, or plot with multiple axis
+% labels) then you should use plot_inset.
 %
 %   Parameters:
 %	plots: Cell array of plot_abstract or subclass objects.
