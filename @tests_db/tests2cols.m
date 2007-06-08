@@ -21,33 +21,4 @@ function cols = tests2cols(db, tests)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
-col_vals = struct2cell(db.col_idx);
-
-%# Parse tests
-cols = [];
-if ischar(tests) && strcmp(tests, ':')
-  cols = [ col_vals{:} ];
-elseif islogical(tests)
-  cols = find(tests);
-elseif isnumeric(tests) 
-  cols = tests;
-elseif ischar(tests)
-  cols = getfield(db.col_idx, tests);
-elseif iscell(tests)
-  for test=tests
-    test = test{1}; %# unwrap the cell
-    if ischar(test)
-      col = getfield(db.col_idx, test);
-    elseif isnumeric(test)
-      col = test;
-    else
-      display(test);
-      error(['Test not recognized.' ]);
-    end
-
-    cols = [cols, col];
-  end
-else
-  error(['tests can either be '':'', column number or array of numbers,'...
-	 ' column name or cell array of names.']);
-end
+cols = tests2idx(db, 'col', tests);
