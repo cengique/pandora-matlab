@@ -5,15 +5,16 @@
 \textclass article
 \begin_preamble
 \usepackage{ifthen}
+\usepackage{ifpdf}
 
 % if normal PS or PDF LaTeX processing
 %begin{latexonly}
-\newif\ifpdf 
-  \ifx\pdfoutput\undefined \pdffalse % we are not running PDFLaTeX 
-\else 
-  \pdfoutput=1 % we are running PDFLaTeX 
-  \pdftrue 
-\fi
+%\newif\ifpdf 
+%  \ifx\pdfoutput\undefined \pdffalse % we are not running PDFLaTeX 
+%\else 
+%  \pdfoutput=1 % we are running PDFLaTeX 
+%  \pdftrue 
+%\fi
 
 \ifpdf 
   \usepackage[pdftex]{graphicx} 
@@ -56,7 +57,7 @@
 \ifpdf 
   \usepackage[colorlinks=true,pdftex]{hyperref}
 \else 
-  \usepackage[colorlinks=false]{hyperref}
+  %\usepackage[colorlinks=false]{hyperref}
 \fi
 %end{latexonly}
 
@@ -5564,6 +5565,54 @@ by choosing all parameters in both DBs, but only some measures for each.
 
 \begin_layout LyX-Code
 >> plotFigure(ap2)
+\end_layout
+
+\begin_layout Subsection
+Insets
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename plot_inset.eps
+	display none
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+\begin_inset LatexCommand \label{fig:insets}
+
+\end_inset
+
+Creating insets in figures.
+\end_layout
+
+\end_inset
+
+See Figure 
+\begin_inset LatexCommand \ref{fig:insets}
+
+\end_inset
+
+ which was created with the following set of commands.
+\end_layout
+
+\begin_layout LyX-Code
+>> im_p = plot_abstract({50 * rand(5)}, {}, '', {}, 'image');
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plot_absolute([im_p, im_p], [0 0 1 1; 0.5 0.5 0.3 0.3])) 
 \end_layout
 
 \begin_layout Subsection
