@@ -53,107 +53,115 @@ if nargin == 0 %# Called with no params
 elseif isa(cells_filename, 'physiol_cip_traceset_fileset') %# copy constructor?
   obj = cells_filename;
 else
-
   if ~ exist('props')
     props = struct([]);
   end
-   
+
   obj.neuron_idx = struct;
 
-  %# read ASCII file, make each line an item in a cell array
-  tcell = textread(cells_filename, '%s', 'delimiter', '\n', 'commentstyle','matlab');
-  %# Parse each line, organize items by line number.
-  tmtstruct = struct('tmp', 0);	% keep track of treatments in use.
-  names = cell(length(tcell), 1);
-  paths = cell(length(tcell), 1);
-  traces = cell(length(tcell), 1);
-  chaninfo = cell(length(tcell), 1);
-  tmts = cell(length(tcell), 1);
-  list = cell(length(tcell), 1);    
-  neuron_id = 1;
-  
-  for n = 1:length(tcell)
-	ttm = {};
-	resid = tcell{n};
-	ntok = 0;
-	pars = {};
-	while isempty(resid) ~= 1
-		ntok = ntok + 1;
-		[pars{ntok}, resid] = strtok(resid, sprintf('\t'));
-	end
+  if isa(cells_filename, 'function_handle') 
+      list = cells_filename();
+      cells_filename = func2str(cells_filename);
+      obj.neuron_idx = struct;
+      for k=1:length(list)
+          obj.neuron_idx.(list{k}.id)=k;
+      end
+  else
+      %# read ASCII file, make each line an item in a cell array
+      tcell = textread(cells_filename, '%s', 'delimiter', '\n', 'commentstyle','matlab');
+      %# Parse each line, organize items by line number.
+      tmtstruct = struct('tmp', 0);	% keep track of treatments in use.
+      names = cell(length(tcell), 1);
+      paths = cell(length(tcell), 1);
+      traces = cell(length(tcell), 1);
+      chaninfo = cell(length(tcell), 1);
+      tmts = cell(length(tcell), 1);
+      list = cell(length(tcell), 1);    
+      neuron_id = 1;
 
-	%# Skip empty lines
-	if isempty(pars)
-	  continue;
-	end
+      for n = 1:length(tcell)
+        ttm = {};
+        resid = tcell{n};
+        ntok = 0;
+        pars = {};
+        while isempty(resid) ~= 1
+            ntok = ntok + 1;
+            [pars{ntok}, resid] = strtok(resid, sprintf('\t'));
+        end
 
-	% First token is either neuron id name or data file with path.
-	% If data file, make neuron id name = file name without extension.
-	if exist(pars{2}, 'file') == 2
-		names{n} = pars{1};
-		pars(1) = [];
-	elseif exist(pars{1}, 'file') ~= 2
+        %# Skip empty lines
+        if isempty(pars)
+          continue;
+        end
+
+        % First token is either neuron id name or data file with path.
+        % If data file, make neuron id name = file name without extension.
+        if exist(pars{2}, 'file') == 2
+            names{n} = pars{1};
+            pars(1) = [];
+        elseif exist(pars{1}, 'file') ~= 2
 	  error([ 'No valid data file name found from either "' pars{1} ...
                   '" or "' pars{2} '".' ]);
-	else
-		slashes = strfind(pars{1}, '/');
-		if isempty(slashes) ~= 1
-			tstr = pars{1}(slashes(length(slashes)) + 1 : length(pars{1}));
-		else
-			tstr = pars{1};
-		end
-		dots = strfind(tstr, '.');
-		if isempty(dots) ~= 1
-			names{n} = tstr(1:dots(length(dots)) - 1);
-		else
-			names{n} = tstr;
-		end
-	end
+        else
+            slashes = strfind(pars{1}, '/');
+            if isempty(slashes) ~= 1
+                tstr = pars{1}(slashes(length(slashes)) + 1 : length(pars{1}));
+            else
+                tstr = pars{1};
+            end
+            dots = strfind(tstr, '.');
+            if isempty(dots) ~= 1
+                names{n} = tstr(1:dots(length(dots)) - 1);
+            else
+                names{n} = tstr;
+            end
+        end
 
-	%# Enter the name into a structure to keep track of unique neuron ids
-	if ~ isfield(obj.neuron_idx, names{n})
-	  obj.neuron_idx.(names{n}) = neuron_id;
-	  neuron_id = neuron_id + 1;
-	end
-	
-	paths{n} = pars{1};
-	traces{n} = pars{2};
-	
-	chaninfo{n} = [str2num(pars{3}), str2num(pars{4}), ...
-	 			str2num(pars{5}), str2num(pars{6})];
-	for m = 7:2:length(pars)-1
-		if isstr(pars{m+1})
-			pars{m+1} = str2num(pars{m+1});
-		end
-		ttm = cat(1, ttm, pars(m:m+1));
-	end
-	for m = 1:size(ttm, 1)
-		if isfield(tmtstruct, ttm{m, 1}) ~= 1
-			if isstr(ttm{m, 1}) ~= 1
-				sprintf('Illegal field name: %s', ttm{m, 1})
-				sprintf('Error is in line %d of input file', n)
-				error('');
-			end
-			tmtstruct = setfield(tmtstruct, ttm{m, 1}, 0);
-		end
-	end
-	tmts{n} = ttm;
-  end
+        %# Enter the name into a structure to keep track of unique neuron ids
+        if ~ isfield(obj.neuron_idx, names{n})
+          obj.neuron_idx.(names{n}) = neuron_id;
+          neuron_id = neuron_id + 1;
+        end
 
-  if isfield(tmtstruct, 'tmp')
-	  tmtstruct = rmfield(tmtstruct, 'tmp');
-  end
+        paths{n} = pars{1};
+        traces{n} = pars{2};
 
-  %# Create list of traceset objects.
-  for n = 1:length(tcell)
-	% make copy of treatment struct, fill in values for this item
-	tempstruct = tmtstruct;
-	ttm = tmts{n};
-	for m = 1:size(ttm, 1)
-		tempstruct = setfield(tempstruct, ttm{m,1}, ttm{m,2});
-	end
-	list{n} = physiol_cip_traceset(traces{n}, paths{n}, chaninfo{n}, ...
-				       dt, dy, tempstruct, names{n}, props);
+        chaninfo{n} = [str2num(pars{3}), str2num(pars{4}), ...
+                    str2num(pars{5}), str2num(pars{6})];
+        for m = 7:2:length(pars)-1
+            if isstr(pars{m+1})
+                pars{m+1} = str2num(pars{m+1});
+            end
+            ttm = cat(1, ttm, pars(m:m+1));
+        end
+        for m = 1:size(ttm, 1)
+            if isfield(tmtstruct, ttm{m, 1}) ~= 1
+                if isstr(ttm{m, 1}) ~= 1
+                    sprintf('Illegal field name: %s', ttm{m, 1})
+                    sprintf('Error is in line %d of input file', n)
+                    error('');
+                end
+                tmtstruct = setfield(tmtstruct, ttm{m, 1}, 0);
+            end
+        end
+        tmts{n} = ttm;
+      end
+
+      if isfield(tmtstruct, 'tmp')
+          tmtstruct = rmfield(tmtstruct, 'tmp');
+      end
+
+      %# Create list of traceset objects.
+      for n = 1:length(tcell)
+        % make copy of treatment struct, fill in values for this item
+        tempstruct = tmtstruct;
+        ttm = tmts{n};
+        for m = 1:size(ttm, 1)
+            tempstruct = setfield(tempstruct, ttm{m,1}, ttm{m,2});
+        end
+        list{n} = physiol_cip_traceset(traces{n}, paths{n}, chaninfo{n}, ...
+                           dt, dy, tempstruct, names{n}, props);
+      end
   end
 
   %# Create the fileset object
