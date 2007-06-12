@@ -1,15 +1,16 @@
-function a_pm = plot_abstract(a_db, title_str)
+function a_pm = plot_abstract(a_db, title_str, props)
 
 % plot_abstract - Visualizes the spikes_db by marking spike shapes measurements on the trace plot.
 %
 % Usage:
-% a_pm = plot_abstract(a_db, title_str)
+% a_pm = plot_abstract(a_db, title_str, props)
 %
 % Description:
 %
 %   Parameters:
 %	a_db: A spikes_db object.
 %	title_str: (Optional) A string to be concatanated to the title.
+%	props: A structure with any optional properties passed to plot_abstract.
 %		
 %   Returns:
 %	a_pm: A trace plot.
@@ -26,8 +27,12 @@ if ~ exist('title_str')
   title_str = '';
 end
 
+if ~ exist('props')
+  props = struct;
+end
+
 %# first plot the trace
-trace_plot = plotData(a_db.trace, title_str);
+trace_plot = plotData(a_db.trace, title_str, props);
 
 num_spikes = dbsize(a_db, 1);
 
