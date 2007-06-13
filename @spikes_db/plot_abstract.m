@@ -10,7 +10,7 @@ function a_pm = plot_abstract(a_db, title_str, props)
 %   Parameters:
 %	a_db: A spikes_db object.
 %	title_str: (Optional) A string to be concatanated to the title.
-%	props: A structure with any optional properties passed to plot_abstract.
+%	props: A structure with any optional properties passed to trace/plotData.
 %		
 %   Returns:
 %	a_pm: A trace plot.
