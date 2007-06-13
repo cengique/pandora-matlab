@@ -6,6 +6,9 @@ function a_db = minus(left_obj, right_obj)
 % a_db = minus(left_obj, right_obj)
 %
 % Description:
+%   If DBs have mismatching columns only the common columns will be kept.
+% In any case, the resulting DB columns will be sorted in the order of the
+% left-hand-side DB.
 %
 %   Parameters:
 %	left_obj, right_obj: Operands of the subtraction. One must be of type tests_db
@@ -22,7 +25,8 @@ function a_db = minus(left_obj, right_obj)
 
 if isa(left_obj, 'tests_db') && isa(right_obj, 'tests_db')
   %# check for column consistency
-  [left_names, right_names] = checkConsistentCols(left_obj, right_obj);
+  [left_names, right_names] = ...
+      checkConsistentCols(left_obj, right_obj, struct('useCommon', 1));
   left_data = get(left_obj, 'data');
   %# preserve column order of first DB
   right_data = get(onlyRowsTests(right_obj, ':', left_names), 'data');  
