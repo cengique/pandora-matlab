@@ -25,7 +25,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %		    of compounds.
 %	id: Neuron name.
 %	props: A structure with any optional properties.
-%	  NeuroSAGEversion: If a NeuroSAGE HDF5 is given as source, use this version.
+%	  nsHDF5: If 1, source is a NeuroSAGE HDF5 file.
 %	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
 %	  cip_list: Vector of cip levels to which the current trace will be matched.
 %	  (All other props are passed to cip_trace objects)
@@ -84,18 +84,24 @@ else
       trace_str = num2str(trace_str);
   end
 
-  if ~ exist('props') || isempty(props)
-      props=struct();
+  if ~ exist('props')
+    props = struct;
+  end
+  
+  if isfield(props, 'nsHDF5')
       props.Trials = ns_select_trials(data_src, trace_list);
       props.cip_list = ns_CIPlist(data_src, trace_list);
+  
+      tr1=trace_list(1); ch=max([obj.vchan 1]);
+      if ~exist('dt') || isempty(dt)
+        dt = 1/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+      end
+
+        if ~exist('dy') || isempty(dy)
+          dy = 1 %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+        end
   end
-  tr1=trace_list(1); ch=max([obj.vchan 1]);
-  if ~exist('dt') || isempty(dt)
-      dt = 1/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
-  end
-  if ~exist('dy') || isempty(dy)
-      dy = 1 %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
-  end
+
   % reading CIP list from the file
   
   %# Create the object 

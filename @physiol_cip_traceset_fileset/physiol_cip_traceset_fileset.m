@@ -1,16 +1,27 @@
-function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
+function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 
 % physiol_cip_traceset_fileset - Physiological fileset of traceset objects (concatenated).
 %
 % Usage:
-% obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
+% obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 %
 % Description:
-%   This is a subclass of params_tests_dataset. Each trace varies in bias, 
-% pulse times and cip magnitude.
+%   This is a subclass of params_tests_dataset. It contains a set of
+% physiol_cip_traceset items that are tied to physical data sources. Each
+% traceset can load a set of traces for an experimental recording. Most
+% flexible usage is obtained when the input traceset_items is given as a
+% cell array of physiol_cip_traceset objects. These objects can each link to
+% PCDX or NeuroSAGE HDF5 files independent of each other. A regular Matlab
+% script can be used to create such a cell array. If a function is defined
+% to return such an array, it can be passed as
+% traceset_items. Alternatively, the cell array can be constructed from an
+% ASCII file as described below, such as for deprecated PCDX data files.
 %
 %   Parameters:
-%	cells_filename: Ascii file containing the following tab-delimited items:
+%	traceset_items: It can be a function handle, cell array or filename
+%	  string. Function should return a cell array of physiol_cip_traceset
+%	  items. Finally this cell array can be provided directly.
+%	  If it is an ASCII filename, then it should contain the following tab-delimited items:
 %		1. Neuron ID (name to associate with the neuron). If left blank, use
 %			the filename with the '.all' extension removed.
 %		2. The absolute path of the data file
@@ -45,30 +56,40 @@ function obj = physiol_cip_traceset_fileset(cells_filename, dt, dy, props)
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu> and Thomas Sangrey, 2005/01/17
-% Modified: Jeremy Edgerton
+%
+% Modified: 
+%	Jeremy Edgerton
+%	Li, Su <su.li@emory.edu> 2007/06/10 for loading mixed HDF5 and
+%		PCDX files.
 
 if nargin == 0 %# Called with no params
   obj.neuron_idx = struct([]);
   obj = class(obj, 'physiol_cip_traceset_fileset', params_tests_dataset);
-elseif isa(cells_filename, 'physiol_cip_traceset_fileset') %# copy constructor?
-  obj = cells_filename;
+elseif isa(traceset_items, 'physiol_cip_traceset_fileset') %# copy constructor?
+  obj = traceset_items;
 else
   if ~ exist('props')
-    props = struct([]);
+    props = struct;
   end
 
   obj.neuron_idx = struct;
 
-  if isa(cells_filename, 'function_handle') 
-      list = cells_filename();
-      cells_filename = func2str(cells_filename);
+  if isa(traceset_items, 'function_handle') 
+    list = traceset_items();
+    traceset_items_str = func2str(traceset_items);
+  elseif iscell(traceset_items)
+    list = traceset_items;
+    traceset_items_str = ' cell array';
+  end
+    
+  if exist('list', 'var')
       obj.neuron_idx = struct;
       for k=1:length(list)
           obj.neuron_idx.(list{k}.id)=k;
       end
-  else
+  elseif isstr(traceset_items)
       %# read ASCII file, make each line an item in a cell array
-      tcell = textread(cells_filename, '%s', 'delimiter', '\n', 'commentstyle','matlab');
+      tcell = textread(traceset_items, '%s', 'delimiter', '\n', 'commentstyle','matlab');
       %# Parse each line, organize items by line number.
       tmtstruct = struct('tmp', 0);	% keep track of treatments in use.
       names = cell(length(tcell), 1);
@@ -78,6 +99,7 @@ else
       tmts = cell(length(tcell), 1);
       list = cell(length(tcell), 1);    
       neuron_id = 1;
+      traceset_items_str = traceset_items;
 
       for n = 1:length(tcell)
         ttm = {};
@@ -162,10 +184,13 @@ else
         list{n} = physiol_cip_traceset(traces{n}, paths{n}, chaninfo{n}, ...
                            dt, dy, tempstruct, names{n}, props);
       end
+  else
+    error(['Input argument traceset_items must be a function handle, cell ' ...
+           'array or filename string. It was none of these.']);
   end
 
   %# Create the fileset object
   obj = class(obj, 'physiol_cip_traceset_fileset', ...
 	      params_tests_dataset(list, dt, dy, ...
-				   ['tracesets from ', cells_filename ], props));
+				   ['tracesets from ', traceset_items_str ], props));
 end

@@ -24,7 +24,7 @@ traceset_props = get(traceset, 'props');
 
 if ~ isfield(traceset_props, 'profile_class_name')
   %# First call CIPform and get necessary parameters
-  [type, on, off, finish, bias, pulse] = ns_CIPform(traceset, trace_index);
+  [type, on, off, finish, bias, pulse] = CIPform(traceset, trace_index);
   pulse_time_start=on;
   pulse_time_width= off - on + 1;
   ygain = 1 / traceset.vgain;

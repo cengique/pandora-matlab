@@ -11,9 +11,9 @@ function a_cip_trace = cip_trace(traceset, trace_index, props)
 %	traceset: A physiol_cip_traceset object.
 %	trace_index: Index of file in traceset.
 %	props: A structure with any optional properties.
-%	  TracesetIndex: Indicates in the id field.
 %	  showParamsList: Cell array of params to add to id field.
 %	  showName: Show the name of the cell in the id field (default=1).
+%	  TracesetIndex: Indicates in the id field.
 %		
 %   Returns:
 %	a_cip_trace: A cip_trace object that holds the raw data.
@@ -23,13 +23,16 @@ function a_cip_trace = cip_trace(traceset, trace_index, props)
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/07/13
+%
+% Modified by:
+%	Li, Su <su.li@emory.edu>, 2007/06/10 for adding HDF5 compatibility.
 
 if ~ exist('props')
   props = struct;
 end
 
 %# First call CIPform and get necessary parameters
-[type, on, off, finish, bias, pulse] = ns_CIPform(traceset, trace_index);
+[type, on, off, finish, bias, pulse] = CIPform(traceset, trace_index);
 pulse_time_start=on;
 pulse_time_width= off - on + 1;
 ygain = 1 / traceset.vgain;
@@ -65,7 +68,13 @@ if ~ isfield(props, 'showName') || props.showName == 1
 end
 
 traceset_props = get(traceset, 'props');
-trace_props = traceset_props.Trials{trace_index};
+if isfield(traceset_props, 'Trials')
+  % if given, take per-trial props
+  trace_props = traceset_props.Trials{trace_index};
+else
+  % o/w use the traceset-wide props
+  trace_props = traceset_props;
+end
     
 a_cip_trace = cip_trace(traceset.data_src, get(traceset, 'dt'), ...
 			get(traceset, 'dy'), ...
