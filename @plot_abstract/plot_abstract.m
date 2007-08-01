@@ -82,23 +82,23 @@ if nargin == 0 %# Called with no params
 elseif isa(data, 'plot_abstract') %# copy constructor?
   obj = data;
 else
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 
-   if ~ exist('axis_labels')
+   if ~ exist('axis_labels', 'var')
      axis_labels = {};
    end
 
-   if ~ exist('title')
+   if ~ exist('title', 'var')
      title = '';
    end
 
-   if ~ exist('legend')
+   if ~ exist('legend', 'var')
      legend = {};
    end
 
-   if ~ exist('command')
+   if ~ exist('command', 'var')
      command = 'plot';
    end
 
