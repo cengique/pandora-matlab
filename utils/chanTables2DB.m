@@ -1,9 +1,9 @@
-function a_db = chanTables2DB(tables, id, props)
+function a_chans_db = chanTables2DB(tables, id, props)
 
 % chanTables2DB - Creates a DB with channel tables exported from Genesis.
 %
 % Usage: 
-% a_db = chanTables2DB(tables, id, props)
+% a_chans_db = chanTables2DB(tables, id, props)
 %
 % Description:
 %
@@ -14,7 +14,7 @@ function a_db = chanTables2DB(tables, id, props)
 %	  (rest passed to tests_db.)
 %
 %   Returns:
-%	a_db: A tests_db object containing channel tables.
+%	a_chans_db: A tests_db object containing channel tables.
 %
 % See also: trace, trace/plot, plot_abstract, GP/common/dump_chans.g (Genesis)
 %
@@ -26,30 +26,30 @@ if ~ exist('props')
   props = struct;
 end
 
-chan_names = fieldnames(tables);
+chan_names = fieldnames(tables)';
 a_db = tests_db;
+channel_info = struct;
 
 chan_num = 1;
 % go thru all channels in tables
-for chan_name = chan_names'
+for chan_name = chan_names
   chan_name = chan_name{1};
 
-  chan = tables.(chan_name)
+  chan = tables.(chan_name);
   chan_fields = fieldnames(chan)';
-  gate_names = chan_fields(~cellfun(@isempty, regexp(chan_fields, '.*_minf|.*_tau', 'match')))
+  gate_names = chan_fields(~cellfun(@isempty, regexp(chan_fields, '.*_minf|.*_tau', 'match')));
   
-  %   create DB object
-  chan_db = makeChanDB;
-
-  % concat DBs
-  a_db = addColumns(a_db, chan_db);
+  %   create DB object & concat
+  a_db = addColumns(a_db, makeChanDB);
 
   %   separate plot for each gate
-    chan_num = chan_num + 1;
+  chan_num = chan_num + 1;
 end
 
+props.chan_names = chan_names;
+
 % set the props at the end
-a_db.props = props;
+a_chans_db = chans_db(a_db, {}, channel_info, id, props);
 
 % inner function: return all gates of one channel in a tests_db object
 function a_db = makeChanDB
@@ -76,11 +76,10 @@ function a_db = makeChanDB
   a_db = tests_db(results, { [ chan_name '_x' ], new_gate_names{:} }, {}, ...
                   [ id ', ' chan_name ]);
 
-  % other fields (such as Gbar and powers) go to props (assuming they are scalars)
-  other_fields = setdiff(chan_fields, gate_names)
+  % other fields (such as Gbar and powers) go to channel_info (assuming they are scalars)
+  other_fields = setdiff(chan_fields, gate_names);
   for field_name = other_fields
-    field_name
-    props.([chan_name '_' field_name{1}]) = chan.(field_name{1});
+    channel_info.([chan_name '_' field_name{1}]) = chan.(field_name{1});
   end
 
 
