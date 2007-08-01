@@ -15,6 +15,7 @@ function a_plot = plotRowMatrix(hist_dbs, title_str, props)
 %	title_str: Title to go at the top.
 %	props: A structure with any optional properties.
 %	  rowLabels: Cell array of y-axis labels for each row.
+%	  (rest passed to histogram_db/plot_abstract)
 %		
 %   Returns:
 %	a_plot: A object of plot_abstract or one of its subclasses.
@@ -26,9 +27,7 @@ function a_plot = plotRowMatrix(hist_dbs, title_str, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/11/22
 
 %# Get plot_abstract objects
-all_plots = plot_abstract(hist_dbs);
-size(all_plots)
-size(hist_dbs)
+all_plots = plot_abstract(hist_dbs, '', props);
 
 num_rows = size(hist_dbs, 1);
 num_cols = size(hist_dbs, 2);
@@ -42,7 +41,7 @@ for row_num=1:num_rows
     row_ranges = growRange([ row_ranges; axis(all_plots(row_num, col_num)) ]);
     if col_num == 1 && isfield(props, 'rowLabels')
       %# set the row label if requested
-      header_plot = all_plots(row_num, col_num)
+      header_plot = all_plots(row_num, col_num);
       header_plot.axis_labels{2} = props.rowLabels{row_num};
       all_plots(row_num, col_num) = header_plot;
     end
