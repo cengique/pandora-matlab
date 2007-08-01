@@ -13,7 +13,9 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 %	db: A tests_db to rank.
 %	crit_db: A tests_db object holding the match criterion tests and stds.
 %	props: A structure with any optional properties.
-%	  tolerateNaNs: If 0, rows with any NaN values are skipped (default=1).
+%	  limitSTD: limit any measure to this many STDs max.
+%	  tolerateNaNs: If 0, rows with any NaN values are skipped
+%	  	, if 1, NaN values are given a fixed 3xSTD penalty (default=1).
 %	  testWeights: Structure array associating tests and multiplicative weights.
 %	  restoreWeights: Reverse the testWeights application after
 %	  		calculating distances.
@@ -105,6 +107,7 @@ else
   wghd_data(nans) = 0; %# Replace NaNs with 0s
 end
 
+
 if isfield(props, 'useMahal')
   % Use Mahalonobis distance that factors in the covariations between measures
   wghd_data = wghd_data * inv(get(onlyRowsTests(crit_db.props.cov, crit_tests, crit_tests), 'data'));
@@ -113,14 +116,20 @@ else
   % (equivalent to Mahalonobis distance if measures were independent)
   wghd_data = wghd_data ./ second_row_matx;
 end
-  
+
+if isfield(props, 'limitSTD') 
+  % limit any measure to this many STDs max
+  exceedingSTDs = wghd_data > props.limitSTD;
+  wghd_data(exceedingSTDs) = props.limitSTD;
+end
+
 %# Sum of absolute error: distance measure
 ss_data = abs(wghd_data);
 
 if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
   ss_data = sum(ss_data, 2) ./ size(ss_data, 2); 
 else
-  ss_data = sum(ss_data(~nans), 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
+  ss_data = sum(ss_data, 2) ./ sum(~nans, 2); %# Sum distances and take average of non-NaNs
 end
 
 % clear those no longer needed
