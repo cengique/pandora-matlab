@@ -16,6 +16,10 @@ function tex_string = displayRowsTeX(a_db, caption, props)
 %   Returns:
 %	tex_string: LaTeX string for table float.
 %
+% Example:
+% >> string2File(displayRowsTeX(a_db(1:10, 4:7), 'some values',
+%                               struct('rotate', 0)), 'table.tex')
+%
 % See also: displayRows, TeXtable, cell2TeX
 %
 % $Id$
