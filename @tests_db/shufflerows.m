@@ -3,7 +3,7 @@ function a_db = shufflerows(db, tests, grouped)
 % shufflerows - Returns a db with rows of given test columns are shuffled. 
 %
 % Usage:
-% s = shufflerows(db, dim)
+% s = shufflerows(db, tests, grouped)
 %
 % Description:
 %   Can be used for shuffle prediction. Basically, shuffle rows of tests and rerun
