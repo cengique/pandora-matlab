@@ -32,6 +32,7 @@ end
 
 col_names = fieldnames(get(db, 'col_idx'));
 
+% TODO: maybe warn before if there're any NaNs?
 a_cov_db = ...
     tests_db(cov(get(db, 'data')), col_names, col_names, [ 'covariance of ' get(db, 'id') ], props);
 
