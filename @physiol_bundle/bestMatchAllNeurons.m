@@ -32,6 +32,10 @@ function all_ranks_db = bestMatchAllNeurons(p_bundle, joined_db, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/05/24
 
+  if ~exist('props', 'var')
+    props = struct;
+  end
+  
   num_neurons = dbsize(p_bundle.joined_control_db, 1);
 
   % Do initial ranking to get number of columns
