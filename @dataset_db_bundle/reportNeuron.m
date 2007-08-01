@@ -288,7 +288,7 @@ function [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData
   trace_d100 = ctFromRows(a_bundle, an_index, 100, props);
   trace_h100 = ctFromRows(a_bundle, an_index, -100, props);
   trace_id = getNeuronLabel(a_bundle, an_index);
-
+  
   short_caption = ['Raw traces of ' trace_id '.' ];
 
   %# If specified, only include desired number of the available phys. traces
