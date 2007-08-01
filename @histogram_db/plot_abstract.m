@@ -12,6 +12,7 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 %	a_hist_db: A histogram_db object.
 %	props: Optional properties passed to plot_abstract.
 %		command: Plot command (Optional, default='bar')
+%		logScale: If 1, use logarithmic y-scale.
 %		quiet: If 1, don't include database name on title.
 %		
 %   Returns:
@@ -69,6 +70,12 @@ if ~ isfield(props, 'quiet')
   all_title = [ 'Histogram of ' strrep(get(a_hist_db, 'id'), '_', '\_') title_str ];
 else
   all_title = title_str;
+end
+
+if isfield(props, 'logScale')
+  %props.axisProps.YScale = 'log';
+  data(:, 2) = log(data(:, 2) + 1);
+  y_label = [ 'log ' y_label ];
 end
 
 %# Make a simple plot object drawing vertical bars
