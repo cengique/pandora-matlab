@@ -48,3 +48,8 @@ if num_plot_stacks > 1
 end
 
 a_plot = plots(1);
+a_plot = set(a_plot, 'props', mergeStructs(props, get(a_plot, 'props')));
+
+if exist('title_str', 'var')
+  a_plot = set(a_plot, 'title', title_str);
+end
