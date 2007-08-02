@@ -1,0 +1,146 @@
+TODO
+--------------------
+- add test suite?
+- add more examples to lyx documentation.
+- replace exist functions with a 'var' 2nd param
+- add pclamp import function abf_atf_import from MAtlab file exchange in the utils/ folder.
+	- make trace accept atf, abf and Spike2 formats
+- put license, add SQL export function, and publish package
+- add neurosage hdf5 support
+- ask to put link on http://home.earthlink.net/~perlewitz/sftwr.html
+  comes first in google when searched for "neuroscience software".
+  also link to http://scholarpedia.org/article/Encyclopedia_of_Computational_Neuroscience
+- rename plot_abstract, joined_db to more meaningful names.
+- generalize histogram_db to hold 2 and 3-dimensional histograms
+- open tools/utils dir and move needed stuff from cen_matlab and alftoolbox into there.
+- make a paper production class capable of generating figures for paper automatically
+- make plan and requisites for version procession
+- put ItemIndex as param
+- improve visualization of cip_traces
+- create custom class to eliminate high-variance neurons? how to get sdb?
+- plot matches that vary a lot in parameter values, but same outcome
+- move multi_fileset_gpsim_cns2005 into djlab
++ move plotfICurve to model_ct_bundle
+- make comparisonReport use reportCompareModelToPhysiolNeuron
++ for version 0.6:
+	- add new physiology dataset loader
++ for version 0.7:
+	+ new AP thr method, and look at all spikes
+	+ also look at phys spikes, needs some smoothing
+	+ rename displayRow to displayRows
+	+ fix SE calc
+- for version 0.8:
+	+ move props to bottom of params_tests_dataset and tests_db
+	+ remove redundant props from subclasses
+- for version 1.0:
+	+ add dataset connection to tests_db [created the bundle concept]
+		- make version-aware loader?
+		X put it in props for now?
+	- put params in dataset, params_results_profile [?]
+- fix fillederrorbar with new Matlab
+- Make tests_db save and load its dataset on request
+	- overload saveobj and loadobj methods
+- tests_db
+	+ add arithmetic operations that operate on the data matrix [can add columns]
+	+ add horzcat, vertcat methods to concat rows or columns (!)
+	+ print column numbers in display
+	+ define all operations as row logical functions
+	+ complex subsref for tests_db. 
+- add plot-frame and docgen classes
+  - plot_bars puts too much x-margin space
+	- move plot_bars to utils/?
+  - make plot_superpose return correct errorbar extents
+  - allow adding insets to plots
+  - clustering histograms?
+  + fix varboxplot to return correct y-axis limits
+  + add a PaperPosition property to figures to make printable figures.
+  + allow fontsize change to fit more on a single page [can use export size for that]
+  + Replace older plot methods with plotFigure(plot_abstract(.)) combinations
+	- what to do with Interpreter=None stuff?
+  + matrix color plot
+  + allow adjusting location of title in stack plots
+  + invar param value should be indicated on plotPages
+  + classes should have function that returns plot_abstract
+  + @plot_abstract is one x-y plot w/ legends, etc.
+  + @plot_stack, places plots on subplots.
+  + sortrows in histograms.m
+  + histograms should have same axis limits
+  + @plot_abstract/superposePlots, superposes plots on same axis, and 
+    return a new plot_abstract object
+- objects don't take more space when they're used again, has implications on design:
+  - put links to previous db's for a chain of operations, but they must not be saved!
+  + put link to dataset from db [made bundles]
+- comparing physiology data
+  - improve convenience by adding custom functions to bundle classes
+  - cluster params of best matches
+  - collect params of all best matches and cluster
+  + allow easily choosing subset of measures
+  + made color-coded error distance display
+  + make tabular display
+- Make params_tests_profile to use arrays rather than cell arrays
+  - do for rest of profile elements
+  + had to remove size member function
+  + may need to modify subsref [if an array is passed, then call built-in function]
+  + then make plot methods operate on arrays and return plot arrays
+- update documentation 
+  - perl doclet generator
+  - make first description no longer than one line on all constructors
+  - make sure an example accompanies each function
+  - Make PDF with code design
+	- add class diagram with converter methods
+	- add diagram for bundles
+  + update README
+- high-order methods:
+	+ factor analysis
+	+ shuffle predicition
+	- pca
+	- ica
+	- clustering (use for finding multiple solutions?)
+		- need this for finding parameter clusters matching phys data?
+		- no, use hierarchical clustering to find number of clusters and centers
+		- use PCA to display clustering results
+		- use ANOVA for showing significance of separation
++ make dualcip a new db and make it load profiles, etc. [made multi_fileset]
++ add method in dataset to load item by reading database row or in db vice-versa.
+	- use db id for the prof id
++ ignore all parameters in comparisons?
++ plot average neuron comparison matches.
++ remove DAHPMag from depol_tests
++ remove not-a-spikes from spikes object
++ analyze each spike individually, then generate mean, mode, median, and unimodality score
++ add an addItem method to datasets
++ new subclass for custom analysis
+	- add plotTestStats function to group things together [?]
+
+- CVS
+  - present CVS, start using it
+  - move this repository to djlab account?
++ add min ahp time to DB
++ replace '_' in latex outputs
++ ignore NeuronId while comparison and do the comparison again
++ profile:
+	+ make a converter method from params_tests_db to get the profile
+	+ make the profile constructor simple
+	+ put all test results into the results structure
+	+ overload the get method to look into the results structure
++ matrix stack plot
++ new plot & data type for mean and stds of each test and param value
+	+ swapRowsPages, then find statsMeanStd
+	+ statsMeanStd needs page-capable mean and std funcs
+	+ create special plot with vectors and errorbars
+	+ do it over all parameters in the profile
+	+ then plot a test for all parameters in the same way
+	+ use boxplots
++ poster size: 1.75x1.1 m^2, 68"x43"
++ sortrows(tests_db) only sorts one page and applies to all?
+	+ invarValues should've been sorted already? [no, only other columns are sorted]
++ add calcSlowInact to @cip_trace
++ add cip_trace_fileset class
++ make abstract profile class to describe the getResults method
++ Make Matlab contents file
++ getResults for @spikes, @trace
++ Make README file
++ make spike checks in cip_trace_profile
++ make specialized directory for brute_aug_04, move cip_trace_profile there
+	+ first make a general cip_trace_profile which takes ready-made objs
++ remove conflicting classes from the cen_matlab module

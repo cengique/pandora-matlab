@@ -1,0 +1,71 @@
+function idx = tests2idx(db, dim_name, tests)
+
+% tests2idx - Find dimension indices from a test names/numbers specification.
+%
+% Usage:
+% idx = tests2idx(db, dim_name, tests)
+%
+% Description:
+%
+%   Parameters:
+%	db: A tests_db object.
+%	dim_name: String indicating 'row', 'col', or 'page'
+%	tests: Either a single or array of column numbers, or a single
+%		test name or a cell array of test names. If ':', all tests.
+%		
+%   Returns:
+%	idx: Array of column indices.
+%
+% See also: tests_db
+%
+% $Id$
+%
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
+
+% note: page_idx only exists in tests_3D_db
+possible_dim_names = {'row', 'col', 'page'};
+dim_num = strmatch(dim_name, possible_dim_names, 'exact');
+
+% sanity check
+if isempty(dim_num)
+  names = strcat(possible_dim_names', ', ')';
+  error([ 'dim_name "' dim_name '" not recognized. It can only be one of these: ' ...
+          strcat(names{:}) '.' ] );
+end
+
+ind_struct = db.([ dim_name '_idx']);
+
+if isempty(fieldnames(ind_struct))
+  ind_vals = num2cell(1:dbsize(db, dim_num));
+else
+  ind_vals = struct2cell(ind_struct);
+end
+
+%# Parse tests
+idx = [];
+if ischar(tests) && strcmp(tests, ':')
+  idx = [ ind_vals{:} ];
+elseif islogical(tests)
+  idx = find(tests);
+elseif isnumeric(tests) 
+  idx = tests;
+elseif ischar(tests)
+  idx = getfield(ind_struct, tests);
+elseif iscell(tests)
+  for test=tests
+    test = test{1}; %# unwrap the cell
+    if ischar(test)
+      ind = getfield(ind_struct, test);
+    elseif isnumeric(test)
+      ind = test;
+    else
+      display(test);
+      error(['Test not recognized.' ]);
+    end
+
+    idx = [idx, ind];
+  end
+else
+  error(['tests can either be '':'', column number or array of numbers,'...
+	 ' column name or cell array of names.']);
+end

@@ -1,0 +1,76 @@
+
+License:
+--------
+This work is licensed under the Creative Commons Attribution-Noncommercial-Share Alike 2.5 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/2.5/ or send a letter to Creative Commons, 543 Howard Street, 5th Floor, San Francisco, California, 94105, USA.
+
+HTML code for license:
+------------------------------
+<!--Creative Commons License--><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" style="border-width: 0" src="http://creativecommons.org/images/public/somerights20.png"/></a><br/>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/">Creative Commons Attribution-Noncommercial-Share Alike 2.5  License</a>.<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<Work rdf:about="">
+		<license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+	<dc:type rdf:resource="http://purl.org/dc/dcmitype/InteractiveResource" />
+	</Work>
+	<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/><requires rdf:resource="http://web.resource.org/cc/ShareAlike"/></License></rdf:RDF> -->
+
+CVS repository: ~cengiz/.rep/djlab_matlab
+
+See ChangeLog for details of evolution.
+
+Version history:
+--------------------
+
+v0_10b: Cengiz Gunay, 2007/03/22. Beta version.
+	- automated function reference generation from Matlab source for PDF and HTML manuals
+	- revamped plot generation by making plot_abstract solely responsible for frame
+	- superposition of stacked plots now possible
+	- several improvements to plotting
+	- added algebraic operations to tests_db including transposition
+	- improved comparative analysis of 3D DBs
+	- started using arrays rather than cell arrays during analysis to simplify calls
+	- new layouts for plotting neurons, flexible selection of traces to display
+	- misc new database operations, such as enumerating unique values
+	- improved firing frequency plot
+	- generic 2D image plots
+	- added parameter to load parameter files with different trial numbers
+	- added a utils/ directory for external programs
+	- added support for loading binary Neuron files, compressed Genesis files.
+
+v0_9b: Cengiz Gunay, 2006/02/15. Beta version. 
+	- Improved plotting in many ways including with self-resizing plots. 
+	- Vectorized many functions to operate on multiple inputs. 
+	- Improved spike shape measurements based on results from new morphologies. 
+	- Optimized for memory usage in merging, joining and ranking databases.
+	- Compatibility issues with Matlab R14.3 fixed.
+	- Added the concept of a bundle of a dataset and DB.
+	- Allow comments in physiol cell files by Tom Sangrey.
+	- Moved props out of spike_shape, into base class trace.
+	- Added automated document generators that can hold plots or tables, etc.
+	- Organized and automated how ranking documents are generated and added more plots.
+	- Added specialized plot that can do  f-I curves and similar plots.
+	- Added script_array and subclasses to do automated analysis on the cluster.
+	- Added .genflac support.
+	- Allow adding files to existing filesets and loading DBs of added files only.
+	- Added presets for comparing a limited set of measures and specify weighting.
+	- Allow modifying DB contents with paren addressing rows and columns.
+
+v0_8b: Cengiz Gunay, 2005/10/19. Beta version that has improved analysis and 
+	plotting functionality, and documentation. Database object format
+	has changed, which makes this revision binary incompatible with
+	earlier created DB and dataset objects.
+
+v0_7b: Cengiz Gunay, 2005/05/04. Beta version that analyzes each spike individually
+	and uses improved threshold finding method.
+
+v0_6b: Cengiz Gunay & Jeremy Edgerton, 2005/03/14. Beta version that can 
+	load physiology filesets with pharmacology data.
+
+v0_5b: Cengiz Gunay, 2005/01/25. Beta version that can work with PCDX files.
+
+v0_4b: Cengiz Gunay, 2005/01/11. Beta version with pulse spike
+	characteristics and database matching tools.
+
+v0_2b: Cengiz Gunay, 2004/09/16. Beta version of fileset and db classes.
+
+v0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
+	spike_shape, period, and cip_trace.
+
