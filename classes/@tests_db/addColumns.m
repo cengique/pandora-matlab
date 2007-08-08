@@ -31,6 +31,12 @@ function obj = addColumns(obj, test_names, test_columns)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/30
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if isa(test_names, 'tests_db')
   to_db = test_names;
   test_names = fieldnames(get(to_db, 'col_idx'));

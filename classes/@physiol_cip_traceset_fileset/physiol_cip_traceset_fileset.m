@@ -62,6 +62,12 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 %	Li, Su <su.li@emory.edu> 2007/06/10 for loading mixed HDF5 and
 %		PCDX files.
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if nargin == 0 %# Called with no params
   obj.neuron_idx = struct([]);
   obj = class(obj, 'physiol_cip_traceset_fileset', params_tests_dataset);

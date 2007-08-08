@@ -17,6 +17,12 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
 %
 % Author: Thomas Sangrey, 2005
  
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 % Modified by: 
 %   Jeremy Edgerton, 2005.
 %   Cengiz Gunay, 2005/08/15. Added property to specify cipList externally.

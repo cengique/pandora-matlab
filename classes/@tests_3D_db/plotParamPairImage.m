@@ -34,6 +34,12 @@ function a_plot = plotParamPairImage(a_db, test, title_str, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/10
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if ~ exist('props')
   props = struct([]);
 end

@@ -24,6 +24,12 @@ function a_3D_db = swapRowsPages(db)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# Reorder the row and page dimensions
 a_3D_db = set(db, 'data', permute(get(db, 'data'), [3, 2, 1]));
 a_3D_db = set(a_3D_db, 'row_idx', get(db, 'page_idx'));

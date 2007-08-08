@@ -23,6 +23,12 @@ function [a_tau, da_inf] = spikeAmpSlope(a_spikes, a_trace, a_period)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/15
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# By default apply to the whole of s, t
 if ~ exist('a_period')
   a_period = periodWhole(s);

@@ -30,6 +30,12 @@ function a_tests_db = meanDuplicateRows(db, main_cols, rest_cols)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# TODO: add number column for each set and also mode, SD for each duplicate set.
 main_cols = tests2cols(db, main_cols);
 rest_cols = tests2cols(db, rest_cols);

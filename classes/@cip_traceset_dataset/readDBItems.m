@@ -23,6 +23,12 @@ function [params, param_names, tests, test_names] = readDBItems(obj)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/28
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# Collect info for generating the DB
 num_items = length(get(obj, 'list'));
 rows = num_items * length(obj.cip_mags);

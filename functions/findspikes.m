@@ -32,6 +32,12 @@ function [spikeTime, spikePeak, n] = findspikes(traces, fs, thres, varargin)
 %  spikeTime=findspikes(signal, 10, [-0.5 -0.2], -1);
 %  spikeTime=findspikes(signal, 10, [-0.2 -0.3], [0.1 2], 'plot');
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 % assign the arguments========================
 error(nargchk(3,6,nargin))
 

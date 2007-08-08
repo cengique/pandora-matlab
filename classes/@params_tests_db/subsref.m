@@ -1,6 +1,12 @@
 function b = subsref(a,index)
 % subsref - Defines generic indexing for objects.
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
   %# INCONSISTENCY WARNING: If builtin subsref is used, the syntax "struct_arr.field"
   %# produces a cell array of the field contents in each of the structure array indices.
   %# However, here we return a regular array of tests_dbs. TODO: Maybe change this 

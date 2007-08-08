@@ -24,6 +24,12 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/13
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# Fold into two, according to cip values
 cip_fold_db = swapRowsPages(invarParam(sortrows(db, 'pAcip'), 'pAcip'));
 

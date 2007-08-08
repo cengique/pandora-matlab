@@ -44,6 +44,12 @@ function a_doc_multi = reportNeuron(a_bundle, an_index, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/24
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)
 
 if ~ exist('props')

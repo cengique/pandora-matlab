@@ -25,5 +25,11 @@ function a_cip_trace = ctFromRows(a_bundle, a_db, cip_levels, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/10/11
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 error('not implemented. See subclasses physiol_bundle and model_ct_bundle.');
 

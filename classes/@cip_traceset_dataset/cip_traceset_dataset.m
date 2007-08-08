@@ -35,6 +35,12 @@ function obj = cip_traceset_dataset(cts, cip_mags, dy, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/28
 %	  Based on physiol_cip_traceset_fileset created with Tom Sangrey.
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if nargin == 0 %# Called with no params
   obj.cip_mags = [];
   obj.props = struct([]);

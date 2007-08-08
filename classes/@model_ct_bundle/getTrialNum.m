@@ -1,30 +1,36 @@
 function trial_num = getTrialNum(a_bundle, a_db, props)
 
-  % getTrialNum - Extracts identifying neuron trial number from DB.
-  %
-  % Usage:
-  % trial_num = getTrialNum(a_bundle, a_db|trial_num, props)
-  %
-  % Description:
-  %
-  %   Parameters:
-  %	a_bundle: A physiol_cip_traceset_fileset object.
-  %	a_db: DB rows representing deisred model neuron(s).
-  %	trial_num: Trial numbers. If specified, this function does nothing but return them.
-  %	props: A structure with any optional properties.
-  %		
-  %   Returns:
-  %	trial_num: The trial number(s) identifying selected neuron(s) in bundle.
-  %
-  % See also: dataset_db_bundle
-  %
-  % $Id$
-  %
-  % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/26
+% getTrialNum - Extracts identifying neuron trial number from DB.
+%
+% Usage:
+% trial_num = getTrialNum(a_bundle, a_db|trial_num, props)
+%
+% Description:
+%
+%   Parameters:
+%	a_bundle: A physiol_cip_traceset_fileset object.
+%	a_db: DB rows representing deisred model neuron(s).
+%	trial_num: Trial numbers. If specified, this function does nothing but return them.
+%	props: A structure with any optional properties.
+%		
+%   Returns:
+%	trial_num: The trial number(s) identifying selected neuron(s) in bundle.
+%
+% See also: dataset_db_bundle
+%
+% $Id$
+%
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/26
+
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
 
   if ~exist('props')
     props = struct;
-  end
+  end  
 
   if isa(a_db, 'tests_db')
     dataset_props = get(get(a_bundle, 'dataset'), 'props');

@@ -31,6 +31,12 @@ function a_chans_db = chans_db(data, col_names, channel_info, id, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/06/26
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if nargin == 0 %# Called with no params
    a_chans_db.channel_info = struct;
    a_chans_db = class(a_chans_db, 'chans_db', tests_db);

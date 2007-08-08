@@ -27,6 +27,12 @@ function obj = addRow(obj, row, index)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/08
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if (dbsize(obj, 1) > 0 && size(row, 2) ~= dbsize(obj, 2)) || ...
       size(row, 2) ~= length(fieldnames(obj.col_idx))
   error(['Number of columns in row (' size(row, 2) ') ', ...

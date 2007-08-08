@@ -22,6 +22,12 @@ function idx = tests2idx(db, dim_name, tests)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/07
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 % note: page_idx only exists in tests_3D_db
 possible_dim_names = {'row', 'col', 'page'};
 dim_num = strmatch(dim_name, possible_dim_names, 'exact');

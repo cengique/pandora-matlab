@@ -39,6 +39,12 @@ function [base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 %# constants
 %#min_val = s.trace.data(min_idx);
 %#max_val = s.trace.data(max_idx);

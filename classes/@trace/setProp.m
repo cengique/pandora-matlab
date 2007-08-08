@@ -21,8 +21,15 @@ function obj = setProp(obj, varargin)
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/22
+
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
 num = length(obj);
 if num > 1
+
   %# If a vector, loop and do for all
   for i=1:num
     obj(i) = setProp(obj(i), varargin{:});

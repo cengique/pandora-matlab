@@ -35,6 +35,12 @@ function [init_idx, max_d1o, a_plot, fail_cond] = ...
 %   Inspired by Sekerli, Del Negro, Lee and Butera. IEEE Trans. Biomed. Eng.,
 %	51(9): 1665-71, 2004 and by personal communication with Murat Şekerli.
 
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.txt.
+
 if ~ exist('plotit')
   plotit = 0;
 end
