@@ -663,58 +663,68 @@ move everything from alf and cengiz directories into the toolbox, and make
 \end_layout
 
 \begin_layout Standard
-Currently the main software classes are available under the 
-\family typewriter
-/djlab/shared/matlab/classes/djlab
-\family default
- directory at the Jaeger Lab in Emory University.
- The 
-\family typewriter
-djlab
-\family default
- directory is an alias to the latest version, while older versions are kept
- in directories named like 
-\family typewriter
-djlab_v0.5b
-\family default
+Download the latest package file from: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset LatexCommand \url{http://userwww.service.emory.edu/~cgunay/pandora}
+
+\end_inset
+
 .
- The 
-\family typewriter
-README
-\family default
- file under the latest version directory explains the differences between
- versions.
  
 \end_layout
 
 \begin_layout Standard
-The classes depend on a number of other utilities from the following directories
-: 
-\family typewriter
-/djlab/shared/matlab/cengiz
-\family default
- and 
-\family typewriter
-/djlab/shared/matlab/alfonso/alftoolbox
-\family default
-.
- These directories, together with the class directory from above, need to
- be in your 
+Unpack the archive anywhere in your system, using
+\end_layout
+
+\begin_layout LyX-Code
+$ tar xzf pandora-xyz.tar.gz
+\end_layout
+
+\begin_layout Standard
+and follow the instructions in the README file.
+ Basically it involves pointing your 
 \noun on
 Matlab
 \noun default
- search path.
- You can use the 
+ installation to look at the 
 \family typewriter
-addpath
+pandora/
 \family default
- command to add them interactively, or you can simply put the commands in
- a startup script (e.g., 
+ subdirectory for loading the PANDORA files.
+\end_layout
+
+\begin_layout Standard
+This can be achieved either by copying the 
 \family typewriter
-~/matlab/startup.m
+pandora/
 \family default
-).
- An example for this startup script would be as follows:
+ directory under the 
+\family typewriter
+toolbox/
+\family default
+ directory in your 
+\noun on
+Matlab
+\noun default
+ installation, or by adding the path to your 
+\noun on
+Matlab
+\noun default
+ session.
+ While the former is a permanent solution, the latter method requires repeated
+ application for each new session.
+ To avoid repetition, you can have a startup script, 
+\family typewriter
+startup.m
+\family default
+, in the directory that you run 
+\noun on
+Matlab
+\noun default
+ with the following commands:
 \end_layout
 
 \begin_layout LyX-Code
@@ -724,25 +734,30 @@ addpath
 \begin_layout LyX-Code
 addpath 
 \family typewriter
-/djlab/shared/matlab/alfonso/alftoolbox
-\end_layout
-
-\begin_layout LyX-Code
-addpath 
-\family typewriter
-/djlab/shared/matlab/
-\family default
-cengiz
-\end_layout
-
-\begin_layout LyX-Code
-addpath 
-\family typewriter
-/djlab/shared/matlab/classes/djlab
+/my/download/directory/pandora-1.0b/pandora
 \end_layout
 
 \begin_layout LyX-Code
 %--- end startup.m
+\end_layout
+
+\begin_layout Standard
+This will be loaded everytime you run 
+\noun on
+Matlab
+\noun default
+ from this directory.
+ in UN*X systems, this can be improved further by placing the command in
+ the file 
+\family typewriter
+$HOME/matlab/startup.m, which
+\family default
+ is executed no matter from where 
+\noun on
+Matlab
+\noun default
+ is called, especially if you are running Matlab from different or unknown
+ places each time.
 \end_layout
 
 \begin_layout Part
@@ -5731,7 +5746,7 @@ tex_string
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand \bibtex[bibtotoc,plainnat]{ref}
+\begin_inset LatexCommand \bibtex[bibtotoc,plainnat]{/djlab/private/cengiz/Documents/writings/refs/ref}
 
 \end_inset
 

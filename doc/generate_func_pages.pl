@@ -27,14 +27,17 @@ use Text::Tabs;
 # - put list of methods in class section
 # - read brief description of class from Contents.m.
 
-my $code_dir = "..";
-my $utils_dir = "utils";
+my $code_dir = "../classes";
+my $utils_dir = "../functions";
 my $func_ref_dir = "func_ref";
 
 # escapes characters that latex doesn't like
 sub proper_latex_label {
   $_ = shift;
 
+  # first replace existing backslashes
+  s/\\/\$\\backslash\$/g;
+  # then add new ones
   s/_/\\_/g;
   s/&/\\&/g;
   s/\^/\\textasciicircum{}/g;
@@ -255,7 +258,8 @@ sub process_class_dir {
   my $latex_code = "";
 
   my $class_name = $class_dir;
-  $class_name =~ s|^[^/]*/\@||;
+  #$class_name =~ s|^.*/\@([^/]*)$/|$1|;
+  $class_name =~ s|^.*/\@||;
 
   print STDERR "class: $class_name\n";
 
@@ -308,7 +312,7 @@ $latex_code .= << "ENDL";
 \\label{ref_utils}%
 \\hypertarget{ref_utils}{}%
 ENDL
-$latex_code .= process_methods_dir("$code_dir/$utils_dir", "utils", "function");
+$latex_code .= process_methods_dir("$utils_dir", "functions", "function");
 
 # Send created LaTeX contents to standard output
 print "$latex_code\n";

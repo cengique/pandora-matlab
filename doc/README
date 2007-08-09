@@ -1,0 +1,23 @@
+
+Run this to update the function reference information directly 
+from Matlab code in the current directory (ignore the pages of debug printouts):
+
+./generate_func_pages.pl > func-ref.tex 
+
+Then Generate a postscript output from Lyx using the new
+function reference and check that it's ok.
+
+Then go the /tmp/lyxtmpdir* directory created by LyX.
+
+In this directory do the following steps:
+
+1) to get the function index do:
+makeindex prog-manual.frx -o prog-manual.fnd
+
+
+2) to create the HTML help run the following command after replacing the output HTML directory:
+latex2html -t 'PANDORA Toolbox Manual' -dir ~/work/pandora-all/pandora/trunk/doc/html -mkdir -split +1 -show_section_numbers -no_reuse prog-manual.tex
+
+Cengiz Gunay
+<cengique@users.sf.net>
+2007/08/09

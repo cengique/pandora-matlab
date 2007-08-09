@@ -3,6 +3,298 @@
 \newcommand{\methodline}{%
   {\normalsize \vspace{1ex} \hrule width \columnwidth \vspace{1ex}}%
 }%
+\subsection{Class \texttt{chans\_db}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}}%
+\label{ref_chans_db}%
+\hypertarget{ref_chans_db}{}%
+\subsubsection[Constructor \texttt{chans\_db}]{Constructor \texttt{chans\_db/chans\_db}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!chans_db@\fidxl{chans\_db}}%
+\label{ref_chans_db__chans_db}%
+\hypertarget{ref_chans_db__chans_db}{}%
+\begin{description}
+\item[Summary:]A database of channel activation and kinetics.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_chans\_db = chans\_db(data, col\_names, orig\_db, crit\_db, id, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+This is a subclass of tests\_db. Channel tables can be imported from
+ Genesis using the utils/chanTables2DB script.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{data}:]
+ Database contents.
+\item[\texttt{col\_names}:]
+ The channel variable names.
+\item[\texttt{channel\_info}:]
+ Structure that holds scalar data elements such as Gbar.
+\item[\texttt{id}:]
+ An identifying string.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\end{description}%
+%
+\item[Returns a structure object with the following fields:]~
+
+	tests\_db, channel\_info, props.
+%
+%
+\item[See also:]%
+\hyperlink{ref_tests_db}{\texttt{tests\_db}}%
+\ (p.~\pageref{ref_tests_db})%
+\index[funcref]{@\fidxl{tests\_db}}%
+, \hyperlink{ref_chanTables2DB}{\texttt{chanTables2DB}}%
+\ (p.~\pageref{ref_chanTables2DB})%
+\index[funcref]{@\fidxl{chanTables2DB}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/06/26%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{display}]{Method \texttt{chans\_db/display}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!display@\fidxl{display}}%
+\label{ref_chans_db__display}%
+\hypertarget{ref_chans_db__display}{}%
+\begin{description}
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/08/04%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{get}]{Method \texttt{chans\_db/get}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!get@\fidxl{get}}%
+\label{ref_chans_db__get}%
+\hypertarget{ref_chans_db__get}{}%
+\begin{description}
+\item[Summary:]Defines generic attribute retrieval for objects.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{set}]{Method \texttt{chans\_db/set}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!set@\fidxl{set}}%
+\label{ref_chans_db__set}%
+\hypertarget{ref_chans_db__set}{}%
+\begin{description}
+\item[Summary:]Generic method for setting object attributes.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotInf}]{Method \texttt{chans\_db/plotInf}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!plotInf@\fidxl{plotInf}}%
+\label{ref_chans_db__plotInf}%
+\hypertarget{ref_chans_db__plotInf}{}%
+\begin{description}
+\item[Summary:]Plot the product of minf variables and the gmax of the given channel.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotInf(a\_chans\_db, chan\_name, gate\_subnames)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_chans\_db}:]
+ A chans\_db describing channel variables.
+\item[\texttt{chan\_name}:]
+ Name of channel that make up the stem of variable
+
+names.\item[\texttt{gate\_subnames}:]
+ Gate names of the channel.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+
+(rest passed to plot\_abstract.)\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/07/01%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotGateVars}]{Method \texttt{chans\_db/plotGateVars}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!plotGateVars@\fidxl{plotGateVars}}%
+\label{ref_chans_db__plotGateVars}%
+\hypertarget{ref_chans_db__plotGateVars}{}%
+\begin{description}
+\item[Summary:]Plot given channel gate variables of the same channel superposed.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotGateVars(a\_chans\_db, chan\_name, gate\_subnames)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_chans\_db}:]
+ A chans\_db describing channel variables.
+\item[\texttt{chan\_name}:]
+ Name of channel that make up the stem of variable
+
+names.\item[\texttt{gate\_subnames}:]
+ Gate names of the channel.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{usePowers}:]
+ Use the gate powers, Luke.
+
+(rest passed to plot\_abstract.)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/07/01%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotAllInf}]{Method \texttt{chans\_db/plotAllInf}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!plotAllInf@\fidxl{plotAllInf}}%
+\label{ref_chans_db__plotAllInf}%
+\hypertarget{ref_chans_db__plotAllInf}{}%
+\begin{description}
+\item[Summary:]Plots the steady-state (infinity) response of all channels.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotAllInf(a\_chans\_db, title\_str, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_chans\_db}:]
+ a chans\_db
+\item[\texttt{title\_str}:]
+ Plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+
+(rest passed to matrixPlots.)\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/03/05%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotAllVars}]{Method \texttt{chans\_db/plotAllVars}}%
+\index[funcref]{chans_db@\fidxlb{chans\_db}!plotAllVars@\fidxl{plotAllVars}}%
+\label{ref_chans_db__plotAllVars}%
+\hypertarget{ref_chans_db__plotAllVars}{}%
+\begin{description}
+\item[Summary:]Plot all channel variables by grouping activation and time constant curves per channel.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotAllVars(a\_chans\_db, title\_str, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_chans\_db}:]
+ A chans\_db describing channel variables.
+\item[\texttt{id}:]
+ String that identify the source of the tables structure.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+
+(rest passed to plot\_abstract.)\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/03/05%
+\end{description}
+\methodline%
 \subsection{Class \texttt{cip\_trace}}%
 \index[funcref]{cip_trace@\fidxlb{cip\_trace}}%
 \label{ref_cip_trace}%
@@ -198,6 +490,57 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotData}]{Method \texttt{cip\_trace/plotData}}%
+\index[funcref]{cip_trace@\fidxlb{cip\_trace}!plotData@\fidxl{plotData}}%
+\label{ref_cip_trace__plotData}%
+\hypertarget{ref_cip_trace__plotData}{}%
+\begin{description}
+\item[Summary:]Plots a trace by calling trace/plotData but also adds optionaldecorations.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotData(t, title\_str, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+If t is a vector of traces, returns a vector of plot objects.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{t}:]
+ A trace object.
+\item[\texttt{title\_str}:]
+ (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{stimBar}:]
+ If true, put a bar indicating the CIP duration.
+
+(rest passed to trace/plotData)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/11/17%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{getBurstResults}]{Method \texttt{cip\_trace/getBurstResults}}%
@@ -781,6 +1124,50 @@ results = getRateResults(a\_cip\_trace, a\_spikes)
 Cengiz Gunay <cgunay@emory.edu>, 2004/08/30%
 \end{description}
 \methodline%
+\subsubsection[Method \texttt{measureNames}]{Method \texttt{cip\_trace/measureNames}}%
+\index[funcref]{cip_trace@\fidxlb{cip\_trace}!measureNames@\fidxl{measureNames}}%
+\label{ref_cip_trace__measureNames}%
+\hypertarget{ref_cip_trace__measureNames}{}%
+\begin{description}
+\item[Summary:]Returns taxonomy of measurements collected by cip\_trace.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+measures = measureNames(a\_cip\_trace)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+This is a static method, in the sense that it does not need the object passed as argument.
+ Therefore it can be called directly by using the default constructor; e.g., measureNames(cip\_trace).
+ The measure names are required for merging columns of a database generated by profiling these objects.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_cip\_trace}:]
+ A cip\_trace object. It can be created by the the default constructor 'cip\_trace'.
+\end{description}%
+%
+\item[Returns:]~
+
+	measures: A structure with cell arrays of types of measures, and measure names inside.
+%
+%
+\item[See also:]%
+\hyperlink{ref_getResults}{\texttt{getResults}}%
+\ (p.~\pageref{ref_getResults})%
+\index[funcref]{@\fidxl{getResults}}%
+, \hyperlink{ref_getProfileAllSpikes}{\texttt{getProfileAllSpikes}}%
+\ (p.~\pageref{ref_getProfileAllSpikes})%
+\index[funcref]{@\fidxl{getProfileAllSpikes}}%
+, \hyperlink{ref_mergeMultipleCIPsInOne}{\texttt{mergeMultipleCIPsInOne}}%
+\ (p.~\pageref{ref_mergeMultipleCIPsInOne})%
+\index[funcref]{@\fidxl{mergeMultipleCIPsInOne}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/07/30%
+\end{description}
+\methodline%
 \subsubsection[Method \texttt{periodPulseIni100msRest1}]{Method \texttt{cip\_trace/periodPulseIni100msRest1}}%
 \index[funcref]{cip_trace@\fidxlb{cip\_trace}!periodPulseIni100msRest1@\fidxl{periodPulseIni100msRest1}}%
 \label{ref_cip_trace__periodPulseIni100msRest1}%
@@ -899,6 +1286,57 @@ the time is ignored.\end{description}%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>,Tom Sangrey 2006/01/26%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plot\_abstract}]{Method \texttt{cip\_trace/plot\_abstract}}%
+\index[funcref]{cip_trace@\fidxlb{cip\_trace}!plot_abstract@\fidxl{plot\_abstract}}%
+\label{ref_cip_trace__plot_abstract}%
+\hypertarget{ref_cip_trace__plot_abstract}{}%
+\begin{description}
+\item[Summary:]Plots a trace by calling plotData.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plot\_abstract(t, title\_str, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+If t is a vector of traces, returns a vector of plot objects.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{t}:]
+ A trace object.
+\item[\texttt{title\_str}:]
+ (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{timeScale}:]
+ 's' for seconds, or 'ms' for milliseconds.
+
+(rest passed to plot\_abstract.)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/11/17%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{subsref}]{Method \texttt{cip\_trace/subsref}}%
@@ -2729,7 +3167,7 @@ Copies selected test values from row as the first row into the
 \item[\texttt{props}:]
  A structure with any optional properties.
 \begin{description}%
-\item[\texttt{std\_db}:]
+\item[\texttt{distDB}:]
  Take the standard deviation from this db instead.
 \end{description}%
 \end{description}%
@@ -2991,6 +3429,70 @@ This is a polymorphic method. Therefor it is not defined for this class,
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2006/06/09%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{subsasgn}]{Method \texttt{dataset\_db\_bundle/subsasgn}}%
+\index[funcref]{dataset_db_bundle@\fidxlb{dataset\_db\_bundle}!subsasgn@\fidxl{subsasgn}}%
+\label{ref_dataset_db_bundle__subsasgn}%
+\hypertarget{ref_dataset_db_bundle__subsasgn}{}%
+\begin{description}
+\item[Summary:]Defines generic index-based assignment for objects.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/02/06%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{ctFromRows}]{Method \texttt{dataset\_db\_bundle/ctFromRows}}%
+\index[funcref]{dataset_db_bundle@\fidxlb{dataset\_db\_bundle}!ctFromRows@\fidxl{ctFromRows}}%
+\label{ref_dataset_db_bundle__ctFromRows}%
+\hypertarget{ref_dataset_db_bundle__ctFromRows}{}%
+\begin{description}
+\item[Summary:]Loads a cip\_trace object from a raw data file in the a\_bundle.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_cip\_trace = ctFromRows(a\_bundle, a\_db, cip\_levels, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+This method is not implemented for the generic dataset\_db\_bundle class. See 
+ subclass implementations.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_bundle}:]
+ A dataset\_db\_bundle object.
+\item[\texttt{a\_db}:]
+ A DB created by the dataset in the a\_bundle to read the neuron index numbers from.
+\item[\texttt{cip\_levels}:]
+ A column vector of CIP-levels to be loaded.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+
+(passed to a\_bundle.dataset/cip\_trace)\end{description}%
+%
+\item[Returns:]~
+
+	a\_cip\_trace: One or more cip\_trace objects that hold the raw data.
+%
+%
+\item[See also:]%
+\hyperlink{ref_model_ct_bundle__ctFromRows}{\texttt{model\_ct\_bundle/ctFromRows}}%
+\ (p.~\pageref{ref_model_ct_bundle__ctFromRows})%
+\index[funcref]{model_ct_bundle@\fidxlb{model\_ct\_bundle}!ctFromRows@\fidxl{ctFromRows}}%
+, \hyperlink{ref_physiol_bundle__ctFromRows}{\texttt{physiol\_bundle/ctFromRows}}%
+\ (p.~\pageref{ref_physiol_bundle__ctFromRows})%
+\index[funcref]{physiol_bundle@\fidxlb{physiol\_bundle}!ctFromRows@\fidxl{ctFromRows}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/10/11%
 \end{description}
 \methodline%
 \subsection{Class \texttt{doc\_generate}}%
@@ -3581,6 +4083,11 @@ This is a subclass of tests\_db. Allows generating a histogram plot, etc.
 
 	tests\_db, props.
 %
+\item[Example:]~
+\begin{lyxcode} >> [hist\_results, bins] = hist(my\_data);\\%
+ >> a\_hist\_db = histogram\_db('firing\_rate', bins, hist\_results, 'rate histogram db');\\%
+ >> plot(a\_hist\_db);\\%
+\end{lyxcode}
 %
 \item[See also:]%
 \hyperlink{ref_tests_db}{\texttt{tests\_db}}%
@@ -3619,10 +4126,11 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 \label{ref_histogram_db__calcMode}%
 \hypertarget{ref_histogram_db__calcMode}{}%
 \begin{description}
+\item[Summary:]Finds the mode of the distribution, that is, the bin with the highest value.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-[mode\_val, mode\_mag] = mode(a\_hist\_db)
+[mode\_val, mode\_mag] = calcMode(a\_hist\_db)
 %
 \end{lyxcode}%
 %
@@ -3673,6 +4181,8 @@ Generates a plot\_simple object from this histogram.
 \begin{description}%
 \item[\texttt{command}:]
  Plot command (Optional, default='bar')
+\item[\texttt{logScale}:]
+ If 1, use logarithmic y-scale.
 \item[\texttt{quiet}:]
  If 1, don't include database name on title.
 \end{description}%
@@ -3716,7 +4226,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/22%
 \label{ref_histogram_db__plotPages}%
 \hypertarget{ref_histogram_db__plotPages}{}%
 \begin{description}
-\item[Summary:]Generates a plot containing subplots of histograms in each page.
+\item[Summary:]Generates a plot containing subplots from each page of histograms.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
@@ -3752,6 +4262,53 @@ For each page of the histogram, a histogram is placed in a subplot.
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/10/04%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotRowMatrix}]{Method \texttt{histogram\_db/plotRowMatrix}}%
+\index[funcref]{histogram_db@\fidxlb{histogram\_db}!plotRowMatrix@\fidxl{plotRowMatrix}}%
+\label{ref_histogram_db__plotRowMatrix}%
+\hypertarget{ref_histogram_db__plotRowMatrix}{}%
+\begin{description}
+\item[Summary:]Generates a subplot matrix of measure columns versus rows of databases. 
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotRowMatrix(hist\_dbs, title\_str, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Each row in the hist\_dbs is assumed to come from a different DB. Columns represent histograms 
+ of different measurements. The plot is made such that histograms in each row have the same
+ maximal count, and histograms in each column have the same axis limits.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{hist\_dbs}:]
+ A matrix of histogram\_db objects.
+\item[\texttt{title\_str}:]
+ Title to go at the top.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{rowLabels}:]
+ Cell array of y-axis labels for each row.
+
+(rest passed to histogram\_db/plot\_abstract)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A object of plot\_abstract or one of its subclasses.
+%
+%
+\item[See also:]%
+\hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/11/22%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{plotEqSpaced}]{Method \texttt{histogram\_db/plotEqSpaced}}%
@@ -3834,6 +4391,10 @@ to have the pAcip, trial, and ItemIndex columns.\item[\texttt{a\_joined\_db}:]
 
 	dataset\_db\_bundle.
 %
+\item[Example:]~
+\begin{lyxcode} >> a\_joined\_db = mergeMultipleCIPsInOne(a\_db, ...)\\%
+ >> a\_bundle = model\_ct\_bundle(a\_params\_cip\_trace\_fileset, a\_db, a\_joined\_db)\\%
+\end{lyxcode}
 %
 \item[See also:]%
 \hyperlink{ref_dataset_db_bundle}{\texttt{dataset\_db\_bundle}}%
@@ -3845,6 +4406,9 @@ to have the pAcip, trial, and ItemIndex columns.\item[\texttt{a\_joined\_db}:]
 , \hyperlink{ref_params_tests_dataset}{\texttt{params\_tests\_dataset}}%
 \ (p.~\pageref{ref_params_tests_dataset})%
 \index[funcref]{@\fidxl{params\_tests\_dataset}}%
+, \hyperlink{ref_params_tests_db__mergeMultipleCIPsInOne}{\texttt{params\_tests\_db/mergeMultipleCIPsInOne}}%
+\ (p.~\pageref{ref_params_tests_db__mergeMultipleCIPsInOne})%
+\index[funcref]{params_tests_db@\fidxlb{params\_tests\_db}!mergeMultipleCIPsInOne@\fidxl{mergeMultipleCIPsInOne}}%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2005/12/13%
@@ -4027,6 +4591,46 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
 \end{description}
 \methodline%
+\subsubsection[Method \texttt{getTrialNum}]{Method \texttt{model\_ct\_bundle/getTrialNum}}%
+\index[funcref]{model_ct_bundle@\fidxlb{model\_ct\_bundle}!getTrialNum@\fidxl{getTrialNum}}%
+\label{ref_model_ct_bundle__getTrialNum}%
+\hypertarget{ref_model_ct_bundle__getTrialNum}{}%
+\begin{description}
+\item[Summary:]Extracts identifying neuron trial number from DB.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+trial\_num = getTrialNum(a\_bundle, a\_db|trial\_num, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_bundle}:]
+ A physiol\_cip\_traceset\_fileset object.
+\item[\texttt{a\_db}:]
+ DB rows representing deisred model neuron(s).
+\item[\texttt{trial\_num}:]
+ Trial numbers. If specified, this function does nothing but return them.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\end{description}%
+%
+\item[Returns:]~
+
+	trial\_num: The trial number(s) identifying selected neuron(s) in bundle.
+%
+%
+\item[See also:]%
+\hyperlink{ref_dataset_db_bundle}{\texttt{dataset\_db\_bundle}}%
+\ (p.~\pageref{ref_dataset_db_bundle})%
+\index[funcref]{@\fidxl{dataset\_db\_bundle}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/05/26%
+\end{description}
+\methodline%
 \subsubsection[Method \texttt{collectPhysiolMatches}]{Method \texttt{model\_ct\_bundle/collectPhysiolMatches}}%
 \index[funcref]{model_ct_bundle@\fidxlb{model\_ct\_bundle}!collectPhysiolMatches@\fidxl{collectPhysiolMatches}}%
 \label{ref_model_ct_bundle__collectPhysiolMatches}%
@@ -4178,17 +4782,19 @@ Cengiz Gunay <cgunay@emory.edu>, 2006/06/09%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-a\_cip\_trace = ctFromRows(a\_mbundle, a\_db/trials, cip\_levels, props)
+a\_cip\_trace = ctFromRows(a\_mbundle, a\_db|trials, cip\_levels, props)
 %
 \end{lyxcode}%
 %
-%
+\item[Description:]%
+This is an overloaded method.
+%%
 \item[Parameters:]~
 \begin{description}%
 \item[\texttt{a\_mbundle}:]
- A physiol\_cip\_traceset\_fileset object.
+ A model\_ct\_bundle object.
 \item[\texttt{a\_db}:]
- A DB created by this fileset to read the trial numbers from.
+ A DB created by the dataset in the a\_mbundle to read the trial numbers from.
 \item[\texttt{trials}:]
  A column vector with trial numbers.
 \item[\texttt{cip\_levels}:]
@@ -4217,7 +4823,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2005/07/13%
 \label{ref_model_ct_bundle__addToDB}%
 \hypertarget{ref_model_ct_bundle__addToDB}{}%
 \begin{description}
-\item[Summary:]Caoncatenate to existing DB in the bundle.
+\item[Summary:]Concatenate to existing DB in the bundle.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
@@ -4226,7 +4832,7 @@ a\_mbundle = addToDB(a\_mbundle, a\_raw\_db, props)
 \end{lyxcode}%
 %
 \item[Description:]%
-If joinedDb is not given, calls treatSimDB to get the joined\_db from this raw DB. 
+If joinedDb is not given in props, calls treatSimDB to get the joined\_db from this raw DB. 
  Then concats to both db and joined\_db in bundle.
 %%
 \item[Parameters:]~
@@ -4307,12 +4913,15 @@ A LaTeX report is generated
 %
 %
 \item[See also:]%
-\hyperlink{ref_loadItemProfile}{\texttt{loadItemProfile}}%
-\ (p.~\pageref{ref_loadItemProfile})%
-\index[funcref]{@\fidxl{loadItemProfile}}%
+\hyperlink{ref_tests_db__rankMatching}{\texttt{tests\_db/rankMatching}}%
+\ (p.~\pageref{ref_tests_db__rankMatching})%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!rankMatching@\fidxl{rankMatching}}%
 , \hyperlink{ref_physiol_cip_traceset__cip_trace}{\texttt{physiol\_cip\_traceset/cip\_trace}}%
 \ (p.~\pageref{ref_physiol_cip_traceset__cip_trace})%
 \index[funcref]{physiol_cip_traceset@\fidxlb{physiol\_cip\_traceset}!cip_trace@\fidxl{cip\_trace}}%
+, \hyperlink{ref_physiol_bundle__matchingRow}{\texttt{physiol\_bundle/matchingRow}}%
+\ (p.~\pageref{ref_physiol_bundle__matchingRow})%
+\index[funcref]{physiol_bundle@\fidxlb{physiol\_bundle}!matchingRow@\fidxl{matchingRow}}%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2006/01/18%
@@ -4652,6 +5261,23 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/08/04%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 \end{description}
 \methodline%
+\subsubsection[Method \texttt{set}]{Method \texttt{params\_cip\_trace\_fileset/set}}%
+\index[funcref]{params_cip_trace_fileset@\fidxlb{params\_cip\_trace\_fileset}!set@\fidxl{set}}%
+\label{ref_params_cip_trace_fileset__set}%
+\hypertarget{ref_params_cip_trace_fileset__set}{}%
+\begin{description}
+\item[Summary:]Generic method for setting object attributes.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
+\end{description}
+\methodline%
 \subsubsection[Method \texttt{cip\_trace\_profile}]{Method \texttt{params\_cip\_trace\_fileset/cip\_trace\_profile}}%
 \index[funcref]{params_cip_trace_fileset@\fidxlb{params\_cip\_trace\_fileset}!cip_trace_profile@\fidxl{cip\_trace\_profile}}%
 \label{ref_params_cip_trace_fileset__cip_trace_profile}%
@@ -4690,6 +5316,58 @@ a\_cip\_trace\_profile = cip\_trace\_profile(fileset, file\_index)
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{ctFromRows}]{Method \texttt{params\_cip\_trace\_fileset/ctFromRows}}%
+\index[funcref]{params_cip_trace_fileset@\fidxlb{params\_cip\_trace\_fileset}!ctFromRows@\fidxl{ctFromRows}}%
+\label{ref_params_cip_trace_fileset__ctFromRows}%
+\hypertarget{ref_params_cip_trace_fileset__ctFromRows}{}%
+\begin{description}
+\item[Summary:]Loads a cip\_trace object from raw data files in the fileset.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_cip\_trace = ctFromRows(m\_fileset, m\_dball, a\_db|itemIndices, cip\_levels, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{m\_fileset}:]
+ A physiol\_cip\_traceset\_fileset object.
+\item[\texttt{m\_dball}:]
+ A DB created by this fileset that contains the trial, pAcip, and ItemIndex cols.
+\item[\texttt{a\_db}:]
+ A DB that has one trial for each cip\_trace to be loaded.
+\item[\texttt{itemIndices}:]
+ A column vector with ItemIndex numbers.
+\item[\texttt{cip\_levels}:]
+ A column vector of CIP-levels to be loaded.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{neuronLabel}:]
+ appropriate unique neuron label generated by the bundle.
+
+(passed to params\_cip\_trace\_fileset/cip\_trace)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_cip\_trace: One or more cip\_trace objects that hold the raw data.
+%
+%
+\item[See also:]%
+\hyperlink{ref_loadItemProfile}{\texttt{loadItemProfile}}%
+\ (p.~\pageref{ref_loadItemProfile})%
+\index[funcref]{@\fidxl{loadItemProfile}}%
+, \hyperlink{ref_physiol_cip_traceset__cip_trace}{\texttt{physiol\_cip\_traceset/cip\_trace}}%
+\ (p.~\pageref{ref_physiol_cip_traceset__cip_trace})%
+\index[funcref]{physiol_cip_traceset@\fidxlb{physiol\_cip\_traceset}!cip_trace@\fidxl{cip\_trace}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/07/13%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{loadItemProfile}]{Method \texttt{params\_cip\_trace\_fileset/loadItemProfile}}%
@@ -4742,8 +5420,13 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 \label{ref_params_cip_trace_fileset__cip_trace}%
 \hypertarget{ref_params_cip_trace_fileset__cip_trace}{}%
 \begin{description}
-\item[Summary:]Loads a raw cip\_trace given a file\_index to this fileset.
+\item[Summary:]Loads raw cip\_traces for each given file\_index in this fileset.
 %
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_cip\_trace = cip\_trace(fileset, file\_index|a\_db, props)
+%
+\end{lyxcode}%
 %
 %
 \item[Parameters:]~
@@ -4751,9 +5434,15 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 \item[\texttt{fileset}:]
  A params\_tests\_fileset.
 \item[\texttt{file\_index}:]
- Index of file in fileset.
+ A single or array of indices of files in fileset.
 \item[\texttt{a\_db}:]
  A DB created by this fileset to read the item indices from.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{neuronLabel}:]
+ Used for annotation purposes.
+\end{description}%
 \end{description}%
 %
 \item[Returns:]~
@@ -5005,6 +5694,23 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/09%
 %
 %
 %
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{subsasgn}]{Method \texttt{params\_tests\_dataset/subsasgn}}%
+\index[funcref]{params_tests_dataset@\fidxlb{params\_tests\_dataset}!subsasgn@\fidxl{subsasgn}}%
+\label{ref_params_tests_dataset__subsasgn}%
+\hypertarget{ref_params_tests_dataset__subsasgn}{}%
+\begin{description}
+\item[Summary:]Defines generic index-based assignment for objects.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/02/06%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{getItemParams}]{Method \texttt{params\_tests\_dataset/getItemParams}}%
@@ -5586,7 +6292,7 @@ Overloaded method for skipping parameter values. STD for param values will be Na
 \item[\texttt{props}:]
  A structure with any optional properties.
 \begin{description}%
-\item[\texttt{std\_db}:]
+\item[\texttt{distDB}:]
  Take the standard deviation from this db instead.
 \end{description}%
 \end{description}%
@@ -6119,6 +6825,8 @@ Skips the 'ItemIndex' test.
 \begin{description}%
 \item[\texttt{quiet}:]
  Do not display the DB id on the plot title.
+\item[\texttt{barAxisProps}:]
+ passed to plotEqSpaced for each bar axis.
 \end{description}%
 \end{description}%
 %
@@ -6592,73 +7300,6 @@ Produces rows by multiplying desired params, in the first row of DB,
 Cengiz Gunay <cgunay@emory.edu>, 2006/02/16%
 \end{description}
 \methodline%
-\subsubsection[Method \texttt{makeModifiedParamDB}]{Method \texttt{params\_tests\_db/makeModifiedParamDB}}%
-\index[funcref]{params_tests_db@\fidxlb{params\_tests\_db}!makeModifiedParamDB@\fidxl{makeModifiedParamDB}}%
-\label{ref_params_tests_db__makeModifiedParamDB}%
-\hypertarget{ref_params_tests_db__makeModifiedParamDB}{}%
-\begin{description}
-\item[Summary:]Modifies chosen parameters to create a new parameter db.
-%
-\item[Usage:]~%
-\begin{lyxcode}%
-a\_params\_db = makeModifiedParamDB(a\_db, params, levels, props)
-%
-\end{lyxcode}%
-%
-\item[Description:]%
-For a given a\_db row, produces rows by multiplying desired params for each value in levels.
- If specified, adds each value of cipLevels element in separate rows. If trialStart
- is given, a counter is also set. Then, makeGenesisParFile can be used to generate
- a parameter file from this DB to drive new simulations. Trial numbers must start
- from 1 for a new parameter file, or offset from the end of an existing parameter file. 
-%%
-\item[Parameters:]~
-\begin{description}%
-\item[\texttt{a\_db}:]
- A params\_tests\_db object with rows parameter modifications to be applied.
-\item[\texttt{params}:]
- Parameters to be varied (see tests2cols for param description).
-\item[\texttt{levels}:]
- Vector of multipliers for generating different parameter levels (1=unity).
-\item[\texttt{props}:]
- A structure with any optional properties.
-\begin{description}%
-\item[\texttt{cipLevels}:]
- If given, replicates each row with these pAcip parameters.
-\item[\texttt{trialStart}:]
- If given, adds/replaces the trial parameter and counts forward.
-\end{description}%
-\end{description}%
-%
-\item[Returns:]~
-
-	a\_params\_db: A db only with params.
-%
-\item[Example:]~
-\begin{lyxcode} First get ranked\_db:\\%
- >> ranked\_for\_gps0501a\_db = ...\\%
-      joinOriginal(rankMatching(sdball, matchingRow(mini\_ttx\_control\_rsrdb, 1)))\\%
- Then, get 10%-increment blocking for parameters in the first (best-matching) row\\%
- >> blocked\_rows\_db = ...\\%
-      makeModifiedParamDB(ranked\_for\_gps0501a\_db(1, :), {'NaF', 'NaP'}, 0:.1:1, ...\\%
-                           struct('cipLevels', [-100 100]));\\%
-\end{lyxcode}
-%
-\item[See also:]%
-\hyperlink{ref_ranked_db__blockedDistances}{\texttt{ranked\_db/blockedDistances}}%
-\ (p.~\pageref{ref_ranked_db__blockedDistances})%
-\index[funcref]{ranked_db@\fidxlb{ranked\_db}!blockedDistances@\fidxl{blockedDistances}}%
-, \hyperlink{ref_getParamRowIndices}{\texttt{getParamRowIndices}}%
-\ (p.~\pageref{ref_getParamRowIndices})%
-\index[funcref]{@\fidxl{getParamRowIndices}}%
-, \hyperlink{ref_makeGenesisParFile}{\texttt{makeGenesisParFile}}%
-\ (p.~\pageref{ref_makeGenesisParFile})%
-\index[funcref]{@\fidxl{makeGenesisParFile}}%
-%
-\item[Author:]%
-Cengiz Gunay <cgunay@emory.edu>, 2005/01/14 (originally called getBlockedParamRows)%
-\end{description}
-\methodline%
 \subsection{Class \texttt{params\_tests\_fileset}}%
 \index[funcref]{params_tests_fileset@\fidxlb{params\_tests\_fileset}}%
 \label{ref_params_tests_fileset}%
@@ -6702,6 +7343,8 @@ files to be loaded.\item[\texttt{dt}:]
 \begin{description}%
 \item[\texttt{num\_params}:]
  Number of parameters that appear in filenames.
+\item[\texttt{param\_trial\_name}:]
+ Use this name on the filename as the 'trial' parameter.
 \item[\texttt{param\_row\_filename}:]
  If given, the 'trial' parameter will be used
 
@@ -6820,6 +7463,23 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/08/04%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{set}]{Method \texttt{params\_tests\_fileset/set}}%
+\index[funcref]{params_tests_fileset@\fidxlb{params\_tests\_fileset}!set@\fidxl{set}}%
+\label{ref_params_tests_fileset__set}%
+\hypertarget{ref_params_tests_fileset__set}{}%
+\begin{description}
+\item[Summary:]Generic method for setting object attributes.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{trace}]{Method \texttt{params\_tests\_fileset/trace}}%
@@ -7562,6 +8222,59 @@ a\_row\_index = getNeuronRowIndex(a\_bundle, traceset\_index, props)
 Cengiz Gunay <cgunay@emory.edu>, 2006/06/09%
 \end{description}
 \methodline%
+\subsubsection[Method \texttt{bestMatchAllNeurons}]{Method \texttt{physiol\_bundle/bestMatchAllNeurons}}%
+\index[funcref]{physiol_bundle@\fidxlb{physiol\_bundle}!bestMatchAllNeurons@\fidxl{bestMatchAllNeurons}}%
+\label{ref_physiol_bundle__bestMatchAllNeurons}%
+\hypertarget{ref_physiol_bundle__bestMatchAllNeurons}{}%
+\begin{description}
+\item[Summary:]Finds the best match among given database for each physiology neuron.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+all\_ranks\_db = bestMatchAllNeurons(p\_bundle, joined\_db, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Returns a database of best matching entries from joined\_db for each
+ entry in p\_bundle.joined\_control\_db.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{p\_bundle}:]
+ A physiol\_bundle object.
+\item[\texttt{joined\_db}:]
+ A database with neuron representations to rank against
+
+neurons.\item[\texttt{props}:]
+ A structure with any optional properties.
+
+(passed to rankMatching)\end{description}%
+%
+\item[Returns:]~
+
+	all\_ranks\_db: DB of best matching from joined\_db. Each row
+		corresponds to p\_bundle.joined\_control\_db rows.
+%
+\item[Example:]~
+\begin{lyxcode} >> all\_ranks\_db = ...\\%
+        bestMatchAllNeurons(constrainedMeasuresPreset(pbundle2, 6), mbundle\_maxcond.joined\_db)\\%
+ >> plotXRows(all\_ranks\_db, 'Distance', 'maxcond DB distance per neuron', 'maxcond', ...\\%
+              struct('LineStyle', '-', 'quiet', 1, 'PaperPosition', [0 0 4 3]))\\%
+\end{lyxcode}
+%
+\item[See also:]%
+\hyperlink{ref_tests_db__rankMatching}{\texttt{tests\_db/rankMatching}}%
+\ (p.~\pageref{ref_tests_db__rankMatching})%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!rankMatching@\fidxl{rankMatching}}%
+, \hyperlink{ref_tests_db__matchingRow}{\texttt{tests\_db/matchingRow}}%
+\ (p.~\pageref{ref_tests_db__matchingRow})%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!matchingRow@\fidxl{matchingRow}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/05/24%
+\end{description}
+\methodline%
 \subsubsection[Method \texttt{ctFromRows}]{Method \texttt{physiol\_bundle/ctFromRows}}%
 \index[funcref]{physiol_bundle@\fidxlb{physiol\_bundle}!ctFromRows@\fidxl{ctFromRows}}%
 \label{ref_physiol_bundle__ctFromRows}%
@@ -7571,7 +8284,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2006/06/09%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-a\_cip\_trace = ctFromRows(a\_pbundle, a\_db/traceset\_idx, cip\_levels, props)
+a\_cip\_trace = ctFromRows(a\_pbundle, a\_db|traceset\_idx, cip\_levels, props)
 %
 \end{lyxcode}%
 %
@@ -7689,7 +8402,7 @@ This is a subclass of params\_tests\_dataset. Each trace varies in bias,
 \item[Parameters:]~
 \begin{description}%
 \item[\texttt{trace\_str}:]
- Trace list in the format for loadtraces.
+ Trace list in the format for loadtraces or just a Matlab vector.
 \item[\texttt{data\_src}:]
  Absolute path of PCDX data source.
 \item[\texttt{chaninfo}:]
@@ -7715,6 +8428,8 @@ of compounds.\item[\texttt{id}:]
 \item[\texttt{props}:]
  A structure with any optional properties.
 \begin{description}%
+\item[\texttt{nsHDF5}:]
+ If 1, source is a NeuroSAGE HDF5 file.
 \item[\texttt{profile\_class\_name}:]
  Use this profile class (Default: 'cip\_trace\_profile').
 \item[\texttt{cip\_list}:]
@@ -7886,7 +8601,7 @@ Cengiz Gunay <cgunay@emory.edu> and Thomas Sangrey, 2005/01/18%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-[ciptype, on, off, finish, bias, pulse] = CIPform(traceset,trace\_index)
+[ciptype, on, off, finish, bias, pulse] = ns\_CIPform(traceset,trace\_index)
 %
 \end{lyxcode}%
 %
@@ -7921,11 +8636,11 @@ Thomas Sangrey, 2005%
 \label{ref_physiol_cip_traceset__paramNames}%
 \hypertarget{ref_physiol_cip_traceset__paramNames}{}%
 \begin{description}
-\item[Summary:]Returns the parameter names for this fileset.
+\item[Summary:]Returns the parameter names for this traceset.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-param\_names = paramNames(fileset)
+param\_names = paramNames(traceset)
 %
 \end{lyxcode}%
 %
@@ -7934,8 +8649,8 @@ Looks at the filename of the first file to find the parameter names.
 %%
 \item[Parameters:]~
 \begin{description}%
-\item[\texttt{fileset}:]
- A params\_tests\_fileset.
+\item[\texttt{traceset}:]
+ A params\_tests\_dataset.
 \end{description}%
 %
 \item[Returns:]~
@@ -7944,9 +8659,9 @@ Looks at the filename of the first file to find the parameter names.
 %
 %
 \item[See also:]%
-\hyperlink{ref_params_tests_fileset}{\texttt{params\_tests\_fileset}}%
-\ (p.~\pageref{ref_params_tests_fileset})%
-\index[funcref]{@\fidxl{params\_tests\_fileset}}%
+\hyperlink{ref_params_tests_dataset}{\texttt{params\_tests\_dataset}}%
+\ (p.~\pageref{ref_params_tests_dataset})%
+\index[funcref]{@\fidxl{params\_tests\_dataset}}%
 , \hyperlink{ref_paramNames}{\texttt{paramNames}}%
 \ (p.~\pageref{ref_paramNames})%
 \index[funcref]{@\fidxl{paramNames}}%
@@ -7963,10 +8678,11 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/12/06%
 \label{ref_physiol_cip_traceset__getItemParams}%
 \hypertarget{ref_physiol_cip_traceset__getItemParams}{}%
 \begin{description}
+\item[Summary:]Get the parameter values of a dataset item.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-params\_row = getParams(dataset, index)
+params\_row = getItemParams(dataset, index, a\_profile)
 %
 \end{lyxcode}%
 %
@@ -7977,6 +8693,8 @@ params\_row = getParams(dataset, index)
  A params\_tests\_dataset.
 \item[\texttt{index}:]
  Index of item in dataset.
+\item[\texttt{a\_profile}:]
+ cip\_trace\_profile object
 \end{description}%
 %
 \item[Returns:]~
@@ -8121,12 +8839,12 @@ a\_cip\_trace = cip\_trace(traceset, trace\_index, props)
 \item[\texttt{props}:]
  A structure with any optional properties.
 \begin{description}%
-\item[\texttt{TracesetIndex}:]
- Indicates in the id field.
 \item[\texttt{showParamsList}:]
  Cell array of params to add to id field.
 \item[\texttt{showName}:]
  Show the name of the cell in the id field (default=1).
+\item[\texttt{TracesetIndex}:]
+ Indicates in the id field.
 \end{description}%
 \end{description}%
 %
@@ -8166,19 +8884,30 @@ Cengiz Gunay <cgunay@emory.edu>, 2005/07/13%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-obj = physiol\_cip\_traceset\_fileset(cells\_filename, dt, dy, props)
+obj = physiol\_cip\_traceset\_fileset(traceset\_items, dt, dy, props)
 %
 \end{lyxcode}%
 %
 \item[Description:]%
-This is a subclass of params\_tests\_dataset. Each trace varies in bias, 
- pulse times and cip magnitude.
+This is a subclass of params\_tests\_dataset. It contains a set of
+ physiol\_cip\_traceset items that are tied to physical data sources. Each
+ traceset can load a set of traces for an experimental recording. Most
+ flexible usage is obtained when the input traceset\_items is given as a
+ cell array of physiol\_cip\_traceset objects. These objects can each link to
+ PCDX or NeuroSAGE HDF5 files independent of each other. A regular Matlab
+ script can be used to create such a cell array. If a function is defined
+ to return such an array, it can be passed as
+ traceset\_items. Alternatively, the cell array can be constructed from an
+ ASCII file as described below, such as for deprecated PCDX data files.
 %%
 \item[Parameters:]~
 \begin{description}%
-\item[\texttt{cells\_filename}:]
- Ascii file containing the following tab-delimited items:
+\item[\texttt{traceset\_items}:]
+ It can be a function handle, cell array or filename
 
+string. Function should return a cell array of physiol\_cip\_traceset
+items. Finally this cell array can be provided directly.
+If it is an ASCII filename, then it should contain the following tab-delimited items:
 1. Neuron ID (name to associate with the neuron). If left blank, use
 the filename with the '.all' extension removed.
 2. The absolute path of the data file
@@ -8480,8 +9209,10 @@ fed to plot commands.\item[\texttt{axis\_labels}:]
 \item[\texttt{tightLimits}:]
  If 1, issues an "axis tight" command (default=0)
 \item[\texttt{border}:]
- Size of border spacing around axis, between 0 - 1. (default=0)
-\item[\texttt{fontSize}:]
+ Relative size of border spacing around axis, between 0 - 1. (default=0)
+
+If a scalar, equal border on all sides, give a four-element vector 
+[left bottom right top] to define borders for each side.\item[\texttt{fontSize}:]
  Set the fontsize.
 \item[\texttt{grid}:]
  Display dashed grid in background.
@@ -8513,12 +9244,18 @@ fed to plot commands.\item[\texttt{axis\_labels}:]
  Passed to legend(..., 'orientation', legendLocation).
 \item[\texttt{noLegends}:]
  If exists, no legends are displayed.
+\item[\texttt{axisProps}:]
+ Passed to set properties of the axis drawn.
+\item[\texttt{plotProps}:]
+ Passed to set properties of the plot drawn.
+\item[\texttt{figureProps}:]
+ Passed to set properties of the figure drawn.
 \item[\texttt{PaperPosition}:]
  Sets the figure property for printing at this size.
 \item[\texttt{resizeControl}:]
  If 0, drawing after resize is disabled and prints at screen 
 
-size; if 1 (default), redraws figure after each resize event and 
+size, if 1 (default), redraws figure after each resize event and 
 prints at PaperPosition size.\end{description}%
 \end{description}%
 %
@@ -9015,6 +9752,8 @@ Subclass of plot\_stack. The plot\_abstract/plot command can be used to
  Array of within-group numeric labels, instead of just a sequence of numbers.
 \item[\texttt{truncateDecDigits}:]
  Truncate labels to this many decimal digits.
+\item[\texttt{barAxisProps}:]
+ props passed to plot\_abstract objects with bar commands
 \end{description}%
 \end{description}%
 %
@@ -9033,39 +9772,6 @@ Subclass of plot\_stack. The plot\_abstract/plot command can be used to
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/10/07%
-\end{description}
-\methodline%
-\subsubsection[Method \texttt{concatBars}]{Method \texttt{plot\_bars/concatBars}}%
-\index[funcref]{plot_bars@\fidxlb{plot\_bars}!concatBars@\fidxl{concatBars}}%
-\label{ref_plot_bars__concatBars}%
-\hypertarget{ref_plot_bars__concatBars}{}%
-\begin{description}
-\item[Summary:]FLAWED DESIGN! Concatenates bars from multiple plot\_bars plots into one.
-%
-\item[Usage:]~%
-\begin{lyxcode}%
-a\_plot = concatBars(plots, props)
-%
-\end{lyxcode}%
-%
-%
-\item[Parameters:]~
-\begin{description}%
-\item[\texttt{plots}:]
- Array of plot\_bars objects.
-\item[\texttt{props}:]
- A structure with any optional properties.
-\end{description}%
-%
-%
-%
-\item[See also:]%
-\hyperlink{ref_plot_bars}{\texttt{plot\_bars}}%
-\ (p.~\pageref{ref_plot_bars})%
-\index[funcref]{@\fidxl{plot\_bars}}%
-%
-\item[Author:]%
-Cengiz Gunay <cgunay@emory.edu>, 2006/06/07%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{set}]{Method \texttt{plot\_bars/set}}%
@@ -9258,6 +9964,127 @@ Subclass of plot\_stack. The plot\_abstract/plot command can be used to
 Cengiz Gunay <cgunay@emory.edu>, 2004/10/07%
 \end{description}
 \methodline%
+\subsection{Class \texttt{plot\_inset}}%
+\index[funcref]{plot_inset@\fidxlb{plot\_inset}}%
+\label{ref_plot_inset}%
+\hypertarget{ref_plot_inset}{}%
+\subsubsection[Constructor \texttt{plot\_inset}]{Constructor \texttt{plot\_inset/plot\_inset}}%
+\index[funcref]{plot_inset@\fidxlb{plot\_inset}!plot_inset@\fidxl{plot\_inset}}%
+\label{ref_plot_inset__plot_inset}%
+\hypertarget{ref_plot_inset__plot_inset}{}%
+\begin{description}
+\item[Summary:]Superpose multiple plots with individual axis at arbitrary locations.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plot\_inset(plots, axis\_locations, title\_str, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Subclass of plot\_abstract. Contains other plot\_abstract objects or
+ subclasses thereof to be layout in arbitaray format. Allows overlapping
+ and therefore good for insets and special plots.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{plots}:]
+ Cell array of plot\_abstract or subclass objects.
+\item[\texttt{axis\_locations}:]
+ Matrix of four-element vectors for each given plot.
+\item[\texttt{title\_str}:]
+ Title to go on top of the stack
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\end{description}%
+%
+\item[Returns a structure object with the following fields:]~
+
+	plot\_abstract, plots, axis\_locations.
+%
+%
+\item[See also:]%
+\hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+, \hyperlink{ref_plot_abstract__plotFigure}{\texttt{plot\_abstract/plotFigure}}%
+\ (p.~\pageref{ref_plot_abstract__plotFigure})%
+\index[funcref]{plot_abstract@\fidxlb{plot\_abstract}!plotFigure@\fidxl{plotFigure}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/06/05%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{get}]{Method \texttt{plot\_inset/get}}%
+\index[funcref]{plot_inset@\fidxlb{plot\_inset}!get@\fidxl{get}}%
+\label{ref_plot_inset__get}%
+\hypertarget{ref_plot_inset__get}{}%
+\begin{description}
+\item[Summary:]Defines generic attribute retrieval for objects.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{set}]{Method \texttt{plot\_inset/set}}%
+\index[funcref]{plot_inset@\fidxlb{plot\_inset}!set@\fidxl{set}}%
+\label{ref_plot_inset__set}%
+\hypertarget{ref_plot_inset__set}{}%
+\begin{description}
+\item[Summary:]Generic method for setting object attributes.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plot}]{Method \texttt{plot\_inset/plot}}%
+\index[funcref]{plot_inset@\fidxlb{plot\_inset}!plot@\fidxl{plot}}%
+\label{ref_plot_inset__plot}%
+\hypertarget{ref_plot_inset__plot}{}%
+\begin{description}
+\item[Summary:]Superposes contained plots in their own axes.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+handles = plot(a\_plot, layout\_axis)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_plot}:]
+ A plot\_superpose object.
+\item[\texttt{layout\_axis}:]
+ The axis position to layout this plot (Optional). 
+\end{description}%
+%
+\item[Returns:]~
+
+	handles: Handles of graphical objects drawn.
+%
+%
+\item[See also:]%
+\hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/06/08%
+\end{description}
+\methodline%
 \subsection{Class \texttt{plot\_simple}}%
 \index[funcref]{plot_simple@\fidxlb{plot\_simple}}%
 \label{ref_plot_simple}%
@@ -9332,6 +10159,23 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/22%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{set}]{Method \texttt{plot\_simple/set}}%
+\index[funcref]{plot_simple@\fidxlb{plot\_simple}!set@\fidxl{set}}%
+\label{ref_plot_simple__set}%
+\hypertarget{ref_plot_simple__set}{}%
+\begin{description}
+\item[Summary:]Generic method for setting object attributes.
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/08%
 \end{description}
 \methodline%
 \subsection{Class \texttt{plot\_stack}}%
@@ -9603,13 +10447,15 @@ obj = plot\_superpose(plots, axis\_labels, title\_str, props)
 \end{lyxcode}%
 %
 \item[Description:]%
-Subclass of plot\_abstract. Contains multiple plot\_abstract objects
- to be plotted on the same axis. This is different than the 
- plot\_abstract/superpose, where only using the same plot command is allowed.
- Here, each plot\_abstract can have its own special plotting command. Subclasses
- of plot\_abstract is also allowed here. The decorations comes from this object
- and not children plots. This behavior is different than plot\_stack, where
- each plot has its own decorations.
+Subclass of plot\_abstract. Contains multiple plot\_abstract objects to be
+ plotted on the same axis. This is different than the
+ plot\_abstract/superpose, where only using the same plot command is
+ allowed.  Here, each plot\_abstract can have its own special plotting
+ command. Subclasses of plot\_abstract is also allowed here. The decorations
+ comes from this object and not children plots. This behavior is different
+ than plot\_stack, where each plot has its own decorations. If you want each
+ plot to have its own axis (e.g. an inset, or plot with multiple axis
+ labels) then you should use plot\_inset.
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -10136,17 +10982,17 @@ Cengiz Gunay <cgunay@emory.edu>, 2005/12/12%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-a\_plot = plotRowErrors(db, rows, props)
+a\_plot = plotRowErrors(a\_ranked\_db, rows, props)
 %
 \end{lyxcode}%
 %
 %
 \item[Parameters:]~
 \begin{description}%
-\item[\texttt{db}:]
- A tests\_db object.
+\item[\texttt{a\_ranked\_db}:]
+ A ranked\_db object.
 \item[\texttt{rows}:]
- Indices of rows in db.
+ Indices of rows in a\_ranked\_db.
 \item[\texttt{title\_str}:]
  (Optional) String to append to plot title.
 \item[\texttt{props}:]
@@ -10155,8 +11001,12 @@ a\_plot = plotRowErrors(db, rows, props)
 \item[\texttt{sortMeasures}:]
  If specified, measure order is determined with increasing 
 
-overall distance.\item[\texttt{rowSteps}:]
+overall distance.\item[\texttt{RowName}:]
+ Label to show on X-axis (default='Ranks')
+\item[\texttt{rowSteps}:]
  Steps to jump in labeling rows on the x-axis.
+\item[\texttt{superposeDistances}:]
+ Superpose a white-colored distance line plot.
 
 (rest passed to plot\_abstract)\end{description}%
 \end{description}%
@@ -10167,12 +11017,18 @@ overall distance.\item[\texttt{rowSteps}:]
 %
 %
 \item[See also:]%
-\hyperlink{ref_tests_db}{\texttt{tests\_db}}%
-\ (p.~\pageref{ref_tests_db})%
-\index[funcref]{@\fidxl{tests\_db}}%
+\hyperlink{ref_ranked_db}{\texttt{ranked\_db}}%
+\ (p.~\pageref{ref_ranked_db})%
+\index[funcref]{@\fidxl{ranked\_db}}%
+, \hyperlink{ref_tests_db__rankMatching}{\texttt{tests\_db/rankMatching}}%
+\ (p.~\pageref{ref_tests_db__rankMatching})%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!rankMatching@\fidxl{rankMatching}}%
 , \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
 \ (p.~\pageref{ref_plot_abstract})%
 \index[funcref]{@\fidxl{plot\_abstract}}%
+, \hyperlink{ref_plotImage}{\texttt{plotImage}}%
+\ (p.~\pageref{ref_plotImage})%
+\index[funcref]{@\fidxl{plotImage}}%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2005/12/12%
@@ -10283,8 +11139,9 @@ a\_db = renameColumns(a\_db, test\_names, new\_names)
 \end{lyxcode}%
 %
 \item[Description:]%
-This method is an overloaded method for ranked\_db that keeps the column names
- of the ranked, criterion and original DBs consistent.
+This method is an overloaded method for ranked\_db that keeps consistent
+ the column names of the ranked, criterion and original DBs. The other
+ DBs are not renamed for the Distance and RowIndex columns.
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -12908,7 +13765,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2005/08/17%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-a\_pm = plot\_abstract(a\_db, title\_str)
+a\_pm = plot\_abstract(a\_db, title\_str, props)
 %
 \end{lyxcode}%
 %
@@ -12919,6 +13776,8 @@ a\_pm = plot\_abstract(a\_db, title\_str)
  A spikes\_db object.
 \item[\texttt{title\_str}:]
  (Optional) A string to be concatanated to the title.
+\item[\texttt{props}:]
+ A structure with any optional properties passed to trace/plotData.
 \end{description}%
 %
 \item[Returns:]~
@@ -13679,6 +14538,8 @@ It is assumed that the 3D DB is created by invariant combinations of two paramet
  Truncate labels to this many decimal digits.
 \item[\texttt{labelSteps}:]
  Skip this many labels between ticks to reduce to total number.
+\item[\texttt{maxValue}:]
+ Maximal value to normalize colors and to annotate the colorbar.
 \end{description}%
 \end{description}%
 %
@@ -14563,7 +15424,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/08/04%
 \label{ref_tests_db__testsHists}%
 \hypertarget{ref_tests_db__testsHists}{}%
 \begin{description}
-\item[Summary:]Calculates histograms for all tests and returns them in a cell array.
+\item[Summary:]Calculates histograms for all tests.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
@@ -14662,6 +15523,10 @@ vector of histogram bin centers.\end{description}%
 
 	a\_histogram\_db: A histogram\_db object containing the histogram.
 %
+\item[Example:]~
+\begin{lyxcode} >> a\_hist\_db = histogram(my\_db, 'spike\_width');\\%
+ >> plot(a\_hist\_db);\\%
+\end{lyxcode}
 %
 \item[See also:]%
 \hyperlink{ref_histogram_db}{\texttt{histogram\_db}}%
@@ -14673,6 +15538,47 @@ vector of histogram bin centers.\end{description}%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/17%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{cov}]{Method \texttt{tests\_db/cov}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!cov@\fidxl{cov}}%
+\label{ref_tests_db__cov}%
+\hypertarget{ref_tests_db__cov}{}%
+\begin{description}
+\item[Summary:]Generates a database of the covariance of given DB.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_cov\_db = cov(db, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{db}:]
+ A tests\_db object.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{keepOrigDB}:]
+ Keep db as origDB in the props.
+
+(others passed to tests\_db)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_cov\_db: A tests\_db which contains the covariance matrix.
+%
+%
+\item[See also:]%
+\hyperlink{ref_cov}{\texttt{cov}}%
+\ (p.~\pageref{ref_cov})%
+\index[funcref]{@\fidxl{cov}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/05/25%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{end}]{Method \texttt{tests\_db/end}}%
@@ -14734,17 +15640,17 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 \label{ref_tests_db__sortrows}%
 \hypertarget{ref_tests_db__sortrows}{}%
 \begin{description}
-\item[Summary:]Returns a sorted db according to given columns. 
+\item[Summary:]Returns a sorted\_db according to given columns. 
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-[sorted, idx] = sortrows(db, cols)
+[sorted\_db, idx] = sortrows(db, cols)
 %
 \end{lyxcode}%
 %
 \item[Description:]%
 For multi-page dbs, sorts only the first page and applies the ordering 
- to all other pages.
+ to all other pages (which is WRONG!)
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -14756,8 +15662,8 @@ For multi-page dbs, sorts only the first page and applies the ordering
 %
 \item[Returns:]~
 
-	sorted: The sorted tests\_db.
-	idx: The row index permutation vector. 
+	sorted\_db: The sorted tests\_db.
+	idx: The row index permutation vector, such that sorted\_db = db(idx, :). 
 %
 %
 \item[See also:]%
@@ -14925,7 +15831,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2005/04/06%
 \label{ref_tests_db__noNaNRows}%
 \hypertarget{ref_tests_db__noNaNRows}{}%
 \begin{description}
-\item[Summary:]Returns a DB by removing any NaN or Inf containing rows.
+\item[Summary:]Returns a DB by removing rows containing any NaN or Inf.
 %
 \item[Usage:]~%
 \begin{lyxcode}%
@@ -14942,7 +15848,7 @@ a\_db = noNaNRows(a\_db)
 %
 \item[Returns:]~
 
-	a\_db: DB with rows with NaN values removed.
+	a\_db: DB with missing rows.
 %
 %
 \item[See also:]%
@@ -14991,6 +15897,52 @@ a\_stats\_db = statsMeanStd(db, tests, props)
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/10/07%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{checkConsistentCols}]{Method \texttt{tests\_db/checkConsistentCols}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!checkConsistentCols@\fidxl{checkConsistentCols}}%
+\label{ref_tests_db__checkConsistentCols}%
+\hypertarget{ref_tests_db__checkConsistentCols}{}%
+\begin{description}
+\item[Summary:]Check if two DBs have exactly the same columns.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+[col\_names, with\_col\_names] = checkConsistentCols(db, with\_db)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{db}:]
+ A tests\_db object.
+\item[\texttt{with\_db}:]
+ A tests\_db object whose column names are checked for consistency.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{useCommon}:]
+ Tolerate mismatching column names and only return
+
+the common columns.\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	col\_names, with\_col\_names: list of column names of each DB.
+%
+%
+\item[See also:]%
+\hyperlink{ref_vertcat}{\texttt{vertcat}}%
+\ (p.~\pageref{ref_vertcat})%
+\index[funcref]{@\fidxl{vertcat}}%
+, \hyperlink{ref_tests_db}{\texttt{tests\_db}}%
+\ (p.~\pageref{ref_tests_db})%
+\index[funcref]{@\fidxl{tests\_db}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/01/18%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{rows2Struct}]{Method \texttt{tests\_db/rows2Struct}}%
@@ -15184,6 +16136,10 @@ By default table is rotated 90 degrees and scaled to 90% of page height.
 
 	tex\_string: LaTeX string for table float.
 %
+\item[Example:]~
+\begin{lyxcode} >> string2File(displayRowsTeX(a\_db(1:10, 4:7), 'some values',\\%
+                               struct('rotate', 0)), 'table.tex')\\%
+\end{lyxcode}
 %
 \item[See also:]%
 \hyperlink{ref_displayRows}{\texttt{displayRows}}%
@@ -15214,8 +16170,9 @@ crit\_db = matchingRow(db, row, props)
 \end{lyxcode}%
 %
 \item[Description:]%
-Copies selected test values from row as the first row into the 
- criterion db. Adds a second row for the STD of each column in the db.
+Copies selected test values from row as the first row into the criterion
+ db. Adds a second row for the STD of each column in the db.  Calculates the
+ covariance for using the Mahalonobis distance in the ranking.
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -15226,8 +16183,8 @@ Copies selected test values from row as the first row into the
 \item[\texttt{props}:]
  A structure with any optional properties.
 \begin{description}%
-\item[\texttt{std\_db}:]
- Take the standard deviation from this db instead.
+\item[\texttt{distDB}:]
+ Take the standard deviation and covariance of this db instead.
 \end{description}%
 \end{description}%
 %
@@ -15363,6 +16320,45 @@ The database is sorted for the values of the columns of
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/30%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{minus}]{Method \texttt{tests\_db/minus}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!minus@\fidxl{minus}}%
+\label{ref_tests_db__minus}%
+\hypertarget{ref_tests_db__minus}{}%
+\begin{description}
+\item[Summary:]Subtracts two DBs or a scalar from one.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_db = minus(left\_obj, right\_obj)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+If DBs have mismatching columns only the common columns will be kept.
+ In any case, the resulting DB columns will be sorted in the order of the
+ left-hand-side DB.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{left\_obj, right\_obj}:]
+ Operands of the subtraction. One must be of type tests\_db
+
+and the other can be a scalar.\end{description}%
+%
+\item[Returns:]~
+
+	a\_db: The resulting tests\_db.
+%
+%
+\item[See also:]%
+\hyperlink{ref_minus}{\texttt{minus}}%
+\ (p.~\pageref{ref_minus})%
+\index[funcref]{@\fidxl{minus}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/05/24%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{displayRows}]{Method \texttt{tests\_db/displayRows}}%
@@ -15551,6 +16547,8 @@ Calls plotTestsHistsMatrix. Subclasses should override this method
  A params\_tests\_db object.
 \item[\texttt{title\_str}:]
  (Optional) A string to be concatanated to the title.
+\item[\texttt{props}:]
+ A structure with any optional properties.
 \end{description}%
 %
 \item[Returns:]~
@@ -15684,7 +16682,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/17%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-s = shufflerows(db, dim)
+s = shufflerows(db, tests, grouped)
 %
 \end{lyxcode}%
 %
@@ -15819,7 +16817,7 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/10/06%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-h = plot(a\_tests\_db, title\_str)
+h = plot(a\_tests\_db, title\_str, props)
 %
 \end{lyxcode}%
 %
@@ -15830,6 +16828,8 @@ h = plot(a\_tests\_db, title\_str)
  A histogram\_db object.
 \item[\texttt{title\_str}:]
  (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties, passed to plot\_abstract.
 \end{description}%
 %
 \item[Returns:]~
@@ -15864,6 +16864,50 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/10/06%
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2006/02/06%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotXRows}]{Method \texttt{tests\_db/plotXRows}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!plotXRows@\fidxl{plotXRows}}%
+\label{ref_tests_db__plotXRows}%
+\hypertarget{ref_tests_db__plotXRows}{}%
+\begin{description}
+\item[Summary:]Create a scatter plot with a test versus the row numbers on the X-axis.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_p = plotXRows(a\_db, test\_y, title\_str, short\_title, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_db}:]
+ A params\_tests\_db object.
+\item[\texttt{test\_y}:]
+ Y variable.
+\item[\texttt{title\_str}:]
+ (Optional) A string to be concatanated to the title.
+\item[\texttt{short\_title}:]
+ (Optional) Few words that may appear in legends of multiplot.
+\item[\texttt{props}:]
+ A structure with any optional properties passed to
+
+plotScatter.\begin{description}%
+\item[\texttt{RowName}:]
+ Label to show on X-axis (default='RowNumber')
+\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_p: A plot\_abstract.
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/01/16%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{princomp}]{Method \texttt{tests\_db/princomp}}%
@@ -15968,15 +17012,16 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/08%
 %
 \item[Usage:]~%
 \begin{lyxcode}%
-rows = compareRows(db, row)
+idx = compareRows(db, row)
 %
 \end{lyxcode}%
 %
 \item[Description:]%
 If the row argument has multiple rows, the comparison is done separately
- for each of its rows and the results are the logical OR of those.
+ for each of its rows and the results are the logical AND of those.
  Note that, it uses summation of distance for magnitude comparison. 
- That is, all columns have the same weight.
+ That is, all columns have the same weight. If the db contains many
+ columns and one row, then the columns are compared instead of rows.
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -15988,8 +17033,8 @@ If the row argument has multiple rows, the comparison is done separately
 %
 \item[Returns:]~
 
-	rows: A column vector of comparison results. 
-		(<0: db < row, 0: db == row, >0: db > row)
+	idx: A inverted logical column vector of comparison results. 
+		(false if db == row, true otherwise)
 %
 %
 \item[See also:]%
@@ -16156,6 +17201,45 @@ Adds new test columns to the database and returns the new DB.
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2005/09/30%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{tests2idx}]{Method \texttt{tests\_db/tests2idx}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!tests2idx@\fidxl{tests2idx}}%
+\label{ref_tests_db__tests2idx}%
+\hypertarget{ref_tests_db__tests2idx}{}%
+\begin{description}
+\item[Summary:]Find dimension indices from a test names/numbers specification.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+idx = tests2idx(db, dim\_name, tests)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{db}:]
+ A tests\_db object.
+\item[\texttt{dim\_name}:]
+ String indicating 'row', 'col', or 'page'
+\item[\texttt{tests}:]
+ Either a single or array of column numbers, or a single
+
+test name or a cell array of test names. If ':', all tests.\end{description}%
+%
+\item[Returns:]~
+
+	idx: Array of column indices.
+%
+%
+\item[See also:]%
+\hyperlink{ref_tests_db}{\texttt{tests\_db}}%
+\ (p.~\pageref{ref_tests_db})%
+\index[funcref]{@\fidxl{tests\_db}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/07%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{delColumns}]{Method \texttt{tests\_db/delColumns}}%
@@ -16561,6 +17645,40 @@ should be skipped.\end{description}%
 Cengiz Gunay <cgunay@emory.edu>, 2004/09/30%
 \end{description}
 \methodline%
+\subsubsection[Method \texttt{transpose}]{Method \texttt{tests\_db/transpose}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!transpose@\fidxl{transpose}}%
+\label{ref_tests_db__transpose}%
+\hypertarget{ref_tests_db__transpose}{}%
+\begin{description}
+\item[Summary:]Transposes data matrix and swaps row and columns metadata as well.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_db = transpose(a\_db)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_db}:]
+ A tests\_db.
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_db: The transposed tests\_db.
+%
+%
+\item[See also:]%
+\hyperlink{ref_transpose}{\texttt{transpose}}%
+\ (p.~\pageref{ref_transpose})%
+\index[funcref]{@\fidxl{transpose}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/02/07%
+\end{description}
+\methodline%
 \subsubsection[Method \texttt{vertcat}]{Method \texttt{tests\_db/vertcat}}%
 \index[funcref]{tests_db@\fidxlb{tests\_db}!vertcat@\fidxl{vertcat}}%
 \label{ref_tests_db__vertcat}%
@@ -16576,7 +17694,9 @@ a\_db = vertcat(db, with\_db, ...)
 %
 \item[Description:]%
 Concatanates rows of with\_db to rows of db. Overrides the built-in
- vertcat function that is called when [db;with\_db] is executed.
+ vertcat function that is called when [db;with\_db] is executed. If the 
+ first argument is a array of DBs, then this functionality is not needed;
+ built-in vertcat is called.
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -16648,6 +17768,61 @@ Selects the given dimensions and returns in a new tests\_db object.
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2006/02/08%
+\end{description}
+\methodline%
+\subsubsection[Method \texttt{plotCovar}]{Method \texttt{tests\_db/plotCovar}}%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!plotCovar@\fidxl{plotCovar}}%
+\label{ref_tests_db__plotCovar}%
+\hypertarget{ref_tests_db__plotCovar}{}%
+\begin{description}
+\item[Summary:]Generates an image plot of the covariance-type values in a\_db.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plotCovar(a\_db, title\_str, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_db}:]
+ A tests\_db object that resulted from a function like cov.
+\item[\texttt{title\_str}:]
+ (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ Optional properties to be passed to plot\_abstract.
+\begin{description}%
+\item[\texttt{inverse}:]
+ If 1, take inverse of the data matrix.
+\item[\texttt{crosscoef}:]
+ If 1, normalize matrix elements as crosscoef would a cov matrix.
+\item[\texttt{logScale}:]
+ If 1, take logarithm of values before plotting.
+\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object or one of its subclasses.
+%
+\item[Example:]~
+\begin{lyxcode} >> plotFigure(plotCovar(cov(get(constrainedMeasuresPreset(pbundle2, 6), 'joined\_control\_db'))));\\%
+\end{lyxcode}
+%
+\item[See also:]%
+\hyperlink{ref_tests_db__cov}{\texttt{tests\_db/cov}}%
+\ (p.~\pageref{ref_tests_db__cov})%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!cov@\fidxl{cov}}%
+, \hyperlink{ref_plotImage}{\texttt{plotImage}}%
+\ (p.~\pageref{ref_plotImage})%
+\index[funcref]{@\fidxl{plotImage}}%
+, \hyperlink{ref_tests_db__matchingRow.}{\texttt{tests\_db/matchingRow.}}%
+\ (p.~\pageref{ref_tests_db__matchingRow.})%
+\index[funcref]{tests_db@\fidxlb{tests\_db}!matchingRow.@\fidxl{matchingRow.}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/05/30%
 \end{description}
 \methodline%
 \subsubsection[Method \texttt{isinf}]{Method \texttt{tests\_db/isinf}}%
@@ -16754,13 +17929,22 @@ crit\_db can be created with the matchingRow method. TestWeights modify the impo
 \item[\texttt{props}:]
  A structure with any optional properties.
 \begin{description}%
+\item[\texttt{limitSTD}:]
+ limit any measure to this many STDs max.
 \item[\texttt{tolerateNaNs}:]
- If 0, rows with any NaN values are skipped (default=1).
-\item[\texttt{testWeights}:]
+ If 0, rows with any NaN values are skipped
+
+, if 1, NaN values are given a fixed 3xSTD penalty (default=1).\item[\texttt{testWeights}:]
  Structure array associating tests and multiplicative weights.
-\item[\texttt{topRows}:]
+\item[\texttt{restoreWeights}:]
+ Reverse the testWeights application after
+
+calculating distances.\item[\texttt{topRows}:]
  If given, only return this many of the top rows.
-\end{description}%
+\item[\texttt{useMahal}:]
+ Use the Mahalonobis distance from the covariance
+
+matrix in crit\_db.\end{description}%
 \end{description}%
 %
 \item[Returns:]~
@@ -16865,8 +18049,15 @@ Genesis (.bin, .gbin, .genflac), PCDX (.all), or Matlab (.mat).\item[\texttt{dt}
 \item[\texttt{baseline}:]
  Resting potential.
 \item[\texttt{channel}:]
- Channel to read from file Genesis or PCDX file.
-\item[\texttt{traces}:]
+ Channel to read from file Genesis, PCDX, or Neuron file.
+\item[\texttt{file\_type}:]
+ Specify file type instead of guessing from extension:
+
+'genesis': Raw binary files created with Genesis disk\_out method.
+'genesis\_flac': Compressed Genesis binary files.
+'neuron': Binary files created with Neuron's Vector.vwrite method.
+'pcdx': .ALL data acquisition files from PCDX program.
+'matlab': Matlab .MAT binary files with matrix data.\item[\texttt{traces}:]
  Traces to read from PCDX file.
 \item[\texttt{spike\_finder}:]
  Method of finding spikes 
@@ -17052,15 +18243,20 @@ If t is a vector of traces, returns a vector of plot objects.
 \begin{description}%
 \item[\texttt{t}:]
  A trace object.
+\item[\texttt{title\_str}:]
+ (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{timeScale}:]
+ 's' for seconds, or 'ms' for milliseconds.
+
+(rest passed to plot\_abstract.)\end{description}%
 \end{description}%
 %
 \item[Returns:]~
 
 	a\_plot: A plot\_abstract object that can be visualized.
-	title\_str: (Optional) String to append to plot title.
-	props: A structure with any optional properties.
-	  timeScale: 's' for seconds, or 'ms' for milliseconds.
-	  (rest passed to plot\_abstract.)
 %
 %
 \item[See also:]%
@@ -17331,6 +18527,57 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/07/30%
 Cengiz Gunay <cgunay@emory.edu>, 2004/07/30%
 \end{description}
 \methodline%
+\subsubsection[Method \texttt{plot\_abstract}]{Method \texttt{trace/plot\_abstract}}%
+\index[funcref]{trace@\fidxlb{trace}!plot_abstract@\fidxl{plot\_abstract}}%
+\label{ref_trace__plot_abstract}%
+\hypertarget{ref_trace__plot_abstract}{}%
+\begin{description}
+\item[Summary:]Plots a trace by calling plotData.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_plot = plot\_abstract(t, title\_str, props)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+If t is a vector of traces, returns a vector of plot objects.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{t}:]
+ A trace object.
+\item[\texttt{title\_str}:]
+ (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{timeScale}:]
+ 's' for seconds, or 'ms' for milliseconds.
+
+(rest passed to plot\_abstract.)\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	a\_plot: A plot\_abstract object that can be visualized.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/11/17%
+\end{description}
+\methodline%
 \subsubsection[Method \texttt{subsref}]{Method \texttt{trace/subsref}}%
 \index[funcref]{trace@\fidxlb{trace}!subsref@\fidxl{subsref}}%
 \label{ref_trace__subsref}%
@@ -17368,6 +18615,8 @@ h = plot(t)
  A trace object.
 \item[\texttt{title\_str}:]
  (Optional) String to append to plot title.
+\item[\texttt{props}:]
+ A structure with any optional properties, passed to plot\_abstract.
 \end{description}%
 %
 \item[Returns:]~
@@ -17673,10 +18922,206 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 \subsection{Utility functions}%
 \label{ref_utils}%
 \hypertarget{ref_utils}{}%
-\subsubsection[Function \texttt{readNeuronVecBin}]{Function \texttt{utils/readNeuronVecBin}}%
-\index[funcref]{utils@\fidxlb{utils}!readNeuronVecBin@\fidxl{readNeuronVecBin}}%
-\label{ref_utils__readNeuronVecBin}%
-\hypertarget{ref_utils__readNeuronVecBin}{}%
+\subsubsection[Function \texttt{findspikes\_old}]{Function \texttt{functions/findspikes\_old}}%
+\index[funcref]{functions@\fidxlb{functions}!findspikes_old@\fidxl{findspikes\_old}}%
+\label{ref_functions__findspikes_old}%
+\hypertarget{ref_functions__findspikes_old}{}%
+\begin{description}
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+<adelgado@biology.emory.edu>, 2003-03-31%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{makeIdx}]{Function \texttt{functions/makeIdx}}%
+\index[funcref]{functions@\fidxlb{functions}!makeIdx@\fidxl{makeIdx}}%
+\label{ref_functions__makeIdx}%
+\hypertarget{ref_functions__makeIdx}{}%
+\begin{description}
+\item[Summary:]Prepare the idx structure from names.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+idx = makeIdx(names)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Helper function.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{names}:]
+ Cell array of names for a db dimension.
+\end{description}%
+%
+\item[Returns:]~
+
+	idx: Structure associating names to array indices.
+%
+%
+\item[See also:]%
+\hyperlink{ref_tests_db}{\texttt{tests\_db}}%
+\ (p.~\pageref{ref_tests_db})%
+\index[funcref]{@\fidxl{tests\_db}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/09/17%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{diff2T\_h4}]{Function \texttt{functions/diff2T\_h4}}%
+\index[funcref]{functions@\fidxlb{functions}!diff2T_h4@\fidxl{diff2T\_h4}}%
+\label{ref_functions__diff2T_h4}%
+\hypertarget{ref_functions__diff2T_h4}{}%
+\begin{description}
+\item[Summary:]Estimate of second derivative using Taylor expansion (derived with same method as diffT).
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+deriv2 = diff2T\_h4(x, dy)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+d\textasciicircum{}2 x     x(k-2) - x(k-1) - x(k+1) + x(k+2)
+  ------- = -----------------------------------
+   dy\textasciicircum{}2		6 * dy\textasciicircum{}2
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x}:]
+ A vector of x = f(y).
+\item[\texttt{dy}:]
+ The resolution of the discrete points in the vector.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	deriv2: Estimate of the derivative.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/04/15%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{diff2T}]{Function \texttt{functions/diff2T}}%
+\index[funcref]{functions@\fidxlb{functions}!diff2T@\fidxl{diff2T}}%
+\label{ref_functions__diff2T}%
+\hypertarget{ref_functions__diff2T}{}%
+\begin{description}
+\item[Summary:]Estimate of second derivative using Taylor expansion.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+deriv2 = diff2T(x, dy)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+d\textasciicircum{}2 x     - x(k-2) + 16 * x(k-1) - 30 * x(k) + 16 * x(k+1) - x(k+2)
+  ------- = -----------------------------------------------------------
+   dy\textasciicircum{}2			        12 * dy\textasciicircum{}2
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x}:]
+ A vector of x = f(y).
+\item[\texttt{dy}:]
+ The resolution of the discrete points in the vector.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	deriv2: Estimate of the derivative.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/11/15%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{diff3T}]{Function \texttt{functions/diff3T}}%
+\index[funcref]{functions@\fidxlb{functions}!diff3T@\fidxl{diff3T}}%
+\label{ref_functions__diff3T}%
+\hypertarget{ref_functions__diff3T}{}%
+\begin{description}
+\item[Summary:]Estimate of third derivative using Taylor expansion.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+deriv3 = diff3T(x, dy)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+d\textasciicircum{}3 x     x(k-3) - 8 * x(k-2) + 13 * x(k-1) - 13 * x(k+1) + 8 * x(k+2) - x(k+3)
+  ------- = -----------------------------------------------------------------------
+   dy\textasciicircum{}3			        8 * dy\textasciicircum{}3
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x}:]
+ A vector of x = f(y).
+\item[\texttt{dy}:]
+ The resolution of the discrete points in the vector.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	deriv3: Estimate of the derivative.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/11/15%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{diffT}]{Function \texttt{functions/diffT}}%
+\index[funcref]{functions@\fidxlb{functions}!diffT@\fidxl{diffT}}%
+\label{ref_functions__diffT}%
+\hypertarget{ref_functions__diffT}{}%
+\begin{description}
+\item[Summary:]Estimate of first derivative using Taylor expansion.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+deriv = diffT(x, dy)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+dx     x(k-2) - 8 * x(k-1) + 8 * x(k+1) - x(k+2)
+  ---- = ------------------------------------------
+   dy			12 * dy
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x}:]
+ A vector.
+\item[\texttt{dy}:]
+ The resolution of the discrete points in the vector.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	deriv: Estimate of the first derivative.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/11/15%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{readNeuronVecBin}]{Function \texttt{functions/readNeuronVecBin}}%
+\index[funcref]{functions@\fidxlb{functions}!readNeuronVecBin@\fidxl{readNeuronVecBin}}%
+\label{ref_functions__readNeuronVecBin}%
+\hypertarget{ref_functions__readNeuronVecBin}{}%
 \begin{description}
 %
 %
@@ -17689,10 +19134,618 @@ Cengiz Gunay <cgunay@emory.edu>, 2004/09/14%
 Konstantin Miller <miller@cs.tu-berlin.de>, Aug 09, 2005.%
 \end{description}
 \methodline%
-\subsubsection[Function \texttt{plotImage}]{Function \texttt{utils/plotImage}}%
-\index[funcref]{utils@\fidxlb{utils}!plotImage@\fidxl{plotImage}}%
-\label{ref_utils__plotImage}%
-\hypertarget{ref_utils__plotImage}{}%
+\subsubsection[Function \texttt{logLevels}]{Function \texttt{functions/logLevels}}%
+\index[funcref]{functions@\fidxlb{functions}!logLevels@\fidxl{logLevels}}%
+\label{ref_functions__logLevels}%
+\hypertarget{ref_functions__logLevels}{}%
+\begin{description}
+\item[Summary:]Returns a logarithmic-scaled series between min\_val and max\_val with num\_levels elements.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+levels = logLevels(min\_val, max\_val, num\_levels)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{min\_val, max\_val}:]
+ The low and high boundaries for the output value.
+\item[\texttt{num\_levels}:]
+ Number of elements to produce, including the boundaries.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	levels: A column vector of logarithmic series between min\_val and max\_val.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/04/18%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{diff3T\_h4}]{Function \texttt{functions/diff3T\_h4}}%
+\index[funcref]{functions@\fidxlb{functions}!diff3T_h4@\fidxl{diff3T\_h4}}%
+\label{ref_functions__diff3T_h4}%
+\hypertarget{ref_functions__diff3T_h4}{}%
+\begin{description}
+\item[Summary:]Estimate of third derivative using Taylor expansion (derived with same method as diffT and diff2T\_h4).
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+deriv2 = diff3T\_h4(x, dy)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+d\textasciicircum{}3 x     - x(k-2) + 2 * x(k-1) - 2 * x(k+1) + x(k+2)
+  ------- = ---------------------------------------------
+   dy\textasciicircum{}3			12 * dy\textasciicircum{}3
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x}:]
+ A vector of x = f(y).
+\item[\texttt{dy}:]
+ The resolution of the discrete points in the vector.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	deriv2: Estimate of the derivative.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/04/18%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{collectspikes}]{Function \texttt{functions/collectspikes}}%
+\index[funcref]{functions@\fidxlb{functions}!collectspikes@\fidxl{collectspikes}}%
+\label{ref_functions__collectspikes}%
+\hypertarget{ref_functions__collectspikes}{}%
+\begin{description}
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+<adelgado@biology.emory.edu>%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{subTextLabel}]{Function \texttt{functions/subTextLabel}}%
+\index[funcref]{functions@\fidxlb{functions}!subTextLabel@\fidxl{subTextLabel}}%
+\label{ref_functions__subTextLabel}%
+\hypertarget{ref_functions__subTextLabel}{}%
+\begin{description}
+\item[Summary:]Draws a text label on a plot.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+handle = subTextLabel(x, y, text\_str, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x, y}:]
+ 2D coordinates.
+\item[\texttt{text\_str}:]
+ String to be drawn on plot.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{Units}:]
+ position units for the coordinates (see Units in axes properties).
+\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	handle: Text object handle.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/04/11%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{uniqueValues}]{Function \texttt{functions/uniqueValues}}%
+\index[funcref]{functions@\fidxlb{functions}!uniqueValues@\fidxl{uniqueValues}}%
+\label{ref_functions__uniqueValues}%
+\hypertarget{ref_functions__uniqueValues}{}%
+\begin{description}
+\item[Summary:]Find unique rows in a matrix (or column vector). 
+		Version which makes use of sort and diff.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+[rows, idx] = uniqueValues(data)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Parameters:
+		data: A matrix or column vector
+	Returns:
+		rows: A matrix or column vector of unique rows.
+		idx: Indices of the unique rows in the original data matrix.
+%%
+%
+%
+%
+\item[See also:]%
+\hyperlink{ref_sortedUniqueValues}{\texttt{sortedUniqueValues}}%
+\ (p.~\pageref{ref_sortedUniqueValues})%
+\index[funcref]{@\fidxl{sortedUniqueValues}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/09/24%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{calcGraphNormPtsRatio}]{Function \texttt{functions/calcGraphNormPtsRatio}}%
+\index[funcref]{functions@\fidxlb{functions}!calcGraphNormPtsRatio@\fidxl{calcGraphNormPtsRatio}}%
+\label{ref_functions__calcGraphNormPtsRatio}%
+\hypertarget{ref_functions__calcGraphNormPtsRatio}{}%
+\begin{description}
+\item[Summary:]Return the ratios of normalized to point units for dimensions of axis.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+[ratio\_x, ratio\_y] = calcGraphNormPtsRatio(grfx\_handle)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Used for findind character sizes given the size of an axis. Normally if the plot
+ is resized, the characters may take up too much space or may not fit anymore unless
+ the spacing is corrected.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{grfx\_handle}:]
+ A graphics handle to an existing axis or figure.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	ratio\_x, ratio\_y: Normalized to points ratio for axis width and height, respectively.
+%
+\item[Example:]~
+\begin{lyxcode} To find the normalized distance for a 10pt character:\\%
+ >> dx = 10 * calcGraphNormPtsRatio(my\_figure\_handle);\\%
+\end{lyxcode}
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/03/05%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{findspikes}]{Function \texttt{functions/findspikes}}%
+\index[funcref]{functions@\fidxlb{functions}!findspikes@\fidxl{findspikes}}%
+\label{ref_functions__findspikes}%
+\hypertarget{ref_functions__findspikes}{}%
+\begin{description}
+\item[Summary:]Performs spike discrimination on single tips exceeding or within a threshold and/or time window range.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+spikeTime = findspikes(traces, fs, threshold)
+  [spikeTime spikePeak n] = findspikes(traces, fs, threshold [,direction] [,win\_range] [,'plot'])
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{traces   }:]
+ Multiple traces of signal. each trace in a column
+\item[\texttt{fs       }:]
+ Sampling frequency, in KHz
+\item[\texttt{threshold}:]
+ Either a scalar, or [thres1 thres2] to define a range
+\item[\texttt{direction}:]
+ Optional. 
+
+A positive number to find positive-going spikes, and vice versa. 
+The default value is +1 when threshold is a scalar,
+is sign(thres2-thres1) when threshold is a vector.\item[\texttt{win\_range}:]
+ Optional. 
+
+[win\_min win\_max] to define a time window range of the width at threshold. in ms.
+'plot'   : Optional. Plot the result. Not to plot by default.\item[\texttt{spikeTime}:]
+ Returns a cell array, each cell is a vector of spike times in each trial.
+\item[\texttt{spikePeak}:]
+ Returns the peak values of each spikes.
+\item[\texttt{n        }:]
+ the total number of spikes
+\end{description}%
+%
+%
+%
+%
+%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{fillederrorbar}]{Function \texttt{functions/fillederrorbar}}%
+\index[funcref]{functions@\fidxlb{functions}!fillederrorbar@\fidxl{fillederrorbar}}%
+\label{ref_functions__fillederrorbar}%
+\hypertarget{ref_functions__fillederrorbar}{}%
+\begin{description}
+\item[Summary:]Plots an errorbar with the middle points filled with the pen color.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+handles = fillederrorbar(...)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+
+(see errorbar)%
+\item[Returns:]~
+
+	handles: Handles to graphics objects.
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/13%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{findVectorInMatrix}]{Function \texttt{functions/findVectorInMatrix}}%
+\index[funcref]{functions@\fidxlb{functions}!findVectorInMatrix@\fidxl{findVectorInMatrix}}%
+\label{ref_functions__findVectorInMatrix}%
+\hypertarget{ref_functions__findVectorInMatrix}{}%
+\begin{description}
+\item[Summary:]Finds rows of data that match row.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+idx = findVectorInMatrix(data, row)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Matlab's eq (==) command unfortunately doesn't allow this directly.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{data}:]
+ A matrix or column vector.
+\item[\texttt{row}:]
+ A row vector.
+\item[\texttt{Returns}:]
+
+\item[\texttt{idx}:]
+ Indices of matching rows in the original data matrix.
+\end{description}%
+%
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/09/1%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{string2File}]{Function \texttt{functions/string2File}}%
+\index[funcref]{functions@\fidxlb{functions}!string2File@\fidxl{string2File}}%
+\label{ref_functions__string2File}%
+\hypertarget{ref_functions__string2File}{}%
+\begin{description}
+\item[Summary:]Writes string verbatim into a file.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+string2File(string, filename, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{string}:]
+ To be written into file.
+\item[\texttt{filename}:]
+ The file to be created.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\end{description}%
+%
+\item[Returns:]~
+
+%
+%
+\item[See also:]%
+\hyperlink{ref_cell2TeX}{\texttt{cell2TeX}}%
+\ (p.~\pageref{ref_cell2TeX})%
+\index[funcref]{@\fidxl{cell2TeX}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/12/10%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{chanTables2DB}]{Function \texttt{functions/chanTables2DB}}%
+\index[funcref]{functions@\fidxlb{functions}!chanTables2DB@\fidxl{chanTables2DB}}%
+\label{ref_functions__chanTables2DB}%
+\hypertarget{ref_functions__chanTables2DB}{}%
+\begin{description}
+\item[Summary:]Creates a DB with channel tables exported from Genesis.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_chans\_db = chanTables2DB(tables, id, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{tables}:]
+ Structures returned from the dump files generated by dump\_chans.g.
+\item[\texttt{id}:]
+ String that identify the source of the tables structure.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+
+(rest passed to tests\_db.)\end{description}%
+%
+\item[Returns:]~
+
+	a\_chans\_db: A tests\_db object containing channel tables.
+%
+%
+\item[See also:]%
+\hyperlink{ref_trace}{\texttt{trace}}%
+\ (p.~\pageref{ref_trace})%
+\index[funcref]{@\fidxl{trace}}%
+, \hyperlink{ref_trace__plot}{\texttt{trace/plot}}%
+\ (p.~\pageref{ref_trace__plot})%
+\index[funcref]{trace@\fidxlb{trace}!plot@\fidxl{plot}}%
+, \hyperlink{ref_plot_abstract}{\texttt{plot\_abstract}}%
+\ (p.~\pageref{ref_plot_abstract})%
+\index[funcref]{@\fidxl{plot\_abstract}}%
+, \hyperlink{ref_GP__common}{\texttt{GP/common/dump\_chans.g (Genesis)}}%
+\ (p.~\pageref{ref_GP__common})%
+\index[funcref]{GP@\fidxlb{GP}!common@\fidxl{common}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2007/03/07%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{maxima}]{Function \texttt{functions/maxima}}%
+\index[funcref]{functions@\fidxlb{functions}!maxima@\fidxl{maxima}}%
+\label{ref_functions__maxima}%
+\hypertarget{ref_functions__maxima}{}%
+\begin{description}
+\item[Summary:]Find all local maxima.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+x\_idx = maxima(x)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Finds derivative sign-flipping points where the second derivative is 
+ less than zero.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{x}:]
+ A vector.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	x\_idx: Indices of maxima.
+%
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/04/18%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{sortedUniqueValues}]{Function \texttt{functions/sortedUniqueValues}}%
+\index[funcref]{functions@\fidxlb{functions}!sortedUniqueValues@\fidxl{sortedUniqueValues}}%
+\label{ref_functions__sortedUniqueValues}%
+\hypertarget{ref_functions__sortedUniqueValues}{}%
+\begin{description}
+\item[Summary:]Find unique rows in an already sorted matrix 
+			(or column vector). Uses the derivation method.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+[rows, idx] = sortedUniqueValues(data)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Parameters:
+		data: A ascending row-sorted matrix or column vector.
+	Returns:
+		rows: A matrix or column vector of unique rows.
+		idx: Indices of the unique rows in the original data matrix.
+%%
+%
+%
+%
+\item[See also:]%
+\hyperlink{ref_uniqueValues}{\texttt{uniqueValues}}%
+\ (p.~\pageref{ref_uniqueValues})%
+\index[funcref]{@\fidxl{uniqueValues}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/09/27%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{TeXtable}]{Function \texttt{functions/TeXtable}}%
+\index[funcref]{functions@\fidxlb{functions}!TeXtable@\fidxl{TeXtable}}%
+\label{ref_functions__TeXtable}%
+\hypertarget{ref_functions__TeXtable}{}%
+\begin{description}
+\item[Summary:]Creates the LaTeX string for a floating table containing given contents.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+tex\_string = TeXtable(contents, caption, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{contents}:]
+ Table contents in LaTeX.
+\item[\texttt{caption}:]
+ Table caption.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{rotate}:]
+ Degrees to rotate.
+\item[\texttt{width}:]
+ Resize to this width.
+\item[\texttt{height}:]
+ Resize to this height
+\item[\texttt{center}:]
+ Align to center.
+\item[\texttt{shortCaption}:]
+ Short version of caption to appear at list of tables.
+\item[\texttt{floatType}:]
+ LaTeX float to use (default='table').
+\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	tex\_string: LaTeX string for table float.
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/12/13%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{cell2TeX}]{Function \texttt{functions/cell2TeX}}%
+\index[funcref]{functions@\fidxlb{functions}!cell2TeX@\fidxl{cell2TeX}}%
+\label{ref_functions__cell2TeX}%
+\hypertarget{ref_functions__cell2TeX}{}%
+\begin{description}
+\item[Summary:]Creates LaTeX string of a formatted table with the cell array's contents.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+tex\_string = cell2TeX(a\_cell, props)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_cell}:]
+ A cell matrix to be tabularized.
+\item[\texttt{props}:]
+ A structure with any optional properties.
+\begin{description}%
+\item[\texttt{hasTitleRow}:]
+ The first row contains titles.
+\item[\texttt{hasTitleCol}:]
+ The first column contains titles.
+\end{description}%
+\end{description}%
+%
+\item[Returns:]~
+
+	tex\_string: LaTeX formatted table string.
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/12/09%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{ns\_CIPlist}]{Function \texttt{functions/ns\_CIPlist}}%
+\index[funcref]{functions@\fidxlb{functions}!ns_CIPlist@\fidxl{ns\_CIPlist}}%
+\label{ref_functions__ns_CIPlist}%
+\hypertarget{ref_functions__ns_CIPlist}{}%
+\begin{description}
+%
+%
+%
+%
+%
+%
+%
+\item[Author:]%
+Dawid Kurzyniec%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{parseGenesisFilename}]{Function \texttt{functions/parseGenesisFilename}}%
+\index[funcref]{functions@\fidxlb{functions}!parseGenesisFilename@\fidxl{parseGenesisFilename}}%
+\label{ref_functions__parseGenesisFilename}%
+\hypertarget{ref_functions__parseGenesisFilename}{}%
+\begin{description}
+\item[Summary:]Parses the GENESIS filename to get names and values of simulation parameters.
+ Usage:
+ names\_vals = parseGenesisFilename(filename)
+%
+%
+\item[Description:]%
+Parameters:
+		filename: GENESIS filename (no need to exist)
+%%
+%
+\item[Returns:]~
+
+		names\_vals: A two-column cell array with names and values.
+%
+%
+\item[See also:]%
+\hyperlink{ref_cip_profile}{\texttt{cip\_profile}}%
+\ (p.~\pageref{ref_cip_profile})%
+\index[funcref]{@\fidxl{cip\_profile}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/03/10%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{boxplotp}]{Function \texttt{functions/boxplotp}}%
+\index[funcref]{functions@\fidxlb{functions}!boxplotp@\fidxl{boxplotp}}%
+\label{ref_functions__boxplotp}%
+\hypertarget{ref_functions__boxplotp}{}%
+\begin{description}
+%
+%
+\item[Description:]%
+BOXPLOTP(X,NOTCH,SYM,VERT,WHIS,PROPS) produces a box and whisker plot for
+   each column of X. The box has lines at the lower quartile, median, 
+   and upper quartile values. The whiskers are lines extending from 
+   each end of the box to show the extent of the rest of the data. 
+   Outliers are data with values beyond the ends of the whiskers.
+%%
+%
+%
+%
+%
+%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{plotImage}]{Function \texttt{functions/plotImage}}%
+\index[funcref]{functions@\fidxlb{functions}!plotImage@\fidxl{plotImage}}%
+\label{ref_functions__plotImage}%
+\hypertarget{ref_functions__plotImage}{}%
 \begin{description}
 \item[Summary:]Function that plots a color matrix on current figure.
 %
@@ -17716,6 +19769,10 @@ h = plotImage(image\_data, colormap\_func, num\_colors, props)
 \begin{description}%
 \item[\texttt{colorbar}:]
  If defined, show colorbar on plot.
+\item[\texttt{truncateDecDigits}:]
+ Truncate labels to this many decimal digits.
+\item[\texttt{maxValue}:]
+ Maximal value at num\_colors to annotate the colorbar.
 \end{description}%
 \end{description}%
 %
@@ -17733,10 +19790,252 @@ h = plotImage(image\_data, colormap\_func, num\_colors, props)
 Cengiz Gunay <cgunay@emory.edu>, 2006/06/05%
 \end{description}
 \methodline%
-\subsubsection[Function \texttt{colormapBlueCrossRed}]{Function \texttt{utils/colormapBlueCrossRed}}%
-\index[funcref]{utils@\fidxlb{utils}!colormapBlueCrossRed@\fidxl{colormapBlueCrossRed}}%
-\label{ref_utils__colormapBlueCrossRed}%
-\hypertarget{ref_utils__colormapBlueCrossRed}{}%
+\subsubsection[Function \texttt{meanSpikeFreq}]{Function \texttt{functions/meanSpikeFreq}}%
+\index[funcref]{functions@\fidxlb{functions}!meanSpikeFreq@\fidxl{meanSpikeFreq}}%
+\label{ref_functions__meanSpikeFreq}%
+\hypertarget{ref_functions__meanSpikeFreq}{}%
+\begin{description}
+\item[Summary:]Returns the mean firing frequency in Hz according to mean $\backslash$
+  	    inter-spike-interval of the given spike train and the 
+	    time resolution dt.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+meanFreq = meanSpikeFreq( spike\_train, dt, period )
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Parameters:
+		spike\_train: Spike times returned by findspikes
+		dt: Time step size [s]
+		period: Duration of the total time period [dt]
+%%
+%
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/03/08%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{interpValByIndex}]{Function \texttt{functions/interpValByIndex}}%
+\index[funcref]{functions@\fidxlb{functions}!interpValByIndex@\fidxl{interpValByIndex}}%
+\label{ref_functions__interpValByIndex}%
+\hypertarget{ref_functions__interpValByIndex}{}%
+\begin{description}
+\item[Summary:]Finds the interpolated value by using the real valued index from the data vector.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+val = interpValByIndex(idx, data)
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+Parameters:
+	idx: A real-valued index.
+	data: A data vector.
+%%
+%
+\item[Returns:]~
+
+	val: the value taken from the nearest integer indices of data and interpolated.
+%
+\item[Example:]~
+\begin{lyxcode} >> a= [1 2 3];\\%
+ >> interpValByIndex(1.5, a)\\%
+ ans =\\%
+    1.5000\\%
+\end{lyxcode}
+%
+\item[See also:]%
+\hyperlink{ref_spike_shape}{\texttt{spike\_shape}}%
+\ (p.~\pageref{ref_spike_shape})%
+\index[funcref]{@\fidxl{spike\_shape}}%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/08/02%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{growRange}]{Function \texttt{functions/growRange}}%
+\index[funcref]{functions@\fidxlb{functions}!growRange@\fidxl{growRange}}%
+\label{ref_functions__growRange}%
+\hypertarget{ref_functions__growRange}{}%
+\begin{description}
+\item[Summary:]Returns the maximal range from rows of axis limits. 
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+range = growRange(ranges)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{ranges}:]
+ A matrix where each row is return val of axis func.
+\end{description}%
+%
+\item[Returns:]~
+
+	range: The maximal range obtained that includes all given axes.
+%
+%
+\item[See also:]%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/10/13%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{mergeStructs}]{Function \texttt{functions/mergeStructs}}%
+\index[funcref]{functions@\fidxlb{functions}!mergeStructs@\fidxl{mergeStructs}}%
+\label{ref_functions__mergeStructs}%
+\hypertarget{ref_functions__mergeStructs}{}%
+\begin{description}
+\item[Summary:]Merges all the structures given as arguments and makes a single structure.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+results = mergeStructs( struct1 [, struct2, ...] )
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+The fields will in earlier arguments will have priority. So, while merging two
+ structs, if there are duplicate fields, the fields in the first will be preserved.
+%%
+\item[Parameters:]~
+
+struct(n): A structure.%
+\item[Returns:]~
+
+ 	results: The merged structure.
+%
+\item[Example:]~
+\begin{lyxcode} mergeStructs( struct('hello', 1), struct('bye', 2) );\\%
+  => struct('hello', 1, 'bye', 2)\\%
+\end{lyxcode}
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/09/13%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{properTeXFilename}]{Function \texttt{functions/properTeXFilename}}%
+\index[funcref]{functions@\fidxlb{functions}!properTeXFilename@\fidxl{properTeXFilename}}%
+\label{ref_functions__properTeXFilename}%
+\hypertarget{ref_functions__properTeXFilename}{}%
+\begin{description}
+\item[Summary:]Replaces characters in string to make it a valid filename for inclusion in TeX documents.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+filename = properTeXFilename( filename )
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+It will replace characters like space, '/', '.', etc.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{filename}:]
+ An input filename string (without extension!).
+\end{description}%
+%
+\item[Returns:]~
+
+ 	filename: The corrected proper filename.
+%
+\item[Example:]~
+\begin{lyxcode} >> fname = properTeXFilename('hello world/1')\\%
+ ans = 'hello\_world+1' \\%
+\end{lyxcode}
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2005/12/20%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{prefixStruct}]{Function \texttt{functions/prefixStruct}}%
+\index[funcref]{functions@\fidxlb{functions}!prefixStruct@\fidxl{prefixStruct}}%
+\label{ref_functions__prefixStruct}%
+\hypertarget{ref_functions__prefixStruct}{}%
+\begin{description}
+\item[Summary:]Adds the given prefix to each of the field names in the structure.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+new\_struct = prefixStruct(a\_struct, prefix\_str)
+%
+\end{lyxcode}%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_struct}:]
+ A structure.
+\item[\texttt{prefix\_str}:]
+ A string to be prefixed to each field name.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	new\_struct: The new structure.
+%
+\item[Example:]~
+\begin{lyxcode} prefixStruct( struct('bye', 1), 'hello');\\%
+  => struct('hellobye', 1)\\%
+\end{lyxcode}
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2004/12/22%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{properTeXLabel}]{Function \texttt{functions/properTeXLabel}}%
+\index[funcref]{functions@\fidxlb{functions}!properTeXLabel@\fidxl{properTeXLabel}}%
+\label{ref_functions__properTeXLabel}%
+\hypertarget{ref_functions__properTeXLabel}{}%
+\begin{description}
+\item[Summary:]Replaces characters in string or cell array of strings to make it valid in TeX documents.
+%
+\item[Usage:]~%
+\begin{lyxcode}%
+a\_label = properTeXLabel( a\_label )
+%
+\end{lyxcode}%
+%
+\item[Description:]%
+It will replace characters like space, '/', '.', etc.
+%%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{a\_label}:]
+ A label string.
+\end{description}%
+%
+\item[Returns:]~
+
+ 	a\_label: The corrected proper a\_label.
+%
+\item[Example:]~
+\begin{lyxcode} >> a\_label = properTeXLabel('this\_day')\\%
+ ans = 'this$\backslash$\_day' \\%
+\end{lyxcode}
+%
+%
+\item[Author:]%
+Cengiz Gunay <cgunay@emory.edu>, 2006/01/17%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{colormapBlueCrossRed}]{Function \texttt{functions/colormapBlueCrossRed}}%
+\index[funcref]{functions@\fidxlb{functions}!colormapBlueCrossRed@\fidxl{colormapBlueCrossRed}}%
+\label{ref_functions__colormapBlueCrossRed}%
+\hypertarget{ref_functions__colormapBlueCrossRed}{}%
 \begin{description}
 \item[Summary:]Blue to red crossing colormap, with a black-colored zero-crossing.
 %
@@ -17770,6 +20069,33 @@ Colormap contains (2 * num\_half\_colors + 1) colors, where (num\_half\_colors +
 %
 \item[Author:]%
 Cengiz Gunay <cgunay@emory.edu>, 2006/06/05%
+\end{description}
+\methodline%
+\subsubsection[Function \texttt{loadtraces}]{Function \texttt{functions/loadtraces}}%
+\index[funcref]{functions@\fidxlb{functions}!loadtraces@\fidxl{loadtraces}}%
+\label{ref_functions__loadtraces}%
+\hypertarget{ref_functions__loadtraces}{}%
+\begin{description}
+%
+%
+%
+\item[Parameters:]~
+\begin{description}%
+\item[\texttt{file}:]
+ PCDX file.
+\item[\texttt{tracelist}:]
+ A string of trace description, such as '1-10'.
+\item[\texttt{channel}:]
+ Channel to read from.
+\item[\texttt{quiet}:]
+ (Optional) If 1, produce on print outs.
+\end{description}%
+%
+%
+%
+%
+\item[Author:]%
+<adelgado@biology.emory.edu>%
 \end{description}
 \methodline%
 
