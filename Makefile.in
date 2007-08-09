@@ -8,21 +8,33 @@ SHELL = /bin/sh
 
 TARNAME = @PACKAGE_TARNAME@
 VERSION = @PACKAGE_VERSION@
+
 DIRNAME = $(TARNAME)-$(VERSION)
+DOCDIR = $(DIRNAME)-htmldoc
 
 all: 
 
-dist:
+dist: 
 	mkdir $(DIRNAME)
 	cp -a classes $(DIRNAME)/pandora
 	cp -a functions/* $(DIRNAME)/pandora
-	mkdir $(DIRNAME)/pandora/doc
-	cp -a doc/prog-manual.pdf $(DIRNAME)/pandora/doc
-	cp -a doc/html $(DIRNAME)/pandora/doc
+	mkdir $(DIRNAME)/doc
+	cp -a doc/prog-manual.pdf $(DIRNAME)/doc
 	cp README.dist $(DIRNAME)/README
 	cp COPYING $(DIRNAME)
-	tar -czf $(DIRNAME).tar.gz $(DIRNAME)
+	tar -cz --exclude .svn -f $(DIRNAME).tar.gz $(DIRNAME)
 	rm -rf $(DIRNAME)
 
+distdochtml: doc/html
+	mkdir $(DOCDIR)
+	cp -a doc/html/* $(DOCDIR)
+	tar -czf $(DOCDIR).tar.gz $(DOCDIR)
+	rm -rf $(DOCDIR)
+
+distclean:
+	rm -f *~
+	rm -rf $(DIRNAME)
+	rm -rf $(DOCDIR)
+
 clean: 
-	rm -f $(TARGETS) readgenflac.mex* readgenflac.dll
+

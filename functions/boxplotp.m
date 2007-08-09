@@ -1,5 +1,7 @@
 function boxplotp(x,g,notch,sym,vert,whis,props)
-%BOXPLOTP Display boxplots of a data sample.
+% BOXPLOTP - Display boxplots of a data sample.
+% 
+% Description:
 %   BOXPLOTP(X,NOTCH,SYM,VERT,WHIS,PROPS) produces a box and whisker plot for
 %   each column of X. The box has lines at the lower quartile, median, 
 %   and upper quartile values. The whiskers are lines extending from 

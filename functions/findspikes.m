@@ -1,15 +1,12 @@
 function [spikeTime, spikePeak, n] = findspikes(traces, fs, thres, varargin)
 % 
-% FINDSPIKES: This function performs spike discrimination on 
-% single tips exceeding or within a threshold and/or time window range.
+% findspikes - Performs spike discrimination on single tips exceeding or within a threshold and/or time window range.
 %
-% Syntax:
-%
+% Usage:
 %  spikeTime = findspikes(traces, fs, threshold)
 %  [spikeTime spikePeak n] = findspikes(traces, fs, threshold [,direction] [,win_range] [,'plot'])
 % 
-% Description:
-%
+% Parameters:
 %  traces   : Multiple traces of signal. each trace in a column
 %  fs       : Sampling frequency, in KHz
 %  threshold: Either a scalar, or [thres1 thres2] to define a range
