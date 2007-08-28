@@ -30,7 +30,7 @@ function plots = plotCompareRanks(r_bundle, ranks, props)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 a_ranked_db = r_bundle.ranked_db;
 joined_db = joinOriginal(a_ranked_db);

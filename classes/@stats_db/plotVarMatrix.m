@@ -29,7 +29,7 @@ function a_plot_stack = plotVarMatrix(p_stats, props)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props')
   props = struct([]);
@@ -71,7 +71,7 @@ for test_num=1:num_tests
       a_plot.plot_stack.plots{1}.props.tightLimits = 1;
       axis_ranges = axis(a_plot.plot_stack.plots{1});
     else
-      a_plot = plotVar(p_stats(param_num), 1, test_num + 1, ...
+      a_plot = plotVar(p_stats(param_num), 1, test_num + 1, '', ...
 		       struct('rotateYLabel', rotate_labels));
       %# Calculate the maximal axis range
       axis_ranges = axis(a_plot);

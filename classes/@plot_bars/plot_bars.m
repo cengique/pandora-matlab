@@ -21,6 +21,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %	title: Plot description.
 %	axis_limits: If given, all plots contained will have these axis limits.
 %	props: A structure with any optional properties.
+%	  dispBarsLines: Choose between using 'bars' or 'lines' to connect the errorbars.
 %	  dispErrorbars: If 1, display errorbars for lo_vals and hi_vals deviation from mid_vals 
 %		     (default=1).
 %	  dispNvals: If 1, display n_vals on top of each bar.
@@ -47,7 +48,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if nargin == 0 %# Called with no params
    a_plot = struct;
@@ -85,15 +86,28 @@ if nargin == 0 %# Called with no params
    end
    %# Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
-     plot_components = ...
-	 {plot_abstract({group_locs, mid_vals(:,plot_num)}, ...
-			{x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'bar', bar_axis_props)};
+
+     if ~isfield(props, 'dispBarsLines') || strcmp(props.dispBarsLines, 'bars')
+       plot_components = ...
+           {plot_abstract({group_locs, mid_vals(:,plot_num)}, ...
+                          {x_labels{plot_num}, y_labels{plot_num}}, '', ...
+                          {}, 'bar', bar_axis_props)};
+       linestyle = 'none';
+     elseif strcmp(props.dispBarsLines, 'lines')
+       % Enforce errorbar display then
+       props.dispErrorbars = 1;
+       plot_components = {};
+       linestyle = '-';
+     else
+       error([ 'Optional argument dispBarsLines has unknown value: ' ...
+               props.dispBarsLines ]);
+     end
 
      if ~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1
        plot_components = ...
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
-			   lo_vals(:,plot_num), hi_vals(:,plot_num), 'LineStyle', 'none'}, ... %# '+'
+			   lo_vals(:,plot_num), hi_vals(:,plot_num), 'LineStyle', linestyle}, ... %# '+'
 			  {x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'errorbar', props)};
      end
 

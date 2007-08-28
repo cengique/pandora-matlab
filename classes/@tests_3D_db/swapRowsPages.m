@@ -7,10 +7,11 @@ function a_3D_db = swapRowsPages(db)
 % a_3D_db = swapRowsPages(db)
 %
 % Description:
-% Assuming that this is a invariant parameter and tests relations db, 
-% this function swaps the pages with rows. Each resulting page correspond
-% to a single value of the chosen parameter, with each row contianing a 
-% test result with different combinations of the rest of the parameters.
+% Assuming that this is a invariant parameter and tests relations db, this
+% function transposes the data matrix by swapping the pages with rows. Each
+% resulting page correspond to a single value of the chosen parameter, with
+% each row containing a test result with different combinations of the rest
+% of the parameters.
 %
 %   Parameters:
 %	db: A tests_db object.
@@ -28,7 +29,7 @@ function a_3D_db = swapRowsPages(db)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 %# Reorder the row and page dimensions
 a_3D_db = set(db, 'data', permute(get(db, 'data'), [3, 2, 1]));

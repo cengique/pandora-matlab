@@ -28,7 +28,7 @@ function a_histogram_db = histogram(db, col, num_bins)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('num_bins')
   num_bins = 100;
@@ -55,9 +55,10 @@ db_props = get(db, 'props');
 if isfield(db_props, 'invarName')
   page_names = cell(1, num_pages);
   for page_num=pages'
-    invar_value_db = onlyRowsTests(db, 1, db_props.invarName, page_num);
+    invar_value = ...
+        get(mean(onlyRowsTests(db, ':', db_props.invarName, page_num)), 'data');
     page_names{page_num} = [db_props.invarName ' = ' ...
-			    num2str(get(invar_value_db, 'data')) ];
+			    num2str(invar_value) ];
   end
   props = struct('pageNames', {page_names});
   title = [ col_name ' given ' db_props.invarName ' of ' get(db, 'id') ];

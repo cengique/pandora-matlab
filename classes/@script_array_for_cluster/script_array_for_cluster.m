@@ -45,7 +45,7 @@ function a_script_cluster = script_array_for_cluster(num_runs, sge_wrapper_scrip
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if nargin == 0 %# Called with no params, creates empty object
   a_script_cluster.sge_wrapper_script = '';

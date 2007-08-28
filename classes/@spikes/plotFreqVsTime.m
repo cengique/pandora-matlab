@@ -30,7 +30,7 @@ function a_plot = plotFreqVsTime(s, title_str, props)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props')
   props = struct;
@@ -109,7 +109,18 @@ switch props.type
     error(['Error: Plot type ' props.type ' not known.']);
 end
 
+class_name = strrep(class(s), '_', ' ');
+the_title = [ sprintf('%s freq-vs-time: %s', class_name, s.id) title_str ...
+            ];
+the_legend = s.id;
+if isfield(props, 'quiet')
+  if ~ isempty(title_str)
+    the_title = title_str;
+    the_legend = title_str;
+  end
+else
+end
+
 a_plot = plot_abstract({stimes, freqs}, ...
 		       {x_label, 'firing rate [Hz]'}, ...
-		       [ sprintf('%s freq-vs-time: %s', class_name, s.id) title_str], ...
-		       {s.id}, 'plot', props);
+		       the_title, { the_legend }, 'plot', props);

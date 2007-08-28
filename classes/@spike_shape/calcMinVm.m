@@ -28,7 +28,7 @@ function [min_val, min_idx, max_min_time] = calcMinVm(s, max_idx)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 [min_val, min_idx] = calcMin(s.trace, period(max_idx, length(s.trace.data)));
 min_idx = min_idx + max_idx - 1;

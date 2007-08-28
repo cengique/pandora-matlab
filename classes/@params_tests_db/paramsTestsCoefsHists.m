@@ -26,7 +26,7 @@ function pt_coefs_hists = paramsTestsCoefsHists(a_db, p_coefs)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 num_params = a_db.num_params;
 num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices

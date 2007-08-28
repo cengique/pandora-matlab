@@ -21,7 +21,7 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 % Modified by: 
 %   Jeremy Edgerton, 2005.

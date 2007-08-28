@@ -24,7 +24,7 @@ function the_period = periodPulseIni50msRest2(t)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 time_start = t.pulse_time_start + 50e-3 / t.trace.dt + 1;
 time_end = t.pulse_time_start + t.pulse_time_width - 1;

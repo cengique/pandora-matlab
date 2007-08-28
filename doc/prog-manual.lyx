@@ -5283,6 +5283,53 @@ status collapsed
 
 \end_inset
 
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+Plotting parameter-measure variation with 
+\family typewriter
+plotVar
+\family default
+.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename plot_stats_Var.eps
+	display none
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -5388,7 +5435,7 @@ plot_bars
 \end_layout
 
 \begin_layout Subsection
-Plotting all parameter-measure variations
+Plotting parameter-measure variations
 \end_layout
 
 \begin_layout Standard
@@ -5419,13 +5466,39 @@ Example parameter-measure variation statistics plot.
 
 \end_inset
 
-To plot all parameter-measure variations, the 
+To plot the variation of a measure with a parameter the 
 \family typewriter
-plotVarMatix
+plotVar
 \family default
  method of 
 \family typewriter
-params_tests_db
+stats_db
+\family default
+ can be used to achieve Figure 
+\begin_inset LatexCommand \ref{figcap:Statistics-plots}
+
+\end_inset
+
+ (d):
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plotVar(a_stats_db, 'CaHVA', 'AHP_depth', 'AHP change with
+ change in CaHVA', 
+\end_layout
+
+\begin_layout LyX-Code
+                      struct('quiet', 1, 'PaperPosition', [0 0 3 3])))
+\end_layout
+
+\begin_layout Standard
+To plot all parameter-measure variations, the 
+\family typewriter
+plotVarMatrix
+\family default
+ method of 
+\family typewriter
+stats_db
 \family default
  can be used (see Figure 
 \begin_inset LatexCommand \ref{cap:plot-varboxmatrix}
@@ -5435,9 +5508,9 @@ params_tests_db
 ).
  
 \family typewriter
-plotVarMatix
+plotVarMatrix
 \family default
- requires the DB object and the 
+ requires the a 
 \family typewriter
 p_stats
 \family default
@@ -5467,7 +5540,7 @@ p_t3ds
 \family default
  array can be created using the 
 \family typewriter
-invarParams
+params_tests_db/invarParams
 \family default
  method.
  The sequence of commands

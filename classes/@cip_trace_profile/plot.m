@@ -22,7 +22,7 @@ function h = plot(t)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 %# Allow vectors of objects to be plotted at the same time
 if length(t) > 1

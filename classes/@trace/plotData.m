@@ -13,6 +13,7 @@ function a_plot = plotData(t, title_str, props)
 %	title_str: (Optional) String to append to plot title.
 %	props: A structure with any optional properties.
 %	  timeScale: 's' for seconds, or 'ms' for milliseconds.
+%	  quiet: If 1, only display given title_str.
 %	  (rest passed to plot_abstract.)
 %
 %   Returns:
@@ -28,7 +29,7 @@ function a_plot = plotData(t, title_str, props)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props')
   props = struct;
@@ -71,7 +72,7 @@ end
 %# Remove all '_' characters, because they interfere with TeX interpretation
 
 the_legend = t.id;
-if isfield(t.props, 'quiet') 
+if isfield(t.props, 'quiet') || isfield(props, 'quiet')
   if isempty(title_str)
     the_title = t.id;
   else

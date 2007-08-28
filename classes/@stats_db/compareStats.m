@@ -33,6 +33,12 @@ if ~ exist('props')
   props = struct([]);
 end
 
+% do nothing for single input
+if isempty(varargin)
+  a_mult_stats_db = a_stats_db;
+  return;
+end
+
 %# recurse if multiple inputs were given
 if length(varargin) > 1
   with_db = compareStats(varargin{:});

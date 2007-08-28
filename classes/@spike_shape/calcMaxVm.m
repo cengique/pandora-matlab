@@ -24,7 +24,7 @@ function [max_val, max_idx] = calcMaxVm(s)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 %# Look for the peak only in the first 10 ms or so.
 or_so = floor(min(12e-3 / s.trace.dt, length(s.trace.data)));

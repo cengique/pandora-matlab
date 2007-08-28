@@ -27,7 +27,7 @@ function [col_names, with_col_names] = checkConsistentCols(db, with_db, props)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 col_names = getColNames(db);
 with_col_names = getColNames(with_db);

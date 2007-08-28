@@ -12,8 +12,9 @@ function a_plot = plot_bars(a_stats_db, title_str, props)
 %   Parameters:
 %	a_stats_db: A stats_db object.
 %	title_str: The plot title.
-%	props: A structure with any optional properties, passed to plot_bars/plot_bars.
+%	props: A structure with any optional properties.
 %	  pageVariable: The column used for denoting page values.
+%	  (passed to plot_bars/plot_bars)
 %		
 %   Returns:
 %	a_plot: A object of plot_bars or one of its subclasses.
@@ -28,7 +29,7 @@ function a_plot = plot_bars(a_stats_db, title_str, props)
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
-% http://opensource.org/licenses/afl-3.0.txt.
+% http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props')
   props = struct([]);
