@@ -45,10 +45,6 @@ if ~exist('props')
   props = struct;
 end
 
-if ~ iscell(param)
-  param = {param};
-end
-
 if isfield(props, 'levelFunc')
   levels = feval(props.levelFunc, min_val, max_val, num_levels);
 else
@@ -56,8 +52,10 @@ else
   levels = min_val + (0:(num_levels - 1))' * (max_val - min_val) / (num_levels - 1);
 end
 
+param_name = getColNames(onlyRowsTests(a_db, ':', param));
+
 %# Create params DB with desired values
-a_params_db = params_tests_db(levels, param, [], {}, [ param{:} ' DB']);
+a_params_db = params_tests_db(levels, param_name, [], {}, [ param_name ' DB']);
 
 %# Get cross product with original DB with the param removed
 a_params_db = crossProd(delColumns(a_db, param), a_params_db);
