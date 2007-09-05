@@ -29,6 +29,10 @@ function [col_names, with_col_names] = checkConsistentCols(db, with_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+if ~ exist('props', 'var')
+  props = struct;
+end
+
 col_names = getColNames(db);
 with_col_names = getColNames(with_db);
 
