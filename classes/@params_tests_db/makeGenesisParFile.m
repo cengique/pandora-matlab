@@ -14,6 +14,8 @@ function makeGenesisParFile(a_db, filename, props)
 %	filename: Genesis parameter file to be created.
 %	props: A structure with any optional properties.
 %	  trialStart: If given, adds/replaces the trial parameter and counts forward.
+%	  makeParamDesc: If 1, put the parameter names in a parameter description file with
+%	  	 with a .txt extension.
 %
 %   Returns:
 %	nothing.
@@ -55,6 +57,13 @@ if isfield(props, 'trialStart')
       rethrow(lerr);      
     end
   end
+end
+
+% Create a parameter description file for database generation
+if isfield(props, 'makeParamDesc')
+  param_desc_filename = strrep(filename, '.par', '.txt');
+  param_names = [strvcat(getColNames(a_db)), repmat(sprintf('\n'), a_db.num_params, 1)];
+  string2File(reshape(param_names', 1, prod(size(param_names))), param_desc_filename);
 end
 
 num_rows = dbsize(a_db, 1);
