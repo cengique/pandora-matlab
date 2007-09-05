@@ -45,6 +45,15 @@ else
   with_db = varargin{1};
 end
 
+% return the other one if one of the dbs is empty
+if prod(dbsize(db)) == 0
+  a_db = with_db;
+  return;
+elseif prod(dbsize(with_db)) == 0
+  a_db = db;
+  return;
+end
+
 %# check for column consistency
 [col_names, wcol_names] = checkConsistentCols(db, with_db);
 
