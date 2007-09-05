@@ -12,9 +12,9 @@ function job_results = runFirst(a_script_cluster)
 %	job_results: A cell array of results collected from each item of the vector jobs.
 %
 % Description:
-%   This method initiates the script_array_for_cluster jobs. It submits an SGE vector job for running
-% each runJob and finally runLast. There is no way of collecting outputs from 
-% individual runJob calls.
+% This method initiates the script_array_for_cluster jobs. It submits an SGE
+% vector job for running each runJob and finally runLast. There is no way of
+% collecting outputs from individual runJob calls.
 %
 % Example:
 % >> runFirst(script_array_for_cluster(10, 'this one does nothing for 10 times'));
@@ -46,9 +46,12 @@ array_job_command = ...
 
 if s == 0
   %# Success, look for SGE job number
-  [array_job_number] = sscanf(w, 'Your job %d');
+  %[array_job_number] = sscanf(w, 'Your job %f');
+  array_job_number = regexp(w, '(\d+)', 'match');
+  array_job_number = array_job_number{1};
 
-  disp(['Submitted job ' num2str(array_job_number) ': ' eol_str array_job_command]);
+  disp(['Submitted job ' num2str(array_job_number) ': ' eol_str array_job_command ...
+       eol_str w]);
 
   %# Check if mail notification is requested
   a_props = get(a_script_cluster, 'props');
