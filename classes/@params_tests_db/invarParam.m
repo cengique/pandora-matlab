@@ -29,7 +29,25 @@ function a_3D_db = invarParam(db, param)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+data = get(db, 'data');
+num_params = get(db, 'num_params');
+
+%# Remove trial column from parameters that define character of data
 col_name_cell = fieldnames(get(db, 'col_idx'));
+trial_col = strmatch('trial', col_name_cell);
+
+%# Remove the trial parameter before the redundancy check
+log_cols = false(1, dbsize(db, 2));
+log_cols(1:num_params) = true(1);
+log_cols(trial_col) = false(1);
+
+% before everything, make sure database has no redundant parameter sets
+[unique_rows unique_idx] = ...
+    uniqueValues(data(:, log_cols));
+if size(unique_rows, 1) < size(data, 1)
+    warning(['Removing redundant parameter sets from the DB.']);
+    db = set(db, 'data', data(unique_idx, :));
+end
 
 col = tests2cols(db, param);
 
