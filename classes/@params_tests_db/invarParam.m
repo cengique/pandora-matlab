@@ -37,13 +37,13 @@ col_name_cell = fieldnames(get(db, 'col_idx'));
 trial_col = strmatch('trial', col_name_cell);
 
 %# Remove the trial parameter before the redundancy check
-log_cols = false(1, dbsize(db, 2));
-log_cols(1:num_params) = true(1);
-log_cols(trial_col) = false(1);
+no_trial_cols = false(1, dbsize(db, 2));
+no_trial_cols(1:num_params) = true(1);
+no_trial_cols(trial_col) = false(1);
 
 % before everything, make sure database has no redundant parameter sets
 [unique_rows unique_idx] = ...
-    uniqueValues(data(:, log_cols));
+    uniqueValues(data(:, no_trial_cols));
 if size(unique_rows, 1) < size(data, 1)
     warning(['Removing redundant parameter sets from the DB.']);
     db = set(db, 'data', data(unique_idx, :));
