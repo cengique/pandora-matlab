@@ -38,6 +38,7 @@ num_docs = length(a_doc.docs);
 
 %# Concatenate all docs together
 tex_string = [];
+docs = a_doc.docs;
 for doc_num = 1:num_docs
-  tex_string = [tex_string getTeXString(a_doc.docs{doc_num})];
+  tex_string = [tex_string getTeXString(docs(doc_num))];
 end
