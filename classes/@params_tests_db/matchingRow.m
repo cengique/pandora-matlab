@@ -40,7 +40,9 @@ tests_cols = (a_db.num_params+1):dbsize(a_db, 2);
 
 if isfield(props, 'distDB')
   %# Take params out of distDB, too
-  props.distDB = onlyRowsTests(props.distDB, ':', tests_cols);
+  % why?? need to check if its a params_tests_db and count its params and
+  % columns 
+  %props.distDB = onlyRowsTests(props.distDB, ':', tests_cols);
 end
 
 no_params_db = onlyRowsTests(a_db.tests_db, ':', tests_cols);
