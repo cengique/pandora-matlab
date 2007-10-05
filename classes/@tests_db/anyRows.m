@@ -54,7 +54,7 @@ db_data = db.data;
 % DISABLED: look for optimization.
 % unfortunately this is not even faster due to the memory requirement :(
 if false && dbsize(db, 2) == 1 && num_db_rows * num_rows < 10000000
-  idx = any(abs(( db.data * ones(1, num_rows) - (rows * ones_matx')')) <= ...
+  idx = all(abs(( db.data * ones(1, num_rows) - (rows * ones_matx')')) <= ...
             eps(0), 2);
 else
 
@@ -65,7 +65,7 @@ else
 
     %# - duplicate row to a matrix of same size with db
     %# - subtract from db
-    idx = idx | any(abs(db_data - (ones_matx * rows(row_num, :))) <= eps(0), 2);
+    idx = idx | all(abs(db_data - (ones_matx * rows(row_num, :))) <= eps(0), 2);
   end
 
 end
