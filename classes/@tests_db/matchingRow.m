@@ -44,6 +44,7 @@ tests = ':';
 % Get the selected row in a DB
 cols = tests2cols(db, tests);
 crit_db = onlyRowsTests(db, row, tests);
+crit_tests = getColNames(crit_db);
 
 %# Check for distDB
 if isfield(props, 'distDB')
@@ -53,7 +54,7 @@ else
 end
 
 % Calculate covariance for using Mahalonobis distance
-cov_db = cov(noNaNRows(dist_db(:, tests)));
+cov_db = cov(noNaNRows(dist_db(:, crit_tests)));
 
 % add the covariance matrix into the props
 crit_db = setProp(crit_db, 'cov', cov_db);
