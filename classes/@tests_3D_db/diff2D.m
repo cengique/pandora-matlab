@@ -5,9 +5,13 @@ function a_tests_db = diff2D(a_db, test, props)
 % Usage:
 % a_tests_db = diff2D(a_db, test, props)
 %
-% Description:
+% Description: 
 %   Applies the diff function to the chosen test, and collapses the middle
-% dimension of the 3D DB to create a 2D DB.
+% dimension of the 3D DB to create a 2D DB and trasnposes it. The result is
+% that the pages of the 3D DB becomes the rows of the new database, and the
+% differenced rows appear as new columns, each named uniquely. The column
+% index would correspons to the row index in the 3D DB. A new column
+% 'PageNumber' is appended to point to the 3D DB.
 %
 %   Parameters:
 %	a_db: A tests_3D_db object.
@@ -49,5 +53,6 @@ a_db_props = get(a_db, 'props');
 db_id = [ 'Change of ' test_names{tests2cols(a_db, test)} ...
 	 ' between levels of ' a_db_props.invarName ];
 
-a_tests_db = tests_db(transpose(squeeze(diff(get(onlyRowsTests(a_db, ':', test), 'data')))), ...
-		      col_names, {}, db_id);
+a_tests_db = ...
+    tests_db([ transpose(squeeze(diff(get(onlyRowsTests(a_db, ':', test), 'data')))), (1:dbsize(a_db, 3))'], ...
+             { col_names{:}, 'PageIndex' }, {}, db_id);
