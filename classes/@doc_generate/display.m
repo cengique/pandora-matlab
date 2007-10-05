@@ -11,14 +11,16 @@ function s = display(t)
 % http://opensource.org/licenses/afl-3.0.php.
 
 %# Handle differently if an array of objects
-if length(t) > 1
-  disp(t);
-  return;
+num = size(t);
+if max(num) > 1
+  s = [ '[' sprintf('%dx', num(1:(end-1))) num2str(num(end)) ' ' class(t) ']' ];
+  disp(s);
+  struct(t(1))
+else
+  disp(sprintf('%s, %s', class(t), get(t, 'id')));
+  %#disp(t);
+  struct(t)
+
+  disp(['Optional properties of ' class(t) ':']);
+  struct(t.props)
 end
-
-disp(sprintf('%s, %s', class(t), get(t, 'id')));
-%#disp(t);
-struct(t)
-
-disp(['Optional properties of ' class(t) ':']);
-struct(t.props)
