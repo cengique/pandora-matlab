@@ -10,9 +10,14 @@ function s = display(t)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-s = sprintf('%s, %s', class(t), get(t, 'title'));
-disp(s);
-%#disp(t);
-struct(t)
+num = size(t);
+if max(num) > 1
+  s = [ '[' sprintf('%dx', num(1:(end-1))) num2str(num(end)) ' ' class(t) ']' ];
+  disp(s);
+  struct(t(1))
+else
+  s = '';
+  struct(t)
 
-display(t.plot_abstract);
+  display(t.plot_abstract);
+end
