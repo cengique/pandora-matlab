@@ -63,7 +63,6 @@ else
   a_doc.caption = caption;
   a_doc.plot_filename = plot_filename;
   a_doc.float_props = float_props;
-  a_doc.id = id;
 
   a_doc = class(a_doc, 'doc_plot', doc_generate('', id, props));
 end
