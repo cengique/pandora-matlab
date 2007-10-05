@@ -29,7 +29,8 @@ function p_t3ds = invarParams(a_db)
 num_params = a_db.num_params;
 num_tests = dbsize(a_db, 2) - num_params; 
 
-a_db = sortrows(a_db, 1:num_params);
+% no need, already done in invarValues
+%a_db = sortrows(a_db, 1:num_params);
 
 p_t3ds(1:num_params) = tests_3D_db;
 for param_num=1:num_params
