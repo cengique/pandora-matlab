@@ -47,6 +47,7 @@ verbose = strcmp(vs.state, 'on');
 join_col = tests2cols(with_db, index_col_name);
 joins = w_data(:, join_col);
 
+% TODO: below fails if all row indices are NaN in a row
 if any(isnan(joins))
   if verbose
     warning(['NaNs in ' index_col_name ' column. Proceeding with caution.']);
@@ -60,7 +61,11 @@ if any(isnan(joins))
   all_non_nans = ~isnan(all_joins);
   for joins_row = 1:size(all_joins, 1)
     tmp_j = all_joins(joins_row, all_non_nans(joins_row, :));
-    joins(joins_row) = tmp_j(1);
+    if isempty(tmp_j)
+      joins(joins_row) = NaN;
+    else
+      joins(joins_row) = tmp_j(1);
+    end
   end
 end
 
@@ -73,7 +78,7 @@ w_cols = tests2cols(with_db, w_tests);
 new_size(1) = size_wdb(1);
 new_size(2) = length(cols) + length(w_cols); %# Except the page index
 
-new_data = [ data(joins, cols), w_data(:, w_cols) ];
+new_data = [ data(joins(~isnan(joins)), cols), w_data(~isnan(joins), w_cols) ];
 
 %# Get the column names straight
 cols_cell1 = fieldnames(get(db, 'col_idx'));
