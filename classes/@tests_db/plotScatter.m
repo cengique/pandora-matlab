@@ -46,6 +46,11 @@ col2 = tests2cols(a_db, test2);
 col1_db = onlyRowsTests(a_db, ':', col1);
 col2_db = onlyRowsTests(a_db, ':', col2);
 
+% skip NaN value rows
+non_nans_rows = ~(isnan(col1_db) | isnan(col2_db));
+col1_db = onlyRowsTests(col1_db, non_nans_rows, ':');
+col2_db = onlyRowsTests(col2_db, non_nans_rows, ':');
+
 test_names = fieldnames(get(a_db, 'col_idx'));
 
 if ~ exist('short_title') || isempty(short_title)
