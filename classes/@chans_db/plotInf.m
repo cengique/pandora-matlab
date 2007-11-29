@@ -1,9 +1,9 @@
-function a_subplot = plotInf(a_chans_db, chan_name, gate_subnames, props)
+function a_subplot = plotInf(a_chans_db, chan_name, gate_subnames, title_str, props)
 
 % plotInf - Plot the product of minf variables and the gmax of the given channel.
 %
 % Usage: 
-% a_plot = plotInf(a_chans_db, chan_name, gate_subnames)
+% a_plot = plotInf(a_chans_db, chan_name, gate_subnames, title_str, props)
 %
 % Description:
 %
@@ -12,6 +12,7 @@ function a_subplot = plotInf(a_chans_db, chan_name, gate_subnames, props)
 %	chan_name: Name of channel that make up the stem of variable
 %		names.
 % 	gate_subnames: Gate names of the channel.
+%	title_str: (Optional) A string to be concatanated to the title.
 %	props: A structure with any optional properties.
 %	  (rest passed to plot_abstract.)
 %
@@ -37,6 +38,10 @@ function a_subplot = plotInf(a_chans_db, chan_name, gate_subnames, props)
   inf_name = [ chan_name '_inf' ];
   db_id = get(a_chans_db, 'id');
 
+  if ~exist('title_str', 'var') || isempty(title_str)
+    title_str = [ strrep(chan_name, '_', ' ') ];
+  end
+
   % it sucks that I need a for loop for getting multiple values out of a
   % structure 
   powers = [];
@@ -54,7 +59,7 @@ function a_subplot = plotInf(a_chans_db, chan_name, gate_subnames, props)
                           'data') .^ ( ones(dbsize(a_chans_db, 1), 1) * powers ), 2) );
 
   a_subplot = ...
-      plotScatter(a_chans_db, [ chan_name '_x' ], inf_name, [ strrep(chan_name, '_', ' ') ], ...
+      plotScatter(a_chans_db, [ chan_name '_x' ], inf_name, title_str, ...
                   strrep([ db_id ' ' inf_name ], '_', ' '), ...
                   mergeStructs(props, struct('LineStyle', '-', 'quiet', 1)));
 end

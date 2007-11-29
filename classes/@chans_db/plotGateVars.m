@@ -1,9 +1,9 @@
-function a_subplot = plotGateVars(a_chans_db, chan_name, gate_subnames, props)
+function a_subplot = plotGateVars(a_chans_db, chan_name, gate_subnames, title_str, props)
   
 % plotGateVars - Plot given channel gate variables of the same channel superposed.
 %
 % Usage: 
-% a_plot = plotGateVars(a_chans_db, chan_name, gate_subnames)
+% a_plot = plotGateVars(a_chans_db, chan_name, gate_subnames, title_str, props)
 %
 % Description:
 %
@@ -12,6 +12,7 @@ function a_subplot = plotGateVars(a_chans_db, chan_name, gate_subnames, props)
 %	chan_name: Name of channel that make up the stem of variable
 %		names.
 % 	gate_subnames: Gate names of the channel.
+%	title_str: (Optional) A string to be concatanated to the title.
 %	props: A structure with any optional properties.
 %	  usePowers: Use the gate powers, Luke.
 %	  (rest passed to plot_abstract.)
@@ -38,6 +39,10 @@ function a_subplot = plotGateVars(a_chans_db, chan_name, gate_subnames, props)
   subplots = {};
   db_id = get(a_chans_db, 'id');
 
+  if ~exist('title_str', 'var') || isempty(title_str)
+    title_str = [ strrep(chan_name, '_', ' ') ];
+  end
+  
   for gate_subname = gate_subnames
     %# wrapped in two cells by regexp??
     gate_subname = gate_subname{1};
@@ -57,10 +62,10 @@ function a_subplot = plotGateVars(a_chans_db, chan_name, gate_subnames, props)
         
         gate_subname = power_name;
       end
-
+      
       gate_subname_label = strrep(gate_subname, '_', ' ');
       subplots = { subplots{:}, ...
-		  plotScatter(a_chans_db, [ chan_name '_x' ], gate_subname, [ strrep(chan_name, '_', ' ') ], ...
+		  plotScatter(a_chans_db, [ chan_name '_x' ], gate_subname, title_str, ...
 			      [ db_id ', ' gate_subname_label], ...
 			      mergeStructs(props, struct('LineStyle', '-', 'quiet', 1)))};
     end

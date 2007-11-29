@@ -52,7 +52,7 @@ for chan_name = chan_names
   inf_gates = all_names(~cellfun(@isempty, regexp(all_names, [ chan_name '_._minf' ], 'match')));
   
   if ~ isempty(inf_gates)
-    all_plots(chan_num) = plotInf(chan_name, inf_gates);
+    all_plots(chan_num) = plotInf(a_chans_db, chan_name, inf_gates);
   
     %   separate plot for each gate
     chan_num = chan_num + 1;
