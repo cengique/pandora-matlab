@@ -40,4 +40,6 @@ filename = properTeXFilename(a_doc.plot_filename);
 
 print('-depsc2', [  filename '.eps' ] );
 
+a_doc.float_props.floatType = 'figure';
+
 tex_string = TeXtable([ '\includegraphics{' filename '}' ], a_doc.caption, a_doc.float_props);
