@@ -7,11 +7,11 @@ function a_tests_db = diff2D(a_db, test, props)
 %
 % Description: 
 %   Applies the diff function to the chosen test, and collapses the middle
-% dimension of the 3D DB to create a 2D DB and trasnposes it. The result is
+% dimension of the 3D DB to create a 2D DB and transposes it. The result is
 % that the pages of the 3D DB becomes the rows of the new database, and the
 % differenced rows appear as new columns, each named uniquely. The column
 % index would correspons to the row index in the 3D DB. A new column
-% 'PageNumber' is appended to point to the 3D DB.
+% 'PageNumber' is appended to point back to the 3D DB.
 %
 %   Parameters:
 %	a_db: A tests_3D_db object.
