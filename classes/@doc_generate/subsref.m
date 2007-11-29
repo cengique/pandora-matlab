@@ -20,8 +20,9 @@ if size(index, 2) > 1
 else
   switch index.type
     case '()'
-      %# Delegate to base class
-      error('indexing operator not defined.');
+      %# Delegate to builtin indexing
+      b = builtin('subsref', a, index);
+      %error('indexing operator not defined.');
       %#b = a(index.subs{:});
     case '.'
       b = get(a, index.subs); 
