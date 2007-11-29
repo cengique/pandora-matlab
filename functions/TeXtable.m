@@ -11,12 +11,13 @@ function tex_string = TeXtable(contents, caption, props)
 % 	contents: Table contents in LaTeX.
 %	caption: Table caption.
 %	props: A structure with any optional properties.
-%		rotate: Degrees to rotate.
-%		width: Resize to this width.
-%		height: Resize to this height
-%		center: Align to center.
-%		shortCaption: Short version of caption to appear at list of tables.
-%		floatType: LaTeX float to use (default='table').
+%	  rotate: Degrees to rotate.
+%	  width: Resize to this width.
+%	  height: Resize to this height
+%	  center: Align to center.
+%	  shortCaption: Short version of caption to appear at list of tables.
+%	  floatType: LaTeX float to use (default='table').
+%	  label: Used for internal LaTeX references.
 %		
 %   Returns:
 %	tex_string: LaTeX string for table float.
@@ -86,6 +87,11 @@ if isfield(props, 'shortCaption')
 end
 tex_string = [ tex_string sprintf('\n') '\caption' short_caption ...
 	      '{' caption '}' sprintf('\n') ];
+
+if isfield(props, 'label')
+  tex_string = [ tex_string sprintf('\n') '\label{' props.label '}' ...
+                 sprintf('\n') ];
+end
 
 tex_string = [ tex_string '\end{' float_type '}' sprintf('\n\n') ];
 
