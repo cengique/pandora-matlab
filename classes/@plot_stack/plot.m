@@ -282,9 +282,7 @@ for plot_num=1:num_plots
   %# Set its axis limits if requested
   current_axis = axis;
   if ~ isempty(a_plot.axis_limits)
-    %# Skip NaNs, allows fixing some ranges while keeping others flexible
-    nonnans = ~isnan(a_plot.axis_limits);
-    current_axis(nonnans) = a_plot.axis_limits(nonnans);
+    current_axis = setAxisNonNaN(a_plot.axis_limits);
   end
   if isfield(a_plot_props, 'relaxedLimits') && a_plot_props.relaxedLimits == 1
     %# Set axis limits to +/- 10% of bounds
