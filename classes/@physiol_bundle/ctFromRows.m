@@ -42,7 +42,7 @@ else
 end
 
 p_db = get(a_pbundle, 'db');
-rows = onlyRowsTests(p_db, ':', 'TracesetIndex') == traceset_vals;
+rows = anyRows(onlyRowsTests(p_db, ':', 'TracesetIndex'), traceset_vals);
 
 if isfield(props, 'traces') 
   rows = rows & onlyRowsTests(p_db, ':', 'ItemIndex') == props.traces;
