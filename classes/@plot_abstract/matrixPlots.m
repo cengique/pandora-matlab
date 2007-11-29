@@ -12,7 +12,7 @@ function a_plot = matrixPlots(plots, axis_labels, title_str, props)
 %	axis_labels: Cell array of axis label strings (optional, taken from plots).
 %	title_str: Plot description string (optional, taken from plots).
 %	props: A structure with any optional properties passed to the Y stack_plot.
-%	  titlesPos: if specified, passed to the X stack_plots.
+%	  titlesPos, yLabelsPos, yTicksPos: if specified, passed to the X stack_plots.
 %	  rotateYLabel: if specified, passed to the X stack_plots.
 %	  axisLimits: if specified, passed to the X stack_plots.
 %	  goldratio: try to make the figure in this aspect ratio.
@@ -52,18 +52,38 @@ else
   goldratio = 3/4;
 end
 
-if isfield(props, 'width') && isfield(props, 'height')
-  width = props.width;
-  height = props.height;
+if isfield(props, 'width') || isfield(props, 'height')
+  if isfield(props, 'width') && isfield(props, 'height')
+    width = props.width;
+    height = props.height;
+  elseif isfield(props, 'width')
+    width = props.width;
+    height = ceil(length(plots) / width);
+  else                                  % Only height is given
+    height = props.height;
+    width = ceil(length(plots) / height);    
+  end
 else
   [width, height] = findBestRectangle;
 end
 
-horz_props = struct('yLabelsPos', 'left', 'xLabelsPos', 'none', 'rotateYLabel', 30);
+horz_props = struct('xLabelsPos', 'none', 'rotateYLabel', 30);
 if isfield(props, 'titlesPos')
   horz_props.titlesPos = props.titlesPos;
 else
   horz_props.titlesPos = 'none';
+end
+
+if isfield(props, 'yLabelsPos')
+  horz_props.yLabelsPos = props.yLabelsPos;
+else
+  horz_props.yLabelsPos = 'left';
+end
+
+if isfield(props, 'yTicksPos')
+  horz_props.yTicksPos = props.yTicksPos;
+else
+  horz_props.yTicksPos = 'left';
 end
 
 if isfield(props, 'axisLimits')
