@@ -79,6 +79,10 @@ end
 %# - subtract from db
 compared = db_data - row_data;
 
+% matching rows become zero
 idx = idx & (any(abs(compared) > eps(0), 2));
+
+% don't consider any NaN-containing rows
+idx = idx | any(isnan(rows), 2) | any(isnan(db_data), 2);
 
 end
