@@ -117,7 +117,7 @@ else
   for plot_num=1:length(plots)
     plot_axis_labels = get(plots{plot_num}, 'axis_labels');
 
-    if ~isempty(plot_axis_labels) 
+    if isempty(axis_labels) && ~isempty(plot_axis_labels) 
       if ~isempty(plot_axis_labels{1})
 	axis_labels{1} = plot_axis_labels{1};
       end
