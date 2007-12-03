@@ -1,5 +1,6 @@
 TODO
 --------------------
+- modify license to include attribution in scientific publications
 - add test suite?
 - add more examples to lyx documentation.
 - replace exist functions with a 'var' 2nd param
