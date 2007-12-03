@@ -11,7 +11,10 @@ function a_plot = plot_stack(plots, axis_limits, orientation, title_str, props)
 %
 %   Parameters:
 %	plots: Cell array of plot_abstract or subclass objects.
-%	axis_limits: If given, all plots contained will have these axis limits.
+%	axis_limits: If given, all plots contained will have these axis
+%		limits. In this vector, NaNs are untouched, Infs are
+%		replaced by minimal and maximal ranges of the
+%		stacked plots.
 %	orientation: Stack orientation 'x' for horizontal, 'y' for vertical, etc.
 %	title_str: Title to go on top of the stack
 %	props: A structure with any optional properties.

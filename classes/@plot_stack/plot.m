@@ -161,6 +161,19 @@ elseif strcmp(a_plot.orient, 'y')
 	  sum(relative_sizes);
 end
 
+% if infs in given axis_limits, find maximal range limits
+if isinf(a_plot.axis_limits)
+  maximal_ranges = [];
+  for plot_num=1:num_plots
+    if iscell(a_plot.plots)
+      one_plot = a_plot.plots{plot_num};
+    else
+      one_plot = a_plot.plots(plot_num);
+    end
+    maximal_ranges = growRange([ maximal_ranges; axis(one_plot) ]);
+  end
+end
+
 %# Lay the stack out in a loop
 for plot_num=1:num_plots
   %# Initialize space variables
@@ -282,6 +295,9 @@ for plot_num=1:num_plots
   %# Set its axis limits if requested
   current_axis = axis;
   if ~ isempty(a_plot.axis_limits)
+    infs = isinf(a_plot.axis_limits);
+    % replace the infs from the maximal ranges
+    a_plot.axis_limits(infs) = maximal_ranges(infs);
     current_axis = setAxisNonNaN(a_plot.axis_limits);
   end
   if isfield(a_plot_props, 'relaxedLimits') && a_plot_props.relaxedLimits == 1
