@@ -4,6 +4,23 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
+v1_0b: Cengiz Gunay, 2007/10/10. First public beta release
+	- moved to subversion control from CVS
+	- organized files into subdirectories
+	- included all additional utilities
+	- made a installable package available for download
+	- added a Academic Free License and copyright statement
+	- supports NeuroSAGE HDF5 input files for recorded physiology data
+	- can load from subdirectories in params_tests_fileset
+	- misc improvements of plotting functions (margins, titles, etc.)
+	- added examples into manual
+	- allow using covariance matrix for calculating Mahalonobis distance in ranking
+	- new function to find a ll best matching neurons
+	- support inset plots at arbitrary axis locations
+	- extend querying to allow columns and pages. also better optimized.
+	- added support for plotting channel variables
+	- improved cluster job submission
+
 v0_10b: Cengiz Gunay, 2007/03/22. Beta version.
 	- automated function reference generation from Matlab source for PDF and HTML manuals
 	- revamped plot generation by making plot_abstract solely responsible for frame
