@@ -1,4 +1,4 @@
-function b = set(a, attr, val)
+function a = set(a, attr, val)
 % set - Generic method for setting object attributes.
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/08
@@ -8,15 +8,13 @@ function b = set(a, attr, val)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
-if ~ isa(a, 'plot_abstract')
+if ~ isa(a, 'plot_stack')
   builtin('set', a, attr, val);
 else
   try
     a.(attr) = val;
-    b = a;
   catch
     errstr = lasterror;
-    b = a;
-    b.plot_abstract = set(a.plot_abstract, attr, val);
+    a.plot_abstract = set(a.plot_abstract, attr, val);
   end
 end
