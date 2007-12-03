@@ -1,32 +1,52 @@
-function a_tests_3D_db = invarValues(db, cols, main_cols)
+function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 
-% invarValues - Generates a 3D database of invariant values of given columns.
+% invarValues - Finds all sets in which given columns vary while the rest are invariant.
 %
 % Usage:
-% a_tests_3D_db = invarValues(db, cols, main_cols)
+% a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 %
 % Description:
-% The invariant values of a column are its values when all other 
-% column values are fixed. The invariant values of desired columns
-% forms a matrix of rows. This function finds all combinations of the
-% rest of the columns and returns the invariant value matrices 
-% for each such combination in a page of a three-dimensional vector; 
-% i.e. a tests_3D_db. Each matrix page will contain an additional 
-% column for the original row index for the invariant values. This
-% index can be used to find the test columns that were omitted.
-% Note: the trial column will be ignored for finding invariant values.
+%   Useful when trying to find relationships between some columns
+% independent of other columns. In a database that contains results of a
+% multivariate function, this function can find the effect of one or more
+% parameters when other parameters are kept constant (i.e., invariant). Rows
+% with the values of the desired columns are separated into the pages of a
+% tests_3D_db for each unique set of the other column values. These
+% invariant values of the other columns are missing from the resulting
+% tests_3D_db, instead a RowIndex is kept pointing to the db in which they
+% can be found. See joinRows for joining the results back with the invariant
+% columns.
+%   In databases that contain all unique combinations of certain parameters,
+% the resulting 3D database becomes symmetric. This function row-sorts the
+% database to ensure that each page has the same parameter values in the
+% same rows. This is important because when the rows and pages of database
+% is swapped (see tests_3D_db/swapRowsPages) each page has the same value of
+% the in_page_unique_cols variables. Other functions such as
+% tests_3D_db/mergePages also depend on this property.
+%   However, for databases with missing combinations, in_page_unique_cols
+% specifies which columns is used to guide which rows of the page to place
+% values found. This function will fail if you do not have such a column.
+% Note: the trial column will be ignored before finding invariant values.
 %
 %   Parameters:
 %	db: A tests_db object.
-%	cols: Vector of column numbers to find invariant values.
-%	main_cols: Vector of columns that need to be unique in each page 
+%	cols: Vector of column numbers to find values when others are
+%		invariant. Include result columns here.
+%	in_page_unique_cols: Vector of columns that have the same unique values in each page 
 % 		(Optional; used only if database is not symmetric, to ignore 
-%		missing values of main_cols)
+%		missing values of in_page_unique_cols)
 %		
 %   Returns:
 %	a_tests_3D_db: A tests_3D_db object of organized values.
 %
-% See also: tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair
+% Example:
+% >> a_db = tests_db([ ... ], {'par1', 'par2', 'measure1', 'measure2'})
+% % make a page for each value of par1, and list par2 values with assoc. measures:
+% >> a_3d_db = invarValues(a_db, [2:4], 'par2')
+% >> displayRows(a_3d_db(:, :, 1))
+%
+% See also: tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair,
+% 	    joinRows, tests_3D_db/swapRowsPages, tests_3D_db/mergePages
 %
 % $Id$
 %
@@ -71,18 +91,20 @@ if mod(num_total_rows, num_rows) ~= 0
   if verbose
     disp('Warning: non-symmetric database.');
   end
-  if ~ exist('main_cols')
-    error('Database does not contain equal rows of each unique combination and main_cols is not specified. Cannot fold.');
+  if ~ exist('in_page_unique_cols')
+    error('Database does not contain equal rows of each unique combination and in_page_unique_cols is not specified. Cannot fold.');
   end
 
-  main_cols = tests2cols(db, main_cols);
+  in_page_unique_cols = tests2cols(db, in_page_unique_cols);
 
-  %# Sort and keep the unique values of main_cols
-  unique_main_vals = sortrows(uniqueValues(db.data(idx, main_cols)));
+  %# Sort and keep the unique values of in_page_unique_cols
+  unique_main_vals = sortrows(uniqueValues(db.data(idx, in_page_unique_cols)));
+  num_uniques = size(unique_main_vals, 1);
   if verbose
     unique_main_vals
+    num_uniques
+    num_rows
   end
-  num_uniques = size(unique_main_vals, 1);
   max_page_rows = num_uniques;
 else
   max_page_rows = floor(num_total_rows / num_rows);
@@ -106,8 +128,8 @@ for row_num=1:num_rows
 
   page_size = length(page_rows);
   if unique_main_vals_exist
-    %# sort main_cols first
-    [page_main_vals page_idx] = sortrows(db.data(idx(page_rows), main_cols));
+    %# sort in_page_unique_cols first
+    [page_main_vals page_idx] = sortrows(db.data(idx(page_rows), in_page_unique_cols));
 
     %# Match each page entry to uniques
     unique_index = 1;
@@ -122,7 +144,8 @@ for row_num=1:num_rows
 	page_size
 	page_index
 	page_main_vals
-	error('Fatal: cannot match within page values of main_cols to uniques?');
+	error(['Fatal: cannot match within page values of in_page_unique_cols? ' ...
+               'See above variables.']);
       end
 
       %# Check if remaining page size is equal to remaining uniques size,
