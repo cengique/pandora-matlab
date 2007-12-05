@@ -46,7 +46,8 @@ for param_num=1:num_params
   all_test_cols = [];
   all_test_cols(1:dbsize(joint_db, 2)) = true(1);
   all_test_cols(tests2cols(joint_db, {'RowIndex'})) = false(1,1);
-  j2_db = joinRows(a_db, 1:num_params, joint_db, find(all_test_cols));
+  j2_db = joinRows(onlyRowsTests(a_db, ':', 1:num_params), ...
+                   onlyRowsTests(joint_db, ':', all_test_cols));
   for cparam_num=1:num_params
     all_test_cols = [];
     all_test_cols((num_params + 1):dbsize(j2_db, 2)) = true(1);

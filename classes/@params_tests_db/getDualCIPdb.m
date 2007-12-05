@@ -46,7 +46,7 @@ end
 %# Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
-joined_db = joinRows(db, wo_cip_params, merged_db, ':');
+joined_db = joinRows(onlyRowsTests(db, ':', wo_cip_params), merged_db);
 
 %# Remove the RowIndex column
 wo_index = true(1, dbsize(joined_db, 2));

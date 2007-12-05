@@ -74,7 +74,9 @@ cip_fold_db = mergePages(cip_fold_db, tests_cell, page_suffixes);
 %# Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
-cip_fold_db = joinRows(db, wo_cip_params, cip_fold_db, ':', index_col_name);
+cip_fold_db = ...
+    joinRows(onlyRowsTests(db, ':', wo_cip_params), cip_fold_db, ...
+             struct('indexColName', index_col_name));
 
 %# Remove the RowIndex columns
 test_names = fieldnames(get(cip_fold_db, 'col_idx'));
