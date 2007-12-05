@@ -42,6 +42,10 @@ setdbprefs('DataReturnFormat','numeric');
 % run query
 a_cursor = cursor(a_sql_portal.db_conn, query_string);
 
+if strfind(lower(a_cursor.Message), 'error')
+  error(['Error in SQL query:' sprintf('\n') a_cursor.Message]);
+end
+
 % get the data
 a_cursor = fetch(a_cursor);
 
@@ -51,3 +55,5 @@ col_names = { attrs.fieldName };
 
 % create the tests_db object
 a_db = tests_db(a_cursor.Data, col_names, {}, query_id, props);
+
+close(a_cursor);
