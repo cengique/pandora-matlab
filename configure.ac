@@ -8,7 +8,7 @@
 # Basic stuff
 AC_REVISION([$Revision: 8 $])
 AC_PREREQ(2.60)
-AC_INIT(pandora, 1.0b, [cengique@users.sf.net], pandora)
+AC_INIT(pandora, 1.1b, [cengique@users.sf.net], pandora)
 
 AC_CONFIG_FILES([Makefile])
 
