@@ -17,27 +17,36 @@ function obj = trace(data_src, dt, dy, id, props)
 %	dy: y-axis resolution [ISI (V, A, etc.)]
 %	id: Identification string
 %	props: A structure with any optional properties.
-%		scale_y: Y-axis scale to be applied to loaded data.
-%		offset_y: Y-axis offset to be added to loaded and scaled data.
-%		trace_time_start: Samples in the beginning to discard [dt]
-%		baseline: Resting potential.
-%		channel: Channel to read from file Genesis, PCDX, or Neuron file.
-%		file_type: Specify file type instead of guessing from extension:
-%			'genesis': Raw binary files created with Genesis disk_out method.
-%			'genesis_flac': Compressed Genesis binary files.
-%			'neuron': Binary files created with Neuron's Vector.vwrite method.
-%			'pcdx': .ALL data acquisition files from PCDX program.
-%			'matlab': Matlab .MAT binary files with matrix data.
-%		traces: Traces to read from PCDX file.
-%		spike_finder: Method of finding spikes 
-%		(1 for findFilteredSpikes, 2 for findspikes).
-%		init_Vm_method: Method of finding spike thresholds 
-%				(see spike_shape/spike_shape).
-%		init_threshold: Spike initiation threshold (deriv or accel).
-%				(see above methods and implementation in calcInitVm)
-%		init_lo_thr, init_hi_thr: Low and high thresholds for slope.
-%		threshold: Spike threshold.
-%		quiet: If 1, reduces the amount of textual description in plots, etc.
+%	  scale_y: Y-axis scale to be applied to loaded data.
+%	  offset_y: Y-axis offset to be added to loaded and scaled data.
+%	  trace_time_start: Samples in the beginning to discard [dt]
+%	  baseline: Resting potential.
+%	  channel: Channel to read from file Genesis, PCDX, or Neuron file.
+%	  file_type: Specify file type instead of guessing from extension:
+%		'genesis': Raw binary files created with Genesis disk_out method.
+%		'genesis_flac': Compressed Genesis binary files.
+%		'neuron': Binary files created with Neuron's Vector.vwrite method.
+%		'pcdx': .ALL data acquisition files from PCDX program.
+%		'matlab': Matlab .MAT binary files with matrix data.
+%	  traces: Traces to read from PCDX file.
+%	  spike_finder: Method of finding spikes 
+%	                (1 for findFilteredSpikes, 2 for findspikes).
+%	  threshold: Spike threshold used in trace/findFilteredSpikes.
+%	  init_Vm_method: Method of finding spike thresholds during spike
+%	  		shape calculation (see spike_shape/spike_shape).
+%	  init_threshold: Spike initiation threshold (deriv or accel).
+%			(see above methods and implementation in calcInitVm)
+%	  init_lo_thr, init_hi_thr: Low and high thresholds for slope.
+%         custom_filter: Recommended if sampling rate differs appreciably from 10 kHz.
+%                      If custom_filter == 1, a filter with custom lowpass and highpass
+%                      cutoffs can be specified. This allows for fast and accurate spike
+%                      discrimination. The filter type used is a 2-pole
+%                      butterworth, different than the default high-order
+%                      Cheby2. Creates new prop called 'butterWorth' to
+%                      hold the filter.
+%         lowPassFreq: if set, it sets a new low pass cutoff. default is 3000Hz
+%         highPassFreq: if set it sets a new high pass cutoff. default is 50 Hz
+%	  quiet: If 1, reduces the amount of textual description in plots, etc.
 %		
 %   Returns a structure object with the following fields:
 %	data: The trace column matrix.
@@ -71,6 +80,8 @@ function obj = trace(data_src, dt, dy, id, props)
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/07/30
+% Modified:
+%   - allow custom filter, Thomas D. Sangrey 2007/12/04
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -183,6 +194,26 @@ if nargin == 0 %# Called with no params
    %# Crop the data if desired
    if isfield(props, 'trace_time_start')
      data =  data(props.trace_time_start:end);
+   end
+
+   % Custom filter props
+   if isfield(props, 'custom_filter') && props.custom_filter == 1
+     if isfield(props, 'highPassFreq')
+       hpf = props.highPassFreq;
+     else
+       hpf = 50;
+     end
+     % make a new filter based on the given dt
+     [b,a] = butter(2,2*hpf*dt,'high');
+     butterWorth.highPass = struct('b', b, 'a', a);
+     if isfield(props, 'lowPassFreq')
+       lpf = props.lowPassFreq;
+     else
+       lpf =3000;
+     end
+     [b,a] = butter(2,2*lpf*dt,'low');
+     butterWorth.lowPass = struct('b', b, 'a', a);
+     props.butterWorth = butterWorth;
    end
 
    obj.data = data;

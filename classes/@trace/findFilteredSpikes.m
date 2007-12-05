@@ -34,19 +34,14 @@ function [times, peaks, n] = ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/03/08
 % Modified:
 % - Adapted to the trace object, CG 2004/07/30
-% - minamp parameter added, JRE 2005/10/10
+% - minamp parameter added, Jeremy R. Edgerton 2005/10/10
+% - custom filter added, Thomas D. Sangrey 2007/12/04
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
-
-if nargin < 4
-	up_threshold = 10;	% default.
-else
-	up_threshold = minamp;
-end
 
 s = load('spike_filter_50_3000Hz_ChebII.mat');
 fields = fieldnames(s);
@@ -73,12 +68,48 @@ catch
   end
 end
 
-filtered = filtfilt(fd.tf.num, fd.tf.den, data);
+% Insertion of switch to determine which filter to use - TDS
+% CustomFilter props determine new filtfilt operation
+if(isfield(t.props, 'butterWorth'))
+  butterWorth = t.props.butterWorth;
+  b = butterWorth.highPass.b;
+  a = butterWorth.highPass.a;
+  filtered = filtfilt(b,a,data);
+  b = butterWorth.lowPass.b;
+  a = butterWorth.lowPass.a;
+  filtered=filtfilt(b,a,filtered);
+else
+  if t.dt ~= 1e-4
+    error(['Trace is not sampled at 10KHz, cannot use findFilteredSpikes! ' ...
+           'Choose another spike_finder method or supply a CustomFilter ' ...
+           '(see trace)']);
+  end
+  filtered = filtfilt(fd.tf.num, fd.tf.den, data);
+end
+
+if ~ exist('minamp', 'var') || isempty(minamp)
+  if(max(filtered)>15)
+    % up_threshold is 2/3 max amplitude of band-passed data
+    up_threshold = max(filtered) * 0.66; 
+  else
+    up_threshold = 15;                  % default threshold - TDS
+  end
+else
+  up_threshold = minamp;
+end
 
 %# ignore the added parts
 filtered = filtered(prepend_size:(end - prepend_size));
 data = data(prepend_size:(end - prepend_size));
 [times, peaks, n] = findspikes(filtered, 1, up_threshold);
+
+if plotit ~= 0
+  figure;
+  plot(filtered,  'k'), hold on
+  plot([0 length(filtered)], [up_threshold, up_threshold], 'b');
+  plot(times, peaks, 'ro');
+  title([ t.id ': spikes on filtered data']);
+end
 
 newtimes = [];
 newpeaks = [];
@@ -150,3 +181,11 @@ end
 times = newtimes + a_period.start_time - 1;
 peaks = newpeaks;
 n = newn;
+
+if plotit ~= 0
+  figure;
+  plot(t.data,  'k'), hold on
+  %plot(peaks, 'b');
+  plot(times, peaks, 'ro');
+  title([ t.id ': spikes on original data']);
+end

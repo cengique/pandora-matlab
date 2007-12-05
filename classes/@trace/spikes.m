@@ -46,7 +46,11 @@ if ~ exist('plotit')
 end
 
 if ~ exist('minamp')
-  minamp = 10;	% default.
+  if isfield(t.props, 'threshold')
+    minamp = t.props.threshold;
+  else
+    minamp = [];    % default is in findFilteredSpikes.
+  end
 end
 
 if (a_period.end_time - a_period.start_time) > 0
