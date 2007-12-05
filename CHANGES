@@ -4,6 +4,22 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
+v1_1b: Cengiz Gunay, 2007/12/05. Public beta bugfix and feature release
+	- Added SQL import function using Matlab Database Toolbox.
+	- Tom Sangrey added customized Butterworth filters for traces 
+	  sampled at rates other than 10KHz.
+	- Li Su provided bugfix to his improved findspikes routine.
+	- Added examples to manual.
+	- Added missing functions such as gettracelist2
+	- Improved chan_db plots.
+	- Improved doc_plot, can reference using labels now.
+	- Other plot enhancements.
+	- Major bugfix for NaNs in compareRows, joinRows, and plotScatter
+	- added a 'unique' operator to tests_db
+	- Documentation update.
+	- plot_stack can now find maximal ranges.
+	- changed the way joinRows uses parameters.
+
 v1_0b: Cengiz Gunay, 2007/10/10. First public beta release
 	- moved to subversion control from CVS
 	- organized files into subdirectories
