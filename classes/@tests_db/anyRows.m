@@ -32,6 +32,8 @@ function idx = anyRows(db, rows)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: optimize by using sort
+
 %# Compare two dbs?
 if isa(rows, 'tests_db')
   rows = rows.data;
