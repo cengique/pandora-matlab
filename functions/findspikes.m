@@ -1,12 +1,15 @@
 function [spikeTime, spikePeak, n] = findspikes(traces, fs, thres, varargin)
 % 
-% findspikes - Performs spike discrimination on single tips exceeding or within a threshold and/or time window range.
+% FINDSPIKES: This function performs spike discrimination on 
+% single tips exceeding or within a threshold and/or time window range.
 %
-% Usage:
+% Syntax:
+%
 %  spikeTime = findspikes(traces, fs, threshold)
 %  [spikeTime spikePeak n] = findspikes(traces, fs, threshold [,direction] [,win_range] [,'plot'])
 % 
-% Parameters:
+% Description:
+%
 %  traces   : Multiple traces of signal. each trace in a column
 %  fs       : Sampling frequency, in KHz
 %  threshold: Either a scalar, or [thres1 thres2] to define a range
@@ -17,6 +20,8 @@ function [spikeTime, spikePeak, n] = findspikes(traces, fs, thres, varargin)
 %  win_range: Optional. 
 %             [win_min win_max] to define a time window range of the width at threshold. in ms.
 %  'plot'   : Optional. Plot the result. Not to plot by default.
+%  (optional parameters: direction, win_range and 'plot' can be in any order)
+%
 %  spikeTime: Returns a cell array, each cell is a vector of spike times in each trial.
 %  spikePeak: Returns the peak values of each spikes.
 %  n        : the total number of spikes
@@ -28,8 +33,10 @@ function [spikeTime, spikePeak, n] = findspikes(traces, fs, thres, varargin)
 %  spikeTime=findspikes(signal, 10, [-0.2 -0.5]);
 %  spikeTime=findspikes(signal, 10, [-0.5 -0.2], -1);
 %  spikeTime=findspikes(signal, 10, [-0.2 -0.3], [0.1 2], 'plot');
+%
+% Author: Li, Su based on the original of Alfonso Delagado-Reyes
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>; Li, Su.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -72,9 +79,7 @@ end
 % start to find spikes ===========================
 thres = thres*direction;
 thresh_min=min(thres);
-if nargout==3
-    n = 0;
-end
+n = 0;
 
 for idx = 1:size(traces,2)
 
@@ -87,11 +92,13 @@ for idx = 1:size(traces,2)
     right_edges = find(trace(1:end-1) >= thresh_min & trace(2:end) < thresh_min);  % find falling slopes across the threshold
     timeidx=[]; tips=[]; spike_num=0;
     
-    if ~isempty(left_edges) && ~isempty(right_edges)
+    not_empty=(~isempty(left_edges) && ~isempty(right_edges));
+    while not_empty
         if right_edges(1) < left_edges(1)    % match the left and right edges of each window.
             right_edges(1)=[];
         end
         spike_num=min(length(left_edges), length(right_edges));
+        if spike_num==0; break; end
         left_edges=left_edges(1:spike_num);
         right_edges=right_edges(1:spike_num);
 
@@ -106,6 +113,7 @@ for idx = 1:size(traces,2)
             right_edges(out_of_data_range_idx)=[];                
             spike_num=min(length(left_edges), length(right_edges));
         end
+        if spike_num==0; break; end
 
         % merge the neighbor windows too close to each other.
         refractory=1;
@@ -122,6 +130,7 @@ for idx = 1:size(traces,2)
         right_edges(realSmallInterval)=[];
         left_edges(realSmallInterval+1)=[];
         spike_num=min(length(left_edges), length(right_edges));
+        if spike_num==0; break; end
 
         timeidx=zeros(spike_num,1); tips=zeros(spike_num,1);
 
@@ -134,6 +143,7 @@ for idx = 1:size(traces,2)
             tips(bigSpikes)=[];
             timeidx(bigSpikes)=[];
         end
+        spike_num=length(timeidx);
 
 %         % eliminate small intervals.
 %         interval=diff(timeidx)/fs;
@@ -150,9 +160,10 @@ for idx = 1:size(traces,2)
 %         tips(rmlist)=[];
 %         timeidx(rmlist)=[];
         tips=tips*direction;
+        not_empty=false;
     end
 
-    if size(traces,2) == 1
+    if min(size(traces)) == 1
         spikeTime = timeidx/fs;
         spikePeak = tips;
     else
