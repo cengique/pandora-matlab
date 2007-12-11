@@ -43,6 +43,7 @@ setdbprefs('DataReturnFormat','numeric');
 a_cursor = cursor(a_sql_portal.db_conn, query_string);
 
 if strfind(lower(a_cursor.Message), 'error')
+  disp(['SQL Query: "' query_string '"']);
   error(['Error in SQL query:' sprintf('\n') a_cursor.Message]);
 end
 
