@@ -6,11 +6,13 @@ function [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_col
 % [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_cols, props)
 %
 % Description:
-%   Trains and approximates the mapping between the given inputs to outputs
-% using the Matlab Neural Network Toolbox. Returns and the trained
-% network object and a database with output columns obtained from the
-% approximator. The outputs can then be compared to the original database to
-% test the success of the approximation.
+%   Approximates the mapping between the given inputs to outputs
+% using the Matlab Neural Network Toolbox. By default it creates a
+% feedf-forward network to be trained with a Levenberg-Marquardt training
+% algorithm (see newff). Returns and the trained network object and a
+% database with output columns obtained from the approximator. The outputs
+% can then be compared to the original database to test the success of the
+% approximation.
 %
 %   Parameters:
 %	a_db: A tests_db object.
@@ -25,8 +27,8 @@ function [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_col
 %		
 %   Returns:
 %	an_approx_db: A tests_db object containing the original inputs and
-%			the estimated outputs.
-%	a_nnet: The Matlab neural network classifier object.
+%			the approximated outputs.
+%	a_nnet: The Matlab neural network approximator object.
 %
 % Example:
 % >> [a_class_db, a_nnet = approxMappingNNet(my_db, {'NaF', 'Kv3'}, {'spike_width'});
@@ -35,7 +37,7 @@ function [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_col
 %
 % See also: tests_db, newff
 %
-% $Id: histogram.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/12
 
@@ -75,11 +77,11 @@ end
 % train it
 a_nnet = train(a_nnet, a_nnet_inputs, a_nnet_ouputs);
 
-% return simulated classifier output in new db
+% return simulated approximator output in new db
 col_names = getColNames(a_db);
 an_approx_db = ...
     tests_db([get(onlyRowsTests(a_db, ':', input_cols), 'data'), ...
               sim(a_nnet, a_nnet_inputs)'], ...
              [ col_names(tests2cols(a_db, input_cols)), ...
                col_names(tests2cols(a_db, output_cols)) ], {}, ...
-             [ 'Classified ' get(a_db, 'id') ]);
+             [ 'NNet approximated ' get(a_db, 'id') ]);
