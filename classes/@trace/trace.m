@@ -89,14 +89,14 @@ function obj = trace(data_src, dt, dy, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    obj.data = [];
    obj.dt = 1;
    obj.dy = 1;
    obj.id = '';
    obj.props = struct([]);
    obj = class(obj,'trace');
- elseif isa(data_src,'trace') %# copy constructor?
+ elseif isa(data_src,'trace') % copy constructor?
    obj = data_src;
  else
 
@@ -104,73 +104,76 @@ if nargin == 0 %# Called with no params
      props = struct([]);
    end
 
-   if isa(data_src, 'char') %# filename?
+   if isa(data_src, 'char') % filename?
      [path, filename, ext, ver] = fileparts(data_src);
 
-     ext = lower(ext); %# Case insensitive matches for file extension
+     ext = lower(ext); % Case insensitive matches for file extension
 
-     %# TODO: Also load NeuroSAGE files
-
-     %# if file type not specified, use file extension to guess it
+     % if file type not specified, use file extension to guess it
      if ~ isfield(props, 'file_type')
        props.file_type = '';
      end
 
      if strcmpi(props.file_type, 'genesis') || ...
-	   strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') %# Genesis file
-       channel = 1; %# by default
+	   strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') % Genesis file
+       channel = 1; % by default
        if isfield(props, 'channel')
         channel = props.channel;
        end
 
        if ~ isempty(findstr(filename, '_BE_')) | ...
 	     ~ isempty(findstr(filename, '_BE.'))
-         %# Use big-endian (Mac, Sun) version of readgenesis
+         % Use big-endian (Mac, Sun) version of readgenesis
          data = readgenesis_BE(data_src, channel);
        else
-         %# Use regular (i386 PCs) little-endian version of readgenesis
+         % Use regular (i386 PCs) little-endian version of readgenesis
          data = readgenesis(data_src, channel);
        end
 
      elseif strcmpi(props.file_type, 'genesis_flac') || ...
-	   strcmpi(ext, '.genflac') %# Compressed 16-bit genesis file
-       channel = 1; %# by default
+	   strcmpi(ext, '.genflac') % Compressed 16-bit genesis file
+       channel = 1; % by default
        if isfield(props, 'channel')
          channel = props.channel;
        end
        data = readgenesis16bit(data_src);
        data = data(:, channel);
 
-     elseif strcmpi(props.file_type, 'neuron') %# Untested!
+     elseif strcmpi(props.file_type, 'neuron') % Untested!
        [c_type, maxsize, endian] = computer;
        data = readNeuronVecBin(data_src, endian);
-       channel = 1; %# by default
+       channel = 1; % by default
        if isfield(props, 'channel')
          channel = props.channel;
        end
        data = data(:, channel);
 
      elseif strcmpi(props.file_type, 'pcdx') || ...
-	   strcmpi(ext, '.all') %# PCDX file
-       %#disp('Loading PCDX trace');
+	   strcmpi(ext, '.all') % PCDX file
+       %disp('Loading PCDX trace');
        data = loadtraces(data_src, props.traces, props.channel, 1);
        
      elseif strcmpi(props.file_type, 'matlab') || ...
-	   strcmpi(ext, '.mat') %# MatLab file
+	   strcmpi(ext, '.mat') % MatLab file
        s = load(data_src);
        fields = fieldnames(s);
-       data = getfield(s, fields{1});	%# Assuming there's only one vector
+       data = getfield(s, fields{1});	% Assuming there's only one vector
        
      elseif strcmpi(props.file_type, 'hdf5') || ...
-	   strcmpi(ext, '.hdf5') %# new neurosage file
+	   strcmpi(ext, '.hdf5') % new neurosage file
         s1 = ns_read(props.AcquisitionData{props.channel});
-        data = s1.Y';
+        % Make sure the data is in a column vector
+        if size(s1.Y, 1) > size(s1.Y, 2)
+          data = s1.Y;
+        else
+          data = s1.Y';
+        end
      else
        error(['No matching load function found for file ''' data_src ''' or specified type ''' ...
 	      props.file_type '''.']);
      end
 
-     %# use the filename as id unless otherwise specified
+     % use the filename as id unless otherwise specified
      if ~ exist('id') | strcmp(id, '') == 1
        id = name;
      end
@@ -181,17 +184,17 @@ if nargin == 0 %# Called with no params
      error(sprintf('Unrecognized data source %s', data_src));
    end
 
-   %# Scale the loaded data if desired
+   % Scale the loaded data if desired
    if isfield(props, 'scale_y')
      data = props.scale_y * data;
    end
 
-   %# Apply offset to data if desired (after scaling?)
+   % Apply offset to data if desired (after scaling?)
    if isfield(props, 'offset_y')
      data = data + props.offset_y;
    end
 
-   %# Crop the data if desired
+   % Crop the data if desired
    if isfield(props, 'trace_time_start')
      data =  data(props.trace_time_start:end);
    end
