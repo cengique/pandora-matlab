@@ -31,6 +31,13 @@ if ~ exist('props')
   props = struct([]);
 end
 
+nanrows = isnanrows(db);
+if any(any(nanrows))
+  warning(['NaN containing rows in db, stripping before sending to ' ...
+           'princomp.']);
+  db = onlyRowsTests(db, ~nanrows, ':');
+end
+
 if isfield(props, 'normalized')
   data = zscore(get(db, 'data'));
 else
