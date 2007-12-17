@@ -14,7 +14,7 @@ function a_p = plotXRows(a_db, test_y, title_str, short_title, props)
 %	short_title: (Optional) Few words that may appear in legends of multiplot.
 %	props: A structure with any optional properties passed to
 %		plotScatter.
-%	  RowName: Label to show on X-axis (default='RowNumber')
+%	  RowName: Label to show on X-axis, becomes a db column (default='RowNumber')
 %		
 %   Returns:
 %	a_p: A plot_abstract.
