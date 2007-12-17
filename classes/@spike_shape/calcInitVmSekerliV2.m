@@ -42,7 +42,7 @@ s_props = get(s, 'props');
 d3 = diff3T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1 = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
-%# Remove boundary artifacts
+% Remove boundary artifacts
 d3 = d3(4:(end - 3)); 
 d2 = d2(4:(end - 3));
 d1 = d1(4:(end - 3));

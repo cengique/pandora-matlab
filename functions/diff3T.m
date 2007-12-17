@@ -46,7 +46,7 @@ deriv3 = ...
      - [0, 0, x13, 0, 0, 0, 0] + [0, x8, 0, 0, 0, 0, 0] - [x, 0, 0, 0, 0, 0, 0]) ...
     ./ ( 8 * dy * dy * dy);
 
-%# Strip off the boundaries
+% Strip off the boundaries
 deriv3 = deriv3(4:(end-3));
 
 if transposed

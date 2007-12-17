@@ -42,37 +42,37 @@ a_plot = [];
 d3 = diff3T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d2 = diff2T_h4(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1 = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
-%# Remove boundary artifacts
+% Remove boundary artifacts
 d3 = d3(4:(end - 3)); 
 d2 = d2(4:(end - 3));
 d1 = d1(4:(end - 3));
 h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
 
-%# Find  local maxima in h 
+% Find  local maxima in h 
 dh = diffT(h, 1);
 dh2 = dh(2:end) .* dh(1:(end-1));
-hd2 = diff2T_h4(h, 1); %# 2nd deriv
+hd2 = diff2T_h4(h, 1); % 2nd deriv
 zc = find(dh2 < 0 & dh(1:(end-1)) > 0);
 if length(zc) == 0 
-  %# TODO: this should throw an error that can be caught and handled
-  %# then another method can be tried.
+  % TODO: this should throw an error that can be caught and handled
+  % then another method can be tried.
   error('calcInitVm:failed', ...
 	['Failed to find local maximum of phase place acceleration '...
 	 ' during rising edge of spike shape. ']);
 else
-  %# find slope threshold crossing point
+  % find slope threshold crossing point
   cross_idx = find(d1 >= lo_thr); 
   if length(cross_idx) == 0 
     warning('spike_shape:sekerli:threshold_derivative', ...
 	    ['Derivative threshold ' num2str(lo_thr) ...
 	     ' failed to find spike initiation point. '...
 	     'Taking the first point in the trace as threshold instead.']);
-    %# Then, the first point of the trace is the spike initiation point.
+    % Then, the first point of the trace is the spike initiation point.
     idx = 1;
   else
     cross_idx = cross_idx(1);
 
-    %# choose maximum nearest to crossing point
+    % choose maximum nearest to crossing point
     [nearest, nearest_idx] = min(abs(zc - cross_idx));
     idx = zc(nearest_idx) + 3;
   end

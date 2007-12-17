@@ -27,6 +27,6 @@ function a_profile = loadItemProfile(fileset, neuron_id, trace_index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Load a trace_profile object
+% Load a trace_profile object
 traceset=getItem(fileset, neuron_id);
 a_profile = loadItemProfile(traceset, trace_index);

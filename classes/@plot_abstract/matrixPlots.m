@@ -42,7 +42,7 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# Get generic verbose switch setting
+% Get generic verbose switch setting
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
@@ -92,7 +92,7 @@ else
   axis_limits = [];
 end
 
-%# Create matrix of plots
+% Create matrix of plots
 vert_stacks = cell(1, height);
 for y = 1:height
   if y < height
@@ -112,28 +112,28 @@ end
 a_plot = plot_stack(vert_stacks, [], 'y', title_str, props);
 
 function good = goodRatio(side1, side2, cost, goldratio)
-  %# Try to see if it is within some % of the gold ratio
+  % Try to see if it is within some % of the gold ratio
   %ratio = min([side1 side2])/max([side1 side2]);
-  %# more strict definition
+  % more strict definition
   ratio = side1/side2;
   if verbose
     disp([ 'ratio: ' num2str(ratio)]);
   end
 
-  margin = .2 * cost;		%# Increasing margin as cost rises
+  margin = .2 * cost;		% Increasing margin as cost rises
   if ratio > (1 - margin) * goldratio && ratio < (1 + margin) * goldratio
     good = true(1);
   else
     good = false(1);
   end
-  %#disp(['Good: ' num2str(good) ' for ratio: ' num2str(ratio) ' ~= ' num2str(goldratio) ' +/- ' num2str(margin*goldratio) ]);
+  %disp(['Good: ' num2str(good) ' for ratio: ' num2str(ratio) ' ~= ' num2str(goldratio) ' +/- ' num2str(margin*goldratio) ]);
 end
 
 function [width, height] = findBestRectangle()
 % Find best fit rectangular arrangement
   num_plots = length(plots);
 
-%# Iterative algorithm
+% Iterative algorithm
 num_max = num_plots;
 
 iter_num = 0;
@@ -146,23 +146,23 @@ while iter_num < 10
   end
 
   if length(factors) == 1
-    %# Only one factor
+    % Only one factor
     if goodRatio(1, factors, iter_num, goldratio)
       side1 = 1;
       side2 = factors;
       break;
     else
       num_max = num_max + 1;
-      continue;  %# Start over
+      continue;  % Start over
     end
   elseif goodRatio(prod(factors(1:2:end)), prod(factors(2:2:end)), ...
 		   iter_num, goldratio)
-    %# interleaved product of factors
+    % interleaved product of factors
     side1 = prod(factors(1:2:end));
     side2 = prod(factors(2:2:end));
     break;
   else
-    %# Try all factor combinations
+    % Try all factor combinations
     for one_facs=1:floor(length(factors)/2)
       combs = unique(combnk(factors, one_facs), 'rows');
       for frow=combs'
@@ -188,11 +188,11 @@ while iter_num < 10
   end
 end
 
-%# TODO: If all fails, use sqrt here
+% TODO: If all fails, use sqrt here
 
-%# Final width and height of tile matrix
-%#width = max([side1 side2]);
-%#height = min([side1 side2]);
+% Final width and height of tile matrix
+%width = max([side1 side2]);
+%height = min([side1 side2]);
 width = side1;
 height = side2;
 if verbose

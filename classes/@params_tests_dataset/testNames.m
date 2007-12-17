@@ -31,7 +31,7 @@ if ~ exist('item')
   item = 1;
 end
 
-%# Load the first file and
-%# convert test names to cell array
+% Load the first file and
+% convert test names to cell array
 test_names = fieldnames(getResults(loadItemProfile(dataset, item)));
 test_names = {test_names{:}, 'ItemIndex'};

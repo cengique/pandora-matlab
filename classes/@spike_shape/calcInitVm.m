@@ -47,12 +47,12 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-%# Constants
+% Constants
 min_val = s.trace.data(min_idx);
 max_val = s.trace.data(max_idx);
-max_d1o = NaN;			%# comes from calcInitVmMaxCurvPhasePlane
+max_d1o = NaN;			% comes from calcInitVmMaxCurvPhasePlane
 
-%# Find spike initial voltage
+% Find spike initial voltage
 s_props = get(s, 'props');
 method = s_props.init_Vm_method;
 
@@ -63,18 +63,18 @@ if strcmp(verbose, 'on')
   disp([get(s, 'id') ', max_idx=' num2str(max_idx) ])
 end
 
-%# Filter out some spikes
+% Filter out some spikes
 
 try
 switch method
 
-  %# peak of voltage acceleration.
+  % peak of voltage acceleration.
   case 1
     deriv = diff(s.trace.data);
     accel = diff(deriv);
     [val, idx] = max(accel(1 : max_idx)); 
 
-  %# threshold voltage acceleration.
+  % threshold voltage acceleration.
   case 2
     deriv = diff(s.trace.data);
     accel = diff(deriv);
@@ -87,31 +87,31 @@ switch method
     end
     idx = idx(1);
 
-  %# threshold voltage slope
+  % threshold voltage slope
   case 3
     [idx, a_plot] = ...
 	calcInitVmSlopeThreshold(s, max_idx, min_idx, s_props.init_threshold, plotit);
 
-  %# Sekerli's method: maximum second derivative in the phase space
+  % Sekerli's method: maximum second derivative in the phase space
   case 4
     [idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit);
 
-  %# Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
+  % Point of maximum curvature: Kp = V''[1 + (V')^2]^(-3/2)
   case 5
     [idx, a_plot] = calcInitVmLtdMaxCurv(s, max_idx, min_idx, s_props.init_lo_thr, ...
 					 s_props.init_hi_thr, plotit);
 
-  %# Sekerli's method with a twist
+  % Sekerli's method with a twist
   case 6
     [idx, a_plot] = calcInitVmV2PPLocal(s, max_idx, min_idx, ...
 					s_props.init_threshold, plotit);
 
-  %# threshold voltage derivative by first supersampling using interpolation
+  % threshold voltage derivative by first supersampling using interpolation
   case 7
     [idx, a_plot] = ...
 	calcInitVmSlopeThresholdSupsample(s, max_idx, min_idx, s_props.init_threshold, plotit);
 
-  %# Point of maximum curvature in phase-plane: Kp = V''[1 + (V')^2]^(-3/2)
+  % Point of maximum curvature in phase-plane: Kp = V''[1 + (V')^2]^(-3/2)
   case 8
     try 
       [idx, max_d1o, a_plot, fail_cond] = ...
@@ -144,7 +144,7 @@ switch method
     end
 
 
-  %# Combined methods for time-domain derivatives: h and Kp
+  % Combined methods for time-domain derivatives: h and Kp
   case 9
     [idx, a_plot] = calcInitVmV3hKpTinterp(s, max_idx, min_idx, ...
 					   s_props.init_lo_thr, ...
@@ -166,22 +166,22 @@ catch
   end
 end
 
-%# AP init. time
+% AP init. time
 init_idx = idx;
 
-%# AP init. Vm
+% AP init. Vm
 init_val = interpValByIndex(init_idx, s.trace.data);
 
-%# Find the REAL max_val
+% Find the REAL max_val
 [peak_mag, peak_idx] = estimate_tip(s.trace.data, max_idx);
 
-rise_time = peak_idx - init_idx;	%# Init-max Time
-amplitude = peak_mag - init_val; %# Spike amplitude
+rise_time = peak_idx - init_idx;	% Init-max Time
+amplitude = peak_mag - init_val; % Spike amplitude
   
-%# Doesn't work well, the spike tips are round, not sharp.
+% Doesn't work well, the spike tips are round, not sharp.
 function [peak_mag, peak_idx] = estimate_tip(data, max_idx)
 
-  %# Do cubic spline interpolation:
+  % Do cubic spline interpolation:
   times = max_idx - 3 : max_idx + 3;
   interp = spline(times, data(times), max_idx - 1:2/10:max_idx + 1);
 
@@ -191,31 +191,31 @@ function [peak_mag, peak_idx] = estimate_tip(data, max_idx)
 
   return
   
-  %# THE FOLLOWING IS NOT USED:
+  % THE FOLLOWING IS NOT USED:
   
-  %# Find the slopes
+  % Find the slopes
   slopes = diff(data(max_idx - 3 : max_idx + 3))
 
   flips = slopes(1:end-2) .* slopes(3:end)
 
-  %# Find the first reduction in slope 
-  %#reduction = find(diff(slopes) < 0);
+  % Find the first reduction in slope 
+  %reduction = find(diff(slopes) < 0);
 
-  %# Find the first sign flip in slope 
+  % Find the first sign flip in slope 
   flip = find(flips < 0);
 
-  %# That's the left corner of the broken tip
+  % That's the left corner of the broken tip
   left_idx = max_idx - 2 + reduction(1)
   right_idx = left_idx + 1
 
-  %# Find line coefficients
+  % Find line coefficients
   left_slope = data(left_idx) - data(left_idx - 1)
   left_const = data(left_idx) - left_slope * left_idx
 
   right_slope = data(right_idx + 1) - data(right_idx)
   right_const = data(right_idx) - right_slope * right_idx
 
-  %# Find intersection point
+  % Find intersection point
   peak_idx = (left_const - right_const) / (right_slope - left_slope)
   peak_mag = left_slope * peak_idx + left_const
 

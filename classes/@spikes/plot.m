@@ -32,12 +32,12 @@ end
 
 s = size(t);
 if max(s) > 1
-  %# Column vector
+  % Column vector
   if s(1) > s(2)
-    %# Make a vertical stack plot (default)
+    % Make a vertical stack plot (default)
     orientation = 'y';
   else
-    orientation = 'x';		%# or horizontal
+    orientation = 'x';		% or horizontal
   end
   plotFigure(plot_stack(num2cell(plotData(t)), [], orientation, title_str));
 else

@@ -42,13 +42,13 @@ end
 
 num_tracesets = length(traceset_index);
 if num_tracesets > 1
-  %# If called with vectorized indices
+  % If called with vectorized indices
   [ a_crit_bundle(1:num_tracesets) ] = deal(physiol_bundle);
   for traceset_num = 1:num_tracesets
     a_crit_bundle(traceset_num) = matchingRow(p_bundle, traceset_index(traceset_num), props);
   end
 else
-  %# Called with one index
+  % Called with one index
   j_db = get(p_bundle, 'joined_db');
 
   row_num = find(j_db(:, 'TracesetIndex') == traceset_index);
@@ -57,7 +57,7 @@ else
     error(['Cannot find TracesetIndex ' num2str(traceset_index) ]);
   end
 
-  %# Get a_crit_db and rename to a more human-readable form
+  % Get a_crit_db and rename to a more human-readable form
   a_crit_db = set(matchingRow(j_db, row_num, ...
 			      struct('distDB', p_bundle.joined_control_db)), 'id', ...
 		  ['Matching traceset ' num2str(traceset_index) ' of neuron ' ...

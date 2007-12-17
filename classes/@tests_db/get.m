@@ -9,8 +9,8 @@ function b = get(a, attr)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%#try
+%try
 b = a.(attr);
-%#catch
-%#  rethrow(lasterror);
-%#end
+%catch
+%  rethrow(lasterror);
+%end

@@ -46,13 +46,13 @@ function a_doc = doc_plot(a_plot, caption, plot_filename, float_props, id, props
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_doc.plot = plot_abstract;
   a_doc.caption = '';
   a_doc.plot_filename = '';
   a_doc.float_props = struct([]);
   a_doc = class(a_doc, 'doc_plot', doc_generate);
-elseif isa(a_plot, 'doc_plot') %# copy constructor?
+elseif isa(a_plot, 'doc_plot') % copy constructor?
   a_doc = a_plot;
 else
   if ~ exist('props')

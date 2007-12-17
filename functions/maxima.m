@@ -24,13 +24,13 @@ function x_idx = maxima(x)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Find  local maxima in h (diffT does not give correct results)
+% Find  local maxima in h (diffT does not give correct results)
 dx = diff(x);
 
-%# Calculate sign flips (extrema)
-%# NOT ANYMORE: Skip first and last two points due to approx. error
+% Calculate sign flips (extrema)
+% NOT ANYMORE: Skip first and last two points due to approx. error
 dxflip = dx(2:end) .* dx(1:(end-1));
 
-%#dx2 = diff2T_h4(x, 1); %# 2nd deriv
+%dx2 = diff2T_h4(x, 1); % 2nd deriv
 
 x_idx = find([false(1, 1) (dx(1:(end-1)) >= 0 & dxflip <= 0) false(1, 1)]);

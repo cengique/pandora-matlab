@@ -28,8 +28,8 @@ function [mode_val, mode_mag] = calcMode(a_hist_db)
 
 data = get(a_hist_db, 'data');
 
-%# Find heaviest bin
+% Find heaviest bin
 [mode_mag, max_ind] = max(data(:, 2));
 
-%# Lookup bin center
+% Lookup bin center
 mode_val = data(max_ind, 1);

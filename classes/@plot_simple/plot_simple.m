@@ -42,11 +42,11 @@ function a_plot = plot_simple(data_x, data_y, title, label_x, label_y, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: redundant class. Make this a method in plot_abstract
+% TODO: redundant class. Make this a method in plot_abstract
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_plot = class(struct, 'plot_simple', plot_abstract);
- elseif isa(data_x, 'plot_simple') %# copy constructor?
+ elseif isa(data_x, 'plot_simple') % copy constructor?
    a_plot = data_x;
  else
    if ~ exist('props')

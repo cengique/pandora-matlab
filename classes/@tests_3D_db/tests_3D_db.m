@@ -46,10 +46,10 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_3D_db.page_idx = struct([]);
   a_3D_db = class(a_3D_db, 'tests_3D_db', tests_db);
-elseif isa(data, 'tests_3D_db') %# copy constructor?
+elseif isa(data, 'tests_3D_db') % copy constructor?
   a_3D_db = data;
 else
 

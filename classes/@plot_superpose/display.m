@@ -11,7 +11,7 @@ function s = display(t)
 % http://opensource.org/licenses/afl-3.0.php.
 
 disp(sprintf('%s, %s', class(t), get(t, 'title')));
-%#disp(t);
+%disp(t);
 struct(t)
 
 disp(t.plot_abstract)

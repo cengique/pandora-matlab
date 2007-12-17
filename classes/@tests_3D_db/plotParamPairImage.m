@@ -44,10 +44,10 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# Take only the first page
+% Take only the first page
 page_db = onlyRowsTests(a_db, ':', ':', 1);
 
-%# Enumerate the first two columns (parameters)
+% Enumerate the first two columns (parameters)
 enum_db = enumerateColumns(page_db, 1:2, struct('truncateDecDigits', 3));
 enum_data = get(enum_db, 'data');
 
@@ -56,10 +56,10 @@ col = tests2cols(enum_db, test);
 num_param1 = max(enum_data(:, 1));
 num_param2 = max(enum_data(:, 2));
 
-%# Address values into image_data
+% Address values into image_data
 image_data = nan(num_param1, num_param2);
 for row_num = 1:dbsize(a_db, 1)
-  %# Invert rows
+  % Invert rows
   image_data(num_param1 - enum_data(row_num, 1) + 1, enum_data(row_num, 2)) = ...
       enum_data(row_num, col);
 end
@@ -72,7 +72,7 @@ if ~ exist('title_str') || isempty(title_str)
 	       properTeXLabel(get(a_db, 'id'))];
 end
 
-%# Truncate some digits to unify parameter values estranged by numerical error
+% Truncate some digits to unify parameter values estranged by numerical error
 if isfield(props, 'truncateDecDigits')
   mult_factor = 10^props.truncateDecDigits;
 else

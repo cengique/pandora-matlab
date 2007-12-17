@@ -30,12 +30,12 @@ function a_db = vertcat(db, varargin)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# if input is already a row of DBs, allow building a DB matrix
+% if input is already a row of DBs, allow building a DB matrix
 if length(db) > 1
   a_db = builtin('vertcat', db, varargin{:});
 else
 
-%# Recurse to support variable number of inputs
+% Recurse to support variable number of inputs
 if length(varargin) > 1
   with_db = vertcat(varargin{1}, varargin{2:end});
 elseif length(varargin) == 0
@@ -54,10 +54,10 @@ elseif prod(dbsize(with_db)) == 0
   return;
 end
 
-%# check for column consistency
+% check for column consistency
 [col_names, wcol_names] = checkConsistentCols(db, with_db);
 
-%# concatenate and preserve column order of first DB
+% concatenate and preserve column order of first DB
 a_db = set(db, 'data', [ get(db, 'data'); ...
 			get(onlyRowsTests(with_db, ':', col_names), 'data') ] );
 end

@@ -38,7 +38,7 @@ end
 [a_pbundle.dataset_db_bundle, test_names] = ...
     constrainedMeasuresPreset(a_pbundle.dataset_db_bundle, preset, props);
 
-%# Fix the control DB, too
+% Fix the control DB, too
 jc_db = get(a_pbundle, 'joined_control_db');
 jc_db = set(jc_db, 'id', [ get(jc_db, 'id') '; preset' num2str(preset) ]);
 

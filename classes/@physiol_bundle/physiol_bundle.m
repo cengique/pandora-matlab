@@ -40,10 +40,10 @@ function a_bundle = physiol_bundle(a_dataset, a_db, a_joined_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_bundle.joined_control_db = params_tests_db;
   a_bundle = class(a_bundle, 'physiol_bundle', dataset_db_bundle);
-elseif isa(a_dataset, 'physiol_bundle') %# copy constructor?
+elseif isa(a_dataset, 'physiol_bundle') % copy constructor?
   a_bundle = a_dataset;
 else
   if ~ exist('props')

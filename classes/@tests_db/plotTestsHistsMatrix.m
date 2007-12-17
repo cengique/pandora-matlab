@@ -61,7 +61,7 @@ if num_dbs > 1
   for test_num=1:num_tests
     plots = plot_abstract(hists_cell{test_num}, '', ...
 			  mergeStructs(props, struct('rotateXLabel', 10)));
-    %# find maximal y-axis value
+    % find maximal y-axis value
     hists = hists_cell{test_num};
     max_val = -Inf;
     for db_num=1:num_dbs
@@ -83,11 +83,11 @@ if num_dbs > 1
     end
     axis_limits(3:4) = [0 max_val];
 
-    %# vertical histogram stack for each test
+    % vertical histogram stack for each test
     all_pm(test_num) = plot_stack(plots, axis_limits, 'y', '', ...
 				  mergeStructs(props, extra_props));
   end
-  %# final horizontal stack
+  % final horizontal stack
   a_pm = plot_stack(all_pm, [], 'x', ...
 		   all_title, mergeStructs(props, extra_props));
   

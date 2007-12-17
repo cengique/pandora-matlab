@@ -35,7 +35,7 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# Setup lookup tables
+% Setup lookup tables
 col_names = properTeXLabel(fieldnames(get(a_tests_db, 'col_idx')));
 data = get(a_tests_db, 'data');
 row_idx = get(a_tests_db, 'row_idx');

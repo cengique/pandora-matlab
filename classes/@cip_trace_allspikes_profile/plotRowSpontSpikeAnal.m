@@ -30,10 +30,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_dbs = length(prof);
 if num_dbs > 1 
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_stack);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plotRowSpontSpikeAnal(prof(plot_num), title_str);
@@ -41,20 +41,20 @@ if num_dbs > 1
   return;
 end
 
-%# Remove all '_' characters, because they interfere with TeX interpretation
+% Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(prof), '_', ' ');
 
 quiet_trace = setProp(prof.trace, 'quiet', 1);
 
-%# Analyze a spontaneous spike
+% Analyze a spontaneous spike
 try 
   a_spike = getSpike(quiet_trace, prof.spikes, 2);
   comparison_plots = plotCompareMethodsSimple(a_spike, title_str);
 catch
   err = lasterror;
   if strcmp(err.identifier, 'spike_shape:not_a_spike')
-    %# Feeble attempt to get next spike 
-    %# TODO: not-a-spikes should've been removed by this time!
+    % Feeble attempt to get next spike 
+    % TODO: not-a-spikes should've been removed by this time!
     a_spike = getSpike(quiet_trace, prof.spikes, 3);
     comparison_plots = plotCompareMethodsSimple(a_spike, title_str);
   else

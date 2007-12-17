@@ -10,7 +10,7 @@ function b = subsref(a,index)
 % http://opensource.org/licenses/afl-3.0.php.
 if size(index, 2) > 1
   first = subsref(a, index(1));
-  %# recursive
+  % recursive
   b = subsref(first, index(2:end));
 else
   switch index.type

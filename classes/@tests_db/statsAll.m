@@ -41,7 +41,7 @@ stds = std(a_db, 0, 1);
 test_results = [means.data; stds.data; stds.data ./ n; stds.data ./ means.data; n];
 row_names = {'mean', 'STD', 'SE', 'CV', 'n'};
 
-%# Original column names
+% Original column names
 cols = tests2cols(db, tests);
 col_name_cell = fieldnames(db.col_idx);
 col_names = col_name_cell(cols);

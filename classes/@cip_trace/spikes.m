@@ -27,7 +27,7 @@ function obj = spikes(t, plotit)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   error('Need trace parameter.');
 end
 
@@ -35,7 +35,7 @@ if ~ exist('plotit')
   plotit = 0;
 end
 
-%# Allow some tolerance for spike finding and then cur them off
+% Allow some tolerance for spike finding and then cur them off
 tolerance = 5e-3 / get(t, 'dt');
 ini_period = periodIniSpont(t);
 if get(ini_period, 'end_time') - get(ini_period, 'start_time') > 0
@@ -44,7 +44,7 @@ if get(ini_period, 'end_time') - get(ini_period, 'start_time') > 0
   ini_spikes = withinPeriodWOffset(spikes(t.trace, ini_period, plotit), ...
 				   periodIniSpont(t));
 else
-  ini_spikes = spikes;		%# Make empty spikes object
+  ini_spikes = spikes;		% Make empty spikes object
 end
 
 cip_period = periodPulse(t);
@@ -55,7 +55,7 @@ if get(cip_period, 'end_time') - get(cip_period, 'start_time') > 0
   cip_spikes = withinPeriodWOffset(spikes(t.trace, cip_period, plotit), ...
 				   periodPulse(t));
 else
-  cip_spikes = spikes;		%# Make empty spikes object
+  cip_spikes = spikes;		% Make empty spikes object
 end
 
 
@@ -65,7 +65,7 @@ if get(rec_period, 'end_time') - get(rec_period, 'start_time') > 0
   rec_spikes = withinPeriodWOffset(spikes(t.trace, rec_period, plotit), ...
 				   periodRecSpont(t));
 else
-  rec_spikes = spikes;		%# Make empty spikes object
+  rec_spikes = spikes;		% Make empty spikes object
 end
 
 obj = spikes([ini_spikes.times, cip_spikes.times, rec_spikes.times], ...

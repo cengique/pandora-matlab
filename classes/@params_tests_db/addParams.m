@@ -46,14 +46,14 @@ end
 
 num_params = get(obj, 'num_params');
 
-%# Add the column to the parameter DB
+% Add the column to the parameter DB
 a_param_db = addColumns(onlyRowsTests(obj, ':', 1:num_params), ...
 			param_names, param_columns);
 
-%# Concat the rest of original DB 
+% Concat the rest of original DB 
 a_test_db = onlyRowsTests(obj, ':', (num_params + 1):dbsize(obj, 2));
 obj = addColumns(a_param_db, fieldnames(get(a_test_db, 'col_idx')), ...
 		 get(a_test_db, 'data'));
 
-%# Adjust number of params
+% Adjust number of params
 obj.num_params = num_params + length(param_names);

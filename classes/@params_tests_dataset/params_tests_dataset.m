@@ -54,14 +54,14 @@ function obj = params_tests_dataset(list, dt, dy, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.list = [];
   obj.dt=1;
   obj.dy=1;
   obj.id = '';
   obj.props = struct([]);
   obj = class(obj, 'params_tests_dataset');
-elseif isa(list, 'params_tests_dataset') %# copy constructor?
+elseif isa(list, 'params_tests_dataset') % copy constructor?
   obj = list;
 else
 
@@ -75,7 +75,7 @@ else
   obj.id = id;
   obj.props = props;
 
-  %# then create the object 
+  % then create the object 
   obj = class(obj, 'params_tests_dataset');
 
 end

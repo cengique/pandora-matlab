@@ -32,7 +32,7 @@ end
 
 a_cluster_db = setProp(a_cluster_db, 'quiet', 1)
 
-%# If PCA or cluster
+% If PCA or cluster
 if size(a_cluster_db.cluster_idx, 2) > 1
   score_plots = {};
   for plot_num = 1:floor(dbsize(a_cluster_db, 1)/2)

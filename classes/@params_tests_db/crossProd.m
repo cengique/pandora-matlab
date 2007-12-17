@@ -30,17 +30,17 @@ function cross_db = crossProd(a_db, b_db)
 a_num_params = get(a_db, 'num_params');
 b_num_params = get(b_db, 'num_params');
 
-%# Find cross product only with params
+% Find cross product only with params
 a_params_db = onlyRowsTests(a_db, ':', 1:a_num_params);
 b_params_db = onlyRowsTests(b_db, ':', 1:b_num_params);
 both_params_db = crossProd(a_params_db.tests_db, b_params_db.tests_db);
 
-%# Find cross product only with tests
+% Find cross product only with tests
 a_tests_db = onlyRowsTests(a_db, ':', (a_num_params + 1):dbsize(a_db, 2));
 b_tests_db = onlyRowsTests(b_db, ':', (b_num_params + 1):dbsize(b_db, 2));
 both_tests_db = crossProd(a_tests_db.tests_db, b_tests_db.tests_db);
 
-%# Combine both
+% Combine both
 a_db.tests_db = both_params_db;
 a_db.num_params = a_num_params + b_num_params;
 cross_db = addColumns(a_db, both_tests_db);

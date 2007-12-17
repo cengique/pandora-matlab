@@ -29,7 +29,7 @@ function a_trace_profile = trace_profile(fileset, file_index)
 filename = getItem(fileset, file_index);
 fullname = fullfile(fileset.path, filename);
 
-%# Load a trace_profile object
+% Load a trace_profile object
 a_trace_profile = trace_profile(fullname, fileset.dt, fileset.dy, ...
 				[fileset.id '(' num2str(file_index) ')'], ...
 				get(fileset, 'props'));

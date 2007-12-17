@@ -47,7 +47,7 @@ if isa(traceset_index, 'tests_db')
 	cip_trace(fileset, col_data(row_num, 1), col_data(row_num, 2), props);
   end
 else
-  %# If trace_index is ':', then load all in traceset.
+  % If trace_index is ':', then load all in traceset.
   if ischar(trace_index) && strcmp(trace_index, ':')
     trace_index = 1:length(get(getItem(fileset, traceset_index), 'list'));
   end
@@ -56,12 +56,12 @@ else
   if num_traces > 1
     [ a_cip_trace(1:num_traces) ] = deal(cip_trace);
     for trace_num = 1:num_traces
-      %# recurse 
+      % recurse 
       a_cip_trace(trace_num) = cip_trace(fileset, traceset_index, ...
 					 trace_index(trace_num), props);
     end
   else
-    %# Delegate to the traceset to load the cip_trace object
+    % Delegate to the traceset to load the cip_trace object
     a_cip_trace = cip_trace(getItem(fileset, traceset_index), trace_index, ...
 			    mergeStructs(props, struct('TracesetIndex', traceset_index)));
   end

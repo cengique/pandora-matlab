@@ -37,7 +37,7 @@ if ~ exist('items')
 end
 
 try 
-  %# Collect info for generating the DB
+  % Collect info for generating the DB
   param_names = paramNames(obj, items(1));
   test_names = testNames(obj, items(1));
   num_items = length(items);
@@ -59,11 +59,11 @@ catch
   return
 end
 
-%# Preallocating matrices dramatically speeds up the filling process
+% Preallocating matrices dramatically speeds up the filling process
 params = repmat(0, num_items, length(param_names));
 tests = repmat(0, num_items, length(test_names));
 
-%# Batch process all items
+% Batch process all items
 start_time = cputime;
 
 disp('Reading: ');
@@ -72,9 +72,9 @@ line_buffer = '';
 try 
   row_index = 1;
   for item_index=items
-    %#disp(sprintf('File number: %d\r', item_index));
+    %disp(sprintf('File number: %d\r', item_index));
     
-    %# doesn't work on the cluster
+    % doesn't work on the cluster
     if false && usejava('jvm')
       if checkError(java.lang.System.out)
 	disp('error in System.out stream!');
@@ -100,7 +100,7 @@ try
   end
 catch
   err = lasterror;
-  %# Matlab R2006b has debug file information in err
+  % Matlab R2006b has debug file information in err
   warning(['Error caught during database creation at item index ' ...
 	   num2str(item_index) ': ' err.message '. Truncating database.']);
   disp([ 'Item in question is:']);

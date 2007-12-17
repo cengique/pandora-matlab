@@ -164,8 +164,8 @@ measures.recov_rate_tests = ...
      'RecSpontISICV', ...
      'RecSpontPotAvg'};
 
-%# spike tests: [ 0:5 9:11 15:17 21:35 42:44 ]
+% spike tests: [ 0:5 9:11 15:17 21:35 42:44 ]
 
-%# Common for 40, 100, 200pA
+% Common for 40, 100, 200pA
 measures.depol_pulse_tests = ...
     { measures.pulse_rate_tests{:}, measures.recov_rate_tests{:}, measures.pulse_spike_tests{:}};

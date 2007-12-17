@@ -52,12 +52,12 @@ max_ahp = results.MaxAHP ;
 dahp_mag = results.DAHPMag ;
 fall_time = results.FallTime ;
 min_idx = results.MinTime + absolute_peak_shift;
-%# Not a realistic measure
-%#results.ahp_decay_constant = ahp_decay_constant ;
+% Not a realistic measure
+%results.ahp_decay_constant = ahp_decay_constant ;
 base_width = results.BaseWidth ;
 half_width = results.HalfWidth ;
 
-%# TODO: Legend?
+% TODO: Legend?
 approx_half_idx = ...
     init_idx + ...
     (half_Vm - init_val) * (peak_time - init_idx) / (peak_mag - init_val);
@@ -72,8 +72,8 @@ plot_data = {peak_time, peak_mag , 'r*', ...
 	     min_idx , min_val , 'm*', ...
 	     [min_idx, min_idx] , ...
 	     [min_val, min_val + max_ahp] , 'r', ...
-	     %#[min_idx, min_idx + ahp_decay_constant] , ...
-	     %#[min_val, min_val] , 'r' 
+	     %[min_idx, min_idx + ahp_decay_constant] , ...
+	     %[min_val, min_val] , 'r' 
 	     };
 
 if ~isnan(dahp_mag)
@@ -81,16 +81,16 @@ if ~isnan(dahp_mag)
 	       [min_val, min_val - dahp_mag] , 'r'};
 end
 
-%# Get regular spike shape plot first
+% Get regular spike shape plot first
 spsh_plot = plotData(s.spike_shape);
 
-%# Create annotation plot using the above as template
+% Create annotation plot using the above as template
 annot_plot = set(spsh_plot, 'data', plot_data);
 annot_plot = set(annot_plot, 'legend', {});
 
-%# Unless not wanted to plot
+% Unless not wanted to plot
 if ~isfield(props, 'no_plot_spike')
-  %# Superpose them
+  % Superpose them
   a_plot = superposePlots([spsh_plot, annot_plot]);
 else 
   a_plot = annot_plot;

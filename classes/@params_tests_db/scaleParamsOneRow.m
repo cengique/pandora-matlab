@@ -38,7 +38,7 @@ if ~ iscell(params)
   params = {params};
 end
 
-%# Get only first row
+% Get only first row
 a_params_db = onlyRowsTests(a_db, 1, params);
 a_params_db = params_tests_db(levels * get(a_params_db, 'data'), ...
 			      params, [], {}, [ params{:} ' DB']);

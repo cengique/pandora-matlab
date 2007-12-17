@@ -32,7 +32,7 @@ function job_result = runJob(a_script_array, vector_index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Call the run_job_func, if defined
+% Call the run_job_func, if defined
 if isfield(a_script_array.props, 'runJobFunc')
   job_result = feval(a_script_array.props.runJobFunc, vector_index);
 else

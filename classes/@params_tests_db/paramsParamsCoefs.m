@@ -30,19 +30,19 @@ function pp_coefs = paramsParamsCoefs(a_db, p_t3ds, p_coefs)
 % http://opensource.org/licenses/afl-3.0.php.
 
 num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; % Except the file indices
 
 pp_coefs = cell([num_params, num_params]);
 for param_num=1:num_params
   a_t3d = p_t3ds(param_num);
   a_coef_db = p_coefs{param_num}
-  %# Remove the Index columns from this
+  % Remove the Index columns from this
   all_test_cols = [];
   all_test_cols(1:dbsize(a_coef_db, 2)) = true(1);
   all_test_cols(tests2cols(a_coef_db, {'PageIndex'})) = false(1,1)
   joint_db = joinPages(a_t3d, 'RowIndex', a_coef_db, ...
 		       find(all_test_cols));
-  %# Remove the Index columns from this
+  % Remove the Index columns from this
   all_test_cols = [];
   all_test_cols(1:dbsize(joint_db, 2)) = true(1);
   all_test_cols(tests2cols(joint_db, {'RowIndex'})) = false(1,1);

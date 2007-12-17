@@ -11,6 +11,6 @@ function a = set(a, attr, val)
 try
   a.(attr) = val;
 catch
-  %# delegate to upper level
+  % delegate to upper level
   a.script_array = set(a.script_array, attr, val);
 end

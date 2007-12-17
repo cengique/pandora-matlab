@@ -32,21 +32,21 @@ function a_plot = plotRowMatrix(hist_dbs, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Get plot_abstract objects
+% Get plot_abstract objects
 all_plots = plot_abstract(hist_dbs, '', props);
 
 num_rows = size(hist_dbs, 1);
 num_cols = size(hist_dbs, 2);
 
-%# 1st pass: Set maximal count ranges for each row
+% 1st pass: Set maximal count ranges for each row
 maximal_count = zeros(num_rows, 1);
 for row_num=1:num_rows
-  %# For each column
+  % For each column
   row_ranges = [];
   for col_num=1:num_cols
     row_ranges = growRange([ row_ranges; axis(all_plots(row_num, col_num)) ]);
     if col_num == 1 && isfield(props, 'rowLabels')
-      %# set the row label if requested
+      % set the row label if requested
       header_plot = all_plots(row_num, col_num);
       header_plot.axis_labels{2} = props.rowLabels{row_num};
       all_plots(row_num, col_num) = header_plot;
@@ -55,10 +55,10 @@ for row_num=1:num_rows
   maximal_count(row_num) = row_ranges(4);
 end
 
-%# 2nd pass: Set x-axis limits for each column
+% 2nd pass: Set x-axis limits for each column
 axis_limits = zeros(num_cols, 2);
 for col_num=1:num_cols
-  %# For each column
+  % For each column
   col_ranges = [];
   for row_num=1:num_rows
     col_ranges = growRange([ col_ranges; axis(all_plots(row_num, col_num)) ]);
@@ -66,13 +66,13 @@ for col_num=1:num_cols
   axis_limits(col_num, :) = col_ranges(1:2);
 end
 
-%# 3rd pass: Assign the calculated limits and produce the stacked plot
+% 3rd pass: Assign the calculated limits and produce the stacked plot
 row_plots(1:num_rows) = plot_stack;
 for row_num=1:num_rows
-  %# For each column
+  % For each column
   row_ranges = [];
   for col_num=1:num_cols
-    %# set the xy ranges to each plot
+    % set the xy ranges to each plot
     all_plots(row_num, col_num) = ...
 	set(all_plots(row_num, col_num), 'props', ...
 	    mergeStructs(props, struct('axisLimits', [axis_limits(col_num, :) 0 maximal_count(row_num)])));
@@ -82,6 +82,6 @@ for row_num=1:num_rows
 		 struct('titlesPos', 'none', 'yLabelsPos', 'left', 'yTicksPos', 'left'));
 end
 
-%# final y-stack plot
+% final y-stack plot
 a_plot = plot_stack(num2cell(row_plots), [], 'y', title_str, ...
 		    mergeStructs(props, struct('xLabelsPos', 'bottom', 'xTicksPos', 'bottom', 'titlesPos', 'none')));

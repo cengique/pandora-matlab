@@ -27,10 +27,10 @@ function filename = properTeXFilename(filename)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%#filename = strrep(filename, '(', '_');
-%#filename = strrep(filename, ')', '_');
-%#filename = strrep(filename, ';', '_');
+%filename = strrep(filename, '(', '_');
+%filename = strrep(filename, ')', '_');
+%filename = strrep(filename, ';', '_');
 filename = strrep(filename, ' ', '_');
 filename = strrep(filename, '\_', '_');
 filename = strrep(filename, '.', '_');
-filename = strrep(filename, '/', '+');  %# And the /'s with +'s
+filename = strrep(filename, '/', '+');  % And the /'s with +'s

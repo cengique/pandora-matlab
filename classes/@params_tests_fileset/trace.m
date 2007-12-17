@@ -31,8 +31,8 @@ fullname = fullfile(fileset.path, filename);
 
 props = get(dataset, 'props');
 if isfield(props, 'param_rows')
-  %# Take parameter values from the specified parameter file,
-  %# in addition to the ones specified on data filenames.
+  % Take parameter values from the specified parameter file,
+  % in addition to the ones specified on data filenames.
 
   names_vals = parseGenesisFilename(fullname);
   if isfield(props, 'num_params')
@@ -53,6 +53,6 @@ else
   trace_id = num2str(file_index);
 end
 
-%# Load a trace object
+% Load a trace object
 a_trace = trace(fullname, fileset.dt, fileset.dy, ...
 		[fileset.id '(' trace_id ')'], get(fileset, 'props'));

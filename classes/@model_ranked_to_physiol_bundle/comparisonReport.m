@@ -44,21 +44,21 @@ end
 a_ranked_db = r_bundle.ranked_db
 ranked_num_rows = dbsize(a_ranked_db, 1);
 
-%# adjust labels for LaTeX
+% adjust labels for LaTeX
 a_db_id = lower(properTeXLabel(get(a_ranked_db.orig_db, 'id')));
 crit_db_id = lower(properTeXLabel(get(a_ranked_db.crit_db, 'id')));
 
 if ranked_num_rows > 0
 
-  %# generate plots for 1, 11, .. 41
+  % generate plots for 1, 11, .. 41
   plots = plotCompareRanks(r_bundle, [1 2 ((1:4)*10 + 1)], props);
   joined_db = plots.joined_db;
 
-  %# Display raw data traces from dataset
+  % Display raw data traces from dataset
   crit_trace_id = plots.crit_trace_id;
   num_plots = length(plots.trace_d100_plots);
 
-  %# Make a full figure with the best matching guy
+  % Make a full figure with the best matching guy
   short_caption = [ 'Best matching model from ' a_db_id ' to ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' All available raw traces from the criterion cell are shown.' ];
@@ -71,10 +71,10 @@ if ranked_num_rows > 0
 			     'height', '.8\textheight', 'shortCaption', short_caption), ...
 		      'best match figure', struct('orient', 'tall'));
 
-  %# Also include the fI curves for the best
+  % Also include the fI curves for the best
   fIcurve_doc = plotfICurve(r_bundle, 1);
 
-  %# Also include spike shape comparisons for the best
+  % Also include spike shape comparisons for the best
   best_trial_num = joined_db(1, 'trial').data;
   short_caption = [ 'Spike shapes of best matching model to ' crit_db_id '.' ];
   caption = [ short_caption ];
@@ -99,7 +99,7 @@ if ranked_num_rows > 0
 			     'width', '.9\textwidth', 'shortCaption', short_caption), ...
 		      'spont spike comparison', struct);
 
-  %# Make a full figure with the 2nd best matching guy
+  % Make a full figure with the 2nd best matching guy
   short_caption = [ 'Second best matching model to ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' All available raw traces from the criterion cell are shown.' ];
@@ -112,10 +112,10 @@ if ranked_num_rows > 0
 			     'height', '.9\textheight', 'shortCaption', short_caption), ...
 		      '2nd best match figure', struct('orient', 'tall'));
   
-  %# Stack rest of matches 
-  %# prepare a landscape figure with two rows
-  %# original and 5 matching data traces, +/-100pA traces in separate rows
-  %# TODO: indicate distances of best and furthest matches
+  % Stack rest of matches 
+  % prepare a landscape figure with two rows
+  % original and 5 matching data traces, +/-100pA traces in separate rows
+  % TODO: indicate distances of best and furthest matches
   short_caption = ['Raw traces of the ranked for ' crit_db_id ' .' ];
   caption = [ short_caption ...
 	     ' Traces are taken from 5 equidistant matches from the best' ...
@@ -123,7 +123,7 @@ if ranked_num_rows > 0
 	     '  Criterion cell trace is superposed with each model trace.'];
 
   horiz_props = struct('titlesPos', 'all', 'yLabelsPos', 'left', 'xLabelsPos', 'none');
-  d100_row_plot = plot_stack([plots.trace_d100_plots{3:num_plots}], [0 3000 -80 80], 'x', '', ... %#+100 pA CIP
+  d100_row_plot = plot_stack([plots.trace_d100_plots{3:num_plots}], [0 3000 -80 80], 'x', '', ... %+100 pA CIP
 			      mergeStructs(struct('xLabelsPos', 'none'), horiz_props));
   h100_row_plot = plot_stack([plots.trace_h100_plots{3:num_plots}], [0 3000 -150 80], 'x', '-100 pA CIP', ...
 			     mergeStructs(struct('titlesPos', 'none'), horiz_props));
@@ -139,7 +139,7 @@ if ranked_num_rows > 0
 
   clearpage_doc = doc_generate([ '\clearpage%' sprintf('\n') ], 'LaTeX specific page break');
 
-  %# Display values of 10 best matches
+  % Display values of 10 best matches
   if isfield(props, 'num_matches')
     num_best = props.num_matches;
   else
@@ -154,9 +154,9 @@ if ranked_num_rows > 0
 							 'rotate', 0)), ...
 				   'table of distances from best matching models');
 
-  %# Display colored-plot of top 50 matches
+  % Display colored-plot of top 50 matches
   num_best = min(50, ranked_num_rows);
-  %# TODO: indicate distances of best and furthest matches
+  % TODO: indicate distances of best and furthest matches
   short_caption = ['Individual measure distances color-coded for top matches of ' ...
 		   a_db_id  ' ranked for ' crit_db_id '.'];
   caption = [ short_caption ...
@@ -171,7 +171,7 @@ if ranked_num_rows > 0
 		      'width', '\textwidth', 'shortCaption', short_caption), ...
 	       'colored distance error plot', struct('orient', 'tall'));
 
-  %# Display sorted colored-plot of top 50 matches
+  % Display sorted colored-plot of top 50 matches
   short_caption = [ 'Sorted individual measure distances color-coded for top matches of ' ...
 		   a_db_id  ' ranked for ' crit_db_id '.'];
   caption = [ short_caption ...
@@ -186,7 +186,7 @@ if ranked_num_rows > 0
 		      'width', '\textwidth', 'shortCaption', short_caption), ...
 	       'sorted colored distance error plot', struct('orient', 'tall'));
   
-  %# Display parameter distributions of 50 best matches
+  % Display parameter distributions of 50 best matches
   short_caption = [ 'Parameter distributions of the best ranked for ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' Only ' num2str(num_best) ' best matches from ' a_db_id ...

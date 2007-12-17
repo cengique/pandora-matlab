@@ -34,5 +34,5 @@ if ndims(db.data) > 2
   error('Cannot work in three dimensions.');
 end
 
-%# Find all rows with any NaNs in them
+% Find all rows with any NaNs in them
 rows = any(isnan(db.data), 2);

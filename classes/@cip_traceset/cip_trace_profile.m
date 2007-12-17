@@ -26,10 +26,10 @@ function a_cip_trace_profile = cip_trace_profile(traceset, index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Get the cip magnitude for the item
+% Get the cip magnitude for the item
 cip_mag = getItem(traceset, index);
 
-%# Find the cip magnitude index in the cip_traces object
+% Find the cip magnitude index in the cip_traces object
 mag_idx = find(traceset.ct.pulse_mags_pA == cip_mag);
 
 if length(mag_idx) == 0 
@@ -41,7 +41,7 @@ if isfield(traceset.props, 'offsetPotential')
   data = data + traceset.props.offsetPotential;
 end
 
-%# Create profile by analyzing raw data
+% Create profile by analyzing raw data
 a_cip_trace_profile = ...
     cip_trace_profile(data, ...
 		      get(traceset, 'dt'), get(traceset, 'dy'), ...

@@ -26,7 +26,7 @@ function results = getCIPResults(a_cip_trace, a_spikes)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# convert all to ms/mV
+% convert all to ms/mV
 mV_factor = 1e3 * getDy(a_cip_trace);
 ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
@@ -36,7 +36,7 @@ results.PulsePotAvg = calcPulsePotAvg(a_cip_trace) * mV_factor;
 results.RecSpontPotAvg = calcRecSpontPotAvg(a_cip_trace) * mV_factor;
 results.RecIniSpontPotRatio = results.RecSpontPotAvg / results.IniSpontPotAvg;
 
-%# Only if no spikes during pulse period
+% Only if no spikes during pulse period
 pulse_period = periodPulse(a_cip_trace);
 pulse_spikes = withinPeriod(a_spikes, pulse_period);
 if length(pulse_spikes.times) == 0
@@ -58,11 +58,11 @@ else
   results.PulsePotTau = NaN;
 end
 
-%# membrane time constant from sag
+% membrane time constant from sag
 function time_constant = memTimeConstant(a_cip_trace, min_idx, min_val, rest_val)
   pulse_data = get(withinPeriod(a_cip_trace, periodPulse(a_cip_trace)), 'data');
   
-  %#rest_val = pulse_data(1);
+  %rest_val = pulse_data(1);
   drop_val = rest_val - min_val;
 
   decay_constant_threshold = rest_val - drop_val * (1 - exp(-1));

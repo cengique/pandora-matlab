@@ -35,14 +35,14 @@ function obj = period(start_time, end_time)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO:
-%# - Maybe period should have its own dt?
+% TODO:
+% - Maybe period should have its own dt?
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    obj.start_time = 0;
    obj.end_time = 0;
    obj = class(obj,'period');
- elseif isa(start_time,'period') %# copy constructor?
+ elseif isa(start_time,'period') % copy constructor?
    obj = start_time;
  else
    obj.start_time = start_time;

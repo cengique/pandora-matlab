@@ -35,7 +35,7 @@ if ~exist('props')
   props = struct;
 end
 
-%# pass the neuron label to the dataset
+% pass the neuron label to the dataset
 trial_num = getTrialNum(a_mbundle, a_db, props);
 props.neuronLabel = [ '(t' num2str(trial_num) ')' ];
 

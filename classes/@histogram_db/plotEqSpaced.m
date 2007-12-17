@@ -36,10 +36,10 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_dbs = length(a_hist_db);
 if num_dbs > 1 
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_simple);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plotEqSpaced(a_hist_db(plot_num), command, props);
@@ -47,14 +47,14 @@ if num_dbs > 1
   return;
 end
 
-%# First column is the variable, second is the histogram
+% First column is the variable, second is the histogram
 colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
 
 props(1).XTickLabel = data(:, 1);
 
-%# if the plot is rotated switch the axis labels
+% if the plot is rotated switch the axis labels
 if strcmp(command, 'barh')
   x_label = 'Count';
   y_label = colnames{1};
@@ -63,7 +63,7 @@ else
   y_label = 'Count';
 end
 
-%# Make a simple plot object drawing vertical bars
+% Make a simple plot object drawing vertical bars
 a_plot = plot_simple(1:dbsize(a_hist_db, 1), data(:, 2), ...
 		     [ 'Histogram of ' get(a_hist_db, 'id') ], ...
 		     x_label, y_label, ...

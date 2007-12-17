@@ -27,7 +27,7 @@ function a_spikes = vertcat(a_spikes, varargin)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Recurse to support variable number of inputs
+% Recurse to support variable number of inputs
 if length(varargin) > 1
   with_spikes = vertcat(varargin{1}, varargin{2:end});
 else

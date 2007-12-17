@@ -10,7 +10,7 @@ function s = display(t)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Handle differently if an array of DBs
+% Handle differently if an array of DBs
 if length(t) > 1
   disp(t);
   return;
@@ -24,6 +24,6 @@ display(t.channel_info)
 disp('Parent object:');
 display(t.tests_db);
 
-%#disp([ num2str(dbsize(t.tests_db, 3)) ' pages of the above matrix.']);
+%disp([ num2str(dbsize(t.tests_db, 3)) ' pages of the above matrix.']);
 
 

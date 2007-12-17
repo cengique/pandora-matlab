@@ -56,10 +56,10 @@ else
   caption = [ short_caption ];
 end
 
-%# Get unique current values  ([0 40 100 200])
+% Get unique current values  ([0 40 100 200])
 curve_pAvals = unique(transpose(get(onlyRowsTests(get(a_bundle, 'db'), ':', 'pAcip'), 'data')));
 
-%# only get non-negative currents
+% only get non-negative currents
 curve_pAvals = curve_pAvals(curve_pAvals >= 0);
 
 curve_tests = {};

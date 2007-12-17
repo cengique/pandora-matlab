@@ -25,7 +25,7 @@ function ranges = axis(a_plot)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Special for plot_errorbar
+% Special for plot_errorbar
 data = get(a_plot, 'data');
 ranges = [ min(data{1}) max(data{1}) ...
 	  min(data{2} + data{3}) max(data{2} + data{4})];

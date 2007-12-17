@@ -41,22 +41,22 @@ function a_pt_profile = getProfile(a_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: 
-%# - param and test bounds
-%# - plotting funcs in a subclass?
-%# - Feed test-reduced database?
+% TODO: 
+% - param and test bounds
+% - plotting funcs in a subclass?
+% - Feed test-reduced database?
 
 if ~ exist('props')
   props = struct([]);
 end
 
 num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; % Except the file indices
 
-%# Setup lookup tables
+% Setup lookup tables
 col_names = fieldnames(get(a_db, 'col_idx'));
 
-%# Create the param and test number structure  
+% Create the param and test number structure  
 results.idx.NaN = NaN;
 for param_num=1:num_params
   results.idx = setfield(results.idx, col_names{param_num}, param_num);
@@ -67,38 +67,38 @@ end
 
 very_start_time = cputime;
 
-%# Create the test_hists
+% Create the test_hists
 start_time = cputime;
 disp('Calculating test histograms.');
 results.t_hists = testsHists(a_db);
 disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
-%# Create the p_t3ds
+% Create the p_t3ds
 start_time = cputime;
 disp('Calculating invariant relations of tests to each parameter.');
 results.p_t3ds = invarParams(a_db);
 disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
-%# Create the pt_hists and p_stats
+% Create the pt_hists and p_stats
 start_time = cputime;
 disp('Calculating histograms and mean/std stats of tests for each value of the invariant parameter.');
 [results.pt_hists, results.p_stats] = paramsTestsHistsStats(a_db, results.p_t3ds);
 disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
-%# Create the p_coefs
+% Create the p_coefs
 start_time = cputime;
 disp('Calculating invariant correlation coefficients of all tests with each parameter.');
 results.p_coefs = paramsCoefs(a_db, results.p_t3ds);
 disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
-%# Create the pt_coefs_hists
+% Create the pt_coefs_hists
 start_time = cputime;
 disp(['Calculating histograms of coefficients from correlations ' ... 
       'of each parameter with each test.']);
 results.pt_coefs_hists = paramsTestsCoefsHists(a_db, results.p_coefs);
 disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
-%# Create the pp_coefs
+% Create the pp_coefs
 start_time = cputime;
 disp(['Calculating mean coefficients from correlations of each parameter '...
       'with correlation coefficients of each parameter with each test.']);
@@ -107,6 +107,6 @@ disp(sprintf('Elapsed time took %.2f seconds.', cputime - start_time));
 
 disp(sprintf('Total time took %.2f seconds.', cputime - very_start_time));
 
-%# Create the object
+% Create the object
 a_pt_profile = params_tests_profile(results, a_db, props);
 

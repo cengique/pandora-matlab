@@ -49,7 +49,7 @@ function obj = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   obj.trace = cip_trace;
   obj.spikes = spikes;
   obj.spont_spikes_db = tests_db;
@@ -57,10 +57,10 @@ if nargin == 0 %# Called with no params, creates empty object
   obj.recov_spikes_db = tests_db;
   obj.props = struct([]);
   obj = class(obj, 'cip_trace_allspikes_profile', results_profile);
-elseif isa(a_cip_trace, 'cip_trace_allspikes_profile') %# copy constructor?
+elseif isa(a_cip_trace, 'cip_trace_allspikes_profile') % copy constructor?
   obj = a_cip_trace;
 else 
-  %# Create object with custom data (used from subclasses)
+  % Create object with custom data (used from subclasses)
   if ~ exist('props')
     props = struct([]);
   end
@@ -72,7 +72,7 @@ else
   obj.recov_spikes_db = recov_spikes_db;
   obj.props = props;
 
-  %# Create the object
+  % Create the object
   obj = class(obj, 'cip_trace_allspikes_profile', results_obj);
 end
 

@@ -32,7 +32,7 @@ if ~ exist('plotit')
   plotit = 0;
 end
 
-%# Check for empty object first.
+% Check for empty object first.
 if isempty(t.data) 
   results.min = NaN;
   results.avg = NaN;
@@ -40,11 +40,11 @@ if isempty(t.data)
   return;
 end
 
-%# convert all to ms/mV(mA)
+% convert all to ms/mV(mA)
 ms_factor = 1e3 * t.dt;
 mV_factor = 1e3 * t.dy;
 
-%# Run tests
+% Run tests
 results.min = calcMin(t) * mV_factor;
 results.max = calcMax(t) * mV_factor;
 results.avg = calcAvg(t) * mV_factor;

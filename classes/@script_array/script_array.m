@@ -47,12 +47,12 @@ function obj = script_array(num_runs, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   obj.num_runs = 0;
   obj.id = '';
   obj.props = struct;
   obj = class(obj, 'script_array');
-elseif isa(num_runs, 'script_array') %# copy constructor?
+elseif isa(num_runs, 'script_array') % copy constructor?
   obj = num_runs;
 else
   if ~ exist('props')
@@ -63,6 +63,6 @@ else
   obj.id = id;
   obj.props = props;
 
-  %# Create the object
+  % Create the object
   obj = class(obj, 'script_array');
 end

@@ -59,7 +59,7 @@ else
   caption = [ short_caption ];
 end
 
-%# TODO: get these from uniqueValues
+% TODO: get these from uniqueValues
 curve_pAvals = [0 40 100 200];
 curve_tests = {'IniSpontSpikeRateISI_0pA', 'PulseIni100msSpikeRateISI_D40pA', ...
 	       'PulseIni100msSpikeRateISI_D100pA', 'PulseIni100msSpikeRateISI_D200pA'};
@@ -70,7 +70,7 @@ joined_db = get(m_bundle, 'joined_db');
 
 neuron_name = properTeXLabel(get(getItem(to_bundle.dataset, to_index), 'id'));
 
-%# to_bundle part is still a little hazy
+% to_bundle part is still a little hazy
 plots_all = {};
 plots_all = ...
     {plots_all{:}, ...

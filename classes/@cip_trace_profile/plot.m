@@ -24,7 +24,7 @@ function h = plot(t)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Allow vectors of objects to be plotted at the same time
+% Allow vectors of objects to be plotted at the same time
 if length(t) > 1
   for i=1:length(t)
     plot(t(i));
@@ -32,7 +32,7 @@ if length(t) > 1
 else
   ht = plotFigure(plot_superpose([plotData(t.trace), plotData(t.spikes)], {}, ...
 				 get(t, 'id')));
-  %# TODO: Hack, fix it
+  % TODO: Hack, fix it
   [hss1 hss2] = plotSpikeShape(get(t, 'spont_spike_shape'), 'Spont');
   [hss1 hss2] = plotSpikeShape(get(t, 'pulse_spike_shape'), 'Pulse');
 

@@ -33,10 +33,10 @@ function h = plotImage(image_data, colormap_func, num_colors, props)
 
 h = image(image_data);
 
-%# Show up to num_colors
+% Show up to num_colors
 colormap(feval(colormap_func, num_colors)); 
 
-%# Truncate some digits to unify parameter values estranged by numerical error
+% Truncate some digits to unify parameter values estranged by numerical error
 if isfield(props, 'truncateDecDigits')
   mult_factor = 10^props.truncateDecDigits;
 else
@@ -57,8 +57,8 @@ if isfield(props, 'colorbar')
   set(hc, 'YTickLabel', round(yticks .* max_val .* mult_factor ./ num_colors) ./ mult_factor);
 end
 
-%# scale font to fit measure names on y-axis
+% scale font to fit measure names on y-axis
 num_rows = max(100, size(image_data, 1));
-%#set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
+%set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
 
 end

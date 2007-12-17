@@ -43,7 +43,7 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# Setup lookup tables
+% Setup lookup tables
 col_names = properTeXLabel(fieldnames(get(a_stats_db, 'col_idx')));
 data = get(a_stats_db, 'data');
 row_idx = get(a_stats_db, 'row_idx');
@@ -89,7 +89,7 @@ else
 end
 
 if isfield(props, 'plotType') && props.plotType == 2
-  %# Not implemented, left half-finished?? plot_bars provide the required functionality?
+  % Not implemented, left half-finished?? plot_bars provide the required functionality?
   a_plot = plot_errorbar(data(1, col1, :), data(1, col2, :), ...
 			 lows(1, col2, :), highs(1, col2, :), '', ...
 			 {col1name, col2name}, ...

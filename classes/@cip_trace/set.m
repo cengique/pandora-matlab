@@ -11,7 +11,7 @@ function b = set(a, attr, val)
 
 num = length(a);
 if num > 1
-  %# If a vector, loop and do for all
+  % If a vector, loop and do for all
   for i=1:num
     set(a(i), attr, val);
   end
@@ -20,7 +20,7 @@ else
     eval(['a.' attr ' = val;']);
     b = a;
   catch
-    %# delegate to upper level
+    % delegate to upper level
     b = a;
     b.trace = set(a.trace, attr, val);
   end

@@ -37,12 +37,12 @@ if ~ exist('props')
   props = struct;
 end
 
-%# first plot the trace
+% first plot the trace
 trace_plot = plotData(a_db.trace, title_str, props);
 
 num_spikes = dbsize(a_db, 1);
 
-%# Then superpose all spike measures
+% Then superpose all spike measures
 [plots(1:num_spikes)] = deal(plot_abstract);
 for spike_num=1:num_spikes
   ssp = spike_shape_profile(rows2Struct(a_db, spike_num), spike_shape);

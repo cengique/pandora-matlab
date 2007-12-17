@@ -28,10 +28,10 @@ function profile_obj = getProfileAllSpikes(a_cip_trace)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Loop over spikes in each period
+% Loop over spikes in each period
 a_spikes = spikes(a_cip_trace);
 
-%# Analyze spikes
+% Analyze spikes
 spont_period = periodIniSpont(a_cip_trace);
 [spont_results spont_spikes spont_spikes_db ...
  spont_spikes_stats_db spont_spikes_hists_dbs] = ...
@@ -48,22 +48,22 @@ recov_period = periodRecSpont(a_cip_trace);
     analyzeSpikesInPeriod(a_cip_trace, a_spikes, ...
 			  recov_period, 'Recov');
 
-%# TODO: rebuild the a_spikes object here, based on the spike dbs
+% TODO: rebuild the a_spikes object here, based on the spike dbs
 new_spikes = [intoPeriod(spont_spikes, spont_period); ...
 	      intoPeriod(pulse_spikes, pulse_period); ...
 	      intoPeriod(recov_spikes, recov_period)];
 
-%# Misc measures
+% Misc measures
 misc_results.PulseSpontAmpRatio = ...
     pulse_results.PulseSpikeAmplitudeMean / spont_results.SpontSpikeAmplitudeMean;
 
-%# All measures together
+% All measures together
 results_obj = ...
     results_profile(mergeStructs(getResults(a_cip_trace, new_spikes), ...
 				 spont_results, pulse_results, recov_results, ...
 				 misc_results), get(a_cip_trace, 'id'));
 
-%# Create a new object with the spike dbs
+% Create a new object with the spike dbs
 profile_obj = cip_trace_allspikes_profile(a_cip_trace, new_spikes, spont_spikes_db, ...
 					  pulse_spikes_db, recov_spikes_db, ...
 					  results_obj, get(a_cip_trace, 'props'));

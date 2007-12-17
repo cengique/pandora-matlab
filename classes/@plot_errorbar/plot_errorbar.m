@@ -44,11 +44,11 @@ function a_plot = plot_errorbar(x_vals, mid_vals, lo_vals, hi_vals, line_spec, .
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Note: class exists only because the axis method needs to be overridden
+% Note: class exists only because the axis method needs to be overridden
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_plot = class(a_plot, 'plot_errorbar', plot_abstract);
-elseif isa(x_vals, 'plot_errorbar') %# copy constructor?
+elseif isa(x_vals, 'plot_errorbar') % copy constructor?
   a_plot = x_vals;
 else
   if ~ exist('props')

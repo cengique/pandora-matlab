@@ -30,25 +30,25 @@ function obj = assignRowsTests(obj, val, rows, tests, pages)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Pages
+% Pages
 if ~ exist('tests')
   tests = ':';
 end
 
-%# translate tests spec to array form
+% translate tests spec to array form
 cols = tests2cols(obj, tests);
 
-%# Pages
+% Pages
 if ~ exist('pages')
   pages = ':';
 end
 
-%# Accept val as tests_db
+% Accept val as tests_db
 if isa(val, 'tests_db')
   val = val.data;
 end
 
-%# Check dimensions
+% Check dimensions
 val_size = size(val);
 num_dims = length(val_size);
 addr_size = [length(rows) length(cols) length(pages)];
@@ -57,7 +57,7 @@ if addr_size(1:num_dims) ~= val_size
          sprintf('%d ', addr_size) '] != [' sprintf('%d ', val_size) '].' ]);
 end
 
-%# Do not allow expansion of original DB
+% Do not allow expansion of original DB
 db_size = dbsize(obj);
 if ~ ischar(rows) && max(rows) > db_size(1)
   error(['Requested row limit ' num2str(max(rows)) ' exceeds ' num2str(db_size(1)) ...
@@ -74,6 +74,6 @@ if ~ ischar(pages) && (length(db_size) < 3 || max(pages) > db_size(3))
 	 ' rows in DB.']);
 end
 
-%# Do it
+% Do it
 obj.data(rows, cols, pages) = val;
 

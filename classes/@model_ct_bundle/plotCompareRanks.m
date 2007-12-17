@@ -44,13 +44,13 @@ end
 
 num_plots = length(ranks);
 
-%# LaTeX likes '_' to be '\_' 
+% LaTeX likes '_' to be '\_' 
 a_db_id = strrep(lower(get(a_ranked_db.orig_db, 'id')), '_', '\_');
 crit_db_id = strrep(lower(get(a_ranked_db.crit_db, 'id')), '_', '\_');
 
 if ranked_num_rows > 0
 
-  %# Display raw data traces from dataset
+  % Display raw data traces from dataset
   plots.crit_trace_d100 = ctFromRows(p_bundle, a_ranked_db.crit_db, 100);
   plots.crit_trace_h100 = ctFromRows(p_bundle, a_ranked_db.crit_db, -100);
 

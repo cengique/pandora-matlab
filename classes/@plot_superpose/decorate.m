@@ -25,7 +25,7 @@ function handles = decorate(a_plot)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Get props from plot_superpose
+% Get props from plot_superpose
 to_plot = set(a_plot, 'props', ...
 	      mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
 

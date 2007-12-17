@@ -13,6 +13,6 @@ try
 catch
   errstr = lasterror;
 
-  %# Then try the parent class
+  % Then try the parent class
   b = get(a.results_profile, attr);
 end

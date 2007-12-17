@@ -35,6 +35,6 @@ if ~ exist('rows')
   rows = ':';
 end
 
-%# Make a cell array out of db contents
+% Make a cell array out of db contents
 col_names = fieldnames(db.col_idx);
 s = cell2struct(num2cell(db.data(rows, :, pages)), col_names, 2);

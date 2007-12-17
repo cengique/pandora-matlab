@@ -39,7 +39,7 @@ end
 num_rows = dbsize(a_tests_db, 1);
 plots = cell(num_rows, 1);
 for row_num=1:num_rows
-  %# inverse order for plot_stack
+  % inverse order for plot_stack
   if row_num == num_rows
      row_plot = ...
 	plotrow(a_tests_db, row_num, struct('putLabels', 1))
@@ -53,7 +53,7 @@ for row_num=1:num_rows
 end
 
 props(1).xLabelsPos = 'bottom';
-%#props.xTicksPos = 'bottom';
+%props.xTicksPos = 'bottom';
 props.titlesPos = 'none';
 
 tests_props = get(a_tests_db, 'props');

@@ -30,8 +30,8 @@ function obj = onlyRowsTests(obj, varargin)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# DOESN'T WORK when called from subsref???
-%#'zaaaart'
+% DOESN'T WORK when called from subsref???
+%'zaaaart'
 
-%# Retain object identity
+% Retain object identity
 obj.tests_3D_db = onlyRowsTests(obj.tests_3D_db, varargin{:});

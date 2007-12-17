@@ -29,7 +29,7 @@ function pt_coefs_hists = paramsTestsCoefsHists(a_db, p_coefs)
 % http://opensource.org/licenses/afl-3.0.php.
 
 num_params = a_db.num_params;
-num_tests = dbsize(a_db, 2) - num_params - 1; %# Except the file indices
+num_tests = dbsize(a_db, 2) - num_params - 1; % Except the file indices
 
 pt_coefs_hists = cell(num_tests, num_params);
 for param_num=1:num_params

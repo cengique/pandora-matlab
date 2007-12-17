@@ -40,10 +40,10 @@ a_plot = [];
 
 deriv = diffT(s.trace.data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 deriv = deriv(3:(end-2));
-%# threshold voltage derivative
+% threshold voltage derivative
 idx = find(deriv >= thr); 
 if length(idx) == 0 
-  %# TODO: give error and catch the error in the above level
+  % TODO: give error and catch the error in the above level
   warning('spike_shape:threshold_derivative', ...
 	  ['Derivative threshold ' num2str(s.trace.props.init_threshold) ...
 	   ' failed to find spike initiation point. ' ...

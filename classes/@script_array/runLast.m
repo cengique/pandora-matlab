@@ -33,4 +33,4 @@ function job_results = runLast(a_script_array, job_results)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Do nothing
+% Do nothing

@@ -7,7 +7,7 @@ function b = subsref(a,index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# If a is an array, use built-in methods
+% If a is an array, use built-in methods
 if length(a) > 1
   b = builtin('subsref', a, index);
   return;
@@ -15,15 +15,15 @@ end
 
 if size(index, 2) > 1
   first = subsref(a, index(1));
-  %# recursive
+  % recursive
   b = subsref(first, index(2:end));
 else
   switch index.type
     case '()'
-      %# Delegate to builtin indexing
+      % Delegate to builtin indexing
       b = builtin('subsref', a, index);
       %error('indexing operator not defined.');
-      %#b = a(index.subs{:});
+      %b = a(index.subs{:});
     case '.'
       b = get(a, index.subs); 
     case '{}'

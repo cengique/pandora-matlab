@@ -36,7 +36,7 @@ function tex_string = getTeXString(a_doc, props)
 
 num_docs = length(a_doc.docs);
 
-%# Concatenate all docs together
+% Concatenate all docs together
 tex_string = [];
 docs = a_doc.docs;
 for doc_num = 1:num_docs

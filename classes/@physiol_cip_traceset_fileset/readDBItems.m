@@ -35,27 +35,27 @@ if ~ exist('items')
   items = 1:length(get(obj, 'list'));
 end
 
-%# Collect info for generating the DB
+% Collect info for generating the DB
 num_items = length(items);
 rows = 0;
 
-%# For loop to figure out the number of rows in database
+% For loop to figure out the number of rows in database
 for item_num=items 
     item = getItem(obj, item_num);
     rows = rows + length(get(item, 'list'));
 end
 
-%# Get generic fileset information from the first traceset item
+% Get generic fileset information from the first traceset item
 first_item = getItem(obj, 1);
 param_names = paramNames(first_item);
 param_names = { param_names{:}, 'NeuronId', 'TracesetIndex' };
 test_names = testNames(first_item);
 
-%# Preallocating matrices dramatically speeds up the filling process
+% Preallocating matrices dramatically speeds up the filling process
 params = repmat(NaN, rows, length(param_names));
 tests = repmat(NaN, rows, length(test_names));
 
-%# Batch process all items
+% Batch process all items
 start_time = cputime;
 
 disp('Reading fileset: ');
@@ -67,14 +67,14 @@ for item_num=items
   disp(['Loading traceset ' get(item , 'id') ' on row ' num2str(item_num) ]);
 
   [item_params, tmp_param_names, item_tests, tmp_test_names] = readDBItems(item);
-  %#num_traces = length(get(item, 'list'));
+  %num_traces = length(get(item, 'list'));
   num_traces = size(item_tests, 1);
 
-  %# Read the neuron name from the id field of traceset 
-  %# and translate to NeuronId
+  % Read the neuron name from the id field of traceset 
+  % and translate to NeuronId
   neuron_id = obj.neuron_idx.(get(item, 'id'));
 
-  if num_traces > 0  %# Unless reading traceset failed and truncated
+  if num_traces > 0  % Unless reading traceset failed and truncated
     row_range = rows : (rows + num_traces - 1);
     params(row_range, :) = [item_params, repmat(neuron_id, num_traces,1), ...
 			    repmat(item_num, num_traces,1) ];
@@ -82,12 +82,12 @@ for item_num=items
     rows = rows + num_traces;
   end
 
-  %# Reading traceset failed and sub-db was truncated
+  % Reading traceset failed and sub-db was truncated
   if num_traces < length(get(item, 'list'))
-    %# Truncate database here
+    % Truncate database here
     params = params(1:rows, :);
     tests = tests(1:rows, :);
-    break; %# Out of for
+    break; % Out of for
   end
 end
 

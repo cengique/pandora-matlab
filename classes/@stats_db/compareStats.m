@@ -39,21 +39,21 @@ if isempty(varargin)
   return;
 end
 
-%# recurse if multiple inputs were given
+% recurse if multiple inputs were given
 if length(varargin) > 1
   with_db = compareStats(varargin{:});
 else
   with_db = varargin{1};
 end
 
-%# Setup lookup tables
+% Setup lookup tables
 col_names = fieldnames(get(a_stats_db, 'col_idx'));
 wcol_names = fieldnames(get(with_db, 'col_idx'));
 
-%# Check if they have same columns
-if dbsize(a_stats_db, 2) ~= dbsize(with_db, 2) || ... %# Same number of columns
-  ((~ isempty(col_names) || ~ isempty(wcol_names)) && ... %# If any names are specified,
-   ~ all(ismember(col_names, wcol_names))) 	          %# make sure they're same 
+% Check if they have same columns
+if dbsize(a_stats_db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
+  ((~ isempty(col_names) || ~ isempty(wcol_names)) && ... % If any names are specified,
+   ~ all(ismember(col_names, wcol_names))) 	          % make sure they're same 
   error('Need to have same columns with same names in a_stats_db and with_db.');
 end
 

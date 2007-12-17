@@ -37,12 +37,12 @@ function obj = sql_portal(db_conn, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    obj.db_conn = [];
    obj.id = '';
    obj.props = struct([]);
    obj = class(obj, 'sql_portal');
- elseif isa(db_conn, 'sql_portal') %# copy constructor?
+ elseif isa(db_conn, 'sql_portal') % copy constructor?
    obj = db_conn;
  else
 

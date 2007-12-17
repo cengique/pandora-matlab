@@ -27,21 +27,21 @@ function [axis_handle, layout_axis] = openAxis(a_plot, layout_axis)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Get generic verbose switch setting
+% Get generic verbose switch setting
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
-%# Verbose greeting
+% Verbose greeting
 if verbose
   disp([ 'plot_abstract, openAxis(' display(a_plot) ') {' ]);
 end
 
-%# Fixed size for ticks and labels, scaled to 10pt font size for current figure
+% Fixed size for ticks and labels, scaled to 10pt font size for current figure
 [dx, dy] = calcGraphNormPtsRatio(gcf);
 decosize_x = 10 * dx;
 decosize_y = 10 * dy;
 
-%#decosize = 0.04;
+%decosize = 0.04;
 minwidth = 0.001;
 minheight = 0.001;
 
@@ -52,19 +52,19 @@ else
 end
 
 if length(border) == 1
-  %# Convert to margins for each edge
+  % Convert to margins for each edge
   border = [border border border border];
 end
 
-%# Put some extra space on right hand side
-%# TODO: save the axis handle!
+% Put some extra space on right hand side
+% TODO: save the axis handle!
 if ~ exist('layout_axis')
   layout_axis = [];
 end
 
-%# If a new axis need to be opened, calculate dimensions
+% If a new axis need to be opened, calculate dimensions
 if isempty(layout_axis) || ~all(isnan(layout_axis))
-  %# apply rightmost and topmost margins for all except plot_stack
+  % apply rightmost and topmost margins for all except plot_stack
   if isa(a_plot, 'plot_stack') 
     top_margin = 0;
     right_margin = 0;
@@ -81,7 +81,7 @@ if isempty(layout_axis) || ~all(isnan(layout_axis))
       end
   end
   
-  %# Factor in borders and special margins
+  % Factor in borders and special margins
   [ left_side bottom_side width height ] = ...
       deal(layout_axis(1) + border(1), layout_axis(2) + border(2), ...
            layout_axis(3) - (border(1) + border(3)) - right_margin, ...
@@ -95,20 +95,20 @@ end
 a_plot_props = get(a_plot, 'props');
 if ~isnan(layout_axis)
   plot_axis_labels = get(a_plot, 'axis_labels');
-  %# Adjust the axis according to decorations
+  % Adjust the axis according to decorations
 
-  %# title
+  % title
   if ~isempty(get(a_plot, 'title')) && ...
 	(~isfield(a_plot_props, 'noTitle') || a_plot_props.noTitle == 0)
     y_strut = 2 * decosize_y;
-    %#bottom_side = bottom_side + y_strut;
+    %bottom_side = bottom_side + y_strut;
     height = max(height - y_strut, minheight);
     if verbose
       disp('plot_abstract: alloc space for title.');
     end
   end
 
-  %# X-axis label
+  % X-axis label
   if (~isempty(plot_axis_labels) && ~isempty(plot_axis_labels{1})) && ...
 	(~isfield(a_plot_props, 'noXLabel') || a_plot_props.noXLabel == 0)
     y_strut = 2 * decosize_y;
@@ -119,7 +119,7 @@ if ~isnan(layout_axis)
     end
   end
   
-  %# X-axis tick labels
+  % X-axis tick labels
   if (~isfield(a_plot_props, 'XTickLabel') || ~isempty(a_plot_props.XTickLabel)) && ...
        ~isa(a_plot, 'plot_stack')
     y_strut = decosize_y;
@@ -130,7 +130,7 @@ if ~isnan(layout_axis)
     end
   end
 
-  %# Y-axis label
+  % Y-axis label
   if (~isempty(plot_axis_labels) && ~isempty(plot_axis_labels{2})) && ...
 	(~isfield(a_plot_props, 'noYLabel') || a_plot_props.noYLabel == 0)
     x_strut = decosize_x;
@@ -141,10 +141,10 @@ if ~isnan(layout_axis)
     end
   end
   
-  %# Y-axis tick labels
+  % Y-axis tick labels
   if (~isfield(a_plot_props, 'YTickLabel') || ~isempty(a_plot_props.YTickLabel)) && ...
        ~isa(a_plot, 'plot_stack')
-    %# Assume 3 chars max
+    % Assume 3 chars max
     x_strut = 3 * decosize_x;
     left_side = left_side + x_strut;
     width = max(width - x_strut, minwidth);

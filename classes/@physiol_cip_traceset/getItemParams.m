@@ -29,9 +29,9 @@ function params_row = getItemParams(dataset, index, a_profile)
 
 props = get(a_profile, 'props');
 
-%# These are the order and names:
-%#  { 'pulseOn', 'pulseOff', 'traceEnd' 'pAcip', 'pAbias' };
-%# 'type', type, 'on', on, 'off', off, 'finish', finish, 'bias', bias, 'pulse',pulse
+% These are the order and names:
+%  { 'pulseOn', 'pulseOff', 'traceEnd' 'pAcip', 'pAbias' };
+% 'type', type, 'on', on, 'off', off, 'finish', finish, 'bias', bias, 'pulse',pulse
 fnames = fieldnames(dataset.treatments);
 tvec = [];
 for n = 1:length(fnames)

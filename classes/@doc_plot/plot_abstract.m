@@ -37,10 +37,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_docs = length(a_doc);
 if num_docs > 1 
-  %# Create array of plots
+  % Create array of plots
   % [a_plot(1:num_docs)] = deal(plot_abstract); causes segfault if plots
   % are subclasses 
   [a_plot(1:num_docs)] = deal(plot_abstract(a_doc(1), title_str, props));

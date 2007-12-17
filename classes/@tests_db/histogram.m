@@ -39,7 +39,7 @@ end
 
 num_dbs = length(db);
 if num_dbs > 1
-  %# If given array of DBs, find maximal bounds to create bins accordingly
+  % If given array of DBs, find maximal bounds to create bins accordingly
   min_val = +Inf;
   max_val = -Inf;
   for db_num=1:num_dbs
@@ -50,15 +50,15 @@ if num_dbs > 1
     max_val = max(max_val, bounds_data(3));
   end
 
-  %# If a scalar, then apply limits and get bins
+  % If a scalar, then apply limits and get bins
   if length(num_bins) == 1
     num_bins = min_val + (1:num_bins - 1) .* (max_val - min_val) ./ (num_bins - 1);
   end
 
-  %# It's not A histogram db anymore
+  % It's not A histogram db anymore
   [a_histogram_db(1:num_dbs)] = deal(histogram_db);
   for db_num=1:num_dbs
-    %# recurse
+    % recurse
     a_histogram_db(db_num) = histogram(db(db_num), col, num_bins);
   end  
 
@@ -66,13 +66,13 @@ else
 
 col_db = onlyRowsTests(db, ':', col);
 
-%# Remove NaN or Inf values 
+% Remove NaN or Inf values 
 col_db = onlyRowsTests(col_db, ~ isnan(col_db.data) & ~ isinf(col_db.data), 1);
-%#col_db = col_db( ~ isnan(col_db(:, 1)), 1);
-%# I don't know why the above doesn't work!? 
-%# [ because matlab doesn't call member funcs from here]
+%col_db = col_db( ~ isnan(col_db(:, 1)), 1);
+% I don't know why the above doesn't work!? 
+% [ because matlab doesn't call member funcs from here]
 
-%# If any rows left
+% If any rows left
 if dbsize(col_db, 1) > 0
   [hist_results bins] = hist(col_db.data, num_bins);
 else

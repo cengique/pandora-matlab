@@ -39,7 +39,7 @@ params_cols = 1:a_db.num_params;
 tests_cols = (a_db.num_params+1):dbsize(a_db, 2);
 
 if isfield(props, 'distDB')
-  %# Take params out of distDB, too
+  % Take params out of distDB, too
   % why?? need to check if its a params_tests_db and count its params and
   % columns 
   %props.distDB = onlyRowsTests(props.distDB, ':', tests_cols);
@@ -47,11 +47,11 @@ end
 
 no_params_db = onlyRowsTests(a_db.tests_db, ':', tests_cols);
 
-%# Call parent method for getting the criterion w/o the params
+% Call parent method for getting the criterion w/o the params
 crit_db = matchingRow(no_params_db, row, props);
 
-%# Create a new params_tests_db.
-%# Add the STD of param values as NaNs
+% Create a new params_tests_db.
+% Add the STD of param values as NaNs
 crit_db = ...
     params_tests_db([ get(onlyRowsTests(a_db, row, params_cols), 'data'); ...
 		     nan(1, a_db.num_params)], getColNames(a_db, params_cols), ...

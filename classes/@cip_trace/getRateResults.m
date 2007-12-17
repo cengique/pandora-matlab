@@ -26,10 +26,10 @@ function results = getRateResults(a_cip_trace, a_spikes)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Spike rates [Hz] in total spikes over time method for all periods
+% Spike rates [Hz] in total spikes over time method for all periods
 ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
-%# Whole periods first
+% Whole periods first
 results.IniSpontSpikeRate = ...
     spikeRate(a_spikes, periodIniSpont(a_cip_trace));
 results.IniSpontSpikeRateISI = ...
@@ -43,7 +43,7 @@ results.RecSpontSpikeRate = ...
 results.RecSpontSpikeRateISI = ...
     spikeRateISI(a_spikes, periodRecSpont(a_cip_trace));
 
-%# Then Subperiods
+% Then Subperiods
 results.PulseIni100msSpikeRateISI = ...
     spikeRateISI(a_spikes, periodPulseIni100ms(a_cip_trace));
 results.PulseIni100msISICV = ...
@@ -67,28 +67,28 @@ results.RecSpont1SpikeRateISI = ...
 results.RecSpont2SpikeRateISI = ...
     spikeRateISI(a_spikes, periodRecSpont2(a_cip_trace));
 
-%# Add one to both num and denum to avoid Inf and NaNs, 
-%# and still have discernible results
+% Add one to both num and denum to avoid Inf and NaNs, 
+% and still have discernible results
 results.RecIniSpontRateRatio = ...
     (results.RecSpont1SpikeRateISI + 1) / (results.IniSpontSpikeRateISI + 1);
 
-%# Whole pulse period rate methods compared
+% Whole pulse period rate methods compared
 
-%# ISI-CV 
+% ISI-CV 
 results.IniSpontISICV = ISICV(a_spikes, periodIniSpont(a_cip_trace));
 results.PulseISICV = ISICV(a_spikes, periodPulse(a_cip_trace));
 results.RecSpontISICV = ISICV(a_spikes, periodRecSpont(a_cip_trace));
 
-%# Spike frequency accommodation (SFA)
+% Spike frequency accommodation (SFA)
 results.PulseSFA = SFA(a_spikes, periodPulse(a_cip_trace));
 
-%# Exponential approximation to amplitude decay for slow inactivating channels
+% Exponential approximation to amplitude decay for slow inactivating channels
 [a_tau, a_inf] = spikeAmpSlope(a_spikes, a_cip_trace, ...
 			       periodPulse(a_cip_trace));
 results.PulseSpikeAmpDecayTau = a_tau;
 results.PulseSpikeAmpDecayDelta = a_inf;
 
-%# Recovery period
+% Recovery period
 recov_spikes = withinPeriod(a_spikes, periodRecSpont(a_cip_trace));
 if length(recov_spikes.times) > 1
   results.RecSpontFirstSpikeTime = recov_spikes.times(1) * ms_factor;

@@ -46,14 +46,14 @@ function a_cluster_db = cluster_db(data, col_names, orig_db, cluster_idx, id, pr
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_cluster_db.orig_db = tests_db;
    a_cluster_db.cluster_idx = [];
-   %#a_cluster_db.props = struct([]); props removed, remains only at base class
+   %a_cluster_db.props = struct([]); props removed, remains only at base class
    a_cluster_db = class(a_cluster_db, 'cluster_db', tests_db);
- elseif isa(data, 'cluster_db') %# copy constructor?
+ elseif isa(data, 'cluster_db') % copy constructor?
    a_cluster_db = data;
- else %# Create a new object
+ else % Create a new object
 
    if ~ exist('props')
      props = struct([]);
@@ -61,9 +61,9 @@ if nargin == 0 %# Called with no params
 
    a_cluster_db.orig_db = orig_db;
    a_cluster_db.cluster_idx = cluster_idx;
-   %#a_cluster_db.props = props;
+   %a_cluster_db.props = props;
 
-   %# Sort increasing with distances
+   % Sort increasing with distances
    a_cluster_db = class(a_cluster_db, 'cluster_db', ...
 		       tests_db(data, col_names, {}, id, props));
 end

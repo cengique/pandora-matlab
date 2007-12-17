@@ -48,7 +48,7 @@ if exist('command')
   a_plot = set(a_plot, 'command', command);
 end
 
-%# Combine plots and legend fields into one plot_superpose object
+% Combine plots and legend fields into one plot_superpose object
 num_plots = length(plots);
 if num_plots > 1
   for plot_num = 2:num_plots

@@ -33,7 +33,7 @@ if ~exist('rows')
 end
 
 crit_cols = fieldnames(get(a_ranked_db.crit_db, 'col_idx'));
-%# Remove the RowIndex and ItemIndex columns, if exists
+% Remove the RowIndex and ItemIndex columns, if exists
 all_test_cols(1:length(crit_cols)) = true(1);
 if isa(a_ranked_db.crit_db, 'params_tests_db')
   all_test_cols(1:get(a_ranked_db.crit_db, 'num_params')) = false;
@@ -44,9 +44,9 @@ end
 if any(ismember(crit_cols, 'NeuronId'))
   all_test_cols(tests2cols(a_ranked_db.crit_db, 'NeuronId')) = false(1);
 end
-%#if any(ismember(crit_cols, 'ItemIndex'))
-%#  all_test_cols(tests2cols(a_ranked_db.crit_db, 'ItemIndex')) = false(1);
-%#end
+%if any(ismember(crit_cols, 'ItemIndex'))
+%  all_test_cols(tests2cols(a_ranked_db.crit_db, 'ItemIndex')) = false(1);
+%end
 crit_cols = {crit_cols{all_test_cols}};
 
 db_cols = fieldnames(get(a_ranked_db.orig_db, 'col_idx'));

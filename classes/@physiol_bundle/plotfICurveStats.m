@@ -46,7 +46,7 @@ else
   caption = ['mean and STD of ' p_bundle.joined_control_db.id title_str];
 end
 
-%# TODO: get these from uniqueValues
+% TODO: get these from uniqueValues
 curve_pAvals = [0 40 100 200];
 curve_tests = {'IniSpontSpikeRateISI_0pA', 'PulseIni100msSpikeRateISI_D40pA', ...
 	       'PulseIni100msSpikeRateISI_D100pA', 'PulseIni100msSpikeRateISI_D200pA'};

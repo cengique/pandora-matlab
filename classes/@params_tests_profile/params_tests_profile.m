@@ -39,11 +39,11 @@ function a_pt_profile = params_tests_profile(results, a_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   a_pt_profile.db = params_tests_db;
   a_pt_profile.props = struct([]);
   a_pt_profile = class(a_pt_profile, 'params_tests_profile', results_profile);
-elseif isa(results, 'params_tests_profile') %# copy constructor?
+elseif isa(results, 'params_tests_profile') % copy constructor?
   a_pt_profile = results;
 else 
   if ~ exist('props')
@@ -53,7 +53,7 @@ else
   a_pt_profile.db = a_db;
   a_pt_profile.props = props;
 
-  %# Create the object
+  % Create the object
   a_pt_profile = class(a_pt_profile, 'params_tests_profile', ...
 		       results_profile(results, a_db.id));
 end

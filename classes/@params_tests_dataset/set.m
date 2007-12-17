@@ -9,8 +9,8 @@ function a = set(a, attr, val)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%#try
+%try
   a.(attr) = val;
-%#catch
-  %#rethrow(lasterror);
-%#end
+%catch
+  %rethrow(lasterror);
+%end

@@ -50,15 +50,15 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_plot = struct;
    a_plot = class(a_plot, 'plot_bars', plot_stack);
- elseif isa(mid_vals, 'plot_bars') %# copy constructor?
+ elseif isa(mid_vals, 'plot_bars') % copy constructor?
    a_plot = mid_vals;
  else
    if ~ exist('props')
-     props.rotateXLabel = 45; %# Degrees
-     %#props.XTickLabel = 1;
+     props.rotateXLabel = 45; % Degrees
+     %props.XTickLabel = 1;
    end
    
    group_locs = 1:size(mid_vals, 1);
@@ -72,7 +72,7 @@ if nargin == 0 %# Called with no params
    end
 
    if ~ exist('axis_limits')
-     axis_limits = []; %# Degrees
+     axis_limits = []; % Degrees
    end
 
    a_plot = struct;
@@ -84,7 +84,7 @@ if nargin == 0 %# Called with no params
    else
        bar_axis_props = props;
    end
-   %# Loop for each item and create a horizontal stack of plots
+   % Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
 
      if ~isfield(props, 'dispBarsLines') || strcmp(props.dispBarsLines, 'bars')
@@ -107,7 +107,7 @@ if nargin == 0 %# Called with no params
        plot_components = ...
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
-			   lo_vals(:,plot_num), hi_vals(:,plot_num), 'LineStyle', linestyle}, ... %# '+'
+			   lo_vals(:,plot_num), hi_vals(:,plot_num), 'LineStyle', linestyle}, ... % '+'
 			  {x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'errorbar', props)};
      end
 

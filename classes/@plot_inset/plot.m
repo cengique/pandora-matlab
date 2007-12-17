@@ -26,7 +26,7 @@ function handles = plot(a_plot, layout_axis)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: save the axis handle!
+% TODO: save the axis handle!
 if ~ exist('layout_axis')
   layout_axis = [0 0 1 1];
 end

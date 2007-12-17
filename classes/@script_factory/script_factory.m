@@ -40,13 +40,13 @@ function obj = script_factory(num_scripts, out_name, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   obj.num_scripts = 0;
   obj.out_name = '';  
   obj.id = '';
   obj.props = struct;
   obj = class(obj, 'script_factory');
-elseif isa(num_scripts, 'script_factory') %# copy constructor?
+elseif isa(num_scripts, 'script_factory') % copy constructor?
   obj = num_scripts;
 else
   if ~ exist('props')
@@ -58,6 +58,6 @@ else
   obj.id = id;
   obj.props = props;
 
-  %# Create the object
+  % Create the object
   obj = class(obj, 'script_factory');
 end

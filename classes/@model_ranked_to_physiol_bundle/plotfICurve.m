@@ -32,9 +32,9 @@ function a_doc = docfICurve(r_bundle, rank_num, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 a_ranked_db = r_bundle.ranked_db;
-joined_db = joinOriginal(a_ranked_db, 1); %# Get only the best
+joined_db = joinOriginal(a_ranked_db, 1); % Get only the best
 
-%# adjust labels for LaTeX
+% adjust labels for LaTeX
 a_db_id = lower(properTeXLabel(get(a_ranked_db.orig_db, 'id')));
 crit_db_id = lower(properTeXLabel(get(a_ranked_db.crit_db, 'id')));
 traceset_index = a_ranked_db.crit_db(1, 'TracesetIndex', 1).data;

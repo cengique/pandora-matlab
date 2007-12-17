@@ -26,7 +26,7 @@ function [max_val, max_idx] = calcMaxVm(s)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Look for the peak only in the first 10 ms or so.
+% Look for the peak only in the first 10 ms or so.
 or_so = floor(min(12e-3 / s.trace.dt, length(s.trace.data)));
 [max_val, max_idx] = calcMax(s.trace, period(1, or_so));
 

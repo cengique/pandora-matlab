@@ -53,29 +53,29 @@ function obj = params_tests_db(params, param_names, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.num_params=0;
   obj = class(obj, 'params_tests_db', tests_db);
-elseif isa(params, 'params_tests_db') %# copy constructor?
+elseif isa(params, 'params_tests_db') % copy constructor?
   obj = params;
 elseif isa(param_names, 'tests_db')
-  %# Usage 2
+  % Usage 2
   obj.num_params = params;
   if exist('a_test_results')
     props = a_test_results;
   else
     props = struct([]);
   end
-  %#obj.props = props; % this usage loses props
+  %obj.props = props; % this usage loses props
   obj = class(obj, 'params_tests_db', param_names);
 else
-  %# Usage 1
+  % Usage 1
   if ~ exist('props')
     props = struct([]);
   end
 
-  %# Only allow numeric arrays as params & a_test_results
-  %# TODO: add cell arrays?
+  % Only allow numeric arrays as params & a_test_results
+  % TODO: add cell arrays?
   if ~ isnumeric(a_test_results) || ~ isnumeric(params)
     error('Only numeric arrays allowed as params or a_test_results.');
   end

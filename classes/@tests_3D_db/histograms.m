@@ -34,7 +34,7 @@ if ~ exist('num_bins')
   num_bins = 100;
 end
 
-%# For all pages, get histogram
+% For all pages, get histogram
 num_pages = dbsize(db.tests_db, 3);
 pages=(1:num_pages)';
 data = repmat(0, [num_bins, 2, num_pages]);
@@ -46,7 +46,7 @@ end
 
 col = tests2cols(db, col);
 
-%# Create a new histogram_db with all the data
+% Create a new histogram_db with all the data
 col_name_cell = fieldnames(get(db, 'col_idx'));
 col_name = col_name_cell{col};
 props = struct([]);

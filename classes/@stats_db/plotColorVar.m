@@ -36,7 +36,7 @@ if ~ exist('props')
 end
 
 num_params = length(p_stats);
-num_tests = dbsize(p_stats(1), 2) - 2; %# Subtract param and RowIndex columns
+num_tests = dbsize(p_stats(1), 2) - 2; % Subtract param and RowIndex columns
 
 image_data = zeros(num_tests, num_params);
 for param_num=1:num_params
@@ -45,7 +45,7 @@ for param_num=1:num_params
 						    1, 2:(1+num_tests), ':'))), 'data'));
 end
 
-%# normalize each test row
+% normalize each test row
 image_data = image_data ./ (max(abs(image_data), [], 2) * ones(1, size(image_data, 2)));
 
 num_colors = 49;
@@ -73,18 +73,18 @@ a_plot = plot_abstract({image_data * num_colors + num_colors, @colormapBlueCross
 		       title_str, {}, @plot_image, mergeStructs(props, plot_props));
 end
 
-%# Small function for creating matrix plot
+% Small function for creating matrix plot
 function h = plot_image(image_data, colormap_func, num_colors, props)
   h = image(image_data);
-  %# Show up to some number of STDs
+  % Show up to some number of STDs
   colormap(feval(colormap_func, num_colors)); 
   if isfield(props, 'colorbar')
     hc = colorbar;
     set(hc, 'YTick', [1, (num_colors + 1),  (2 * num_colors + 1)]);
     set(hc, 'YTickLabel', [-1, 0, +1]);
   end
-  %# scale font to fit measure names on y-axis
+  % scale font to fit measure names on y-axis
   num_rows = max(100, size(image_data, 1));
-  %#set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
+  %set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
 end
 

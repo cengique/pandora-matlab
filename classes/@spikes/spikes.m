@@ -49,13 +49,13 @@ function obj = spikes(times, num_samples, dt, id)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    obj.times = [];
    obj.num_samples = 0;
    obj.dt = 1;
    obj.id = '';
    obj = class(obj, 'spikes');
- elseif isa(times,'spikes') %# copy constructor?
+ elseif isa(times,'spikes') % copy constructor?
    obj = times;
  else
    obj.times = times;

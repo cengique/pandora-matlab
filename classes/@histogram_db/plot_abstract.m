@@ -42,28 +42,28 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots with the same dimensions
+% If input is an array, then return array of plots with the same dimensions
 size_dbs = size(a_hist_db);
 num_dbs = prod(size_dbs);
 if num_dbs > 1 
-  %# flatten to array
+  % flatten to array
   flat_dbs = reshape(a_hist_db, num_dbs, 1);
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_simple);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plot_abstract(flat_dbs(plot_num), title_str, props);
   end
-  %# reshape the output matrix
+  % reshape the output matrix
   a_plot = reshape(a_plot, size_dbs);
   return;
 end
 
-%# First column is the variable, second is the histogram
+% First column is the variable, second is the histogram
 colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
 
-%# if the plot is rotated switch the axis labels
+% if the plot is rotated switch the axis labels
 if strcmp(command, 'barh')
   x_label = 'Count';
   y_label = strrep(colnames{1}, '_', ' ');
@@ -84,7 +84,7 @@ if isfield(props, 'logScale')
   y_label = [ 'log ' y_label ];
 end
 
-%# Make a simple plot object drawing vertical bars
+% Make a simple plot object drawing vertical bars
 a_plot = plot_simple(data(:, 1), data(:, 2), ...
 		     all_title, ...
 		     x_label, y_label, ...

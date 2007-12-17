@@ -47,7 +47,7 @@ else
   ind_vals = struct2cell(ind_struct);
 end
 
-%# Parse tests
+% Parse tests
 idx = [];
 if ischar(tests) && strcmp(tests, ':')
   idx = [ ind_vals{:} ];
@@ -59,7 +59,7 @@ elseif ischar(tests)
   idx = getfield(ind_struct, tests);
 elseif iscell(tests)
   for test=tests
-    test = test{1}; %# unwrap the cell
+    test = test{1}; % unwrap the cell
     if ischar(test)
       ind = getfield(ind_struct, test);
     elseif isnumeric(test)

@@ -31,14 +31,14 @@ function [a_db, varargout] = std(a_db, sflag, dim)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('dim')
-  dim = 1; %# Go down rows by default
+  dim = 1; % Go down rows by default
 end
 
 if ~ exist('sflag')
-  sflag = 0; %# Normalize by N-1 by default
+  sflag = 0; % Normalize by N-1 by default
 end
 
-%# Always do row stds
+% Always do row stds
 order = 1:length(dbsize(a_db));
 if dim ~= 1
   order(dim) = 1;
@@ -48,11 +48,11 @@ else
   data = a_db.data;
 end
 
-%# Allocate results array
+% Allocate results array
 db_size = size(data);
 s = repmat(NaN, [1 db_size(2:end)]);
 
-%# Do a loop over EACH other dimension (!)
+% Do a loop over EACH other dimension (!)
 [s, n] = recstd(data, sflag, length(db_size));
 
 if dim ~= 1
@@ -68,22 +68,22 @@ if nout > 0
   varargout{1} = n;
 end
 
-%# Recursive std needed for stripping NaNs in each dimension
-%# s is the std, and n is the number of non-NaN rows used to obtain it.
+% Recursive std needed for stripping NaNs in each dimension
+% s is the std, and n is the number of non-NaN rows used to obtain it.
 function [s, n] = recstd(data, sflag, dim)
   if dim == 1
     sdata = data(~isnan(data(:)) & ~isinf(data(:)));
     n = size(sdata, 1);
     if n == 0
-      %# If no data exists, give it NaN value instead of an empty
-      %# matrix.
+      % If no data exists, give it NaN value instead of an empty
+      % matrix.
       s = NaN;
     else
       s = std(sdata, sflag, 1);
     end
   else
     for num=1:size(data, dim)
-      %# Otherwise recurse
+      % Otherwise recurse
       [dims{1:(dim-1)}] = deal(':');
       dims{dim} = num;
       [s(dims{:}) n(dims{:})]  = recstd(data(dims{:}), sflag, dim - 1);

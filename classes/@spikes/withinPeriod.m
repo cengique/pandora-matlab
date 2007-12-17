@@ -27,12 +27,12 @@ function obj = withinPeriod(s, a_period)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO:
-%# - Relate this method by overloading an abstract class/interface periodable(?) 
+% TODO:
+% - Relate this method by overloading an abstract class/interface periodable(?) 
 
 s = withinPeriodWOffset(s, a_period);
 
-%# reset the offset
+% reset the offset
 s.times = s.times - a_period.start_time + 1; 
 
 obj = s;

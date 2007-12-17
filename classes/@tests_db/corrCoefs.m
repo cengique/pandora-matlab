@@ -54,14 +54,14 @@ else
   skipCoefs = 1;
 end
 
-%# Obsolete, need to remove NaNs
+% Obsolete, need to remove NaNs
 if isfield(props, 'excludeNaNs')
   excludeNaNs = props.excludeNaNs;
 else
   excludeNaNs = 1;
 end
 
-%# translate column spec to array form
+% translate column spec to array form
 col1 = tests2cols(db, col1);
 cols = tests2cols(db, cols);
 
@@ -69,23 +69,23 @@ num_pages = dbsize(db, 3);
 pages=(1:num_pages)';
 coefs = repmat(NaN, [num_pages, length(cols), 3]);
 
-%# Only if there are multiple observations
+% Only if there are multiple observations
 if dbsize(db, 1) > 1
-  %# One coefficient per page of observations
+  % One coefficient per page of observations
   for page_num=pages'
 
     col1nonnans = ~isnan(db.data(:, col1, page_num));
 
-    %# Do each column separately
+    % Do each column separately
     for col_num=1:length(cols)
       data = db.data(col1nonnans, [col1 cols(col_num)], page_num);
 
-      %# Remove rows with NaNs on column
+      % Remove rows with NaNs on column
       data = data(~isnan(data(:, 2)), :);
 
-      %# Check if any rows left
+      % Check if any rows left
       if size(data, 1) < 2
-	%#warning('tests_db:anyNaNs', 'No NaN-free rows found.');
+	%warning('tests_db:anyNaNs', 'No NaN-free rows found.');
 	continue;
       end
 
@@ -99,22 +99,22 @@ if dbsize(db, 1) > 1
   end
 end
 
-%# Cannot strip all the NaNs out, do it at histogram time
-%# Only strip full NaN rows here.
+% Cannot strip all the NaNs out, do it at histogram time
+% Only strip full NaN rows here.
 nanrows = all(isnan(coefs(:,:,1)), 2);
 coefs( nanrows, :, : ) = [];
 pages( nanrows, : ) = [];
 
-%# Triplicate pages
+% Triplicate pages
 pages(:, :, 2) = pages(:, :, 1);
 pages(:, :, 3) = pages(:, :, 1);
 
-%# Create the coefficient database
+% Create the coefficient database
 col_name_cell = fieldnames(get(db, 'col_idx'));
 col1_name = col_name_cell{col1};
 col_names = col_name_cell(cols);
 
-%# Check if any coefs left
+% Check if any coefs left
 if size(coefs, 1) == 0
   warning('tests_db:corrCoef:no_coefs', 'No coefficients found.');
   if size(coefs, 2) > length(cols)

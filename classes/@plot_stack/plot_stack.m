@@ -49,12 +49,12 @@ function a_plot = plot_stack(plots, axis_limits, orientation, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_plot.plots = {};
   a_plot.axis_limits = [];
   a_plot.orient = 'y';
   a_plot = class(a_plot, 'plot_stack', plot_abstract);
- elseif isa(plots, 'plot_stack') %# copy constructor?
+ elseif isa(plots, 'plot_stack') % copy constructor?
    a_plot = plots;
  else
    if ~ exist('props')
@@ -78,16 +78,16 @@ if nargin == 0 %# Called with no params
      plots = num2cell(plots);
    end
 
-   %# Loop through plots and set properties
+   % Loop through plots and set properties
 
    a_plot.plots = plots;
    a_plot.axis_limits = axis_limits;
    a_plot.orient = orientation;
 
-   %# Initialize with empty plot_abstract instance
-   %# because we override most of the default behavior
-   %# defined there anyway. 
-   %# By default, plot_stack has no labels or ticks.
+   % Initialize with empty plot_abstract instance
+   % because we override most of the default behavior
+   % defined there anyway. 
+   % By default, plot_stack has no labels or ticks.
    a_plot = ...
        class(a_plot, 'plot_stack', ...
 	     plot_abstract([], {}, title_str, {}, '', props));

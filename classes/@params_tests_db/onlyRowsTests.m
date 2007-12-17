@@ -30,8 +30,8 @@ function obj = onlyRowsTests(obj, varargin)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Adjust the number of parameters and then delegate the filtering to 
-%# tests_db/onlyRowsTests
+% Adjust the number of parameters and then delegate the filtering to 
+% tests_db/onlyRowsTests
 if length(varargin) > 1
   cols = sort(tests2cols(obj, varargin{2}));
   obj = set(obj, 'num_params', sum(cols <= obj.num_params));

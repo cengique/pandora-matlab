@@ -30,9 +30,10 @@ if ~ exist('item')
   item = 1;
 end
 
-%# CIP magnitude in pA
+% CIP magnitude in pA
 param_names = { 'pulseOn', 'pulseOff', 'traceEnd' 'pAcip', 'pAbias' };
-%# Add treatment names
+
+% Add treatment names
 if length(fieldnames(traceset.treatments)) > 0
 	param_names = cat(2, param_names, fieldnames(traceset.treatments)');
 end

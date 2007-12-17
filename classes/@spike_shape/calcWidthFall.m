@@ -45,11 +45,11 @@ function [base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# constants
-%#min_val = s.trace.data(min_idx);
-%#max_val = s.trace.data(max_idx);
+% constants
+%min_val = s.trace.data(min_idx);
+%max_val = s.trace.data(max_idx);
 
-%# Find depolarized part (+/- 1mV tolerance)
+% Find depolarized part (+/- 1mV tolerance)
 depol = find(s.trace.data(floor(max_idx):end) <= (init_val + 1));
 
 if isempty(depol) || floor((depol(1) + max_idx - 1)) == length(s.trace.data)
@@ -69,7 +69,7 @@ end
 
 end_depol = depol(1) + max_idx - 1;
 
-%# Interpolate to find the threshold crossing point
+% Interpolate to find the threshold crossing point
 denum = (s.trace.data(floor(end_depol)) - s.trace.data(floor(end_depol) + 1));
 if denum < -15
   extra_time = (s.trace.data(floor(end_depol)) - init_val - 1) / denum;
@@ -78,18 +78,18 @@ else
 end
 fall_init_cross_time = end_depol + extra_time;
 
-%# Base width and fall time
+% Base width and fall time
 base_width = fall_init_cross_time - init_idx;
 fall_time = fall_init_cross_time - max_idx;
 
-%# Half width threshold
+% Half width threshold
 half_Vm = init_val + (max_val - init_val) / 2;
 
-%# Find part above half Vm
+% Find part above half Vm
 start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
 above_half = start_from - 1 + find(s.trace.data(start_from:end) >= half_Vm);
 
-%# Find the first discontinuity to match only the first down ramp
+% Find the first discontinuity to match only the first down ramp
 some_of_the_above = above_half(above_half > floor(max_idx));
 end_of_first_hump = find(diff(some_of_the_above) > 1);
 if length(end_of_first_hump) > 0
@@ -98,7 +98,7 @@ else
   end_of_first_hump = above_half(end);
 end
 
-%# Find the last discontinuity to match only the last up ramp
+% Find the last discontinuity to match only the last up ramp
 some_of_the_above = above_half(above_half < floor(max_idx + 1));
 start_of_last_ramp = find(diff(some_of_the_above) > 1);
 if length(start_of_last_ramp) > 0
@@ -119,29 +119,29 @@ half_end = end_of_first_hump + ...
 
 half_width = half_end - half_start;
 
-%# Now look for max AHP right after fall_time
+% Now look for max AHP right after fall_time
 [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = find_max_ahp(s, max_idx, fall_time, init_val);
 
-%# Calculate AHP decay time constant approx: 
-%# min_val - max_ahp * (1 - exp(-t/decay_constant))
+% Calculate AHP decay time constant approx: 
+% min_val - max_ahp * (1 - exp(-t/decay_constant))
 
-%# Don't wrap to the beginning of the trace, already done at creation time
+% Don't wrap to the beginning of the trace, already done at creation time
 after_ahp = [s.trace.data(min_idx:end)];
 
-%# Find double AHP is it exists
-%#[dahp_mag, dahp_idx] = find_double_ahp(after_ahp, min_idx, s.trace.dt);
+% Find double AHP is it exists
+%[dahp_mag, dahp_idx] = find_double_ahp(after_ahp, min_idx, s.trace.dt);
 
-%# Threshold set at one time constant
-%#decay_constant_threshold = min_val + max_ahp * (1 - exp(-1))
+% Threshold set at one time constant
+%decay_constant_threshold = min_val + max_ahp * (1 - exp(-1))
 
-%# Try from resting potential
+% Try from resting potential
 decay_constant_threshold = min_val + ...
     (s.trace.data(1) - min_val) * (1 - exp(-1));
 
-%# If double ahp exists
+% If double ahp exists
 if ~isnan(dahp_mag)
   after_dahp = s.trace.data(dahp_idx:end);
-  %# Find minimum after the double AHP
+  % Find minimum after the double AHP
   [af_min_val, af_min_idx] = min(after_dahp);
   recover_times = ...
       find(after_dahp(af_min_idx:end) >= decay_constant_threshold) + ...
@@ -151,41 +151,41 @@ else
 end
 
 if length(recover_times) > 0 
-  %# Take first point for fitting exponential decay
+  % Take first point for fitting exponential decay
   ahp_decay_constant = recover_times(1) - max_idx;
 else 
   ahp_decay_constant = NaN;
 end
 
 function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
-  %# No dahp by default  
+  % No dahp by default  
   dahp_mag = NaN;
   dahp_idx = NaN;
 
-  %# Check for a maximum point right after the max AHP
-  %# The first 30 ms, or until the end of trace
+  % Check for a maximum point right after the max AHP
+  % The first 30 ms, or until the end of trace
   duration=after_ahp(1:min(floor(30e-3 / dt), length(after_ahp))); 
 
   [max_val, max_idx] = max(duration);
 
-  %# Check if maximum point exists
+  % Check if maximum point exists
   if max_idx == length(duration)   
     return
   end
 
-  %# Make linear approximation to an ahp bump
+  % Make linear approximation to an ahp bump
   dahp_bump_rise = duration(1) + (max_val - duration(1)) * (0:(max_idx-1)) / (max_idx-1);
-  %#dahp_bump_rise = duration(1):(max_val - duration(1))/max_idx:max_val;
+  %dahp_bump_rise = duration(1):(max_val - duration(1))/max_idx:max_val;
   fall_time = length(duration) - max_idx - 1;
   dahp_bump_fall = max_val + (duration(end) - max_val) * (0:fall_time) / fall_time;
-  %#dahp_bump_fall = max_val:(duration(end) - max_val)/(length(duration) - max_idx):duration(end);
+  %dahp_bump_fall = max_val:(duration(end) - max_val)/(length(duration) - max_idx):duration(end);
   dahp_bump = [dahp_bump_rise(1:end), dahp_bump_fall(1:end)]';
 
-  %# Make linear approximation to no double ahp case
+  % Make linear approximation to no double ahp case
   no_dahp = [duration(1) + ...
     (1:length(duration))*(duration(end) - duration(1))/length(duration)]';
 
-  %# Calculate error of hypothesis to reality
+  % Calculate error of hypothesis to reality
   dahp_error = sum(abs(dahp_bump - duration));
   nodahp_error = sum(abs(no_dahp - duration));
 
@@ -200,12 +200,12 @@ function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
   windowsize = 6;
   if length(s.trace.data) - start_from + 1 > windowsize
     after_fall = medfilt1(s.trace.data((start_from-1):end), windowsize);
-    after_fall = after_fall(2:end); %#  remove medfilt artifact from first sample
+    after_fall = after_fall(2:end); %  remove medfilt artifact from first sample
   else
     after_fall = s.trace.data(start_from:end);
   end
 
-  thr_start_from =  1; %# floor(1e-3/s.trace.dt); %# plus some ms  
+  thr_start_from =  1; % floor(1e-3/s.trace.dt); % plus some ms  
   first_thr_crossing = thr_start_from - 1 + find(after_fall(thr_start_from:end) <= (init_val + 1));
   if length(first_thr_crossing) == 0
     first_thr_crossing_idx = 1;
@@ -213,7 +213,7 @@ function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
     first_thr_crossing_idx = first_thr_crossing(1);
   end
 
-  %# find next time potential rises to threshold value
+  % find next time potential rises to threshold value
   next_thr_crossing = find(after_fall(first_thr_crossing_idx:end) > (init_val + 1));
   
   if length(next_thr_crossing) == 0
@@ -222,12 +222,12 @@ function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
     end_at = next_thr_crossing(1) + first_thr_crossing_idx - 1;
   end
 
-  %# Max AHP must be the minimal point in between
+  % Max AHP must be the minimal point in between
   [min_val, min_fall_idx] = min(after_fall(1:end_at));
 
   min_idx = min_fall_idx + start_from - 1;
 
-  max_ahp = max(0, init_val - min_val); 	%# maximal AHP amplitude
+  max_ahp = max(0, init_val - min_val); 	% maximal AHP amplitude
   
   [dahp_mag, dahp_idx] = find_double_ahp(after_fall(min_fall_idx:end_at), ...
 					 min_fall_idx, s.trace.dt);

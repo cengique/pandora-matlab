@@ -31,10 +31,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_dbs = length(s);
 if num_dbs > 1 
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_abstract);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plotData(s(plot_num), title_str);
@@ -42,7 +42,7 @@ if num_dbs > 1
   return;
 end
 
-%# Remove all '_' characters, because they interfere with TeX interpretation
+% Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(s), '_', ' ');
 a_plot = plot_abstract({s.times * s.dt * 1e3, ones(size(s.times))}, ...
 		       {'time [ms]', ''}, ...

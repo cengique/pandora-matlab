@@ -43,14 +43,14 @@ function obj = cip_traces_dataset(ts, cipmag, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: repeat the list for each cipmag. Then change cip_trace_profile
-%# to return one with a different cipmag according to index in list.
+% TODO: repeat the list for each cipmag. Then change cip_trace_profile
+% to return one with a different cipmag according to index in list.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.cipmag = [];
   obj.props = struct([]);
   obj = class(obj, 'cip_traces_dataset', params_tests_dataset);
-elseif isa(ts, 'cip_traces_dataset') %# copy constructor?
+elseif isa(ts, 'cip_traces_dataset') % copy constructor?
   obj = ts;
 else
 
@@ -61,14 +61,14 @@ else
   obj.cipmag = cipmag;
   obj.props = props;
 
-  %# Get the dt from first object
+  % Get the dt from first object
   if iscell(ts)
     dt = ts{1}.dt;
   else
     dt = ts(1).dt;
   end
 
-  %# Create the object 
+  % Create the object 
   obj = class(obj, 'cip_traces_dataset', ...
 	      params_tests_dataset(ts, dt, 1e-3, id, props));
 

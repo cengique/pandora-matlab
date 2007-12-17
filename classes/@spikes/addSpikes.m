@@ -26,5 +26,5 @@ function s = addSpike(s, times)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: need to order times?
+% TODO: need to order times?
 s.times = [s.times times];

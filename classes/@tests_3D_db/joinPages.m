@@ -40,26 +40,26 @@ size_wdb = dbsize(with_db);
 
 cols = tests2cols(db, tests);
 w_cols = tests2cols(with_db, w_tests);
-%#log_cols = true(1, size(with_db, 2));
-%#log_cols(page_col) = false(1);
+%log_cols = true(1, size(with_db, 2));
+%log_cols(page_col) = false(1);
 
 page_size = size_db(1);
 
 new_size(1) = page_size * size_wdb(1);
-new_size(2) = length(cols) + length(w_cols); %# Except the page index
+new_size(2) = length(cols) + length(w_cols); % Except the page index
 new_data = repmat(NaN, new_size);
 
 ones_vector = ones(page_size, 1);
 
-%# Do for each row in with_db
+% Do for each row in with_db
 for new_page_num=1:size_wdb(1)
-  %# Concat the data with replicated rows
+  % Concat the data with replicated rows
   new_data(((new_page_num - 1) * page_size + 1):(new_page_num * page_size), :) = ...
       [ data(:, cols, pages(new_page_num)), ...
        ones_vector * w_data(new_page_num, w_cols) ];
 end
 
-%# Get the column names straight
+% Get the column names straight
 cols_cell1 = fieldnames(get(db, 'col_idx'));
 cols_cell2 = fieldnames(get(with_db, 'col_idx'));
 cols_cell1

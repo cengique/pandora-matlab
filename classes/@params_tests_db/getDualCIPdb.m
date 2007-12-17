@@ -30,11 +30,11 @@ function a_db = getDualCIPdb(db, depol_tests, hyper_tests, depol_suffix, hyper_s
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Fold into two, according to cip values
+% Fold into two, according to cip values
 cip_fold_db = swapRowsPages(invarParam(sortrows(db, 'pAcip'), 'pAcip'));
 
-%# Merge the selected tests from each of the two pages
-%# Check cip value of first page to verify placement
+% Merge the selected tests from each of the two pages
+% Check cip value of first page to verify placement
 if get(onlyRowsTests(cip_fold_db, 1, 'pAcip', 1), 'data') < 0
   merged_db = mergePages(cip_fold_db, {hyper_tests, depol_tests}, ...
 			 {hyper_suffix, depol_suffix});
@@ -43,15 +43,15 @@ else
 			 {depol_suffix, hyper_suffix});
 end
 
-%# Get the parameters back (except pAcip)
+% Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
 joined_db = joinRows(onlyRowsTests(db, ':', wo_cip_params), merged_db);
 
-%# Remove the RowIndex column
+% Remove the RowIndex column
 wo_index = true(1, dbsize(joined_db, 2));
 wo_index(tests2cols(joined_db, 'RowIndex')) = false(1);
 a_db = onlyRowsTests(joined_db, ':', wo_index);
 
-%# TODO: give a better name?
+% TODO: give a better name?
 a_db = set(a_db, 'id', [ get(db, 'id') ' dual cip' ]);

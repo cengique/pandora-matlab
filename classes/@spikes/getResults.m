@@ -32,7 +32,7 @@ if ~ exist('plotit')
   plotit = 0;
 end
 
-%# Check for empty object first.
+% Check for empty object first.
 if isempty(s.trace.data) 
   results.spikeRate = 0;
   results.spikeRateISI = 0;
@@ -40,11 +40,11 @@ if isempty(s.trace.data)
   return;
 end
 
-%# convert all to ms/mV(mA)
+% convert all to ms/mV(mA)
 ms_factor = 1e3 * s.trace.dt;
 mV_factor = 1e3 * s.trace.dy;
 
-%# Run tests
+% Run tests
 results.spikeRate = spikeRate(s);
 results.spikeRateISI = spikeRateISI(s);
 results.ISICV = ISICV(s);

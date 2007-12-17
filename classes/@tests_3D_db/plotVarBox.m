@@ -50,14 +50,14 @@ if ~ exist('whis')
   whis = 1.5;
 end
 
-%# Assuming the 3D_db is made especially for test1, it can be reused for multiple test2s.
+% Assuming the 3D_db is made especially for test1, it can be reused for multiple test2s.
 if ischar(test2)
   num_test2s = 1;
 else
   num_test2s = length(test2);
 end
 if num_test2s > 1
-  %# Then, vectorize the plots
+  % Then, vectorize the plots
   [a_plot(1:num_test2s)] = deal(plot_abstract);
   for test2_num = 1:num_test2s
     a_plot(test2_num) = plotVarBox(a_db, test1, test2{test2_num}, ...
@@ -69,22 +69,22 @@ else
 col1 = tests2cols(a_db, test1);
 col2 = tests2cols(a_db, test2);
 
-%# Setup lookup tables
+% Setup lookup tables
 col_names = fieldnames(get(a_db, 'col_idx'));
 data = get(a_db, 'data');
 
-%# remove the column dimension from in-between
-%# (squeeze me macaroni)
-col1data = squeeze(data(:, col1, :)); %# Grouping variable
+% remove the column dimension from in-between
+% (squeeze me macaroni)
+col1data = squeeze(data(:, col1, :)); % Grouping variable
 col2data = squeeze(data(:, col2, :));
 
-%# Flatten into a single dimension, since boxplot can still distinguish by looking
-%# at distinct values of the grouping variable
-%# (see "help reshape the world")
+% Flatten into a single dimension, since boxplot can still distinguish by looking
+% at distinct values of the grouping variable
+% (see "help reshape the world")
 bicoldata = [reshape(col1data, prod(size(col1data)), 1), ...
 	     reshape(col2data, prod(size(col2data)), 1)];
 
-%# Remove rows with any NaN values since they will disrupt the statistics
+% Remove rows with any NaN values since they will disrupt the statistics
 bicoldata = bicoldata(~any(isnan(bicoldata), 2) & ~any(isinf(bicoldata), 2), :);
 
 col1name = strrep(col_names{col1}, '_', ' ');

@@ -25,7 +25,7 @@ function obj = spike_shape(t, s, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin < 2 %# Called with insufficient params
+if nargin < 2 % Called with insufficient params
   error('Need parameters.');
 end
 
@@ -33,15 +33,15 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# Find minimal ISI value for maximal range that can be acquired with
-%# single spikes
+% Find minimal ISI value for maximal range that can be acquired with
+% single spikes
 min_isi = min(getISIs(s));
 
-%# Points from left side of peak, depends on the half minimal isi
+% Points from left side of peak, depends on the half minimal isi
 left = floor(min(5e-3 / t.dt, min_isi/2));
 
-%# Calculate right side accordingly
-%# Add some more on the right side
+% Calculate right side accordingly
+% Add some more on the right side
 right = min_isi - left + floor(min(3e-3 / t.dt, left /2));
 
 if length(s.times) > 0
@@ -49,8 +49,8 @@ if length(s.times) > 0
   
   obj = spike_shape(avgspikes', t.dt, t.dy, t.id, props);
 else
-  %#error('spike_shape:no_spikes', 'No spikes exist!');
-  %# Create empty object instead of error
+  %error('spike_shape:no_spikes', 'No spikes exist!');
+  % Create empty object instead of error
   obj = spike_shape([], t.dt, t.dy, t.id, props);
 end
 

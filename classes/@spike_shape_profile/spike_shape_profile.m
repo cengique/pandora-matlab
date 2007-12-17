@@ -39,10 +39,10 @@ function a_ss_profile = spike_shape_profile(results, a_spike_shape, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   a_ss_profile.spike_shape = spike_shape;
   a_ss_profile = class(a_ss_profile, 'spike_shape_profile', results_profile);
-elseif isa(results, 'spike_shape_profile') %# copy constructor?
+elseif isa(results, 'spike_shape_profile') % copy constructor?
   a_ss_profile = results;
 else 
   if ~ exist('props')
@@ -51,7 +51,7 @@ else
 
   a_ss_profile.spike_shape = a_spike_shape;
 
-  %# Create the object
+  % Create the object
   a_ss_profile = class(a_ss_profile, 'spike_shape_profile', ...
 		       results_profile(results, get(a_spike_shape, 'id'), props));
 end

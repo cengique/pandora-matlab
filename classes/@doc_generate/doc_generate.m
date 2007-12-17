@@ -41,12 +41,12 @@ function a_doc = doc_generate(text_string, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_doc.text = '';  
   a_doc.id = '';
   a_doc.props = struct([]);
   a_doc = class(a_doc, 'doc_generate');
-elseif isa(text_string, 'doc_generate') %# copy constructor?
+elseif isa(text_string, 'doc_generate') % copy constructor?
   a_doc = text_string;
 else
   if ~ exist('props')

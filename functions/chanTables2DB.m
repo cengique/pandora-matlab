@@ -61,7 +61,7 @@ a_chans_db = chans_db(a_db, {}, channel_info, id, props);
 function a_db = makeChanDB
   results = repmat(NaN, size(chan.(gate_names{1}), 1), length(gate_names) + 1);
 
-  %# the x-axis is always the same
+  % the x-axis is always the same
   a_result = chan.(gate_names{1});
   results(:, 1) = a_result(:, 1);
 

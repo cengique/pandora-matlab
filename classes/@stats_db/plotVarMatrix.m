@@ -42,9 +42,9 @@ else
 end
 
 num_params = length(p_stats);
-num_tests = dbsize(p_stats(1), 2) - 2; %# Subtract param and RowIndex columns
+num_tests = dbsize(p_stats(1), 2) - 2; % Subtract param and RowIndex columns
 
-%# TODO: Row stacks with 
+% TODO: Row stacks with 
 plot_rows = cell(1, num_tests);
 for test_num=1:num_tests
 
@@ -73,7 +73,7 @@ for test_num=1:num_tests
     else
       a_plot = plotVar(p_stats(param_num), 1, test_num + 1, '', ...
 		       struct('rotateYLabel', rotate_labels));
-      %# Calculate the maximal axis range
+      % Calculate the maximal axis range
       axis_ranges = axis(a_plot);
     end
 
@@ -97,12 +97,12 @@ for test_num=1:num_tests
 			 'xTicksPos', 'none', 'relativeSizes', relativeSizes);
   end
 
-  %# fixed y-axis bounds, but flexible x-axis
+  % fixed y-axis bounds, but flexible x-axis
   plot_rows{test_num} = plot_stack(plots, [NaN NaN ranges(3:4)], 'x', '', horiz_props);
 end
 
 title_str = [ get(p_stats(1), 'id') ];
-%# 'Measure Variations with Parameter Values'
+% 'Measure Variations with Parameter Values'
 
 a_plot_stack = plot_stack(plot_rows, [], 'y', ...
 			  title_str, ...

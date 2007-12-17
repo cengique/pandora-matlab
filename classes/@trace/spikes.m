@@ -33,7 +33,7 @@ function obj = spikes(t, a_period, plotit, minamp)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   error('Need trace parameter.');
 end
 
@@ -55,17 +55,17 @@ end
 
 if (a_period.end_time - a_period.start_time) > 0
 
-%# Choose an appropriate spike finder here and indicate in id.
+% Choose an appropriate spike finder here and indicate in id.
 if isfield(t.props, 'spike_finder') & ...
       t.props.spike_finder == 2 & ...
       isfield(t.props, 'threshold')
-  %# Scale to mV for spike finder
+  % Scale to mV for spike finder
   mV_factor = 1e3 * t.dy;
 
   [times, peaks, n] = ...
       findspikes(t.data(a_period.start_time:a_period.end_time) * mV_factor, ...
 		 t.props.threshold, plotit);
-else %# Assume spike_finder == 1 for filtered method
+else % Assume spike_finder == 1 for filtered method
 	[times, peaks, n] = findFilteredSpikes(t, a_period, plotit, minamp);
 end
 

@@ -41,7 +41,7 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# Setup lookup tables
+% Setup lookup tables
 col_names = properTeXLabel(fieldnames(get(a_stats_db, 'col_idx')));
 data = get(a_stats_db, 'data');
 row_idx = get(a_stats_db, 'row_idx');

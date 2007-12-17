@@ -56,11 +56,11 @@ function obj = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.pulse_time_start = 1;
   obj.pulse_time_width = 0;
   obj = class(obj, 'params_cip_trace_fileset', params_tests_fileset);
-elseif isa(file_pattern, 'params_cip_trace_fileset') %# copy constructor?
+elseif isa(file_pattern, 'params_cip_trace_fileset') % copy constructor?
   obj = file_pattern;
 else
 
@@ -71,7 +71,7 @@ else
   obj.pulse_time_start = pulse_time_start;
   obj.pulse_time_width = pulse_time_width;
 
-  %# Create the object 
+  % Create the object 
   obj = class(obj, 'params_cip_trace_fileset', ...
 	      params_tests_fileset(file_pattern, dt, dy, id, props));
 

@@ -40,10 +40,10 @@ function a_doc = doc_multi(docs, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_doc.docs = doc_generate;
   a_doc = class(a_doc, 'doc_multi', doc_generate);
-elseif isa(docs, 'doc_multi') %# copy constructor?
+elseif isa(docs, 'doc_multi') % copy constructor?
   a_doc = docs;
 else
   if ~ exist('props')

@@ -26,10 +26,10 @@ function handles = plot(a_plot, layout_axis)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: save the axis handle!
+% TODO: save the axis handle!
 if ~ exist('layout_axis')
   layout_axis = [];
-%#  axes('position', layout_axis);
+%  axes('position', layout_axis);
 end
 
 num_plots = length(a_plot.plots);
@@ -37,8 +37,8 @@ num_plots = length(a_plot.plots);
 all_handles = [];
 for plot_num = 1:num_plots
   if plot_num > 1
-    %# only allow the first plot to open the axis
-    layout_axis = NaN; %# NaN means don't open new axis
+    % only allow the first plot to open the axis
+    layout_axis = NaN; % NaN means don't open new axis
     hold all;
   end
   handles = plot(a_plot.plots{plot_num}, layout_axis); 

@@ -44,53 +44,53 @@ if ~exist('rows')
   rows = 1:5;
 end
 
-%# First joinOriginal
+% First joinOriginal
 joined_db = joinOriginal(a_ranked_db);
 
 data = repmat(NaN, length(rows), block_levels + 1);
 row_names = cell(1, length(rows));
 ranked_dbs = cell(1, length(rows));
 
-%# For each of the rows from a_ranked_db
+% For each of the rows from a_ranked_db
 out_row = 1;
 for row_num=rows
-  %# Get blocked parameter scan
+  % Get blocked parameter scan
   blocked_rows_db = makeModifiedParamDB(joined_db, row_num, blocked_param_indices, ...
 					block_levels);
-  %#displayRows(blocked_rows_db)
+  %displayRows(blocked_rows_db)
 
-  %# Find matching indices
+  % Find matching indices
   row_indices = getParamRowIndices(blocked_rows_db, ':', blocked_db);
 
-  %# Get matching rows in a new db
+  % Get matching rows in a new db
   this_blocked = onlyRowsTests(blocked_db, row_indices(~isnan(row_indices)), ':');
 
-  %# rank it
-  this_ranked = rankMatching(this_blocked, crit_db); %#, a_ranked_db.props
+  % rank it
+  this_ranked = rankMatching(this_blocked, crit_db); %, a_ranked_db.props
 
-  %# reorder with RowIndex
+  % reorder with RowIndex
   this_ranked = sortrows(this_ranked, 'RowIndex');
   ranked_dbs{out_row} = this_ranked;
 
-  %# Get the distances
+  % Get the distances
   this_dists = onlyRowsTests(this_ranked, ':', 'Distance');
-  %#displayRows(this_dists)
+  %displayRows(this_dists)
 
-  %#size(data(out_row, ~isnan(row_indices)))
-  %#dbsize(this_dists)
+  %size(data(out_row, ~isnan(row_indices)))
+  %dbsize(this_dists)
 
   data(out_row, ~isnan(row_indices)) = get(this_dists, 'data')';
 
-  %# Decoration
+  % Decoration
   row_names{out_row} = [ 'Rank_' num2str(row_num) ];
 
   out_row = out_row + 1;
 end
 
-%# Test names not necessary?
-%#names(1:block_levels) = num2cell(1:block_levels);
+% Test names not necessary?
+%names(1:block_levels) = num2cell(1:block_levels);
 
-%# Column names
+% Column names
 col_names = cell(1, block_levels + 1);
 orig_names = fieldnames(joined_db.col_idx);
 for block=0:block_levels

@@ -30,7 +30,7 @@ function a_plot = plotPages(a_hist_db, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Defaults
+% Defaults
 if ~ exist('title_str')
   title_str = '';
 end
@@ -40,7 +40,7 @@ if ~ exist('props')
 end
 
 if ~ isfield(props, 'an_orient')
-  props.an_orient = 'y'; %# vertical
+  props.an_orient = 'y'; % vertical
 end
 
 num_pages = dbsize(a_hist_db.tests_db, 3);
@@ -52,7 +52,7 @@ for page_num=pages'
   % use default histogram plot
   a_plot = plot_abstract(onlyRowsTests(a_hist_db, ':', ':', ...
 				       page_num));
-  %# Add a page identification label on the x-axis label
+  % Add a page identification label on the x-axis label
   a_hist_db_props = get(a_hist_db, 'props');
   if isfield(a_hist_db_props, 'pageNames')
     page_names = a_hist_db_props.pageNames;
@@ -60,7 +60,7 @@ for page_num=pages'
     axis_labels{1} = [ axis_labels{1} ', ' page_names{page_num} ];
     a_plot = set(a_plot, 'axis_labels', axis_labels);
   end
-  %# Calculate the maximal axis range
+  % Calculate the maximal axis range
   if isempty(ranges)
     ranges = axis(a_plot);
   else

@@ -29,7 +29,7 @@ function new_axis = setAxisNonNaN(layout_axis)
 % http://opensource.org/licenses/afl-3.0.php.
 
   new_axis = axis;
-  %# Skip NaNs, allows fixing some ranges while keeping others flexible
+  % Skip NaNs, allows fixing some ranges while keeping others flexible
   nonnans = ~isnan(layout_axis);
   new_axis(nonnans) = layout_axis(nonnans);
 end

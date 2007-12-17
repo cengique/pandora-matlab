@@ -39,13 +39,13 @@ function a_spikes_db = spikes_db(data, col_names, a_trace, a_period, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_spikes_db.trace = trace;
    a_spikes_db.period = period;
    a_spikes_db = class(a_spikes_db, 'spikes_db', tests_db);
- elseif isa(data, 'spikes_db') %# copy constructor?
+ elseif isa(data, 'spikes_db') % copy constructor?
    a_spikes_db = data;
- else %# Create a new object
+ else % Create a new object
 
    if ~ exist('props')
      props = struct([]);
@@ -54,7 +54,7 @@ if nargin == 0 %# Called with no params
    a_spikes_db.trace = a_trace;
    a_spikes_db.period = a_period;
 
-   %# Create subclass object
+   % Create subclass object
    a_spikes_db = class(a_spikes_db, 'spikes_db', ...
 		       tests_db(data, col_names, {}, id, props));
 end

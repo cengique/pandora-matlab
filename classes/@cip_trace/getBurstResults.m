@@ -27,10 +27,10 @@ function results = getBurstResults(a_cip_trace, a_spikes)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Spike rates [Hz] in total spikes over time method for all periods
+% Spike rates [Hz] in total spikes over time method for all periods
 ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
-%# Exponential approximation to amplitude decay for slow inactivating channels
+% Exponential approximation to amplitude decay for slow inactivating channels
 [a_tau, a_inf] = spikeAmpSlope(a_spikes, a_cip_trace, ...
 			       periodPulse(a_cip_trace));
 results.SlowRD_ISIdecayTime = a_tau;

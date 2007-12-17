@@ -47,10 +47,10 @@ function a_stats_db = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_stats_db = struct;
   a_stats_db = class(a_stats_db, 'stats_db', tests_3D_db);
-elseif isa(test_results, 'stats_db') %# copy constructor?
+elseif isa(test_results, 'stats_db') % copy constructor?
   a_stats_db = test_results;
 else
   

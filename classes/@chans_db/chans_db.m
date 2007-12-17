@@ -37,12 +37,12 @@ function a_chans_db = chans_db(data, col_names, channel_info, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_chans_db.channel_info = struct;
    a_chans_db = class(a_chans_db, 'chans_db', tests_db);
- elseif isa(data, 'chans_db') %# copy constructor?
+ elseif isa(data, 'chans_db') % copy constructor?
    a_chans_db = data;
- else %# Create a new object
+ else % Create a new object
 
    if ~ exist('props')
      props = struct([]);

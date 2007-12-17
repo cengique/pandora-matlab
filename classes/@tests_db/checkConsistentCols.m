@@ -36,10 +36,10 @@ end
 col_names = getColNames(db);
 with_col_names = getColNames(with_db);
 
-%# Check if they have same columns
-if dbsize(db, 2) ~= dbsize(with_db, 2) || ... %# Same number of columns
-  ((~ isempty(col_names) || ~ isempty(with_col_names)) && ... %# If any names are specified,
-   ~ all(ismember(col_names, with_col_names))) 	          %# make sure they're same 
+% Check if they have same columns
+if dbsize(db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
+  ((~ isempty(col_names) || ~ isempty(with_col_names)) && ... % If any names are specified,
+   ~ all(ismember(col_names, with_col_names))) 	          % make sure they're same 
   
   if isfield(props, 'useCommon')
     % Choose common columns

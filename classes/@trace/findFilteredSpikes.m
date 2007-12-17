@@ -45,13 +45,18 @@ function [times, peaks, n] = ...
 
 s = load('spike_filter_50_3000Hz_ChebII.mat');
 fields = fieldnames(s);
-fd = getfield(s, fields{1});	%# Assuming there's only one element
+fd = getfield(s, fields{1});	% Assuming there's only one element
 dn_threshold = -2;
 
-%# Scale to mV for spike finder
+% Scale to mV for spike finder
 mV_factor = 1e3 * t.dy;
 
-%# Append and prepend some activity for filter distortion
+% sanity check
+if size(t.data, 2) > size(t.data, 1)
+  error('trace data must be a column vector!');
+end
+
+% Append and prepend some activity for filter distortion
 prepend_msec = 20;
 prepend_size = floor(prepend_msec * 1e-3 / t.dt);
 try
@@ -98,7 +103,7 @@ else
   up_threshold = minamp;
 end
 
-%# ignore the added parts
+% ignore the added parts
 filtered = filtered(prepend_size:(end - prepend_size));
 data = data(prepend_size:(end - prepend_size));
 [times, peaks, n] = findspikes(filtered, 1, up_threshold);
@@ -114,34 +119,34 @@ end
 newtimes = [];
 newpeaks = [];
 newn = 0;
-%# Eliminate non-spike bumps
+% Eliminate non-spike bumps
 lasttime = -3e-3 / t.dt;
 for k=1:n
 
-  %# correct the peak by finding the absolute max within +/- 3ms
+  % correct the peak by finding the absolute max within +/- 3ms
   pm = 3e-3 / t.dt;
   [m peak_time] = ...
       max(filtered(max(1, times(k) - pm) : min(times(k) + pm, length(filtered))));
   old_time = times(k);
   times(k) = max(1, times(k) - pm) + peak_time - 1;
 
-  %# Only if there's no trough between the old and new maxs
+  % Only if there's no trough between the old and new maxs
   if min(filtered(min(old_time, times(k)):max(old_time, times(k)))) < ...
 	up_threshold
-    %#then go back
+    %then go back
     times(k) = old_time;
   end
 
-  %# There should be a trough within 3ms before and within 15ms after the peak
+  % There should be a trough within 3ms before and within 15ms after the peak
   period_before = floor(3e-3 / t.dt);
   period_after = floor(15e-3 / t.dt);
   min1 = min(filtered(max(1, times(k) - period_before) : times(k)));
   min2 = min(filtered(times(k) : min(times(k) + period_after, length(filtered))));
 
-  %# Spike shape criterion test
+  % Spike shape criterion test
   if min1 <= up_threshold & min2 <= dn_threshold    
 
-    %# Re-correct according to peaks in real data (filtered data is shifted)
+    % Re-correct according to peaks in real data (filtered data is shifted)
     real_pm = 1e-3 / t.dt;
     real_time = times(k);
     [real_peak peak_time] = ...
@@ -149,7 +154,7 @@ for k=1:n
 		 min(real_time + real_pm, length(data))));
     real_time = max(1, real_time - real_pm) + peak_time - 1;
 
-    %# Check again if new time is very close to last time
+    % Check again if new time is very close to last time
     if real_time < (lasttime + 2e-3 / t.dt)
       if plotit ~= 0 & plotit ~= 2
   	disp(sprintf('Skip real %f from filtered %f, orig %f', ...
@@ -158,7 +163,7 @@ for k=1:n
       continue;
     end
 
-    %# Collect in new list
+    % Collect in new list
     newtimes = [newtimes, real_time];
     newpeaks = [newpeaks, real_peak];
     newn = newn + 1;
@@ -177,7 +182,7 @@ for k=1:n
   end
 end
 
-%# correct the times
+% correct the times
 times = newtimes + a_period.start_time - 1;
 peaks = newpeaks;
 n = newn;

@@ -32,11 +32,11 @@ function a_3D_db = invarParam(db, param)
 data = get(db, 'data');
 num_params = get(db, 'num_params');
 
-%# Remove trial column from parameters that define character of data
+% Remove trial column from parameters that define character of data
 col_name_cell = fieldnames(get(db, 'col_idx'));
 trial_col = strmatch('trial', col_name_cell);
 
-%# Remove the trial parameter before the redundancy check
+% Remove the trial parameter before the redundancy check
 no_trial_cols = false(1, dbsize(db, 2));
 no_trial_cols(1:num_params) = true(1);
 no_trial_cols(trial_col) = false(1);
@@ -51,13 +51,13 @@ end
 
 col = tests2cols(db, param);
 
-%# List of columns with parameter and all tests
+% List of columns with parameter and all tests
 cols = [col, (db.num_params + 1):dbsize(db, 2) ];
 
-%# Add invar test name
+% Add invar test name
 props = get(db, 'props');
 props(1).invarName = [ col_name_cell{col} ];
 db = set(db, 'props', props);
 
-%# Get invarValues for these
+% Get invarValues for these
 a_3D_db = invarValues(db, cols, col);

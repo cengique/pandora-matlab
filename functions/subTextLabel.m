@@ -36,7 +36,7 @@ handle = text(x, y, text_str);
 prop_names = fieldnames(props);
 num_props = length(prop_names);
 
-%# Send all properties to graphics handle
+% Send all properties to graphics handle
 for prop_num=1:num_props
 
   prop_name = prop_names{prop_num};

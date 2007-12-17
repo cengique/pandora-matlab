@@ -48,7 +48,7 @@ d2 = d2(3:(end -2));
 d1 = d1(3:(end -2));
 k1 = 1 + d1 .* d1;
 k = d2 ./ sqrt(k1 .* k1 .* k1);
-%# Find first local maximum in k before spike peak
+% Find first local maximum in k before spike peak
 dk = diff(k);
 dk2 = dk(2:end) .* dk(1:(end-1));
 zc = find(dk2 < 0);
@@ -56,11 +56,11 @@ if length(zc) == 0
   warning('spike_shape:curvature_failed', ...
 	  ['Failed to find local maximum of curvature near the AP peak. ', ...
 	   'Taking the first point in the trace as threshold instead.']);
-  %# Then, the first point of the trace is the spike initiation point.
+  % Then, the first point of the trace is the spike initiation point.
   idx = 1;
 else
-  %#[val, idx] = max(k); 
-  idx = zc(end) + 1; %# need to add 1 because of diff
+  %[val, idx] = max(k); 
+  idx = zc(end) + 1; % need to add 1 because of diff
   idx = idx + 2;
 end
 if plotit

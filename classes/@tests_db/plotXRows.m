@@ -43,7 +43,7 @@ if ~ exist('props')
   props = struct;
 end
 
-%# Add a new column that keeps count of rows and call plotScatter
+% Add a new column that keeps count of rows and call plotScatter
 if isfield(props, 'RowName')
     new_col_name = props.RowName;
 else

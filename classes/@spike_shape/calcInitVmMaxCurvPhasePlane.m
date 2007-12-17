@@ -46,29 +46,29 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-%# Apply a median filter to reduce noise
-%#medfilt1(s.trace.data, windowsize);
+% Apply a median filter to reduce noise
+%medfilt1(s.trace.data, windowsize);
 windowsize = 6;
-%#filter(ones(1, windowsize)/windowsize, 1, s.trace.data); 
+%filter(ones(1, windowsize)/windowsize, 1, s.trace.data); 
 smooth_data = medfilt1([s.trace.data(1); s.trace.data], windowsize);
-smooth_data = smooth_data(2:end); %# drop first sample which has noise from medfilt1
+smooth_data = smooth_data(2:end); % drop first sample which has noise from medfilt1
 
-%#end
-%# Decimate using FIR low-pass filter (doesn't work: adds ringing artifact)
+%end
+% Decimate using FIR low-pass filter (doesn't work: adds ringing artifact)
 dec_factor = 1;
 trace_data = smooth_data;
-%#trace_data = decimate(smooth_data, dec_factor, min(floor(length(smooth_data)/3), 30), 'FIR');
+%trace_data = decimate(smooth_data, dec_factor, min(floor(length(smooth_data)/3), 30), 'FIR');
 
-%#d2 = diff2T(trace_data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
+%d2 = diff2T(trace_data(1 : (max_idx + 2)) * s.trace.dy, s.trace.dt);
 d1o = diffT(trace_data(1 : (floor(max_idx/dec_factor) + 2)) * s.trace.dy, ...
 	    s.trace.dt * dec_factor);
-%#d2 = d2(3:(end -2));
+%d2 = d2(3:(end -2));
 d1o = d1o(3:(end -2));
 
-%# Find max in derivative
+% Find max in derivative
 [max_d1o, max_d1o_idx] = max(d1o);
 
-%# Find all positive part in derivative until voltage peak
+% Find all positive part in derivative until voltage peak
 last_pos_d = find(d1o >= 0);
 if length(last_pos_d) == 0
   error('calcInitVm:failed', 'No positive slope before peak of %s.', ...
@@ -77,36 +77,36 @@ else
   last_pos_d_idx = last_pos_d(end);
 end
 
-%# put arbitrary negativeness limit on slope
+% put arbitrary negativeness limit on slope
 last_neg_d = find(d1o(1:last_pos_d_idx) < -1);
 if length(last_neg_d) == 0
   last_neg_d_idx = 1;
-elseif last_neg_d(end) == last_pos_d_idx   %# can never happen?
+elseif last_neg_d(end) == last_pos_d_idx   % can never happen?
   error('calcInitVm:failed', 'Negative slope right before peak of %s.', ...
 	get(s, 'id'));
 else
   last_neg_d_idx = last_neg_d(end);
 end
 
-%# Find min in voltage before end
+% Find min in voltage before end
 [min_v, min_v_idx] = min(trace_data(1 : max_d1o_idx));
 
-%# Interpolate to find a regular intervalled phase-plane representation
-%# Voltage range is from the dip in voltage point to the spike peak.
-%# Tried both spline and pchip, spline overfits.
+% Interpolate to find a regular intervalled phase-plane representation
+% Voltage range is from the dip in voltage point to the spike peak.
+% Tried both spline and pchip, spline overfits.
 num_points = 200;
 start_idx = max(1, last_neg_d_idx - 1);
 dv = (trace_data(max_d1o_idx + 2) - trace_data(start_idx + 2))/num_points;
 voltage_points = ...
     (trace_data(start_idx + 2):dv:trace_data(max_d1o_idx + 2)) * s.trace.dy;
 
-%# Arbitrarily remove duplicate values from voltage values
+% Arbitrarily remove duplicate values from voltage values
 trace_data((start_idx + 2) : (max_d1o_idx + 2));
 [orig_v_points unique_idx] = ...
     unique(trace_data((start_idx + 2) : (max_d1o_idx + 2)) * s.trace.dy);
 d1o_points = d1o(start_idx:max_d1o_idx);
 
-%# Check if there are enough points to interpolate
+% Check if there are enough points to interpolate
 if length(unique_idx) < 2
   error('calcInitVm:failed', 'Less than two vPP data points in the stem of %s.', ...
 	get(s, 'id'));
@@ -119,14 +119,14 @@ end
 
 interp_vpp = pchip(orig_v_points, d1o_points(unique_idx), voltage_points);
 
-%# Put lower bound on vpp?
+% Put lower bound on vpp?
 windowsize = 10;
 filtered_vpp = filter(ones(1, windowsize)/windowsize, 1, interp_vpp);
-low_bound = find(filtered_vpp >= 1); %# mV/ms crossing is the lower bound
+low_bound = find(filtered_vpp >= 1); % mV/ms crossing is the lower bound
 
-%#figure; plot(orig_v_points * s.trace.dy, d1o_points(unique_idx), ...
-%#	     voltage_points, [interp_vpp; filtered_vpp]'); 
-%#legend('orig', 'interp', 'filtered');
+%figure; plot(orig_v_points * s.trace.dy, d1o_points(unique_idx), ...
+%	     voltage_points, [interp_vpp; filtered_vpp]'); 
+%legend('orig', 'interp', 'filtered');
 
 if length(low_bound) > 0
   interp_vpp = interp_vpp(low_bound(1):end);
@@ -134,7 +134,7 @@ if length(low_bound) > 0
 end
 
 if (1 == 1) 
-  %# Estimations from Taylor series, error = O(dv^4)
+  % Estimations from Taylor series, error = O(dv^4)
   d1 = diffT(interp_vpp, dv);
   d2 = diff2T_h4(interp_vpp, dv);
   d3 = diff3T_h4(interp_vpp, dv);
@@ -150,19 +150,19 @@ else
   d3 = d3(1:(end)-1);
 end
 
-%# Find max in derivative as upper limit of region of interest
+% Find max in derivative as upper limit of region of interest
 [max_vpp, max_vpp_idx] = max(interp_vpp(3:(end-2)));
 
 d3 = d3(1:max_vpp_idx);
 d2 = d2(1:max_vpp_idx);
 d1 = d1(1:max_vpp_idx);
 
-%# Maximal d2vpp, one candidate for APthr
+% Maximal d2vpp, one candidate for APthr
 try 
   max_d2vpp_idx = findMax(d2, voltage_points);
   max_d2vpp_t_idx = transV2T(s, start_idx * dec_factor, max_idx, voltage_points, max_d2vpp_idx);
 
-  %# Local maximum of d3vpp, closest to max_d2vpp_idx, candidate for APthr
+  % Local maximum of d3vpp, closest to max_d2vpp_idx, candidate for APthr
   max_d3vpp_idx = maxima(d3);
 
   if length(max_d3vpp_idx) > 0
@@ -173,7 +173,7 @@ try
     warning('calcInitVm:info', 'Cannot find local maxima in d3vpp for %s', get(s, 'id'));
   end
 
-catch %# If finding max_d2vpp_idx fails
+catch % If finding max_d2vpp_idx fails
   err = lasterror;
   if strcmp(err.identifier, 'calcInitVm:failed')
     warning('calcInitVm:info', sprintf('Error in %s: %s', get(s, 'id'), err.message));
@@ -187,30 +187,30 @@ catch %# If finding max_d2vpp_idx fails
   end
 end
 
-%# Curvature calculation
+% Curvature calculation
 k1 = 1 + d1 .* d1;
 k = d2 ./ sqrt(k1 .* k1 .* k1);
 
-%# Maximal curvature
+% Maximal curvature
 [max_k_idcs] = maxima(k);
 
-%# Highest maximum
+% Highest maximum
 [sorted, sorted_idx] = sort(k(max_k_idcs));
 
-%#sorted
-%#voltage_points(max_k_idcs(sorted_idx) + 2)
+%sorted
+%voltage_points(max_k_idcs(sorted_idx) + 2)
 
 if length(max_k_idcs) == 0 
   error('calcInitVm:failed', 'No local maxima found for %s!', get(s, 'id'));
 else
-  if max_k_idcs(sorted_idx(end)) == 1	%# If first point in trace is maximum
+  if max_k_idcs(sorted_idx(end)) == 1	% If first point in trace is maximum
     if length(max_k_idcs) > 1
-      idx = max_k_idcs(sorted_idx(end - 1));%# Take next nearest maxima
+      idx = max_k_idcs(sorted_idx(end - 1));% Take next nearest maxima
     else
       error('calcInitVm:failed', 'Too few local maxima!');
     end
   else
-    idx = max_k_idcs(sorted_idx(end));	%# Otherwise highest maximum
+    idx = max_k_idcs(sorted_idx(end));	% Otherwise highest maximum
   end
 end
 
@@ -221,14 +221,14 @@ thr_vol = voltage_points(max_k_idx + 2);
 
 if ~ isnan(max_d2vpp_idx)
 
-  %# Find highest local maximum of k closest to max_d2vpp_idx
+  % Find highest local maximum of k closest to max_d2vpp_idx
   distance = max_k_idcs - max_d2vpp_idx;
   [sorted, sorted_idx] = sort(distance .* distance ./ sqrt(k(max_k_idcs)));
 
-  %#sorted
-  %#voltage_points(max_k_idcs(sorted_idx) + 2)
+  %sorted
+  %voltage_points(max_k_idcs(sorted_idx) + 2)
 
-  %# Skip negative peaks
+  % Skip negative peaks
   max_k_near_d2vpp_idx = find(sorted >= 0);
 
   if length(max_k_near_d2vpp_idx) > 0
@@ -244,7 +244,7 @@ else
     max_k_near_d2vpp_t_idx = max_k_t_idx;
 end
 
-%# Return all candidates
+% Return all candidates
 init_idx = [max_k_t_idx, max_k_near_d2vpp_t_idx, max_d2vpp_t_idx, max_d3vpp_t_idx];
 
 s_props = get(s, 'props');
@@ -293,18 +293,18 @@ if plotit
 		     'max d^2v\prime/dv^2', 'max d^3v\prime/dv^3'}, 'plot');
   a_plot = setProp(a_plot, 'axisLimits', [v(1) v(max_vpp_idx) NaN NaN]);
 end
-%#		     t, t_data/max(abs(t_data)), ...
+%		     t, t_data/max(abs(t_data)), ...
 
-%# Translate from voltage to time points
+% Translate from voltage to time points
 function t_idx = transV2T(s, start_idx, max_idx, voltage_points, idx)
   times = find((s.trace.data((start_idx + 2) : (max_idx + 2)) * s.trace.dy) > ...
 	       voltage_points(idx + 2));
   denom = s.trace.data(times(1) + start_idx + 1) - ...
       s.trace.data(times(1) + start_idx);
-  %# No slope? Just return the base value
+  % No slope? Just return the base value
   if denom == 0
     t_idx = start_idx + times(1);
-  else %# Otherwise, calculate rational value using linear interpolation
+  else % Otherwise, calculate rational value using linear interpolation
     t_idx = start_idx + times(1) + ...
 	(voltage_points(idx + 2) / s.trace.dy - ...
 	 s.trace.data(times(1) + start_idx)) / denom;
@@ -313,23 +313,23 @@ function t_idx = transV2T(s, start_idx, max_idx, voltage_points, idx)
 function idx = findMax(data, voltage_points)
   [max_idcs] = maxima(data);
   
-  %# Highest maximum
+  % Highest maximum
   [sorted, sorted_idx] = sort(data(max_idcs));
 
-  %#sorted
-  %#voltage_points(max_idcs(sorted_idx) + 2)
+  %sorted
+  %voltage_points(max_idcs(sorted_idx) + 2)
 
   if length(max_idcs) == 0 
     error('calcInitVm:failed', 'No local maxima found!');
   else
-    if max_idcs(sorted_idx(end)) == 1	%# If maximum is the first point in trace
+    if max_idcs(sorted_idx(end)) == 1	% If maximum is the first point in trace
       if length(max_idcs) > 1
-        idx = max_idcs(sorted_idx(end - 1));%# Take next nearest maxima
+        idx = max_idcs(sorted_idx(end - 1));% Take next nearest maxima
       else
 	error('calcInitVm:failed', 'Too few local maxima!');
       end
     else
-      idx = max_idcs(sorted_idx(end));	%# Otherwise highest maximum
+      idx = max_idcs(sorted_idx(end));	% Otherwise highest maximum
     end
   end
   

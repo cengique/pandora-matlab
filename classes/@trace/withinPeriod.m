@@ -27,8 +27,8 @@ function obj = withinPeriod(t, a_period)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO:
-%# - Relate this method by overloading an abstract class/interface duration(?) 
+% TODO:
+% - Relate this method by overloading an abstract class/interface duration(?) 
 
 try
 t.data = t.data(a_period.start_time:a_period.end_time);

@@ -36,35 +36,35 @@ function a_tests_db = meanDuplicateRows(db, main_cols, rest_cols)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: add number column for each set and also mode, SD for each duplicate set.
+% TODO: add number column for each set and also mode, SD for each duplicate set.
 main_cols = tests2cols(db, main_cols);
 rest_cols = tests2cols(db, rest_cols);
 
-%# Find data within given columns
+% Find data within given columns
 wo_cols = db.data(:, main_cols);
 
-%# Sort rows
+% Sort rows
 [sorted idx] = sortrows(wo_cols);
 
-%# Find unique rows
+% Find unique rows
 [unique_rows unique_idx] = sortedUniqueValues(sorted);
 
-%# Get the columns back
+% Get the columns back
 sorted = db.data(idx, [main_cols rest_cols]);
 sorted_db = onlyRowsTests(db, idx, [main_cols rest_cols]);
 
-%#sorted(:, 1:10)
+%sorted(:, 1:10)
 
 col_names = fieldnames(sorted_db.col_idx);
 num_params = get(sorted_db, 'num_params');
 num_cols = length(col_names);
 
-%# Initialize
+% Initialize
 num_rows = length(unique_idx);
 
 data = repmat(NaN, [num_rows, length([main_cols rest_cols]) + 2]);
 
-%# For each unique row to next, take the mean
+% For each unique row to next, take the mean
 for row_num=1:num_rows
   if row_num < num_rows
     rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
@@ -79,9 +79,9 @@ for row_num=1:num_rows
   new_row = [ get(no_mean_rows_db, 'data'), get(mean(rows_db), 'data') ];
   new_std = [ get(no_mean_rows_db, 'data'), get(std(rows_db), 'data') ];
   new_vals = [length(rows), idx(rows(1))];
-  %#displayRows(rows_db(:, 'NeuronId'))
+  %displayRows(rows_db(:, 'NeuronId'))
 
-  %# Insert new values as parameters
+  % Insert new values as parameters
   if num_cols > num_params
     new_row = [new_row(1:num_params) new_vals new_row((num_params + 1):num_cols)];
     new_std = [new_std(1:num_params) new_vals new_std((num_params + 1):num_cols)];
@@ -90,7 +90,7 @@ for row_num=1:num_rows
     new_std = [new_std new_vals];
   end
 
-  %# Write row in place
+  % Write row in place
   data(row_num, :, 1) = new_row;
   data(row_num, :, 2) = new_std;
 end
@@ -102,7 +102,7 @@ else
   col_names = {col_names{:}, 'NumDuplicates', 'RowIndex'};
 end
 
-%# Update the fields of the new database object
+% Update the fields of the new database object
 a_tests_db = set(sorted_db, 'data', data);
 a_tests_db = set(a_tests_db, 'col_idx', makeIdx(col_names));
 a_tests_db = set(a_tests_db, 'num_params', num_params + 2);

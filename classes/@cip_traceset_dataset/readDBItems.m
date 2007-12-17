@@ -29,21 +29,21 @@ function [params, param_names, tests, test_names] = readDBItems(obj)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Collect info for generating the DB
+% Collect info for generating the DB
 num_items = length(get(obj, 'list'));
 rows = num_items * length(obj.cip_mags);
 
-%# Get generic fileset information from the first traceset item
+% Get generic fileset information from the first traceset item
 first_item = getItem(obj, 1);
 param_names = paramNames(first_item);
 param_names = { param_names{:}, 'NeuronId' };
 test_names = testNames(first_item);
 
-%# Preallocating matrices dramatically speeds up the filling process
+% Preallocating matrices dramatically speeds up the filling process
 params = repmat(NaN, rows, length(param_names));
 tests = repmat(NaN, rows, length(test_names));
 
-%# Batch process all items
+% Batch process all items
 start_time = cputime;
 
 print(java.lang.System.out, 'Reading: ');

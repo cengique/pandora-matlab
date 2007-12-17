@@ -26,8 +26,8 @@ function params_row = getParams(dataset, index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%#item = getItem(dataset, index);
-%#params_row = item.pulse_mags_pA(dataset.mags);
+%item = getItem(dataset, index);
+%params_row = item.pulse_mags_pA(dataset.mags);
 
-%# Only value to return
+% Only value to return
 params_row = [index dataset.cipmag];

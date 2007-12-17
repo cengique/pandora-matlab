@@ -27,10 +27,10 @@ function a_plot = plotPP(s)
 % http://opensource.org/licenses/afl-3.0.php.
 
 data = s.trace.data * s.trace.dy * 1e3;
-deriv = diff(data) / (s.trace.dt * 1e3); %# mV/ms
+deriv = diff(data) / (s.trace.dt * 1e3); % mV/ms
 
-%# Derivative doesn't really match the voltage points here!
-%# Diff finds derivatives between points not on points!
+% Derivative doesn't really match the voltage points here!
+% Diff finds derivatives between points not on points!
 a_plot = plot_abstract({data(2:end), deriv, '.-'}, ...
 		       {'voltage [mV]', '~dV/dt [mV/ms]'}, ...
 		       ['Spike shape in phase-plane of ' get(s, 'id') ], ...

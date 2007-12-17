@@ -39,9 +39,9 @@ end
 num_traces = length(t);
 num_spikes = length(s);
 
-%# If called with array of traces
+% If called with array of traces
 if num_traces > 1
-  %# If also passed array of spikes objects
+  % If also passed array of spikes objects
   if num_spikes > 1
     if num_spikes ~= num_traces
       error(['Length of trace (' num_traces ') and spikes (' num_spikes ...

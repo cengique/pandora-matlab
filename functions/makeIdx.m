@@ -25,9 +25,9 @@ function idx = makeIdx(names)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Prepare idx
+% Prepare idx
 idx = struct;
 for i=1:length(names)
-  %# replace '-' characters
+  % replace '-' characters
   idx = setfield(idx, strrep(names{i}, '-', '_'), i);
 end

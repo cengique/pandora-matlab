@@ -33,10 +33,10 @@ function job_results = runFirst(a_script_cluster)
 
 eol_str = sprintf('\n');
 
-%# Save this object into a file
+% Save this object into a file
 save([get(a_script_cluster, 'id') '.mat' ], 'a_script_cluster');
 
-%# Submit a SGE job for the array jobs
+% Submit a SGE job for the array jobs
 load_obj = ['load ''' get(a_script_cluster, 'id') '.mat''; '];
 array_job_command = ...
     ['qsub -t 1:' num2str(get(a_script_cluster, 'num_runs')) ' ' ...
@@ -45,7 +45,7 @@ array_job_command = ...
 [s, w] = system(array_job_command);
 
 if s == 0
-  %# Success, look for SGE job number
+  % Success, look for SGE job number
   %[array_job_number] = sscanf(w, 'Your job %f');
   array_job_number = regexp(w, '(\d+)', 'match');
   array_job_number = array_job_number{1};
@@ -53,7 +53,7 @@ if s == 0
   disp(['Submitted job ' num2str(array_job_number) ': ' eol_str array_job_command ...
        eol_str w]);
 
-  %# Check if mail notification is requested
+  % Check if mail notification is requested
   a_props = get(a_script_cluster, 'props');
   if isfield(a_props, 'notifyByMail')
     sge_opts = ['-m ea -M ' a_props.notifyByMail];
@@ -61,14 +61,14 @@ if s == 0
     sge_opts = '';
   end
 
-  %# Then submit the last job as dependent on the array job
+  % Then submit the last job as dependent on the array job
   last_job_command = ...
       ['qsub -hold_jid ' num2str(array_job_number) ' ' sge_opts ' ' ...
        a_script_cluster.sge_wrapper_script ' "' load_obj ...
        'runLast(a_script_cluster)"' ];
   [s, w] = system(last_job_command);
   if s == 0
-    %# Success, look for SGE job number
+    % Success, look for SGE job number
     [last_job_number] = sscanf(w, 'Your job %d');
     disp(['Submitted last job ' num2str(last_job_number) ': ' eol_str last_job_command]);
 

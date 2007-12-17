@@ -25,15 +25,15 @@ function handles = decorate(a_plot)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Do the decorations based on properties
+% Do the decorations based on properties
 th = [];
 xh = [];
 yh = [];
 
-%# Do this first, since it affects axis limits
+% Do this first, since it affects axis limits
 if isfield(a_plot.props, 'axisLimits')
   current_axis = axis;
-  %# Skip NaNs, allows fixing some ranges while keeping others flexible
+  % Skip NaNs, allows fixing some ranges while keeping others flexible
   nonnans = ~isnan(a_plot.props.axisLimits);
   current_axis(nonnans) = a_plot.props.axisLimits(nonnans);
   axis(current_axis);
@@ -49,14 +49,14 @@ if ~ (isfield(a_plot.props, 'noXLabel') && a_plot.props.noXLabel == 1)
     xh = xlabel(a_plot.axis_labels{1}, ...
 		'Rotation', a_plot.props.rotateXLabel, ...
 		'HorizontalAlignment', 'right', ...
-		'VerticalAlignment', 'middle'); %#'HorizontalAlignment', 'right'
+		'VerticalAlignment', 'middle'); %'HorizontalAlignment', 'right'
   else
     if length(a_plot.axis_labels) > 0
       xh = xlabel(a_plot.axis_labels{1});
     end
   end
 else
-  xlabel(''); %# Clear the label
+  xlabel(''); % Clear the label
 end
 
 if ~ (isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 1)
@@ -70,10 +70,10 @@ if ~ (isfield(a_plot.props, 'noYLabel') && a_plot.props.noYLabel == 1)
     end
   end
 else
-  ylabel(''); %# Clear the y-label
+  ylabel(''); % Clear the y-label
 end
 
-%# Z-axis?
+% Z-axis?
 if isfield(a_plot.props, 'XTickLabel')
   set(gca, 'XTickLabel', a_plot.props.XTickLabel);
 end
@@ -103,9 +103,9 @@ if isfield(a_plot.props, 'formatXTickLabels') && ~ isempty(get(gca, 'XTickLabel'
   for tick_num=1:length(xticks)
     xticklabels{tick_num} = ...
 	sprintf(a_plot.props.formatXTickLabels, str2num(xticklabels{tick_num}));
-    %# old format required: blanks(size(xticklabels, 2) - size(newstr, 2)) ];
+    % old format required: blanks(size(xticklabels, 2) - size(newstr, 2)) ];
   end
-  %#xticklist = sprintf([a_plot.props.formatXTickLabels '\n'], str2num(xticklist))
+  %xticklist = sprintf([a_plot.props.formatXTickLabels '\n'], str2num(xticklist))
   set(gca, 'XTickLabel', xticklabels);
 end
 
@@ -125,7 +125,7 @@ if isfield(a_plot.props, 'tightLimits') && a_plot.props.tightLimits == 1
   axis tight;
 end
 
-%# Only put legend when there is more than one trace
+% Only put legend when there is more than one trace
 if (length(a_plot.legend) > 1 && ...
     (~isfield(a_plot.props, 'noLegends') || a_plot.props.noLegends == 0))
   legend_opts = { a_plot.legend };

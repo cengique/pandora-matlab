@@ -42,13 +42,13 @@ function a_ranked_db = ranked_db(data, col_names, orig_db, crit_db, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_ranked_db.orig_db = tests_db;
    a_ranked_db.crit_db = tests_db;
    a_ranked_db = class(a_ranked_db, 'ranked_db', tests_db);
- elseif isa(data, 'ranked_db') %# copy constructor?
+ elseif isa(data, 'ranked_db') % copy constructor?
    a_ranked_db = data;
- else %# Create a new object
+ else % Create a new object
 
    if ~ exist('props')
      props = struct([]);

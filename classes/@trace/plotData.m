@@ -39,10 +39,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_dbs = length(t);
 if num_dbs > 1 
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_abstract);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plotData(t(plot_num), title_str, props);
@@ -56,10 +56,10 @@ end
 
 switch props.timeScale
   case 's'
-    time = (1:length(t.data)) * t.dt; %# in s
+    time = (1:length(t.data)) * t.dt; % in s
     xlabel = 'time [s]';
   case 'ms'
-    time = (1:length(t.data)) * t.dt * 1e3; %# in ms
+    time = (1:length(t.data)) * t.dt * 1e3; % in ms
     xlabel = 'time [ms]';
 end
 
@@ -69,7 +69,7 @@ else
   ylabel = 'voltage [mV]';
 end
 
-%# Remove all '_' characters, because they interfere with TeX interpretation
+% Remove all '_' characters, because they interfere with TeX interpretation
 
 the_legend = t.id;
 if isfield(t.props, 'quiet') || isfield(props, 'quiet')

@@ -40,10 +40,10 @@ function a_coef_db = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_coef_db.col_name = '';
   a_coef_db = class(a_coef_db, 'corrcoefs_db', tests_3D_db);
-elseif isa(col_name, 'corrcoefs_db') %# copy constructor?
+elseif isa(col_name, 'corrcoefs_db') % copy constructor?
   a_coef_db = col_name;
 else
   
@@ -51,7 +51,7 @@ else
     props = struct([]);
   end
 
-  %# Add a column for bin numbers
+  % Add a column for bin numbers
   test_results = cat(2, coefs, pages);
   col_names = { coef_names{:}, 'PageIndex' };
   page_names = { 'Coefs', 'Rlo', 'Rup' };

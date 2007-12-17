@@ -76,15 +76,15 @@ a_plot = plot_abstract({distmatx * num_colors / 5, num_colors, 'hot', props}, {c
 		       title_str, {}, @plot_image, mergeStructs(props, plot_props));
 end
 
-%# Small function for creating matrix plot
+% Small function for creating matrix plot
 function h = plot_image(distmatx, num_colors, colormap_func, props)
   h = image(distmatx);
-  %# Show up to some number of STDs
+  % Show up to some number of STDs
   colormap(feval(colormap_func, num_colors)); 
   if isfield(props, 'colorbar')
     colorbar;
   end
-  %# scale font to fit measure names on y-axis
+  % scale font to fit measure names on y-axis
   num_rows = max(100, size(distmatx, 1));
-  %#set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
+  %set(gca, 'FontUnit', 'normalized', 'FontSize', 1/num_rows);
 end

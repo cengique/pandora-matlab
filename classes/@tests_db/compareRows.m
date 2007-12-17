@@ -39,7 +39,7 @@ function [idx, compared] = compareRows(db, rows)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Compare two dbs?
+% Compare two dbs?
 if isa(rows, 'tests_db')
   rows = rows.data;
 end
@@ -53,7 +53,7 @@ if dbsize(db, 2) ~= size(rows, 2)
          num2str(dbsize(db, 2)) ' columns. They must match for comparison.']);
 end
 
-%# prepare variables for faster processing
+% prepare variables for faster processing
 num_rows = size(rows, 1);
 num_db_rows = size(db_data, 1);
 ones_matx = ones(num_db_rows, 1);
@@ -72,11 +72,11 @@ else
   row_data = rows;
 end
 
-%# Find doesn't work in two dimension comparisons
-%# Thus, use algorithm:
+% Find doesn't work in two dimension comparisons
+% Thus, use algorithm:
 
-%# - duplicate rows to a matrix of same size with db
-%# - subtract from db
+% - duplicate rows to a matrix of same size with db
+% - subtract from db
 compared = db_data - row_data;
 
 % matching rows become zero

@@ -40,13 +40,13 @@ if ~ exist('caption') || isempty(caption)
   caption = [ 'Rows of ' strrep(get(a_db, 'id'), '_', '\_') '.' ];
 end
 
-%# User props have priority
+% User props have priority
 props = mergeStructs(props, struct('rotate', 90, ...
 				   'height', '0.9\textheight', ...
 				   'center', 1, 'shortCaption', caption));
 
-%# List all db rows in a table
-%# TODO: need to pass hasTitleRow to cell2TeX for ranked_db
+% List all db rows in a table
+% TODO: need to pass hasTitleRow to cell2TeX for ranked_db
 tex_string = [ TeXtable(cell2TeX(displayRows(a_db, ':')), ...
 			caption, props) ...
 	      sprintf('\n') ];

@@ -31,7 +31,7 @@ function val = interpValByIndex(idx, data)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Find floor and ceil integers
+% Find floor and ceil integers
 fi = floor(idx);
 ci = ceil(idx);
 

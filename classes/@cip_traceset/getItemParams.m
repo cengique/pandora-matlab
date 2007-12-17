@@ -27,5 +27,5 @@ function params_row = getParams(dataset, index, a_profile)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Take the cip_mage from list
+% Take the cip_mage from list
 params_row = [ getItem(dataset, index) ];

@@ -38,7 +38,7 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-%# Apply a median filter to reduce noise
+% Apply a median filter to reduce noise
 smooth_data = medfilt1(s.trace.data, 5);
 s = set(s, 'trace', set(s.trace, 'data', smooth_data));
 
@@ -47,7 +47,7 @@ if max_idx < 2
 	get(s, 'id'));
 end
 
-%# Supersampling factor (times as many new data points)
+% Supersampling factor (times as many new data points)
 int_fac = 4; 
 
 t_vals = 1 : (max_idx + 2);
@@ -70,7 +70,7 @@ if (plotit == 2)
   grid on;
 end
 
-%# Find all positive part in derivative until voltage peak
+% Find all positive part in derivative until voltage peak
 last_pos_d = find(deriv(1:end) > 0);
 if length(last_pos_d) == 0
   error('calcInitVm:failed', 'No positive slope before peak of %s.', ...
@@ -82,7 +82,7 @@ end
 last_neg_d = find(deriv(1:last_pos_d_idx) < -.1*max(abs(deriv)));
 if length(last_neg_d) == 0
   last_neg_d_idx = 1;
-elseif last_neg_d(end) == last_pos_d_idx  %# can never happen?
+elseif last_neg_d(end) == last_pos_d_idx  % can never happen?
   error('calcInitVm:failed', 'Negative slope right before peak of %s.', ...
 	get(s, 'id'));
 else
@@ -94,16 +94,16 @@ start_idx = max(1, last_neg_d_idx - 1);
 deriv = deriv(start_idx:end);
 deriv2 = deriv2(start_idx:end);
 
-%# threshold voltage derivative
-idx = find(deriv >= thr & deriv2 >= 0); %# Slope of slope should be non-negative
+% threshold voltage derivative
+idx = find(deriv >= thr & deriv2 >= 0); % Slope of slope should be non-negative
 if length(idx) == 0 
-  %# Raise error and catch it in the caller function
+  % Raise error and catch it in the caller function
   error('calcInitVm:failed', ...
 	['Derivative threshold ' num2str(s.trace.props.init_threshold) ...
 	 ' failed to find spike initiation point. ' ]);
 end
 
-%# Cannot be less than 1
+% Cannot be less than 1
 init_idx = max((idx(1) + start_idx - 1 + 2 ) / int_fac, 1);
 
 if plotit

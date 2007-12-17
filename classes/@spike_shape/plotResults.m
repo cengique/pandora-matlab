@@ -38,10 +38,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_s = length(s);
 if num_s > 1 
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_s)] = deal(plot_abstract);
   for plot_num = 1:num_s
     a_plot(plot_num) = plotResults(s(plot_num), title_str, props);
@@ -63,12 +63,12 @@ max_ahp = results.MaxAHP ;
 dahp_mag = results.DAHPMag ;
 fall_time = results.FallTime ;
 min_idx = results.MinTime ;
-%# Not a realistic measure
-%#results.ahp_decay_constant = ahp_decay_constant ;
+% Not a realistic measure
+%results.ahp_decay_constant = ahp_decay_constant ;
 base_width = results.BaseWidth ;
 half_width = results.HalfWidth ;
 
-%# TODO: Legend?
+% TODO: Legend?
 approx_half_idx = ...
     init_idx + ...
     (half_Vm - init_val) * (peak_time - init_idx) / (peak_mag - init_val);
@@ -83,8 +83,8 @@ plot_data = {peak_time, peak_mag , 'r*', ...
 	     min_idx , min_val , 'r*', ...
 	     [min_idx, min_idx] , ...
 	     [min_val, min_val + max_ahp] , 'r', ...
-	     %#[min_idx, min_idx + ahp_decay_constant] , ...
-	     %#[min_val, min_val] , 'r' 
+	     %[min_idx, min_idx + ahp_decay_constant] , ...
+	     %[min_val, min_val] , 'r' 
 	     };
 
 if ~isnan(dahp_mag)
@@ -92,12 +92,12 @@ if ~isnan(dahp_mag)
 	       [min_val, min_val - dahp_mag] , 'r'};
 end
 
-%# Get regular spike shape plot first
+% Get regular spike shape plot first
 spsh_plot = plotData(s, title_str, props);
 
-%# Create annotation plot using the above as template
+% Create annotation plot using the above as template
 annot_plot = set(spsh_plot, 'data', plot_data);
 annot_plot = set(annot_plot, 'legend', {});
 
-%# Superpose them
+% Superpose them
 a_plot = superposePlots([spsh_plot, annot_plot]);

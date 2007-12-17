@@ -63,30 +63,30 @@ verbose = strcmp(vs.state, 'on');
 
 cols = tests2cols(db, cols);
 
-%# Remove trial column from parameters that define character of data
+% Remove trial column from parameters that define character of data
 test_names = fieldnames(get(db, 'col_idx'));
 trial_col = strmatch('trial', test_names);
 
-%# Remove all given columns, left with surrounding parameters
+% Remove all given columns, left with surrounding parameters
 log_cols = false(1, dbsize(db, 2));
 log_cols(cols) = true(1);
 log_cols(trial_col) = true(1);
 wo_cols = db.data(:, ~log_cols);
 
-%# Sort rows
+% Sort rows
 [sorted idx] = sortrows(wo_cols);
 
-%# Find unique rows
+% Find unique rows
 [unique_rows unique_idx] = sortedUniqueValues(sorted);
 
-%# Get the columns back [no need for duplicate memory matrix, just use idx below]
-%# sorted = db.data(idx, :);
+% Get the columns back [no need for duplicate memory matrix, just use idx below]
+% sorted = db.data(idx, :);
 
-%# Initialize
+% Initialize
 num_rows = length(unique_idx);
 num_total_rows = dbsize(db, 1);
 
-%# If not symmetric
+% If not symmetric
 if mod(num_total_rows, num_rows) ~= 0
   if verbose
     disp('Warning: non-symmetric database.');
@@ -97,7 +97,7 @@ if mod(num_total_rows, num_rows) ~= 0
 
   in_page_unique_cols = tests2cols(db, in_page_unique_cols);
 
-  %# Sort and keep the unique values of in_page_unique_cols
+  % Sort and keep the unique values of in_page_unique_cols
   unique_main_vals = sortrows(uniqueValues(db.data(idx, in_page_unique_cols)));
   num_uniques = size(unique_main_vals, 1);
   if verbose
@@ -118,7 +118,7 @@ else
   unique_main_vals_exist = false;
 end
 
-%# For each unique row to next, create a new page
+% For each unique row to next, create a new page
 for row_num=1:num_rows
   if row_num < num_rows
     page_rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
@@ -128,16 +128,16 @@ for row_num=1:num_rows
 
   page_size = length(page_rows);
   if unique_main_vals_exist
-    %# sort in_page_unique_cols first
+    % sort in_page_unique_cols first
     [page_main_vals page_idx] = sortrows(db.data(idx(page_rows), in_page_unique_cols));
 
-    %# Match each page entry to uniques
+    % Match each page entry to uniques
     unique_index = 1;
     for page_index = 1:page_size
       unique_index = findVectorInMatrix(unique_main_vals, ...
 					page_main_vals(page_index, :));
 
-      %# Check for errors
+      % Check for errors
       if num_uniques - unique_index < page_size - page_index
 	num_uniques
 	unique_index
@@ -148,31 +148,31 @@ for row_num=1:num_rows
                'See above variables.']);
       end
 
-      %# Check if remaining page size is equal to remaining uniques size,
-      %# if so just copy the rest of the page.
+      % Check if remaining page size is equal to remaining uniques size,
+      % if so just copy the rest of the page.
       if page_size - page_index == num_uniques - unique_index
-	%# Copy contents verbatim from this index onwards
+	% Copy contents verbatim from this index onwards
 	data(unique_index:end, :, row_num) = ...
 	  [db.data(idx(page_rows(page_idx(page_index:end))), cols), ...
 	   idx(page_rows(page_idx(page_index:end))) ];
       else
-	%# Copy only this row
+	% Copy only this row
 	data(unique_index, :, row_num) = ...
 	    [db.data(idx(page_rows(page_idx(page_index))), cols), ...
 	     idx(page_rows(page_idx(page_index))) ];
       end
     end
   else
-    %# Fill page from fixed-size unique values
+    % Fill page from fixed-size unique values
     this_page_idx = idx(page_rows);
     data(:, :, row_num) = [db.data(this_page_idx, cols), this_page_idx ];
   end
 end
 
-%# Create the 3D database
+% Create the 3D database
 col_name_cell = fieldnames(db.col_idx);
 col_names = col_name_cell(cols);
 
-%# TODO: put the invarName in the title?
+% TODO: put the invarName in the title?
 a_tests_3D_db = tests_3D_db(data, {col_names{:}, 'RowIndex'}, {}, {}, ...
 			    [ 'Invariant values from ' db.id ], get(db, 'props'));

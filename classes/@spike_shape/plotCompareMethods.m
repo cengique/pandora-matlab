@@ -28,14 +28,14 @@ function a_plot = plotCompareMethods(s, title_str)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Two column plot area, best methods on the left:
-%# - threshold to slope (parametric)
-%# - Sekerli's 2nd derivative in phase space (parametric/non-parameteric)
-%# - Maximum curvature (non-parameteric)
-%#
-%# On the right, phase space plot, derivative plots and h and Kp
+% Two column plot area, best methods on the left:
+% - threshold to slope (parametric)
+% - Sekerli's 2nd derivative in phase space (parametric/non-parameteric)
+% - Maximum curvature (non-parameteric)
+%
+% On the right, phase space plot, derivative plots and h and Kp
 
-%# Method 3
+% Method 3
 th = 15;
 sm3 = set(s, 'props', struct('init_Vm_method', 3, 'init_threshold', th));
 resultsm3 = getResults(sm3);
@@ -44,7 +44,7 @@ rise_time = resultsm3.RiseTime ;
 peak_time = init_idx + rise_time;
 min_time = resultsm3.MinTime;
 
-%# Method 7, slope threshold with supersampling
+% Method 7, slope threshold with supersampling
 sm7 = set(s, 'props', struct('init_Vm_method', 7, 'init_threshold', th));
 resultsm7 = getResults(sm7);
 
@@ -53,7 +53,7 @@ r2_plot = setProp(r2_plot, 'axisLimits', ...
 		 [resultsm7.InitTime - 1, resultsm7.InitTime + 1, ...
 		  resultsm7.InitVm - 5, resultsm7.InitVm + 5]);
 
-%# Adjust plots
+% Adjust plots
 r_plot = set(plotResults(sm3), 'title', ['Slope threshold, v\prime > ' num2str(th) ]);
 r_plot = setProp(r_plot, 'axisLimits', ...
 		 [resultsm3.InitTime - 1, resultsm3.InitTime + 1, ...
@@ -63,17 +63,17 @@ r3_plot = set(plotTPP(sm3), 'title', [ 'In phase-plane (v\prime vs. v)' ]);
 
 m3_plot = plot_stack({r_plot, r2_plot, r3_plot}, [], 'x', '', struct([]));
 
-%# Method 8 (non-parameteric): maximal curvature in phase-plane
+% Method 8 (non-parameteric): maximal curvature in phase-plane
 sm8 = set(s, 'props', struct('init_Vm_method', 8));
 [res, d_plot] = getResults(sm8, 1);
-%#d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
+%d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
 r_plot = setProp(plotResults(sm8), 'axisLimits', ...
 		 [res.InitTime - 1, res.InitTime + 1, ...
 		  res.InitVm - 5, res.InitVm + 5]);
 m8_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		     struct('titlesPos', 'none'));
 
-%# Method 4 (parameteric): Sekerli's method with threshold
+% Method 4 (parameteric): Sekerli's method with threshold
 sm4p = set(s, 'props', struct('init_Vm_method', 6, 'init_threshold', 10));
 [res, d_plot] = getResults(sm4p, 1);
 d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
@@ -83,7 +83,7 @@ r_plot = setProp(plotResults(sm4p), 'axisLimits', ...
 m4p_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		      struct('titlesPos', 'none'));
 
-%# Method 4 (non-parameteric): Sekerli's method
+% Method 4 (non-parameteric): Sekerli's method
 sm4 = set(s, 'props', struct('init_Vm_method', 4, 'init_threshold', 15));
 [res, d_plot] = getResults(sm4, 1);
 d_plot = setProp(d_plot, 'axisLimits', [peak_time - 3, peak_time, NaN, NaN]);
@@ -93,7 +93,7 @@ r_plot = setProp(plotResults(sm4), 'axisLimits', ...
 m4_plot = plot_stack({r_plot, d_plot}, [], 'x', get(d_plot, 'title'), ...
 		      struct('titlesPos', 'none'));
 
-%# Method 5 (non-parameteric)
+% Method 5 (non-parameteric)
 sm5 = set(s, 'props', struct('init_Vm_method', 5, ...
 			     'init_lo_thr', 5, 'init_hi_thr', 50, ...
 			     'init_threshold', 15));

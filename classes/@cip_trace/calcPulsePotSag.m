@@ -30,7 +30,7 @@ function [min_val, min_idx, sag_val] = calcPulsePotSag(t)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Minimum of the first half of the CIP period
+% Minimum of the first half of the CIP period
 [min_val, min_idx] = calcMin(t.trace, periodPulseHalf1(t));
 
 steady_val = calcAvg(t.trace, periodPulseIni50msRest2(t));

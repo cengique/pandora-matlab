@@ -43,7 +43,7 @@ function trial_num = getTrialNum(a_bundle, a_db, props)
       trial_num = get(onlyRowsTests(a_db, 1, 'trial'), 'data');
     else
       j_db = get(a_bundle, 'joined_db');
-      %# if no trial information, need to match parameters to joined_db
+      % if no trial information, need to match parameters to joined_db
       param_names = getColNames(j_db(1, 1:get(j_db, 'num_params')));
       trial_num = find(transpose(j_db(:, param_names) == a_db(:, param_names)));
     end

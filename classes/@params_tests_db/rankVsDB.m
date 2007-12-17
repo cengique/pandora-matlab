@@ -31,22 +31,22 @@ function a_ranked_db = rankVsDB(a_db, crit_db)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Generate a criterion DB
-%# to_tests: [2, 5:12, 14:23, 28, 30:31, 37:38]
+% Generate a criterion DB
+% to_tests: [2, 5:12, 14:23, 28, 30:31, 37:38]
 
-%# TODO: take crit_db as parameter in this func, then compute match to avg neuron
-%#crit_db = matchingRow(to_db, to_row, to_tests);
+% TODO: take crit_db as parameter in this func, then compute match to avg neuron
+%crit_db = matchingRow(to_db, to_row, to_tests);
 
-%# Get rankings from criterion
+% Get rankings from criterion
 dist_db = rankMatching(a_db, crit_db);
 
 min_distance = min(dist_db(:, 'Distance').data);
 avg_distance = mean(dist_db(:, 'Distance').data);
 max_distance = max(dist_db(:, 'Distance').data);
 
-%# Take all criterion columns and parameter columns from original db
-%# TODO: that may need to be instructed to joinOriginal from here.
+% Take all criterion columns and parameter columns from original db
+% TODO: that may need to be instructed to joinOriginal from here.
 a_ranked_db = joinOriginal(dist_db);
 
-%# a=displayRows(a_ranked_db, 1:10)
-%# s = cell2TeX(a)
+% a=displayRows(a_ranked_db, 1:10)
+% s = cell2TeX(a)

@@ -57,10 +57,10 @@ if any(isnan(joins))
     warning(['NaNs in ' index_col_name ' column. Proceeding with caution.']);
   end
 
-  %# Find all RowIndex columns
+  % Find all RowIndex columns
   row_index_cols = strmatch('RowIndex', fieldnames(get(with_db, 'col_idx')));
 
-  %# Then look for missing values in other columns
+  % Then look for missing values in other columns
   all_joins = w_data(:, row_index_cols);
   all_non_nans = ~isnan(all_joins);
   for joins_row = 1:size(all_joins, 1)
@@ -78,11 +78,11 @@ size_db = dbsize(a_db);
 size_wdb = dbsize(with_db);
 
 new_size(1) = size_wdb(1);
-new_size(2) = size_db(2) + size_wdb(2); %# Except the page index
+new_size(2) = size_db(2) + size_wdb(2); % Except the page index
 
 new_data = [ data(joins(~isnan(joins)), :), w_data(~isnan(joins), :) ];
 
-%# Get the column names straight
+% Get the column names straight
 cols_cell1 = fieldnames(get(a_db, 'col_idx'));
 cols_cell2 = fieldnames(get(with_db, 'col_idx'));
 a_db = set(a_db, 'data', new_data);

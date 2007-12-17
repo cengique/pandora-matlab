@@ -36,19 +36,19 @@ end
 
 num_crits = length(a_crit_bundle);
 if num_crits > 1
-  %# If called with vectorized criteria
+  % If called with vectorized criteria
   rankeds = cell(1, num_crits);
   row_index = [];
   for crit_num=1:num_crits
     row_index = ...
 	[ row_index; collectPhysiolMatches(a_mbundle, a_crit_bundle(crit_num), props) ];
-    %#ranked{crit_num} = onlyRowsTests(get(a_ranked_bundle, 'joined_db'), ':', ...
-    %#			     {'RowIndex', 'Distance'});
+    %ranked{crit_num} = onlyRowsTests(get(a_ranked_bundle, 'joined_db'), ':', ...
+    %			     {'RowIndex', 'Distance'});
   end
-  %#a_ranked_bundle = set(a_ranked_bundle, 'joined_db', ...
-  %#		onlyRowsTests(a_ranked_bundle.joined_db, row_index, ':'));
+  %a_ranked_bundle = set(a_ranked_bundle, 'joined_db', ...
+  %		onlyRowsTests(a_ranked_bundle.joined_db, row_index, ':'));
 else
-  %# Called with one criterion
+  % Called with one criterion
   num_best = 50;
   if isfield(props, 'showTopmost')
     num_best = props.showTopmost;

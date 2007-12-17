@@ -46,12 +46,12 @@ if ~ exist('plotit')
 end
 a_plot = [];
 
-%# Supersampling factor (times as many new data points)
+% Supersampling factor (times as many new data points)
 int_fac = 4; 
 
-%#num_points = 200;
+%num_points = 200;
 
-%#interp_v = interp(s.trace.data(1 : max_idx), int_fac)';
+%interp_v = interp(s.trace.data(1 : max_idx), int_fac)';
 interp_v = pchip(1 : max_idx, s.trace.data(1 : max_idx), ...
 		 (1 : (max_idx * int_fac))/int_fac)';
 dt = s.trace.dt / int_fac;
@@ -62,12 +62,12 @@ d3 = diff3T_h4(interp_v * s.trace.dy, dt);
 d2 = diff2T_h4(interp_v * s.trace.dy, dt);
 d1 = diffT(interp_v * s.trace.dy, dt);
 
-%# Remove boundary artifacts
+% Remove boundary artifacts
 d3 = d3(3:(end - 2)); 
 d2 = d2(3:(end - 2));
 d1 = d1(3:(end - 2));
 
-%# Find desired lower boundary of region of interest
+% Find desired lower boundary of region of interest
 low_d1_idx = find(d1 > lo_thr);
 if length(low_d1_idx) == 0 
   error('calcInitVm:failed', ...
@@ -86,13 +86,13 @@ hi_d1_idx = hi_d1_idx(end);
 
 [max_d1, max_d1_idx] = max(d1);
 
-%# Sekerli's method, max of second derivative
+% Sekerli's method, max of second derivative
 h = (d3 .* d1 - d2 .* d2) ./ (d1 .* d1 .* d1);
 
 s_props = get(s, 'props');
 
-%# OBSOLETE, SEE BELOW.
-%# If specified, use threshold as upper limit
+% OBSOLETE, SEE BELOW.
+% If specified, use threshold as upper limit
 if isfield(s_props, 'init_threshold')
   add_h_title = [', while v\prime < ' num2str(s_props.init_threshold)];
   constrained_idx = find(d1 < s_props.init_threshold);
@@ -110,11 +110,11 @@ else
 end
 max_h_idx = (max_h_idx + 2) / int_fac;
 
-%# Curvature
+% Curvature
 k1 = 1 + d1 .* d1;
 k = d2 ./ sqrt(k1 .* k1 .* k1);
 
-%# Find maximum of k between given derivative thresholds and on the rising edge
+% Find maximum of k between given derivative thresholds and on the rising edge
 constrained_idx = find(d1 >= lo_thr & d1 <= hi_thr & d2 > 0);
 if length(constrained_idx) == 0 
   warning('calcInitVm:failed', ...
@@ -168,7 +168,7 @@ if plotit
 		     ['h / ' sprintf('%.2e', max(abs(h))) ], ...
 		     ['K_p / ' sprintf('%.2e', max(abs(k))) ], ...
 		     'max h(t)', 'max K_p(t)'}, 'plot');
-%#		     sprintf('\n') ...
+%		     sprintf('\n') ...
   a_plot = setProp(a_plot, 'axisLimits', ...
 		   [(low_d1_idx * dt * 1e3) (max_idx * s.trace.dt * 1e3) NaN NaN]);
 end

@@ -44,7 +44,7 @@ function a_subplot = plotGateVars(a_chans_db, chan_name, gate_subnames, title_st
   end
   
   for gate_subname = gate_subnames
-    %# wrapped in two cells by regexp??
+    % wrapped in two cells by regexp??
     gate_subname = gate_subname{1};
 
     if ~ isempty(gate_subname)

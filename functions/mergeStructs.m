@@ -32,7 +32,7 @@ valcell = {};
 fieldcell = {};
 
 for k=1:nargin
-  %# Be nice
+  % Be nice
   if ~isempty(varargin{k})
     fields = fieldnames(varargin{k});
     [newfields newidx] = setdiff(fields, fieldcell);
@@ -42,7 +42,7 @@ for k=1:nargin
   end
 end
 
-%# Be even nicer
+% Be even nicer
 if nargin > 0
   results = cell2struct(valcell, fieldcell, 2);
 else

@@ -44,7 +44,7 @@ end
 found = findstr(filename, '.tex');
 if length(found) == 0
 elseif length(found) == 1
-  filename = filename(1:(found(1) - 1)); %# strip the extension
+  filename = filename(1:(found(1) - 1)); % strip the extension
 end
 
 string2File(getTeXString(a_doc, props), [ properTeXFilename(filename) '.tex']);

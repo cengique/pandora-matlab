@@ -47,10 +47,10 @@ function a_script_cluster = script_array_for_cluster(num_runs, sge_wrapper_scrip
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   a_script_cluster.sge_wrapper_script = '';
   a_script_cluster = class(a_script_cluster, 'script_array_for_cluster', script_array);
-elseif isa(num_runs, 'script_array_for_cluster') %# copy constructor?
+elseif isa(num_runs, 'script_array_for_cluster') % copy constructor?
   a_script_cluster = num_runs;
 else
   if ~ exist('props')
@@ -59,7 +59,7 @@ else
 
   a_script_cluster.sge_wrapper_script = sge_wrapper_script;
 
-  %# Create the object
+  % Create the object
   a_script_cluster = class(a_script_cluster, 'script_array_for_cluster', ...
 			   script_array(num_runs, id, props));
 end

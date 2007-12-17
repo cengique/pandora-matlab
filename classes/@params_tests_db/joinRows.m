@@ -38,7 +38,7 @@ if ~exist('props', 'var')
   props = struct;
 end
 
-%# Call super class method
+% Call super class method
 a_db = params_tests_db(db.num_params, ...
 		       joinRows(db.tests_db, with_db, props), ...
 		       get(db, 'props'));

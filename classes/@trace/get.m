@@ -9,10 +9,10 @@ function b = get(a, attr)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# If input is an array, then also return array
+% If input is an array, then also return array
 num_items = length(a);
 if num_items > 1 
-  %# Create array of outputs
+  % Create array of outputs
   for item_num = 1:num_items
     b(item_num) = get(a(item_num), attr);
   end

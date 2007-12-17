@@ -54,7 +54,7 @@ function a_doc = reportNeuron(a_bundle, an_index, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)
+% TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)
 
 if ~ exist('props')
   props = struct;
@@ -66,9 +66,9 @@ else
   num_items = length(an_index);
 end
 
-%# If input is an array, then also return array
+% If input is an array, then also return array
 if num_items > 1 
-  %# Create array of outputs
+  % Create array of outputs
   for item_num = 1:num_items
     if isa(an_index, 'tests_db')
       a_doc(item_num) = ...
@@ -82,24 +82,24 @@ if num_items > 1
 end
 
 if ~ isfield(props, 'reportLayout')
-  props.reportLayout = 1;		%# default report type
+  props.reportLayout = 1;		% default report type
 end
 
-%# convert to string from numeric
+% convert to string from numeric
 if isnumeric(props.reportLayout)
   props.reportLayout = num2str(props.reportLayout);
 end
 
 if ~ isfield(props, 'horizRow')
-  props.horizRow = 1; %# Default due to laziness
+  props.horizRow = 1; % Default due to laziness
 end
 
 db_id = properTeXLabel(get(get(a_bundle, 'joined_db'), 'id'));
 
 switch (props.reportLayout)
-    %# Only trace plots
+    % Only trace plots
     case '1'
-      %# Get raw data traces from bundles
+      % Get raw data traces from bundles
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
       
@@ -107,7 +107,7 @@ switch (props.reportLayout)
 	  horizRowTraces(trace_plot, [0 0 4 3], plot_title, caption, short_caption);
 
     case '1a'
-      %# Get raw data traces from bundles
+      % Get raw data traces from bundles
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
 
@@ -117,7 +117,7 @@ switch (props.reportLayout)
 			     'raw +100pA trace figure');
       
     case '1b'
-      %# Get raw data traces from bundles
+      % Get raw data traces from bundles
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
       
@@ -129,7 +129,7 @@ switch (props.reportLayout)
     case '2'
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
-      %# spike shape comparisons 
+      % spike shape comparisons 
       plot_title = '';
       [spont_sshape_plot, pulse_sshape_plot, both_sshape_plots] = ...
 	  spikeShapePlots(plot_title, trace_d100, props);
@@ -148,7 +148,7 @@ switch (props.reportLayout)
     case '2a'
       [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData;
       [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots;
-      %# spike shape comparisons 
+      % spike shape comparisons 
       plot_title = '';
       [spont_sshape_plot, pulse_sshape_plot, both_sshape_plots] = ...
 	  spikeShapePlots(plot_title, trace_d100, props);
@@ -261,16 +261,16 @@ switch (props.reportLayout)
 		   'raw trace and rate profile figure');
 
 
-      %# rest not implemented yet.
+      % rest not implemented yet.
       otherwise
 	error(['reportLayout "' props.reportLayout '" not defined!']);
   end
 
-  %# The following are nested functions, sharing this functions workspace:
+  % The following are nested functions, sharing this functions workspace:
 
-  %# Not used:
+  % Not used:
 function sshape_doc = bothSShapeDoc
-  %# freq
+  % freq
   short_caption = [ 'Spike shapes of ' trace_id '.' ];
   caption = [ short_caption ];
   
@@ -310,7 +310,7 @@ function [a_d100_plot, a_h100_plot, trace_plot, trace_axis_limits] = tracePlots(
     a_h100_plot = plot_abstract;
   end
   
-  %# remove legends
+  % remove legends
   a_d100_plot.legend = {};
   a_h100_plot.legend = {};
 
@@ -329,11 +329,11 @@ function [trace_d100, trace_h100, trace_id, short_caption, caption] = traceData
   
   short_caption = ['Raw traces of ' trace_id '.' ];
 
-  %# If specified, only include desired number of the available phys. traces
-  %# Mostly to allow showing only one trace, to avoid cluttered displays.
+  % If specified, only include desired number of the available phys. traces
+  % Mostly to allow showing only one trace, to avoid cluttered displays.
   if isfield(props, 'numTraces')
     if iscell(props.numTraces)
-      %# Take traces specified in the numTraces cell array
+      % Take traces specified in the numTraces cell array
       trace_d100 = trace_d100(props.numTraces{1});
       trace_h100 = trace_h100(props.numTraces{2});
       caption = [ short_caption ...
@@ -356,7 +356,7 @@ end
 
 end
 
-%# The following functions are not nested functions:
+% The following functions are not nested functions:
 
 function [spont_sshape_plot, pulse_sshape_plot, both_sshape_plots] = ...
       spikeShapePlots(plot_title, trace_d100, props)

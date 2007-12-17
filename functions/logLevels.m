@@ -28,7 +28,7 @@ if min_val == 0
 else
   b = 0;
 end
-a = exp(1); %# use as the base
+a = exp(1); % use as the base
 
 min_pow = log(min_val + b);
 max_pow = log(max_val + b);

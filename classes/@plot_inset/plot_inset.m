@@ -41,11 +41,11 @@ function a_plot = plot_inset(plots, axis_locations, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_plot.plots = {};
   a_plot.axis_locations = [];
   a_plot = class(a_plot, 'plot_inset', plot_abstract);
- elseif isa(plots, 'plot_inset') %# copy constructor?
+ elseif isa(plots, 'plot_inset') % copy constructor?
    a_plot = plots;
  else
    if ~ exist('props', 'var')
@@ -67,9 +67,9 @@ if nargin == 0 %# Called with no params
    a_plot.plots = plots;
    a_plot.axis_locations = axis_locations;
 
-   %# Initialize with empty plot_abstract instance
-   %# because we override most of the default behavior
-   %# defined there anyway. 
+   % Initialize with empty plot_abstract instance
+   % because we override most of the default behavior
+   % defined there anyway. 
    a_plot = ...
        class(a_plot, 'plot_inset', ...
 	     plot_abstract([], {}, title_str, {}, '', props));

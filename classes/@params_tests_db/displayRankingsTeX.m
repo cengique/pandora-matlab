@@ -49,12 +49,12 @@ ranked_db = rankMatching(a_db, crit_db);
 joined_db = joinOriginal(ranked_db);
 ranked_num_rows = dbsize(ranked_db, 1);
 
-%# LaTeX likes '_' to be '\_' 
+% LaTeX likes '_' to be '\_' 
 a_db_id = strrep(lower(get(a_db, 'id')), '_', '\_');
 crit_db_id = strrep(lower(get(crit_db, 'id')), '_', '\_');
 
 if ranked_num_rows > 0
-  %# Display values of 10 best matches
+  % Display values of 10 best matches
   if isfield(props, 'num_matches')
     num_best = props.num_matches;
   else
@@ -68,7 +68,7 @@ if ranked_num_rows > 0
 					   struct('shortCaption', short_caption, ...
 						  'rotate', 0)) ];
 
-  %# Display parameter distributions of 50 best matches
+  % Display parameter distributions of 50 best matches
   num_best = 50;
   top_ranks = onlyRowsTests(joined_db, 1:min(num_best, ranked_num_rows), ':', ':');
   all_param_cols = true(1, get(top_ranks, 'num_params'));
@@ -79,16 +79,16 @@ if ranked_num_rows > 0
 			 ' best matches' ], ...
 			struct('yLabelsPos', 'left', 'titlesPos', 'none')));
 
-  %# Save it as a picture 
+  % Save it as a picture 
   filename = [ lower(get(crit_db, 'id')) ' - top 50 - params distribution' ];
-  %# Replace all white space with underscores
+  % Replace all white space with underscores
   filename = strrep(filename, ' ', '_');
   filename = strrep(filename, '.', '_');
-  filename = strrep(filename, '/', '+');  %# And the /'s with +'s
+  filename = strrep(filename, '/', '+');  % And the /'s with +'s
   print('-depsc', [ filename '.eps' ]);
 
-  %# Put it in a figure float
-  %# TODO: indicate distances of best and furthest matches
+  % Put it in a figure float
+  % TODO: indicate distances of best and furthest matches
   short_caption = [ 'Parameter distributions of the best ranked to the ' crit_db_id '.' ];
   caption = [ short_caption ...
 	     ' Only ' num2str(num_best) ' best matches from ' a_db_id ...
@@ -100,13 +100,13 @@ if ranked_num_rows > 0
 					 'width', '0.9\textwidth', ...
 					 'shortCaption', short_caption)) ];
 
-  %# Display raw data traces from dataset
+  % Display raw data traces from dataset
   if isfield(props, 'a_dataset') && isfield(props, 'a_dball') && ...
 	isfield(props, 'crit_dataset')
-    %# prepare a landscape figure with two rows
-    %# one row for original and 5 matching data traces
-    %# second row for original and 5 matching spike shapes
-    %# TODO: This should be in a *_profile class
+    % prepare a landscape figure with two rows
+    % one row for original and 5 matching data traces
+    % second row for original and 5 matching spike shapes
+    % TODO: This should be in a *_profile class
     crit_rows = onlyRowsTests(props.crit_dball, ':', 'TracesetIndex') == ...
 	onlyRowsTests(crit_db, 1, 'TracesetIndex');
     crit_trace_d100 = ...
@@ -148,7 +148,7 @@ if ranked_num_rows > 0
 			 'plot', sup_props);
     end
 
-    %# Make a full figure with the best matching guy
+    % Make a full figure with the best matching guy
     plotFigure(plot_stack([trace_d100_plots{1}, trace_h100_plots{1}], ...
 			  [0 3000 -150 80], 'y', ...
 			  ['The best match to ' crit_trace_id ], ...
@@ -156,13 +156,13 @@ if ranked_num_rows > 0
     best_filename = [lower(get(crit_db, 'id')) ' - best matching model from ' ...
 		     lower(get(a_db, 'id'))];
 
-    %# Replace all white space with underscores for LaTeX
+    % Replace all white space with underscores for LaTeX
     best_filename = strrep(best_filename, ' ', '_');
     best_filename = strrep(best_filename, '.', '_');
     orient tall; print('-depsc', [ best_filename '.eps' ] );
 
     horiz_props = struct('titlesPos', 'all', 'yLabelsPos', 'left', 'xLabelsPos', 'none');
-    d100_row_plot = plot_stack([trace_d100_plots{2:num_plots}], [0 3000 -80 80], 'x', '', ... %#+100 pA CIP
+    d100_row_plot = plot_stack([trace_d100_plots{2:num_plots}], [0 3000 -80 80], 'x', '', ... %+100 pA CIP
 			      mergeStructs(struct('xLabelsPos', 'none'), horiz_props));
     h100_row_plot = plot_stack([trace_h100_plots{2:num_plots}], [0 3000 -150 80], 'x', '-100 pA CIP', ...
 			       mergeStructs(struct('titlesPos', 'none'), horiz_props));
@@ -174,12 +174,12 @@ if ranked_num_rows > 0
     filename = [ lower(get(crit_db, 'id')) ' - top matching models from ' ...
 		lower(get(a_db, 'id'))];
 
-    %# Replace all white space with underscores for LaTeX
+    % Replace all white space with underscores for LaTeX
     filename = strrep(filename, ' ', '_');
     filename = strrep(filename, '.', '_');
     print('-depsc', [ filename '.eps' ] );
 
-    %# Put the best match in a figure float
+    % Put the best match in a figure float
     short_caption = [ 'Best matching model to ' crit_db_id ...
 		     ' (' crit_trace_id ').' ];
     caption = [ short_caption ...
@@ -192,8 +192,8 @@ if ranked_num_rows > 0
 					   'shortCaption', short_caption)) ...
 		  '\clearpage%' sprintf('\n') ];
 
-    %# Put other matches in a figure float
-    %# TODO: indicate distances of best and furthest matches
+    % Put other matches in a figure float
+    % TODO: indicate distances of best and furthest matches
     short_caption = [ 'Raw traces of the ranked to the ' crit_db_id  ...
 		     ' (' crit_trace_id ').' ];
     caption = [ short_caption ...

@@ -34,7 +34,7 @@ end
 
 data = a_tests_db.data;
 x_vals = 1:dbsize(a_tests_db, 2);
-%#props.XTickLabel = fieldnames(get(a_tests_db, 'col_idx'));
+%props.XTickLabel = fieldnames(get(a_tests_db, 'col_idx'));
 props.XTick = x_vals;
 props.grid = 1;
 
@@ -42,9 +42,9 @@ if isfield(props, 'putLabels')
   props.XTickLabel = {''};
 end
 
-%# TODO: need special plot_abstract for making colored bars:
-%#rows = [x_vals, data(row, :, 1)];
-%#flatrow = num2cell(reshape(rows, 1, 2*length(x_vals)));
+% TODO: need special plot_abstract for making colored bars:
+%rows = [x_vals, data(row, :, 1)];
+%flatrow = num2cell(reshape(rows, 1, 2*length(x_vals)));
 
 a_plot = ...
     plot_abstract({ x_vals, data(row, :, 1) }, {'', ''}, ...

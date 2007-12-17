@@ -40,8 +40,8 @@ else
 end
 
 if isfield(props, 'param_rows')
-  %# Take parameter values from the specified parameter file,
-  %# in addition to the ones specified on data filenames.
+  % Take parameter values from the specified parameter file,
+  % in addition to the ones specified on data filenames.
 
   if ~ isfield(props, 'param_trial_name')
     props.param_trial_name = 'trial';
@@ -55,14 +55,14 @@ if isfield(props, 'param_rows')
   
   trial_num = names_vals{str_index, 2};
 
-  %# Skip the "trial" value from the rows file
+  % Skip the "trial" value from the rows file
   str_index = strmatch(props.param_trial_name, props.param_names);
 
   trues = true(1, length(props.param_names));
 
   if ~ isempty(str_index)
-    %# If found, ignore the parameter "trial" from the list of parameters 
-    %# coming from the param rows file
+    % If found, ignore the parameter "trial" from the list of parameters 
+    % coming from the param rows file
     trues(str_index) = false;
   end
 
@@ -76,6 +76,6 @@ else
   add_param_vals = [];
 end
 
-%# Convert params to row vector
+% Convert params to row vector
 params_row = [ add_param_vals, names_vals{1:num_params, 2} ];
 

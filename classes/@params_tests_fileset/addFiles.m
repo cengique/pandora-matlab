@@ -35,22 +35,22 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# First find all filenames matching the pattern
+% First find all filenames matching the pattern
 
-%# Multiple patterns in cell array allowed
+% Multiple patterns in cell array allowed
 if iscell(file_pattern)
   num_patterns = length(file_pattern);
   
-  %# Separate filename components
+  % Separate filename components
   [obj.path, name, ext, ver] = fileparts(file_pattern{1});
 else
   num_patterns = 1;
   
-  %# Separate filename components
+  % Separate filename components
   [obj.path, name, ext, ver] = fileparts(file_pattern);
 end
 
-%# Loop over patterns (or do one pattern only)
+% Loop over patterns (or do one pattern only)
 total_entries = 0;
 for pattern_num = 1:num_patterns
   if iscell(file_pattern)
@@ -65,16 +65,16 @@ for pattern_num = 1:num_patterns
   total_entries = total_entries + entries;
 end
 
-%# Add to existing list
+% Add to existing list
 existing_list = get(a_fileset, 'list');
 num_existing = length(existing_list);
 a_fileset = set(a_fileset, 'list', { existing_list{:}, filenames{:}});
 index_list = (num_existing + 1):(num_existing + length(filenames));
 
-%# Update the parameter values
+% Update the parameter values
 if isfield(props, 'param_row_filename')
   param_rows = dlmread(props.param_row_filename);
-  props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); %# strip off excess columns
+  props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); % strip off excess columns
 
   a_fileset = set(a_fileset, 'props', mergeStructs(props, get(a_fileset, 'props')));
 end

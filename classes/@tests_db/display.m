@@ -10,14 +10,14 @@ function s = display(t)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Handle differently if an array of DBs
+% Handle differently if an array of DBs
 if length(t) > 1
   disp(t);
   return;
 end
 
 disp(sprintf('%s, %s', class(t), t.id));
-%#struct(t) not needed
+%struct(t) not needed
 disp([ num2str(dbsize(t, 1)) ' rows in database with ' ...
       num2str(dbsize(t, 2)) ' columns, and ' ...
       num2str(dbsize(t, 3)) ' pages.']);

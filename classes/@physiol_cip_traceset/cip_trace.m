@@ -37,7 +37,7 @@ if ~ exist('props')
   props = struct;
 end
 
-%# First call CIPform and get necessary parameters
+% First call CIPform and get necessary parameters
 [type, on, off, finish, bias, pulse] = CIPform(traceset, trace_index);
 pulse_time_start=on;
 pulse_time_width= off - on + 1;
@@ -68,7 +68,7 @@ if isfield(props, 'showParamsList')
   end
 end
 
-%# Put id of traceset as id
+% Put id of traceset as id
 if ~ isfield(props, 'showName') || props.showName == 1
   trace_id = [get(traceset, 'id') '(' trace_id ')'];
 end

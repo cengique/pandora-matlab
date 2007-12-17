@@ -46,11 +46,11 @@ function obj = cip_traceset(ct, cip_mags, dy, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.ct = cip_traces;
   obj.props = struct([]);
   obj = class(obj, 'cip_traceset', params_tests_dataset);
-elseif isa(ct, 'cip_traceset') %# copy constructor?
+elseif isa(ct, 'cip_traceset') % copy constructor?
   obj = ct;
 else
 
@@ -65,7 +65,7 @@ else
   obj.ct = ct;
   obj.props = props;
 
-  %# Create the object 
+  % Create the object 
   obj = class(obj, 'cip_traceset', ...
 	      params_tests_dataset(cip_mags, ct.dt, dy, ct.id, props));
 

@@ -51,9 +51,9 @@ function obj = trace_profile(varargin)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: 
-%# - How about sim parameter values? [dealt with elsewhere in filesets/dbs]
-%# - use getResults to fill up results? [Made alternate constructor signatures]
+% TODO: 
+% - How about sim parameter values? [dealt with elsewhere in filesets/dbs]
+% - use getResults to fill up results? [Made alternate constructor signatures]
 
 if nargin < 6
   props = struct([]);
@@ -61,35 +61,35 @@ else
   props = varargin{6};
 end
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   obj.trace = trace;
   obj.spikes = spikes;
   obj.spike_shape = spike_shape;
   obj.props = struct([]);
   obj = class(obj, 'trace_profile', results_profile);
-elseif isa(varargin{1}, 'trace_profile') %# copy constructor?
+elseif isa(varargin{1}, 'trace_profile') % copy constructor?
   obj = varargin{1};
 elseif nargin < 4 && isnumeric(varargin{2})
-  %# Create all data structures and collect results
+  % Create all data structures and collect results
   obj.trace = trace(varargin{1:5}, props);
   obj.spikes = spikes(obj.trace);
   obj.spike_shape = spike_shape(obj.trace, obj.spikes);
 
-  %# Calculate all generic tests
+  % Calculate all generic tests
   trace_results = getResults(obj.trace);
   rate_results = getResults(obj.spikes, obj.trace);
   shape_results = getResults(obj.spike_shape);
 
-  %# Create the object
+  % Create the object
   obj = class(obj, 'trace_profile', ...
 	      results_profile(mergeStructs(trace_results, rate_results, ...
 				   shape_results), ...
 		      varargin{5}));
 else
-  %# Create object with custom data (used from subclasses)
+  % Create object with custom data (used from subclasses)
   [ obj.trace, obj.spikes, obj.spike_shape ] = ...
       deal(varargin{1:3});
   obj.props = props;
-  %# Create the object
+  % Create the object
   obj = class(obj, 'trace_profile', results_profile(varargin{4:5}));
 end

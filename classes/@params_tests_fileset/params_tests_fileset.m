@@ -71,10 +71,10 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.path='';
   obj = class(obj, 'params_tests_fileset', params_tests_dataset);
-elseif isa(file_pattern, 'params_tests_fileset') %# copy constructor?
+elseif isa(file_pattern, 'params_tests_fileset') % copy constructor?
   obj = file_pattern;
 else
 
@@ -82,27 +82,27 @@ else
     props = struct([]);
   end
 
-  %# First find all filenames matching the pattern
+  % First find all filenames matching the pattern
 
-  %# Multiple patterns in cell array allowed
+  % Multiple patterns in cell array allowed
   if iscell(file_pattern)
     num_patterns = length(file_pattern);
 
-    %# Separate filename components
+    % Separate filename components
     [obj.path, name, ext, ver] = fileparts(file_pattern{1});
   else
     num_patterns = 1;
 
-    %# Separate filename components
+    % Separate filename components
     [obj.path, name, ext, ver] = fileparts(file_pattern);
   end
 
-  %# Remove the last directory if the subdirs option is given
+  % Remove the last directory if the subdirs option is given
   if isfield(props, 'isSubdirs')
     [obj.path, name, ext, ver] = fileparts(obj.path);
   end
 
-  %# Loop over patterns (or do one pattern only)
+  % Loop over patterns (or do one pattern only)
   total_entries = 0;
   for pattern_num = 1:num_patterns
     if iscell(file_pattern)
@@ -114,7 +114,7 @@ else
     filestruct = dir(this_pattern);
     entries = size(filestruct, 1);
 
-    %# if there's a subdir, prepend it to the filename
+    % if there's a subdir, prepend it to the filename
     names = { filestruct(:).name };
     if isfield(props, 'isSubdirs')
       [path, name, ext, ver] = fileparts(this_pattern);
@@ -135,14 +135,14 @@ else
   end
 
 
-  %# Read parameters if specified
+  % Read parameters if specified
   if isfield(props, 'param_row_filename')
     param_rows = dlmread(props.param_row_filename);
-    props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); %# strip off excess columns
+    props.param_rows = param_rows(2:end, 1:param_rows(1, 2)); % strip off excess columns
 
-    %# Check for names
+    % Check for names
     if ~ isfield(props, 'param_names')
-      %# Then read the parameter description file to get the names
+      % Then read the parameter description file to get the names
       if ~ isfield(props, 'param_desc_filename')
 	error(['If param_row_filename is specified, one needs to specify ' ...
 	      ' a method to get parameter names. Use either param_names ' ...
@@ -154,7 +154,7 @@ else
     end
   end
 
-  %# then create the object 
+  % then create the object 
   obj = class(obj, 'params_tests_fileset', ...
 	      params_tests_dataset(filenames, dt, dy, id, props));
 

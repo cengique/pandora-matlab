@@ -11,6 +11,6 @@ function b = get(a, attr)
 try
   b = a.(attr);
 catch
-  %# Then try the parent class
+  % Then try the parent class
   b = get(a.script_array, attr);
 end

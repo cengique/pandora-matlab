@@ -36,7 +36,7 @@ end
 if isa(file_index, 'tests_db')
   a_db = file_index;
   col_data = get(onlyRowsTests(a_db, ':', 'ItemIndex'), 'data');
-  %# recurse
+  % recurse
   a_cip_trace = cip_trace(fileset, col_data, props);
 else
   num_indices = length(file_index);
@@ -47,8 +47,8 @@ else
 
     f_props = get(fileset, 'props');
     if isfield(f_props, 'param_rows')
-      %# Take parameter values from the specified parameter file,
-      %# in addition to the ones specified on data filenames.
+      % Take parameter values from the specified parameter file,
+      % in addition to the ones specified on data filenames.
       names_vals = parseGenesisFilename(fullname);
       if isfield(f_props, 'num_params')
 	num_params = f_props.num_params;
@@ -71,12 +71,12 @@ else
       trace_id = num2str(file_index(an_index));
     end
 
-    %# overwrite the above trace id if one specified in neuronLabel
+    % overwrite the above trace id if one specified in neuronLabel
     if isfield(props, 'neuronLabel')
       trace_id = props.neuronLabel;
     end
     
-    %# Load a cip_trace object
+    % Load a cip_trace object
     a_cip_trace(an_index) = ...
 	cip_trace(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
 		  fileset.pulse_time_start, fileset.pulse_time_width, ...

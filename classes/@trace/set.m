@@ -10,7 +10,7 @@ function b = set(a, attr, val)
 % http://opensource.org/licenses/afl-3.0.php.
 num = length(a);
 if num > 1
-  %# If a vector, loop and do for all
+  % If a vector, loop and do for all
   for i=1:num
     set(a(i), attr, val);
   end

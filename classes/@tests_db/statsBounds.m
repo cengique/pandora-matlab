@@ -50,7 +50,7 @@ end
 
 row_names = {'mean', 'min', 'max'};
 
-%# Original column names
+% Original column names
 col_name_cell = fieldnames(a_db.col_idx);
 col_names = col_name_cell(cols);
 

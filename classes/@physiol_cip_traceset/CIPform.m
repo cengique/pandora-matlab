@@ -35,14 +35,14 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
   warning off MATLAB:divideByZero;
   warning off MATLAB:polyfit:PolyNotUnique;
 
-  %#sprintf('data file: %s, trace number: %d', traceset.data_src, trace_index)
+  %sprintf('data file: %s, trace number: %d', traceset.data_src, trace_index)
 
   % Create list of all available cip step amplitudes.
   traceset_props = get(traceset, 'props');
   if isfield(traceset_props, 'cip_list') 
-    cipList = traceset_props.cip_list; %# get it from props
+    cipList = traceset_props.cip_list; % get it from props
   else
-    %# static list of cips
+    % static list of cips
     cipList = [-200,-150,[-100:10:100],150,200,250,300,400,500];
   end
   %	cipList = [-200:100:500];
@@ -124,7 +124,7 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
       pulse = 0;
     else
       bias=round(median(current(1:on-10)));
-      %# If we don't round here, it may be more accurate -CG
+      % If we don't round here, it may be more accurate -CG
       pulse = round(maxc-minc) * ciptype;
       %    	pulse = round(median(current(on+10:off-10)) - bias);
       %		sprintf('raw pulse: %g', pulse)

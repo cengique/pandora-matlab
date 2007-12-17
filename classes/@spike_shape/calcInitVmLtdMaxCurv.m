@@ -52,7 +52,7 @@ d2 = d2(3:(end -2));
 d1 = d1(3:(end -2));
 k1 = 1 + d1 .* d1;
 k = d2 ./ sqrt(k1 .* k1 .* k1);
-%# Find maximum of k between given derivative thresholds and on the rising edge
+% Find maximum of k between given derivative thresholds and on the rising edge
 constrained_idx = find(d1 >= lo_thr & d1 <= hi_thr & d2 > 0);
 if length(constrained_idx) == 0 
   warning('spike_shape:threshold_derivative', ...

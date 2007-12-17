@@ -40,7 +40,7 @@ deriv2 = ...
     ([0, 0, 0, 0, x] - [0, 0, 0, x, 0] - ...
      [0, x, 0, 0, 0] + [x, 0, 0, 0, 0]) ./ ( 6 * dy * dy );
 
-%# Strip off the boundaries
+% Strip off the boundaries
 deriv2 = deriv2(3:(end-2));
 
 if transposed

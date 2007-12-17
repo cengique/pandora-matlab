@@ -28,7 +28,7 @@ function [max_val, max_idx] = calcMax(t, a_period)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   error('Need trace parameter.');
 elseif nargin == 1 
   a_period = periodWhole(t);

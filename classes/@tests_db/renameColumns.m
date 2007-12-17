@@ -34,7 +34,7 @@ function a_db = renameColumns(a_db, test_names, new_names)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# For vector input, recurse in loop
+% For vector input, recurse in loop
 num_tests = length(test_names);
 if iscell(test_names) && num_tests > 1
   if num_tests ~= length(new_names)
@@ -46,11 +46,11 @@ if iscell(test_names) && num_tests > 1
   return
 end
 
-%# Single column mode
+% Single column mode
 col_idx = a_db.col_idx;
 col_idx.(new_names) = col_idx.(test_names);
 col_idx = rmfield(col_idx, test_names);
 
-%# Reorder struct
+% Reorder struct
 [cols perm] = sort(cell2mat(struct2cell(col_idx)));
 a_db.col_idx = orderfields(col_idx, perm);

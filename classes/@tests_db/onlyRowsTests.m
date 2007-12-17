@@ -30,30 +30,30 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Pages
+% Pages
 if ~ exist('tests')
   tests = ':';
 end
 
-%# translate tests spec to array form
+% translate tests spec to array form
 cols = tests2idx(obj, 'col', tests);
 rows = tests2idx(obj, 'row', rows);
 
-%# Pages
+% Pages
 if ~ exist('pages')
   pages = ':';
 end
 
-%# Do it
+% Do it
 obj.data = obj.data(rows, cols, pages);
 
-%# Convert and get col_idx
+% Convert and get col_idx
 col_names = fieldnames(obj.col_idx);
 if ~ isempty(col_names)
   obj.col_idx = makeIdx({col_names{cols}});
 end
 
-%# Convert and get row_idx
+% Convert and get row_idx
 row_names = fieldnames(obj.row_idx);
 if ~ isempty(row_names)
   obj.row_idx = makeIdx({row_names{rows}});

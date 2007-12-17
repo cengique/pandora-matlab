@@ -46,7 +46,7 @@ cols = tests2cols(db, tests);
 crit_db = onlyRowsTests(db, row, tests);
 crit_tests = getColNames(crit_db);
 
-%# Check for distDB
+% Check for distDB
 if isfield(props, 'distDB')
   dist_db = props.distDB;
 else
@@ -59,13 +59,13 @@ cov_db = cov(noNaNRows(dist_db(:, crit_tests)));
 % add the covariance matrix into the props
 crit_db = setProp(crit_db, 'cov', cov_db);
 
-%# Add the row index
+% Add the row index
 crit_db = addColumns(crit_db, {'RowIndex'}, row);
 
-%# Add the STD row, calculating from cov_db
+% Add the STD row, calculating from cov_db
 crit_db = addLastRow(crit_db, [ sqrt(diag(get(cov_db, 'data')))', 0 ]);
 
-%# Adjust other fields
+% Adjust other fields
 crit_db = set(crit_db, 'row_idx', makeIdx({'Values', 'STD'}));
 crit_db = set(crit_db, 'id', ['Criterion for matching row ' num2str(row) ...
 			      ' from ' db.id ]);

@@ -41,12 +41,12 @@ function r_bundle = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   r_bundle.m_bundle = dataset_db_bundle;
   r_bundle.ranked_db = tests_db;
   r_bundle.crit_bundle = dataset_db_bundle;
   r_bundle = class(r_bundle, 'model_ranked_to_physiol_bundle');
-elseif isa(m_bundle, 'model_ranked_to_physiol_bundle') %# copy constructor?
+elseif isa(m_bundle, 'model_ranked_to_physiol_bundle') % copy constructor?
   r_bundle = m_bundle;
 else
   if ~ exist('props')

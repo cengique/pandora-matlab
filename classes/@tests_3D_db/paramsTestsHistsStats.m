@@ -33,10 +33,10 @@ function [pt_hists, p_stats] = paramsTestsHistsStats(p_t3ds, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: use only p_stats, guess num_params by number of pages
+% TODO: use only p_stats, guess num_params by number of pages
 
 num_params = length(p_t3ds);
-num_tests = dbsize(p_t3ds(1), 2) - 2; %# Subtract param and RowIndex columns
+num_tests = dbsize(p_t3ds(1), 2) - 2; % Subtract param and RowIndex columns
 
 if ~ exist('props')
   props = struct;
@@ -51,12 +51,12 @@ end
 pt_hists(1:num_tests, 1:num_params) = histogram_db;
 p_stats(1:num_params) = stats_db;
 for param_num=1:num_params
-  %# Sort the param column first
+  % Sort the param column first
   as_t3d = sortrows(p_t3ds(param_num), 1);
   if isfield(props, 'useDiff') && props.useDiff == 1
     as_t3d = diff(as_t3d);
   end
-  %# Then swap dimensions
+  % Then swap dimensions
   ass_t3d = swapRowsPages(as_t3d);
   p_stats(param_num) = feval(stats_func, ass_t3d, ':');
   for test_num=1:num_tests

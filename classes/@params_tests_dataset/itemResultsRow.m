@@ -31,14 +31,14 @@ function [params_row, tests_row] = itemResultsRow(dataset, index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Load any profile object
+% Load any profile object
 a_profile = loadItemProfile(dataset, index);
 
-%# Get params row vector
+% Get params row vector
 params_row = getItemParams(dataset, index, a_profile);
 
-%# Convert results to row vector
+% Convert results to row vector
 resultCell = struct2cell(getResults(a_profile));
 
-%# Add the index as last column
+% Add the index as last column
 tests_row = [ resultCell{:}, index ];

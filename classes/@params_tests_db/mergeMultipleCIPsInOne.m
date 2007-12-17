@@ -44,20 +44,20 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_na
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# WARNING: db must be sorted by pAcip before!
-%#db = sortrows(db, 'pAcip');
+% WARNING: db must be sorted by pAcip before!
+%db = sortrows(db, 'pAcip');
 
-%# Fold into multiple pages, according to cip values
+% Fold into multiple pages, according to cip values
 cip_fold_db = swapRowsPages(invarParam(db, 'pAcip'));
 
 num_pages = dbsize(cip_fold_db, 3);
 
-%# Read names and tests into separate cell arrays
+% Read names and tests into separate cell arrays
 page_suffixes = {names_tests_cell{1:2:end}};
 tests_cell = {names_tests_cell{2:2:end}};
 
-%#end
-%# Rewrite and convert from column numbers to test names for using in cip_fold_db
+%end
+% Rewrite and convert from column numbers to test names for using in cip_fold_db
 orig_test_names = fieldnames(get(db, 'col_idx'));
 for page_num = 1:length(tests_cell)
   tests_cell{page_num} = { orig_test_names{tests2cols(db, tests_cell{page_num})} };
@@ -68,22 +68,22 @@ if length(page_suffixes) ~= num_pages
 	 num2str(num_pages) ' unique CIP values in the database.']);
 end
 
-%# Merge the selected tests from each page
+% Merge the selected tests from each page
 cip_fold_db = mergePages(cip_fold_db, tests_cell, page_suffixes);
 
-%# Get the parameters back (except pAcip)
+% Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
 cip_fold_db = ...
     joinRows(onlyRowsTests(db, ':', wo_cip_params), cip_fold_db, ...
              struct('indexColName', index_col_name));
 
-%# Remove the RowIndex columns
+% Remove the RowIndex columns
 test_names = fieldnames(get(cip_fold_db, 'col_idx'));
 found_indices = strmatch('RowIndex', test_names);
 wo_index = true(1, dbsize(cip_fold_db, 2));
 wo_index(found_indices) = false(1);
 cip_fold_db = onlyRowsTests(cip_fold_db, ':', wo_index);
 
-%# TODO: give a better name?
+% TODO: give a better name?
 cip_fold_db = set(cip_fold_db, 'id', [ get(db, 'id') ' mult CIP' ]);

@@ -40,10 +40,10 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# If input is an array, then return array of plots
+% If input is an array, then return array of plots
 num_dbs = length(s);
 if num_dbs > 1 
-  %# Create array of plots
+  % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_abstract);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plotFreqVsTime(s(plot_num), title_str);
@@ -64,7 +64,7 @@ switch props.timeScale
     x_label = 'time [ms]';
 end
 
-%# Remove all '_' characters, because they interfere with TeX interpretation
+% Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(s), '_', ' ');
 
 freqs = 1 ./ getISIs(s) ./ s.dt;
@@ -89,12 +89,12 @@ switch props.type
       num_stimes = 2 * length(stimes) + 1;
       new_stimes = zeros(1, num_stimes);
 
-      %# duplicate values for drawing ISIs as flat lines
+      % duplicate values for drawing ISIs as flat lines
       new_stimes(2:2:num_stimes) = stimes;
       new_stimes(3:2:num_stimes) = stimes;
       stimes = new_stimes;
 
-      %# freqs
+      % freqs
       new_freqs = zeros(1, num_stimes);
       new_freqs(3:2:(num_stimes-1)) = freqs;
       new_freqs(4:2:num_stimes) = freqs;

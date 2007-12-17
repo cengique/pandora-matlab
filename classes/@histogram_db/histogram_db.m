@@ -45,10 +45,10 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_hist_db = struct;
    a_hist_db = class(a_hist_db, 'histogram_db', tests_db);
- elseif isa(col_name, 'histogram_db') %# copy constructor?
+ elseif isa(col_name, 'histogram_db') % copy constructor?
    a_hist_db = col_name;
  else
 
@@ -64,7 +64,7 @@ if nargin == 0 %# Called with no params
      hist_results = hist_results';
    end
 
-   %# Add a column for bin numbers
+   % Add a column for bin numbers
    test_results = [bins, hist_results];
    col_names = { col_name, 'histVal' };
 

@@ -34,7 +34,7 @@ function idx = anyRows(db, rows)
 
 % TODO: optimize by using sort
 
-%# Compare two dbs?
+% Compare two dbs?
 if isa(rows, 'tests_db')
   rows = rows.data;
 end
@@ -45,7 +45,7 @@ if dbsize(db, 2) ~= size(rows, 2)
          num2str(dbsize(db, 2)) ' columns. They must match for comparison.']);
 end
 
-%# prepare variables for faster processing
+% prepare variables for faster processing
 num_rows = size(rows, 1);
 num_db_rows = size(db.data, 1);
 ones_matx = ones(num_db_rows, 1);
@@ -60,13 +60,13 @@ if false && dbsize(db, 2) == 1 && num_db_rows * num_rows < 10000000
             eps(0), 2);
 else
 
-  %# Calculate multiple rows by tail recursion
+  % Calculate multiple rows by tail recursion
   for row_num=1:num_rows
-    %# Find doesn't work in two dimension comparisons
-    %# Thus, use algorithm:
+    % Find doesn't work in two dimension comparisons
+    % Thus, use algorithm:
 
-    %# - duplicate row to a matrix of same size with db
-    %# - subtract from db
+    % - duplicate row to a matrix of same size with db
+    % - subtract from db
     idx = idx | all(abs(db_data - (ones_matx * rows(row_num, :))) <= eps(0), 2);
   end
 

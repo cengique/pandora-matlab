@@ -35,7 +35,7 @@ if ~ exist('props')
   props = struct;
 end
 
-%# Join with original here. Only joins the requested rows.
+% Join with original here. Only joins the requested rows.
 joined_db = joinOriginal(db);
 
 if isfield(props, 'sortBy')
@@ -44,10 +44,10 @@ end
 
 joined_db = joined_db(rows, :);
 
-%#displayRows(joined_db(1:10, 'Distance'))
+%displayRows(joined_db(1:10, 'Distance'))
 
 num_rows = dbsize(joined_db, 1);
 
-%# Get matrix of desired rows and columns
+% Get matrix of desired rows and columns
 num_plot_rows = (num_rows / col_size);
 distmatx = reshape(joined_db(:, 'Distance').data, col_size, num_plot_rows)';

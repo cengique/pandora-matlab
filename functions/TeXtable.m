@@ -44,12 +44,12 @@ end
 
 tex_string = ['\begin{' float_type '}' sprintf('\n') ];
 
-%# Center
+% Center
 if isfield(props, 'center')
   tex_string = [ tex_string '\centering%' sprintf('\n') ];
 end
 
-%# Resize
+% Resize
 if isfield(props, 'width') && ~ strcmp(props.width, '!')
   tex_string = [ tex_string '\resizebox*{' props.width '}{!}{' ];
   resize = 1;
@@ -60,27 +60,27 @@ else
   resize = 0;
 end
 
-%# Rotate
+% Rotate
 is_rotate = false;
 if isfield(props, 'rotate') && props.rotate ~= 0
   tex_string = [ tex_string '\rotatebox{' num2str(props.rotate) '}{' ];
   is_rotate = true;
 end
 
-%# Place contents
+% Place contents
 tex_string = [ tex_string contents ];
 
-%# Close rotate
+% Close rotate
 if is_rotate
   tex_string = [ tex_string '}' ];
 end
 
-%# Close resize
+% Close resize
 if resize
   tex_string = [ tex_string '}' ];
 end
 
-%# Caption
+% Caption
 short_caption = '';
 if isfield(props, 'shortCaption')
   short_caption = [ '[' props.shortCaption ']' ];

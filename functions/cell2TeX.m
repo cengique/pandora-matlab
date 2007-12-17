@@ -31,7 +31,7 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# TODO: get column formatting in props, count rlc's and divide size by that.
+% TODO: get column formatting in props, count rlc's and divide size by that.
 col_align = {'|c'};
 col_align = cat(2, col_align{ones(1, size(a_cell, 2))});
 tex_string = ['\begin{tabular}{' col_align '|}' sprintf('\n') ];
@@ -42,10 +42,10 @@ for row=1:size(a_cell, 1)
     the_cell = a_cell{row, col};
     if ischar(the_cell)
       if ~ isempty(regexp(the_cell, '^[\d*+-/()\[\].]+$'))
-	%# It's a numeric string
+	% It's a numeric string
 	add_string = [ '$' the_cell '$' ];
       else
-	add_string = strrep(the_cell, '_', ' '); %# replace _ with space
+	add_string = strrep(the_cell, '_', ' '); % replace _ with space
       end
     elseif isnan(the_cell) || isinf(the_cell)
       add_string = [ num2str(the_cell) ];

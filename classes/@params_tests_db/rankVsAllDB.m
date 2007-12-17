@@ -35,11 +35,11 @@ function tex_string = rankVsAllDB(a_db, to_db, a_dataset, to_dataset)
 
 tex_string = '';
 
-%# Generate a tests list without the ItemIndex column (why??)
+% Generate a tests list without the ItemIndex column (why??)
 tests_wo_index(1:dbsize(to_db, 2)) = true(1);
-%#tests_wo_index(tests2cols(to_db, {'ItemIndex'})) = false(1);
+%tests_wo_index(tests2cols(to_db, {'ItemIndex'})) = false(1);
 
-%# List all target db rows in a table
+% List all target db rows in a table
 rows_per_page = 10;
 for row_num=1:rows_per_page:dbsize(to_db, 1)
   rows = row_num:min((row_num + 9), dbsize(to_db, 1));
@@ -53,16 +53,16 @@ for row_num=1:rows_per_page:dbsize(to_db, 1)
 		displayRowsTeX(onlyRowsTests(to_db, rows, ':'), '', page_props) ];
 end
 
-%# List target db mean and std
+% List target db mean and std
 stats_db = statsMeanStd(to_db, tests_wo_index);
 tex_string = [ tex_string displayRowsTeX(stats_db, '', struct('height', '!')) ];
 
-%# Show 10 best matches to average neuron
-%# Stats DB contains means and STDs in first and second row like crit_db
+% Show 10 best matches to average neuron
+% Stats DB contains means and STDs in first and second row like crit_db
 tex_string = [tex_string displayRankingsTeX(a_db, stats_db)];
 
-%# Show best 10 matches from this db for each row of target db
-[ ranked_dbs(1:dbsize(to_db, 1)) ] = deal(params_tests_db); %# preallocate
+% Show best 10 matches from this db for each row of target db
+[ ranked_dbs(1:dbsize(to_db, 1)) ] = deal(params_tests_db); % preallocate
 for row_num=1:dbsize(to_db, 1)
   crit_db = matchingRow(to_db, row_num, tests_wo_index);
 

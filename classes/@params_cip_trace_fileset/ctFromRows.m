@@ -39,7 +39,7 @@ if isa(a_db, 'tests_db')
   if ismember(getColNames(a_db), 'ItemIndex')
     index_vals = transpose(get(onlyRowsTests(a_db, ':', 'ItemIndex'), 'data'));
   else
-    %# if no ItemIndex, we need to match parameter values
+    % if no ItemIndex, we need to match parameter values
     param_names = getColNames(a_db(1, 1:get(a_db, 'num_params')));
     index_vals = ...
 	transpose(get(onlyRowsTests(m_dball, ...

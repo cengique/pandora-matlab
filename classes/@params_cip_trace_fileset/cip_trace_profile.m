@@ -33,22 +33,22 @@ filename = getItem(fileset, file_index);
 fullname = fullfile(get(fileset, 'path'), filename);
 
 if ~ isfield(props, 'profile_class_name')
-  %# Load a cip_trace_profile object
+  % Load a cip_trace_profile object
   a_cip_trace_profile = ...
       cip_trace_profile(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
 			fileset.pulse_time_start, fileset.pulse_time_width, ...
 			[get(fileset, 'id') '(' num2str(file_index) ')'], ...
 			get(fileset, 'props'));
 else
-  %# Otherwise call the designated method that returns a results_profile object
-  %# with the cip_trace parameter
-  %#disp(['before reading ' filename]);
+  % Otherwise call the designated method that returns a results_profile object
+  % with the cip_trace parameter
+  %disp(['before reading ' filename]);
   a_cip_trace = cip_trace(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
 			  fileset.pulse_time_start, fileset.pulse_time_width, ...
 			  [get(fileset, 'id') '(' num2str(file_index) ')'], ...
 			  get(fileset, 'props'));
-  %#disp('after reading');
+  %disp('after reading');
   a_cip_trace_profile = ...
       feval(props.profile_class_name, a_cip_trace);
-  %#disp(['after profile' filename]);
+  %disp(['after profile' filename]);
 end

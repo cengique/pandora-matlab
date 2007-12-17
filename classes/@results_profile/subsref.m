@@ -8,18 +8,18 @@ function b = subsref(a,index)
 % http://opensource.org/licenses/afl-3.0.php.
 if size(index, 2) > 1
   first = subsref(a, index(1));
-  %# recursive
+  % recursive
   b = subsref(first, index(2:end));
 else
   switch index.type
     case '()'
-      %# Delegate to base class
+      % Delegate to base class
       b = a(index.subs{:});
     case '.'
-      %# Generalized get method, only need to define proper get methods
-      %# in subclasses.
+      % Generalized get method, only need to define proper get methods
+      % in subclasses.
       b = get(a, index.subs);	
-      %# eval(['a.' index.subs]);
+      % eval(['a.' index.subs]);
     case '{}'
       b = a{index.subs{:}};
   end

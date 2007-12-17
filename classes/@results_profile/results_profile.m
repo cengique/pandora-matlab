@@ -38,12 +38,12 @@ function obj = results_profile(results, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params, creates empty object
+if nargin == 0 % Called with no params, creates empty object
   obj.results = struct([]);
   obj.id = '';
   obj.props = struct([]);
   obj = class(obj, 'results_profile');
-elseif isa(results, 'results_profile') %# copy constructor?
+elseif isa(results, 'results_profile') % copy constructor?
   obj = results;
 else
   if ~ exist('props')
@@ -54,6 +54,6 @@ else
   obj.id = id;
   obj.props = props;
 
-  %# Create the object
+  % Create the object
   obj = class(obj, 'results_profile');
 end

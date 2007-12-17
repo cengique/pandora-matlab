@@ -28,33 +28,33 @@ function names_vals = parseGenesisFilename(raw_filename)
 
 sep_indices = [ 0 strfind(filename, '_') ];
 
-%# skip initial word tokens
+% skip initial word tokens
 for word_num=1:length(sep_indices)
   valstr = filename(sep_indices(word_num) + 1 : sep_indices(word_num + 1) - 1);
   if isstrprop(valstr(1), 'digit') || valstr(1) == '+' || valstr(1) == '-' || ...
     (valstr(1) == 'm' && isstrprop(valstr(2), 'digit'))
-    %# break if first letter is a digit or arithmetic sign
-    %#all(isstrprop(valstr, 'digit')) %# is all digits?
+    % break if first letter is a digit or arithmetic sign
+    %all(isstrprop(valstr, 'digit')) % is all digits?
     break;
   end
 end
 
 for param_num=1:floor((length(sep_indices) - word_num + 1) / 2)
-  %# Get the value from here to the first separator
+  % Get the value from here to the first separator
   index = 2 * param_num + word_num - 1;
   valstr = filename(sep_indices(index - 1) + 1 : sep_indices(index) - 1);
   val = getVal(valstr);
   try 
-    %# find the second separator
+    % find the second separator
     param_name = ...
 	filename(sep_indices(index) + 1 : sep_indices(index + 1) - 1);
   catch
     errstr = lasterror;
 
     if strcmp(errstr.identifier, 'MATLAB:exceedsdims') || ...
-       strcmp(errstr.identifier, 'MATLAB:badindex') || ... %# Changed in Matlab R14
-       strcmp(errstr.identifier, 'MATLAB:badsubscript') %# Changed *again* in R14 SP3 ??
-      %# Try to find a dot if the final '_' is missing
+       strcmp(errstr.identifier, 'MATLAB:badindex') || ... % Changed in Matlab R14
+       strcmp(errstr.identifier, 'MATLAB:badsubscript') % Changed *again* in R14 SP3 ??
+      % Try to find a dot if the final '_' is missing
       dot_indices = strfind(filename(sep_indices(index) + 1 : end), '.');
 
       if length(dot_indices) > 0 
@@ -62,7 +62,7 @@ for param_num=1:floor((length(sep_indices) - word_num + 1) / 2)
 	    filename(sep_indices(index) + 1 : ...
 		     sep_indices(index) + dot_indices(1) - 1);
       else
-	%# Then simply use the end of the filename
+	% Then simply use the end of the filename
 	param_name = filename(sep_indices(index) + 1 : end);
       end
     end
@@ -70,7 +70,7 @@ for param_num=1:floor((length(sep_indices) - word_num + 1) / 2)
   names_vals(param_num, :) = {param_name, val};
 end
 
-%# If value starts with an 'm', it means minus
+% If value starts with an 'm', it means minus
 function val = getVal(str)
   if str(1) == 'm'
     str(1) = '-';

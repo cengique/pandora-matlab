@@ -27,7 +27,7 @@ function a_db = sum(a_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: doesn't conform to the mean, std methods here. Make them work like this, too.
+% TODO: doesn't conform to the mean, std methods here. Make them work like this, too.
 
 if ~ exist('props')
   props = struct([]);

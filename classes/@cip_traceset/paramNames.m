@@ -26,5 +26,5 @@ function param_names = paramNames(traceset)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# CIP magnitude in pA
+% CIP magnitude in pA
 param_names = { 'pAcip' };

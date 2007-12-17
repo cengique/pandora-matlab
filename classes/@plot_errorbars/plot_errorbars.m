@@ -42,19 +42,19 @@ function a_plot = plot_errorbars(mid_vals, lo_vals, hi_vals, labels, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    a_plot.labels = {};
    a_plot = class(a_plot, 'plot_errorbars', plot_stack);
- elseif isa(labels, 'plot_errorbars') %# copy constructor?
+ elseif isa(labels, 'plot_errorbars') % copy constructor?
    a_plot = labels;
  else
    if ~ exist('props')
-     props.rotateXLabel = 45; %# Degrees
-     %#props.XTickLabel = 1;
+     props.rotateXLabel = 45; % Degrees
+     %props.XTickLabel = 1;
    end
 
    if ~ exist('axis_limits')
-     axis_limits = []; %# Degrees
+     axis_limits = []; % Degrees
    end
 
    a_plot.labels = labels;
@@ -62,7 +62,7 @@ if nargin == 0 %# Called with no params
    num_plots = size(mid_vals, 2);
    num_rows = size(mid_vals, 1)
    plots = cell(1, num_plots);
-   %# Loop for each item and create a horizontal stack of plots
+   % Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
      plots{plot_num} = ...
 	 plot_abstract({1:num_rows, mid_vals(:,plot_num), lo_vals(:,plot_num), ...

@@ -52,12 +52,12 @@ function obj = cip_trace(datasrc, dt, dy, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   trace_obj = trace;
   obj.pulse_time_start = 1;
   obj.pulse_time_width = 1;
   obj = class(obj, 'cip_trace', trace_obj);
-elseif isa(datasrc, 'cip_trace') %# copy constructor?
+elseif isa(datasrc, 'cip_trace') % copy constructor?
   obj = datasrc;
 else
   if ~ exist('props')
@@ -66,7 +66,7 @@ else
 
   trace_obj = trace(datasrc, dt, dy, id, props);
 
-  %# Adjust time variables if data is cropped
+  % Adjust time variables if data is cropped
   if isfield(props, 'trace_time_start')
     pulse_time_start = pulse_time_start - props.trace_time_start + 1;
   end

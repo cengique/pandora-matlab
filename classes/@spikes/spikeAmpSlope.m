@@ -29,7 +29,7 @@ function [a_tau, da_inf] = spikeAmpSlope(a_spikes, a_trace, a_period)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# By default apply to the whole of s, t
+% By default apply to the whole of s, t
 if ~ exist('a_period')
   a_period = periodWhole(s);
   s = a_spikes;
@@ -45,26 +45,26 @@ if length(s.times) == 0
   return;
 end
 
-%# Conversion factors
+% Conversion factors
 mV_factor = 1e3 * get(t, 'dy');
 ms_factor = 1e3 * get(t, 'dt');
 
-%#plot(t);
-%#hold on;
-%#plot(s);
-%#stem(s.times * ms_factor, 40 * ones(size(s.times)), 'r.');
-%#hold off;
+%plot(t);
+%hold on;
+%plot(s);
+%stem(s.times * ms_factor, 40 * ones(size(s.times)), 'r.');
+%hold off;
 
 data = get(t, 'data');
 peak_vals = data(s.times) * mV_factor;
 
-%# Get linear approximation to see the slope
+% Get linear approximation to see the slope
 [pcoefs serr ] = polyfit(s.times', peak_vals, 1);
 
 if pcoefs(1) < 0 
-  %# Assumptions:
+  % Assumptions:
   [a_max a_max_idx] = max(peak_vals);
-  %# Mean of last few peak values
+  % Mean of last few peak values
   da_inf = a_max - mean(peak_vals(max(1, end - 4):end));
 
   decay_constant_threshold = a_max - da_inf * (1 - exp(-1));

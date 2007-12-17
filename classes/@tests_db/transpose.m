@@ -25,10 +25,10 @@ function a_db = transpose(a_db)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# swap row-col metadata
+% swap row-col metadata
 row_idx = a_db.row_idx;
 a_db.row_idx = a_db.col_idx;
 a_db.col_idx = row_idx;
 
-%# swap data
+% swap data
 a_db.data = a_db.data';

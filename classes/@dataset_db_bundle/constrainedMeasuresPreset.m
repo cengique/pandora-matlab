@@ -38,7 +38,7 @@ end
 p1_test_names = ...
     {'PulsePotAvg_H100pA', 'PulsePotMin_H100pA', 'PulsePotMinTime_H100pA', ...
      'PulsePotSag_H100pA', ...
-     ... %# keep these three because they may be different than the averages:
+     ... % keep these three because they may be different than the averages:
      'RecIniSpontPotRatio_H100pA', 'RecIniSpontRateRatio_H100pA', 'IniRecISIRatio_H100pA', ...
      'RecSpont1SpikeRateISI_H100pA', 'RecSpont2SpikeRateISI_H100pA', ...
      'RecSpontFirstISI_H100pA', 'RecSpontFirstSpikeTime_H100pA', 'RecSpontISICV_H100pA', ...
@@ -103,7 +103,7 @@ p1_test_names = ...
      'PulseSpikeMaxAHPMean_D200pA', 'PulseSpikeMaxAHPSTD_D200pA', ...
      'PulseSpikeMinTimeMean_D200pA', 'PulseSpikeMinTimeSTD_D200pA'};
 
-%# A minimal set
+% A minimal set
 p2_test_names = ...
     {'PulsePotAvg_H100pA', 'PulsePotMin_H100pA', ...
      'PulsePotSag_H100pA', ...
@@ -128,44 +128,44 @@ p2_test_names = ...
      'PulseIni100msRest2SpikeRateISI_D200pA', ...
      'PulseIni100msSpikeRateISI_D200pA'};
 
-     %#'SpontSpikeAmplitudeMean_0pA', ...
-     %#'SpontSpikeBaseWidthMean_0pA', ...
-     %#'SpontSpikeFallTimeMean_0pA', ...
-     %#'SpontSpikeInitVmMean_0pA', ...
-     %#'SpontSpikeMaxAHPMean_0pA', ...
-     %#'SpontSpikeMinTimeMean_0pA', ...
+     %'SpontSpikeAmplitudeMean_0pA', ...
+     %'SpontSpikeBaseWidthMean_0pA', ...
+     %'SpontSpikeFallTimeMean_0pA', ...
+     %'SpontSpikeInitVmMean_0pA', ...
+     %'SpontSpikeMaxAHPMean_0pA', ...
+     %'SpontSpikeMinTimeMean_0pA', ...
 
 test_weights = struct;
 switch preset
   case 1
-    %# Remove redundant or obscure entries, but still keep many.
+    % Remove redundant or obscure entries, but still keep many.
     test_names = p1_test_names;
   case 2
-    %# Same tests as in 1, but change weights
+    % Same tests as in 1, but change weights
     test_names = p1_test_names;
     test_weights.PulsePotAvg_H100pA = 10;
   case 3
-    %# Same tests as in 1, but change weights
+    % Same tests as in 1, but change weights
     test_names = p1_test_names;
     test_weights.PulsePotAvg_H100pA = 100;
   case 4
-    %# Same tests as in 1, but change weights 
-    %# (increase H100 CIP potential, reduce sAHP level at D100)
+    % Same tests as in 1, but change weights 
+    % (increase H100 CIP potential, reduce sAHP level at D100)
     test_names = p1_test_names;
     test_weights.PulsePotAvg_H100pA = 10;
     test_weights.RecIniSpontPotRatio_D100pA = 10; 
     test_weights.RecIniSpontRateRatio_D100pA = 10;
   case 5
-    %# Minimal 47 measures
+    % Minimal 47 measures
     test_names = p2_test_names;
   case 6
-    %# Same as 5, but match -100 pA potential
+    % Same as 5, but match -100 pA potential
     test_names = p2_test_names;
     test_weights.PulsePotAvg_H100pA = 10;
     test_weights.PulsePotSag_H100pA = 10;
     test_weights.PulseSpikeAmplitude_D100pA = 10;
   case 7
-    %# Same as 6, but also match f-I curve
+    % Same as 6, but also match f-I curve
     test_names = p2_test_names;
     test_weights.PulsePotAvg_H100pA = 10;
     test_weights.PulsePotSag_H100pA = 10;
@@ -184,7 +184,7 @@ end
 
 j_db = get(a_bundle, 'joined_db');
 
-%# Add the parameters to list
+% Add the parameters to list
 test_names = { 1:get(j_db, 'num_params'), test_names{:} };
 
 j_db = set(j_db, 'id', [ get(j_db, 'id') '; preset' num2str(preset) ]);

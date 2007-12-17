@@ -43,14 +43,14 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
   period_spikes = withinPeriod(a_spikes, period);
   num_spikes = length(period_spikes.times);
 
-  %# pre-allocate struct array with empty spike shape
+  % pre-allocate struct array with empty spike shape
   empty_results = getResults(spike_shape);
   empty_results.Index = NaN;
   empty_results.Time = NaN;
   [spike_results(1:max(num_spikes, 1), 1)] = deal(empty_results);
 
-  %# Collect spike shape analysis results,
-  %# -Index and -Time fields allow to regenerate spikes object.
+  % Collect spike shape analysis results,
+  % -Index and -Time fields allow to regenerate spikes object.
   if num_spikes > 0
     period_spikes_new = set(period_spikes, 'times', []);
 	  
@@ -67,8 +67,8 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
       catch
 	err = lasterror;
 	if strcmp(err.identifier, 'spike_shape:not_a_spike')
-	  %# TODO: remove this spike from the a_spikes object
-	  %# Leave as empty shape object
+	  % TODO: remove this spike from the a_spikes object
+	  % Leave as empty shape object
 	  warning('spike_shape:info', 'Not a spike: %s.', get(s, 'id'))
 	else
 	  warning('cip_trace:info', 'Rethrowing error in %s spikes:', prefix_str);
@@ -76,32 +76,32 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 	end
       end
     end
-  else %# No spikes
-    %# Keep empty shape results
+  else % No spikes
+    % Keep empty shape results
     period_spikes_new = period_spikes;
   end
 
   test_names = fieldnames(spike_results);
   num_tests = length(test_names);
   
-  %# make a small db from results
-  %# TODO: make a spikes_db for customized result collection (to plot results?)
-  %# TODO: add spike number/time as parameter
+  % make a small db from results
+  % TODO: make a spikes_db for customized result collection (to plot results?)
+  % TODO: add spike number/time as parameter
   results_matx = cell2mat(struct2cell(spike_results))';
   a_spikes_db = spikes_db(results_matx, test_names, period_trace, period_spikes, ...
 			  [ prefix_str ' spikes of ' get(a_cip_trace, 'id') ]);
 
-  %# find mean, std (except the -Index and -Time fields)
+  % find mean, std (except the -Index and -Time fields)
   spikes_stats_db = statsMeanStd(onlyRowsTests(a_spikes_db, ':', 1:(num_tests - 2)));
   
-  %# calculate histogram on each measure array
-  %# find mode, and maybe a measure of number and spread of local extrema
+  % calculate histogram on each measure array
+  % find mode, and maybe a measure of number and spread of local extrema
   spikes_hists_dbs = testsHists(a_spikes_db);
   
   prefix_str = [prefix_str 'Spike'];
 
   results.([prefix_str 's']) = num_spikes;
-  %# create result names and values (except the -Index and -Time fields)
+  % create result names and values (except the -Index and -Time fields)
   for test_num = 1:(num_tests - 2)
     results.([prefix_str test_names{test_num} 'Mean' ]) = ...
 	spikes_stats_db.data(1, test_num);
@@ -113,7 +113,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 	    ', mode_mag=' num2str(mode_mag)]);
     end
     results.([prefix_str test_names{test_num} 'Mode' ]) = mode_val;
-    %# TODO: add the unimodality measure and median here
+    % TODO: add the unimodality measure and median here
   end
 
   period_spikes = period_spikes_new;

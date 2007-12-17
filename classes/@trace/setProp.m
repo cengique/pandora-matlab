@@ -30,7 +30,7 @@ function obj = setProp(obj, varargin)
 num = length(obj);
 if num > 1
 
-  %# If a vector, loop and do for all
+  % If a vector, loop and do for all
   for i=1:num
     obj(i) = setProp(obj(i), varargin{:});
   end

@@ -36,17 +36,17 @@ function obj = delColumns(obj, tests)
 cols = tests2cols(obj, tests);
 mask = true(1, dbsize(obj, 2));
 
-%# delete the columns
+% delete the columns
 obj.data(:, cols, :) = [];
 
-%# Update the meta-data
+% Update the meta-data
 col_idx = get(obj, 'col_idx');
 test_names = fieldnames(col_idx);
 
-%# remove the names
+% remove the names
 mask(cols) = false;
 test_names = {test_names{mask}};
 
-%# Make new col_idx
+% Make new col_idx
 new_col_idx = makeIdx(test_names);
 obj = set(obj, 'col_idx', new_col_idx);

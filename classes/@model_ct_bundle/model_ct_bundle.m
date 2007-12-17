@@ -43,24 +43,24 @@ function a_bundle = model_ct_bundle(a_dataset, a_db, a_joined_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   a_bundle = struct;
   a_bundle = class(a_bundle, 'model_ct_bundle', dataset_db_bundle);
-elseif isa(a_dataset, 'model_ct_bundle') %# copy constructor?
+elseif isa(a_dataset, 'model_ct_bundle') % copy constructor?
   a_bundle = a_dataset;
 else
   if ~ exist('props')
     props = struct([]);
   end
 
-  %# columns to keep in dball
+  % columns to keep in dball
   col_names = {'ItemIndex'};
 
   all_names = getColNames(a_db);
   if ismember(all_names, 'trial')
     col_names = {'pAcip', 'trial', col_names{:}};
   else
-    %# if no trial identifier, we have to keep parameter columns (pAcip already there)
+    % if no trial identifier, we have to keep parameter columns (pAcip already there)
     col_names = {all_names{1:a_db.num_params}, col_names{:}};
   end
 

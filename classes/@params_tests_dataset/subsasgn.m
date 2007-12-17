@@ -9,7 +9,7 @@ function a = subsasgn(a, index, val)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# If a is an array, use built-in methods
+% If a is an array, use built-in methods
 num = length(a);
 if num == 0
   a = builtin('subsasgn', val, index, val);
@@ -20,7 +20,7 @@ elseif length(a) > 1
 end
 
 if size(index, 2) > 1
-  %# recursive if multiple indices
+  % recursive if multiple indices
   a = subsasgn(a, index(1), subsasgn(subsref(a, index(1)), index(2:end), val));
 else
   switch index.type

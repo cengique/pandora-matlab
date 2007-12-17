@@ -45,12 +45,12 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# TODO: decoration controls imposed by plot_stack is ignored!
+% TODO: decoration controls imposed by plot_stack is ignored!
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.plots = {};
   obj = class(obj, 'plot_superpose', plot_abstract);
-elseif isa(plots, 'plot_superpose') %# copy constructor?
+elseif isa(plots, 'plot_superpose') % copy constructor?
   obj = plots;
 else
    if ~ exist('props')
@@ -69,33 +69,33 @@ else
      plots = mat2cell(plots);
    end
 
-   %# Check if plots are of same kind to call preferred superposePlots method instead
+   % Check if plots are of same kind to call preferred superposePlots method instead
    plot_class = '';
    plot_command = '';
    superposable = true;
-   %# replicate the first plot to pre-allocate the array
+   % replicate the first plot to pre-allocate the array
    plot_array = plots{1};
    for plot_num=1:length(plots)
 
-     %# check if same plot classes are used
+     % check if same plot classes are used
      if isempty(plot_class)
        plot_class = class(plots{plot_num});
      else
-       %# break if different plot classes are combined
+       % break if different plot classes are combined
        if ~strcmp(plot_class, class(plots{plot_num}))
 	 superposable = false;
 	 break;
        end
      end 
 
-     %# If same class, add to array
+     % If same class, add to array
      plot_array(plot_num) = plots{plot_num};
 
      if strcmp(plot_class, 'plot_abstract')
        if isempty(plot_command)
 	 plot_command = plots{plot_num}.command;
        else
-	 %# break if different plot commands in plot_abstracts are combined
+	 % break if different plot commands in plot_abstracts are combined
 	 if ~strcmp(plot_command, plots{plot_num}.command)
 	   superposable = false;
 	   break;
@@ -104,7 +104,7 @@ else
      end
    end
 
-   %# Leave the constructor and call superposePlots
+   % Leave the constructor and call superposePlots
    if superposable
      obj = superposePlots(plot_array);
      return;
@@ -113,7 +113,7 @@ else
   obj.plots = plots;
 
   legend = {};
-  %# Check if contained plots feature axis_labels
+  % Check if contained plots feature axis_labels
   for plot_num=1:length(plots)
     plot_axis_labels = get(plots{plot_num}, 'axis_labels');
 

@@ -38,9 +38,9 @@ if ~ exist('props')
   props = struct;
 end
 
-%# Get control TracesetIndex using NeuronId
+% Get control TracesetIndex using NeuronId
 t_idx = ...
     a_bundle.joined_control_db(a_bundle.joined_control_db(:, 'NeuronId') == neuron_id, ...
 			       'TracesetIndex').data;
-%# Delegate to TracesetIndex version
+% Delegate to TracesetIndex version
 a_crit_bundle = matchingRow(a_bundle, t_idx, props);

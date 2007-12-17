@@ -39,7 +39,7 @@ end
 
 bins = 1:dbsize(a_cluster_db, 1);
 
-%# TODO: have the following in a separate method?
+% TODO: have the following in a separate method?
 a_hist_db = histogram_db('cluster', bins, hist(a_cluster_db.cluster_idx, bins), ...
 			 title_str);
 

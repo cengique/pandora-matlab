@@ -59,11 +59,11 @@ if any(existing_cols)
 	['Column(s) ' test_names{existing_cols} ' already exist in DB.']);
 end
 
-%# Add the column
+% Add the column
 new_col_id = dbsize(obj, 2) + 1;
 obj.data(:, new_col_id:(new_col_id + size(test_columns, 2) - 1)) = test_columns;
 
-%# Update the meta-data
+% Update the meta-data
 new_col_idx = get(obj, 'col_idx');
 if isempty(new_col_idx)
   new_col_idx = struct;

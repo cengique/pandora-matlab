@@ -37,7 +37,7 @@ switch grf_type
       height = layout_axis(4);
 
     case 'figure'
-      %# Whole figure is normalized to unity
+      % Whole figure is normalized to unity
       width = 1;
       height = 1;
       
@@ -45,7 +45,7 @@ switch grf_type
       error(['Unknown type ''' grf_type ''' of graphics handle!']);
 end
 
-%# Find the width of a regular y-axis label 
+% Find the width of a regular y-axis label 
 old_units = get(grfx_handle, 'Units');
 set(grfx_handle, 'Units', 'points');
 axis_pos_pt = get(grfx_handle, 'Position');
@@ -53,7 +53,7 @@ axis_width_pt = axis_pos_pt(3);
 axis_height_pt = axis_pos_pt(4);
 set(grfx_handle, 'Units', old_units);
 
-%# Fixed size for ticks and labels
+% Fixed size for ticks and labels
 ratio_x = width / axis_width_pt;
 ratio_y = height / axis_height_pt;
 

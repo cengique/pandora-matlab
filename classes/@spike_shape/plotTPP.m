@@ -28,7 +28,7 @@ function a_plot = plotTPP(s)
 % http://opensource.org/licenses/afl-3.0.php.
 
 data = s.trace.data * s.trace.dy * 1e3;
-deriv = diffT(data, s.trace.dt * 1e3); %# mV/ms
+deriv = diffT(data, s.trace.dt * 1e3); % mV/ms
 
 a_plot = plot_abstract({data(3:(end-2)), deriv(3:(end-2)), '.-'}, ...
 		       {'voltage [mV]', '~dV/dt [mV/ms]'}, ...

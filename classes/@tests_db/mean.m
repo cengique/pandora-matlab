@@ -30,10 +30,10 @@ function [a_db, varargout] = mean(a_db, dim)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('dim')
-  dim = 1; %# Go down rows by default
+  dim = 1; % Go down rows by default
 end
 
-%# Always do row-wise
+% Always do row-wise
 order = 1:length(dbsize(a_db));
 if dim ~= 1
   order(dim) = 1;
@@ -43,11 +43,11 @@ else
   data = a_db.data;
 end
 
-%# Allocate results array
+% Allocate results array
 db_size = size(data);
 s = repmat(NaN, [1 db_size(2:end)]);
 
-%# Do a loop over EACH other dimension (!)
+% Do a loop over EACH other dimension (!)
 [s, n] = recmean(data, length(db_size));
 
 if dim ~= 1
@@ -63,21 +63,21 @@ if nout > 0
   varargout{1} = n;
 end
 
-%# Recursive std needed for stripping NaNs in each dimension
+% Recursive std needed for stripping NaNs in each dimension
 function [s, n] = recmean(data, dim)
   if dim == 1
     sdata = data(~isnan(data(:)) & ~isinf(data(:)));
     n = size(sdata, 1);
     if n == 0
-      %# If a divide by zero error occured, 
-      %# give it NaN value instead of an empty matrix.
+      % If a divide by zero error occured, 
+      % give it NaN value instead of an empty matrix.
       s = NaN;
     else
       s = mean(sdata, 1);
     end
   else
     for num=1:size(data, dim)
-      %# Otherwise recurse
+      % Otherwise recurse
       [dims{1:(dim-1)}] = deal(':');
       dims{dim} = num;
       [s(dims{:}) n(dims{:})] = recmean(data(dims{:}), dim - 1);

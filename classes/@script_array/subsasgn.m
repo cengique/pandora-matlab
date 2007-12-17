@@ -9,7 +9,7 @@ function a = subsasgn(a, index, val)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 if size(index, 2) > 1
-  %# recursive
+  % recursive
   a = subsasgn(a, index(1), subsasgn(subsref(a, index(1)), index(2:end), val));
 else
   switch index.type

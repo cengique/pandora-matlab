@@ -38,7 +38,7 @@ if ~ exist('rows')
   rows = ':';
 end
 
-%# Make a cell array out of db contents
+% Make a cell array out of db contents
 col_names = fieldnames(db.col_idx);
 if ~ isempty(col_names)
   s = cat(2, col_names, num2cell(db.data(rows, :, pages))');
@@ -46,7 +46,7 @@ else
   s = num2cell(db.data(rows, :, pages));
 end
 
-%# Add row names
+% Add row names
 row_names = fieldnames(db.row_idx);
 if ~ isempty(row_names)
   s = cat(1, {'', row_names{:}}, s);

@@ -77,7 +77,7 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.data = {};
   obj.axis_labels = {};
   obj.title = '';
@@ -85,7 +85,7 @@ if nargin == 0 %# Called with no params
   obj.command = {};
   obj.props = struct([]);
   obj = class(obj, 'plot_abstract');
-elseif isa(data, 'plot_abstract') %# copy constructor?
+elseif isa(data, 'plot_abstract') % copy constructor?
   obj = data;
 else
    if ~ exist('props', 'var')

@@ -26,12 +26,12 @@ function [rows, idx] = uniqueValues(data)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Sort rows with Quicksort
+% Sort rows with Quicksort
 [sorted idx] = sortrows(data);
 
 [sorted_rows sorted_idx] = sortedUniqueValues(sorted);
 
-%# Reorder unique rows
+% Reorder unique rows
 inv_idx = sort(idx(sorted_idx));
 rows = data(inv_idx, :);
 idx = inv_idx;

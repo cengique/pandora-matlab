@@ -74,14 +74,14 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
    obj.data = [];
    obj.col_idx = struct([]);
    obj.row_idx = struct([]);
    obj.id = '';
    obj.props = struct([]);
    obj = class(obj, 'tests_db');
- elseif isa(test_results,'tests_db') %# copy constructor?
+ elseif isa(test_results,'tests_db') % copy constructor?
    obj = test_results;
  else
 
@@ -89,8 +89,8 @@ if nargin == 0 %# Called with no params
      props = struct([]);
    end
 
-   %# Only allow numeric arrays as test_results
-   %# TODO: add cell arrays?
+   % Only allow numeric arrays as test_results
+   % TODO: add cell arrays?
    if ~ isnumeric(test_results) 
      error('Only numeric arrays allowed as test_results.');
    end
@@ -103,7 +103,7 @@ if nargin == 0 %# Called with no params
    obj.data = test_results;
 
 
-   %# Prepare *_idx
+   % Prepare *_idx
    obj.col_idx = makeIdx(col_names);
    obj.row_idx = makeIdx(row_names);
    obj.id = id;

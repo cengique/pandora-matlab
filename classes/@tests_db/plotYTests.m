@@ -78,10 +78,10 @@ end
 
 c_data = get(cols_db, 'data')';
 if isfield(props, 'ShowErrorbars')
-  %# not implemented yet
-  %# TODO: read the std from the second page of DB, if exists
+  % not implemented yet
+  % TODO: read the std from the second page of DB, if exists
 else
-  %# Draw a regular line plot
+  % Draw a regular line plot
   a_p = plot_abstract({x_vals, [get(cols_db, 'data')'], line_style{:}}, ...
 		      axis_labels, all_title, {short_title}, command, props);
 end

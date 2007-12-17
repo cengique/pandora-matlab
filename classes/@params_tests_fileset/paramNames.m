@@ -47,15 +47,15 @@ end
 if isfield(props, 'param_names')
 
 
-  %# Take parameter values from the specified parameter file,
-  %# in addition to the ones specified on data filenames.
+  % Take parameter values from the specified parameter file,
+  % in addition to the ones specified on data filenames.
 
   str_index = strmatch('trial', props.param_names);
   trues = true(1, length(props.param_names));
 
   if ~ isempty(str_index)
-    %# Remove the parameter "trial" from the list of parameters 
-    %# coming from the param rows file
+    % Remove the parameter "trial" from the list of parameters 
+    % coming from the param rows file
     trues(str_index) = false;
   end
 
@@ -64,5 +64,5 @@ else
   add_param_names = { };
 end
 
-%# Convert param names to cell array
+% Convert param names to cell array
 param_names = { add_param_names{:}, names_vals{1:num_params, 1} };

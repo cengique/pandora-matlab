@@ -45,15 +45,15 @@ if ~ exist('props')
   props = struct([]);
 end
 
-%# Get raw data traces from bundles
+% Get raw data traces from bundles
 phys_trace_d100 = ctFromRows(p_bundle, traceset_index, 100);
 phys_trace_h100 = ctFromRows(p_bundle, traceset_index, -100);
 phys_trace_id = ...
     properTeXLabel([ get(getItem(p_bundle.dataset, traceset_index), 'id') ...
 		    '(s' num2str(traceset_index) ')']);
 
-%# If specified, only include desired number of the available phys. traces
-%# Mostly to allow showing only one trace, to avoid cluttered displays.
+% If specified, only include desired number of the available phys. traces
+% Mostly to allow showing only one trace, to avoid cluttered displays.
 if isfield(props, 'numPhysTraces')
   phys_trace_d100 = ...
       phys_trace_d100(1:max(1, min(length(phys_trace_d100), props.numPhysTraces)));
@@ -79,10 +79,10 @@ a_h100_plot = ...
     superposePlots([plotData(model_trace_h100), ...
 		    plotData(phys_trace_h100)], {}, '-100 pA CIP');
 
-%# Make a full figure with raw data traces
+% Make a full figure with raw data traces
 if isfield(props, 'horizRow')
   orientation = 'x';
-  %# remove legends
+  % remove legends
   a_d100_plot.legend = {};
   a_h100_plot.legend = {};
 else
@@ -97,13 +97,13 @@ trace_doc = ...
     doc_plot(plot_stack([a_d100_plot, a_h100_plot], ...
 			[0 3000 -150 80], orientation, plot_title, ...
 			struct('xLabelsPos', 'bottom', 'yLabelsPos', 'left', ...
-			       'yTicksPos', 'left')), ... %# , 'titlesPos', 'none'
+			       'yTicksPos', 'left')), ... % , 'titlesPos', 'none'
 	     caption, short_caption, ...
 	     struct('floatType', 'figure', 'center', 1, ...
 		    'height', '.8\textheight', 'shortCaption', short_caption), ...
 	     'raw trace figure', struct('orient', 'tall'));
 
-%# spike shape comparisons 
+% spike shape comparisons 
 short_caption = [ 'Comparing spike shapes of ' model_trace_id ' to ' phys_trace_id '.' ];
 caption = [ short_caption ];
 plot_title = '';
@@ -129,7 +129,7 @@ sshape_doc = ...
 		    'width', '.9\textwidth', 'shortCaption', short_caption), ...
 	     'spike shape comparison', struct);
 
-%# fI curves
+% fI curves
 short_caption = [ 'Comparing f-I curves of ' model_trace_id ' with ' phys_trace_id '.' ];
 caption = [ short_caption ];
 if isfield(props, 'horizRow')
@@ -148,7 +148,7 @@ fIcurve_doc = ...
 		      'width', '.7\textwidth', 'shortCaption', short_caption), ...
 	       'frequency-current curve', struct);
 
-%# time vs. freq plot for +/- 100 pA CIP
+% time vs. freq plot for +/- 100 pA CIP
 phys_spikes_d100 = spikes(phys_trace_d100(1));
 phys_spikes_h100 = spikes(phys_trace_h100(1));
 model_spikes_d100 = spikes(model_trace_d100);
@@ -175,7 +175,7 @@ freq_profile_doc = ...
 		    'width', '.7\textwidth', 'shortCaption', short_caption), ...
 	     'freq-time curve', struct);
 
-%# Compose the pieces together into larger document
+% Compose the pieces together into larger document
 if isfield(props, 'horizRow')
   plot_title = [ 'compare model ' model_trace_id ' to neuron ' phys_trace_id ];
   a_doc_multi = ...

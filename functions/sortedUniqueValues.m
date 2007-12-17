@@ -24,10 +24,10 @@ function [rows, idx] = sortedUniqueValues(data)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-%# Use diff to get unique rows
+% Use diff to get unique rows
 diffed = diff(data, 1, 1);
 
-%# Find non-zero rows
+% Find non-zero rows
 nonzerorows = [true(1); any(diffed, 2)];
 
 idx = find(nonzerorows);

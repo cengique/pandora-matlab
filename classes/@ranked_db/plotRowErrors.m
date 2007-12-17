@@ -46,36 +46,36 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-%# Join with original here. Only joins the requested rows.
+% Join with original here. Only joins the requested rows.
 joined_db = joinOriginal(a_ranked_db, rows);
 joined_data = joined_db.data;
 
-%# Ignore NeuronId?
+% Ignore NeuronId?
 crit_cols = fieldnames(a_ranked_db.crit_db.col_idx);
 all_test_cols(1:length(crit_cols)) = true(1);
 if isa(a_ranked_db.crit_db, 'params_tests_db')
   all_test_cols(1:get(a_ranked_db.crit_db, 'num_params')) = false;
 end
 
-%# The distance values for each individual measure has the same names in ranked_db
-%# Find columns in ranked_db that are also in joined_db except 'Distance'
+% The distance values for each individual measure has the same names in ranked_db
+% Find columns in ranked_db that are also in joined_db except 'Distance'
 common_cols = setdiff(intersect(fieldnames(joined_db.col_idx), ...
 				fieldnames(get(a_ranked_db, 'col_idx'))), ...
 		      {'Distance', 'RowIndex'});
 
-num_std_colors = 10; %# colors for one STD of variance
+num_std_colors = 10; % colors for one STD of variance
 num_rows = dbsize(joined_db, 1);
 
-%# Sanity check
+% Sanity check
 if num_rows > 500
   error('Too many rows to display!');
 end
 
-%# Get matrix of desired rows and columns
+% Get matrix of desired rows and columns
 only_ranked_rows_db = onlyRowsTests(a_ranked_db, 1:num_rows, common_cols);
 distmatx = (abs(get(only_ranked_rows_db, 'data')) * num_std_colors)';
 
-%# Replace NaNs in distmatx with 3 STD
+% Replace NaNs in distmatx with 3 STD
 distmatx(isnan(distmatx)) = 3 * num_std_colors;
 
 if isfield(props, 'sortMeasures')
@@ -129,12 +129,12 @@ end
 
 end
 
-%# Small function for creating matrix plot
+% Small function for creating matrix plot
 function h = plot_image(distmatx, num_std_colors)
   h = image(distmatx);
-  %# Show up to some number of STDs
+  % Show up to some number of STDs
   colormap(jet(3 * num_std_colors)); 
-  %# scale font to fit measure names on y-axis
+  % scale font to fit measure names on y-axis
   num_rows = size(distmatx, 1);
   if num_rows > 30
     set(gca, 'FontUnit', 'normalized', 'FontSize', 1/max(100, num_rows));

@@ -47,19 +47,19 @@ end
 
 t_hists = testsHists(hist_pars{:});
 
-end				%# of function
+end				% of function
 
 function reduced_db = reduce_db(a_db)
   tests = fieldnames(get(a_db, 'col_idx'));
   itemIndices = strmatch('ItemIndex', tests);
 
-  %# Strip out the RowIndex and ItemIndex columns from criterion db
+  % Strip out the RowIndex and ItemIndex columns from criterion db
   tests = setdiff(tests, {'RowIndex', tests{itemIndices}});
 
-  %# Preserve original column order (parameters at the beginning)
+  % Preserve original column order (parameters at the beginning)
   cols = sort(tests2cols(a_db, tests));
 
-  %# Filter relevant columns
+  % Filter relevant columns
   reduced_db = onlyRowsTests(a_db, ':', cols);
   
   num_params = reduced_db.num_params;

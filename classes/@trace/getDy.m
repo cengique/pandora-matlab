@@ -25,7 +25,7 @@ function dy = getDy(t)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   error('Need trace parameter.');
 end
 
