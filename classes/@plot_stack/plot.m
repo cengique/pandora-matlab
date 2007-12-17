@@ -162,7 +162,7 @@ elseif strcmp(a_plot.orient, 'y')
 end
 
 % if infs in given axis_limits, find maximal range limits
-if isinf(a_plot.axis_limits)
+if any(isinf(a_plot.axis_limits))
   maximal_ranges = [];
   for plot_num=1:num_plots
     if iscell(a_plot.plots)
