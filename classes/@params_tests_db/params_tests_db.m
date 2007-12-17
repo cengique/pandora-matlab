@@ -1,8 +1,7 @@
 function obj = params_tests_db(params, param_names, ...
 			       a_test_results, test_names, id, props)
 
-% params_tests_db - A generic database of test results varying with 
-%		parameter values, organized in a matrix format.
+% params_tests_db - A generic database of test results varying with parameter values, organized in a matrix format.
 %
 % Usage 1:
 % obj = params_tests_db(params, param_names, a_test_results, 
