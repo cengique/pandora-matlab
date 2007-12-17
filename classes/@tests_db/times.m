@@ -1,19 +1,19 @@
-function a_db = times(left_obj, right_obj)
+function a_db = mtimes(left_obj, right_obj)
 
-% times - Multiplies the DB with a scalar.
+% mtimes - Multiplies the DB with a scalar.
 %
 % Usage:
-% a_db = times(left_obj, right_obj)
+% a_db = mtimes(left_obj, right_obj)
 %
 % Description:
 %
 %   Parameters:
-%	left_obj, right_obj: Operands of the multiplication. One must be of type tests_db.
+%	left_obj, right_obj: Operands of the multiplication. One or more must be of type tests_db.
 %		
 %   Returns:
 %	a_db: The resulting tests_db.
 %
-% See also: times
+% See also: tests_db/times, mtimes
 %
 % $Id$
 %
@@ -25,17 +25,4 @@ function a_db = times(left_obj, right_obj)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if isa(left_obj, 'tests_db')
-  a_db = left_obj;
-  a_scalar = right_obj;
-else
-  a_db = right_obj;
-  a_scalar = left_obj;
-end
-
-if ~isnumeric(a_scalar)
-  error(['Multiplication for tests_db is not defined for types of ' class(a_scalar) '.' ]);
-end
-
-a_db = set(a_db, 'id', [ num2str(a_scalar) ' * ' get(a_db, 'id') ]);
-a_db = set(a_db, 'data', a_scalar * get(a_db, 'data'));
+a_db = rop(left_obj, right_obj, @times, '.*');

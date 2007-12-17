@@ -1,9 +1,9 @@
-function a_db = minus(left_obj, right_obj)
+function a_db = plus(left_obj, right_obj)
 
-% minus - Subtracts a DB from another or from a scalar.
+% plus - Adds a DB to another or to a scalar.
 %
 % Usage:
-% a_db = minus(left_obj, right_obj)
+% a_db = plus(left_obj, right_obj)
 %
 % Description:
 %   If DBs have mismatching columns only the common columns will be kept.
@@ -11,17 +11,17 @@ function a_db = minus(left_obj, right_obj)
 % left-hand-side DB.
 %
 %   Parameters:
-%	left_obj, right_obj: Operands of the subtraction. One must be of type tests_db
-%		and the other can be a scalar.
+%	left_obj, right_obj: Operands of the addition. One must be of type tests_db
+%		and the other can be a scalar or tests_db.
 %		
 %   Returns:
 %	a_db: The resulting tests_db.
 %
-% See also: minus
+% See also: plus
 %
-% $Id$
+% $Id: plus.m 818 2007-08-28 20:28:51Z cengiz $
 %
-% Author: Cengiz Gunay <cgunay@emory.edu>, 2006/05/24
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/13
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -29,4 +29,4 @@ function a_db = minus(left_obj, right_obj)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-a_db = rop(left_obj, right_obj, @minus, '-');
+a_db = rop(left_obj, right_obj, @plus, '+');
