@@ -56,7 +56,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.data_src = [];
   obj.vchan = 0;
   obj.ichan = 0;
@@ -65,7 +65,7 @@ if nargin == 0 %# Called with no params
   obj.treatments = struct([]);
   obj.id = '';
   obj = class(obj, 'physiol_cip_traceset', params_tests_dataset);
-elseif isa(trace_str, 'physiol_cip_traceset') %# copy constructor?
+elseif isa(trace_str, 'physiol_cip_traceset') % copy constructor?
   obj = trace_str;
 else
 
@@ -94,7 +94,7 @@ else
     props = struct;
   end
   
-  if isfield(props, 'nsHDF5')
+  if isfield(props, 'nsHDF5') || ~isempty(strfind(data_src, '.hdf5'))
       props.Trials = ns_select_trials(data_src, trace_list);
       props.cip_list = ns_CIPlist(data_src, trace_list);
   
@@ -110,7 +110,7 @@ else
 
   % reading CIP list from the file
   
-  %# Create the object 
+  % Create the object 
   obj = class(obj, 'physiol_cip_traceset', ...
 	      params_tests_dataset(trace_list, dt, dy, ...
 				   [ 'traceset ' data_src ' ' ...
