@@ -38,7 +38,8 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 %	dy: y-axis resolution [V] or [A].
 %	props: A structure with any optional properties.
 %	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
-%	  (All other props are passed to cip_trace objects)
+%	  nsHDF5: If 1, source is a NeuroSAGE HDF5 file. (see physiol_cip_traceset)
+%	  (All other props are passed to physiol_cip_traceset and cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
 %	neuron_idx: A structure that points from neuron names to NeuronId numbers.
@@ -68,10 +69,10 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 %# Called with no params
+if nargin == 0 % Called with no params
   obj.neuron_idx = struct([]);
   obj = class(obj, 'physiol_cip_traceset_fileset', params_tests_dataset);
-elseif isa(traceset_items, 'physiol_cip_traceset_fileset') %# copy constructor?
+elseif isa(traceset_items, 'physiol_cip_traceset_fileset') % copy constructor?
   obj = traceset_items;
 else
   if ~ exist('props')
@@ -81,8 +82,21 @@ else
   obj.neuron_idx = struct;
 
   if isa(traceset_items, 'function_handle') 
-    list = traceset_items();
+    params = traceset_items();
     traceset_items_str = func2str(traceset_items);
+    for k=1:size(params,1)
+      % problems: path, v/i chans and gains should not be hard-coded
+      list{k} = ...
+          physiol_cip_traceset(params{k,1}, ...
+                               ['/Raw/ep06-07/' params{k,2}], ...
+                               [2 1 0.01 1], 0.0001, 1e-3,params{k,4} , ...
+                               params{k,2}(1:end-5), props);
+    end
+    obj.neuron_idx = struct;
+    for k=1:length(list)
+      [filepath, filenum]=fileparts(params{k,2});
+      obj.neuron_idx.(filenum)=params{k,3};
+    end  
   elseif iscell(traceset_items)
     list = traceset_items;
     traceset_items_str = ' cell array';
@@ -94,9 +108,9 @@ else
           obj.neuron_idx.(list{k}.id)=k;
       end
   elseif isstr(traceset_items)
-      %# read ASCII file, make each line an item in a cell array
+      % read ASCII file, make each line an item in a cell array
       tcell = textread(traceset_items, '%s', 'delimiter', '\n', 'commentstyle','matlab');
-      %# Parse each line, organize items by line number.
+      % Parse each line, organize items by line number.
       tmtstruct = struct('tmp', 0);	% keep track of treatments in use.
       names = cell(length(tcell), 1);
       paths = cell(length(tcell), 1);
@@ -117,7 +131,7 @@ else
             [pars{ntok}, resid] = strtok(resid, sprintf('\t'));
         end
 
-        %# Skip empty lines
+        % Skip empty lines
         if isempty(pars)
           continue;
         end
@@ -145,7 +159,7 @@ else
             end
         end
 
-        %# Enter the name into a structure to keep track of unique neuron ids
+        % Enter the name into a structure to keep track of unique neuron ids
         if ~ isfield(obj.neuron_idx, names{n})
           obj.neuron_idx.(names{n}) = neuron_id;
           neuron_id = neuron_id + 1;
@@ -179,7 +193,7 @@ else
           tmtstruct = rmfield(tmtstruct, 'tmp');
       end
 
-      %# Create list of traceset objects.
+      % Create list of traceset objects.
       for n = 1:length(tcell)
         % make copy of treatment struct, fill in values for this item
         tempstruct = tmtstruct;
@@ -195,7 +209,7 @@ else
            'array or filename string. It was none of these.']);
   end
 
-  %# Create the fileset object
+  % Create the fileset object
   obj = class(obj, 'physiol_cip_traceset_fileset', ...
 	      params_tests_dataset(list, dt, dy, ...
 				   ['tracesets from ', traceset_items_str ], props));
