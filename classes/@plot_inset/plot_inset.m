@@ -15,6 +15,9 @@ function a_plot = plot_inset(plots, axis_locations, title_str, props)
 %	axis_locations: Matrix of four-element vectors for each given plot.
 %	title_str: Title to go on top of the stack
 %	props: A structure with any optional properties.
+%	  positioning: axis_locations interpreted as 'absolute' values or
+%	  	'relative' to the 1st plot (default='absolute'). 
+%		Relative positioning doesn't work well.
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract, plots, axis_locations.
@@ -49,7 +52,7 @@ if nargin == 0 %# Called with no params
      props = struct([]);
    end
 
-   if ~ exist('axis_locations', 'var')
+   if ~ exist('axis_locations', 'var') || isempty(axis_locations)
      axis_locations = repmat([0 0 1 1], length(plots), 1);
    end
 

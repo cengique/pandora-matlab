@@ -36,20 +36,28 @@ num_plots = length(a_plot.plots);
 all_handles = [];
 this_layout_axis = layout_axis;
 
+a_plot_props = get(a_plot, 'props');
+
 % open individual axes
 for plot_num = 1:num_plots
 
-  if plot_num > 1
-    % place others relative to 1st plot axis
-    % TODO: does children only take part of parent anyway?
-    layout_axis = get(gca, 'Position');
-  end
-  
   this_axis = a_plot.axis_locations(plot_num, :);
+      
+  if isfield(a_plot_props, 'positioning') && ...
+      strcmp(a_plot_props.positioning, 'relative')
+    if plot_num > 1
+      % place others relative to 1st plot axis
+      % TODO: does children only take part of parent anyway?
+      %layout_axis = get(gca, 'Position');
+      layout_axis = a_plot.axis_locations(1, :)
+    end
 
-  % offset and scale given location to layout_axis
-  this_layout_axis(1:2) = layout_axis(1:2) + this_axis(1:2);
-  this_layout_axis(3:4) = layout_axis(3:4) .* this_axis(3:4);    
+    % offset and scale given location to layout_axis
+    this_layout_axis(1:2) = layout_axis(1:2) + (this_axis(1:2) ./ layout_axis(3:4));
+    this_layout_axis(3:4) = layout_axis(3:4) .* this_axis(3:4);    
+  else
+    this_layout_axis = this_axis;
+  end
 
   % plot it
   handles = plot(a_plot.plots{plot_num}, this_layout_axis); 
