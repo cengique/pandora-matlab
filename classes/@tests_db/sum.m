@@ -34,4 +34,5 @@ if ~ exist('props')
 end
 
 a_db = set(a_db, 'id', [ 'summed ' get(a_db, 'id') ]);
+a_db = set(a_db, 'row_idx', makeIdx({'sum'}));
 a_db = set(a_db, 'data', sum(get(a_db, 'data')));
