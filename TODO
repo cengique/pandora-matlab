@@ -1,11 +1,13 @@
 TODO
 --------------------
+- change names of major classes to make more sense
 - modify license to include attribution in scientific publications
 - add test suite?
 - add more examples to lyx documentation.
 - replace exist functions with a 'var' 2nd param
 - add pclamp import function abf_atf_import from MAtlab file exchange in the utils/ folder.
 	- make trace accept atf, abf and Spike2 formats
+	- use the neuroshare input specification?
 - put license, add SQL export function, and publish package
 - add neurosage hdf5 support
 - ask to put link on http://home.earthlink.net/~perlewitz/sftwr.html
