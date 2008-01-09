@@ -91,12 +91,13 @@ else
      % If same class, add to array
      plot_array(plot_num) = plots{plot_num};
 
-     if strcmp(plot_class, 'plot_abstract')
+     if strcmp(plot_class, 'plot_abstract') || strcmp(plot_class, 'plot_simple')
        if isempty(plot_command)
 	 plot_command = plots{plot_num}.command;
        else
 	 % break if different plot commands in plot_abstracts are combined
-	 if ~strcmp(plot_command, plots{plot_num}.command)
+	 if ~strcmp(plot_command, plots{plot_num}.command) || ...
+             strcmp(plots{plot_num}.command, 'bar')
 	   superposable = false;
 	   break;
 	 end
