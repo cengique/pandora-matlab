@@ -11,9 +11,11 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 %   Parameters:
 %	a_hist_db: A histogram_db object.
 %	props: Optional properties passed to plot_abstract.
-%		command: Plot command (Optional, default='bar')
-%		logScale: If 1, use logarithmic y-scale.
-%		quiet: If 1, don't include database name on title.
+%	  command: Plot command (Optional, default='bar')
+%	  lineSpec: Line specification passed to bar command.
+%	  logScale: If 1, use logarithmic y-scale.
+%	  shading: 'faceted' (default) or 'flat'.
+%	  quiet: If 1, don't include database name on title.
 %		
 %   Returns:
 %	a_plot: A object of plot_abstract or one of its subclasses.
@@ -84,8 +86,19 @@ if isfield(props, 'logScale')
   y_label = [ 'log ' y_label ];
 end
 
+<<<<<<< .mine
+if isfield(props, 'lineSpec')
+  line_spec = {props.lineSpec};
+else
+  lineSpec = {};
+end
+
+if isfield(props, 'shading') && strcmp(props.shading, 'flat')
+  % remove edge colors if requested
+  props = mergeStructs(struct('plotProps', struct('EdgeColor', 'none')), props);
+end
+
 % Make a simple plot object drawing vertical bars
-a_plot = plot_simple(data(:, 1), data(:, 2), ...
-		     all_title, ...
-		     x_label, y_label, ...
-		     colnames{1}, command, props);
+a_plot = plot_abstract({data(:, 1), data(:, 2), line_spec{:}}, ...
+		     {x_label, y_label}, all_title, ...
+		     {colnames{1}}, command, props);
