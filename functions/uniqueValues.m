@@ -2,17 +2,19 @@
 function [rows, idx] = uniqueValues(data)
 
 % uniqueValues - Find unique rows in a matrix (or column vector). 
-%		Version which makes use of sort and diff.
 %
 % Usage:
 % [rows, idx] = uniqueValues(data)
 %
 % Description:
-%	Parameters:
-%		data: A matrix or column vector
-%	Returns:
-%		rows: A matrix or column vector of unique rows.
-%		idx: Indices of the unique rows in the original data matrix.
+%   Version which makes use of sort and diff.
+%
+% Parameters:
+%   data: A matrix or column vector
+%
+% Returns:
+%   rows: A matrix or column vector of unique rows.
+%   idx: Indices of the unique rows in the original data matrix.
 %
 % See also: sortedUniqueValues
 %
