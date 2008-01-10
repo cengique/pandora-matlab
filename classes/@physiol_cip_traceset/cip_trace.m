@@ -70,7 +70,7 @@ end
 
 % Put id of traceset as id
 if ~ isfield(props, 'showName') || props.showName == 1
-  trace_id = [get(traceset, 'id') '(' trace_id ')'];
+  trace_id = [get(traceset, 'neuron_id') '(' trace_id ')'];
 end
 
 traceset_props = get(traceset, 'props');
