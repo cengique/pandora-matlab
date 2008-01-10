@@ -56,7 +56,6 @@ sorted_db = onlyRowsTests(db, idx, [main_cols rest_cols]);
 %sorted(:, 1:10)
 
 col_names = fieldnames(sorted_db.col_idx);
-num_params = get(sorted_db, 'num_params');
 num_cols = length(col_names);
 
 % Initialize
@@ -76,34 +75,20 @@ for row_num=1:num_rows
       onlyRowsTests(sorted_db, rows, ...
 		    (length(main_cols) + 1):(length(main_cols) + length(rest_cols)));
   no_mean_rows_db = onlyRowsTests(sorted_db, rows(1), 1:length(main_cols));
-  new_row = [ get(no_mean_rows_db, 'data'), get(mean(rows_db), 'data') ];
-  new_std = [ get(no_mean_rows_db, 'data'), get(std(rows_db), 'data') ];
   new_vals = [length(rows), idx(rows(1))];
+  new_row = [ get(no_mean_rows_db, 'data'), new_vals, get(mean(rows_db), 'data') ];
+  new_std = [ get(no_mean_rows_db, 'data'), new_vals, get(std(rows_db), 'data') ];
   %displayRows(rows_db(:, 'NeuronId'))
-
-  % Insert new values as parameters
-  if num_cols > num_params
-    new_row = [new_row(1:num_params) new_vals new_row((num_params + 1):num_cols)];
-    new_std = [new_std(1:num_params) new_vals new_std((num_params + 1):num_cols)];
-  else
-    new_row = [new_row new_vals];
-    new_std = [new_std new_vals];
-  end
 
   % Write row in place
   data(row_num, :, 1) = new_row;
   data(row_num, :, 2) = new_std;
 end
 
-if num_cols > num_params
-  col_names = {col_names{1:num_params}, 'NumDuplicates', 'RowIndex', ...
-	       col_names{(num_params + 1): num_cols}};
-else
-  col_names = {col_names{:}, 'NumDuplicates', 'RowIndex'};
-end
+col_names = { col_names{1:length(main_cols)}, 'NumDuplicates', 'RowIndex', ...
+              col_names{(length(main_cols) + 1):end}};
 
 % Update the fields of the new database object
 a_tests_db = set(sorted_db, 'data', data);
 a_tests_db = set(a_tests_db, 'col_idx', makeIdx(col_names));
-a_tests_db = set(a_tests_db, 'num_params', num_params + 2);
 a_tests_db = set(a_tests_db, 'id', ['averaged ' a_tests_db.id]);
