@@ -1,6 +1,6 @@
 function a_db = rop(left_obj, right_obj, op_func, op_id)
 
-% rop - Prepares two DBs or one DB and a scalar for an array arithmetic operation.
+% rop - Prepares aligned columns in two DBs or one DB and a scalar for an array arithmetic operation.
 %
 % Usage:
 % a_db = rop(left_obj, right_obj, op_func, op_id)
