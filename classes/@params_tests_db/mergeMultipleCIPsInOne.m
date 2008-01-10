@@ -1,9 +1,10 @@
-function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name)
+function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, ...
+                                              index_col_name, props)
 
 % mergeMultipleCIPsInOne - Merges multiple rows with different CIP data into one, generating a database of one row per neuron.
 %
 % Usage:
-% a_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name)
+% a_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name, props)
 %
 % Description:
 %   It calls invarParam to separate db into pages with different CIP level data.
@@ -22,6 +23,9 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_na
 %		with increasing order.
 %	index_col_name: (Optional) Name of row index column 
 %		(default is 'RowIndex' suffixed with the first field name).
+%	props: A structure with any optional properties.
+%	  cipLevels: In case db is missing some levels, provides a list of cip levels that
+%    		correspond to names_tests_cell db. Missing levels are replaced with NaN values.
 %		
 %   Returns:
 %	a_db: A params_tests_db object of organized values.
@@ -44,13 +48,32 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_na
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% WARNING: db must be sorted by pAcip before!
-%db = sortrows(db, 'pAcip');
+if ~ exist('props', 'var')
+  props = struct;
+end
 
 % Fold into multiple pages, according to cip values
 cip_fold_db = swapRowsPages(invarParam(db, 'pAcip'));
 
-num_pages = dbsize(cip_fold_db, 3);
+if isfield(props, 'cipLevels')
+  % align given cip levels
+  % use mean as means to remove NaNs ;)
+  db_cip_levels = ...
+      squeeze(get(mean(onlyRowsTests(cip_fold_db, ':', 'pAcip', ':'), 1), 'data'));
+  
+  % match one by one
+  num_cip_levels = length(props.cipLevels);
+  new_cip_fold_data = ...
+      repmat(NaN, [dbsize(cip_fold_db, 1), dbsize(cip_fold_db, 2), num_cip_levels]);
+  for cip_level = 1:num_cip_levels
+    db_page = find(props.cipLevels(cip_level) == db_cip_levels);
+    if ~ isempty(db_page)
+      new_cip_fold_data(:, :, cip_level) = ...
+          cip_fold_db.data(:, :, db_page);
+    end
+  end
+  cip_fold_db = set(cip_fold_db, 'data', new_cip_fold_data);
+end
 
 % Read names and tests into separate cell arrays
 page_suffixes = {names_tests_cell{1:2:end}};
@@ -63,6 +86,7 @@ for page_num = 1:length(tests_cell)
   tests_cell{page_num} = { orig_test_names{tests2cols(db, tests_cell{page_num})} };
 end
 
+num_pages = dbsize(cip_fold_db, 3);
 if length(page_suffixes) ~= num_pages
   error(['Number of items in names_tests_cell does not match with ' ...
 	 num2str(num_pages) ' unique CIP values in the database.']);
