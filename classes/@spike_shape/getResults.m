@@ -55,6 +55,7 @@ results.FallTime = NaN;
 results.MinTime = NaN;
 results.BaseWidth = NaN;
 results.HalfWidth = NaN;
+results.FixVWidth = NaN;
 
 % Check for empty spike_shape object first.
 if isempty(s.trace.data) 
@@ -101,9 +102,9 @@ if  (max_val - init_val) * mV_factor < 10
   error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
 end
 
-[base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
+[base_width, half_width, half_Vm, fixed_Vm_width, fall_time, min_idx, min_val, ...
  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx] = ...
-      calcWidthFall(s, peak_idx, peak_mag, init_idx, init_val);
+      calcWidthFall(s, peak_idx, peak_mag, init_idx, init_val, -10 * 1e-3);
 
 % Sanity check for amplitude (2)
 if (max_val - min_val) * mV_factor < 10
@@ -130,4 +131,5 @@ results.MinTime = min_idx * ms_factor;
 %results.ahp_decay_constant = ahp_decay_constant * ms_factor;
 results.BaseWidth = base_width * ms_factor;
 results.HalfWidth = half_width * ms_factor;
+results.FixVWidth = fixed_Vm_width * ms_factor;
 
