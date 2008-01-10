@@ -72,7 +72,7 @@ for item_num=items
 
   % Read the neuron name from the id field of traceset 
   % and translate to NeuronId
-  neuron_id = obj.neuron_idx.(get(item, 'id'));
+  neuron_id = obj.neuron_idx.(get(item, 'neuron_id'));
 
   if num_traces > 0  % Unless reading traceset failed and truncated
     row_range = rows : (rows + num_traces - 1);
