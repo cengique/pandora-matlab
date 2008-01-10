@@ -1,25 +1,23 @@
 function a_coefs_db = corrCoefs(db, col1, cols, props)
 
-% corrCoefs - Generates a database of correlation coefficients 
-%		by comparing col1 with other cols in the database. 
-%		If db has multiple pages, then each page in db 
-%		produces a row of coefficients and matching PageIndex.
+% corrCoefs - Calculates correlation coefficients by comparing col1 with other cols. 
 %
 % Usage:
 % a_coefs_db = corrCoefs(db, col1, cols, props)
 %
 % Description:
-% Assuming the db was created with invarValues, this function finds the
-% invariant correlation coefficients between its columns. 
-% The invariant correlation coefficients are the correlation of one column
-% value with another column value when some other column values are fixed.
-% Since there are many occurences of the invariant coefficients, a histogram
-% can then be created and returned from the created db. The other
-% columns that are fixed are not in this db object, but can be reached 
-% using the row indices in the original db. The page number is saved in the 
-% created db, so that it can be used to find the page from which the 
-% coefficient came. Then row indices of the page points to original 
-% constant column values.
+%   If db has multiple pages, then each page in db produces a row of
+% coefficients and matching PageIndex. Assuming the db was created with
+% invarValues, this function finds the invariant correlation coefficients
+% between its columns. The invariant correlation coefficients are the
+% correlation of one column value with another column value when some other
+% column values are fixed.  Since there are many occurences of the invariant
+% coefficients, a histogram can then be created and returned from the
+% created db. The other columns that are fixed are not in this db object,
+% but can be reached using the indices to the original db. The page
+% number is saved in the created db, so that it can be used to find the page
+% from which the coefficient came. Then row indices of the page points to
+% original constant column values.
 %
 %   Parameters:
 %	db: A tests_db object.
