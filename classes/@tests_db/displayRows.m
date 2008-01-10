@@ -43,11 +43,16 @@ col_names = fieldnames(db.col_idx);
 if ~ isempty(col_names)
   s = cat(2, col_names, num2cell(db.data(rows, :, pages))');
 else
-  s = num2cell(db.data(rows, :, pages));
+  s = num2cell(db.data(rows, :, pages))';
 end
 
 % Add row names
 row_names = fieldnames(db.row_idx);
 if ~ isempty(row_names)
-  s = cat(1, {'', row_names{:}}, s);
+  if ~ isempty(col_names)
+    col_header = {''};
+  else
+    col_header = {};
+  end
+  s = cat(1, [col_header, row_names'], s); % {'', row_names{:}}
 end
