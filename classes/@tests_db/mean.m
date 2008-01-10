@@ -7,7 +7,7 @@ function [a_db, varargout] = mean(a_db, dim)
 %
 % Description:
 %   Does a recursive operation over dimensions in order to remove NaN values.
-% This takes more time, compared with a straightforward mean operation. 
+% This takes more time than a straightforward mean operation. 
 %
 %   Parameters:
 %	a_db: A tests_db object.
