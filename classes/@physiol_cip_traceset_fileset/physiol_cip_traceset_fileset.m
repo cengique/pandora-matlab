@@ -20,7 +20,7 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 %   Parameters:
 %	traceset_items: It can be a function handle, cell array or filename
 %	  string. Function should return a cell array of physiol_cip_traceset
-%	  items. Finally this cell array can be provided directly.
+%	  items. Alternatively a preconstructed cell array can be provided directly.
 %	  If it is an ASCII filename, then it should contain the following tab-delimited items:
 %		1. Neuron ID (name to associate with the neuron). If left blank, use
 %			the filename with the '.all' extension removed.
@@ -81,7 +81,9 @@ else
 
   obj.neuron_idx = struct;
 
+  % preconstructed input: a list is already given
   if isa(traceset_items, 'function_handle') 
+    % Li Su hack
     params = traceset_items();
     traceset_items_str = func2str(traceset_items);
     for k=1:size(params,1)
@@ -92,21 +94,24 @@ else
                                [2 1 0.01 1], 0.0001, 1e-3,params{k,4} , ...
                                params{k,2}(1:end-5), props);
     end
-    obj.neuron_idx = struct;
-    for k=1:length(list)
-      [filepath, filenum]=fileparts(params{k,2});
-      obj.neuron_idx.(filenum)=params{k,3};
-    end  
   elseif iscell(traceset_items)
+    % A list of physiol_cip_traceset items or similar
     list = traceset_items;
-    traceset_items_str = ' cell array';
+    traceset_items_str = [ ' cell array' ];
   end
-    
+
+  % postprocessing step: create list from input
   if exist('list', 'var')
-      obj.neuron_idx = struct;
-      for k=1:length(list)
-          obj.neuron_idx.(list{k}.id)=k;
+    % if an array of physiol_cip_traceset objects is available at this
+    % time, construct a neuron_idx structure by counting unique ids.
+    obj.neuron_idx = struct;
+    neuron_index = 1;
+    for a_ts=list
+      if ~ isfield(obj.neuron_idx, a_ts{1}.neuron_id)
+        obj.neuron_idx.(a_ts{1}.neuron_id) = neuron_index;
+        neuron_index = neuron_index + 1;
       end
+    end
   elseif isstr(traceset_items)
       % read ASCII file, make each line an item in a cell array
       tcell = textread(traceset_items, '%s', 'delimiter', '\n', 'commentstyle','matlab');
