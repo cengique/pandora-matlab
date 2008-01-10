@@ -1,9 +1,8 @@
-function [base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
+function [base_width, half_width, half_Vm, fixed_Vm_width, fall_time, min_idx, min_val, ...
 	  max_ahp, ahp_decay_constant, dahp_mag, dahp_idx] = ...
-      calcWidthFall(s, max_idx, max_val, init_idx, init_val)
+      calcWidthFall(s, max_idx, max_val, init_idx, init_val, fixed_Vm)
 
-% calcWidthFall - Calculates the spike width and fall information of the 
-%		spike_shape, s. 
+% calcWidthFall - Calculates the spike width and fall information of the spike_shape, s. 
 %
 % Usage:
 % [base_width, half_width, half_Vm, fall_time, min_idx, min_val, 
@@ -19,6 +18,7 @@ function [base_width, half_width, half_Vm, fall_time, min_idx, min_val, ...
 %	max_val: The value of the maximal point [dy].
 %	init_idx: The index of spike initiation point [dt].
 %	init_val: The value of spike initiation point [dy].
+%	fixed_Vm: The desired height for width calculation [V].
 %
 %   Returns:
 %	base_width: Width of spike at base [dt]
@@ -57,6 +57,7 @@ if isempty(depol) || floor((depol(1) + max_idx - 1)) == length(s.trace.data)
   base_width = NaN;
   half_width = NaN;
   half_Vm = NaN;
+  fixed_Vm_width = NaN;
   fall_time = NaN;
   min_idx = NaN;
   min_val = NaN;
@@ -85,42 +86,12 @@ fall_time = fall_init_cross_time - max_idx;
 % Half width threshold
 half_Vm = init_val + (max_val - init_val) / 2;
 
-% Find part above half Vm
-start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
-above_half = start_from - 1 + find(s.trace.data(start_from:end) >= half_Vm);
-
-% Find the first discontinuity to match only the first down ramp
-some_of_the_above = above_half(above_half > floor(max_idx));
-end_of_first_hump = find(diff(some_of_the_above) > 1);
-if length(end_of_first_hump) > 0
-  end_of_first_hump = end_of_first_hump(1) + floor(max_idx);
-else
-  end_of_first_hump = above_half(end);
-end
-
-% Find the last discontinuity to match only the last up ramp
-some_of_the_above = above_half(above_half < floor(max_idx + 1));
-start_of_last_ramp = find(diff(some_of_the_above) > 1);
-if length(start_of_last_ramp) > 0
-  start_of_last_ramp = floor(max_idx) - (length(some_of_the_above) - ...
-					 start_of_last_ramp(end));
-else
-  start_of_last_ramp = above_half(1);
-end
-
-half_start = start_of_last_ramp - ...
-    (s.trace.data(start_of_last_ramp) - half_Vm) / ...
-    (s.trace.data(start_of_last_ramp) - s.trace.data(start_of_last_ramp - 1));
-
-half_end = end_of_first_hump + ...
-    (s.trace.data(end_of_first_hump) - half_Vm) / ...
-    (s.trace.data(end_of_first_hump) - ...
-     s.trace.data(end_of_first_hump + 1));
-
-half_width = half_end - half_start;
+half_width = find_width_at_val(half_Vm);
+fixed_Vm_width = find_width_at_val(fixed_Vm / s.trace.dy);
 
 % Now look for max AHP right after fall_time
-[min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = find_max_ahp(s, max_idx, fall_time, init_val);
+[min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
+    find_max_ahp;
 
 % Calculate AHP decay time constant approx: 
 % min_val - max_ahp * (1 - exp(-t/decay_constant))
@@ -156,6 +127,45 @@ if length(recover_times) > 0
 else 
   ahp_decay_constant = NaN;
 end
+
+function a_width = find_width_at_val(width_Vm)
+  
+% Find part above half Vm (measured in dy's)
+  start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
+  above_half = start_from - 1 + find(s.trace.data(start_from:end) >= width_Vm);
+
+  % Find the first discontinuity to match only the first down ramp
+  some_of_the_above = above_half(above_half > floor(max_idx));
+  end_of_first_hump = find(diff(some_of_the_above) > 1);
+  if length(end_of_first_hump) > 0
+  end_of_first_hump = end_of_first_hump(1) + floor(max_idx);
+  else
+  end_of_first_hump = above_half(end);
+  end
+
+  % Find the last discontinuity to match only the last up ramp
+  some_of_the_above = above_half(above_half < floor(max_idx + 1));
+  start_of_last_ramp = find(diff(some_of_the_above) > 1);
+  if length(start_of_last_ramp) > 0
+    start_of_last_ramp = floor(max_idx) - (length(some_of_the_above) - ...
+					 start_of_last_ramp(end));
+  else
+    start_of_last_ramp = above_half(1);
+  end
+
+  half_start = start_of_last_ramp - ...
+      (s.trace.data(start_of_last_ramp) - width_Vm) / ...
+      (s.trace.data(start_of_last_ramp) - s.trace.data(start_of_last_ramp - 1));
+  
+  half_end = end_of_first_hump + ...
+      (s.trace.data(end_of_first_hump) - width_Vm) / ...
+      (s.trace.data(end_of_first_hump) - ...
+       s.trace.data(end_of_first_hump + 1));
+
+  a_width = half_end - half_start;
+end
+
+
 
 function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
   % No dahp by default  
@@ -193,9 +203,10 @@ function [dahp_mag, dahp_idx] = find_double_ahp(after_ahp, ahp_idx, dt)
     dahp_idx = ahp_idx + max_idx;
     dahp_mag = max_val - duration(1);
   end
-
+end
+  
 function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
-      find_max_ahp(s, max_idx, fall_time, init_val)
+      find_max_ahp
   start_from = min(length(s.trace.data), ceil(max_idx + fall_time));
   windowsize = 6;
   if length(s.trace.data) - start_from + 1 > windowsize
@@ -232,3 +243,6 @@ function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
   [dahp_mag, dahp_idx] = find_double_ahp(after_fall(min_fall_idx:end_at), ...
 					 min_fall_idx, s.trace.dt);
 
+end
+
+end                                     % calcWidthFall
