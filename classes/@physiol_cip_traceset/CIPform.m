@@ -50,10 +50,21 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
 
   if isstruct(cipList)
     % method 1: read cip information from the meta data
-    idx = mod(traceset_props.Trials{trace_index}.InChainIndex, length(cipList.Amplitude)) + 1;
+    if isfield(traceset_props.Trials{trace_index}, 'ChainID')
+      idx = mod(traceset_props.Trials{trace_index}.InChainIndex, length(cipList.Amplitude)) + 1;
+    else
+      idx = 1;                        % only one pulse
+    end
     pulse = cipList.Amplitude(idx);
-    on = cipList.StartTime/traceset.params_tests_dataset.dt;
-    off = on + cipList.Duration/traceset.params_tests_dataset.dt;
+    if pulse ~= 0
+      on = max(1, cipList.StartTime/traceset.params_tests_dataset.dt);
+      off = on + cipList.Duration/traceset.params_tests_dataset.dt - 1;
+    else
+      % if no pulse, set the pulse period to the end
+      on = ...
+          traceset_props.Trials{trace_index}.AcquisitionData{traceset.vchan}.Samples;
+      off = on - 1;                     % To make it 0 samples
+    end
     ciptype = sign(pulse);
     bias = 0;
     current = ns_read(traceset_props.Trials{trace_index}.AcquisitionData{traceset.ichan});
@@ -63,6 +74,7 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
     else
       bias = round(median(current.Y(1:on-10))*10)/10;
     end
+
 
   else
     nSD = 10;	% number of standard deviations for transition threshold
