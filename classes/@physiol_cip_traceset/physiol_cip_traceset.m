@@ -1,10 +1,10 @@
 function obj = physiol_cip_traceset(trace_str, data_src, ...
-				    chaninfo, dt, dy, treatments, id, props)
+				    chaninfo, dt, dy, treatments, neuron_id, props)
 
 % physiol_cip_traceset - Dataset of cip traces from same PCDX file.
 %
 % Usage:
-% obj = physiol_cip_traceset(trace_str, data_src, chaninfo, dt, dy, treatments, id, props);
+% obj = physiol_cip_traceset(trace_str, data_src, chaninfo, dt, dy, treatments, neuron_id, props);
 %
 % Description:
 %   This is a subclass of params_tests_dataset. Each trace varies in bias, 
@@ -23,16 +23,19 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %	dy: Y-axis resolution [V] or [A].
 %	treatments: Structure containing the names and concentrations
 %		    of compounds.
-%	id: Neuron name.
+%	neuron_id: Neuron name.
 %	props: A structure with any optional properties.
-%	  nsHDF5: If 1, source is a NeuroSAGE HDF5 file.
-%	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  nsHDF5: For NeuroSAGE HDF5 files, processing is faster if the output
+%	  	  of ns_open_file is given here. Must be defined to allow
+%	  	  special NeuroSAGE processing.
+%	  profile_class_name: Use this cip_trace function to return a
+%	  		profile (Default: 'getProfileAllSpikes').
 %	  cip_list: Vector of cip levels to which the current trace will be matched.
 %	  (All other props are passed to cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,
-%	data_src, ichan, vchan, vgain, igain, treatments, id.
+%	data_src, ichan, vchan, vgain, igain, treatments.
 %
 % General operations on physiol_cip_traceset objects:
 %   physiol_cip_traceset - Construct a new object.
@@ -56,6 +59,9 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 if nargin == 0 % Called with no params
   obj.data_src = [];
   obj.vchan = 0;
@@ -63,7 +69,7 @@ if nargin == 0 % Called with no params
   obj.vgain = 1;
   obj.igain = 1;
   obj.treatments = struct([]);
-  obj.id = '';
+  obj.neuron_id = '';
   obj = class(obj, 'physiol_cip_traceset', params_tests_dataset);
 elseif isa(trace_str, 'physiol_cip_traceset') % copy constructor?
   obj = trace_str;
@@ -76,7 +82,7 @@ else
   obj.vgain = chaninfo(3);
   obj.igain = chaninfo(4);
   obj.treatments = treatments;
-  obj.id = id;
+  obj.neuron_id = neuron_id;
 
   if ~ exist('treatments') || isempty(treatments)
       obj.treatments = struct([]);
@@ -94,18 +100,40 @@ else
     props = struct;
   end
   
-  if isfield(props, 'nsHDF5') || ~isempty(strfind(data_src, '.hdf5'))
-      props.Trials = ns_select_trials(data_src, trace_list);
-      props.cip_list = ns_CIPlist(data_src, trace_list);
+  if ~ isfield(props, 'profile_class_name')
+    props.profile_class_name = 'getProfileAllSpikes';
+  end
   
-      tr1=trace_list(1); ch=max([obj.vchan 1]);
-      if ~exist('dt') || isempty(dt)
-        dt = 1/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
-      end
+  if isfield(props, 'nsHDF5') || ~isempty(strfind(data_src, '.hdf5'))
+    if isfield(props, 'nsHDF5') && isstruct(props.nsHDF5)
+      % it's much faster to do this only once!
+      ns_h5_info = props.nsHDF5;
+    else
+      ns_h5_info = ns_open_file(data_src, true);
+    end
+    % remove it from props to save space:
+    props.nsHDF5 = [];
+    
+    % read in new info
+    props.Trials = ns_select_trials(ns_h5_info, trace_list);
+    props.cip_list = ns_CIPlist(ns_h5_info, trace_list);
 
-        if ~exist('dy') || isempty(dy)
-          dy = 1 %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
-        end
+    if verbose, props, end
+
+    if ~ isempty(trace_list) && isempty(props.Trials)
+      trace_list
+      props
+      error('Cannot find any of the above trials with ns_select_trials.');
+    end    
+    
+    tr1=trace_list(1); ch=max([obj.vchan 1]);
+    if ~exist('dt') || isempty(dt)
+      dt = 1/props.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+    end
+
+    if ~exist('dy') || isempty(dy)
+      dy = 1 %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+    end
   end
 
   % reading CIP list from the file
@@ -113,7 +141,7 @@ else
   % Create the object 
   obj = class(obj, 'physiol_cip_traceset', ...
 	      params_tests_dataset(trace_list, dt, dy, ...
-				   [ 'traceset ' data_src ' ' ...
+				   [ 'traceset ' neuron_id ' (' data_src '), trials ' ...
 				    trace_str ' ' ], props));
 
 end
