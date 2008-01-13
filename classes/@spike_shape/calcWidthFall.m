@@ -157,10 +157,14 @@ function a_width = find_width_at_val(width_Vm)
       (s.trace.data(start_of_last_ramp) - width_Vm) / ...
       (s.trace.data(start_of_last_ramp) - s.trace.data(start_of_last_ramp - 1));
   
+if length(s.trace.data) > end_of_first_hump
   half_end = end_of_first_hump + ...
       (s.trace.data(end_of_first_hump) - width_Vm) / ...
       (s.trace.data(end_of_first_hump) - ...
        s.trace.data(end_of_first_hump + 1));
+else
+  half_end = end_of_first_hump;
+end
 
   a_width = half_end - half_start;
 end
