@@ -39,6 +39,7 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 %	props: A structure with any optional properties.
 %	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
 %	  nsHDF5: If 1, source is a NeuroSAGE HDF5 file. (see physiol_cip_traceset)
+%	  neuronIdStart: Start counting neuron_id's from this number.
 %	  (All other props are passed to physiol_cip_traceset and cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
@@ -105,7 +106,11 @@ else
     % if an array of physiol_cip_traceset objects is available at this
     % time, construct a neuron_idx structure by counting unique ids.
     obj.neuron_idx = struct;
-    neuron_index = 1;
+    if isfield(props, 'neuronIdStart')
+      neuron_index = props.neuronIdStart;
+    else
+      neuron_index = 1;
+    end
     for a_ts=list
       if ~ isfield(obj.neuron_idx, a_ts{1}.neuron_id)
         obj.neuron_idx.(a_ts{1}.neuron_id) = neuron_index;
