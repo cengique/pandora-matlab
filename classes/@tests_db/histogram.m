@@ -1,10 +1,10 @@
-function a_histogram_db = histogram(db, col, num_bins)
+function a_histogram_db = histogram(db, col, num_bins, props)
 
 % histogram - Generates a histogram_db object with rows corresponding to 
 %		histogram entries.
 %
 % Usage:
-% a_histogram_db = histogram(db, col, num_bins)
+% a_histogram_db = histogram(db, col, num_bins, props)
 %
 % Description:
 %
@@ -13,7 +13,9 @@ function a_histogram_db = histogram(db, col, num_bins)
 %	col: Column to find the histogram.
 %	num_bins: Number of histogram bins (Optional, default=100), or
 %		  vector of histogram bin centers.
-%		
+%	props: A structure with any optional properties.
+%	  normalized: If 1, normalize histogram counts.
+%
 %   Returns:
 %	a_histogram_db: A histogram_db object containing the histogram.
 %
@@ -33,7 +35,11 @@ function a_histogram_db = histogram(db, col, num_bins)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('num_bins')
+if ~ exist('props', 'var')
+  props = struct;
+end
+
+if ~ exist('num_bins', 'var') || isempty(num_bins)
   num_bins = 100;
 end
 
@@ -59,7 +65,7 @@ if num_dbs > 1
   [a_histogram_db(1:num_dbs)] = deal(histogram_db);
   for db_num=1:num_dbs
     % recurse
-    a_histogram_db(db_num) = histogram(db(db_num), col, num_bins);
+    a_histogram_db(db_num) = histogram(db(db_num), col, num_bins, props);
   end  
 
 else
@@ -80,9 +86,13 @@ else
   bins = zeros(1, num_bins);
 end
 
+if isfield(props, 'normalized') && props.normalized == 1
+  hist_results = hist_results ./ max(hist_results);
+end
+
 col_name_cell = fieldnames(col_db.col_idx);
 col_name = col_name_cell{1};
 
 a_histogram_db = histogram_db(col_name, bins', hist_results', ...
-			      [ col_name ' of ' db.id ]);
+			      [ col_name ' of ' db.id ], props);
 end
