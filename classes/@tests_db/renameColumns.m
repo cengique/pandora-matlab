@@ -44,6 +44,12 @@ if iscell(test_names) && num_tests > 1
     a_db = renameColumns(a_db, test_names{col_num}, new_names{col_num});
   end
   return
+elseif iscell(test_names)
+  % only one name, then
+  test_names = test_names{1}; new_names = new_names{1};
+elseif ~ischar(test_names)
+  error(['Inputs for test_names and new_names must be sginle strings or ' ...
+         'multiple strings in a cell array.']);
 end
 
 % Single column mode
