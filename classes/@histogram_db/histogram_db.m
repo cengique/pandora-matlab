@@ -7,7 +7,8 @@ function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 % a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 %
 % Description:
-%   This is a subclass of tests_db. Allows generating a histogram plot, etc.
+%   This is a subclass of tests_db. Allows generating a histogram plot,
+% etc. The histogram count is entered as a column named histVal.
 %
 %   Parameters:
 %	col_name: The column name of the histogrammed value.
