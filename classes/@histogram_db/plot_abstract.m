@@ -65,13 +65,21 @@ colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
 
+% Call it frequency if it's normalized
+a_hist_props = get(a_hist_db, 'props');
+if isfield(a_hist_props, 'normalized') && a_hist_props.normalized == 1
+  hist_label = 'Frequency';
+else
+  hist_label = 'Count';
+end
+
 % if the plot is rotated switch the axis labels
 if strcmp(command, 'barh')
-  x_label = 'Count';
+  x_label = hist_label;
   y_label = strrep(colnames{1}, '_', ' ');
 else
   x_label = strrep(colnames{1}, '_', ' ');
-  y_label = 'Count';
+  y_label = hist_label;
 end
 
 if ~ isfield(props, 'quiet')
@@ -86,7 +94,6 @@ if isfield(props, 'logScale')
   y_label = [ 'log ' y_label ];
 end
 
-<<<<<<< .mine
 if isfield(props, 'lineSpec')
   line_spec = {props.lineSpec};
 else
@@ -101,4 +108,4 @@ end
 % Make a simple plot object drawing vertical bars
 a_plot = plot_abstract({data(:, 1), data(:, 2), line_spec{:}}, ...
 		     {x_label, y_label}, all_title, ...
-		     {colnames{1}}, command, props);
+		     {properTeXLabel(colnames{1})}, command, props);
