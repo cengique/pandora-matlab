@@ -49,7 +49,7 @@ num_in_class = [ diff(unique_idx); (num_outs - unique_idx(end) + 1)];
 num_classes = length(num_in_class);
 
 % do not take more than the samples in the smallest class
-num_samples = max(num_in_class) * num_classes;
+num_samples = min(num_in_class) * num_classes;
 
 % calculate balanced class probabilities
 class_probs = zeros(1, num_classes);
