@@ -1,4 +1,4 @@
-function a_plot = plotrows(a_tests_db, axis_limits, orientation, props)
+function a_plot = plotrows(a_tests_db, axis_limits, orientation, title_str, props)
 
 % plotrows - Creates a plot_stack describing the db rows.
 %
@@ -11,6 +11,7 @@ function a_plot = plotrows(a_tests_db, axis_limits, orientation, props)
 %	a_tests_db: A tests_db object.
 %	axis_limits: If given, all plots contained will have these axis limits.
 %	orientation: Stack orientation 'x' for horizontal, 'y' for vertical, etc.
+%	title_str: Optional title string.
 %	props: A structure with any optional properties passed to plot_stack.
 %		
 %   Returns:
@@ -36,17 +37,21 @@ if ~ exist('orientation')
   orientation = 'y';
 end
 
+if ~ exist('title_str', 'var')
+  title_str = '';
+end
+
 num_rows = dbsize(a_tests_db, 1);
 plots = cell(num_rows, 1);
 for row_num=1:num_rows
   % inverse order for plot_stack
   if row_num == num_rows
      row_plot = ...
-	plotrow(a_tests_db, row_num, struct('putLabels', 1))
+	plotrow(a_tests_db, row_num, title_str, struct('putLabels', 1))
      row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]})
      plots{num_rows - row_num + 1} = row_plot;
   else
-    row_plot = plotrow(a_tests_db, row_num);
+    row_plot = plotrow(a_tests_db, row_num, title_str);
     row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]});
     plots{num_rows - row_num + 1} = row_plot;
   end

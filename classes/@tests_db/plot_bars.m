@@ -50,7 +50,7 @@ else
 end
 
 if ~isfield(props, 'quiet') && ~isfield(get(a_tests_db, 'props'), 'quiet')
-  title_str = [ get(a_tests_db, 'id') title_str ];
+  title_str = properTeXLabel([ get(a_tests_db, 'id') title_str ]);
 end
 
 props.dispErrorbars = 0;

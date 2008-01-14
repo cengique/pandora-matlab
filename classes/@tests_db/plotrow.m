@@ -1,15 +1,16 @@
-function a_plot = plotrow(a_tests_db, row, props)
+function a_plot = plotrow(a_tests_db, row, title_str, props)
 
 % plotrow - Creates a plot_abstract describing the desired db row.
 %
 % Usage:
-% a_plot = plotrow(a_tests_db, row)
+% a_plot = plotrow(a_tests_db, row, props)
 %
 % Description:
 %
 %   Parameters:
 %	a_tests_db: A tests_db object.
 %	row: Row number to visualize.
+%	title_str: Optional title string.
 %	props: A structure with any optional properties.
 %	  putLabels: Put special column name labels.
 %		
@@ -32,6 +33,10 @@ if ~ exist('props')
   props = struct;
 end
 
+if ~ exist('title_str', 'var')
+  title_str = '';
+end
+
 data = a_tests_db.data;
 x_vals = 1:dbsize(a_tests_db, 2);
 %props.XTickLabel = fieldnames(get(a_tests_db, 'col_idx'));
@@ -46,22 +51,41 @@ end
 %rows = [x_vals, data(row, :, 1)];
 %flatrow = num2cell(reshape(rows, 1, 2*length(x_vals)));
 
+if isfield(props, 'quiet')
+  the_title = title_str;
+else
+  the_title = [get(a_tests_db, 'id') title_str ];
+end
+
 a_plot = ...
     plot_abstract({ x_vals, data(row, :, 1) }, {'', ''}, ...
-		  get(a_tests_db, 'id'), {}, 'bar', ...
-		  props);
+		  properTeXLabel(the_title), {}, 'bar', ...
+		  mergeStructs(props, struct('tightLimits', 1)));
 
+add_props = struct;
 if isfield(props, 'putLabels')
-  [label_plots(1:dbsize(a_tests_db, 2))] = deal(plot_abstract);
+  label_plots = cell(1, dbsize(a_tests_db, 2));
+  min_val = min(data(row, :, 1));
 
+  % to make space for labels
+  add_props = ...
+        struct('border', [0.05 0.1 0 0]);
+  
   col_names = fieldnames(get(a_tests_db, 'col_idx'));
   for col=1:dbsize(a_tests_db, 2)
-    label_plots(col) = ...
-	plot_abstract({ col/(dbsize(a_tests_db, 2) + 1), -0.03, col_names{col}, ...
-		       struct('Units', 'normalized', ...
-			      'HorizontalAlignment', 'right', ...
+    label_plots{col} = ...
+	plot_abstract({ col, min_val, properTeXLabel(col_names{col}), ...
+		       struct('HorizontalAlignment', 'right', ...
+                              'VerticalAlignment', 'top', ...
 			      'Rotation', 20)}, {'', ''}, ...
-		      get(a_tests_db, 'id'), {}, 'subTextLabel', props);
+		      properTeXLabel(get(a_tests_db, 'id')), {}, ...
+                      'subTextLabel', props);
+% $$$     plot_abstract({ col/(dbsize(a_tests_db, 2) + 1), -0.03, properTeXLabel(col_names{col}), ...
+% $$$ 		       struct('Units', 'normalized', ...
+% $$$ 			      'HorizontalAlignment', 'right', ...
+% $$$ 			      'Rotation', 20)}, {'', ''}, ...
+% $$$ 		      properTeXLabel(get(a_tests_db, 'id')), {}, 'subTextLabel', props);
   end
-  a_plot = plot_superpose( [a_plot, label_plots], {}, '');
+  a_plot = plot_superpose( [{a_plot}, label_plots], {}, '', ...
+                           mergeStructs(props, add_props));
 end
