@@ -49,6 +49,9 @@ function [base_width, half_width, half_Vm, fixed_Vm_width, fall_time, min_idx, m
 %min_val = s.trace.data(min_idx);
 %max_val = s.trace.data(max_idx);
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 % Find depolarized part (+/- 1mV tolerance)
 depol = find(s.trace.data(floor(max_idx):end) <= (init_val + 1));
 
@@ -129,8 +132,20 @@ else
 end
 
 function a_width = find_width_at_val(width_Vm)
-  
-% Find part above half Vm (measured in dy's)
+
+% check if spike is high enough (at least 3mV below tip)
+  if width_Vm >= (ceil(max_val) - 3e-3 / s.trace.dy)
+    if verbose
+      warning('spike_shape:shorter_than_fixedV', ...
+              [ 'Spike height (' num2str(max_val * s.trace.dy) ...
+                ') shorter than or within 3mV of desired fixed-Vm width value (' ...
+                num2str(width_Vm * s.trace.dy) ')']);
+    end
+    a_width = NaN;
+    return;
+  end
+
+  % Find part above half Vm (measured in dy's)
   start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
   above_half = start_from - 1 + find(s.trace.data(start_from:end) >= width_Vm);
 
@@ -153,18 +168,25 @@ function a_width = find_width_at_val(width_Vm)
     start_of_last_ramp = above_half(1);
   end
 
-  half_start = start_of_last_ramp - ...
-      (s.trace.data(start_of_last_ramp) - width_Vm) / ...
-      (s.trace.data(start_of_last_ramp) - s.trace.data(start_of_last_ramp - 1));
-  
-if length(s.trace.data) > end_of_first_hump
-  half_end = end_of_first_hump + ...
-      (s.trace.data(end_of_first_hump) - width_Vm) / ...
-      (s.trace.data(end_of_first_hump) - ...
-       s.trace.data(end_of_first_hump + 1));
-else
-  half_end = end_of_first_hump;
-end
+  % interpolate only if more data points exist
+  if start_of_last_ramp > 1
+    half_start = start_of_last_ramp - ...
+        (s.trace.data(start_of_last_ramp) - width_Vm) / ...
+        (s.trace.data(start_of_last_ramp) - ...
+         s.trace.data(start_of_last_ramp - 1));
+  else
+    half_start = start_of_last_ramp;
+  end
+
+  % interpolate only if more data points exist
+  if length(s.trace.data) > end_of_first_hump
+    half_end = end_of_first_hump + ...
+        (s.trace.data(end_of_first_hump) - width_Vm) / ...
+        (s.trace.data(end_of_first_hump) - ...
+         s.trace.data(end_of_first_hump + 1));
+  else
+    half_end = end_of_first_hump;
+  end
 
   a_width = half_end - half_start;
 end
