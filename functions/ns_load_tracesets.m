@@ -20,9 +20,14 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
 %	  	  specified, the first voltage channel is used.
 %	  ImChan: (Optional) Similar to VmChan for reading current
 %	  	  trace. Does not affect neuron_id.
-%	  addTreats: Structure of treatment names in lowercase and default values
-%	  	adding and overrriding the defaults 
-%		struct('passiveblockers',0,'cs',0,'apamin',0,'ttx',0, 'attr_4ap', 0).
+%	  addTreats: Structure of default treatment names and their
+%	  	values for this traceset to keep consistent accross 
+%		tracesets. Use only lowercase in treatment names.
+%	  fixTreats: Override wrong treatment information with
+%	  	these. Same format as addTreats.
+%	  renameTreats: Structure with from->to rename pairs.
+%	  trials: A vector of trials to load from the file. All others
+%	  	are skipped.
 %	  (All other props are passed to physiol_cip_traceset)
 %		
 %   Returns:
@@ -43,6 +48,9 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: save hdf_info structure in a standart file after loading, and
+% look for it next time.
+  
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
 
@@ -106,7 +114,14 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
   not_idx = [];
   for l=1:length(idx)
     % && isempty(not_idx{l})
-    if ~isempty(idx{l}) 
+    if isfield(props, 'trials')
+      % check if among the given trials
+      trials = intersect(nfo{l,1}, props.trials);
+    else
+      % otherwise take all
+      trials = nfo{l,1};
+    end
+    if ~isempty(idx{l}) && ~isempty(trials)
       first_trial = h5.Trials{nfo{l,1}(1)};
       
       % read user attributes
@@ -156,12 +171,11 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
       Im_gain = 1;
       
       % default attributes
-      default=struct('passiveblockers',0,'cs',0,'apamin',0,'ttx',0, ...
-                     'attr_4AP', 0);
-      
       if isfield(props, 'addTreats')
         % add more defaults, overriding originals in case of clash
-        default = mergeStructs(props.addTreats, default);
+        default = props.addTreats;
+      else
+        default = struct;
       end
       
       if ~isempty(atts)
@@ -191,8 +205,15 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
           end
         end
       end
+      if isfield(props, 'renameTreats')
+        default = renameTreats(default, props.renameTreats);
+      end
+        
+      if isfield(props, 'fixTreats')
+        % override treatments read with these
+        default = mergeStructs(props.fixTreats, default);
+      end
       atts=default;
-      trials = nfo{l,1}; %trials
       
       if verbose
         atts, n, trials
@@ -229,5 +250,19 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
       error([ 'Cannot find any channels with "' a_dataaxis_str '"' ...
               'in the acquisition data axis for trial ' a_trial.Name ...
               '.' ]);
+    end
+  end
+
+  function treats = renameTreats(treats, rename_struct)
+    for treat_name = fieldnames(rename_struct)'
+      treat_name = treat_name{1};
+      found_name = getfuzzyfield(treats, treat_name);
+      if isfield(treats, lower(treat_name))
+        % exists: rename and delete old
+        % always keep lowercase
+        treats.(lower(rename_struct.(treat_name))) = ...
+            treats.(lower(treat_name));
+        treats = rmfield(treats, lower(treat_name));
+      end
     end
   end
