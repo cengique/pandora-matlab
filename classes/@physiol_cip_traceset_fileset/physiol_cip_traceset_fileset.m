@@ -107,16 +107,23 @@ else
     % time, construct a neuron_idx structure by counting unique ids.
     obj.neuron_idx = struct;
     if isfield(props, 'neuronIdStart')
-      neuron_index = props.neuronIdStart;
+      neuron_id = props.neuronIdStart;
     else
-      neuron_index = 1;
+      neuron_id = 1;
     end
+    all_treatments = struct;
+    % count neuron_ids and also make global list of treatments
     for a_ts=list
       if ~ isfield(obj.neuron_idx, a_ts{1}.neuron_id)
-        obj.neuron_idx.(a_ts{1}.neuron_id) = neuron_index;
-        neuron_index = neuron_index + 1;
+        obj.neuron_idx.(a_ts{1}.neuron_id) = neuron_id;
+        neuron_id = neuron_id + 1;
       end
+      % collect treatments
+      all_treatments = mergeStructs(a_ts.treatments, all_treatments);
     end
+    % go over the list again to set zeros for missing treatments
+    for a_ts=list
+    end    
   elseif isstr(traceset_items)
       % read ASCII file, make each line an item in a cell array
       tcell = textread(traceset_items, '%s', 'delimiter', '\n', 'commentstyle','matlab');
@@ -128,7 +135,11 @@ else
       chaninfo = cell(length(tcell), 1);
       tmts = cell(length(tcell), 1);
       list = cell(length(tcell), 1);    
-      neuron_id = 1;
+      if isfield(props, 'neuronIdStart')
+        neuron_id = props.neuronIdStart;
+      else
+        neuron_id = 1;
+      end
       traceset_items_str = traceset_items;
 
       for n = 1:length(tcell)
@@ -193,6 +204,7 @@ else
                     sprintf('Error is in line %d of input file', n)
                     error('');
                 end
+                % set default values of 0 for all treatments (!)
                 tmtstruct = setfield(tmtstruct, ttm{m, 1}, 0);
             end
         end
