@@ -65,6 +65,7 @@ nargs = nargin;
 if (nargin<2)
    g = [];
 elseif (nargin>1 & (isequal(g,1) | isequal(g,0)))
+   if (nargin>5), props = whis; end
    if (nargin>4), whis = vert; end
    if (nargin>3), vert = sym; end
    if (nargin>2), sym = notch; end
