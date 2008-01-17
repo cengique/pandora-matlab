@@ -97,7 +97,7 @@ end
 if isfield(props, 'lineSpec')
   line_spec = {props.lineSpec};
 else
-  lineSpec = {};
+  line_spec = {};
 end
 
 if isfield(props, 'shading') && strcmp(props.shading, 'flat')
