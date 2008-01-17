@@ -32,6 +32,10 @@ function a_pbundle = physiol_bundle(phys_dball, phys_dataset, props)
 % $Id: physiol_bundle.m,v 1.4 2006/02/08 23:18:29 cengiz Exp $
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/21
 
+  if ~ exist('props')
+    props = struct;
+  end
+
 % Weed out any traces with |bias| > 30 pA
 phys_db_small_bias = phys_dball(phys_dball(:, 'pAbias') > -30 & phys_dball(:, 'pAbias') < 30, :);
 
