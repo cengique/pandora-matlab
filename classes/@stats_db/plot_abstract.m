@@ -6,7 +6,6 @@ function a_plot = plot_abstract(a_stats_db, title_str, props)
 % a_plot = plot_abstract(a_stats_db, title_str, props)
 %
 % Description:
-
 %   Generates a plot_simple object from this histogram. Looks for 'mean',
 % 'min', 'max', and 'STD' labels in the row_idx for drawing the
 % errorbars. Each column of a_stats_db is shown in a separate

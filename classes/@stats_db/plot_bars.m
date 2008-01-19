@@ -90,6 +90,8 @@ end
 stats_props = get(a_stats_db, 'props');
 if isfield(stats_props, 'axis_limits')
   axis_limits = stats_props.axis_limits;
+elseif isfield(props, 'axis_limits')
+  axis_limits = props.axis_limits;
 else
   axis_limits = [];
 end

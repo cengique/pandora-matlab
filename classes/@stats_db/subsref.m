@@ -22,8 +22,7 @@ if size(index, 2) > 1
 else
   switch index.type
     case '()'
-      % Delegate to base class
-      b = onlyRowsTests(a.tests_3D_db, index.subs{:});
+      b = onlyRowsTests(a, index.subs{:});
     case '.'
       b = get(a, index.subs); 
       % eval(['a.' index.subs]);
