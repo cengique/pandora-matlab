@@ -40,6 +40,10 @@ if ~exist('props', 'var')
   props = struct;
 end
 
+if ~exist('query_id', 'var')
+  query_id = [ 'Query ' query_string ' from ' get(a_sql_portal, 'id') ];
+end
+
 % only numeric data
 setdbprefs('DataReturnFormat','numeric');
 
@@ -97,6 +101,11 @@ else
     a_cursor
     error(['Error in SQL query:' sprintf('\n') a_cursor.Message]);
   end
+  
+  if verbose
+    a_cursor
+  end
+
 end
 
 
