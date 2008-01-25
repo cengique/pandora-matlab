@@ -33,6 +33,9 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 col_names = getColNames(db);
 with_col_names = getColNames(with_db);
 
@@ -49,9 +52,11 @@ if dbsize(db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
     common_cols = col_names(sort(db_idx));
     % return same for both
     [col_names, with_col_names] = deal(common_cols);
-    % give a warning (TODO: make it optional?)
-    warning(['DBs have mismatching columns, using lowest common denominator ' ...
-             'columns.']);
+    % give a warning
+    if verbose
+      warning(['DBs have mismatching columns, using lowest common denominator ' ...
+               'columns.']);
+    end
   else
     error(['Need to have same columns with same names in db and ' ...
            'with_db.']);
