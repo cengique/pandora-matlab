@@ -13,7 +13,7 @@ function a_db = rop(left_obj, right_obj, op_func, op_id)
 % align columns.
 %
 % Parameters:
-%   left_obj, right_obj: Operands of the addition. One must be of type tests_db
+%   left_obj, right_obj: Operands of the operation. One must be of type tests_db
 %		and the other can be a scalar or tests_db.
 %   op_func: Operation function (e.g., @plus).
 %   op_id: A string to represent the operation that will show up in the
@@ -21,9 +21,6 @@ function a_db = rop(left_obj, right_obj, op_func, op_id)
 %		
 % Returns:
 %   a_db: The resulting tests_db.
-%   left_data, right_data: Left and right operands.
-%   id: The id of the new database contructed from the operation name and
-%   	DB ids.
 %
 % See also: tests_db/plus, tests_db/minus, tests_db/mtimes, tests_db/rdivide
 %
