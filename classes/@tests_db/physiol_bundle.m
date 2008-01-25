@@ -286,7 +286,7 @@ phys_joined_control_db = ...
     set(phys_joined_control_db, 'id', [phys_joined_control_db.id ' (control cells)']);
 
 % all parameters kept here to access original traceset items
-phys_db = phys_dball(:, 1:get(phys_dball, 'num_params'));
+phys_db = phys_dball(:, { 1:get(phys_dball, 'num_params'), 'ItemIndex'});
 
 % create the bundle
 a_pbundle = ...
