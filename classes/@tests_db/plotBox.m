@@ -12,6 +12,7 @@ function a_plot = plotBox(a_tests_db, title_str, props)
 %	title_str: Optional title.
 %	props: A structure with any optional properties.
 %	  putLabels: Put special column name labels.
+%	  notch: If 1, put notches on boxplots (default=1).
 %		
 %   Returns:
 %	a_plot: A plot_abstract object that can be plotted.
@@ -36,7 +37,9 @@ if ~ exist('title_str')
   title_str = '';
 end
 
-if ~ exist('notch')
+if isfield(props, 'notch')
+   notch = props.notch;
+else
    notch = 1;
 end
 
@@ -69,5 +72,4 @@ a_plot = ...
     plot_abstract({get(a_tests_db, 'data'), ...
                    notch, sym, vert, whis, struct('nooutliers', 1)}, ...
                   {'', properTeXLabel(col_name)}, ...
-                  all_title, {}, 'boxplotp', mergeStructs(props, ...
-                                                  struct('tightLimits', 1)));
+                  all_title, {}, 'boxplotp', props); % mergeStructs(, struct)('tightLimits', 1)
