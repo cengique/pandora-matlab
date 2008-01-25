@@ -35,11 +35,7 @@ if ~exist('props')
   props = struct;
 end
 
-if isa(a_db, 'tests_db')
-  traceset_vals = get(onlyRowsTests(a_db, ':', 'TracesetIndex'), 'data');
-else
-  traceset_vals = a_db;
-end
+traceset_vals = item2TracesetIndex( a_pbundle, a_db );
 
 p_db = get(a_pbundle, 'db');
 rows = anyRows(onlyRowsTests(p_db, ':', 'TracesetIndex'), traceset_vals);

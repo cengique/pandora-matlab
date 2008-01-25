@@ -31,5 +31,8 @@ if ~exist('props')
   props = struct;
 end
 
+traceset_index = item2TracesetIndex( a_bundle, traceset_index );
+traceset_index = traceset_index(1);     % take only one
+
 a_label = properTeXLabel([ get(getItem(get(a_bundle, 'dataset'), traceset_index), 'id') ...
 			  '(s' num2str(traceset_index) ')']);
