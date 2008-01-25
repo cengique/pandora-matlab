@@ -296,8 +296,10 @@ for plot_num=1:num_plots
   current_axis = axis;
   if ~ isempty(a_plot.axis_limits)
     infs = isinf(a_plot.axis_limits);
-    % replace the infs from the maximal ranges
-    a_plot.axis_limits(infs) = maximal_ranges(infs);
+    if any(infs)
+      % replace the infs from the maximal ranges
+      a_plot.axis_limits(infs) = maximal_ranges(infs);
+    end
     current_axis = setAxisNonNaN(a_plot.axis_limits);
   end
   if isfield(a_plot_props, 'relaxedLimits') && a_plot_props.relaxedLimits == 1
