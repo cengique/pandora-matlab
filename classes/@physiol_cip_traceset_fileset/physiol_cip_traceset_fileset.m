@@ -70,6 +70,9 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: preprocessing parts should become private functions and must be
+% used when concatenating filesets
+
 if nargin == 0 % Called with no params
   obj.neuron_idx = struct([]);
   obj = class(obj, 'physiol_cip_traceset_fileset', params_tests_dataset);
@@ -119,10 +122,14 @@ else
         neuron_id = neuron_id + 1;
       end
       % collect treatments
-      all_treatments = mergeStructs(a_ts.treatments, all_treatments);
+      all_treatments = mergeStructs(a_ts{1}.treatments, all_treatments);
     end
+    % reset treatment values to zero
+    treat_names = fieldnames(all_treatments);
+    zero_treatments = cell2struct(repmat({0}, length(treat_names), 1), treat_names);
     % go over the list again to set zeros for missing treatments
-    for a_ts=list
+    for ts_num = 1:length(list)
+      list{ts_num}.treatments = mergeStructs(list{ts_num}.treatments, zero_treatments);
     end    
   elseif isstr(traceset_items)
       % read ASCII file, make each line an item in a cell array
