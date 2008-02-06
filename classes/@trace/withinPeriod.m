@@ -1,15 +1,17 @@
-function obj = withinPeriod(t, a_period)
+function obj = withinPeriod(t, a_period, props)
 
 % withinPeriod - Returns a trace object valid only within the given period.
 %
 % Usage:
-% obj = withinPeriod(t, a_period)
+% obj = withinPeriod(t, a_period, props)
 %
 % Description:
 %
 %   Parameters:
 %	t: A trace object.
 %	a_period: The desired period
+%	props: A structure with any optional properties.
+%	  useAvailable: If 1, don't stop if period not available, use maximum available.
 %
 %   Returns:
 %	obj: A trace object
@@ -30,8 +32,16 @@ function obj = withinPeriod(t, a_period)
 % TODO:
 % - Relate this method by overloading an abstract class/interface duration(?) 
 
+if ~ exist('props', 'var')
+  props = struct;
+end
+
 try
-t.data = t.data(a_period.start_time:a_period.end_time);
+    if isfield(props, 'useAvailable')
+      t.data = t.data(max(1, a_period.start_time):min(a_period.end_time, length(t.data)));
+    else
+      t.data = t.data(a_period.start_time:a_period.end_time);
+    end
 catch
   err = lasterror;
   if err.identifier == 'MATLAB:badsubscript'
