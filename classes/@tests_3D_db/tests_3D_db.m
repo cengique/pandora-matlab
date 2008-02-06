@@ -46,11 +46,17 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: merge this class into tests_db. There's no reason to restrict one
+% to 2D.
+
 if nargin == 0 % Called with no params
   a_3D_db.page_idx = struct([]);
   a_3D_db = class(a_3D_db, 'tests_3D_db', tests_db);
 elseif isa(data, 'tests_3D_db') % copy constructor?
   a_3D_db = data;
+elseif isa(data, 'tests_db') % upgrade from tests_db
+  a_3D_db.page_idx = struct;
+  a_3D_db = class(a_3D_db, 'tests_3D_db', data);
 else
 
    if ~ exist('props')
