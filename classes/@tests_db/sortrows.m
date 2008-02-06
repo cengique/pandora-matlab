@@ -6,8 +6,8 @@ function [sorted_db, idx] = sortrows(db, cols)
 % [sorted_db, idx] = sortrows(db, cols)
 %
 % Description:
-%   For multi-page dbs, sorts only the first page and applies the ordering 
-% to all other pages (which is WRONG!)
+%   WARNING: For multi-page dbs, sorts only the first page and applies the ordering 
+% to all other pages which may produce wrong results for some applications.
 %
 %   Parameters:
 %	db: A tests_db object.
