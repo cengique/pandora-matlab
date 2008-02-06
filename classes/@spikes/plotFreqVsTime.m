@@ -12,6 +12,7 @@ function a_plot = plotFreqVsTime(s, title_str, props)
 %	s: A spikes object.
 %	title_str: (Optional) String to append to plot title.
 %	props: A structure with any optional properties.
+%	  timeScale: 's' for seconds, or 'ms' for milliseconds.
 %	  type: If 'simple' plots 1/is for each spike time, 
 %		'manhattan' uses flat lines of 1/isi height between spike times (default).
 %	  (others passed to plot_abstract)
@@ -123,4 +124,4 @@ end
 
 a_plot = plot_abstract({stimes, freqs}, ...
 		       {x_label, 'firing rate [Hz]'}, ...
-		       the_title, { the_legend }, 'plot', props);
+		       properTeXLabel(the_title), { properTeXLabel(the_legend) }, 'plot', props);
