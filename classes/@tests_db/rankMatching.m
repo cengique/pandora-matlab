@@ -97,7 +97,7 @@ end
 % (do all at once without using temporary variables to save memory)
 
 % Measure differences
-wghd_data = get(db(':', crit_tests), 'data') - (ones(dbsize(db, 1), 1) * first_row.data);
+wghd_data = get(onlyRowsTests(db, ':', crit_tests), 'data') - (ones(dbsize(db, 1), 1) * first_row.data);
 
 % Replicate STD row for all
 second_row_matx = ones(dbsize(db, 1), 1) * second_row_data;
