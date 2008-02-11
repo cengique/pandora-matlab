@@ -40,8 +40,13 @@ for plot_num = 1:num_plots
     % only allow the first plot to open the axis
     layout_axis = NaN; % NaN means don't open new axis
     hold all;
+    to_plot = a_plot.plots{plot_num};
+  else
+    % Merge props from plot_superpose and first plot
+    to_plot = set(a_plot.plots{1}, 'props', ...
+                                mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
   end
-  handles = plot(a_plot.plots{plot_num}, layout_axis); 
+  handles = plot(to_plot, layout_axis); 
   all_handles = [all_handles, handles];
 end
 hold off;
