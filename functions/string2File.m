@@ -11,6 +11,7 @@ function string2File(string, filename, props)
 % 	string: To be written into file.
 %	filename: The file to be created.
 %	props: A structure with any optional properties.
+%	  append: If 1, append to existing file.
 %		
 %   Returns:
 %
@@ -25,8 +26,17 @@ function string2File(string, filename, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if exist('filename') && ~ isempty(filename)
-  fp = fopen(filename, 'w');
+if ~ exist('props', 'var')
+  props = struct;
+end
+
+if exist('filename', 'var') && ~ isempty(filename)
+  if isfield(props, 'append')
+    write_mode = 'a';
+  else
+    write_mode = 'w';
+  end
+  fp = fopen(filename, write_mode);
   fprintf(fp, '%s', string);
   fclose(fp);
 end
