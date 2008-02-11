@@ -4,7 +4,7 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
-v1_1b: Cengiz Gunay, 2007/12/05. Public beta bugfix and feature release. 
+v1_1b: Cengiz Gunay, 2008/02/11. Public beta bugfix and feature release. 
 	Warning: old physiol_cip_traceset_fileset objects will be incompatible and will have to be re-created.
 	- Added SQL import/export functions using Matlab Database Toolbox.
 	- improved HDF5 acquisition data and metadata import with ns_load_traces.
