@@ -30,7 +30,7 @@ function isi = getISIs(s, a_period)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % By default apply to the whole of s
-if exist('a_period')
+if exist('a_period', 'var') && ~ isempty(a_period)
   s = withinPeriod(s, a_period);
 end
 

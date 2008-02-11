@@ -27,6 +27,10 @@ function cv = ISICV(s, a_period)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+if ~ exist('a_period', 'var')
+  a_period = [];
+end
+
 ISIs = getISIs(s, a_period);
 
 if length(ISIs) ~= 0

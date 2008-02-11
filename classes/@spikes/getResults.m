@@ -33,7 +33,7 @@ if ~ exist('plotit')
 end
 
 % Check for empty object first.
-if isempty(s.trace.data) 
+if isempty(s.times) 
   results.spikeRate = 0;
   results.spikeRateISI = 0;
   results.ISICV = NaN;
@@ -41,8 +41,7 @@ if isempty(s.trace.data)
 end
 
 % convert all to ms/mV(mA)
-ms_factor = 1e3 * s.trace.dt;
-mV_factor = 1e3 * s.trace.dy;
+ms_factor = 1e3 * s.dt;
 
 % Run tests
 results.spikeRate = spikeRate(s);
