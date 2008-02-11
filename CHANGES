@@ -4,21 +4,31 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
-v1_1b: Cengiz Gunay, 2007/12/05. Public beta bugfix and feature release
-	- Added SQL import function using Matlab Database Toolbox.
+v1_1b: Cengiz Gunay, 2007/12/05. Public beta bugfix and feature release. 
+	Warning: old physiol_cip_traceset_fileset objects will be incompatible and will have to be re-created.
+	- Added SQL import/export functions using Matlab Database Toolbox.
+	- improved HDF5 acquisition data and metadata import with ns_load_traces.
+	- simplified database + dataset bundle generation from raw physiology data.
 	- Tom Sangrey added customized Butterworth filters for traces 
 	  sampled at rates other than 10KHz.
 	- Li Su provided bugfix to his improved findspikes routine.
 	- Added examples to manual.
 	- Added missing functions such as gettracelist2
-	- Improved chan_db plots.
-	- Improved doc_plot, can reference using labels now.
-	- Other plot enhancements.
-	- Major bugfix for NaNs in compareRows, joinRows, and plotScatter
-	- added a 'unique' operator to tests_db
+	- improved plotting:
+		- Improved chan_db plots.
+		- Improved doc_plot, can reference using labels now.
+		- histogram plots can normalize.
+		- plot_stack can now find maximal ranges.
+		- can display database values with boxplots.
+		- Other miscellaneous plot enhancements.
+	- Major bugfix for NaNs in compareRows, joinRows, princomp, and plotScatter
+	- added several new overloaded operators to tests_db, such as unique, sqrt, uminus
 	- Documentation update.
-	- plot_stack can now find maximal ranges.
+	- can make a database from matlab structure.
+	- added spike width calculation at a fixed voltage.
 	- changed the way joinRows uses parameters.
+	- added tests_db/approxMappingNNet function that uses the Neural Network Toolbox.
+		- added option to balance input probabilities of classes to map.
 
 v1_0b: Cengiz Gunay, 2007/10/10. First public beta release
 	- moved to subversion control from CVS
