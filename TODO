@@ -1,5 +1,6 @@
 TODO
 --------------------
+- add support for neuroshare matlab import
 - change names of major classes to make more sense
 - modify license to include attribution in scientific publications
 - add test suite?

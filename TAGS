@@ -43,15 +43,17 @@ classes/@plot_superpose/get.m,33
 function b 1,0
   errstr 14,468
 
-classes/@plot_superpose/plot.m,182
+classes/@plot_superpose/plot.m,224
 function handles 1,0
 %  axes('position', layout_axis)32,838
 num_plots 35,877
 all_handles 37,912
     hold all;42,1079
-  handles 44,1099
-  all_handles 45,1155
-hold off;47,1199
+    to_plot 43,1093
+    to_plot 46,1191
+  handles 49,1345
+  all_handles 50,1386
+hold off;52,1430
 
 classes/@plot_superpose/plot_superpose.m,270
 function obj 1,0
@@ -194,49 +196,51 @@ classes/@trace/getDy.m,28
 function dy 1,0
 dy 32,656
 
-classes/@trace/findFilteredSpikes.m,710
+classes/@trace/findFilteredSpikes.m,730
 function 1,0
 fields 47,1749
 fd 48,1773
 dn_threshold = -2;mat');49,1838
 prepend_size 61,2095
-  data 63,2149
-  err 67,2376
-  b 80,2825
-  a 81,2855
-  filtered 82,2885
-  b 83,2918
-  a 84,2947
-  filtered=85,2976
-  filtered 92,3226
-    up_threshold 100,3461
-  up_threshold 103,3538
-filtered 107,3593
-data 108,3649
-newtimes 119,3958
-newpeaks 120,3973
-newn 121,3988
-lasttime 123,4026
-  old_time 130,4251
-  period_before 141,4602
-  period_after 142,4640
-  min1 143,4678
-  min2 144,4747
-    real_time 151,5019
-    real_time 155,5166
-      continue;163,5477
-    newtimes 167,5528
-    newpeaks 168,5566
-    newn 169,5604
-    lasttime 170,5625
-times 186,5996
-peaks 187,6040
-n 188,6058
+period_len 62,2145
+  data 64,2203
+  err 70,2518
+  b 83,2967
+  a 84,2997
+  filtered 85,3027
+  b 86,3060
+  a 87,3089
+  filtered=88,3118
+  filtered 95,3368
+    up_threshold 103,3603
+  up_threshold 106,3680
+filtered 110,3735
+data 111,3791
+newtimes 122,4100
+newpeaks 123,4115
+newn 124,4130
+lasttime 126,4168
+  old_time 133,4393
+  period_before 144,4744
+  period_after 145,4782
+  min1 146,4820
+  min2 147,4889
+    real_time 154,5161
+    real_time 158,5308
+      continue;166,5619
+    newtimes 170,5670
+    newpeaks 171,5708
+    newn 172,5746
+    lasttime 173,5767
+times 189,6138
+peaks 190,6182
+n 191,6200
 
-classes/@trace/withinPeriod.m,45
+classes/@trace/withinPeriod.m,73
 function obj 1,0
-  err 36,882
-obj 45,1172
+      t.data data43,1156
+  err 46,1232
+obj 55,1522
 
 classes/@trace/spikes.m,100
 function obj 1,0
@@ -551,9 +555,9 @@ elseif strcmp(157,4537
     this_width 288,8827
     this_height 289,8855
   position 291,8918
-    current_axis 301,9308
-    axis_height 306,9542
-hold off;317,9908
+    current_axis 303,9337
+    axis_height 308,9571
+hold off;319,9937
 
 classes/@plot_stack/plot_stack.m,283
 function a_plot 1,0
@@ -983,27 +987,27 @@ function s 1,0
 
 classes/@spikes/plotFreqVsTime.m,503
 function a_plot 1,0
-% If input is an array,43,1250
-    x_label 61,1641
-    time_factor 63,1679
-    x_label 64,1709
-% Remove all '_' characters,67,1741
-class_name 68,1817
-freqs 70,1859
-      stimes 82,2150
-    freqs 84,2182
-      num_stimes 89,2294
-      new_stimes 90,2337
-      stimes 95,2521
-      new_freqs 98,2563
-      freqs 101,2689
-      stimes 104,2730
-      freqs 105,2754
-class_name 112,2864
-the_title 113,2905
-the_legend 115,2997
-    the_legend 119,3096
-a_plot 124,3140
+% If input is an array,44,1308
+    x_label 62,1699
+    time_factor 64,1737
+    x_label 65,1767
+% Remove all '_' characters,68,1799
+class_name 69,1875
+freqs 71,1917
+      stimes 83,2208
+    freqs 85,2240
+      num_stimes 90,2352
+      new_stimes 91,2395
+      stimes 96,2579
+      new_freqs 99,2621
+      freqs 102,2747
+      stimes 105,2788
+      freqs 106,2812
+class_name 113,2922
+the_title 114,2963
+the_legend 116,3055
+    the_legend 120,3154
+a_plot 125,3198
 
 classes/@spikes/SFA.m,32
 function sfa 1,0
@@ -1067,6 +1071,10 @@ plot_rows 43,1181
   % fixed y-axis bounds, but flexible x-axis axis72,1939
 vprops 77,2146
 a_plot_stack 81,2277
+
+classes/@params_tests_db/meanDuplicateParams.m,59
+function a_params_tests_db 1,0
+a_params_tests_db 34,1140
 
 classes/@params_tests_db/onlyRowsTests.m,64
 function obj 1,0
@@ -1199,15 +1207,19 @@ pp_coefs 35,1145
   j2_db 49,1721
     pp_coefs{pp_coefs54,1967
 
-classes/@params_tests_db/mergeMultipleCIPsInOne.m,201
+classes/@params_tests_db/mergeMultipleCIPsInOne.m,304
 function cip_fold_db 1,0
-% Fold into multiple pages,50,2071
-cip_fold_db 51,2123
-num_pages 53,2178
-page_suffixes 56,2264
-tests_cell 57,2309
-cip_fold_db 72,2832
-% Get the parameters back 74,2899
+% Fold into multiple pages,55,2332
+cip_fold_db 56,2384
+  db_cip_levels 61,2537
+  num_cip_levels 65,2667
+  new_cip_fold_data 66,2711
+  cip_fold_db 75,3052
+page_suffixes 79,3167
+tests_cell 80,3212
+num_pages 89,3516
+cip_fold_db 96,3771
+% Get the parameters back 98,3838
 
 classes/@params_tests_db/getParamRowIndices.m,186
 function row_indices 1,0
@@ -1337,28 +1349,37 @@ classes/@physiol_bundle/get.m,33
 function b 1,0
   errstr 14,451
 
-classes/@physiol_bundle/physiol_bundle.m,139
+classes/@physiol_bundle/physiol_bundle.m,207
 function a_bundle 1,0
-  a_bundle 45,1718
-  a_bundle 47,1845
-  a_bundle.joined_control_db joined_control_db53,1927
-  a_bundle 56,2084
+  a_bundle 47,1813
+  a_bundle 49,1937
+  end53,2009
+    a_bundle.joined_control_db joined_control_db63,2316
+  % TODO: do not remove anything from a_db,66,2375
+  a_bundle 68,2519
 
 classes/@physiol_bundle/getNeuronRowIndex.m,66
 function a_row_index 1,0
 joined_db 40,1167
 a_row_index 42,1208
 
-classes/@physiol_bundle/ctFromRows.m,100
+classes/@physiol_bundle/ctFromRows.m,98
 function a_cip_trace 1,0
-  traceset_vals 41,1388
-p_db 44,1417
-rows 45,1446
-a_cip_trace 55,1722
+traceset_vals 38,1284
+p_db 40,1340
+rows 41,1369
+a_cip_trace 51,1645
 
-classes/@physiol_bundle/getNeuronLabel.m,38
+classes/@physiol_bundle/getNeuronLabel.m,86
 function a_label 1,0
-a_label 34,944
+traceset_index 34,944
+traceset_index 35,1009
+a_label 37,1066
+
+classes/@physiol_bundle/private/item2TracesetIndex.m,80
+function traceset_index 1,0
+    common_cols 11,425
+    traceset_index 21,877
 
 classes/@physiol_bundle/plotfICurveStats.m,268
 function a_plot 1,0
@@ -1402,77 +1423,82 @@ function b 1,0
     a(1).(attr)36,969
     b 37,992
 
-classes/@physiol_cip_traceset/physiol_cip_traceset.m,681
+classes/@physiol_cip_traceset/physiol_cip_traceset.m,816
 function obj 1,0
-%   This is a subclass of params_tests_dataset. Each trace varies in bias,10,299
-  obj.vchan vchan61,2472
-  obj.ichan ichan62,2489
-  obj.vgain vgain63,2506
-  obj.igain igain64,2523
-  obj.treatments treatments65,2540
-  obj.id id66,2571
-  obj 67,2586
-  obj 69,2718
-  obj.data_src data_src73,2744
-  obj.vchan vchan74,2771
-  obj.ichan ichan75,2798
-  obj.vgain vgain76,2825
-  obj.igain igain77,2852
-  obj.treatments treatments78,2879
-  obj.id id79,2910
-  trace_list 85,3020
-      trace_list 89,3113
-      trace_str 90,3143
-      props.cip_list cip_list99,3370
-      tr1=101,3430
-      tr1=trace_list(1); ch=101,3430
-  obj 114,3781
+%   This is a subclass of params_tests_dataset. Each trace varies in bias,10,313
+verbose 63,2618
+  obj.vchan vchan67,2713
+  obj.ichan ichan68,2730
+  obj.vgain vgain69,2747
+  obj.igain igain70,2764
+  obj.treatments treatments71,2781
+  obj.neuron_id neuron_id72,2812
+  obj 73,2834
+  obj 75,2966
+  obj.data_src data_src79,2992
+  obj.vchan vchan80,3019
+  obj.ichan ichan81,3046
+  obj.vgain vgain82,3073
+  obj.igain igain83,3100
+  obj.treatments treatments84,3127
+  obj.neuron_id neuron_id85,3158
+  trace_list 91,3282
+      trace_list 95,3375
+      trace_str 96,3405
+      ns_h5_info 112,3825
+    props.nsHDF5 nsHDF5115,3924
+    props.Trials Trials118,3975
+    props.cip_list cip_list119,4036
+    tr1=129,4297
+    tr1=trace_list(1); ch=129,4297
+  obj 142,4629
 
-classes/@physiol_cip_traceset/CIPform.m,1119
+classes/@physiol_cip_traceset/CIPform.m,1148
 function 1,0
   warning off MATLAB:polyfit:PolyNotUnique;PolyNotUnique36,1174
   traceset_props 41,1352
     cipList 46,1529
   %	cipList 48,1600
-    pulse 54,1806
-    on 55,1842
-    off 56,1903
-    ciptype 57,1969
-    bias 58,1996
-    current 59,2010
-    finish 60,2101
-      bias 64,2205
-    nSD 68,2275
-    current 70,2393
-    % method 73,2591
-    windowsize 76,2714
-    filtcurr 80,2895
-    filtcurr 82,2999
-    dt 83,3070
-    maxc 84,3100
-    minc 85,3126
-    stdev 86,3152
-    bsln 87,3187
-      off 91,3339
-      ciptype 92,3368
-      tmp 95,3512
-      ciptype 96,3569
-      tmp 99,3649
-      ciptype 100,3706
-    % extract pulse start & end times 103,3739
-      off 106,3889
-    %	figure(hfig); plot(filtcurr, '-green'); hold on;119,4425
-    %	figure;120,4480
-    %	figure; plot(current, '-blue'); hold on;120,4480
-      pulse 124,4615
-      bias=126,4641
-      pulse 128,4745
-      %    	pulse 129,4787
-      tvec 131,4893
-      pulseidx 132,4930
-      elseif pulseidx 135,5033
-      elseif pulseidx 137,5085
-      elseif abs(tvec(pulseidx + 1) - pulse) > abs(139,5159
+      idx 56,1879
+    pulse 58,1942
+      off 61,2067
+      off 66,2302
+    ciptype 68,2373
+    bias 69,2400
+    current 70,2414
+    finish 71,2505
+      bias 75,2609
+    nSD 80,2680
+    current 82,2798
+    % method 85,2996
+    windowsize 88,3119
+    filtcurr 92,3300
+    filtcurr 94,3404
+    dt 95,3475
+    maxc 96,3505
+    minc 97,3531
+    stdev 98,3557
+    bsln 99,3592
+      off 103,3744
+      ciptype 104,3773
+      tmp 107,3917
+      ciptype 108,3974
+      tmp 111,4054
+      ciptype 112,4111
+    % extract pulse start & end times 115,4144
+      off 118,4294
+    %	figure(hfig); plot(filtcurr, '-green'); hold on;131,4830
+    %	figure;132,4885
+    %	figure; plot(current, '-blue'); hold on;132,4885
+      pulse 136,5020
+      bias=138,5046
+      pulse 140,5150
+      %    	pulse 141,5192
+      tvec 143,5298
+      pulseidx 144,5335
+      elseif pulseidx 147,5438
+      elseif pulseidx 149,5490
+      elseif abs(tvec(pulseidx + 1) - pulse) > abs(151,5564
 
 classes/@physiol_cip_traceset/set.m,70
 function a 1,0
@@ -1502,12 +1528,6 @@ function a_profile 1,0
   a_cip_trace 55,1994
   a_profile 56,2044
 
-classes/@physiol_cip_traceset/subsref.m,60
-function b 1,0
-  b 12,434
-      b 18,550
-      b 20,599
-
 classes/@physiol_cip_traceset/cip_trace.m,349
 function a_cip_trace 1,0
 % First call CIPform and get necessary parameters40,1233
@@ -1520,9 +1540,9 @@ new_props=45,1435
   param_names 61,1963
   param_vals 62,2001
     trace_id 67,2210
-traceset_props 76,2450
-  trace_props 82,2656
-a_cip_trace 85,2697
+traceset_props 76,2457
+  trace_props 82,2663
+a_cip_trace 85,2704
 
 classes/@physiol_cip_traceset/loadItemProfile.m,24
 function a_profile 1,0
@@ -1616,6 +1636,35 @@ function obj 1,0
     a(1).(attr)36,971
     obj 37,994
 
+classes/@tests_db/physiol_bundle.m,758
+function a_pbundle 1,0
+phys_db_small_bias 40,1564
+phys_db_limitedcip 43,1682
+% remove unnecessary params before averaging 47,1851
+  weed_cols 52,2000
+phys_db_limitedcip 54,2078
+phys_db_limitedcip_addedcols3 58,2175
+phys_mean_db 69,2685
+pulse_spike_tests 107,4009
+recov_spike_tests 142,5199
+ini_spont_tests 177,6389
+pulse_rate_tests 183,6525
+pulse_hyper_pot_tests 199,7011
+recov_rate_tests 206,7167
+merge_args 226,7741
+phys_2_join_db 236,8289
+% get the main values 241,8501
+phys_joined_std_db 247,8680
+num_params 252,9034
+existing_rows 253,9082
+phys_joined_added_db1 257,9237
+phys_joined_added_db 272,9824
+  drug_cols 279,10028
+phys_joined_control_db 281,10105
+phys_joined_control_db 285,10277
+phys_db 289,10455
+a_pbundle 292,10550
+
 classes/@tests_db/mtimes.m,19
 function a_db 1,0
 
@@ -1693,6 +1742,12 @@ function col_vector 60,1626
   % For each unique row to next,70,1896
       page_rows 75,2103
 
+classes/@tests_db/uop.m,59
+function a_db 1,0
+a_db 35,978
+a_db 36,995
+a_db 37,1026
+
 classes/@tests_db/approxMappingNNet.m,197
 function 1,0
     num_passes 100,3386
@@ -1762,7 +1817,7 @@ col_names 39,919
 classes/@tests_db/set.m,16
 function a 1,0
 
-classes/@tests_db/plotrow.m,243
+classes/@tests_db/plotrow.m,281
 function a_plot 1,0
 data 40,1021
 x_vals 41,1045
@@ -1772,15 +1827,18 @@ props.grid grid44,1161
 %flatrow flatrow52,1336
   the_title 57,1451
 a_plot 60,1506
-  col_names 68,1719
-  a_plot 77,2137
+add_props 65,1679
+  min_val 68,1778
+  col_names 74,1905
+  a_plot 89,2679
 
-classes/@tests_db/checkConsistentCols.m,112
+classes/@tests_db/checkConsistentCols.m,111
 function 1,0
-col_names 36,1080
-with_col_names 37,1109
-    common_cols 49,1632
-    % give a warning 52,1755
+vs 36,1080
+verbose 37,1114
+col_names 39,1149
+with_col_names 40,1178
+    common_cols 52,1701
 
 classes/@tests_db/ne.m,19
 function rows 1,0
@@ -1799,17 +1857,17 @@ nout 65,1575
       s 82,2024
       dims{dims88,2164
 
-classes/@tests_db/sortrows.m,176
+classes/@tests_db/sortrows.m,177
 function 1,0
-db_size 36,967
-  num_pages 40,1046
-pages=42,1067
-cols 44,1087
-%idx idx45,1116
-  % Sort all57,1391
-sorted_db 67,1578
-sorted_db 68,1594
-%  sorted 76,1935
+db_size 36,1013
+  num_pages 40,1092
+pages=42,1113
+cols 44,1133
+%idx idx45,1162
+  % Sort all57,1437
+sorted_db 67,1624
+sorted_db 68,1640
+%  sorted 76,1981
 
 classes/@tests_db/factoran.m,61
 function a_factors_db 1,0
@@ -1818,30 +1876,30 @@ a_factors_db 41,1207
 
 classes/@tests_db/plotrows.m,267
 function a_plot 1,0
-num_rows 40,1148
-plots 41,1182
-    row_plot 50,1508
-    row_plot 51,1564
-props(1).xLabelsPos xLabelsPos56,1700
-%props.xTicksPos xTicksPos57,1732
-props.titlesPos titlesPos58,1761
-tests_props 60,1788
-  title_str 64,1915
-a_plot 67,1957
+num_rows 48,1274
+plots 49,1308
+    row_plot 58,1633
+    row_plot 59,1689
+props(1).xLabelsPos xLabelsPos64,1825
+%props.xTicksPos xTicksPos65,1857
+props.titlesPos titlesPos66,1886
+tests_props 68,1913
+  title_str 72,2040
+a_plot 75,2082
 
 classes/@tests_db/mean.m,188
 function 1,0
-order 37,1043
-  data 41,1123
-  data 43,1164
-db_size 47,1214
-s 48,1236
-a_db 57,1401
-a_db 58,1457
-nout 60,1487
-    n 70,1716
-      s 76,1876
-      dims{dims82,2010
+order 37,1033
+  data 41,1113
+  data 43,1154
+db_size 47,1204
+s 48,1226
+a_db 57,1391
+a_db 58,1447
+nout 60,1477
+    n 70,1706
+      s 76,1866
+      dims{dims82,2000
 
 classes/@tests_db/rankMatching.m,535
 function a_ranked_db 1,0
@@ -1921,6 +1979,16 @@ function b 1,0
 
 classes/@tests_db/eq.m,19
 function rows 1,0
+
+classes/@tests_db/plotBox.m,94
+function a_plot 1,0
+   notch 43,1096
+col_name 62,1287
+  all_title 67,1397
+a_plot 71,1507
+
+classes/@tests_db/uminus.m,19
+function a_db 1,0
 
 classes/@tests_db/subsasgn.m,44
 function a 1,0
@@ -2041,17 +2109,17 @@ a_p 90,2672
 
 classes/@tests_db/rop.m,219
 function a_db 1,0
-  left_data 44,1658
-  right_data 46,1733
-  a_db 47,1806
-  an_id 48,1825
-elseif isa(49,1895
-  right_data 61,2316
-  left_data 62,2355
-  an_id 63,2441
-  a_db 64,2509
-a_db 67,2534
-a_db 68,2565
+  left_data 41,1539
+  right_data 43,1614
+  a_db 44,1687
+  an_id 45,1706
+elseif isa(46,1776
+  right_data 58,2197
+  left_data 59,2236
+  an_id 60,2322
+  a_db 61,2390
+a_db 64,2415
+a_db 65,2446
 
 classes/@tests_db/vertcat.m,100
 function a_db 1,0
@@ -2109,10 +2177,11 @@ addr_size 54,1419
 classes/@tests_db/plus.m,19
 function a_db 1,0
 
-classes/@tests_db/displayRows.m,54
+classes/@tests_db/displayRows.m,72
 function s 1,0
 col_names 42,1012
-row_names 50,1200
+    col_header 55,1317
+  s 57,1344
 
 classes/@tests_db/testsHists.m,53
 function t_hists 1,0
@@ -2121,22 +2190,22 @@ end36,927
 
 classes/@tests_db/corrCoefs.m,353
 function a_coefs_db 1,0
-  skipCoefs 54,1976
-% Obsolete,57,1998
-  excludeNaNs 61,2103
-col1 65,2165
-cols 66,2194
-num_pages 68,2224
-pages=69,2251
-      data 84,2682
-	continue;89,2841
-      end90,2852
-% Cannot strip all the NaNs out,102,3068
-nanrows 104,3158
-col_name_cell 113,3373
-col1_name 114,3421
-col_names 115,3454
-a_coefs_db 125,3695
+  skipCoefs 52,1932
+% Obsolete,55,1954
+  excludeNaNs 59,2059
+col1 63,2121
+cols 64,2150
+num_pages 66,2180
+pages=67,2207
+      data 82,2638
+	continue;87,2797
+      end88,2808
+% Cannot strip all the NaNs out,100,3024
+nanrows 102,3114
+col_name_cell 111,3329
+col1_name 112,3377
+col_names 113,3410
+a_coefs_db 123,3651
 
 classes/@tests_db/ge.m,32
 function rows 1,0
@@ -2184,7 +2253,7 @@ function obj 1,0
    obj.props props110,4088
    obj 112,4111
 
-classes/@tests_db/meanDuplicateRows.m,458
+classes/@tests_db/meanDuplicateRows.m,368
 function a_tests_db 1,0
 rest_cols 41,1745
 wo_cols 44,1818
@@ -2193,20 +2262,16 @@ wo_cols 44,1818
 sorted 53,1997
 sorted_db 54,2043
 %sorted(sorted56,2103
-    rows 72,2512
-  rows_db 75,2567
-  no_mean_rows_db 78,2696
+    rows 71,2469
+  rows_db 74,2524
+  no_mean_rows_db 77,2653
+  new_vals 78,2729
   new_row 79,2772
-  new_std 80,2846
-  new_vals 81,2919
-    new_std 87,3148
-    new_row 89,3238
-    new_std 90,3272
-  col_names 102,3558
-a_tests_db 106,3669
-a_tests_db 107,3712
-a_tests_db 108,3773
-a_tests_db 109,3833
+  new_std 80,2856
+col_names 88,3073
+a_tests_db 92,3255
+a_tests_db 93,3298
+a_tests_db 94,3359
 
 classes/@tests_db/statsMeanSE.m,155
 function a_stats_db 1,0
@@ -2522,6 +2587,19 @@ function tex_string 1,0
 classes/@sql_portal/get.m,16
 function b 1,0
 
+classes/@sql_portal/sql_table.m,277
+% See also: tests_db/tests_db,tests_db21,641
+% See also: tests_db/tests_db, database,21,641
+% Copyright 27,814
+verbose 37,1220
+col_names 44,1323
+query_string 47,1376
+comma_str 50,1436
+  query_string 54,1543
+  comma_str 56,1631
+query_string 59,1656
+a_cursor 67,1776
+
 classes/@sql_portal/subsref.m,79
 function b 1,0
   b 19,544
@@ -2543,24 +2621,23 @@ function obj 1,0
 classes/@sql_portal/tests_db.m,396
 function a_db 1,0
 verbose 37,1235
-conn 52,1473
-stmt 53,1509
-rs 60,1877
-%a_cursor a_cursor62,1916
-% get the Java object directly,71,2193
-%rs rs72,2248
-num_rows 79,2377
-rsm 80,2400
-num_cols 81,2423
-max_read 94,2630
-max_rows 95,2668
-  row_num 107,2908
-% $$$   start_row 114,3066
-%attrs attrs123,3333
-%col_names col_names124,3358
-col_names 126,3393
-rsm 127,3409
-a_db 133,3548
+conn 55,1560
+use_java_direct 56,1596
+  rs 67,2045
+  num_rows 74,2198
+  rsm 75,2223
+  num_cols 76,2248
+  max_read 89,2473
+  max_rows 90,2513
+    row_num 122,3188
+  col_names 125,3222
+  rsm 126,3240
+  % get the Java object directly,138,3448
+  %rs rs139,3505
+  new_data 146,3668
+% $$$     start_row 152,3835
+  % get names 160,4083
+a_db 169,4314
 
 classes/@cip_traces_dataset/get.m,33
 function b 1,0
@@ -2715,7 +2792,7 @@ zc 54,1759
 classes/@spike_shape/calcMaxVm.m,14
 function 1,0
 
-classes/@spike_shape/getResults.m,1351
+classes/@spike_shape/getResults.m,1426
 function 1,0
 ms_factor 39,1011
 mV_factor 40,1041
@@ -2733,31 +2810,33 @@ results.FallTime FallTime54,1381
 results.MinTime MinTime55,1405
 results.BaseWidth BaseWidth56,1428
 results.HalfWidth HalfWidth57,1453
-% Run tests65,1588
-end76,2001
-s_props 83,2180
-try 86,2293
-  init_st_val 89,2409
-  err 91,2477
-end102,2756
-% If you change any of the following names,113,3107
-% make sure to change the above NaN names,114,3152
-results.MinVm MinVm115,3200
-results.PeakVm PeakVm116,3237
-results.InitVm InitVm117,3276
-results.InitVmBySlope InitVmBySlope118,3315
-results.MaxVmSlope MaxVmSlope119,3364
-results.HalfVm HalfVm120,3406
-results.Amplitude Amplitude121,3444
-results.MaxAHP MaxAHP122,3487
-results.DAHPMag DAHPMag123,3525
-results.InitTime InitTime125,3566
-results.RiseTime RiseTime126,3607
-results.FallTime FallTime127,3649
-results.MinTime MinTime128,3691
-%results.ahp_decay_constant ahp_decay_constant130,3756
-results.BaseWidth BaseWidth131,3818
-results.HalfWidth HalfWidth132,3862
+results.FixVWidth FixVWidth58,1478
+% Run tests66,1613
+end77,2026
+s_props 84,2205
+try 87,2318
+  init_st_val 90,2434
+  err 92,2502
+end103,2781
+% If you change any of the following names,114,3160
+% make sure to change the above NaN names,115,3205
+results.MinVm MinVm116,3253
+results.PeakVm PeakVm117,3290
+results.InitVm InitVm118,3329
+results.InitVmBySlope InitVmBySlope119,3368
+results.MaxVmSlope MaxVmSlope120,3417
+results.HalfVm HalfVm121,3459
+results.Amplitude Amplitude122,3497
+results.MaxAHP MaxAHP123,3540
+results.DAHPMag DAHPMag124,3578
+results.InitTime InitTime126,3619
+results.RiseTime RiseTime127,3660
+results.FallTime FallTime128,3702
+results.MinTime MinTime129,3744
+%results.ahp_decay_constant ahp_decay_constant131,3809
+results.BaseWidth BaseWidth132,3871
+results.HalfWidth HalfWidth133,3915
+results.FixVWidth FixVWidth134,3959
 
 classes/@spike_shape/plotCompareMethodsSimple.m,618
 function a_plot 1,0
@@ -3066,66 +3145,72 @@ function obj 1,0
     props(1).init_threshold init_threshold87,3343
   obj 91,3479
 
-classes/@spike_shape/calcWidthFall.m,1564
+classes/@spike_shape/calcWidthFall.m,1715
 function 1,0
-%max_val max_val50,1813
-depol 53,1892
-  base_width 57,2107
-  half_width 58,2127
-  half_Vm 59,2147
-  fall_time 60,2164
-  min_idx 61,2183
-  min_val 62,2200
-  max_ahp 63,2217
-  ahp_decay_constant 64,2234
-  dahp_mag 65,2262
-  dahp_idx 66,2280
-end_depol 70,2313
-denum 73,2401
-  extra_time 77,2573
-fall_init_cross_time 79,2595
-base_width 82,2670
-fall_time 83,2716
-half_Vm 86,2784
-start_from 89,2858
-above_half 90,2917
-some_of_the_above 93,3060
-end_of_first_hump 94,3121
-  end_of_first_hump 98,3275
-some_of_the_above 102,3380
-start_of_last_ramp 103,3445
-  start_of_last_ramp 108,3645
-half_start 111,3688
-half_end 115,3861
-half_width 120,4037
-after_ahp = [s.ter_ahp = [s129,4388
-%decay_constant_threshold decay_constant_threshold135,4572
-  % Find minimum after the double AHP144,4841
-  recover_times 146,4925
-  recover_times 150,5054
-  ahp_decay_constant 157,5270
-function 160,5303
-  dahp_idx 163,5418
-  %dahp_bump_rise dahp_bump_rise178,5869
-  fall_time 179,5942
-  dahp_bump_fall 180,5988
-  %dahp_bump_fall dahp_bump_fall181,6072
-  dahp_bump 182,6170
-  nodahp_error 190,6485
-    dahp_mag 194,6599
-function 197,6644
-  windowsize 200,6828
-    after_fall 203,6975
-    after_fall 205,7063
-  thr_start_from 208,7117
-  first_thr_crossing 209,7183
-    first_thr_crossing_idx 213,7359
-  next_thr_crossing 217,7472
-    end_at 222,7636
-  % Max AHP must be the minimal point in between225,7707
-  min_idx 228,7812
-  max_ahp 230,7856
-  max_ahp = max(0, init_val - min_val); 	% maximal AHP amplitude230,7856
+%max_val max_val50,1893
+vs 52,1928
+verbose 53,1962
+depol 56,2041
+  base_width 60,2256
+  half_width 61,2276
+  half_Vm 62,2296
+  fixed_Vm_width 63,2313
+  fall_time 64,2337
+  min_idx 65,2356
+  min_val 66,2373
+  max_ahp 67,2390
+  ahp_decay_constant 68,2407
+  dahp_mag 69,2435
+  dahp_idx 70,2453
+end_depol 74,2486
+denum 77,2574
+  extra_time 81,2746
+fall_init_cross_time 83,2768
+base_width 86,2843
+fall_time 87,2889
+half_Vm 90,2957
+half_width 92,3005
+fixed_Vm_width 93,3046
+after_ahp = [s.ter_ahp = [s103,3395
+%decay_constant_threshold decay_constant_threshold109,3579
+  % Find minimum after the double AHP118,3848
+  recover_times 120,3932
+  recover_times 124,4061
+  ahp_decay_constant 131,4277
+function a_width 134,4310
+    a_width 144,4750
+  above_half 150,4896
+  some_of_the_above 153,5044
+  end_of_first_hump 154,5107
+  end_of_first_hump 158,5267
+  some_of_the_above 162,5376
+  start_of_last_ramp 163,5443
+    start_of_last_ramp 168,5651
+    half_start 178,5978
+    half_end 188,6314
+  a_width 191,6355
+function 196,6397
+  dahp_idx 199,6512
+  %dahp_bump_rise dahp_bump_rise214,6963
+  fall_time 215,7036
+  dahp_bump_fall 216,7082
+  %dahp_bump_fall dahp_bump_fall217,7166
+  dahp_bump 218,7264
+  nodahp_error 226,7579
+    dahp_mag 230,7693
+function 234,7744
+  windowsize 237,7895
+    after_fall 240,8042
+    after_fall 242,8130
+  thr_start_from 245,8184
+  first_thr_crossing 246,8250
+    first_thr_crossing_idx 250,8426
+  next_thr_crossing 254,8539
+    end_at 259,8703
+  % Max AHP must be the minimal point in between262,8774
+  min_idx 265,8879
+  max_ahp 267,8923
+  max_ahp = max(0, init_val - min_val); 	% maximal AHP amplitude267,8923
 
 classes/@spike_shape/calcInitVmSlopeThreshold.m,155
 function 1,0
@@ -3483,6 +3568,10 @@ function obj 1,0
     a(1).(attr)36,971
     obj 37,994
 
+classes/@physiol_cip_traceset_fileset/physiol_bundle.m,43
+function a_pbundle 1,0
+a_pbundle 36,1050
+
 classes/@physiol_cip_traceset_fileset/readDBItems.m,326
 function 1,0
 rows 40,1321
@@ -3498,9 +3587,9 @@ rows 63,1966
   %num_traces num_traces70,2190
   num_traces 71,2233
   neuron_id 75,2356
-    rows 82,2678
-    tests 89,2873
-    break;90,2903
+    rows 82,2685
+    tests 89,2880
+    break;90,2910
 
 classes/@physiol_cip_traceset_fileset/set.m,70
 function a 1,0
@@ -3508,6 +3597,12 @@ function a 1,0
 
 classes/@physiol_cip_traceset_fileset/display.m,16
 function s 1,0
+
+classes/@physiol_cip_traceset_fileset/vertcat.m,79
+function obj 1,0
+list2 33,966
+obj 34,993
+obj.neuron_idx neuron_idx37,1062
 
 classes/@physiol_cip_traceset_fileset/cip_trace.m,136
 function a_cip_trace 1,0
@@ -3517,46 +3612,50 @@ function a_cip_trace 1,0
   num_traces 55,1886
     a_cip_trace 65,2228
 
-classes/@physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m,1100
+classes/@physiol_cip_traceset_fileset/physiol_cip_traceset_fileset.m,1184
 function obj 1,0
-  obj 74,3402
-  obj 76,3555
-  obj.neuron_idx neuron_idx82,3633
-    traceset_items_str 86,3737
-    obj.neuron_idx neuron_idx95,4163
-      obj.neuron_idx.(filenum)98,4267
-  elseif iscell(100,4321
-      % read ASCII file,111,4597
-      tcell 112,4661
-      % Parse each line,113,4751
-      tmtstruct 114,4807
-      names 115,4878
-      paths 116,4916
-      traces 117,4954
-      chaninfo 118,4993
-      tmts 119,5034
-      list 120,5071
-      neuron_id 121,5112
-      traceset_items_str 122,5133
-        resid 126,5225
-        ntok 127,5251
-        pars 128,5269
-        % If data file,140,5584
-        % If data file, make neuron id name 140,5584
-        elseif exist(144,5756
-                tstr 152,6104
-            dots 154,6152
-                names{names158,6301
-          neuron_id 165,6536
-        paths{paths168,6586
-        traces{traces169,6614
-        chaninfo{chaninfo171,6644
-            ttm 177,6895
-                tmtstruct 186,7257
-        tmts{tmts189,7348
-        ttm 200,7650
-        list{list204,7783
-  obj 213,8123
+  obj 78,3592
+  obj 80,3745
+  obj.neuron_idx neuron_idx86,3823
+    traceset_items_str 92,3994
+    list 103,4506
+    traceset_items_str 104,4533
+      neuron_id 115,4914
+    all_treatments 117,4943
+        neuron_id 122,5163
+      all_treatments 125,5235
+    treat_names 128,5353
+    zero_treatments 129,5399
+      % read ASCII file,135,5712
+      tcell 136,5776
+      % Parse each line,137,5866
+      tmtstruct 138,5922
+      names 139,5993
+      paths 140,6031
+      traces 141,6069
+      chaninfo 142,6108
+      tmts 143,6149
+      list 144,6186
+        neuron_id 148,6320
+      traceset_items_str 150,6353
+        resid 154,6445
+        ntok 155,6471
+        pars 156,6489
+        % If data file,168,6804
+        % If data file, make neuron id name 168,6804
+        elseif exist(172,6976
+                tstr 180,7324
+            dots 182,7372
+                names{names186,7521
+          neuron_id 193,7756
+        paths{paths196,7806
+        traces{traces197,7834
+        chaninfo{chaninfo199,7864
+            ttm 205,8115
+        tmts{tmts218,8633
+        ttm 229,8935
+        list{list233,9068
+  obj 242,9408
 
 classes/@physiol_cip_traceset_fileset/loadItemProfile.m,43
 function a_profile 1,0
@@ -3640,12 +3739,14 @@ db_props 54,1551
   title 66,1993
 a_histogram_db 69,2043
 
-classes/@tests_3D_db/tests_3D_db.m,118
+classes/@tests_3D_db/tests_3D_db.m,174
 function a_3D_db 1,0
-  a_3D_db 51,1879
-  a_3D_db 53,1984
-   a_3D_db.page_idx page_idx60,2064
-   a_3D_db 62,2108
+  a_3D_db 54,1963
+  a_3D_db 56,2068
+  a_3D_db.page_idx page_idx58,2139
+  a_3D_db 59,2168
+   a_3D_db.page_idx page_idx66,2279
+   a_3D_db 68,2323
 
 classes/@tests_3D_db/plotVarBox.m,294
 function a_plot 1,0
@@ -3759,7 +3860,7 @@ function a_hist_db 1,0
    a_hist_db 72,2243
    a_hist_db 73,2266
 
-classes/@histogram_db/plot_abstract.m,351
+classes/@histogram_db/plot_abstract.m,352
 function a_plot 1,0
 % If input is an array,47,1310
 num_dbs 49,1414
@@ -3774,8 +3875,8 @@ data 66,1890
   y_label 82,2324
   all_title 88,2472
   y_label 94,2603
-  lineSpec 100,2707
-a_plot 109,2963
+  line_spec 100,2707
+a_plot 109,2964
 
 classes/@model_ranked_to_physiol_bundle/plotfICurve.m,284
 function a_doc 1,0
@@ -3984,8 +4085,8 @@ function a_stats_db 1,0
 classes/@stats_db/subsref.m,60
 function b 1,0
   b 21,618
-      b 28,792
-      b 31,870
+      b 27,749
+      b 30,827
 
 classes/@stats_db/plotVar.m,331
 function a_plot 1,0
@@ -4018,7 +4119,7 @@ data 77,2290
 row_idx 78,2319
 elseif isfield(82,2428
 
-classes/@stats_db/plot_bars.m,412
+classes/@stats_db/plot_bars.m,333
 function a_plot 1,0
   props.groupValues groupValues46,1408
   page_names 47,1441
@@ -4033,25 +4134,20 @@ num_pages 59,1819
 elseif isfield(65,1995
   ns 87,2563
 stats_props 90,2579
-  axis_limits 94,2704
-swaprowspages 97,2729
-mids 98,2754
-lows 99,2798
-highs 100,2835
-ns 101,2874
-a_plot 107,3026
+elseif isfield(93,2699
+a_plot 109,3098
 
 classes/@stats_db/plot_abstract.m,200
 function a_plot 1,0
-col_names 45,1293
-data 46,1361
-row_idx 47,1393
-elseif isfield(51,1495
-elseif isfield(61,1774
-stats_props 73,2051
-  axis_limits 77,2176
-swaprowspages 80,2201
-mids 81,2226
+col_names 44,1292
+data 45,1360
+row_idx 46,1392
+elseif isfield(50,1494
+elseif isfield(60,1773
+stats_props 72,2050
+  axis_limits 76,2175
+swaprowspages 79,2200
+mids 80,2225
 
 classes/@chans_db/get.m,33
 function b 1,0
@@ -4842,19 +4938,23 @@ functions/loadtraces.m,13
 functions/properTeXLabel.m,22
 function a_label 1,0
 
-functions/ns_CIPlist.m,180
+functions/ns_CIPlist.m,258
 function cipList 1,0
-tr=14,430
-file 16,450
-hyp_name 17,487
-hyp_names 18,543
-hyp_idx 19,637
-hyp_data 21,688
-trans 22,754
-amp 24,822
-dur 27,997
-on 30,1169
-finish 33,1343
+verbose 12,399
+tr=17,506
+  file 23,597
+hyp_name 25,640
+hyp_names 26,696
+hyp_idx 27,790
+  hyp_name 38,1063
+  hyp_idx 39,1115
+hyp_data 50,1385
+trans 51,1451
+amp 53,1519
+dur 56,1688
+on 59,1854
+finish 62,2020
+cipList=64,2104
 
 functions/diff3T.m,91
 function deriv3 1,0
@@ -4889,6 +4989,18 @@ fieldcell 32,997
 functions/fillederrorbar.m,36
 function handles 1,0
 pairs 29,739
+
+functions/struct2DB.m,44
+function a_tests_db 1,0
+a_tests_db 33,869
+
+functions/getfuzzyfield.m,102
+function value=1,0
+    f=14,362
+    FS=15,378
+    fs=16,403
+    idx=17,421
+        value=21,492
 
 functions/maxima.m,66
 function x_idx 1,0
@@ -4951,9 +5063,82 @@ x30 43,1176
 deriv2 45,1191
 deriv2 50,1364
 
-functions/string2File.m,51
-% $Id: string2File.m,m19,349
-% Copyright 22,464
+functions/boxutilp.m,501
+function outlier=1,0
+pctiles 27,710
+q1 28,743
+med 29,762
+q3 30,782
+% find the extreme values 32,802
+vlo 37,950
+loadj 38,973
+x1 41,1035
+x2 42,1054
+outlier 43,1082
+yy 44,1113
+   sym 49,1195
+xx 52,1219
+    lbp 53,1247
+    lbm 54,1270
+   loadj 58,1335
+% Set up 61,1366
+    yy2 64,1453
+    xx3 65,1481
+    n1 67,1507
+    n2 68,1552
+    lnm 71,1651
+    lnp 72,1673
+    xx2 73,1695
+    yy2 74,1752
+    xx3 75,1801
+yy3 77,1826
+if isfield(props, 'nooutliers'), xx = []; yy 80,1883
+
+functions/ns_load_tracesets.m,916
+function 1,0
+% Author: Li, Su; Cengiz Gunay <cgunay@emory.edu>; and Jeremy Edgerton,41,1735
+% Copyright 45,1834
+  verbose 55,2254
+  n 61,2347
+  a_tss 62,2406
+  h5_infos 63,2420
+      files 67,2605
+        a_tss 75,2884
+        h5_infos 76,2917
+    filename 80,2993
+      a_tss 87,3212
+      h5_infos 88,3243
+    filename 93,3393
+  end96,3501
+  h5_infos{h5_infos99,3551
+% $$$     not_idx=111,4054
+  not_idx 114,4235
+      trials 122,4460
+      atts 128,4617
+        Vm_chan 136,4867
+        Vm_chan 138,4957
+      neuron_id 143,5142
+          Vm_dy 149,5334
+      Vm_gain 157,5598
+      Vm_dt 158,5617
+        Im_chan 165,5844
+        Im_chan 167,5934
+        default 178,6241
+        fields 188,6498
+          elseif ~isempty(194,6692
+      atts=216,7413
+      n=227,7822
+  function chan_num 244,8386
+  function treats 256,8861
+      found_name 259,8999
+        treats 265,9266
+
+functions/string2File.m,110
+%	  append: If 14,307
+% $Id: string2File.m,m20,392
+% Copyright 23,507
+    write_mode 37,953
+  fp 39,981
 
 functions/sortedUniqueValues.m,59
 function 1,0
@@ -5112,45 +5297,45 @@ end51,2365
 % If the 2nd arg is not a grouping variable,63,2479
 nargs 64,2540
 elseif 67,2581
-   notch 71,2735
-   g 72,2749
-   nargs 74,2765
-xorig 83,3013
-gorig 84,3024
-xvisible 85,3035
-included 86,3065
-      sep 93,3166
-   end94,3183
-   n 97,3251
-   gorig 98,3273
-   k 100,3291
-lb 108,3406
-xlims 110,3417
-k 112,3441
-ymin 113,3462
-ymax 114,3485
-dy 115,3508
-ylims 116,3529
-lf 118,3561
-      z 140,4219
-      pts 141,4243
-      pts 142,4276
-      ylim 150,4536
-   elseif 162,5018
-      pts 173,5243
-   g 177,5364
-   notnan 178,5396
-      z 181,5467
-         pts 184,5548
-h 197,5881
-ax 202,5976
-nlines 203,6004
-p 207,6139
-ptop 208,6164
-xl 219,6375
-p 221,6426
-ylim 222,6451
-p2 223,6476
+   notch 72,2771
+   g 73,2785
+   nargs 75,2801
+xorig 84,3049
+gorig 85,3060
+xvisible 86,3071
+included 87,3101
+      sep 94,3202
+   end95,3219
+   n 98,3287
+   gorig 99,3309
+   k 101,3327
+lb 109,3442
+xlims 111,3453
+k 113,3477
+ymin 114,3498
+ymax 115,3521
+dy 116,3544
+ylims 117,3565
+lf 119,3597
+      z 141,4255
+      pts 142,4279
+      pts 143,4312
+      ylim 151,4572
+   elseif 163,5054
+      pts 174,5279
+   g 178,5400
+   notnan 179,5432
+      z 182,5503
+         pts 185,5584
+h 198,5917
+ax 203,6012
+nlines 204,6040
+p 208,6175
+ptop 209,6200
+xl 220,6411
+p 222,6462
+ylim 223,6487
+p2 224,6512
 
 functions/collectspikes.m,253
 function 1,0
