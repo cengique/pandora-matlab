@@ -29,11 +29,15 @@ function a_plot = plotrows(a_tests_db, axis_limits, orientation, title_str, prop
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if ~ exist('orientation')
+if ~ exist('axis_limits', 'var')
+  axis_limits = [];
+end
+
+if ~ exist('orientation', 'var')
   orientation = 'y';
 end
 
@@ -43,15 +47,17 @@ end
 
 num_rows = dbsize(a_tests_db, 1);
 plots = cell(num_rows, 1);
+%border = [0 0 0 0];
 for row_num=1:num_rows
   % inverse order for plot_stack
-  if row_num == num_rows
-     row_plot = ...
+  if row_num == 1
+    row_plot = ...
 	plotrow(a_tests_db, row_num, title_str, struct('putLabels', 1))
-     row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]})
-     plots{num_rows - row_num + 1} = row_plot;
+    row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]})
+    plots{num_rows - row_num + 1} = row_plot;
+    %border = getfield(get(row_plot, 'props'), 'border')
   else
-    row_plot = plotrow(a_tests_db, row_num, title_str);
+    row_plot = plotrow(a_tests_db, row_num, title_str); %, struct('border', border)
     row_plot = set(row_plot, 'axis_labels', {'', ['row ' num2str(row_num) ]});
     plots{num_rows - row_num + 1} = row_plot;
   end
