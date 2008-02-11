@@ -58,18 +58,21 @@ else
 end
 
 a_plot = ...
-    plot_abstract({ x_vals, data(row, :, 1) }, {'', ''}, ...
+    plot_abstract({ x_vals, data(row, :, 1)' }, {'', ''}, ...
 		  properTeXLabel(the_title), {}, 'bar', ...
 		  mergeStructs(props, struct('tightLimits', 1)));
 
 add_props = struct;
 if isfield(props, 'putLabels')
   label_plots = cell(1, dbsize(a_tests_db, 2));
-  min_val = min(data(row, :, 1));
+  
+  % Bars start from zero if no
+  % negative bars exist
+  min_val = min([min(data(row, :, 1)), 0]);  
 
   % to make space for labels
   add_props = ...
-        struct('border', [0.05 0.1 0 0]);
+        struct('border', [0.05 0.2 0 0]);
   
   col_names = fieldnames(get(a_tests_db, 'col_idx'));
   for col=1:dbsize(a_tests_db, 2)
