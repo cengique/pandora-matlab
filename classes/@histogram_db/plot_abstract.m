@@ -32,16 +32,18 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('command') || isempty(command)
-  command = 'bar';
-end
-
 if ~ exist('props')
   props = struct([]);
 end
 
 if ~ exist('title_str')
   title_str = '';
+end
+
+if isfield(props, 'command')
+  command = props.command;
+else
+  command = 'bar';
 end
 
 % If input is an array, then return array of plots with the same dimensions
