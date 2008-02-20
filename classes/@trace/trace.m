@@ -178,10 +178,10 @@ if nargin == 0 % Called with no params
        id = name;
      end
 
-   elseif isa(data_src, 'double')
+   elseif isnumeric(data_src)
      data = data_src;
    else
-     error(sprintf('Unrecognized data source %s', data_src));
+     error('Unrecognized data source!');
    end
 
    % Scale the loaded data if desired
