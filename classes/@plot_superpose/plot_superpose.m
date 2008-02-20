@@ -96,8 +96,7 @@ else
 	 plot_command = plots{plot_num}.command;
        else
 	 % break if different plot commands in plot_abstracts are combined
-	 if ~strcmp(plot_command, plots{plot_num}.command) || ...
-             strcmp(plots{plot_num}.command, 'bar')
+	 if ~strcmp(plot_command, plots{plot_num}.command)
 	   superposable = false;
 	   break;
 	 end

@@ -50,7 +50,18 @@ if length(plots) > 1
 	return;
       end
     end
-    data = {data{:}, one_plot.data{:}};
+    if isempty(data)
+      data = one_plot.data;
+    else
+      if strcmp(command, 'bar')
+        % special case for bar plots, add as columns
+        % keep x-axis values from the 1st plot
+        data{2} = [ data{2}, one_plot.data{2} ];
+      else
+        % general case (e.g., plot command) add vectors as input to command.
+        data = {data{:}, one_plot.data{:}};
+      end
+    end
     if ~isfield(props, 'noLegends')
       legend = {legend{:}, one_plot.legend{:}};
     else
