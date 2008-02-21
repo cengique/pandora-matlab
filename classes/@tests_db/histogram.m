@@ -82,8 +82,15 @@ col_db = onlyRowsTests(col_db, ~ isnan(col_db.data) & ~ isinf(col_db.data), 1);
 if dbsize(col_db, 1) > 0
   [hist_results bins] = hist(col_db.data, num_bins);
 else
-  hist_results = zeros(1, num_bins);
-  bins = zeros(1, num_bins);
+  
+  if length(num_bins) > 1
+    % if bin edges were given
+    bins = num_bins;
+  else
+    % if number of bin was given
+    bins = zeros(1, num_bins);
+  end
+  hist_results = zeros(1, length(bins));
 end
 
 if isfield(props, 'normalized') && props.normalized == 1
