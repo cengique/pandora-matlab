@@ -1,17 +1,18 @@
-function a_plot = plotEqSpaced(a_hist_db, command, props)
+function a_plot = plotEqSpaced(a_hist_db, title_str, props)
 
 % plotEqSpaced - Generates a histogram plot where the values are equally spaced on the x-axis. For use with non-linear parameter values.
 %
 % Usage:
-% a_plot = plotEqSpaced(a_hist_db, command, props)
+% a_plot = plotEqSpaced(a_hist_db, title_str, props)
 %
 % Description:
 %   Generates a plot_simple object from this histogram.
 %
 %   Parameters:
 %	a_hist_db: A histogram_db object.
-%	command: Plot command (Optional, default='bar')
+%	title_str: Optional title string.
 %	props: Optional properties passed to plot_abstract.
+%	  quiet: If 1, don't include database name on title.
 %		
 %   Returns:
 %	a_plot: A object of plot_abstract or one of its subclasses.
@@ -36,6 +37,10 @@ if ~ exist('props')
   props = struct([]);
 end
 
+if ~ exist('title_str')
+  title_str = '';
+end
+
 % If input is an array, then return array of plots
 num_dbs = length(a_hist_db);
 if num_dbs > 1 
@@ -52,19 +57,34 @@ colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
 
+props(1).XTick = 1:dbsize(a_hist_db, 1);
 props(1).XTickLabel = data(:, 1);
+
+% Call it frequency if it's normalized
+a_hist_props = get(a_hist_db, 'props');
+if isfield(a_hist_props, 'normalized') && a_hist_props.normalized == 1
+  hist_label = 'Frequency';
+else
+  hist_label = 'Count';
+end
 
 % if the plot is rotated switch the axis labels
 if strcmp(command, 'barh')
-  x_label = 'Count';
+  x_label = hist_label;
   y_label = colnames{1};
 else
   x_label = colnames{1};
-  y_label = 'Count';
+  y_label = hist_label;
+end
+
+if ~ isfield(props, 'quiet')
+  all_title = [ 'Histogram of ' strrep(get(a_hist_db, 'id'), '_', '\_') title_str ];
+else
+  all_title = title_str;
 end
 
 % Make a simple plot object drawing vertical bars
-a_plot = plot_simple(1:dbsize(a_hist_db, 1), data(:, 2), ...
-		     [ 'Histogram of ' get(a_hist_db, 'id') ], ...
-		     x_label, y_label, ...
-		     colnames{1}, command, props);
+a_plot = plot_simple(props.XTick, data(:, 2), ...
+		     properTeXLabel(all_title), ...
+		     properTeXLabel(x_label), properTeXLabel(y_label), ...
+		     properTeXLabel(colnames{1}), command, props);

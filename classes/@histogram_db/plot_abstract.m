@@ -1,6 +1,6 @@
 function a_plot = plot_abstract(a_hist_db, title_str, props)
 
-% plot_abstract - Generates a plottable description of this object.
+% plot_abstract - Creates a bar plot from the histogram.
 %
 % Usage:
 % a_plot = plot_abstract(a_hist_db, title_str, props)
