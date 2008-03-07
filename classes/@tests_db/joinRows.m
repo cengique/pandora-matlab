@@ -10,12 +10,18 @@ function a_db = joinRows(a_db, with_db, props)
 % row index and joins them next to desired columns from the current db. 
 % Assumes each row index only appears once in with_db. The created
 % db preserves the ordering of with_db.
+%   If there are NaNs in the index column, then other columns that start
+% with RowIndex are searched.  unless ignoreNaNs option is specified.
 %
 %   Parameters:
 %	a_db: A tests_db object.
 %	with_db: A tests_db object with a row index column.
 %	props: A structure with any optional properties.
-%	  indexColName: (Optional) Name of row index column (default='RowIndex').
+%	  indexColName: (Optional) Name of row index column
+%	  	(default='RowIndex').
+%	  keepNaNs: If 1, substitute NaN values for NaN indices.
+%	  multipleIndices: If 1, search for substitute RowIndex* columns for
+%	  	indices with NaN values. It will fail if all indices are NaNs.
 %		
 %   Returns:
 %	a_db: A tests_db object.
@@ -51,8 +57,8 @@ verbose = strcmp(vs.state, 'on');
 join_col = tests2cols(with_db, index_col_name);
 joins = w_data(:, join_col);
 
-% TODO: below fails if all row indices are NaN in a row
-if any(isnan(joins))
+% below fails if all row indices are NaN in a row
+if isfield(props, 'multipleIndices') && any(isnan(joins))
   if verbose
     warning(['NaNs in ' index_col_name ' column. Proceeding with caution.']);
   end
@@ -73,6 +79,10 @@ if any(isnan(joins))
   end
 end
 
+% remove the index column from with_db
+with_db = delColumns(with_db, index_col_name);
+w_data = get(with_db, 'data');
+
 % TODO: one can use addColumns instead
 size_db = dbsize(a_db);
 size_wdb = dbsize(with_db);
@@ -80,7 +90,14 @@ size_wdb = dbsize(with_db);
 new_size(1) = size_wdb(1);
 new_size(2) = size_db(2) + size_wdb(2); % Except the page index
 
-new_data = [ data(joins(~isnan(joins)), :), w_data(~isnan(joins), :) ];
+non_nan_joins = ~isnan(joins);
+if isfield(props, 'keepNaNs') && props.keepNaNs == 1
+  % keep NaNs instead of values from db
+  new_data = repmat(NaN, new_size);
+  new_data(non_nan_joins, :) = [ data(joins(non_nan_joins), :), w_data(non_nan_joins, :) ];
+else
+  new_data = [ data(joins(non_nan_joins), :), w_data(non_nan_joins, :) ];
+end
 
 % Get the column names straight
 cols_cell1 = fieldnames(get(a_db, 'col_idx'));
