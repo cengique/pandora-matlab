@@ -57,9 +57,6 @@ if dbsize(a_stats_db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
   error('Need to have same columns with same names in a_stats_db and with_db.');
 end
 
-data(:, :, 1) = get(a_stats_db, 'data');
-
-w_pages = dbsize(with_db, 3);
-data(:, :, 2:(1+w_pages)) = get(with_db, 'data');
-
-a_mult_stats_db = set(a_stats_db, 'data', data);
+a_mult_stats_db = ...
+    set(a_stats_db, 'data', ...
+                    cat(3, get(a_stats_db, 'data'), get(with_db, 'data')));

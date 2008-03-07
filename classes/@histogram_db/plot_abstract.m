@@ -102,7 +102,8 @@ else
   line_spec = {};
 end
 
-if isfield(props, 'shading') && strcmp(props.shading, 'flat')
+if isfield(props, 'shading') && strcmp(props.shading, 'flat') && ...
+    strcmp(command, 'bar')
   % remove edge colors if requested
   props = mergeStructs(struct('plotProps', struct('EdgeColor', 'none')), props);
 end
