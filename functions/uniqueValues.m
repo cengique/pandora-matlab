@@ -7,7 +7,8 @@ function [rows, idx] = uniqueValues(data)
 % [rows, idx] = uniqueValues(data)
 %
 % Description:
-%   Version which makes use of sort and diff.
+%   Version which makes use of sort and diff. Maintains order of the
+% original input.
 %
 % Parameters:
 %   data: A matrix or column vector
