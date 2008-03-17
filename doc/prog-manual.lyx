@@ -1,5 +1,5 @@
-#LyX 1.4.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 245
+#LyX 1.5.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
 \begin_document
 \begin_header
 \textclass article
@@ -96,8 +96,8 @@
 \CVSKeyword$Author$
 
 %% Version number on footer
-\fancyfoot[RE,LO]{\small{\appname{}: Prog.'s Manual}}
-{\fancyfoot[LE,RO]{\small{Draft v\CVSRevision{} on \CVSDate}}}
+\fancyfoot[RE,LO]{\footnotesize{\appname{}: Prog.'s Manual}}
+{\fancyfoot[LE,RO]{\parbox{.5\textwidth}{\begin{flushright}\footnotesize{Draft v\CVSRevision{}\\ on \CVSDate}\end{flushright}}}}
 
 %% Fix overlap in headers
 \fancyhead[L]{\slshape \leftmark} 
@@ -127,13 +127,21 @@
 \end_preamble
 \language english
 \inputencoding auto
-\fontscheme times
+\font_roman times
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
 \graphics none
 \paperfontsize default
 \spacing single
 \papersize default
 \use_geometry false
 \use_amsmath 2
+\use_esint 0
 \cite_engine natbib_authoryear
 \use_bibtopic false
 \paperorientation portrait
@@ -146,7 +154,9 @@
 \papersides 1
 \paperpagestyle fancy
 \tracking_changes false
-\output_changes true
+\output_changes false
+\author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -244,7 +254,7 @@ end{latexonly}
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand \tableofcontents{}
+\begin_inset LatexCommand tableofcontents
 
 \end_inset
 
@@ -498,7 +508,8 @@ link to extensibility section
 
 \begin_layout Subsection
 Finding your way around
-\begin_inset LatexCommand \label{sub:Finding-your-way-around}
+\begin_inset LatexCommand label
+name "sub:Finding-your-way-around"
 
 \end_inset
 
@@ -596,7 +607,8 @@ put this in the preface?
 \end_inset
 
 Next, Section 
-\begin_inset LatexCommand \ref{sec:Installation}
+\begin_inset LatexCommand ref
+reference "sec:Installation"
 
 \end_inset
 
@@ -604,7 +616,8 @@ Next, Section
 s.
  You can skip this section if you already have a running software environment.
  Section 
-\begin_inset LatexCommand \ref{sec:Class-hierarchies}
+\begin_inset LatexCommand ref
+reference "sec:Class-hierarchies"
 
 \end_inset
 
@@ -613,7 +626,8 @@ s.
  You can also skip this part if you're not interested in the guts of the
  system and you are in favor of a quick start.
  The recipes in Section 
-\begin_inset LatexCommand \ref{sec:Recipes}
+\begin_inset LatexCommand ref
+reference "sec:Recipes"
 
 \end_inset
 
@@ -623,13 +637,15 @@ s.
  However, it is recommended that you familiarize yourself with the basic
  organization of the classes before proceeding into more complex tasks.
  Section 
-\begin_inset LatexCommand \ref{sec:Visualization}
+\begin_inset LatexCommand ref
+reference "sec:Visualization"
 
 \end_inset
 
  takes the tutorial approach to describe common visualization tasks.
  Finally, Section 
-\begin_inset LatexCommand \ref{sec:Function-Reference}
+\begin_inset LatexCommand ref
+reference "sec:Function-Reference"
 
 \end_inset
 
@@ -643,7 +659,8 @@ Matlab
 
 \begin_layout Section
 Installation
-\begin_inset LatexCommand \label{sec:Installation}
+\begin_inset LatexCommand label
+name "sec:Installation"
 
 \end_inset
 
@@ -667,7 +684,8 @@ Download the latest package file from:
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand \url{http://userwww.service.emory.edu/~cgunay/pandora}
+\begin_inset LatexCommand url
+target "http://userwww.service.emory.edu/~cgunay/pandora"
 
 \end_inset
 
@@ -766,7 +784,8 @@ Software Architecture
 
 \begin_layout Section
 Toolbox Components
-\begin_inset LatexCommand \label{sec:Class-hierarchies}
+\begin_inset LatexCommand label
+name "sec:Class-hierarchies"
 
 \end_inset
 
@@ -815,8 +834,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Database-overview}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Database-overview"
 
 \end_inset
 
@@ -825,8 +848,14 @@ Schematic overview of the database software.
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
 An overview of the toolbox functionality is shown in Figure 
-\begin_inset LatexCommand \ref{figcap:Database-overview}
+\begin_inset LatexCommand ref
+reference "figcap:Database-overview"
 
 \end_inset
 
@@ -867,7 +896,8 @@ Databases hold all the information
 
 \begin_layout Standard
 The database object is at the center of this toolbox (see Figure 
-\begin_inset LatexCommand \ref{figcap:Database-overview}
+\begin_inset LatexCommand ref
+reference "figcap:Database-overview"
 
 \end_inset
 
@@ -922,8 +952,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Database-class-hierarchy}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Database-class-hierarchy"
 
 \end_inset
 
@@ -932,9 +966,15 @@ Database class hierarchy.
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
 A database object can be created from any of the classes in the hierarchy
  of Figure 
-\begin_inset LatexCommand \ref{figcap:Database-class-hierarchy}
+\begin_inset LatexCommand ref
+reference "figcap:Database-class-hierarchy"
 
 \end_inset
 
@@ -981,9 +1021,9 @@ put links to reference section?
 \begin_layout Description
 
 \family typewriter
-params_tests_db 
+params_tests_db
 \family default
-The first 
+ The first 
 \family typewriter
 num_params
 \family default
@@ -997,10 +1037,10 @@ num_params
 \begin_layout Description
 
 \family typewriter
-tests_3D_db 
+tests_3D_db
 \family default
-Contains a three-dimensional data matrix that has additional dimension for
- pages of information.
+ Contains a three-dimensional data matrix that has additional dimension
+ for pages of information.
  This is mainly used to look at change in measurements with a parameter
  using the 
 \family typewriter
@@ -1106,7 +1146,8 @@ Datasets create the databases
 \begin_layout Standard
 The dataset object is responsible for creating the database objects (see
  Figure 
-\begin_inset LatexCommand \ref{figcap:Database-overview}
+\begin_inset LatexCommand ref
+reference "figcap:Database-overview"
 
 \end_inset
 
@@ -1163,8 +1204,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Dataset-class-hierarchy}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Dataset-class-hierarchy"
 
 \end_inset
 
@@ -1173,8 +1218,14 @@ Dataset class hierarchy.
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
 Figure 
-\begin_inset LatexCommand \ref{figcap:Dataset-class-hierarchy}
+\begin_inset LatexCommand ref
+reference "figcap:Dataset-class-hierarchy"
 
 \end_inset
 
@@ -1312,12 +1363,21 @@ status open
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Bundle-class-hierarchy}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Bundle-class-hierarchy"
 
 \end_inset
 
 Bundle class hierarchy.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1339,7 +1399,8 @@ The top-level
 dataset_db_bundle
 \family default
  class in Figure 
-\begin_inset LatexCommand \ref{figcap:Bundle-class-hierarchy}
+\begin_inset LatexCommand ref
+reference "figcap:Bundle-class-hierarchy"
 
 \end_inset
 
@@ -1423,7 +1484,8 @@ Wrapper classes are designed to hold data and provide simple methods that
  They can either hold raw data, or intermediate processed forms of data
  being byproducts of analysis routines.
  In the overall schema of Figure 
-\begin_inset LatexCommand \ref{figcap:Database-overview}
+\begin_inset LatexCommand ref
+reference "figcap:Database-overview"
 
 \end_inset
 
@@ -1450,8 +1512,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Datawrapper-class-hierarchy}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Datawrapper-class-hierarchy"
 
 \end_inset
 
@@ -1460,8 +1526,14 @@ Data wrapper class hierarchy.
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
 Figure 
-\begin_inset LatexCommand \ref{figcap:Datawrapper-class-hierarchy}
+\begin_inset LatexCommand ref
+reference "figcap:Datawrapper-class-hierarchy"
 
 \end_inset
 
@@ -1582,12 +1654,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Profile-class-hierarchy}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Profile-class-hierarchy"
 
 \end_inset
 
 Profile class hierarchy.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1608,7 +1689,8 @@ Profile classes are designed to hold results of analysis and measurements
 
 \begin_layout Standard
 In Figure 
-\begin_inset LatexCommand \ref{figcap:Profile-class-hierarchy}
+\begin_inset LatexCommand ref
+reference "figcap:Profile-class-hierarchy"
 
 \end_inset
 
@@ -1762,12 +1844,21 @@ status open
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Plot-class-hierarchy}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Plot-class-hierarchy"
 
 \end_inset
 
 Plot classes hierarchy.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1778,7 +1869,8 @@ Matlab
 \noun default
  plotting features are implemented in the supporting classes seen in Figure
  
-\begin_inset LatexCommand \ref{figcap:Plot-class-hierarchy}
+\begin_inset LatexCommand ref
+reference "figcap:Plot-class-hierarchy"
 
 \end_inset
 
@@ -2120,9 +2212,9 @@ Matlab
 \family typewriter
 trace
 \family default
- object has a
+ object has a 
 \family typewriter
- dt
+dt
 \family default
  field for time resolution.
  The following command fails:
@@ -2333,7 +2425,8 @@ User's Manual
 
 \begin_layout Section
 Recipes for Common Tasks
-\begin_inset LatexCommand \label{sec:Recipes}
+\begin_inset LatexCommand label
+name "sec:Recipes"
 
 \end_inset
 
@@ -2388,7 +2481,8 @@ which initiates the loading of files.
 
 \begin_layout Subsubsection
 Creating a dataset for physiology data
-\begin_inset LatexCommand \label{sub:loading-phys}
+\begin_inset LatexCommand label
+name "sub:loading-phys"
 
 \end_inset
 
@@ -2946,7 +3040,8 @@ NeuronId
 
 \begin_layout Subsection
 Sorting the database according to a measure
-\begin_inset LatexCommand \label{sub:Sorting-the-database}
+\begin_inset LatexCommand label
+name "sub:Sorting-the-database"
 
 \end_inset
 
@@ -3336,7 +3431,8 @@ There are two counterparts to selecting which CIP-levels to include in a
 cip_list
 \family default
  optional parameter described in Section 
-\begin_inset LatexCommand \ref{sub:loading-phys}
+\begin_inset LatexCommand ref
+reference "sub:loading-phys"
 
 \end_inset
 
@@ -4556,7 +4652,8 @@ ans =
 
 \begin_layout Section
 Visualization
-\begin_inset LatexCommand \label{sec:Visualization}
+\begin_inset LatexCommand label
+name "sec:Visualization"
 
 \end_inset
 
@@ -4662,12 +4759,21 @@ status open
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:cip_trace}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:cip_trace"
 
 \end_inset
 
 Example trace plot.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4681,7 +4787,8 @@ trace,
 cip_trace
 \family default
 , has the plot command overloaded to draw the raw trace in Figure 
-\begin_inset LatexCommand \ref{figcap:cip_trace}
+\begin_inset LatexCommand ref
+reference "figcap:cip_trace"
 
 \end_inset
 
@@ -4780,7 +4887,8 @@ ans =
 Note that, in the output, database rows appear as columns, and database
  columns appear as rows.
  See in above Section 
-\begin_inset LatexCommand \ref{sub:Sorting-the-database}
+\begin_inset LatexCommand ref
+reference "sub:Sorting-the-database"
 
 \end_inset
 
@@ -5011,12 +5119,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:tests_hists}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:tests_hists"
 
 \end_inset
 
 Example measure distribution plot.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5026,7 +5143,8 @@ For plotting all measure histograms in a DB, the following method of
 tests_db
 \family default
  creates the horizontal stack plot in Figure 
-\begin_inset LatexCommand \ref{figcap:tests_hists}
+\begin_inset LatexCommand ref
+reference "figcap:tests_hists"
 
 \end_inset
 
@@ -5068,12 +5186,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:params_hists}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:params_hists"
 
 \end_inset
 
 Example parameter distribution plot.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5083,7 +5210,8 @@ For plotting all parameter histograms in a DB, the following method of
 params_tests_db
 \family default
  creates the horizontal stack plot in Figure 
-\begin_inset LatexCommand \ref{figcap:params_hists}
+\begin_inset LatexCommand ref
+reference "figcap:params_hists"
 
 \end_inset
 
@@ -5192,9 +5320,9 @@ subfigure[
 
 Optional 
 \family typewriter
-plot_bars 
+plot_bars
 \family default
-visualization for 
+ visualization for 
 \family typewriter
 stats_db
 \family default
@@ -5333,12 +5461,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{figcap:Statistics-plots}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "figcap:Statistics-plots"
 
 \end_inset
 
 Plotting statistics for two selected measures.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5369,7 +5506,8 @@ An alternative plotting form is using filled bars with extending errorbars:
 
 \begin_layout Standard
 which are both seen in Figure 
-\begin_inset LatexCommand \ref{figcap:Statistics-plots}
+\begin_inset LatexCommand ref
+reference "figcap:Statistics-plots"
 
 \end_inset
 
@@ -5423,7 +5561,8 @@ The combined statistics object can then be fed into
 plot_bars
 \family default
  as seen in Figure 
-\begin_inset LatexCommand \ref{figcap:Statistics-plots}
+\begin_inset LatexCommand ref
+reference "figcap:Statistics-plots"
 
 \end_inset
 
@@ -5456,12 +5595,21 @@ status collapsed
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{cap:plot-varboxmatrix}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "cap:plot-varboxmatrix"
 
 \end_inset
 
 Example parameter-measure variation statistics plot.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5475,7 +5623,8 @@ plotVar
 stats_db
 \family default
  can be used to achieve Figure 
-\begin_inset LatexCommand \ref{figcap:Statistics-plots}
+\begin_inset LatexCommand ref
+reference "figcap:Statistics-plots"
 
 \end_inset
 
@@ -5501,7 +5650,8 @@ plotVarMatrix
 stats_db
 \family default
  can be used (see Figure 
-\begin_inset LatexCommand \ref{cap:plot-varboxmatrix}
+\begin_inset LatexCommand ref
+reference "cap:plot-varboxmatrix"
 
 \end_inset
 
@@ -5677,8 +5827,12 @@ status open
 
 \end_layout
 
-\begin_layout Caption
-\begin_inset LatexCommand \label{fig:insets}
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "fig:insets"
 
 \end_inset
 
@@ -5687,8 +5841,14 @@ Creating insets in figures.
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
 See Figure 
-\begin_inset LatexCommand \ref{fig:insets}
+\begin_inset LatexCommand ref
+reference "fig:insets"
 
 \end_inset
 
@@ -5728,7 +5888,8 @@ status collapsed
 
 \begin_layout Standard
 This document is prepared using the LyX document preparation system 
-\begin_inset LatexCommand \citep{lyx-03}
+\begin_inset LatexCommand citep
+key "lyx-03"
 
 \end_inset
 
@@ -5746,7 +5907,8 @@ LaTeXe{}
 \end_inset
 
  typesetting language 
-\begin_inset LatexCommand \citep{lamport-94}
+\begin_inset LatexCommand citep
+key "lamport-94"
 
 \end_inset
 
@@ -5819,7 +5981,9 @@ tex_string
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand \bibtex[bibtotoc,plainnat]{/djlab/private/cengiz/Documents/writings/refs/ref}
+\begin_inset LatexCommand bibtex
+options "bibtotoc,plainnat"
+bibfiles "/djlab/private/cengiz/Documents/writings/refs/ref"
 
 \end_inset
 
@@ -5833,7 +5997,8 @@ Appendices
 
 \begin_layout Section
 Function Reference
-\begin_inset LatexCommand \label{sec:Function-Reference}
+\begin_inset LatexCommand label
+name "sec:Function-Reference"
 
 \end_inset
 
@@ -5842,7 +6007,8 @@ Function Reference
 
 \begin_layout Standard
 See Section 
-\begin_inset LatexCommand \ref{sub:Finding-your-way-around}
+\begin_inset LatexCommand ref
+reference "sub:Finding-your-way-around"
 
 \end_inset
 
