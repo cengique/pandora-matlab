@@ -1,25 +1,27 @@
-function a_db = joinRows(a_db, with_db, props)
+function a_db = joinRows(a_db, w_db, props)
 
-% joinRows - Joins the rows of the given db with rows of with_db with matching RowIndex values.
+% joinRows - Joins a_db rows with w_db rows having matching RowIndex values.
 %
 % Usage:
-% a_db = joinRows(a_db, with_db, props)
+% a_db = joinRows(a_db, w_db, props)
 %
 % Description:
-%   Takes the desired columns in with_db with rows having a 
-% row index and joins them next to desired columns from the current db. 
-% Assumes each row index only appears once in with_db. The created
-% db preserves the ordering of with_db.
-%   If there are NaNs in the index column, then other columns that start
-% with RowIndex are searched.  unless ignoreNaNs option is specified.
+%   Concatenates columns of rows matching the join condition from the two
+% databases. Each row index must appear only once in w_db. The created db
+% preserves the ordering of w_db. See the multipleIndices option if there
+% are several redundant index columns. Multiple pages in w_db are accepted
+% (see keepNaNs option).
+%   This function is the equivalent of a "right outer join" command in SQL, w_db
+% being the database table on the right.
 %
 %   Parameters:
 %	a_db: A tests_db object.
-%	with_db: A tests_db object with a row index column.
+%	w_db: A tests_db object with a row index column.
 %	props: A structure with any optional properties.
 %	  indexColName: (Optional) Name of row index column
 %	  	(default='RowIndex').
-%	  keepNaNs: If 1, substitute NaN values for NaN indices.
+%	  keepNaNs: If 1, substitute NaN values for NaN indices. 
+%		    (default=1, for multi-page DBs; 0, otherwise).
 %	  multipleIndices: If 1, search for substitute RowIndex* columns for
 %	  	indices with NaN values. It will fail if all indices are NaNs.
 %		
@@ -38,12 +40,12 @@ function a_db = joinRows(a_db, with_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 if ~ exist('props', 'var')
   props = struct;
 end
-
-data = get(a_db, 'data');
-w_data = get(with_db, 'data');
 
 if isfield(props, 'indexColName')
   index_col_name = props.indexColName;
@@ -51,57 +53,74 @@ else
   index_col_name = 'RowIndex';
 end
 
-vs = warning('query', 'verbose');
-verbose = strcmp(vs.state, 'on');
+data = get(a_db, 'data');
 
-join_col = tests2cols(with_db, index_col_name);
-joins = w_data(:, join_col);
+% remove the index column from w_db
+wd_db = delColumns(w_db, index_col_name);
+w_data = get(wd_db, 'data');
 
-% below fails if all row indices are NaN in a row
-if isfield(props, 'multipleIndices') && any(isnan(joins))
-  if verbose
-    warning(['NaNs in ' index_col_name ' column. Proceeding with caution.']);
-  end
+% get final size from w_db
+num_pages = dbsize(w_db, 3);
 
-  % Find all RowIndex columns
-  row_index_cols = strmatch('RowIndex', fieldnames(get(with_db, 'col_idx')));
+% calculate size and initialize if we're keeping NaNs
+keep_NaNs = false;
+if num_pages > 1 || (isfield(props, 'keepNaNs') && props.keepNaNs == 1)
+  keep_NaNs = true;
+  size_db = dbsize(a_db);
+  size_wdb = dbsize(w_db);
 
-  % Then look for missing values in other columns
-  all_joins = w_data(:, row_index_cols);
-  all_non_nans = ~isnan(all_joins);
-  for joins_row = 1:size(all_joins, 1)
-    tmp_j = all_joins(joins_row, all_non_nans(joins_row, :));
-    if isempty(tmp_j)
-      joins(joins_row) = NaN;
-    else
-      joins(joins_row) = tmp_j(1);
+  % initialize with NaNs (except page index)
+  new_data = ...
+      repmat(NaN, [size_wdb(1), ...
+                   size_db(2) + size_wdb(2) - 1, num_pages]);
+end % keepNaNs
+
+% for each page
+for page_num = 1:num_pages
+
+  joins = get(onlyRowsTests(w_db, ':', index_col_name, page_num), 'data');
+
+  % below fails if all row indices are NaN in a row
+  if isfield(props, 'multipleIndices') && any(isnan(joins))
+    if verbose
+      warning(['NaNs in ' index_col_name ' column. Proceeding with caution.']);
+    end
+
+    % Find all RowIndex columns
+    row_index_cols = strmatch('RowIndex', fieldnames(get(w_db, 'col_idx')));
+
+    % Then look for missing values in other columns
+    all_joins = get(onlyRowsTests(w_db, ':', row_index_cols, page_num), 'data');
+    all_non_nans = ~isnan(all_joins);
+    for joins_row = 1:size(all_joins, 1)
+      tmp_j = all_joins(joins_row, all_non_nans(joins_row, :));
+      if isempty(tmp_j)
+        joins(joins_row) = NaN;
+      else
+        joins(joins_row) = tmp_j(1);
+      end
     end
   end
-end
 
-% remove the index column from with_db
-with_db = delColumns(with_db, index_col_name);
-w_data = get(with_db, 'data');
+  non_nan_joins = ~isnan(joins);
+  if keep_NaNs
+    % keep NaNs instead of values from db
+    new_data(non_nan_joins, :, page_num) = ...
+        [ data(joins(non_nan_joins), :), w_data(non_nan_joins, :, page_num) ];
+  else
+    % TODO: could use addColumns in the simple case?
+    %a_db = addColumns(onlyRowsTests(a_db, joins(non_nan_joins), ':'), ...
+    %                  onlyRowsTests(w_db, non_nan_joins, ':'));
+    % assume only one page
+    new_data = ...
+        [ data(joins(non_nan_joins), :), w_data(non_nan_joins, :) ];
+  end
 
-% TODO: one can use addColumns instead
-size_db = dbsize(a_db);
-size_wdb = dbsize(with_db);
-
-new_size(1) = size_wdb(1);
-new_size(2) = size_db(2) + size_wdb(2); % Except the page index
-
-non_nan_joins = ~isnan(joins);
-if isfield(props, 'keepNaNs') && props.keepNaNs == 1
-  % keep NaNs instead of values from db
-  new_data = repmat(NaN, new_size);
-  new_data(non_nan_joins, :) = [ data(joins(non_nan_joins), :), w_data(non_nan_joins, :) ];
-else
-  new_data = [ data(joins(non_nan_joins), :), w_data(non_nan_joins, :) ];
-end
+end % page_num
 
 % Get the column names straight
 cols_cell1 = fieldnames(get(a_db, 'col_idx'));
-cols_cell2 = fieldnames(get(with_db, 'col_idx'));
+cols_cell2 = fieldnames(get(wd_db, 'col_idx'));
 a_db = set(a_db, 'data', new_data);
 a_db = set(a_db, 'col_idx', makeIdx({ cols_cell1{:}, cols_cell2{:} }));
-a_db = set(a_db, 'id', [ get(a_db, 'id') ' joined with ' get(with_db, 'id')]);
+a_db = set(a_db, 'id', [ get(a_db, 'id') ' joined with ' get(w_db, 'id')]);
