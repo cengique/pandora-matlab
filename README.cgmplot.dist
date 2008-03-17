@@ -1,0 +1,44 @@
+CGUNAY's MATLAB PLOTTING TOOLBOX (CGMPLOT)
+==========================================
+
+CGMPLOT improves Matlab plotting by:
+- Adding intelligent controls to produce publication-quality figures 
+from Matlab
+- Wrapping existing plot commands into objects that can be modularly 
+stacked and superposed
+- In stacked multiplots:
+	- Modular horizontal and vertical stack plots can be nested
+	- Minimizes lost space by intelligent options to put axis labels only once
+- In superposed plots:
+	- Legends automatically appear matching plotted info
+	- Inset plots can be produced.
+- Specialized bar, errorbar and image plots are defined.
+
+
+Installation:
+--------------------
+
+Copy the cgmplot/ directory under the toolbox subdirectory in your
+Matlab installation.  Alternatively, you can use the Matlab "addpath"
+command to add the cgmplot// subdirectory to the Matlab search path.
+
+Documentation:
+--------------------
+
+See the PANDORA PDF manual under the doc/ directory.
+
+Copyright:
+--------------------
+
+Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+This work is licensed under the Academic Free License ("AFL")
+v. 3.0. To view a copy of this license, please look at the COPYING
+file distributed with this software or visit
+http://opensource.org/licenses/afl-3.0.txt.
+
+For more information and to download the latest version visit:
+http://userwww.service.emory.edu/~cgunay/pandora/
+
+Cengiz Gunay 
+cengique@users.sf.net
+2008-03-07

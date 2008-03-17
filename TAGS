@@ -63,12 +63,12 @@ function obj 1,0
    superposable 75,2522
    plot_array 77,2602
 	 break;87,2918
-	   break;102,3402
-  obj.plots plots114,3577
-  legend 116,3599
-    plot_legend 130,3999
-      legend 134,4133
-  obj 142,4244
+	   break;101,3343
+  obj.plots plots113,3518
+  legend 115,3540
+    plot_legend 129,3940
+      legend 133,4074
+  obj 141,4185
 
 classes/@plot_superpose/set.m,125
 function b 1,0
@@ -277,41 +277,41 @@ right 45,1155
   obj 50,1316
   obj 54,1475
 
-classes/@trace/trace.m,858
+classes/@trace/trace.m,864
 function obj 1,0
-   obj.dt dt94,4369
-   obj.dy dy95,4384
-   obj.id id96,4399
-   obj.props props97,4415
-   obj 98,4442
-   obj 100,4521
-     ext 110,4699
-         % Use regular 129,5361
-       data 139,5728
-       data 140,5770
-       data 144,5907
-       channel 145,5957
-       data 149,6071
-       data 154,6229
-       s 158,6398
-       fields 159,6425
-       data 160,6456
-        s1 164,6636
-          data 169,6824
-   elseif isa(181,7140
-       hpf 207,7815
-     % make a new filter based on the given dt209,7841
-     butterWorth.highPass highPass211,7928
-       lpf 215,8060
-     end216,8078
-     butterWorth.lowPass lowPass218,8126
-     props.butterWorth butterWorth219,8177
-   obj.data data222,8223
-   obj.dt dt223,8243
-   obj.dy dy224,8259
-   obj.id id225,8275
-   obj.props props226,8291
-   obj 227,8313
+   obj.dt dt94,4358
+   obj.dy dy95,4373
+   obj.id id96,4388
+   obj.props props97,4404
+   obj 98,4431
+   obj 100,4510
+     ext 110,4688
+         % Use regular 129,5350
+       data 139,5717
+       data 140,5759
+       data 144,5896
+       channel 145,5946
+       data 149,6060
+       data 154,6218
+       s 158,6387
+       fields 159,6414
+       data 160,6445
+        s1 164,6625
+          data 169,6813
+   elseif isnumeric(181,7129
+       hpf 207,7779
+     % make a new filter based on the given dt209,7805
+     butterWorth.highPass highPass211,7892
+       lpf 215,8024
+     end216,8042
+     butterWorth.lowPass lowPass218,8090
+     props.butterWorth butterWorth219,8141
+   obj.data data222,8187
+   obj.dt dt223,8207
+   obj.dy dy224,8223
+   obj.id id225,8239
+   obj.props props226,8255
+   obj 227,8277
 
 classes/@plot_bars/set.m,119
 function b 1,0
@@ -337,8 +337,8 @@ function a_plot 1,0
        props.dispErrorbars dispErrorbars98,3590
        plot_components 99,3622
        linestyle 100,3651
-     plots{plots127,4619
-   a_plot 131,4750
+     plots{plots128,4750
+   a_plot 132,4881
 
 classes/@trace_profile/get.m,33
 function b 1,0
@@ -877,15 +877,16 @@ s 33,716
     orientation 40,851
   h 44,979
 
-classes/@spikes/ISICV.m,30
+classes/@spikes/ISICV.m,43
 function cv 1,0
-  cv 35,838
+ISIs 34,802
+  cv 39,890
 
 classes/@spikes/getResults.m,130
 function results 1,0
-  results.spikeRateISI spikeRateISI38,869
-  results.ISICV ISICV39,897
-% convert all to ms/mV(mV43,935
+  results.spikeRateISI spikeRateISI38,864
+  results.ISICV ISICV39,892
+% convert all to ms/mV(mV43,930
 
 classes/@spikes/plotISIs.m,158
 function a_plot 1,0
@@ -906,7 +907,7 @@ function whole_period 1,0
 
 classes/@spikes/getISIs.m,30
 function isi 1,0
-isi 37,962
+isi 37,992
 
 classes/@spikes/spikeRateISI.m,45
 function freq 1,0
@@ -1572,12 +1573,12 @@ cols 45,1350
 crit_db 46,1380
 crit_tests 47,1421
   dist_db 53,1535
-crit_db 60,1703
-crit_db 63,1767
-% Add the STD row,65,1818
-crit_db 66,1861
-crit_db 69,1956
-crit_db 70,2019
+crit_db 60,1720
+crit_db 63,1784
+% Add the STD row,65,1835
+crit_db 66,1878
+crit_db 69,1973
+crit_db 70,2036
 
 classes/@tests_db/get.m,16
 function b 1,0
@@ -1668,14 +1669,15 @@ a_pbundle 292,10550
 classes/@tests_db/mtimes.m,19
 function a_db 1,0
 
-classes/@tests_db/addColumns.m,141
+classes/@tests_db/addColumns.m,164
 function obj 1,0
   test_names 42,1430
   test_columns 43,1480
 existing_cols 56,1939
 new_col_id 63,2157
-new_col_idx 67,2295
-obj 75,2489
+obj.data data64,2190
+new_col_idx 67,2257
+obj 75,2451
 
 classes/@tests_db/rdivide.m,19
 function a_db 1,0
@@ -1686,27 +1688,28 @@ a_db.row_idx row_idx30,725
 a_db.col_idx col_idx31,754
 a_db.data data34,791
 
-classes/@tests_db/joinRows.m,322
+classes/@tests_db/joinRows.m,369
 function a_db 1,0
-data 39,1193
-w_data 40,1219
-  index_col_name 45,1329
-vs 48,1365
-verbose 49,1399
-join_col 51,1434
-joins 52,1482
-  row_index_cols 61,1717
-  all_non_nans 65,1887
-size_db 77,2178
-size_wdb 78,2202
-new_data 83,2323
-cols_cell1 86,2428
-cols_cell2 87,2475
-a_db 88,2525
-a_db 89,2561
-a_db 90,2633
+verbose 43,1595
+  index_col_name 64,2086
+join_col 67,2122
+data 69,2168
+w_data 72,2231
+num_pages 74,2288
+  row_index_cols 86,2649
+  all_non_nans 90,2854
+size_db 102,3145
+size_wdb 103,3169
+non_nan_joins 108,3287
+  new_data 113,3545
+  new_data 116,3678
+cols_cell1 120,3789
+cols_cell2 121,3836
+a_db 122,3883
+a_db 123,3919
+a_db 124,3991
 
-classes/@tests_db/histogram.m,410
+classes/@tests_db/histogram.m,397
 function a_histogram_db 1,0
 % See also: histogram_db,26,694
 % Copyright 32,841
@@ -1721,11 +1724,10 @@ num_dbs 46,1251
 col_db 73,2082
 col_db 76,2149
 %col_db col_db77,2229
-  hist_results 85,2478
-  bins 86,2515
-col_name_cell 93,2663
-col_name 94,2707
-a_histogram_db 96,2737
+  hist_results 93,2635
+col_name_cell 100,2795
+col_name 101,2839
+a_histogram_db 103,2869
 
 classes/@tests_db/enumerateColumns.m,294
 function a_db 1,0
@@ -1750,14 +1752,14 @@ a_db 37,1026
 
 classes/@tests_db/approxMappingNNet.m,197
 function 1,0
-    num_passes 100,3386
-  goal_mse 102,3413
-  cell_ins 103,3432
-  cell_outs 104,3473
-  last_conditions 105,3513
-    nn_mse 109,3682
-      break;113,3832
-an_approx_db 121,3945
+    num_passes 100,3415
+  goal_mse 102,3442
+  cell_ins 103,3461
+  cell_outs 104,3502
+  last_conditions 105,3542
+    nn_mse 109,3711
+      break;113,3861
+an_approx_db 121,3974
 
 classes/@tests_db/isnan.m,59
 function rows 1,0
@@ -1817,7 +1819,7 @@ col_names 39,919
 classes/@tests_db/set.m,16
 function a 1,0
 
-classes/@tests_db/plotrow.m,281
+classes/@tests_db/plotrow.m,204
 function a_plot 1,0
 data 40,1021
 x_vals 41,1045
@@ -1827,10 +1829,6 @@ props.grid grid44,1161
 %flatrow flatrow52,1336
   the_title 57,1451
 a_plot 60,1506
-add_props 65,1679
-  min_val 68,1778
-  col_names 74,1905
-  a_plot 89,2679
 
 classes/@tests_db/checkConsistentCols.m,111
 function 1,0
@@ -1874,18 +1872,19 @@ function a_factors_db 1,0
 end35,1095
 a_factors_db 41,1207
 
-classes/@tests_db/plotrows.m,267
+classes/@tests_db/plotrows.m,297
 function a_plot 1,0
 num_rows 48,1274
 plots 49,1308
-    row_plot 58,1633
-    row_plot 59,1689
-props(1).xLabelsPos xLabelsPos64,1825
-%props.xTicksPos xTicksPos65,1857
-props.titlesPos titlesPos66,1886
-tests_props 68,1913
-  title_str 72,2040
-a_plot 75,2082
+%border border50,1335
+    %border border58,1638
+    row_plot 61,1786
+props(1).xLabelsPos xLabelsPos66,1922
+%props.xTicksPos xTicksPos67,1954
+props.titlesPos titlesPos68,1983
+tests_props 70,2010
+  title_str 74,2137
+a_plot 77,2179
 
 classes/@tests_db/mean.m,188
 function 1,0
@@ -1918,13 +1917,13 @@ second_row 76,2495
 second_row_data 77,2547
 elseif isfield(81,2653
     weights_tests 90,2959
-ss_data 133,4517
-  ss_data 138,4662
-clear second_row_matx;142,4789
-ss_data 156,5292
-row_index 157,5318
-wghd_data 158,5348
-a_ranked_db 170,5741
+ss_data 133,4532
+  ss_data 138,4677
+clear second_row_matx;142,4804
+ss_data 156,5307
+row_index 157,5333
+wghd_data 158,5363
+a_ranked_db 170,5756
 
 classes/@tests_db/onlyRowsTests.m,107
 function obj 1,0
@@ -3464,19 +3463,19 @@ classes/@plot_abstract/display.m,28
 function s 1,0
   s 20,588
 
-classes/@plot_abstract/superposePlots.m,207
+classes/@plot_abstract/superposePlots.m,221
 function a_plot 1,0
 command 39,1327
 data 40,1341
 legend 41,1352
 	a_plot 49,1583
-    data 53,1653
-      legend 57,1786
-  data 61,1824
-  legend 62,1845
-a_plot 65,1875
-a_plot 66,1913
-a_plot 67,1979
+        % general case 61,1903
+      legend 68,2135
+  data 72,2173
+  legend 73,2194
+a_plot 76,2224
+a_plot 77,2262
+a_plot 78,2328
 
 classes/@plot_abstract/decorate.m,267
 function handles 1,0
@@ -3493,22 +3492,22 @@ yh 31,811
   lh 143,4093
 handles 151,4222
 
-classes/@plot_abstract/plotFigure.m,330
+classes/@plot_abstract/plotFigure.m,331
 function handle 1,0
 s 33,865
     orientation 40,1005
   handle 42,1051
   handle 44,1137
   title 45,1156
-    old_units 50,1339
-    old_pos 53,1447
-  %position position59,1664
-% OBSOLETE,80,2232
-function position 81,2294
-    titleheight 85,2393
-  axis_labels 89,2425
-    left_border 93,2553
-    bottom_border 99,2676
+    old_units 55,1508
+    old_pos 58,1615
+  %position position65,1851
+% OBSOLETE,86,2419
+function position 87,2481
+    titleheight 91,2580
+  axis_labels 95,2612
+    left_border 99,2740
+    bottom_border 105,2863
 
 classes/@plot_abstract/plot_abstract.m,401
 function obj 1,0
@@ -3741,12 +3740,12 @@ a_histogram_db 69,2043
 
 classes/@tests_3D_db/tests_3D_db.m,174
 function a_3D_db 1,0
-  a_3D_db 54,1963
-  a_3D_db 56,2068
-  a_3D_db.page_idx page_idx58,2139
-  a_3D_db 59,2168
-   a_3D_db.page_idx page_idx66,2279
-   a_3D_db 68,2323
+  a_3D_db 50,1728
+  a_3D_db 52,1833
+  a_3D_db.page_idx page_idx54,1904
+  a_3D_db 55,1933
+   a_3D_db.page_idx page_idx62,2044
+   a_3D_db 64,2088
 
 classes/@tests_3D_db/plotVarBox.m,294
 function a_plot 1,0
@@ -3797,17 +3796,20 @@ function a_3D_db 1,0
 a_3D_db 36,1131
 a_3D_db 37,1187
 
-classes/@histogram_db/plotEqSpaced.m,238
+classes/@histogram_db/plotEqSpaced.m,311
 function a_plot 1,0
-% If input is an array,39,1123
-% First column is the variable,50,1410
-colnames 51,1466
-data 53,1517
-props(1).XTickLabel XTickLabel55,1549
-  y_label 60,1680
-  x_label 62,1710
-  y_label 63,1735
-a_plot 67,1811
+% If input is an array,44,1215
+% First column is the variable,55,1502
+colnames 56,1558
+data 58,1609
+props(1).XTick XTick60,1641
+props(1).XTickLabel XTickLabel61,1682
+  hist_label 68,1900
+  y_label 74,2028
+  x_label 76,2058
+  y_label 77,2083
+  all_title 83,2231
+a_plot 87,2311
 
 classes/@histogram_db/get.m,33
 function b 1,0
@@ -3860,23 +3862,24 @@ function a_hist_db 1,0
    a_hist_db 72,2243
    a_hist_db 73,2266
 
-classes/@histogram_db/plot_abstract.m,352
+classes/@histogram_db/plot_abstract.m,371
 function a_plot 1,0
-% If input is an array,47,1310
-num_dbs 49,1414
-  % Create array of plots53,1522
-  a_plot 59,1730
-% First column is the variable,63,1783
-colnames 64,1839
-data 66,1890
-  hist_label 73,2105
-  y_label 79,2233
-  x_label 81,2281
-  y_label 82,2324
-  all_title 88,2472
-  y_label 94,2603
-  line_spec 100,2707
-a_plot 109,2964
+  command 46,1294
+% If input is an array,49,1318
+num_dbs 51,1422
+  % Create array of plots55,1530
+  a_plot 61,1738
+% First column is the variable,65,1791
+colnames 66,1847
+data 68,1898
+  hist_label 75,2113
+  y_label 81,2241
+  x_label 83,2289
+  y_label 84,2332
+  all_title 90,2480
+  y_label 96,2611
+  line_spec 102,2715
+a_plot 112,3006
 
 classes/@model_ranked_to_physiol_bundle/plotfICurve.m,284
 function a_doc 1,0
@@ -4021,14 +4024,12 @@ classes/@stats_db/get.m,33
 function b 1,0
   errstr 14,451
 
-classes/@stats_db/compareStats.m,171
+classes/@stats_db/compareStats.m,113
 function a_mult_stats_db 1,0
   with_db 46,1258
 col_names 50,1310
 wcol_names 51,1362
-w_pages 62,1822
-data(:, :, 2:(1+w_pages)w_pages63,1852
-a_mult_stats_db 65,1903
+a_mult_stats_db 60,1780
 
 classes/@stats_db/plotVarMatrix.m,504
 function a_plot_stack 1,0
@@ -4137,7 +4138,7 @@ stats_props 90,2579
 elseif isfield(93,2699
 a_plot 109,3098
 
-classes/@stats_db/plot_abstract.m,200
+classes/@stats_db/plot_abstract.m,245
 function a_plot 1,0
 col_names 44,1292
 data 45,1360
@@ -4148,6 +4149,9 @@ stats_props 72,2050
   axis_limits 76,2175
 swaprowspages 79,2200
 mids 80,2225
+lows 81,2262
+highs 82,2299
+a_plot 84,2339
 
 classes/@chans_db/get.m,33
 function b 1,0
@@ -5217,20 +5221,20 @@ axis_width_pt 52,1705
 axis_height_pt 53,1737
 ratio_y 58,1876
 
-functions/balanceInputProbs.m,292
+functions/balanceInputProbs.m,294
 function 1,0
-verbose 38,1459
-% find uniques in the output classifier40,1494
-num_in_class 48,1715
-num_classes 49,1785
-num_samples 52,1880
-class_probs 55,1969
-base 56,2006
-count_in_class 71,2431
-new_inputs 72,2470
-new_outputs 73,2534
-  chosen_class 76,2674
-  sample_offset 77,2708
+verbose 41,1649
+% find uniques in the output classifier47,1734
+num_in_class 55,1955
+num_classes 56,2025
+  num_samples 63,2311
+class_probs 67,2406
+base 68,2443
+count_in_class 83,2868
+new_inputs 84,2907
+new_outputs 85,2971
+  chosen_class 88,3111
+  sample_offset 89,3145
 
 functions/findspikes.m,1461
 function 1,0
@@ -5351,11 +5355,11 @@ chopped 35,1583
 functions/findVectorInMatrix.m,18
 function idx 1,0
 
-functions/uniqueValues.m,57
+functions/uniqueValues.m,58
 function 2,1
-inv_idx 37,999
-rows 38,1032
-idx 39,1057
+inv_idx 38,1040
+rows 39,1073
+idx 40,1098
 
 functions/makeIdx.m,18
 function idx 1,0

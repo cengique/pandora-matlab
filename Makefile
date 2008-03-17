@@ -12,6 +12,9 @@ VERSION = 1.1b
 DIRNAME = $(TARNAME)-$(VERSION)
 DOCDIR = $(DIRNAME)-htmldoc
 
+PLOTPKGNAME = cgmplot
+PLOTDIRNAME = $(PLOTPKGNAME)-$(VERSION)
+
 all: 
 
 dist: 
@@ -35,6 +38,15 @@ distclean:
 	rm -f *~
 	rm -rf $(DIRNAME)
 	rm -rf $(DOCDIR)
+
+distplots:
+	mkdir $(PLOTDIRNAME)
+	cp README.cgmplot.dist $(PLOTDIRNAME)/README
+	cp COPYING $(PLOTDIRNAME)
+	mkdir $(PLOTDIRNAME)/$(PLOTPKGNAME)
+	cp -a classes/\@plot_* functions/*  $(PLOTDIRNAME)/$(PLOTPKGNAME)/
+	tar -cz --exclude .svn -f $(PLOTDIRNAME).tar.gz $(PLOTDIRNAME)
+	rm -rf $(PLOTDIRNAME)
 
 clean: 
 
