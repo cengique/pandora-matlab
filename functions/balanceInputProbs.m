@@ -1,10 +1,10 @@
 function [new_inputs, new_outputs] = ...
-    balanceInputProbs(a_class_inputs, a_class_outputs, balance_ratio)
+    balanceInputProbs(a_class_inputs, a_class_outputs, balance_ratio, props)
 
 % balanceInputProbs - Balances samples according to prior class probabilities of the outputs.
 %
 % Usage:
-% [new_inputs, new_outputs] = balanceInputProbs(a_class_inputs, a_class_outputs, balance_ratio)
+% [new_inputs, new_outputs] = balanceInputProbs(a_class_inputs, a_class_outputs, balance_ratio, props)
 %
 % Description:
 %   Uses the method in Lawrence, burns, Back, Tsoi and Lee Giles "Neural
@@ -18,6 +18,9 @@ function [new_inputs, new_outputs] = ...
 %	balance_ratio: c_s, between 0 and 1. If 1, equal samples from
 %		each class if used. If 0, prior class probabilities are followed.
 %	props: A structure with any optional properties.
+%	  repeatSamples: If 1, repeats the smaller class samples to match
+%	  	with larger class. Otherwise, takes the minimal number of
+%	  	samples to avoid repetitions (default).
 %		
 %   Returns:
 %	new_inputs, new_outputs: New input and output vectors.
@@ -37,6 +40,10 @@ function [new_inputs, new_outputs] = ...
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
+if ~ exist('props', 'var')
+  props = struct;
+end
+
 % find uniques in the output classifier
 [sorted_outputs sort_idx] = sort(a_class_outputs);
 
@@ -48,8 +55,13 @@ num_outs = size(a_class_outputs, 2);
 num_in_class = [ diff(unique_idx); (num_outs - unique_idx(end) + 1)];
 num_classes = length(num_in_class);
 
-% do not take more than the samples in the smallest class
-num_samples = min(num_in_class) * num_classes;
+if ~ isfield(props, 'repeatSamples') || props.repeatSamples == 0
+  % do not take more than the samples in the smallest class
+  num_samples = min(num_in_class) * num_classes;
+else
+  % take the maximal class size and repeat samples from smaller class
+  num_samples = max(num_in_class) * num_classes;
+end
 
 % calculate balanced class probabilities
 class_probs = zeros(1, num_classes);
