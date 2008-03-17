@@ -26,10 +26,6 @@ function a_3D_db = tests_3D_db(data, col_names, row_names, ...
 %
 % General operations on tests_3D_db objects:
 %   tests_3D_db		- Construct a new tests_3D_db object.
-%   corrCoefs		- Calculate a database of correlation coefficients
-%			  between two columns for each page in this db.
-%   plotPair		- Create a plot of variation of col1 vs. col2,
-%			  superposing each page of data as a separate line.
 %
 % Additional methods:
 %	See methods('tests_3D_db')
