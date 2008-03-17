@@ -61,7 +61,7 @@ end
 
 % Add the column
 new_col_id = dbsize(obj, 2) + 1;
-obj.data(:, new_col_id:(new_col_id + size(test_columns, 2) - 1)) = test_columns;
+obj.data = cat(2, obj.data, test_columns);
 
 % Update the meta-data
 new_col_idx = get(obj, 'col_idx');
