@@ -77,10 +77,9 @@ else
 end
 
 swaprowspages = [3 2 1];
-mids = permute(mids, swaprowspages)
-lows = permute(lows, swaprowspages)
-highs = permute(highs, swaprowspages)
-
+mids = permute(mids, swaprowspages);
+lows = permute(lows, swaprowspages);
+highs = permute(highs, swaprowspages);
 
 a_plot = plot_errorbars(mids, lows, highs, ...
 			col_names, [ get(a_stats_db, 'id') title_str], ...
