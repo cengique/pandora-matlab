@@ -27,7 +27,7 @@ function [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_col
 %	  classProbs: 'prob': use probabilistic sampling to normalize
 %	  		prior class probabilities.
 %	  maxEpochs: maximum number of epochs to train for.
-%	  (Rest passed to tests_db)
+%	  (Rest passed to balanceInputProbs and tests_db)
 %		
 %   Returns:
 %	an_approx_db: A tests_db object containing the original inputs and
@@ -85,7 +85,7 @@ orig_inputs = a_nnet_inputs;
 % balance inputs, if requested
 if isfield(props, 'classProbs') && strcmp(props.classProbs, 'prob')
   [a_nnet_inputs, a_nnet_ouputs] = ...
-      balanceInputProbs(a_nnet_inputs, a_nnet_ouputs, 1);
+      balanceInputProbs(a_nnet_inputs, a_nnet_ouputs, 1, props);
 end
 
 % train it
