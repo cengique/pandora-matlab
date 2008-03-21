@@ -52,10 +52,10 @@ else
   
   if isfield(a_plot.props, 'PaperPosition')
     set(handle, 'PaperPosition', a_plot.props.PaperPosition);
-    old_units = get(handle, 'Units')
+    old_units = get(handle, 'Units');
     % Paper position is in inches
     set(handle, 'Units', 'inches');
-    old_pos = get(handle, 'Position')
+    old_pos = get(handle, 'Position');
     % get the width and height from the paper position
     set(handle, 'Position', ...
                 [ old_pos(1:2) a_plot.props.PaperPosition(3:4) ]);

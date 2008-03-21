@@ -75,7 +75,11 @@ elseif ischar(a_plot.command) && isempty(a_plot.command)
   ph = [];
 else
   % Should work string or function handle the same way
-  ph = feval(a_plot.command, a_plot.data{:});
+  if ~ isempty(a_plot.data)
+    ph = feval(a_plot.command, a_plot.data{:});
+  else
+    ph = gca; 
+  end
 end
 
 % pass all of these to plot props

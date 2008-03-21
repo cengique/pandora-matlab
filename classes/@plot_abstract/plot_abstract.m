@@ -82,7 +82,7 @@ if nargin == 0 % Called with no params
   obj.axis_labels = {};
   obj.title = '';
   obj.legend = {};
-  obj.command = {};
+  obj.command = 'plot';
   obj.props = struct([]);
   obj = class(obj, 'plot_abstract');
 elseif isa(data, 'plot_abstract') % copy constructor?

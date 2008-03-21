@@ -30,7 +30,11 @@ switch a_plot.command
     ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
 	      min(a_plot.data{2} - a_plot.data{3}) max(a_plot.data{2} + a_plot.data{4})];
   otherwise
-    ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
-	      min(a_plot.data{2}) max(a_plot.data{2})];
+    if (length(a_plot.data) > 1)
+      ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
+                 min(a_plot.data{2}) max(a_plot.data{2})];
+    else
+      ranges = [0 0 0 0];
+    end
 end
 
