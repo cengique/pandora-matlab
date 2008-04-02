@@ -316,4 +316,7 @@ for plot_num=1:num_plots
   decorate(one_plot);
 end
 
+% not used here
+handles = [];
+
 hold off;
