@@ -25,7 +25,8 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %	  border: Relative size of border spacing around axis, between 0 - 1. (default=0)
 %	    If a scalar, equal border on all sides, give a four-element vector 
 %	    [left bottom right top] to define borders for each side.
-%	  fontSize: Set the fontsize.
+%	  colormap: Figure colormap passed to the colormap function. If 
+%		function handle, its output is passed instead.
 %	  grid: Display dashed grid in background.
 %	  noXLabel: No X-axis label.
 %	  noYLabel: No Y-axis label.
@@ -48,6 +49,8 @@ function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 %	  resizeControl: If 0, drawing after resize is disabled and prints at screen 
 %	    size, if 1 (default), redraws figure after each resize event and 
 %	    prints at PaperPosition size.
+%	  fixedSize: Vector of width and height in inches passed to
+%	  	PaperPosition property. Implies resizeControl=0.
 %		
 %   Returns a structure object with the following fields:
 %	data, axis_labels, title, legend, command, props

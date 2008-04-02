@@ -49,7 +49,14 @@ else
   % Compiz-fusion)
   a_timer = timer('StartDelay', .5, 'TimerFcn', '1');
   start(a_timer); wait(a_timer);
-  
+
+  if isfield(a_plot.props, 'fixedSize')
+    a_plot.props.PaperPosition = [0 0 a_plot.props.fixedSize];
+    if ~isfield(a_plot.props, 'resizeControl')
+      a_plot.props.resizeControl = 0;
+    end
+  end
+
   if isfield(a_plot.props, 'PaperPosition')
     set(handle, 'PaperPosition', a_plot.props.PaperPosition);
     old_units = get(handle, 'Units');
@@ -75,6 +82,16 @@ else
 
   plot(a_plot);
   decorate(a_plot);
+  
+  % set the colormap for the figure
+  if isfield(a_plot.props, 'colormap')
+    a_colormap = a_plot.props.colormap;
+    if isa(a_colormap, 'function_handle')
+      a_colormap = a_colormap();
+    end
+    colormap(a_colormap);
+  end
+
   
   % pass all of these to plot props
   if isfield(a_plot.props, 'figureProps')
