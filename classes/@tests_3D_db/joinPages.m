@@ -1,4 +1,4 @@
-function a_db = joinPages(db, tests, with_db, w_tests)
+function a_db = joinPages(db, with_db)
 
 % joinPages - Joins the rows of the given db to the with_db rows matching with the PageIndex
 % 	column.
@@ -31,6 +31,9 @@ function a_db = joinPages(db, tests, with_db, w_tests)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 data = get(db, 'data');
 w_data = get(with_db, 'data');
 page_col = tests2cols(with_db, 'PageIndex');
@@ -38,8 +41,8 @@ pages = w_data(:, page_col);
 size_db = dbsize(db);
 size_wdb = dbsize(with_db);
 
-cols = tests2cols(db, tests);
-w_cols = tests2cols(with_db, w_tests);
+cols = tests2cols(db, ':');
+w_cols = tests2cols(with_db, ':');
 %log_cols = true(1, size(with_db, 2));
 %log_cols(page_col) = false(1);
 
@@ -62,13 +65,16 @@ end
 % Get the column names straight
 cols_cell1 = fieldnames(get(db, 'col_idx'));
 cols_cell2 = fieldnames(get(with_db, 'col_idx'));
-cols_cell1
-cols_cell2
-cols
-w_cols
-cols_cell1{cols}
-cols_cell2{w_cols}
+if verbose
+  cols_cell1
+  cols_cell2
+  cols
+  w_cols
+  cols_cell1{cols}
+  cols_cell2{w_cols}
+end
 a_db = tests_db(new_data, ...
 		{ cols_cell1{cols}, cols_cell2{w_cols} }, ...
 		fieldnames(get(db, 'row_idx')), ...
-		[ get(db, 'id') ' joined with ' get(with_db, 'id')], db.props);
+		[ get(db, 'id') ' joined with ' get(with_db, 'id')], ...
+                get(db, 'props'));
