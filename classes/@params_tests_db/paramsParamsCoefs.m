@@ -40,8 +40,8 @@ for param_num=1:num_params
   all_test_cols = [];
   all_test_cols(1:dbsize(a_coef_db, 2)) = true(1);
   all_test_cols(tests2cols(a_coef_db, {'PageIndex'})) = false(1,1)
-  joint_db = joinPages(a_t3d, 'RowIndex', a_coef_db, ...
-		       find(all_test_cols));
+  joint_db = joinPages(onlyRowsTests(a_t3d, ':', 'RowIndex'), ...
+                       onlyRowsTests(a_coef_db, all_test_cols, ':'));
   % Remove the Index columns from this
   all_test_cols = [];
   all_test_cols(1:dbsize(joint_db, 2)) = true(1);
