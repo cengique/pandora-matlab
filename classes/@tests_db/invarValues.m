@@ -51,6 +51,7 @@ function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
+% Modifications: Li Su, bugfix for non-symmetric dbs 2008/03.
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -87,7 +88,7 @@ num_rows = length(unique_idx);
 num_total_rows = dbsize(db, 1);
 
 % If not symmetric
-if mod(num_total_rows, num_rows) ~= 0
+if any(diff(diff([unique_idx; num_total_rows+1])))
   if verbose
     disp('Warning: non-symmetric database.');
   end
