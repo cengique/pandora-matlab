@@ -41,7 +41,7 @@ p_db = get(a_pbundle, 'db');
 rows = anyRows(onlyRowsTests(p_db, ':', 'TracesetIndex'), traceset_vals);
 
 if isfield(props, 'traces') 
-  rows = rows & onlyRowsTests(p_db, ':', 'ItemIndex') == props.traces;
+  rows = rows & anyRows(onlyRowsTests(p_db, ':', 'ItemIndex'), props.traces);
 end
 
 if ~ isempty(cip_levels) 
