@@ -129,7 +129,9 @@ else
     zero_treatments = cell2struct(repmat({0}, length(treat_names), 1), treat_names);
     % go over the list again to set zeros for missing treatments
     for ts_num = 1:length(list)
-      list{ts_num}.treatments = mergeStructs(list{ts_num}.treatments, zero_treatments);
+      list{ts_num}.treatments = ...
+          orderfields(mergeStructs(list{ts_num}.treatments, ...
+                                   zero_treatments), all_treatments);
     end    
   elseif isstr(traceset_items)
       % read ASCII file, make each line an item in a cell array
