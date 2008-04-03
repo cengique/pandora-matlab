@@ -24,7 +24,7 @@ dist:
 	mkdir $(DIRNAME)/doc
 	cp -a doc/prog-manual.pdf $(DIRNAME)/doc
 	cp README.dist $(DIRNAME)/README
-	cp COPYING $(DIRNAME)
+	cp COPYING CHANGES CREDITS $(DIRNAME)
 	tar -cz --exclude .svn -f $(DIRNAME).tar.gz $(DIRNAME)
 	rm -rf $(DIRNAME)
 
