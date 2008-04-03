@@ -7,13 +7,13 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, ...
 % a_db = mergeMultipleCIPsInOne(db, names_tests_cell, index_col_name, props)
 %
 % Description:
-%   It calls invarParam to separate db into pages with different CIP level data.
-% Then uses the names_tests_cell to choose tests from each page to be merged into the 
-% final database row. The tests will be suffixed with the field name so that 
-% they can be distinguished. RowIndex columns
-% will be automatically included, and one of them can be chosen with index_col_name
-% that has values for all cells. The suffixed for needs to be used to 
-% choose index_col_name, such as 'RowIndex_H100pA', assuming 'H100pA' was the field
+%   It calls invarParam to separate DB into pages with different CIP level
+% data.  Then uses the names_tests_cell to choose tests from each page to be
+% merged into the final database row. The tests will be suffixed with the
+% field name so that they can be distinguished. RowIndex columns will be
+% automatically included, and one of them can be chosen with index_col_name
+% that has values for all cells. The suffixed for needs to be used to choose
+% index_col_name, such as 'RowIndex_H100pA', assuming 'H100pA' was the field
 % name in names_tests_cell that corresponds to page -100 pA.
 %
 %   Parameters:
@@ -24,8 +24,10 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, ...
 %	index_col_name: (Optional) Name of row index column 
 %		(default is 'RowIndex' suffixed with the first field name).
 %	props: A structure with any optional properties.
-%	  cipLevels: In case db is missing some levels, provides a list of cip levels that
-%    		correspond to names_tests_cell db. Missing levels are replaced with NaN values.
+%	  cipLevels: In case db is missing some levels, provides a list of 
+%    		cip levels that correspond to names_tests_cell db. Missing 
+%    		levels are replaced with NaN values. DB is filtered to
+%    		remove other CIP levels.
 %		
 %   Returns:
 %	a_db: A params_tests_db object of organized values.
@@ -50,6 +52,15 @@ function cip_fold_db = mergeMultipleCIPsInOne(db, names_tests_cell, ...
 
 if ~ exist('props', 'var')
   props = struct;
+end
+
+if isfield(props, 'cipLevels')
+  cip_levels = props.cipLevels;
+  if diff(size(cip_levels)) > 0
+    cip_levels = cip_levels';
+  end
+  % if specified, only keep these cip levels
+  db = onlyRowsTests(db, anyRows(onlyRowsTests(db, ':', 'pAcip'), cip_levels), ':');
 end
 
 % Fold into multiple pages, according to cip values

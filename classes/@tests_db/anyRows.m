@@ -1,4 +1,4 @@
-function idx = anyRows(db, rows)
+function [idx rows_idx] = anyRows(db, rows)
 
 % anyRows - Returns db rows matching any of the given rows.
 %
@@ -15,6 +15,8 @@ function idx = anyRows(db, rows)
 %		
 % Returns:
 %	idx: A logical column vector of matching db row indices. 
+%	rows_idx: Indices of rows entries corresponding to each db
+%		row. Non-matching entries were left as NaN.
 %
 % Example:
 %  >> db(anyRows(db(:, 'trial') == [12; 46; 37]), :)
@@ -50,6 +52,7 @@ num_rows = size(rows, 1);
 num_db_rows = size(db.data, 1);
 ones_matx = ones(num_db_rows, 1);
 idx = false(num_db_rows, 1);
+rows_idx = repmat(NaN, num_db_rows, 1);
 
 db_data = db.data;
 
@@ -67,7 +70,10 @@ else
 
     % - duplicate row to a matrix of same size with db
     % - subtract from db
-    idx = idx | all(abs(db_data - (ones_matx * rows(row_num, :))) <= eps(0), 2);
+    matching_db_rows = ...
+        all(abs(db_data - (ones_matx * rows(row_num, :))) <= eps(0), 2);
+    rows_idx(matching_db_rows) = row_num;
+    idx = idx | matching_db_rows;
   end
 
 end
