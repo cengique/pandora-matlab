@@ -44,7 +44,7 @@ function a_pbundle = physiol_bundle(phys_dball, phys_dataset, props)
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
 
-  if ~ exist('props')
+  if ~ exist('props','var')
     props = struct;
   end
 
@@ -53,24 +53,10 @@ function a_pbundle = physiol_bundle(phys_dball, phys_dataset, props)
   end
   
 % Weed out any traces with |bias| > 30 pA
-phys_db_small_bias = phys_dball(phys_dball(:, 'pAbias') > -30 & phys_dball(:, 'pAbias') < 30, :);
+phys_db = phys_dball(phys_dball(:, 'pAbias') > -30 & phys_dball(:, 'pAbias') < 30, :);
 
   if verbose
-    disp(['Eliminated large biases, left with DB of ' num2str(dbsize(phys_db_small_bias, 1)) ' rows.' ]);
-  end
-
-  % Choose some CIPs
-  CIPList = getfuzzyfield(props, 'CIPList');
-  if isempty(CIPList)
-    phys_db_limitedcip = phys_db_small_bias;
-  else
-    phys_db_limitedcip = ...
-        phys_db_small_bias(anyRows(phys_db_small_bias(:, 'pAcip'), ...
-                                   CIPList), :);
-  end
-
-  if verbose
-    disp(['Eliminated unwanted CIPs, left with DB of ' num2str(dbsize(phys_db_limitedcip, 1)) ' rows.' ]);
+    disp(['Eliminated large biases, left with DB of ' num2str(dbsize(phys_db, 1)) ' rows.' ]);
   end
 
   % remove unnecessary params before averaging 
@@ -79,31 +65,31 @@ phys_db_small_bias = phys_dball(phys_dball(:, 'pAbias') > -30 & phys_dball(:, 'p
   else
     weed_cols = {'pulseOn', 'pulseOff', 'traceEnd', 'pAbias', 'ItemIndex'};
   end
-  phys_db_limitedcip = ...
-      delColumns(phys_db_limitedcip, weed_cols);
+  phys_db = ...
+      delColumns(phys_db, weed_cols);
 
     if verbose
       disp(['Eliminated ' num2str(length(weed_cols)) ... 
             ' param columns that do not contribute to identifying ' ...
-            'traces, left with DB of ' num2str(dbsize(phys_db_limitedcip, 2)) ...
+            'traces, left with DB of ' num2str(dbsize(phys_db, 2)) ...
            ' columns.' ]);
     end
 
     % Add some new measures
-    phys_db_limitedcip_addedcols3 = addPostDBColumns(phys_db_limitedcip);
+    phys_db = addPostDBColumns(phys_db);
     
     if verbose
       disp(['Added new post-measure columns, now has with DB of ' ...
-           num2str(dbsize(phys_db_limitedcip_addedcols3, 2)) ...
+           num2str(dbsize(phys_db, 2)) ...
            ' columns.' ]);
     end
 
     % Use CIP levels -20 to -60 for averaging input resistance and membrane
     %time constants. Average across pAcip, so remove it, too.
     phys_inputres_mean_db = ...
-        meanDuplicateParams(delColumns(phys_db_limitedcip_addedcols3(...
-          phys_db_limitedcip_addedcols3(:, 'pAcip') > -100 & ...
-          phys_db_limitedcip_addedcols3(:, 'pAcip') <= -20, :), ...
+        meanDuplicateParams(delColumns(phys_db(...
+          phys_db(:, 'pAcip') > -100 & ...
+          phys_db(:, 'pAcip') <= -20, :), ...
                                        {'pAcip'}));
 
 
@@ -115,12 +101,24 @@ phys_db_small_bias = phys_dball(phys_dball(:, 'pAbias') > -30 & phys_dball(:, 'p
            ' columns.' ]);
     end
 
+    % Choose some CIPs
+  CIPList = getfuzzyfield(props, 'CIPList');
+  if ~isempty(CIPList)
+    phys_db = ...
+        phys_db(anyRows(phys_db(:, 'pAcip'), ...
+                                   CIPList(:)), :);
+  end
+
+  if verbose
+    disp(['Eliminated unwanted CIPs, left with DB of ' num2str(dbsize(phys_db, 1)) ' rows.' ]);
+  end
+
     % Average traces with same CIP levels
-    phys_mean_db = meanDuplicateParams(phys_db_limitedcip_addedcols3);
+    phys_db = meanDuplicateParams(phys_db);
 
     if verbose
       disp(['Averaging traces with same CIP levels reduced main DB to ' ...
-           num2str(dbsize(phys_mean_db, 1)) ...
+           num2str(dbsize(phys_db, 1)) ...
            ' rows.' ]);
     end
 
@@ -290,8 +288,8 @@ merge_args = {...
 % remove input resistance cips and excessive columns before merging CIPs
 % TODO: keep NumDuplicates? [no, messes up merging process]
 phys_2_join_db = ...
-    delColumns(phys_mean_db(phys_mean_db(:, 'pAcip', 1) <= -100 | ...
-                            phys_mean_db(:, 'pAcip', 1) >= 0, :, :), ...
+    delColumns(phys_db(phys_db(:, 'pAcip', 1) <= -100 | ...
+                            phys_db(:, 'pAcip', 1) >= 0, :, :), ...
                {'NumDuplicates', 'RowIndex'});
 
 % get the main values (TODO: merge pages using concat and swapRowsPages)
