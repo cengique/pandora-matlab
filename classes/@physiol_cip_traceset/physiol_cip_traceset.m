@@ -93,7 +93,7 @@ else
       trace_list = gettracelist2(trace_str);
   else
       trace_list = trace_str;
-      trace_str = num2str(trace_str);
+      trace_str = array2str(trace_str); % edited by Li Su.
   end
 
   if ~ exist('props')
@@ -115,7 +115,16 @@ else
     props.nsHDF5 = [];
     
     % read in new info
-    props.Trials = ns_select_trials(ns_h5_info, trace_list);
+    Trials = ns_select_trials(ns_h5_info, trace_list);
+    % remove some unused fields in Trial info to keep props slim. by Li Su
+    Trials = cellfun(@(x)rmfield(x,...
+                {'HDF5', ...
+                 'ExperimentControl', ...
+                 'InstrumentConfiguration', ...
+                 'StimulationData' ...
+                }), ...
+             Trials, 'uniformoutput', false);
+    props.Trials = Trials;
     props.cip_list = ns_CIPlist(ns_h5_info, trace_list);
 
     if verbose, props, end
@@ -127,12 +136,12 @@ else
     end    
     
     tr1=trace_list(1); ch=max([obj.vchan 1]);
-    if ~exist('dt') || isempty(dt)
+    if ~exist('dt','var') || isempty(dt)
       dt = 1/props.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
     end
 
-    if ~exist('dy') || isempty(dy)
-      dy = 1 %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
+    if ~exist('dy','var') || isempty(dy)
+      dy = 1; %/pros.Trials{tr1}.AcquisitionData{ch}.SamplingRate;
     end
   end
 
@@ -142,7 +151,8 @@ else
   obj = class(obj, 'physiol_cip_traceset', ...
 	      params_tests_dataset(trace_list, dt, dy, ...
 				   [ 'traceset ' neuron_id ' (' data_src '), trials ' ...
-				    trace_str ' ' ], props));
+				    trace_str ' ' props.Trials{1}.SequenceName ' '], props));
+    % add sequence name into traceset name. by Li Su
 
 end
 
