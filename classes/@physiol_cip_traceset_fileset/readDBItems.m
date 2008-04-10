@@ -76,7 +76,12 @@ for item_num=items
 
   if num_traces > 0  % Unless reading traceset failed and truncated
     row_range = rows : (rows + num_traces - 1);
-    params(row_range, :) = [item_params, repmat(neuron_id, num_traces,1), ...
+    % edited by Li Su. Cannot directly put item_params into params, because
+    % treatments might be in different orders between tracesets and thus
+    % cause params misplaced. have to compare tmp_param_names and
+    % param_names.
+    param_order = cellfun(@(x)strmatch(x, tmp_param_names,'exact'), param_names(1:end-2));
+    params(row_range, :) = [item_params(:,param_order), repmat(neuron_id, num_traces,1), ...
 			    repmat(item_num, num_traces,1) ];
     tests(row_range, :) = item_tests;
     rows = rows + num_traces;
