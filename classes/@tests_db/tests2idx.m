@@ -56,12 +56,13 @@ elseif islogical(tests)
 elseif isnumeric(tests) 
   idx = tests;
 elseif ischar(tests)
-  idx = getfield(ind_struct, tests);
+  idx = getfuzzyfield(ind_struct, tests);
 elseif iscell(tests)
-  for test=tests
-    test = test{1}; % unwrap the cell
+  tests={tests{:}}; % add by Li Su, change the array to a row vector.
+  for test1=tests
+    test = test1{1}; % unwrap the cell
     if ischar(test)
-      ind = getfield(ind_struct, test);
+      ind = getfuzzyfield(ind_struct, test);
     elseif isnumeric(test)
       ind = test;
     else
