@@ -43,6 +43,20 @@ else
   args = {obj};
 end
 
+% add by Li Su. pass data source and trace number info to database. just
+% in case the fileset is lost, we can still get a clue of where the data
+% came from.
+if isfield(obj, 'neuron_idx')
+    id=get(obj, 'neuron_idx');
+    props(1).neuron_idx=id;
+    for n=1:length(obj.list)
+        ts=obj.list{n};
+        props.data_src{n}=get(ts,'data_src');
+        ds=get(ts,'params_tests_dataset');
+        props.tracesets{n}=ds.list;
+    end
+end
+
 [params, param_names, tests, test_names] = readDBItems(args{:});
 
 db_obj = params_tests_db(params, param_names, tests, test_names, ...
