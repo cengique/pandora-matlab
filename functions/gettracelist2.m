@@ -9,7 +9,9 @@
 % <adelgado@biology.emory.edu>
 
 function [traces, ntraces] = gettracelist2(liststr)
-	
+if isnumeric(liststr) % add by Li Su. for compatibility just in case.
+    traces=liststr;
+else
 	tidx = sscanf(liststr, '%i');
 	
 	rgs = find(tidx(:, 1) < 0);
@@ -41,8 +43,7 @@ function [traces, ntraces] = gettracelist2(liststr)
 	end
 	
 	traces = find(traces(:, 1) ~= 0);
-	
-	ntrs = size(traces);
-	ntraces = ntrs(1, 1);
-	
 	clear tidx ntrs ridx nrgs rgs range trls;
+end	
+ntrs = size(traces);
+ntraces = ntrs(1, 1);
