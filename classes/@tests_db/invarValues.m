@@ -74,100 +74,106 @@ log_cols(cols) = true(1);
 log_cols(trial_col) = true(1);
 wo_cols = db.data(:, ~log_cols);
 
-% Sort rows
-[sorted idx] = sortrows(wo_cols);
-
-% Find unique rows
-[unique_rows unique_idx] = sortedUniqueValues(sorted);
-
-% Get the columns back [no need for duplicate memory matrix, just use idx below]
-% sorted = db.data(idx, :);
-
-% Initialize
-num_rows = length(unique_idx);
-num_total_rows = dbsize(db, 1);
-
-% If not symmetric
-if any(diff(diff([unique_idx; num_total_rows+1])))
-  if verbose
-    disp('Warning: non-symmetric database.');
-  end
-  if ~ exist('in_page_unique_cols')
-    error('Database does not contain equal rows of each unique combination and in_page_unique_cols is not specified. Cannot fold.');
-  end
-
-  in_page_unique_cols = tests2cols(db, in_page_unique_cols);
-
-  % Sort and keep the unique values of in_page_unique_cols
-  unique_main_vals = sortrows(uniqueValues(db.data(idx, in_page_unique_cols)));
-  num_uniques = size(unique_main_vals, 1);
-  if verbose
-    unique_main_vals
-    num_uniques
-    num_rows
-  end
-  max_page_rows = num_uniques;
+if isempty(wo_cols) % added by Li Su
+    data=zeros(0);
 else
-  max_page_rows = floor(num_total_rows / num_rows);
-end
+    % % Sort rows
+    [sorted idx] = sortrows(wo_cols);
+    % 
+    % % Find unique rows
+    [unique_rows unique_idx] = sortedUniqueValues(sorted);
+    % edited by Li Su. see help sortedUniqueValues for reason
+%     [unique_rows unique_idx] = unique(wo_cols, 'rows', 'first')
 
-data = repmat(NaN, [max_page_rows, (length(cols) + 1), num_rows]);
+    % Get the columns back [no need for duplicate memory matrix, just use idx below]
+    % sorted = db.data(idx, :);
 
-if exist('unique_main_vals')
-  unique_main_vals_exist = true;
-else
-  unique_main_vals_exist = false;
-end
+    % Initialize
+    num_rows = length(unique_idx);
+    num_total_rows = dbsize(db, 1);
 
-% For each unique row to next, create a new page
-for row_num=1:num_rows
-  if row_num < num_rows
-    page_rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
-  else
-    page_rows = unique_idx(row_num):num_total_rows;
-  end
-
-  page_size = length(page_rows);
-  if unique_main_vals_exist
-    % sort in_page_unique_cols first
-    [page_main_vals page_idx] = sortrows(db.data(idx(page_rows), in_page_unique_cols));
-
-    % Match each page entry to uniques
-    unique_index = 1;
-    for page_index = 1:page_size
-      unique_index = findVectorInMatrix(unique_main_vals, ...
-					page_main_vals(page_index, :));
-
-      % Check for errors
-      if num_uniques - unique_index < page_size - page_index
-	num_uniques
-	unique_index
-	page_size
-	page_index
-	page_main_vals
-	error(['Fatal: cannot match within page values of in_page_unique_cols? ' ...
-               'See above variables.']);
+    % If not symmetric
+    if any(diff(diff([unique_idx; num_total_rows+1])))
+      if verbose
+        disp('Warning: non-symmetric database.');
+      end
+      if ~ exist('in_page_unique_cols','var')
+        error('Database does not contain equal rows of each unique combination and in_page_unique_cols is not specified. Cannot fold.');
       end
 
-      % Check if remaining page size is equal to remaining uniques size,
-      % if so just copy the rest of the page.
-      if page_size - page_index == num_uniques - unique_index
-	% Copy contents verbatim from this index onwards
-	data(unique_index:end, :, row_num) = ...
-	  [db.data(idx(page_rows(page_idx(page_index:end))), cols), ...
-	   idx(page_rows(page_idx(page_index:end))) ];
+      in_page_unique_cols = tests2cols(db, in_page_unique_cols);
+
+      % Sort and keep the unique values of in_page_unique_cols
+      unique_main_vals = sortrows(uniqueValues(db.data(idx, in_page_unique_cols)));
+      num_uniques = size(unique_main_vals, 1);
+      if verbose
+        unique_main_vals
+        num_uniques
+        num_rows
+      end
+      max_page_rows = num_uniques;
+    else
+      max_page_rows = floor(num_total_rows / num_rows);
+    end
+
+    data = repmat(NaN, [max_page_rows, (length(cols) + 1), num_rows]);
+
+    if exist('unique_main_vals','var')
+      unique_main_vals_exist = true;
+    else
+      unique_main_vals_exist = false;
+    end
+
+    % For each unique row to next, create a new page
+    for row_num=1:num_rows
+      if row_num < num_rows
+        page_rows = unique_idx(row_num):(unique_idx(row_num + 1) - 1);
       else
-	% Copy only this row
-	data(unique_index, :, row_num) = ...
-	    [db.data(idx(page_rows(page_idx(page_index))), cols), ...
-	     idx(page_rows(page_idx(page_index))) ];
+        page_rows = unique_idx(row_num):num_total_rows;
+      end
+
+      page_size = length(page_rows);
+      if unique_main_vals_exist
+        % sort in_page_unique_cols first
+        [page_main_vals page_idx] = sortrows(db.data(idx(page_rows), in_page_unique_cols));
+
+        % Match each page entry to uniques
+        unique_index = 1;
+        for page_index = 1:page_size
+          unique_index = findVectorInMatrix(unique_main_vals, ...
+                        page_main_vals(page_index, :));
+
+          % Check for errors
+          if num_uniques - unique_index < page_size - page_index
+        num_uniques
+        unique_index
+        page_size
+        page_index
+        page_main_vals
+        error(['Fatal: cannot match within page values of in_page_unique_cols? ' ...
+                   'See above variables.']);
+          end
+
+          % Check if remaining page size is equal to remaining uniques size,
+          % if so just copy the rest of the page.
+          if page_size - page_index == num_uniques - unique_index
+        % Copy contents verbatim from this index onwards
+        data(unique_index:end, :, row_num) = ...
+          [db.data(idx(page_rows(page_idx(page_index:end))), cols), ...
+           idx(page_rows(page_idx(page_index:end))) ];
+          else
+        % Copy only this row
+        data(unique_index, :, row_num) = ...
+            [db.data(idx(page_rows(page_idx(page_index))), cols), ...
+             idx(page_rows(page_idx(page_index))) ];
+          end
+        end
+      else
+        % Fill page from fixed-size unique values
+        this_page_idx = idx(page_rows);
+        data(:, :, row_num) = [db.data(this_page_idx, cols), this_page_idx ];
       end
     end
-  else
-    % Fill page from fixed-size unique values
-    this_page_idx = idx(page_rows);
-    data(:, :, row_num) = [db.data(this_page_idx, cols), this_page_idx ];
-  end
 end
 
 % Create the 3D database
