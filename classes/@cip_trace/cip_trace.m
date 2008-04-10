@@ -76,4 +76,3 @@ else
 
   obj = class(obj, 'cip_trace', trace_obj);
 end
-
