@@ -100,7 +100,7 @@ if nargin == 0 % Called with no params
    obj = data_src;
  else
 
-   if ~ exist('props')
+   if ~ exist('props','var')
      props = struct([]);
    end
 
@@ -121,7 +121,7 @@ if nargin == 0 % Called with no params
         channel = props.channel;
        end
 
-       if ~ isempty(findstr(filename, '_BE_')) | ...
+       if ~ isempty(findstr(filename, '_BE_')) || ...
 	     ~ isempty(findstr(filename, '_BE.'))
          % Use big-endian (Mac, Sun) version of readgenesis
          data = readgenesis_BE(data_src, channel);
@@ -174,7 +174,7 @@ if nargin == 0 % Called with no params
      end
 
      % use the filename as id unless otherwise specified
-     if ~ exist('id') | strcmp(id, '') == 1
+     if ~ exist('id','var') || isempty(id)
        id = name;
      end
 
@@ -186,7 +186,18 @@ if nargin == 0 % Called with no params
 
    % Scale the loaded data if desired
    if isfield(props, 'scale_y')
-     data = props.scale_y * data;
+      if ~(strcmpi(props.file_type, 'hdf5') || ...
+              strcmpi(ext, '.hdf5') ...            % if file type is NOT hdf5
+          ) || ...                                 %   OR
+          (isfield(props, 'AcquisitionData') && ...
+           strcmpi( ...                            % gain is unspecified) --added by Li Su
+                   props.AcquisitionData{props.channel}.PhysicalDevice, ...
+                   'Unspecified' ...
+                  ) ...
+          )
+         data = props.scale_y * data;
+         disp(sprintf('Device unspecified. Trace multiplied by default gain %g', props.scale_y ))
+      end
    end
 
    % Apply offset to data if desired (after scaling?)
