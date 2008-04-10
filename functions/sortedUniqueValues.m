@@ -1,5 +1,11 @@
 function [rows, idx] = sortedUniqueValues(data)
-
+% ==== warning (by Li Su) ========================================
+% This function would give an error if the input is an empty matrix.
+% There is already a Matlab function UNIQUE doing the same job:
+%
+% [rows, idx]= unique(data, 'rows')
+% ==== end of warning ===========================================
+%
 % sortedUniqueValues - Find unique rows in an already sorted matrix 
 %			(or column vector). Uses the derivation method.
 %
@@ -25,11 +31,15 @@ function [rows, idx] = sortedUniqueValues(data)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % Use diff to get unique rows
-diffed = diff(data, 1, 1);
+if ~isempty(data)
+    diffed = diff(data, 1, 1);
 
-% Find non-zero rows
-nonzerorows = [true(1); any(diffed, 2)];
+    % Find non-zero rows
+    nonzerorows = [true(1); any(diffed, 2)];
 
-idx = find(nonzerorows);
-rows = data(idx, :);
-
+    idx = find(nonzerorows);
+    rows = data(idx, :);
+else
+    rows=zeros(0, size(data,2));
+    idx=rows;
+end

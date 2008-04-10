@@ -24,7 +24,7 @@ function string = array2str(a, operator, form)
 % Author: Li, Su - 03/27/2008
 
 operator=default('operator',':');
-form = default('form',2);
+form = default('form',3);
 [rows cols]=size(a);
 if rows>1
     if cols==1
