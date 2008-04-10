@@ -100,7 +100,7 @@ fixed_Vm_width = find_width_at_val(fixed_Vm / s.trace.dy);
 % min_val - max_ahp * (1 - exp(-t/decay_constant))
 
 % Don't wrap to the beginning of the trace, already done at creation time
-after_ahp = [s.trace.data(min_idx:end)];
+after_ahp = s.trace.data(min_idx:end);
 
 % Find double AHP is it exists
 %[dahp_mag, dahp_idx] = find_double_ahp(after_ahp, min_idx, s.trace.dt);
@@ -148,14 +148,21 @@ function a_width = find_width_at_val(width_Vm)
   % Find part above half Vm (measured in dy's)
   start_from = max(floor(max_idx - 3*1e-3 / s.trace.dt), 1);
   above_half = start_from - 1 + find(s.trace.data(start_from:end) >= width_Vm);
+  % added by Li Su: sometimes the max_val is much higher than actual
+  % max(s.trace.data), in which case it would pass the spike height check
+  % above.
+  if isempty(above_half) 
+      a_width = NaN;     
+      return;
+  end
 
   % Find the first discontinuity to match only the first down ramp
   some_of_the_above = above_half(above_half > floor(max_idx));
   end_of_first_hump = find(diff(some_of_the_above) > 1);
   if length(end_of_first_hump) > 0
-  end_of_first_hump = end_of_first_hump(1) + floor(max_idx);
+      end_of_first_hump = end_of_first_hump(1) + floor(max_idx);
   else
-  end_of_first_hump = above_half(end);
+      end_of_first_hump = above_half(end);
   end
 
   % Find the last discontinuity to match only the last up ramp
@@ -244,7 +251,7 @@ function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
 
   thr_start_from =  1; % floor(1e-3/s.trace.dt); % plus some ms  
   first_thr_crossing = thr_start_from - 1 + find(after_fall(thr_start_from:end) <= (init_val + 1));
-  if length(first_thr_crossing) == 0
+  if isempty(first_thr_crossing)
     first_thr_crossing_idx = 1;
   else
     first_thr_crossing_idx = first_thr_crossing(1);
@@ -253,7 +260,7 @@ function [min_val, min_idx, max_ahp, dahp_mag, dahp_idx] = ...
   % find next time potential rises to threshold value
   next_thr_crossing = find(after_fall(first_thr_crossing_idx:end) > (init_val + 1));
   
-  if length(next_thr_crossing) == 0
+  if isempty(next_thr_crossing)
     end_at = length(after_fall);
   else
     end_at = next_thr_crossing(1) + first_thr_crossing_idx - 1;
