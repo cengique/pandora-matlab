@@ -1,4 +1,4 @@
-function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
+function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
 
 % ns_load_tracesets - Return a set of physiol_cip_traceset objects loaded from a single NeuroSAGE HDF5 file.
 %
@@ -20,6 +20,12 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
 %	  	  specified, the first voltage channel is used.
 %	  ImChan: (Optional) Similar to VmChan for reading current
 %	  	  trace. Does not affect neuron_id.
+%     VGain, IGain: for HDF5 files, these two fields only works as a default value
+%         when the gains are not specified in the file.
+%     IncludeSeq: A string or cell array of strings specifying keywords in
+%         sequence name to look for.
+%     ExcludeSeq: A string or cell array of strings specifying keywords in
+%         sequence name to avoid searching.
 %	  addTreats: Structure of default treatment names and their
 %	  	values for this traceset to keep consistent accross 
 %		tracesets. Use only lowercase in treatment names.
@@ -40,7 +46,7 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
 %
 % Author: Li, Su; Cengiz Gunay <cgunay@emory.edu>; and Jeremy Edgerton, 2007/12/18
 %
-% Modified: 
+% Modified: Li, Su 3/25/08 add IncludeSeq, ExcludeSeq, VGain, IGain.
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -62,8 +68,8 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
   a_tss = {};
   h5_infos = {};
   if ischar(data_src)                   % filename
+    [datapath, name, ext, ver] = fileparts(data_src);
     if any(strfind(data_src, '*'))      % contains wildcards
-      [datapath, name, ext, ver] = fileparts(data_src);
       files = dir(data_src);
       if isempty(files)
         error(['File pattern (' data_src ') returned no matches.']);
@@ -91,6 +97,7 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
   elseif isstruct(data_src)
     % assume it's hdf5 structure returned from ns_open_file
     filename = data_src.Name;
+    [datapath, name, ext, ver] = fileparts(filename);
   else
     error(['Unknown input type (' class(data_src) ') for data_src.']);
   end
@@ -98,31 +105,46 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
   [nfo h5] = ns_file_info(data_src, 'hc');
   h5_infos{n} = h5;
   if isempty(nfo)
-    warning('Nothing found in file by ns_file_info.');
+    warning(['Nothing found in file ' filename ' by ns_file_info.']); %edited by Li Su
     return;
   end
   % Warning: Li Su's approach of finding neurons based on first six letters of
   % filename is not general. Converted to use ExperimentTag with the
   % combination of recording voltage channel as unique id for neuron names.
+  
+  % re: I don't use ExperimentTag that way. The only thing to identify
+  % experiments is the filename and h5.Name (basically the same thing).
+  % - Li Su
 
   % only load tracesets from CIP sequences 
-  idx = strcat(strfind(upper(nfo(:,4)),'CIP'), strfind(upper(nfo(:,4)),'SPONT'));
+  % idx = strcat(strfind(upper(nfo(:,5)),'CIP'), strfind(upper(nfo(:,5)),'SPONT'));
+  % edited by Li Su: look for includeSeq keywords
+  incl=getfuzzyfield(props,'includeseq');
+  incl=default('incl', {'CIP','SPONT'});
+  idx=cell(size(nfo,1),0);
+  for kw={incl{:}}
+      idx=strcat(idx, strfind(upper(nfo(:,5)),upper(kw{1})));
+  end
+  
   % CG commented Li Su custom exceptions
-% $$$     not_idx=strcat(strfind(upper(nfo(:,4)),'SHORT'), ...
-% $$$                    strfind(upper(nfo(:,4)),'DYN'), ...
-% $$$                    strfind(upper(nfo(:,4)),'SK'));
-  not_idx = [];
+  excl=getfuzzyfield(props,'excludeseq');
+  excl=default('excl', {'DYN','SK','SHORT','200s'});
+  not_idx=cell(size(nfo,1),0);
+  for kw={excl{:}}
+      not_idx=strcat(not_idx, strfind(upper(nfo(:,5)),upper(kw{1})));
+  end
+
   for l=1:length(idx)
-    % && isempty(not_idx{l})
+    
     if isfield(props, 'trials')
       % check if among the given trials
-      trials = intersect(nfo{l,1}, props.trials);
+      trials = intersect(nfo{l,2}, props.trials);
     else
       % otherwise take all
-      trials = nfo{l,1};
+      trials = nfo{l,2};
     end
-    if ~isempty(idx{l}) && ~isempty(trials)
-      first_trial = h5.Trials{nfo{l,1}(1)};
+    if ~isempty(idx{l}) && ~isempty(trials) && isempty(not_idx{l})
+      first_trial = h5.Trials{nfo{l,2}(1)};
       
       % read user attributes
       atts = getfuzzyfield(first_trial, 'User');
@@ -130,8 +152,12 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
       % Read channel and gain info
       % voltage channel 
       if isfield(props, 'VmChan')
-        Vm_chan = ...
-            find_chan_acquisition_name(first_trial, props.VmChan);
+          if isnumeric(props.VmChan) %edited by Li Su
+              Vm_chan=props.VmChan;
+          else
+              Vm_chan = find_chan_acquisition_name(first_trial, props.VmChan);
+              Vm_chan = Vm_chan(1);         % Take first channel
+          end
       else
         Vm_chan = ...
             find_chan_acquisition_dataaxis(first_trial, 'Voltage');
@@ -140,7 +166,7 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
       
       % Make the voltage channel part of neuron_id because there may be
       % multiple cells in same file!
-      neuron_id = [ h5.ExperimentTag '_chan' num2str(Vm_chan) ] ;
+      neuron_id = [ name '_chan' num2str(Vm_chan) ] ; %changed by Li Su
       
       switch first_trial.AcquisitionData{Vm_chan}.DataUnit
         case 'mV'
@@ -152,15 +178,20 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
       % Don't set the gain, because ns_read already applies it
       % We may need to apply a default gain if it is not forgotten to
       % be set.
-      %Vm_gain =
-      %  first_trial.AcquisitionData{Vm_chan}.Transform(1).Scale;
-      Vm_gain = 1;
+      % edited by Li Su: I have modified trace/trace.m. Gain is multiplied
+      % only when PhysicalDevice is not specified in the trial. The gain
+      % set here is only a default gain.
+      Vm_gain = 10;
       Vm_dt = 1/first_trial.AcquisitionData{Vm_chan}.SamplingRate;
 
       % current channel 
       if isfield(props, 'ImChan')
-        Im_chan = ...
-            find_chan_acquisition_name(first_trial, props.ImChan);
+          if isnumeric(props.ImChan) %edited by Li Su
+              Im_chan=props.ImChan;
+          else
+            Im_chan = find_chan_acquisition_name(first_trial, props.ImChan);
+            Im_chan = Im_chan(1);         % Take first channel
+          end
       else
         Im_chan = ...
             find_chan_acquisition_dataaxis(first_trial, 'Current');
@@ -173,9 +204,9 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
       % default attributes
       if isfield(props, 'addTreats')
         % add more defaults, overriding originals in case of clash
-        default = props.addTreats;
+        default_attr = props.addTreats;
       else
-        default = struct;
+        default_attr = struct;
       end
       
       if ~isempty(atts)
@@ -201,19 +232,19 @@ function [a_tss h5_infos] = ns_load_cip_tracesets(data_src, props)
             num=num*1e-12;
           end
           if ~isequal(lower(n1), 'bad') && ~isequal(lower(n1), 'bias')
-            default.(lower(n1))=num;
+            default_attr.(lower(n1))=num;
           end
         end
       end
       if isfield(props, 'renameTreats')
-        default = renameTreats(default, props.renameTreats);
+        default_attr = renameTreats(default_attr, props.renameTreats);
       end
         
       if isfield(props, 'fixTreats')
         % override treatments read with these
-        default = mergeStructs(props.fixTreats, default);
+        default_attr = mergeStructs(props.fixTreats, default_attr);
       end
-      atts=default;
+      atts=default_attr;
       
       if verbose
         atts, n, trials
