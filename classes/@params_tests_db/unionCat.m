@@ -1,5 +1,4 @@
-function a_db=unionCat(db, with_db)
-
+function a_db=unionCat(db, varargin)
 % unionCat - Vertically concatenate two databases with different parameters or tests.
 %
 % Description:
@@ -14,6 +13,15 @@ function a_db=unionCat(db, with_db)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
+
+if length(varargin)>1
+  with_db = unionCat(varargin{1}, varargin{2:end});
+elseif isempty(varargin)
+  a_db = db;
+  return;
+else
+  with_db = varargin{1};
+end
 
 % deal with different columns
 with_names=getColNames(with_db);
