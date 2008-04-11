@@ -3,7 +3,7 @@ function a_chans_db = chans_db(data, col_names, channel_info, id, props)
 % chans_db - A database of channel activation and kinetics.
 %
 % Usage:
-% a_chans_db = chans_db(data, col_names, orig_db, crit_db, id, props)
+% a_chans_db = chans_db(data, col_names, channel_info, id, props)
 %
 % Description:
 %   This is a subclass of tests_db. Channel tables can be imported from
