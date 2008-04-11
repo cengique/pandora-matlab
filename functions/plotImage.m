@@ -1,20 +1,21 @@
-function h = plotImage(image_data, colormap_func, num_colors, props)
+function h = plotImage(image_data, a_colormap, num_colors, props)
 
 % plotImage - Function that plots a color matrix on current figure.
 %
 % Usage:
-% h = plotImage(image_data, colormap_func, num_colors, props)
+% h = plotImage(image_data, a_colormap, num_colors, props)
 %
 % Description:
 %
 % Parameters:
 %	image_data: 2D matrix with image data.
-%	colormap_func: Function name or handle to colormap (e.g., 'jet').
-% 	num_colors: Parameter to be passed to the colormap_func.
+%	a_colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
+% 	num_colors: Parameter to be passed to the a_colormap.
 %	props: A structure with any optional properties.
 %	  colorbar: If defined, show colorbar on plot.
 %	  truncateDecDigits: Truncate labels to this many decimal digits.
 %	  maxValue: Maximal value at num_colors to annotate the colorbar.
+%	  reverseYaxis: If 1, display y-axis values in reverse (default=0).
 %		
 % Returns:
 %	colors: RGB color matrix to be passed to colormap function.
@@ -33,8 +34,18 @@ function h = plotImage(image_data, colormap_func, num_colors, props)
 
 h = image(image_data);
 
+if ~ isfield(props, 'reverseYaxis')
+  set(gca, 'yDir', 'normal');
+end
+
 % Show up to num_colors
-colormap(feval(colormap_func, num_colors)); 
+if isa(a_colormap, 'function_handle') || ischar(a_colormap)
+  colormap(feval(a_colormap, num_colors)); 
+elseif isnumeric(a_colormap) && size(a_colormap, 2) == 3
+  colormap(a_colormap);
+else
+  error('Argument a_colormap not recognized.');
+end
 
 % Truncate some digits to unify parameter values estranged by numerical error
 if isfield(props, 'truncateDecDigits')
