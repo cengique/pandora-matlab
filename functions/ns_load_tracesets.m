@@ -120,7 +120,7 @@ function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
   % idx = strcat(strfind(upper(nfo(:,5)),'CIP'), strfind(upper(nfo(:,5)),'SPONT'));
   % edited by Li Su: look for includeSeq keywords
   incl=getfuzzyfield(props,'includeseq');
-  incl=default('incl', {'CIP','SPONT'});
+  incl=defaultValue('incl', {'CIP','SPONT'});
   idx=cell(size(nfo,1),0);
   for kw={incl{:}}
       idx=strcat(idx, strfind(upper(nfo(:,5)),upper(kw{1})));
@@ -128,7 +128,7 @@ function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
   
   % CG commented Li Su custom exceptions
   excl=getfuzzyfield(props,'excludeseq');
-  excl=default('excl', {'DYN','SK','SHORT','200s'});
+  excl=defaultValue('excl', {'DYN','SK','SHORT','200s'});
   not_idx=cell(size(nfo,1),0);
   for kw={excl{:}}
       not_idx=strcat(not_idx, strfind(upper(nfo(:,5)),upper(kw{1})));
