@@ -1,8 +1,19 @@
 function a_db=unionCat(db, with_db)
-% vertically concatenate two databases with different parameters or tests.
-% The parameters and tests in the result are a union of both. Add 0 for
+
+% unionCat - Vertically concatenate two databases with different parameters or tests.
+%
+% Description:
+%   The parameters and tests in the result are a union of both. Adds 0 for
 % parameter and NaN for tests in the rows which didn't have the additional
 % columns before.
+%
+% Author: Li Su
+
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.php.
 
 % deal with different columns
 with_names=getColNames(with_db);

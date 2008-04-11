@@ -80,6 +80,9 @@ for item_num=items
     % treatments might be in different orders between tracesets and thus
     % cause params misplaced. have to compare tmp_param_names and
     % param_names.
+    % CG: this is redundant with order-maintaining code in
+    % physiol_cip_traceset. This one should be removed or changed to give
+    % fatal error if the orders don't match.
     param_order = cellfun(@(x)strmatch(x, tmp_param_names,'exact'), param_names(1:end-2));
     params(row_range, :) = [item_params(:,param_order), repmat(neuron_id, num_traces,1), ...
 			    repmat(item_num, num_traces,1) ];

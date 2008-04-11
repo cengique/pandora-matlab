@@ -128,6 +128,5 @@ if plotit
 		     ', Slope threshold method (interp), ' ...
 		     ' v\prime > ' num2str(thr) ' crossing'], ...
 		    {'v\prime', 'v', 'thr'}, 'plot');
-        drawnow
 end
 

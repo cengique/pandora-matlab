@@ -1,25 +1,25 @@
 function [rows, idx] = sortedUniqueValues(data)
-% ==== warning (by Li Su) ========================================
-% This function would give an error if the input is an empty matrix.
-% There is already a Matlab function UNIQUE doing the same job:
-%
-% [rows, idx]= unique(data, 'rows')
-% ==== end of warning ===========================================
-%
-% sortedUniqueValues - Find unique rows in an already sorted matrix 
-%			(or column vector). Uses the derivation method.
+
+% sortedUniqueValues - Find unique rows in an already sorted matrix (or column vector).
 %
 % Usage:
 % [rows, idx] = sortedUniqueValues(data)
 %
 % Description:
-%	Parameters:
-%		data: A ascending row-sorted matrix or column vector.
-%	Returns:
-%		rows: A matrix or column vector of unique rows.
-%		idx: Indices of the unique rows in the original data matrix.
+%   Uses the derivation by Matlab diff function method.  Redundant with the
+% Matlab function UNIQUE doing the same job:
+% [rows, idx]= unique(data, 'rows', 'first'). 
+% However, sortedUniqueValues is more efficient if the input data is already
+% sorted for some other reason (see usage in tests_db/invarValues).
 %
-% See also: uniqueValues
+% Parameters:
+%   data: A ascending row-sorted matrix or column vector.
+%
+% Returns:
+%   rows: A matrix or column vector of unique rows.
+%   idx: Indices of the unique rows in the original data matrix.
+%
+% See also: uniqueValues, unique
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/27
 % Based on J. Edgerton's derivation method.
