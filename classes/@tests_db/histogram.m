@@ -1,12 +1,13 @@
 function a_histogram_db = histogram(db, col, num_bins, props)
 
-% histogram - Generates a histogram_db object with rows corresponding to 
-%		histogram entries.
+% histogram - Returns histogram of chosen database column.
 %
 % Usage:
 % a_histogram_db = histogram(db, col, num_bins, props)
 %
 % Description:
+%   Generates a histogram_db object with rows corresponding to histogram
+% entries. If an array of DBs is given, finds and uses common histogram bin centers.
 %
 %   Parameters:
 %	db: A tests_db object.
@@ -23,7 +24,7 @@ function a_histogram_db = histogram(db, col, num_bins, props)
 % >> a_hist_db = histogram(my_db, 'spike_width');
 % >> plot(a_hist_db);
 %
-% See also: histogram_db, tests_db
+% See also: histogram_db, tests_db, hist
 %
 % $Id$
 %

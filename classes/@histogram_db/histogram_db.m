@@ -1,7 +1,6 @@
 function a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
 
-% histogram_db - A database of histogram values generated for 
-%		a column of another database.
+% histogram_db - A database of histogram values generated for a column of another database.
 %
 % Usage:
 % a_hist_db = histogram_db(col_name, bins, hist_results, id, props)
