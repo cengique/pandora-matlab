@@ -53,11 +53,19 @@ else
   index_col_name = 'RowIndex';
 end
 
-data = get(a_db, 'data');
 
 % remove the index column from w_db
 wd_db = delColumns(w_db, index_col_name);
 w_data = get(wd_db, 'data');
+
+cols_cell1 = getColNames(a_db);
+cols_cell2 = getColNames(wd_db);
+
+% only keep a_db tests missing in w_db
+a_db = onlyRowsTests(a_db, ':', ...
+                     setdiff(cols_cell1, ...
+                             intersect(cols_cell1, cols_cell2)));
+data = get(a_db, 'data');
 
 % get final size from w_db
 num_pages = dbsize(w_db, 3);
@@ -67,7 +75,7 @@ keep_NaNs = false;
 if num_pages > 1 || (isfield(props, 'keepNaNs') && props.keepNaNs == 1)
   keep_NaNs = true;
   size_db = dbsize(a_db);
-  size_wdb = dbsize(w_db);
+  size_wdb = dbsize(wd_db);
 
   % initialize with NaNs (except page index)
   new_data = ...

@@ -49,8 +49,12 @@ end
 %end
 crit_cols = {crit_cols{all_test_cols}};
 
+% only keep columns in db
+crit_cols = intersect(crit_cols, getColNames(a_ranked_db));
+
 db_cols = fieldnames(get(a_ranked_db.orig_db, 'col_idx'));
-a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', {db_cols{1:a_ranked_db.orig_db.num_params}, ...
+a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
+                              {db_cols{1:a_ranked_db.orig_db.num_params}, ...
                     crit_cols{:}}), ...
 		onlyRowsTests(a_ranked_db, rows, {'Distance', 'RowIndex'}));
 
