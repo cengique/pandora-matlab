@@ -43,7 +43,13 @@ end
 if any(ismember(crit_cols, 'NeuronId'))
   all_test_cols(tests2cols(db.crit_db, 'NeuronId')) = false(1);
 end
+if any(ismember(crit_cols, 'RowIndex'))
+  all_test_cols(tests2cols(db.crit_db, 'RowIndex')) = false(1);
+end
 crit_cols = {crit_cols{all_test_cols}};
+
+% only keep columns in db
+crit_cols = intersect(crit_cols, getColNames(db));
 
 % Insert crit_db's values in proper columns
 cols = tests2cols(joined_db, crit_cols);
@@ -51,7 +57,6 @@ cols = tests2cols(joined_db, crit_cols);
 cells = num2cell(db.crit_db.data(1:2, tests2cols(db.crit_db, crit_cols)));
 [critcol{cols, 1}] = deal(cells{1, :}); % Fill available values from crit_db
 [critcol{cols, 2}] = deal(cells{2, :}); % Fill available values from crit_db
-
 
 % Make a cell array out of db contents
 s = cat(2, fieldnames(get(joined_db, 'col_idx')), critcol);
