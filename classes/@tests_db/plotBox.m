@@ -56,7 +56,7 @@ if ~ exist('whis')
 end
 
 if dbsize(a_tests_db, 2) > 1 
-  error('not implemented');
+  error('Plotting multiple columns at the same time not implemented!');
 end
 
 col_name = getColNames(a_tests_db);
