@@ -106,6 +106,11 @@ end
 % Merge the selected tests from each page
 cip_fold_db = mergePages(cip_fold_db, tests_cell, page_suffixes);
 
+% default index
+if ~ exist('index_col_name', 'var')
+  index_col_name = [ 'RowIndex' page_suffixes{1} ];
+end
+  
 % Get the parameters back (except pAcip)
 wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
