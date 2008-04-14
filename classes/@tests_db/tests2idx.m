@@ -57,6 +57,9 @@ elseif isnumeric(tests)
   idx = tests;
 elseif ischar(tests)
   idx = getfuzzyfield(ind_struct, tests);
+  if isempty(idx)
+    error(['Field ' tests ' not found in db']);
+  end
 elseif iscell(tests)
   tests={tests{:}}; % add by Li Su, change the array to a row vector.
   for test1=tests
