@@ -13,6 +13,8 @@ function h = plotImage(image_data, a_colormap, num_colors, props)
 % 	num_colors: Parameter to be passed to the a_colormap.
 %	props: A structure with any optional properties.
 %	  colorbar: If defined, show colorbar on plot.
+%	  colorbarProps: Set colorbar axis properties.
+%	  colorbarLabel: Set colorbar y-axis label.
 %	  truncateDecDigits: Truncate labels to this many decimal digits.
 %	  maxValue: Maximal value at num_colors to annotate the colorbar.
 %	  reverseYaxis: If 1, display y-axis values in reverse (default=0).
@@ -64,8 +66,27 @@ if isfield(props, 'colorbar')
   end
   set(hc, 'YTickMode', 'manual');
   set(hc, 'YTickLabelMode', 'manual');
-  yticks = get(hc, 'YTick');
-  set(hc, 'YTickLabel', round(yticks .* max_val .* mult_factor ./ num_colors) ./ mult_factor);
+  if ~ isfield(props, 'colorbarProps') || ~isfield(props.colorbarProps, 'YTickLabel')
+    yticks = get(hc, 'YTick');
+    set(hc, 'YTickLabel', round(yticks .* max_val .* mult_factor ./ ...
+                                num_colors) ./ mult_factor);
+  elseif isfield(props, 'colorbarProps')
+    % set all passed props
+    for prop_field = fieldnames(props.colorbarProps)'
+      prop_field = prop_field{1};
+      if strcmp(prop_field, 'YTickLabel')
+        % round values for display as rquested
+        props.colorbarProps.(prop_field) = ...
+            round(props.colorbarProps.(prop_field) .* mult_factor) ./ mult_factor;
+      end
+      set(hc, prop_field, props.colorbarProps.(prop_field));
+    end
+  end
+  
+  if isfield(props, 'colorbarLabel')
+    % get and set the text object property
+    set(get(hc,'YLabel'), 'String', props.colorbarLabel);
+  end
 end
 
 % scale font to fit measure names on y-axis
