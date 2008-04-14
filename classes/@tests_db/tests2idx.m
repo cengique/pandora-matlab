@@ -66,6 +66,9 @@ elseif iscell(tests)
     test = test1{1}; % unwrap the cell
     if ischar(test)
       ind = getfuzzyfield(ind_struct, test);
+      if isempty(ind)
+        error(['Field ' tests ' not found in db']);
+      end
     elseif isnumeric(test)
       ind = test;
     else
