@@ -19,12 +19,21 @@ function an_image_plot = plotUniquesStats2D(a_db, unique_test1, unique_test2, ..
 %	popDev: Use this value +/- to choose colorbar extents
 %		(default=.3 or 2*STD if popMean=NaN).
 %	colorbar: Show vertical colorbar axis (see plotImage).
+%	uniqueVals1,uniqueVals2: Use these unique values for
+%			unique_test1,unique_test2.
 % 	(rest passed to plotImage and plot_abstract).
 % 
 % Description:
 %
 % Returns:
 %	an_image_plot: A plot_abstract object to be plotted.
+%
+% Example:
+% >> plotFigure(plotUniquesStats2D(triplet_param_success_db, ...
+%               'F_tau_m', 'S_tau_m', 'successDefault', ...
+% 	 	'accross triplets', 
+% 		struct('fixedSize', [4 3], 'popMean', NaN, ...
+%		'colorbar', 1, 'quiet', 1, 'border', [0.03 0 0.03 0])))
 %
 % See also: tests_db, sortedUniqueValues, statsMeanStd, plot_abstract, plotImage
 %
@@ -44,13 +53,21 @@ end
 a_db = onlyRowsTests(a_db, ':', {unique_test1, unique_test2, stat_test});
 
 % find unique values of both columns
-sorted_unique_vals1 = ...
-    sortedUniqueValues(get(sortrows(onlyRowsTests(a_db, ':', unique_test1), ...
-                                    unique_test1), 'data'));
+if isfield(props, 'uniqueVals1')
+  sorted_unique_vals1 = props.uniqueVals1;
+else
+  sorted_unique_vals1 = ...
+      sortedUniqueValues(get(sortrows(onlyRowsTests(a_db, ':', unique_test1), ...
+                                      unique_test1), 'data'));
+end
 
-sorted_unique_vals2 = ...
-    sortedUniqueValues(get(sortrows(onlyRowsTests(a_db, ':', unique_test2), ...
-                                    unique_test2), 'data'));
+if isfield(props, 'uniqueVals2')
+  sorted_unique_vals2 = props.uniqueVals2;
+else
+  sorted_unique_vals2 = ...
+      sortedUniqueValues(get(sortrows(onlyRowsTests(a_db, ':', unique_test2), ...
+                                      unique_test2), 'data'));
+end
 
 % first find unique values of each variable
 
@@ -101,7 +118,9 @@ end
 
 % col names
 left_var_name = getColNames(a_db, unique_test1);
+left_var_name = left_var_name{1};
 right_var_name = getColNames(a_db, unique_test2);
+right_var_name = right_var_name{1};
 
 % title
 if isfield(props, 'quiet')
@@ -124,16 +143,17 @@ plot_props.YTickLabel = sorted_unique_vals1;
 image_props = struct;
 image_props.colorbarProps = struct;
 image_props.colorbarProps.YTick = ...
-    1 + (0:num_colors:(2*num_colors - 1));
+    [1, num_colors + 1, 2*num_colors];
 image_props.colorbarProps.YTickLabel = ...
     pop_mean + [ - pop_dev, 0, pop_dev];
 image_props.colorbarLabel = getColNames(a_db, stat_test);
 image_props.truncateDecDigits = 2;
 
 an_image_plot = ...
-    plot_abstract({(stats_matx - pop_mean) ./ pop_dev * num_colors + num_colors, ...
-                   [1 1 1; colormapBlueCrossRed(num_colors)], ...
-                   num_colors, mergeStructs(props, image_props)}, ...
-                  { properTeXLabel(right_var_name), ...
-                    properTeXLabel(left_var_name) }, ...
-                  all_title, {}, @plotImage, mergeStructs(props, plot_props));
+    plot_image((stats_matx - pop_mean) ./ pop_dev * num_colors + num_colors, ...
+               [1 1 1; colormapBlueCrossRed(num_colors)], ...
+               num_colors, ...
+               { properTeXLabel(right_var_name), ...
+                 properTeXLabel(left_var_name) }, ...
+               all_title, ...
+               mergeStructs(mergeStructs(props, plot_props), image_props));
