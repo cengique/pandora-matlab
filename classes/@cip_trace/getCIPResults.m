@@ -31,7 +31,7 @@ mV_factor = 1e3 * getDy(a_cip_trace);
 ms_factor = 1e3 * get(a_cip_trace, 'dt');
 
 results.IniSpontPotAvg = calcAvg(a_cip_trace.trace, ...
-				 periodIniSpont(a_cip_trace));
+				 periodIniSpont(a_cip_trace)) * mV_factor;
 results.PulsePotAvg = calcPulsePotAvg(a_cip_trace) * mV_factor;
 results.RecSpontPotAvg = calcRecSpontPotAvg(a_cip_trace) * mV_factor;
 results.RecIniSpontPotRatio = results.RecSpontPotAvg / results.IniSpontPotAvg;
