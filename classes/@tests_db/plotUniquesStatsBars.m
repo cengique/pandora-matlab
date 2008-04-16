@@ -14,6 +14,7 @@ function a_bar_plot = plotUniquesStatsBars(a_db, unique_test, stat_test, title_s
 %		population mean. If NaN, calculated from a_db.
 % 	yLims: two-element vector for specifying y axis limits showing
 % 		interesting part of the bar plot.
+%	uniqueVals: Use these unique values for unique_test.
 % 	(rest passed to plot_bars [and plot_superpose if popMean]).
 %		
 % Description:
@@ -45,9 +46,13 @@ end
 a_db = onlyRowsTests(a_db, ':', {unique_test, stat_test});
 
 % find unique values of column
-sorted_unique_vals = ...
-    sortedUniqueValues(get(sortrows(onlyRowsTests(a_db, ':', unique_test), ...
-                                    unique_test), 'data'));
+if isfield(props, 'uniqueVals')
+  sorted_unique_vals = props.uniqueVals;
+else
+  sorted_unique_vals = ...
+      sortedUniqueValues(get(sortrows(onlyRowsTests(a_db, ':', unique_test), ...
+                                      unique_test), 'data'));
+end
 
 % get stats for first unique value
 a_stats_db = ...
@@ -90,7 +95,7 @@ if isfield(props, 'popMean')
   end
 
   a_line_plot = ...
-      plot_abstract({[1 length(sorted_unique_vals) ], ...
+      plot_abstract({[.5 length(sorted_unique_vals) + .5 ], ...
                      [ pop_mean, pop_mean ], ...
                      ':', 'Color', [.3 .3 .3], 'LineWidth', 3}, {}, '', ...
                     {}, 'plot');
