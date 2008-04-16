@@ -24,7 +24,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %	  dispBarsLines: Choose between using 'bars' or 'lines' to connect the errorbars.
 %	  dispErrorbars: If 1, display errorbars for lo_vals and hi_vals deviation from mid_vals 
 %		     (default=1).
-%	  dispNvals: If 1, display n_vals on top of each bar.
+%	  dispNvals: If 1, display n_vals on top of each bar (default=1).
 %	  groupValues: Array of within-group numeric labels, instead of just a sequence of numbers.
 %	  truncateDecDigits: Truncate labels to this many decimal digits.
 %	  barAxisProps: props passed to plot_abstract objects with bar commands
