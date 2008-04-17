@@ -7,18 +7,20 @@ function obj = onlyRowsTests(obj, varargin)
 % obj = onlyRowsTests(obj, rows, tests, pages)
 %
 % Description:
-% Selects the given dimensions and returns in a new tests_db object.
+% Selects the given dimensions and returns in a new tests_db
+% object. Makes sure num_params remains correct.
 %
 %   Parameters:
 %	obj: A tests_db object.
-%	rows: A logical or index vector of rows. If ':', all rows.
-%	tests: Cell array of test names or column indices. If ':', all tests.
+%	rows, tests: A logical or index vector of rows, or cell array of
+%		names of rows. If ':', all rows. For names, regular expressions are
+%		supported if quoted with slashes (e.g., '/a.*/'). See tests2idx.
 %	pages: (Optional) A logical or index vector of pages. ':' for all pages.
 %		
 %   Returns:
 %	obj: The new tests_db object.
 %
-% See also: subsref, tests_db
+% See also: subsref, tests_db, test2idx
 %
 % $Id$
 %
@@ -33,7 +35,15 @@ function obj = onlyRowsTests(obj, varargin)
 % Adjust the number of parameters and then delegate the filtering to 
 % tests_db/onlyRowsTests
 if length(varargin) > 1
-  cols = sort(tests2cols(obj, varargin{2}));
-  obj = set(obj, 'num_params', sum(cols <= obj.num_params));
+  cols = tests2cols(obj, varargin{2});
+  
+  % find selected param cols
+  param_col_idx = cols <= obj.num_params;
+  
+  % always keep params at the beginning
+  varargin{2} = [cols(param_col_idx) cols(~param_col_idx)];
+  
+  % fix number of total params
+  obj = set(obj, 'num_params', sum(param_col_idx));
 end
 obj.tests_db = onlyRowsTests(obj.tests_db, varargin{:});

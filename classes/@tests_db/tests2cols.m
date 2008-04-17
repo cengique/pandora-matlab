@@ -5,17 +5,21 @@ function cols = tests2cols(db, tests)
 % Usage:
 % cols = tests2cols(db, tests)
 %
-% Description:
-%
 %   Parameters:
 %	db: A tests_db object.
 %	tests: Either a single or array of column numbers, or a single
-%		test name or a cell array of test names. If ':', all tests.
+%		test name or a cell array of test names. If ':', all
+%		tests. For name strings, regular expressions are
+%		supported if quoted with slashes (e.g., '/a.*/'). 
+%		See tests2idx for more.
 %		
 %   Returns:
 %	cols: Array of column indices.
 %
-% See also: tests_db
+% Description:
+%   Uses tests2idx.
+%
+% See also: tests_db, tests2idx
 %
 % $Id$
 %

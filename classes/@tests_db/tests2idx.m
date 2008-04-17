@@ -11,12 +11,18 @@ function idx = tests2idx(db, dim_name, tests)
 %	db: A tests_db object.
 %	dim_name: String indicating 'row', 'col', or 'page'
 %	tests: Either a single or array of column numbers, or a single
-%		test name or a cell array of test names. If ':', all tests.
+%		test name or a cell array of test names. If ':', all
+%		tests. For name strings, regular expressions are
+%		supported if quoted with slashes (e.g., '/a.*/')
 %		
 %   Returns:
 %	idx: Array of column indices.
 %
-% See also: tests_db
+% Example:
+% >> cols = tests2idx(a_db, 'col', {'col1', '/col2+/'});
+% will return indices of col1 and columns like col2, col22, col22, etc.
+%
+% See also: tests_db, tests2cols
 %
 % $Id$
 %
@@ -41,7 +47,8 @@ end
 
 ind_struct = db.([ dim_name '_idx']);
 
-if isempty(fieldnames(ind_struct))
+all_names = fieldnames(ind_struct);
+if isempty(all_names)
   ind_vals = num2cell(1:dbsize(db, dim_num));
 else
   ind_vals = struct2cell(ind_struct);
@@ -56,18 +63,25 @@ elseif islogical(tests)
 elseif isnumeric(tests) 
   idx = tests;
 elseif ischar(tests)
-  idx = getfuzzyfield(ind_struct, tests);
-  if isempty(idx)
-    error(['Field ' tests ' not found in db']);
+  % check if regexp first
+  idx = findRegExpIdx(tests, all_names');
+  if isnan(idx)
+    idx = getfuzzyfield(ind_struct, tests);
+    if isempty(idx)
+      error(['Field ''' tests ''' not found in db']);
+    end
   end
 elseif iscell(tests)
   tests={tests{:}}; % add by Li Su, change the array to a row vector.
   for test1=tests
     test = test1{1}; % unwrap the cell
     if ischar(test)
-      ind = getfuzzyfield(ind_struct, test);
-      if isempty(ind)
-        error(['Field ' test ' not found in db']);
+      ind = findRegExpIdx(test, all_names');
+      if isnan(ind)
+        ind = getfuzzyfield(ind_struct, test);
+        if isempty(ind)
+          error(['Field ''' test ''' not found in db']);
+        end
       end
     elseif isnumeric(test)
       ind = test;

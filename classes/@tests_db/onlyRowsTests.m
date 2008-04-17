@@ -11,8 +11,9 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 %
 %   Parameters:
 %	obj: A tests_db object.
-%	rows: A logical or index vector of rows. If ':', all rows.
-%	tests: Cell array of test names or column indices. If ':', all tests.
+%	rows, tests: A logical or index vector of rows, or cell array of
+%		names of rows. If ':', all rows. For names, regular expressions are
+%		supported if quoted with slashes (e.g., '/a.*/'). See tests2idx.
 %	pages: (Optional) A logical or index vector of pages. ':' for all pages.
 %		
 %   Returns:
