@@ -70,9 +70,21 @@ function [ciptype, on, off, finish, bias, pulse] = ns_CIPform(traceset,trace_ind
     current = ns_read(traceset_props.Trials{trace_index}.AcquisitionData{traceset.ichan});
     finish = current.Samples;
     if ciptype == 0
-      bias = round(median(current.Y)*10)/10;
+      bias = median(current.Y);
     else
-      bias = round(median(current.Y(1:on-10))*10)/10;
+      bias = median(current.Y(1:on-10));
+    end
+    % added by Li Su 04/18/08. have to adjust the gain and unit factor.
+    switch traceset_props.Trials{trace_index}. ...
+                   AcquisitionData{traceset.ichan}.DataUnit, ...
+        case 'A'
+            bias = bias * 1e9;
+        case 'mA'
+            bias = bias * 1e6;
+        case 'nA'
+            bias = bias * 1e3;
+        case 'pA'
+        otherwise
     end
 
 
