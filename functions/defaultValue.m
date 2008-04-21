@@ -1,6 +1,7 @@
 function value = defaultValue(varname, a_defaultvalue)
 
-% defaultValue - If variable unset, assign it a_defaultvalue.
+% defaultValue - If variable unset (either nonexistent or empty), assign it
+% a default value. Otherwise the variable remains unchanged.
 %
 % Usage:
 %   var = defaultValue(varname, a_defaultvalue)
@@ -15,7 +16,7 @@ function value = defaultValue(varname, a_defaultvalue)
 %   a_defaultvalue: value for the variable.
 % 
 % Example:
-% SamplingRate = defaultValue('SamplingRate', 10);
+%   SamplingRate = defaultValue('SamplingRate', 10);
 %
 % Author: Li, Su
 %
