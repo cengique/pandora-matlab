@@ -53,7 +53,6 @@ else
   index_col_name = 'RowIndex';
 end
 
-
 % remove the index column from w_db
 wd_db = delColumns(w_db, index_col_name);
 w_data = get(wd_db, 'data');
@@ -77,10 +76,10 @@ if num_pages > 1 || (isfield(props, 'keepNaNs') && props.keepNaNs == 1)
   size_db = dbsize(a_db);
   size_wdb = dbsize(wd_db);
 
-  % initialize with NaNs (except page index)
+  % initialize with NaNs
   new_data = ...
       repmat(NaN, [size_wdb(1), ...
-                   size_db(2) + size_wdb(2) - 1, num_pages]);
+                   size_db(2) + size_wdb(2), num_pages]);
 end % keepNaNs
 
 % for each page
