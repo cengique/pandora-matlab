@@ -54,6 +54,11 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+if dbsize(db,1)==0
+    cip_fold_db=params_tests_db;
+    return;
+end
+
 if isfield(props, 'cipLevels')
   cip_levels = props.cipLevels;
   if diff(size(cip_levels)) > 0
@@ -116,7 +121,7 @@ wo_cip_params = true(1, db.num_params);
 wo_cip_params(tests2cols(db, 'pAcip')) = false(1);
 cip_fold_db = ...
     joinRows(onlyRowsTests(db, ':', wo_cip_params), cip_fold_db, ...
-             struct('indexColName', index_col_name));
+             struct('indexColName', index_col_name, 'multipleIndices', 1));
 
 % Remove the RowIndex columns
 test_names = fieldnames(get(cip_fold_db, 'col_idx'));
