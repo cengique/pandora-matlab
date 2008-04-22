@@ -23,7 +23,7 @@ function a_db = joinRows(a_db, w_db, props)
 %	  keepNaNs: If 1, substitute NaN values for NaN indices. 
 %		    (default=1, for multi-page DBs; 0, otherwise).
 %	  multipleIndices: If 1, search for substitute RowIndex* columns for
-%	  	indices with NaN values. It will fail if all indices are NaNs.
+%	  	indices with NaN values. It will fail if all indices are NaNs. (default=0)
 %		
 %   Returns:
 %	a_db: A tests_db object.
