@@ -25,7 +25,8 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %	  dispErrorbars: If 1, display errorbars for lo_vals and hi_vals deviation from mid_vals 
 %		     (default=1).
 %	  dispNvals: If 1, display n_vals on top of each bar (default=1).
-%	  groupValues: Array of within-group numeric labels, instead of just a sequence of numbers.
+%	  groupValues: List of within-group labels passed to XTickLabels,
+%	  	instead of just a sequence of numbers.
 %	  truncateDecDigits: Truncate labels to this many decimal digits.
 %	  barAxisProps: props passed to plot_abstract objects with bar commands
 %		
@@ -64,11 +65,14 @@ if nargin == 0 % Called with no params
    group_locs = 1:size(mid_vals, 1);
    if isfield(props, 'groupValues') && ...
 	 ~(isfield(props, 'XTickLabel') && isempty(props.XTickLabel))
-     if isfield(props, 'truncateDecDigits')
-       dig_exp = 10^props.truncateDecDigits;
-       props.groupValues = round(dig_exp * props.groupValues) / dig_exp;
+     if isnumeric(props.groupValues) 
+       if isfield(props, 'truncateDecDigits') 
+         dig_exp = 10^props.truncateDecDigits;
+         props.groupValues = round(dig_exp * props.groupValues) / dig_exp;
+       end
+       props.groupValues = num2cell(props.groupValues);
      end
-     props.XTickLabel = num2cell(props.groupValues);
+     props.XTickLabel = props.groupValues;
    end
 
    if ~ exist('axis_limits')
