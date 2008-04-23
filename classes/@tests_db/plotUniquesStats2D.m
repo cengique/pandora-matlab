@@ -21,6 +21,8 @@ function an_image_plot = plotUniquesStats2D(a_db, unique_test1, unique_test2, ..
 %	colorbar: Show vertical colorbar axis (see plotImage).
 %	uniqueVals1,uniqueVals2: Use these unique values for
 %			unique_test1,unique_test2.
+%	statsFunc: tests_db/stats* method to use (default: statsMeanStd).
+%	statsRow: The row to pick from statsFunc results (default: mean).
 % 	(rest passed to plotImage and plot_abstract).
 % 
 % Description:
@@ -69,16 +71,41 @@ else
                                       unique_test2), 'data'));
 end
 
-% first find unique values of each variable
+% use given stats func
+if isfield(props, 'statsFunc')
+  stats_func = props.statsFunc;
+else
+  stats_func = 'statsMeanStd';
+end
 
+% use given stats row
+if isfield(props, 'statsRow')
+  stats_row = props.statsRow;
+else
+  stats_row = 'mean';
+end
+
+% find population mean and deviation if requested
 if isfield(props, 'popMean')
   pop_mean = props.popMean;
-  if isnan(pop_mean)
-    pop_stats_db = statsMeanStd(onlyRowsTests(a_db, ':', stat_test));
-    pop_mean = ...
-        get(onlyRowsTests(pop_stats_db, 'mean', stat_test), 'data');
-    pop_dev = ...
-        2*get(onlyRowsTests(pop_stats_db, 'STD', stat_test), 'data');
+  if isnan(props.popMean)
+    pop_stats_db = feval(stats_func, onlyRowsTests(a_db, ':', stat_test));
+    if strcmp(stats_func, 'statsMeanStd')
+      pop_mean = ...
+          get(onlyRowsTests(pop_stats_db, stats_row, stat_test), 'data');
+      pop_dev = ...
+          2*get(onlyRowsTests(pop_stats_db, 'STD', stat_test), 'data');
+    elseif strcmp(stats_func, 'statsBounds')
+      max_val = ...
+          get(onlyRowsTests(pop_stats_db, 'max', stat_test), 'data');
+      mean_val = ...
+          get(onlyRowsTests(pop_stats_db, 'mean', stat_test), 'data');
+      pop_mean = ...
+          mean_val + (max_val - mean_val) / 2;
+      pop_dev = ...
+        (max_val - mean_val) / 2;
+    end
+      
   end
 else
   pop_mean = 0;
@@ -90,6 +117,7 @@ elseif ~ exist('pop_dev', 'var')
   pop_dev = 0.3;
 end
 
+% first find unique values of each variable
 % roll across left and right uniques
 num_left_uniques = length(sorted_unique_vals1);
 num_right_uniques = length(sorted_unique_vals2);
@@ -107,12 +135,13 @@ for left_val_num = 1:num_left_uniques
         sorted_unique_vals2(right_val_num);
     
     % calculate stats for joint condition
+    
     a_stats_db = ...
-        statsMeanStd(onlyRowsTests(a_db, left_idx & right_idx, stat_test));
+        feval(stats_func, onlyRowsTests(a_db, left_idx & right_idx, stat_test));
 
-    % use only mean
+    % use only desired row
     stats_matx(left_val_num, right_val_num) = ...
-        get(onlyRowsTests(a_stats_db, 'mean', stat_test), 'data');
+        get(onlyRowsTests(a_stats_db, stats_row, stat_test), 'data');
   end
 end
 

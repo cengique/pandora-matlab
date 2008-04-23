@@ -16,8 +16,7 @@ function a_stacked_plot = ...
 %   stat_test: Column for which statsMeanSTD will be calculated for each
 %   		unique value.
 %   props: A structure with any optional properties.
-%	imageProps: props structure passed to plotUniquesStats2D.
-% 	(rest passed to plot_stack).
+% 	(rest passed to plotUniquesStats2D and plot_stack).
 % 
 % Description:
 %
@@ -58,9 +57,47 @@ num_stack_uniques = length(sorted_unique_vals3);
 stack_var_name = getColNames(onlyRowsTests(a_db, ':', unique_test3));
 stack_var_name = properTeXLabel(stack_var_name{1});
 
-default_image_props = struct;
+% use given stats func
+if isfield(props, 'statsFunc')
+  stats_func = props.statsFunc;
+else
+  stats_func = 'statsMeanStd';
+end
+
+% use given stats row
+if isfield(props, 'statsRow')
+  stats_row = props.statsRow;
+else
+  stats_row = 'mean';
+end
+
+default_image_props = props;
 default_image_props.uniqueVals1 = sorted_unique_vals1;
 default_image_props.uniqueVals2 = sorted_unique_vals2;
+
+% determine population mean and deviation to be used for all 2D plots
+% consistently
+if isfield(props, 'popMean')
+  if isnan(props.popMean)
+    pop_stats_db = feval(stats_func, onlyRowsTests(a_db, ':', stat_test));
+    if strcmp(stats_func, 'statsMeanStd')
+      default_image_props.popMean = ...
+          get(onlyRowsTests(pop_stats_db, stats_row, stat_test), 'data');
+      default_image_props.popDev = ...
+          2*get(onlyRowsTests(pop_stats_db, 'STD', stat_test), 'data');
+    elseif strcmp(stats_func, 'statsBounds')
+      max_val = ...
+          get(onlyRowsTests(pop_stats_db, 'max', stat_test), 'data');
+      mean_val = ...
+          get(onlyRowsTests(pop_stats_db, 'mean', stat_test), 'data');
+      default_image_props.popMean = ...
+          mean_val + (max_val - mean_val) / 2;
+      default_image_props.popDev = ...
+        (max_val - mean_val) / 2;
+    end
+      
+  end
+end
 
 if isfield(props, 'quiet')
   default_image_props.quiet = props.quiet;
@@ -76,11 +113,6 @@ for stack_val_num = 1:num_stack_uniques
   if isfield(props, 'colorbarPos') && strcmp(props.colorbarPos, 'right') ...
       && stack_val_num == num_stack_uniques
     image_props.colorbar = 1;
-  end
-
-  if isfield(props, 'imageProps')
-    image_props = ...
-        mergeStructs(props.imageProps, image_props);
   end
   
   an_image_plot = ...

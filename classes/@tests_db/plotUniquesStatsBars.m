@@ -45,6 +45,20 @@ end
 % keep only columns we care about
 a_db = onlyRowsTests(a_db, ':', {unique_test, stat_test});
 
+% use given stats func
+if isfield(props, 'statsFunc')
+  stats_func = props.statsFunc;
+else
+  stats_func = 'statsMeanStd';
+end
+
+% use given stats row
+if isfield(props, 'statsRow')
+  stats_row = props.statsRow;
+else
+  stats_row = 'mean';
+end
+
 % find unique values of column
 if isfield(props, 'uniqueVals')
   sorted_unique_vals = props.uniqueVals;
@@ -56,16 +70,18 @@ end
 
 % get stats for first unique value
 a_stats_db = ...
-    statsMeanStd(onlyRowsTests(a_db, ...
-                               onlyRowsTests(a_db, ':', unique_test) == ...
-                 sorted_unique_vals(1), ':'));
+    feval(stats_func, ...
+          onlyRowsTests(a_db, ...
+                        onlyRowsTests(a_db, ':', unique_test) == ...
+                        sorted_unique_vals(1), ':'));
   
 for unique_num = 2:length(sorted_unique_vals)
   a_stats_db = ...
       compareStats(a_stats_db, ...
-                   statsMeanStd(onlyRowsTests(a_db, ...
-                                              onlyRowsTests(a_db, ':', unique_test) == ...
-                                              sorted_unique_vals(unique_num), ':')));
+                       feval(stats_func, ...
+                             onlyRowsTests(a_db, ...
+                                           onlyRowsTests(a_db, ':', unique_test) == ...
+                                           sorted_unique_vals(unique_num), ':')));
 end
 
 if isfield(props, 'quiet')
@@ -78,7 +94,6 @@ end
 if isfield(props, 'yLims')
   props.axisLimits = [NaN NaN props.yLims];
 end
-
 
 a_bar_plot = ...
     plot_bars(a_stats_db, all_title, ...
