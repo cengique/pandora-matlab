@@ -20,7 +20,7 @@ function [new_inputs, new_outputs] = ...
 %	props: A structure with any optional properties.
 %	  repeatSamples: If 1, repeats the smaller class samples to match
 %	  	with larger class. Otherwise, takes the minimal number of
-%	  	samples to avoid repetitions (default).
+%	  	samples to avoid repetitions (default=1).
 %		
 %   Returns:
 %	new_inputs, new_outputs: New input and output vectors.
