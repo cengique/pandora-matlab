@@ -43,7 +43,9 @@ function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 % >> a_db = tests_db([ ... ], {'par1', 'par2', 'measure1', 'measure2'})
 % % make a page for each value of par1, and list par2 values with assoc. measures:
 % >> a_3d_db = invarValues(a_db, [2:4], 'par2')
-% >> displayRows(a_3d_db(:, :, 1))
+% >> % get back other columns:
+% >> joined_3d_db = joinRows(a_db, a_3d_db)
+% >> displayRows(joined_3d_db(:, :, 1))
 %
 % See also: tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair,
 % 	    joinRows, tests_3D_db/swapRowsPages, tests_3D_db/mergePages
