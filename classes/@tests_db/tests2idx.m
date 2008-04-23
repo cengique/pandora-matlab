@@ -22,7 +22,7 @@ function idx = tests2idx(db, dim_name, tests)
 % >> cols = tests2idx(a_db, 'col', {'col1', '/col2+/'});
 % will return indices of col1 and columns like col2, col22, col22, etc.
 %
-% See also: tests_db, tests2cols
+% See also: tests_db, tests2cols, regexp
 %
 % $Id$
 %

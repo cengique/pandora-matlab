@@ -19,7 +19,7 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 %   Returns:
 %	obj: The new tests_db object.
 %
-% See also: subsref, tests_db
+% See also: subsref, tests_db, tests2idx, regexp
 %
 % $Id$
 %
