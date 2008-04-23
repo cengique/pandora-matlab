@@ -40,12 +40,14 @@ cols = tests2cols(a_db, tests);
 
 num_pages = dbsize(a_db, 3);
 pages=1:num_pages;
-data = repmat(0, [3, length(cols), num_pages]);
+data = repmat(NaN, [3, length(cols), num_pages]);
 for page_num=pages
   a_page_db = onlyRowsTests(a_db, ':', tests, page_num);
-  data(:, :, page_num) = [get(mean(a_page_db, 1), 'data'); ...
-			  min(get(a_page_db, 'data'), [], 1); ...
-			  max(get(a_page_db, 'data'), [], 1)];
+  if dbsize(a_page_db, 1) > 0
+    data(:, :, page_num) = [get(mean(a_page_db, 1), 'data'); ...
+                        min(get(a_page_db, 'data'), [], 1); ...
+                        max(get(a_page_db, 'data'), [], 1)];
+  end
 end
 
 row_names = {'mean', 'min', 'max'};
