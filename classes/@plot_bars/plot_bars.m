@@ -51,6 +51,8 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: save mids, lo, and his to look for axis ranges later
+
 if nargin == 0 % Called with no params
    a_plot = struct;
    a_plot = class(a_plot, 'plot_bars', plot_stack);
