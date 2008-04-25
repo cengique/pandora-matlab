@@ -1,7 +1,6 @@
 function a_stats_db = statsMeanStd(db, tests, props)
 
-% statsMeanStd - Generates a stats_db object with two rows corresponding to 
-%		the mean and std of the tests' distributions.
+% statsMeanStd - Generates a stats_db object with mean, STD, and number of observations of the tests' distributions.
 %
 % Usage:
 % a_stats_db = statsMeanStd(db, tests, props)
