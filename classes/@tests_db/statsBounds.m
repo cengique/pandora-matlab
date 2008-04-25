@@ -1,6 +1,6 @@
 function a_stats_db = statsBounds(a_db, tests, props)
 
-% statsBounds - Generates a stats_db object with three rows corresponding to the mean, min, and max of the tests' distributions. 
+% statsBounds - Generates a stats_db object with three rows corresponding to the mean, min, max and number of observations of the tests' distributions. 
 %
 % Usage:
 % a_stats_db = statsBounds(a_db, tests, props)
@@ -40,17 +40,18 @@ cols = tests2cols(a_db, tests);
 
 num_pages = dbsize(a_db, 3);
 pages=1:num_pages;
-data = repmat(NaN, [3, length(cols), num_pages]);
+data = repmat(NaN, [4, length(cols), num_pages]);
 for page_num=pages
   a_page_db = onlyRowsTests(a_db, ':', tests, page_num);
   if dbsize(a_page_db, 1) > 0
-    data(:, :, page_num) = [get(mean(a_page_db, 1), 'data'); ...
+    [means, n] = mean(a_page_db, 1);
+    data(:, :, page_num) = [get(means, 'data'); ...
                         min(get(a_page_db, 'data'), [], 1); ...
-                        max(get(a_page_db, 'data'), [], 1)];
+                        max(get(a_page_db, 'data'), [], 1); n];
   end
 end
 
-row_names = {'mean', 'min', 'max'};
+row_names = {'mean', 'min', 'max', 'n'};
 
 % Original column names
 col_name_cell = fieldnames(a_db.col_idx);
