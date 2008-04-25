@@ -24,8 +24,8 @@ function a_coefs_db = corrCoefs(db, col1, cols, props)
 %	col1: Column to compare.
 %	cols: Columns to be compared with col1.
 %	props: A structure with any optional properties.
-%		skipCoefs: If coefficients of less confidence than %95 
-%			should be skipped.
+%		skipCoefs: If 1, coefficients of less confidence than %95 
+%			will be skipped. (default=1)
 %		
 %   Returns:
 %	a_coefs_db: A corrcoefs_db of the coefficients and page indices.
