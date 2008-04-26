@@ -145,14 +145,23 @@ else
     end
   end
 
+
   % reading CIP list from the file
+
+  % add sequence name into traceset name. by Li Su
+  traceset_id = ...
+      [ 'traceset ' neuron_id ' (' data_src '), trials ' trace_str ];
+  
+  if isfield(props, 'Trials')
+    traceset_id = ...
+        [ traceset_id ' ' props.Trials{1}.SequenceName ];
+  end
   
   % Create the object 
   obj = class(obj, 'physiol_cip_traceset', ...
 	      params_tests_dataset(trace_list, dt, dy, ...
-				   [ 'traceset ' neuron_id ' (' data_src '), trials ' ...
-				    trace_str ' ' props.Trials{1}.SequenceName ' '], props));
-    % add sequence name into traceset name. by Li Su
+				   traceset_id, props));
+
 
 end
 
