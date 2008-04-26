@@ -20,12 +20,12 @@ function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
 %	  	  specified, the first voltage channel is used.
 %	  ImChan: (Optional) Similar to VmChan for reading current
 %	  	  trace. Does not affect neuron_id.
-%     VGain, IGain: for HDF5 files, these two fields only works as a default value
-%         when the gains are not specified in the file.
-%     IncludeSeq: A string or cell array of strings specifying keywords in
-%         sequence name to look for.
-%     ExcludeSeq: A string or cell array of strings specifying keywords in
-%         sequence name to avoid searching.
+%     	  VGain, IGain: for HDF5 files, these two fields only works as a default value
+%         	when the gains are not specified in the file.
+%     	  IncludeSeq: A string or cell array of strings specifying keywords in
+%         	sequence name to look for.
+%     	  ExcludeSeq: A string or cell array of strings specifying keywords in
+%         	sequence name to avoid searching.
 %	  addTreats: Structure of default treatment names and their
 %	  	values for this traceset to keep consistent accross 
 %		tracesets. Use only lowercase in treatment names.
@@ -120,20 +120,23 @@ function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
   % idx = strcat(strfind(upper(nfo(:,5)),'CIP'), strfind(upper(nfo(:,5)),'SPONT'));
   % edited by Li Su: look for includeSeq keywords
   incl=getfuzzyfield(props,'includeseq');
-  incl=defaultValue('incl', {'CIP','SPONT'});
-  idx=cell(size(nfo,1),0);
+  % CG: removed default values {'CIP','SPONT'} for compatibility across
+  % experimenters. Also changed strcat to logic calculations due to errors.
+  incl=defaultValue('incl', {}); 
+  idx = false(size(nfo,1), 1); % cell(size(nfo,1),0);
   for kw={incl{:}}
-      idx=strcat(idx, strfind(upper(nfo(:,5)),upper(kw{1})));
+      idx = idx | ~isempty(strfind(upper(nfo(:,5)),upper(kw{1})));
+      % strcat(idx, 
   end
   
   % CG commented Li Su custom exceptions
   excl=getfuzzyfield(props,'excludeseq');
-  excl=defaultValue('excl', {'DYN','SK','SHORT','200s'});
-  not_idx=cell(size(nfo,1),0);
+  excl=defaultValue('excl', {}); % 'DYN','SK','SHORT','200s'
+  not_idx = false(size(nfo,1), 1); %cell(size(nfo,1),0);
   for kw={excl{:}}
-      not_idx=strcat(not_idx, strfind(upper(nfo(:,5)),upper(kw{1})));
+      not_idx = not_idx | ~isempty(strfind(upper(nfo(:,5)),upper(kw{1}))); 
+      % strcat(not_idx, ...)
   end
-
   for l=1:length(idx)
     
     if isfield(props, 'trials')
@@ -143,7 +146,7 @@ function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
       % otherwise take all
       trials = nfo{l,2};
     end
-    if ~isempty(idx{l}) && ~isempty(trials) && isempty(not_idx{l})
+    if idx(l) && ~isempty(trials) && ~not_idx(l)
       first_trial = h5.Trials{nfo{l,2}(1)};
       
       % read user attributes
