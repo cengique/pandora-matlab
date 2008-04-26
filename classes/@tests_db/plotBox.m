@@ -13,11 +13,12 @@ function a_plot = plotBox(a_tests_db, title_str, props)
 %	props: A structure with any optional properties.
 %	  putLabels: Put special column name labels.
 %	  notch: If 1, put notches on boxplots (default=1).
+%	  whis: Whisker size passed to boxplotp (default=1.5);
 %		
 %   Returns:
 %	a_plot: A plot_abstract object that can be plotted.
 %
-% See also: plot_abstract, plotFigure
+% See also: plot_abstract, plotFigure, boxplotp
 %
 % $Id: plotBox.m 896 2007-12-17 18:48:55Z cengiz $
 %
@@ -51,7 +52,9 @@ if ~ exist('vert')
   vert = 1;
 end
 
-if ~ exist('whis')
+if isfield(props, 'whis')
+  whis = props.whis;
+else
   whis = 1.5;
 end
 
