@@ -23,6 +23,8 @@ function a_pbundle = physiol_bundle(phys_dball, phys_dataset, props)
 %		control db (default={'TTX', 'Apamin', 'EBIO', 'XE991', 'Cadmium', 'drug_4AP'}).
 %       CIPList: row array specifying the CIP levels to choose (eliminate the
 %       	others), default is an empty array, which means to choose all.
+% 	biasLimit: Limit in pA, biases larger +/- than which will be
+% 		eliminated. (default=30)
 %
 % Returns:
 %	phys_joined_db: Final one row per cip and neuron db.
@@ -53,7 +55,12 @@ function a_pbundle = physiol_bundle(phys_dball, phys_dataset, props)
   end
   
 % Weed out any traces with |bias| > 30 pA
-phys_db = phys_dball(phys_dball(:, 'pAbias') > -30 & phys_dball(:, 'pAbias') < 30, :);
+if isfield(props, 'biasLimit')
+  bias_limit = props.biasLimit;
+else
+  bias_limit = 30;
+end
+phys_db = phys_dball(phys_dball(:, 'pAbias') > -bias_limit & phys_dball(:, 'pAbias') < bias_limit, :);
 
   if verbose
     disp(['Eliminated large biases, left with DB of ' num2str(dbsize(phys_db, 1)) ' rows.' ]);
