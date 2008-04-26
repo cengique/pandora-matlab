@@ -89,6 +89,9 @@ function obj = trace(data_src, dt, dy, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 if nargin == 0 % Called with no params
    obj.data = [];
    obj.dt = 1;
@@ -196,7 +199,10 @@ if nargin == 0 % Called with no params
                   ) ...
           )
          data = props.scale_y * data;
-         disp(sprintf('Device unspecified. Trace multiplied by default gain %g', props.scale_y ))
+         if verbose
+           warning(sprintf(['Device unspecified. Trace multiplied by given ' ...
+                            'gain %g'], props.scale_y ));
+         end
       end
    end
 
