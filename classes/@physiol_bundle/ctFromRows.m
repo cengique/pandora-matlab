@@ -45,7 +45,7 @@ if isfield(props, 'traces')
 end
 
 if ~ isempty(cip_levels) 
-  rows = rows & onlyRowsTests(p_db, ':', 'pAcip') == cip_levels;
+  rows = rows & anyRows(onlyRowsTests(p_db, ':', 'pAcip'), cip_levels);
 end
 
 a_cip_trace = cip_trace(get(a_pbundle, 'dataset'), ...
