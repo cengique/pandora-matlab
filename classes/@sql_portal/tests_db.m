@@ -165,6 +165,10 @@ else
   close(a_cursor);
 end 
 
+if isempty(new_data) || ~isnumeric(new_data)
+  error(['SQL query returned no results: ' sprintf('\n') '''' query_string '''']);
+end
+
 % create the tests_db object
 a_db = tests_db(new_data, col_names, {}, query_id, props);
 
