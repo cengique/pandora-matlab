@@ -24,6 +24,8 @@ function a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/06/14
 
+% TODO: why is this separate from plot_abstract/superposePlots? -CG 2008/05/13
+
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
@@ -35,6 +37,7 @@ if ~ exist('props')
 end
 
 a_plot = plots(1);
+a_props = get(a_plot, 'props');
 
 if exist('title_str')
   a_plot = set(a_plot, 'title', title_str);
@@ -56,5 +59,8 @@ if num_plots > 1
     a_legend = get(a_plot, 'legend');
     w_legend = get(plots(plot_num), 'legend');
     a_plot = set(a_plot, 'legend', { a_legend{:}, w_legend{:}});
+    a_props = mergeStructs(a_props, get(plots(plot_num), 'props'));
   end
 end
+
+a_plot = set(a_plot, 'props', a_props);
