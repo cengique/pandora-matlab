@@ -32,6 +32,9 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 if ~ exist('title_str')
   title_str = '';
 end
@@ -73,9 +76,12 @@ else
 end
 
 if isfield(props, 'Regress')
+  nonnan_db = noNaNRows(onlyRowsTests(a_db, ':', [col1 col2]));
   [b,bint,r,rint,stats] = ...
-      regress(get(col2_db, 'data'), [ones(dbsize(col1_db, 1), 1), ...
-				     get(col1_db, 'data')]);
+      regress(get(onlyRowsTests(nonnan_db, ':', 2), 'data'), ...
+              [ones(dbsize(nonnan_db, 1), 1), ...
+               get(onlyRowsTests(nonnan_db, ':', 1), 'data')]);
+  if verbose, disp(['regress stats=' num2str(stats)]), end
   if ~isempty(all_title)
     all_title = [ all_title, '; '];
   end
@@ -90,6 +96,6 @@ a_p = plot_abstract({get(col1_db, 'data'), get(col2_db, 'data'), line_style{:}},
 
 if isfield(props, 'Regress')
   x_lims = [min(get(col1_db, 'data')) max(get(col1_db, 'data'))];
-  a_p = plot_superpose([a_p, plot_abstract({x_lims, x_lims * b(2) + b(1), 'm-'}, ...
-					   { }, '', { '' }, 'plot', props)], {}, '');
+  a_p = plot_superpose({a_p, plot_abstract({x_lims, x_lims * b(2) + b(1), 'm-'}, ...
+					   { }, '', { 'regression' }, 'plot', props)}, {}, '');
 end
