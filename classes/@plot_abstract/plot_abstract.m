@@ -1,6 +1,6 @@
 function obj = plot_abstract(data, axis_labels, title, legend, command, props)
 
-% plot_abstract - Abstract description of a single plot.
+% plot_abstract - A plot that can be directly visualized or included in subplots.
 %
 % Usage:
 % obj = plot_abstract(data, axis_labels, title, legend, command, props)
