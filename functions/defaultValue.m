@@ -19,7 +19,7 @@ function value = defaultValue(varname, a_defaultvalue)
 %   SamplingRate = defaultValue('SamplingRate', 10);
 %
 % Author: Li, Su
-%
+
 % Modified: Cengiz Gunay, 2008/04/11 - naturalized name and documentation
 % for Pandora.
 
