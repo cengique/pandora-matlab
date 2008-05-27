@@ -36,12 +36,13 @@ function obj = onlyRowsTests(obj, varargin)
 % tests_db/onlyRowsTests
 if length(varargin) > 1
   cols = tests2cols(obj, varargin{2});
+  cols = cols(:); % make column vector
   
   % find selected param cols
   param_col_idx = cols <= obj.num_params;
   
   % always keep params at the beginning
-  varargin{2} = [cols(param_col_idx) cols(~param_col_idx)];
+  varargin{2} = [cols(param_col_idx); cols(~param_col_idx)];
   
   % fix number of total params
   obj = set(obj, 'num_params', sum(param_col_idx));
