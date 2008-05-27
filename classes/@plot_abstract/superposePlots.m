@@ -39,6 +39,8 @@ end
 command = '';
 data = {};
 legend = {};
+a_props = struct;
+color_order = [];
 if length(plots) > 1
   for one_plot = plots
     if isempty(command)
@@ -50,6 +52,11 @@ if length(plots) > 1
 	return;
       end
     end
+    one_props = get(one_plot, 'props');
+    if isfield(one_props, 'ColorOrder')
+      color_order = [color_order; one_props.ColorOrder];
+    end
+    a_props = mergeStructs(a_props, one_props);
     if isempty(data)
       data = one_plot.data;
     else
@@ -67,14 +74,16 @@ if length(plots) > 1
     else
       legend = {};
     end
-  end
+  end % of for one_plot
+  if ~isempty(color_order), a_props.ColorOrder = color_order; end
 else
   data = plots.data;
   legend = plots.legend;
+  a_props = get(plots, 'props');
 end
 
 a_plot = set(plots(1), 'data', data);
-a_plot = set(a_plot, 'props', mergeStructs(props, a_plot.props));
+a_plot = set(a_plot, 'props', mergeStructs(props, a_props));
 a_plot = set(a_plot, 'legend', legend);
 
 if exist('title_str') && ~ isempty(title_str)
