@@ -3,7 +3,7 @@ function [col_names, with_col_names] = checkConsistentCols(db, with_db, props)
 % checkConsistentCols - Check if two DBs have exactly the same columns.
 %
 % Usage:
-% [col_names, with_col_names] = checkConsistentCols(db, with_db)
+% [col_names, with_col_names] = checkConsistentCols(db, with_db, props)
 %
 % Description:
 %

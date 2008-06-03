@@ -87,7 +87,8 @@ else
 
   % preconstructed input: a list is already given
   if isa(traceset_items, 'function_handle') 
-    % Li Su hack
+    % Li Su input format: function that returns parameters for creating
+    % traceset objects.
     params = traceset_items();
     traceset_items_str = func2str(traceset_items);
     for k=1:size(params,1)
@@ -108,31 +109,10 @@ else
   if exist('list', 'var')
     % if an array of physiol_cip_traceset objects is available at this
     % time, construct a neuron_idx structure by counting unique ids.
-    obj.neuron_idx = struct;
-    if isfield(props, 'neuronIdStart')
-      neuron_id = props.neuronIdStart;
-    else
-      neuron_id = 1;
-    end
-    all_treatments = struct;
-    % count neuron_ids and also make global list of treatments
-    for a_ts=list
-      if ~ isfield(obj.neuron_idx, a_ts{1}.neuron_id)
-        obj.neuron_idx.(a_ts{1}.neuron_id) = neuron_id;
-        neuron_id = neuron_id + 1;
-      end
-      % collect treatments
-      all_treatments = mergeStructs(a_ts{1}.treatments, all_treatments);
-    end
+    [obj.neuron_idx, all_treatments] = scanNeuronsTreats(list, props);
+    
     % reset treatment values to zero
-    treat_names = fieldnames(all_treatments);
-    zero_treatments = cell2struct(repmat({0}, length(treat_names), 1), treat_names);
-    % go over the list again to set zeros for missing treatments
-    for ts_num = 1:length(list)
-      list{ts_num}.treatments = ...
-          orderfields(mergeStructs(list{ts_num}.treatments, ...
-                                   zero_treatments), all_treatments);
-    end    
+    list = resetDefaultTreats(list, all_treatments);
   elseif isstr(traceset_items)
       % read ASCII file, make each line an item in a cell array
       tcell = textread(traceset_items, '%s', 'delimiter', '\n', 'commentstyle','matlab');
