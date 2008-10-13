@@ -46,7 +46,11 @@ if ~ exist('pages')
 end
 
 % Do it
-obj.data = obj.data(rows, cols, pages);
+if ~ isempty(rows) && ~ isempty(cols) && ~ isempty(pages)
+  obj.data = obj.data(rows, cols, pages);
+else
+  obj.data = [];
+end
 
 % Convert and get col_idx
 col_names = fieldnames(obj.col_idx);
