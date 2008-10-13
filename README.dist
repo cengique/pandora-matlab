@@ -11,9 +11,16 @@ PANDORA is a Matlab Toolbox that:
 Installation:
 --------------------
 
-Copy the pandora/ directory under the toolbox subdirectory in your
-Matlab installation.  Alternatively, you can use the addpath Matlab
-command to add the pandora/ subdirectory to the Matlab search path.
+Use the addpath Matlab command to add the pandora/ subdirectory to the
+Matlab search path. For example: 
+
+>> addpath my/download/dir/pandora-x.y.z/pandora
+
+To avoid doing this every time you start Matlab in Windows, use the
+'File->Set path' menu option and add the pandora/ directory to the
+search path. Or, create a startup.m file in the '$HOME/matlab'
+directory in In UNIX/Linux and 'My Documents/MATLAB' directory in
+Windows with the above addpath command inside.
 
 Documentation:
 --------------------
