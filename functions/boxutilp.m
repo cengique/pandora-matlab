@@ -1,5 +1,8 @@
 function outlier=boxutilp(x,notch,lb,lf,sym,vert,whis,whissw,props)
-%BOXUTILP Produces a single box plot.
+
+% BOXUTILP - Produces a single box plot.
+%
+% Description:
 %   BOXUTILP(X) is a utility function for BOXPLOT, which calls
 %   BOXUTILP once for each column of its first argument. Use
 %   BOXPLOT rather than BOXUTILP. 
