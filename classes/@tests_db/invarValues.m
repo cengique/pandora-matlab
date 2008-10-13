@@ -147,13 +147,26 @@ else
 
           % Check for errors
           if num_uniques - unique_index < page_size - page_index
-        num_uniques
-        unique_index
-        page_size
-        page_index
-        page_main_vals
-        error(['Fatal: cannot match within page values of in_page_unique_cols? ' ...
-                   'See above variables.']);
+            page_main_vals
+            % check to see if duplicates exist in the page
+            if size(sortedUniqueValues(page_main_vals), 1) < ...
+                  size(page_main_vals, 1)
+              error(['Fatal: Database must not contain multiple rows of same ' ...
+                     'unique columns. There are multiple same ' ...
+                     'in_page_unique_cols values (columns ' ...
+                     test_names{in_page_unique_cols} ') for the unique value of ' ...
+                     '[ ' sprintf('%f ', db.data(idx(unique_idx(row_num)), cols)) ']' ...
+                    ' of selected invar columns ' test_names{cols} '. See ' ...
+                    'meanDuplicateRows to reduce redundant rows.']);
+            else
+              num_uniques
+              unique_index
+              page_size
+              page_index
+              error(['Fatal: (num_uniques - unique_index < page_size - page_index).' ...
+                     ' Cannot match within page values of in_page_unique_cols? ' ...
+                     'See above variables.']);
+            end
           end
 
           % Check if remaining page size is equal to remaining uniques size,
