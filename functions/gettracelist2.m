@@ -1,12 +1,14 @@
+
+% gettracelist2 - Gets a list of the form: '1 3 7-10' and returns a column vector with the traces numbers, and the number of traces.
+%
+% Usage: 
 % [traces, ntraces] = gettracelist2('list');
 %
-% Gets a list of the form: 1 3 5 7-10 15-20 25
-% (**please note the space between single 
-%    traces and the dash for ranges of traces**) 
-% and returns a column vector with the traces 
-% numbers, and the number of traces.
+% Description:
+%  Please note the space between single traces and the dash for ranges of
+%traces.
 %
-% <adelgado@biology.emory.edu>
+% Author: <adelgado@biology.emory.edu>
 
 function [traces, ntraces] = gettracelist2(liststr)
 if isnumeric(liststr) % add by Li Su. for compatibility just in case.
