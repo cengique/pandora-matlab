@@ -46,7 +46,7 @@ end
 image_data = a_db.data(:, :, 1);
 
 if isa(a_db, 'tests_3D_db')
-  data_label = fieldnames(get(a_db, 'page_idx'))
+  data_label = fieldnames(get(a_db, 'page_idx'));
   data_label = data_label{1};
 else
   data_label = 'covariance';
