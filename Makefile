@@ -23,9 +23,10 @@ dist:
 	cp -a functions/* $(DIRNAME)/pandora
 	mkdir $(DIRNAME)/doc
 	cp -a doc/prog-manual.pdf $(DIRNAME)/doc
-	cp README.dist $(DIRNAME)/README
+	cp README.dist $(DIRNAME)/README.txt
 	cp COPYING $(DIRNAME)
-	tar -cz --exclude .svn -f $(DIRNAME).tar.gz $(DIRNAME)
+	tar -cz --exclude .svn --exclude *~ -f $(DIRNAME).tar.gz $(DIRNAME)
+	zip -rq $(DIRNAME).zip $(DIRNAME) -x .svn -x *~ 
 	rm -rf $(DIRNAME)
 
 distdochtml: doc/html
@@ -47,6 +48,10 @@ distplots:
 	cp -a classes/\@plot_* functions/*  $(PLOTDIRNAME)/$(PLOTPKGNAME)/
 	tar -cz --exclude .svn -f $(PLOTDIRNAME).tar.gz $(PLOTDIRNAME)
 	rm -rf $(PLOTDIRNAME)
+
+stgwww:
+	cp -ur doc/website/* ~/public_html/userwww/pandora/
+	cp -a $(DIRNAME).* ~/public_html/userwww/pandora/
 
 clean: 
 
