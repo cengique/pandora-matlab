@@ -55,13 +55,18 @@ elseif isa(data, 'tests_db') % upgrade from tests_db
   a_3D_db = class(a_3D_db, 'tests_3D_db', data);
 else
 
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 
+   row_names = defaultValue('row_names', {});
+   col_names = defaultValue('col_names', {});
+   page_names = defaultValue('page_names', {});
+   id = defaultValue('id', '');
+   
    a_3D_db.page_idx = makeIdx(page_names);
 
    a_3D_db = class(a_3D_db, 'tests_3D_db', ...
-		     tests_db(data, col_names, row_names, id, props));
+                   tests_db(data, col_names, row_names, id, props));
 end
 
