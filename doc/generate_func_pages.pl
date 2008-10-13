@@ -62,13 +62,13 @@ sub parse_links {
       ($link_class_name, $link_method_name) = split m|/|;
       $link_name = "$link_class_name" . "__$link_method_name";
       $index_line = "\\index[funcref]{$link_class_name" .
-	"@\\fidxlb{" . proper_latex_label($link_class_name) . 
+	"@\\fidxl{" . proper_latex_label($link_class_name) . 
 	  "}!$link_method_name@\\fidxl{" . proper_latex_label($link_method_name) . "}}";
     } else {
       # convert slashes to underscores
       #s|/|__|;
       $link_name = $orig_link_name;
-      $index_line = "\\index[funcref]{$link_method_name@\\fidxl{" .
+      $index_line = "\\index[funcref]{$link_name@\\fidxl{" .
 	proper_latex_label($link_name) . "}}";
     }
     # remove escapes from reference names
@@ -207,7 +207,7 @@ ENDL
 
   my $latex_code = << "ENDL";
 \\subsubsection[$flabel \\texttt{$proper_method_name}]{$flabel \\texttt{$proper_class_name/$proper_method_name}}%
-\\index[funcref]{$class_name@\\fidxlb{$proper_class_name}!$method_name@\\fidxl{$proper_method_name}}%
+\\index[funcref]{$class_name@\\fidxl{$proper_class_name}!$method_name@\\fidxl{$proper_method_name}}%
 \\label{ref_${class_name}__$method_name}%
 \\hypertarget{ref_${class_name}__$method_name}{}%
 \\begin{description}
@@ -270,7 +270,7 @@ sub process_class_dir {
     # put hyperref target
     $latex_code = << "ENDL";
 \\subsection{Class \\texttt{$proper_class_name}}%
-\\index[funcref]{$class_name@\\fidxlb{$proper_class_name}}%
+\\index[funcref]{$class_name@\\fidxl{$proper_class_name}|boldhyperpage}%
 \\label{ref_$class_name}%
 \\hypertarget{ref_$class_name}{}%
 ENDL
@@ -290,6 +290,7 @@ ENDL
 my $latex_code = << "ENDL";
 \\newcommand{\\fidxl}[1]{{\\small \\texttt{#1}}}
 \\newcommand{\\fidxlb}[1]{{\\small \\bf \\texttt{#1}}}
+\\newcommand{\\boldhyperpage}[1]{\\textbf{\\hyperpage{#1}}}
 \\newcommand{\\methodline}{%
   {\\normalsize \\vspace{1ex} \\hrule width \\columnwidth \\vspace{1ex}}%
 }%
