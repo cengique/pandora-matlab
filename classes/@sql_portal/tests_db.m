@@ -96,11 +96,16 @@ if use_java_direct
 else
   a_cursor = cursor(a_sql_portal.db_conn, query_string);
 
-  if strfind(lower(a_cursor.Message), 'error')
+  if strfind(a_cursor.Message, 'java.io.EOFException')
+    error([ a_cursor.Message sprintf('\n') ...
+            'Error: Database connection timed out. Please reconnnect.']);
+  elseif strfind(lower(a_cursor.Message), 'error')
     disp(['SQL Query: "' query_string '"']);
     a_cursor
     error(['Error in SQL query:' sprintf('\n') a_cursor.Message]);
   end
+
+  if ~ isempty(a_cursor.Message), disp(a_cursor.Message), end
   
   if verbose
     a_cursor
@@ -166,7 +171,10 @@ else
 end 
 
 if isempty(new_data) || ~isnumeric(new_data)
-  error(['SQL query returned no results: ' sprintf('\n') '''' query_string '''']);
+  warning(['SQL query returned no results: ' sprintf('\n') '''' query_string ...
+           '''']);
+  % reset to empty matrix in case it's the 'No Data' string
+  new_data = [];                        
 end
 
 % create the tests_db object
