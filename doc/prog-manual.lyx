@@ -58,6 +58,7 @@
   \usepackage[colorlinks=true,pdftex]{hyperref}
 \else 
   %\usepackage[colorlinks=false]{hyperref}
+  \newcommand{\hyperpage}[1]{#1}
 \fi
 %end{latexonly}
 
@@ -703,7 +704,11 @@ $ tar xzf pandora-xyz.tar.gz
 
 \begin_layout Standard
 and follow the instructions in the README file.
- Basically it involves pointing your 
+ 
+\end_layout
+
+\begin_layout Standard
+Basically it involves pointing your 
 \noun on
 Matlab
 \noun default
@@ -712,10 +717,12 @@ Matlab
 pandora/
 \family default
  subdirectory for loading the PANDORA files.
-\end_layout
+ This can be achieved 
+\begin_inset Note Comment
+status collapsed
 
 \begin_layout Standard
-This can be achieved either by copying the 
+either by copying the 
 \family typewriter
 pandora/
 \family default
@@ -727,14 +734,22 @@ toolbox/
 \noun on
 Matlab
 \noun default
- installation, or by adding the path to your 
+ installation, or [this doesn't work!] 
+\end_layout
+
+\end_inset
+
+by adding this directory to your 
 \noun on
 Matlab
 \noun default
- session.
- While the former is a permanent solution, the latter method requires repeated
- application for each new session.
- To avoid repetition, you can have a startup script, 
+ search path using the 
+\family typewriter
+addpath
+\family default
+ Matlab command.
+ To avoid its repeated application for each new session, you can have a
+ startup script, 
 \family typewriter
 startup.m
 \family default
@@ -776,6 +791,15 @@ Matlab
 \noun default
  is called, especially if you are running Matlab from different or unknown
  places each time.
+ In Windows, place the file under 
+\family typewriter
+My Documents/MATLAB
+\family default
+, or add the directory to the search path using the 
+\emph on
+File->Set Path
+\emph default
+ menu option.
 \end_layout
 
 \begin_layout Part
@@ -932,7 +956,7 @@ makebox[0pt]{
 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/DB-classes.eps
+	filename DB-classes.eps
 	display none
 	width 90page%
 
@@ -1184,7 +1208,7 @@ makebox[0pt]{
 
 
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/Dataset-classes.eps
+	filename Dataset-classes.eps
 	display none
 	width 80page%
 
@@ -1354,7 +1378,7 @@ status open
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/bundle-classes.eps
+	filename bundle-classes.eps
 	display none
 	width 100text%
 
@@ -1498,12 +1522,12 @@ reference "figcap:Database-overview"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/data-wrapper-diagram.eps
+	filename data-wrapper-diagram.eps
 	display none
 	width 100text%
 
@@ -1835,7 +1859,7 @@ status open
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename /Lab/cengiz/work/djlab_matlab/doc/plot-classes.eps
+	filename plot-classes.eps
 	display none
 	width 100text%
 
@@ -5983,7 +6007,7 @@ tex_string
 \begin_layout Standard
 \begin_inset LatexCommand bibtex
 options "bibtotoc,plainnat"
-bibfiles "/djlab/private/cengiz/Documents/writings/refs/ref"
+bibfiles "~/Documents/writings/refs/ref"
 
 \end_inset
 
@@ -6043,18 +6067,20 @@ preview false
 \end_layout
 
 \begin_layout Standard
+
+\clearpage
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Standard
 
 
 \backslash
-addcontentsline{toc}{subsection}{Function Index}
-\end_layout
-
-\begin_layout Standard
-
+addcontentsline{toc}{section}{Function Index}
 \end_layout
 
 \begin_layout Standard
