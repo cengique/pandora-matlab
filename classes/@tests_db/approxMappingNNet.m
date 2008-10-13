@@ -8,7 +8,7 @@ function [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_col
 % Description:
 %   Approximates the mapping between the given inputs to outputs
 % using the Matlab Neural Network Toolbox. By default it creates a
-% feedf-forward network to be trained with a Levenberg-Marquardt training
+% feed-forward network to be trained with a Levenberg-Marquardt training
 % algorithm (see newff). Returns and the trained network object and a
 % database with output columns obtained from the approximator. The outputs
 % can then be compared to the original database to test the success of the
