@@ -3,7 +3,7 @@ function a_plot = plotrow(a_tests_db, row, title_str, props)
 % plotrow - Creates a plot_abstract describing the desired db row.
 %
 % Usage:
-% a_plot = plotrow(a_tests_db, row, props)
+% a_plot = plotrow(a_tests_db, row, title_str, props)
 %
 % Description:
 %
@@ -54,7 +54,13 @@ end
 if isfield(props, 'quiet')
   the_title = title_str;
 else
-  the_title = [get(a_tests_db, 'id') title_str ];
+  the_title = [ get(a_tests_db, 'id') title_str ];
+end
+
+% test a special case where bar fails
+if length(row) > 1 && size(data, 2) == 1
+  x_vals = [ x_vals; (length(x_vals) + 1) ];
+  data = [ data, repmat(NaN, length(row), 1) ];
 end
 
 a_plot = ...
