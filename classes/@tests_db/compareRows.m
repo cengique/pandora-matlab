@@ -48,7 +48,7 @@ end
 db_data = db.data;
 
 % sanity checks
-if dbsize(db, 2) ~= size(rows, 2)
+if dbsize(db, 1) > 0 && size(rows, 1) > 0 && dbsize(db, 2) ~= size(rows, 2)
   error(['Rows contains ' num2str(size(rows, 2)) ' columns, but db has ' ...
          num2str(dbsize(db, 2)) ' columns. They must match for comparison.']);
 end
