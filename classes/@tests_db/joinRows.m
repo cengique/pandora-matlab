@@ -47,6 +47,12 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+num_pages = dbsize(a_db, 3);
+if num_pages > 1
+  error(['Multiple pages (' num2str(num_pages) ...
+         ') in a_db not supported. Choose one and rerun joinRows.']);
+end
+
 if isfield(props, 'indexColName')
   index_col_name = props.indexColName;
 else
