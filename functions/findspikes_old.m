@@ -1,4 +1,4 @@
-% [timeidx, peakval, n] = findspikes(trace, threshold, plotit)
+% [timeidx, peakval, n] = findspikes_old(trace, threshold, plotit)
 % 
 % Find and return: spike times (timeidx), spike peak amplitude (peakval) 
 % and number of spikes (n) in the given trace above the given threshold.
@@ -15,7 +15,7 @@
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-function [timeidx, peakval, n] = findspikes(trace, thres, plotit)
+function [timeidx, peakval, n] = findspikes_old(trace, thres, plotit)
     
     peakst = find(trace >= thres);
     
