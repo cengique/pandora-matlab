@@ -56,15 +56,19 @@ end
 if (a_period.end_time - a_period.start_time) > 0
 
 % Choose an appropriate spike finder here and indicate in id.
-if isfield(t.props, 'spike_finder') & ...
-      t.props.spike_finder == 2 & ...
+if isfield(t.props, 'spike_finder') && ...
+      t.props.spike_finder == 2 && ...
       isfield(t.props, 'threshold')
   % Scale to mV for spike finder
   mV_factor = 1e3 * t.dy;
+  
+  if plotit > 0, plot_str = 'plot'; else plot_str = []; end
 
+  % Li Su's findspikes requires a hack to pass it 1kHz sampling rate to
+  % return spike times in terms of dt
   [times, peaks, n] = ...
       findspikes(t.data(a_period.start_time:a_period.end_time) * mV_factor, ...
-		 t.props.threshold, plotit);
+		 1, t.props.threshold, plot_str);
 else % Assume spike_finder == 1 for filtered method
 	[times, peaks, n] = findFilteredSpikes(t, a_period, plotit, minamp);
 end
