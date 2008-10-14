@@ -1,8 +1,7 @@
 function [times, peaks, n] = ...
       findFilteredSpikes(t, a_period, plotit, minamp)
 
-% findFilteredSpikes - Runs a frequency filter over the data and then 
-%			finds all peaks using findspikes.
+% findFilteredSpikes - Runs a frequency filter over the data and then finds all peaks using findspikes.
 %
 % Usage:
 % [times, peaks, n] = 
@@ -109,6 +108,8 @@ end
 % ignore the added parts
 filtered = filtered(prepend_size:(end - prepend_size));
 data = data(prepend_size:(end - prepend_size));
+
+% run findspikes by passing 1KHz sampling rate to get results in dt
 [times, peaks, n] = findspikes(filtered, 1, up_threshold);
 
 if plotit ~= 0
