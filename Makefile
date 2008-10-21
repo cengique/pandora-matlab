@@ -29,9 +29,9 @@ dist:
 	zip -rq $(DIRNAME).zip $(DIRNAME) -x .svn -x *~ 
 	rm -rf $(DIRNAME)
 
-distdochtml: doc/html
+distdochtml: doc/website/html
 	mkdir $(DOCDIR)
-	cp -a doc/html/* $(DOCDIR)
+	cp -a doc/website/html/* $(DOCDIR)
 	tar -czf $(DOCDIR).tar.gz $(DOCDIR)
 	rm -rf $(DOCDIR)
 
@@ -51,7 +51,8 @@ distplots:
 
 stgwww:
 	cp -ur doc/website/* ~/public_html/userwww/pandora/
-	cp -a $(DIRNAME).* ~/public_html/userwww/pandora/
+	cp -a $(DIRNAME)[.\-]* ~/public_html/userwww/pandora/
+	cp -a doc/prog-manual.pdf ~/public_html/userwww/pandora/
 
 clean: 
 
