@@ -29,7 +29,12 @@ function [traces, ntraces] = ...
     quiet = 0;
   end
   
-  [tracenums, ntraces] = gettracelist2(tracelist);
+  if ischar(tracelist)
+    [tracenums, ntraces] = gettracelist2(tracelist);
+  else
+    tracenums = tracelist;
+    ntraces = length(tracenums);
+  end
   
   if quiet == 0
     print(java.lang.System.out, 'loadtraces, counting down: ');
