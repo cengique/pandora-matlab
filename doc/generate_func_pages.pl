@@ -1,7 +1,14 @@
 #! /usr/bin/perl -w
 
-# Utility to scan all matlab classes and utilities to generate manual pages
-# in LaTeX format with cross references and indices, which can then be converted to HTML.
+# Utility to scan all matlab classes and utilities to generate manual
+# pages in LaTeX format with cross references and indices, which can
+# then be converted to HTML.
+#
+# Usage:
+# ./generate_func_pages.pl > func-ref.tex
+#
+# See the README file on how to generate function indices and HTML
+# pages from the generated LaTeX file.
 
 use strict;
 use Text::Tabs;
@@ -20,6 +27,9 @@ use Text::Tabs;
 #     - for each method do similar except list of operations
 
 # TODO:
+# - accept getopt to specify:
+#   - output file and input directories
+#   - make classes/functions optional
 # - scan class keyword and find base class
 # - change algorithm to scan everything first, make symbol table, and then create
 #	latex with proper cross-references. Otherwise there's no way of telling
@@ -29,7 +39,6 @@ use Text::Tabs;
 
 my $code_dir = "../classes";
 my $utils_dir = "../functions";
-my $func_ref_dir = "func_ref";
 
 # escapes characters that latex doesn't like
 sub proper_latex_label {
