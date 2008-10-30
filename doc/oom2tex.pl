@@ -5,10 +5,15 @@
 # then be converted to HTML.
 #
 # Usage:
-# ./oom2tex.pl > func-ref.tex
+# ./m2tex.pl > func-ref.tex
 #
 # See the README file on how to generate function indices and HTML
 # pages from the generated LaTeX file.
+#
+# Change the $code_dir and $utils_dir variables below to specify the
+# locations of your base class and function file directories, respectively.
+#
+# Cengiz Gunay <cengique@users.sf.net>, published 2008-10-30
 
 use strict;
 use Text::Tabs;
