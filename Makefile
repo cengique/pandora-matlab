@@ -7,13 +7,15 @@ SHELL = /bin/sh
 .SUFFIXES: .c
 
 TARNAME = pandora
-VERSION = 1.1b
+VERSION = 1.2b
 
 DIRNAME = $(TARNAME)-$(VERSION)
 DOCDIR = $(DIRNAME)-htmldoc
 
 PLOTPKGNAME = cgmplot
 PLOTDIRNAME = $(PLOTPKGNAME)-$(VERSION)
+
+STGWWWDIR = ~/public_html/userwww/pandora/
 
 all: 
 
@@ -26,7 +28,8 @@ dist:
 	cp README.dist $(DIRNAME)/README.txt
 	cp COPYING $(DIRNAME)
 	tar -cz --exclude .svn --exclude *~ -f $(DIRNAME).tar.gz $(DIRNAME)
-	zip -rq $(DIRNAME).zip $(DIRNAME) -x .svn -x *~ 
+	rm $(DIRNAME).zip
+	zip -rq $(DIRNAME).zip $(DIRNAME) -x "*/.svn/*" -x "*~"
 	rm -rf $(DIRNAME)
 
 distdochtml: doc/website/html
@@ -50,9 +53,10 @@ distplots:
 	rm -rf $(PLOTDIRNAME)
 
 stgwww:
-	cp -ur doc/website/* ~/public_html/userwww/pandora/
-	cp -a $(DIRNAME)[.\-]* ~/public_html/userwww/pandora/
-	cp -a doc/prog-manual.pdf ~/public_html/userwww/pandora/
+	cp -ur doc/website/* $(STGWWWDIR)
+	cp -a $(DIRNAME)[.\-]* $(STGWWWDIR)
+	cp -a doc/prog-manual.pdf $(STGWWWDIR)
+	cp -a CHANGES $(STGWWWDIR)
 
 clean: 
 
