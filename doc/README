@@ -2,7 +2,7 @@
 Run this to update the function reference information directly 
 from Matlab code in the current directory (ignore the pages of debug printouts):
 
-./generate_func_pages.pl > func-ref.tex 
+./m2tex.pl > func-ref.tex 
 
 Then Generate a postscript output from Lyx using the new
 function reference and check that it's ok. 

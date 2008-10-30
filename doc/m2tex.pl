@@ -5,7 +5,7 @@
 # then be converted to HTML.
 #
 # Usage:
-# ./generate_func_pages.pl > func-ref.tex
+# ./m2tex.pl > func-ref.tex
 #
 # See the README file on how to generate function indices and HTML
 # pages from the generated LaTeX file.
