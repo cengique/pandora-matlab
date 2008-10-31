@@ -15,7 +15,11 @@ DOCDIR = $(DIRNAME)-htmldoc
 PLOTPKGNAME = cgmplot
 PLOTDIRNAME = $(PLOTPKGNAME)-$(VERSION)
 
+DISTFILES = CREDITS COPYING CHANGES TODO
+
 STGWWWDIR = ~/public_html/userwww/pandora/
+
+OOM2TEX = oom2tex
 
 all: 
 
@@ -26,7 +30,7 @@ dist:
 	mkdir $(DIRNAME)/doc
 	cp -a doc/prog-manual.pdf $(DIRNAME)/doc
 	cp README.dist $(DIRNAME)/README.txt
-	cp COPYING $(DIRNAME)
+	cp $(DISTFILES) $(DIRNAME)
 	tar -cz --exclude .svn --exclude *~ -f $(DIRNAME).tar.gz $(DIRNAME)
 	rm $(DIRNAME).zip
 	zip -rq $(DIRNAME).zip $(DIRNAME) -x "*/.svn/*" -x "*~"
@@ -57,6 +61,12 @@ stgwww:
 	cp -a $(DIRNAME)[.\-]* $(STGWWWDIR)
 	cp -a doc/prog-manual.pdf $(STGWWWDIR)
 	cp -a CHANGES $(STGWWWDIR)
+
+oom2tex.zip: doc/oom2tex.pl doc/README
+	mkdir $(OOM2TEX)
+	cp -a $^ $(OOM2TEX)
+	zip -rq $@ $(OOM2TEX) -x "*/.svn/*" -x "*~"
+	rm -rf $(OOM2TEX)
 
 clean: 
 
