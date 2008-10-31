@@ -4,6 +4,28 @@ See ChangeLog for details of evolution.
 Version history:
 --------------------
 
+v1_2b: Cengiz Gunay, 2008/10/31. Public beta "Halloween" release with
+	bugfixes and support for NeuroShare-compatible files.
+	- NeuroShare support to load many acquisition formats in Windows
+	(see http://neuroshare.org). Included DLLs and utility functions.
+	- Regular expression support in querying and indexing databases.
+	- Added convenience 'group by' functionality similar to that of SQL's
+	- Added citation reminder in license document
+	- Included missing files for the filtering-based spike finder
+	- Plot improvements: 
+		- histogram bar plots
+		- Blank plot objet are properly handled.
+		- Workaround for compatibility with compiz-fusion.
+		- Made CGMPLOT an optionally separate package (see website).
+		- New stacked 3D image plot.
+		- Proper handling of line colors in superposed plots.
+	- Joins better handle NaNs and accept multiple pages.
+	- Defaults changed for balancing classifier input probabilities.
+	- website update, created example files for Neuroinformatics manuscript
+	- Major bugfix to invarValues for asymmetric databases.
+	- Improved HDF5 handling by Li Su and CG. Several changes and additions.
+	- Can now merge old (PCDX) and new (HDF5) recorded bundles
+
 v1_1b: Cengiz Gunay, 2008/02/11. Public beta bugfix and feature release. 
 	Warning: old physiol_cip_traceset_fileset objects will be incompatible and will have to be re-created.
 	- Added SQL import/export functions using Matlab Database Toolbox.
