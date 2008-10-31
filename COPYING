@@ -1,3 +1,56 @@
+
+Copyright (c) 2007, 2008 Cengiz Gunay <cengique@users.sf.net>. 
+
+The PANDORA source code is licensed under the Academic Free License
+("AFL") v. 3.0. Please also read the attribution notice below for
+important citation information. To view a copy of the AFL license, see
+below or visit http://opensource.org/licenses/afl-3.0.php.
+
+The NeuroShare libraries and matlab scripts are distributed under the
+GNU General Public License (GPL) and they are included in this package
+only for convenience. Please see http://neuroshare.org for more
+information.
+
+ATTRIBUTION NOTICE
+==================
+
+If you use PANDORA to publish scientific papers please be reminded to
+cite my relevant publications or internet addresses below. This notice
+must be kept when distributing original source code or any derived
+work as put forth by the following AFL license below.
+
+Please cite one of the following publications, ordered according to
+higher preference:
+
+1) Cengiz Günay, Jeremy R. Edgerton, and Dieter Jaeger (2008) Channel
+Density Distributions Explain Spiking Variability in the Globus
+Pallidus: A Combined Physiology and Computer Simulation Database
+Approach. J. Neurosci. 2008 28: 7476-7491;
+doi:10.1523/JNEUROSCI.4198-07.2008
+
+2) Cengiz Gunay, Su Li, Jeremy R.Edgerton, Thomas Sangrey, Astrid
+A.Prinz and Dieter Jaeger. PANDORA's Toolbox: database-supported
+analysis and visualization software for electrophysiological data from
+simulated or recorded neurons with Matlab. In review at the
+Neuroinformatics Journal. 2008.
+
+And/or you can cite one the following URLs, ordered according to
+higher preference, after making sure that they are still valid:
+
+1) International Neuroinformatics Coordinating Facility Software Center:
+  http://software.incf.org/software/pandora/home
+
+2) SimToolDB of SenseLab at Yale Univ.
+   http://senselab.med.yale.edu/simtooldb
+
+3) PANDORA home page
+   http://userwww.service.emory.edu/~cgunay/pandora
+
+4) Cengiz Gunay's home page
+   http://cengique.2y.net/~cengiz
+
+
+
 Academic Free License (~AFL~) v. 3.0
 ========================================
 
