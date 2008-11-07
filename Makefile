@@ -31,7 +31,7 @@ dist:
 	cp -a doc/prog-manual.pdf $(DIRNAME)/doc
 	cp README.dist $(DIRNAME)/README.txt
 	cp $(DISTFILES) $(DIRNAME)
-	tar -cz --exclude .svn --exclude *~ -f $(DIRNAME).tar.gz $(DIRNAME)
+	tar -cz --exclude ".svn" --exclude "*~" -f $(DIRNAME).tar.gz $(DIRNAME)
 	rm $(DIRNAME).zip
 	zip -rq $(DIRNAME).zip $(DIRNAME) -x "*/.svn/*" -x "*~"
 	rm -rf $(DIRNAME)
