@@ -43,7 +43,7 @@ x_vals = 1:dbsize(a_tests_db, 2);
 props.XTick = x_vals;
 props.grid = 1;
 
-if isfield(props, 'putLabels')
+if isfield(props, 'putLabels') && props.putLabels == 1
   props.XTickLabel = {''};
 end
 
@@ -63,13 +63,22 @@ if length(row) > 1 && size(data, 2) == 1
   data = [ data, repmat(NaN, length(row), 1) ];
 end
 
+% get row names if available
+row_idx = get(a_tests_db, 'row_idx');
+if ~ isempty(row_idx)
+  all_row_names = fieldnames(row_idx);
+  row_names = [ all_row_names(row) ];
+else
+  row_names = {};
+end
+
 a_plot = ...
     plot_abstract({ x_vals, data(row, :, 1)' }, {'', ''}, ...
-		  properTeXLabel(the_title), {}, 'bar', ...
+		  properTeXLabel(the_title), properTeXLabel(row_names), 'bar', ...
 		  mergeStructs(props, struct('tightLimits', 1)));
 
 add_props = struct;
-if isfield(props, 'putLabels')
+if isfield(props, 'putLabels') && props.putLabels == 1
   label_plots = cell(1, dbsize(a_tests_db, 2));
   
   % Bars start from zero if no
