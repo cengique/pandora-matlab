@@ -14,6 +14,7 @@ function a_plot = plot_bars(a_stats_db, title_str, props)
 %	title_str: The plot title.
 %	props: A structure with any optional properties.
 %	  pageVariable: The column used for denoting page values.
+%	  axis_limits: Passed as argument to plot_bars/plot_bars.
 %	  (passed to plot_bars/plot_bars)
 %		
 %   Returns:
@@ -107,6 +108,6 @@ if ~isfield(props, 'quiet') && ~isfield(stats_props, 'quiet')
 end
 
 a_plot = plot_bars(mids, lows, highs, ns, ...
-		   {properTeXLabel(page_names{1})}, col_names, ...
-                   title_str, axis_limits, ...
+		   properTeXLabel(page_names), col_names, ...
+                   properTeXLabel(title_str), axis_limits, ...
 		   mergeStructs(props, stats_props));
