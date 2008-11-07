@@ -128,7 +128,7 @@ else
 
     plot_legend = get(plots{plot_num}, 'legend');
     if ~ isempty(plot_legend)
-      legend = { legend{:}, plot_legend{1}};
+      legend = { legend{:}, plot_legend{:}};
     else
       legend = { legend{:}, ''};
     end
