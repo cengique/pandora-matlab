@@ -90,12 +90,14 @@ if nargin == 0 % Called with no params
    else
        bar_axis_props = props;
    end
+
    % Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
-
-     if ~isfield(props, 'dispBarsLines') || strcmp(props.dispBarsLines, 'bars')
+     if ~isfield(props, 'dispBarsLines') || ...
+         strcmp(props.dispBarsLines, 'bars')
+       plot_mid_vals = permute(mid_vals(:, plot_num, :), [1, 3, 2]);
        plot_components = ...
-           {plot_abstract({group_locs, mid_vals(:,plot_num)}, ...
+           {plot_abstract({group_locs, plot_mid_vals}, ...
                           {x_labels{plot_num}, y_labels{plot_num}}, '', ...
                           {}, 'bar', bar_axis_props)};
        linestyle = 'none';
