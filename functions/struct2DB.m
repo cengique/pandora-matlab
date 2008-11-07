@@ -1,4 +1,4 @@
-function a_tests_db = struct2DB(a_struct, props)
+function a_tests_db = struct2DB(a_struct, id, props)
 
 % struct2DB - Converts a structure array to a tests_db object.
 %
@@ -10,6 +10,7 @@ function a_tests_db = struct2DB(a_struct, props)
 %
 %   Parameters:
 % 	a_struct: A structure to convert.
+%	id: Optional database id string.
 %	props: A structure with any optional properties, passed to tests_db.
 %		
 %   Returns:
@@ -26,10 +27,23 @@ function a_tests_db = struct2DB(a_struct, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
+if ~ exist('id', 'var')
+  id = 'DB from a structure';
+end
+
+% test struct contents before conversion
+field_names = fieldnames(a_struct);
+cell_data = struct2cell(a_struct);
+if size(cell_data{1}, 1) > size(cell_data{1}, 2)
+  data_matx = cell2mat(cell_data');
+else
+  data_matx = cell2mat(cell_data)';
+end
+
 a_tests_db = ...
-    tests_db(cell2mat(struct2cell(a_struct))', fieldnames(a_struct)', {}, ...
-             'DB from a structure.', props);
+    tests_db(data_matx, fieldnames(a_struct)', {}, ...
+             id, props);
