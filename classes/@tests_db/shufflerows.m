@@ -13,7 +13,7 @@ function a_db = shufflerows(db, tests, grouped)
 %	db: A tests_db object.
 %	tests: Tests to shuffle.
 %	grouped: If 1 then shuffle tests all together, 
-%		if 0 shuffle each test separately.
+%		if 0 shuffle each test separately (default=0).
 %		
 %   Returns:
 %	a_db: The shuffled db.
