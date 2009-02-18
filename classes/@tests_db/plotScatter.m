@@ -8,7 +8,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 % Description:
 %
 %   Parameters:
-%	a_db: A params_tests_db object.
+%	a_db: A tests_db object.
 %	test1, test2: X & Y variables.
 %	title_str: (Optional) A string to be concatanated to the title.
 %	short_title: (Optional) Few words that may appear in legends of multiplot.
@@ -20,7 +20,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %   Returns:
 %	a_p: A plot_abstract.
 %
-% See also: 
+% See also: plotScatter3D, plotImage
 %
 % $Id$
 %
