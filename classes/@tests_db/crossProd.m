@@ -39,5 +39,14 @@ a_expand_vector = reshape(a_expand_vector, 1, prod(size(a_expand_vector)));
 b_expand_vector = (1:b_size(1))' * ones(1, a_size(1));
 b_expand_vector = reshape(b_expand_vector, 1, prod(size(b_expand_vector)));
 
-cross_db = addColumns(onlyRowsTests(a_db, a_expand_vector, ':'), ...
-		      onlyRowsTests(b_db, b_expand_vector, ':'));
+a_expand_db = onlyRowsTests(a_db, a_expand_vector, ':');
+b_expand_db = onlyRowsTests(b_db, b_expand_vector, ':');
+
+if dbsize(a_expand_db, 1) == 0
+  cross_db = b_expand_db;
+elseif dbsize(b_expand_db, 1) == 0
+  cross_db = a_expand_db;
+else
+  cross_db = addColumns(a_expand_db, b_expand_db);
+end
+
