@@ -43,4 +43,8 @@ both_tests_db = crossProd(a_tests_db.tests_db, b_tests_db.tests_db);
 % Combine both
 a_db.tests_db = both_params_db;
 a_db.num_params = a_num_params + b_num_params;
-cross_db = addColumns(a_db, both_tests_db);
+if dbsize(both_tests_db, 1) > 0
+  cross_db = addColumns(a_db, both_tests_db);
+else
+  cross_db = a_db;
+end
