@@ -55,7 +55,8 @@ end
 param_name = getColNames(onlyRowsTests(a_db, ':', param));
 
 % Create params DB with desired values
-a_params_db = params_tests_db(levels, param_name, [], {}, [ param_name ' DB']);
+a_params_db = ...
+    params_tests_db(levels, param_name, [], {}, [ param_name{1} ' DB']);
 
 % Get cross product with original DB with the param removed
 a_params_db = crossProd(delColumns(a_db, param), a_params_db);
