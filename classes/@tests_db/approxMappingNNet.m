@@ -82,6 +82,15 @@ if ~ verbose
 end
 
 orig_inputs = a_nnet_inputs;
+
+% divide into training and validation sets
+if isfield(props, 'crossFold') && props.crossFold > 0
+  if verbose, disp(['Performing ' num2str(props.crossFold) '-fold cross-validation...']), end
+
+  fold_size = size(orig_outputs, 1) / props.crossFold;
+  
+end
+
 % balance inputs, if requested
 if isfield(props, 'classProbs') && strcmp(props.classProbs, 'prob')
   [a_nnet_inputs, a_nnet_ouputs] = ...
