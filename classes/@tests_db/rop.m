@@ -38,6 +38,9 @@ if isa(left_obj, 'tests_db') && isa(right_obj, 'tests_db')
   % check for column consistency
   [left_names, right_names] = ...
       checkConsistentCols(left_obj, right_obj, struct('useCommon', 1));
+  if ~length(left_names) || ~length(right_names)
+    error('No common columns between two databases!');
+  end
   left_data = get(left_obj, 'data');
   % preserve column order of first DB
   right_data = get(onlyRowsTests(right_obj, ':', left_names), 'data');  
@@ -47,7 +50,12 @@ elseif isa(left_obj, 'tests_db')
   left_data = get(left_obj, 'data');
   right_data = right_obj;
   a_db = left_obj;
-  an_id = [ get(left_obj, 'id') ' ' op_id ' ' num2str(right_data) ];
+  if isscalar(right_data)
+    right_label = num2str(right_data);
+  else
+    right_label = 'numeric matrix';
+  end
+  an_id = [ get(left_obj, 'id') ' ' op_id ' ' right_label ];
 else
   if ~isnumeric(left_obj)
     error(['Array division is defined only between tests_db objects and scalars. ' ...
