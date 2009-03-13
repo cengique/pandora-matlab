@@ -15,19 +15,21 @@ function [an_approx_db, a_nnet] = approxMappingNNet(a_db, input_cols, output_col
 % approximation. If 'warning on verbose' is issued prior to running, it
 % provides additional debug info.
 %
-%   Parameters:
-%	a_db: A tests_db object.
-%	input_cols, output_cols: Input and output columns to be mapped
+% Parameters:
+%   a_db: A tests_db object.
+%   input_cols, output_cols: Input and output columns to be mapped
 %		(see tests2cols for accept column specifications).
-%	props: A structure with any optional properties.
-%	  nnetFcn: Neural network classifier function (default='newff')
-%	  nnetParams: Cell array of parameters passed to nnetFcn after
+%   props: A structure with any optional properties.
+%     nnetFcn: Neural network classifier function (default='newff')
+%     nnetParams: Cell array of parameters passed to nnetFcn after
 %	  	      inputs and outputs.
-%	  trainMode: 'batch' or 'incr'.
-%	  classProbs: 'prob': use probabilistic sampling to normalize
+%     trainMode: 'batch' or 'incr'.
+%     testControl: Ratio of dataset to train the data and rest to test for success
+%		(default=0; disabled).
+%     classProbs: 'prob': use probabilistic sampling to normalize
 %	  		prior class probabilities.
-%	  maxEpochs: maximum number of epochs to train for.
-%	  (Rest passed to balanceInputProbs and tests_db)
+%     maxEpochs: maximum number of epochs to train for.
+%     (Rest passed to balanceInputProbs and tests_db)
 %		
 %   Returns:
 %	an_approx_db: A tests_db object containing the original inputs and
@@ -69,12 +71,12 @@ end
 % read inputs and outputs from db
 a_nnet_inputs = ...
     get(onlyRowsTests(a_db, ':', input_cols), 'data')';
-a_nnet_ouputs = ...
+a_nnet_outputs = ...
     get(onlyRowsTests(a_db, ':', output_cols), 'data')';
 
 % create NNet object
 a_nnet = feval(props.nnetFcn, a_nnet_inputs, ...
-                a_nnet_ouputs, props.nnetParams{:});
+                a_nnet_outputs, props.nnetParams{:});
 
 % set display params
 if ~ verbose
@@ -82,25 +84,38 @@ if ~ verbose
 end
 
 orig_inputs = a_nnet_inputs;
+orig_outputs = a_nnet_outputs;
 
-% divide into training and validation sets
-if isfield(props, 'crossFold') && props.crossFold > 0
-  if verbose, disp(['Performing ' num2str(props.crossFold) '-fold cross-validation...']), end
-
-  fold_size = size(orig_outputs, 1) / props.crossFold;
-  
+% first, divide into training and validation sets 
+num_samples = size(a_nnet_inputs, 2);
+train_logic = false(num_samples, 1);
+if isfield(props, 'testControl') && props.testControl ~= 0
+  num_train = floor(props.testControl * num_samples);
+  num_test = num_samples - num_train;
+  if verbose
+    disp(['Train/test with ' num2str(num_train) '/' num2str(num_test) ...
+          ' samples.']);
+  end
+  % choose training samples randomly
+  a_perm = randperm(num_samples)';
+  train_logic(a_perm(1:num_train), :) = true;
+  a_nnet_inputs = a_nnet_inputs(:, train_logic);
+  a_nnet_outputs = a_nnet_outputs(:, train_logic);
+  % rest is for control
+  orig_inputs = orig_inputs(:, ~train_logic);
+  orig_outputs = orig_outputs(:, ~train_logic);
 end
 
 % balance inputs, if requested
 if isfield(props, 'classProbs') && strcmp(props.classProbs, 'prob')
-  [a_nnet_inputs, a_nnet_ouputs] = ...
-      balanceInputProbs(a_nnet_inputs, a_nnet_ouputs, 1, props);
+  [a_nnet_inputs, a_nnet_outputs] = ...
+      balanceInputProbs(a_nnet_inputs, a_nnet_outputs, 1, props);
 end
 
 % train it
 if ~ isfield(props, 'trainMode') || strcmp(props.trainMode, 'batch')
   % batch training
-  a_nnet = train(a_nnet, a_nnet_inputs, a_nnet_ouputs);
+  a_nnet = train(a_nnet, a_nnet_inputs, a_nnet_outputs);
 else
   % incremental training
   if isfield(props, 'maxEpochs')
@@ -110,7 +125,7 @@ else
   end
   goal_mse = 1e-3;
   cell_ins = num2cell(a_nnet_inputs, 1);
-  cell_outs = num2cell(a_nnet_ouputs); 
+  cell_outs = num2cell(a_nnet_outputs); 
   last_conditions = [];
   for pass_num = 1:num_passes
     [a_nnet, nn_outs, nn_errs, last_conditions] = ...
@@ -124,12 +139,15 @@ else
   end
 end
 
+% add the predicted labels in a NaN pre-filled column
+new_data = [get(onlyRowsTests(a_db, ':', input_cols), 'data'), ...
+           repmat(NaN, dbsize(a_db, 1), 1)];
+new_data(~train_logic, end) = sim(a_nnet, orig_inputs)';
 
 % return simulated approximator output in new db
 col_names = getColNames(a_db);
 an_approx_db = ...
-    tests_db([get(onlyRowsTests(a_db, ':', input_cols), 'data'), ...
-              sim(a_nnet, orig_inputs)'], ...
+    tests_db(new_data, ...
              [ col_names(tests2cols(a_db, input_cols)), ...
                col_names(tests2cols(a_db, output_cols)) ], {}, ...
              [ 'NNet approximated ' get(a_db, 'id') ]);
