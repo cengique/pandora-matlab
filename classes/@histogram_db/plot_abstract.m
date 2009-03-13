@@ -10,8 +10,11 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 %
 %   Parameters:
 %	a_hist_db: A histogram_db object.
+%	title_str: Optional title string.
 %	props: Optional properties passed to plot_abstract.
 %	  command: Plot command (Optional, default='bar')
+%	  endZeros: Prefix and suffix bins with zero values to make a
+%	  	smooth plot.
 %	  lineSpec: Line specification passed to bar command.
 %	  logScale: If 1, use logarithmic y-scale.
 %	  shading: 'faceted' (default) or 'flat'.
@@ -106,6 +109,13 @@ if isfield(props, 'shading') && strcmp(props.shading, 'flat') && ...
     strcmp(command, 'bar')
   % remove edge colors if requested
   props = mergeStructs(struct('plotProps', struct('EdgeColor', 'none')), props);
+end
+
+if isfield(props, 'endZeros')
+  % prefix and suffix one histogram bin of zero value
+  data = [ [ data(1, 1) - diff(data(1:2, 1)); data(:, 1); ...
+             data(end, 1) + diff(data((end-1):end, 1)) ], ...
+           [ 0; data(:, 2); 0] ];
 end
 
 % Make a simple plot object drawing vertical bars
