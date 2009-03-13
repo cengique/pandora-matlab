@@ -18,8 +18,14 @@ function [an_approx_db, an_svm] = approxMappingLIBSVM(a_db, input_cols, output_c
 %     classProbs: 'prob': use probabilistic sampling to normalize
 %	  prior class probabilities.
 %     kernel: Kernel type (default='poly').
-%     crossFold: Perform n-fold cross-validation (default=0; disabled).
-%     svmOpts: Passed to LIBSVM (see output of svm-train for options; default='-s0 -t2 -d2')
+%     crossFold: n to use in libsvm's n-fold cross-validation (default=0;
+%     		disabled).
+%     testControl: Ratio of dataset to train the data and rest to test for success
+%		(default=0; disabled).
+%     svmCost: Add the -c option to svmOpts with this value.
+%     svmGamma: Add the -g option to svmOpts with this value.
+%     svmOpts: Passed to LIBSVM overwriting default options (see output
+%     		of svm-train for options; default='-s0 -t2 -d2').
 %     (Rest passed to balanceInputProbs and tests_db)
 %		
 %   Returns:
@@ -73,10 +79,32 @@ an_svm_outputs = ...
 orig_inputs = an_svm_inputs;
 orig_outputs = an_svm_outputs;
 
+% first, divide into training and validation sets 
+num_samples = size(an_svm_inputs, 2);
+train_logic = false(num_samples, 1);
+if isfield(props, 'testControl') && props.testControl ~= 0
+  num_train = floor(props.testControl * num_samples);
+  num_test = num_samples - num_train;
+  if verbose
+    disp(['Train/test with ' num2str(num_train) '/' num2str(num_test) ...
+          ' samples.']);
+  end
+  % choose training samples randomly
+  a_perm = randperm(num_samples)';
+  train_logic(a_perm(1:num_train), :) = true;
+  an_svm_inputs = an_svm_inputs(:, train_logic);
+  an_svm_outputs = an_svm_outputs(:, train_logic);
+  % rest is for control
+  orig_inputs = orig_inputs(:, ~train_logic);
+  orig_outputs = orig_outputs(:, ~train_logic);
+end
+
 % balance inputs, if requested
 if isfield(props, 'classProbs') && strcmp(props.classProbs, 'prob')
   [an_svm_inputs, an_svm_outputs] = ...
       balanceInputProbs(an_svm_inputs, an_svm_outputs, 1, props);
+  if verbose, disp(['After balancing, got ' ...
+                    num2str(size(an_svm_inputs, 2)) ' samples.']); end
 end
 
 % set options
@@ -84,24 +112,32 @@ if ~ isfield(props, 'svmOpts')
   props.svmOpts = '-s 0 -t 2 -d 2 -m 500';
 end
 
+if isfield(props, 'svmCost')
+  props.svmOpts = [ props.svmOpts ' -c ' num2str(props.svmCost) ] ;
+end
+
+if isfield(props, 'svmGamma')
+  props.svmOpts = [ props.svmOpts ' -g ' num2str(props.svmGamma) ] ;
+end
+
 if verbose, disp([ 'LIBSVM options: "' props.svmOpts '"']), end
 
-% train
-% first, divide into training and validation sets 
+% train  
 
 % do regular training to get a sample SVM model and prediction
-an_svm = svmtrain(an_svm_outputs', an_svm_inputs', props.svmOpts);
+an_svm = struct;
+an_svm.model = svmtrain(an_svm_outputs', an_svm_inputs', props.svmOpts);
 
 % calculate predictions
 [predicted_label, accuracy, prob_estimates] = ...
-    svmpredict(orig_outputs', orig_inputs', an_svm); %, '-b 1'
+    svmpredict(orig_outputs', orig_inputs', an_svm.model); %, '-b 1'
 % accuracy contains: accuracy, mean squared error, squared correlation coefficient.
 an_svm.accuracy = accuracy(1);
 an_svm.mse = accuracy(2);
 an_svm.scc = accuracy(3);
 an_svm.prob_estimates = prob_estimates;
 
-% if requested, do cross validation first to get accuracy
+% if requested, do cross validation afterwards to get accuracy
 if isfield(props, 'crossFold') && props.crossFold > 0
   props.svmOpts = [ props.svmOpts ' -v ' num2str(props.crossFold) ];
   an_svm.cross_accuracy = ...
@@ -112,10 +148,15 @@ if isfield(props, 'crossFold') && props.crossFold > 0
 end
 
 % return simulated approximator output in new db
+
+% add the predicted labels in a NaN pre-filled column
+new_data = [get(onlyRowsTests(a_db, ':', input_cols), 'data'), ...
+           repmat(NaN, dbsize(a_db, 1), 1)];
+new_data(~train_logic, end) = predicted_label;
+
 col_names = getColNames(a_db);
 an_approx_db = ...
-    tests_db([get(onlyRowsTests(a_db, ':', input_cols), 'data'), ...
-              predicted_label], ...
+    tests_db(new_data, ...
              [ col_names(tests2cols(a_db, input_cols)), ...
                col_names(tests2cols(a_db, output_cols)) ], {}, ...
              [ 'SVM approximated ' get(a_db, 'id') ], ...
