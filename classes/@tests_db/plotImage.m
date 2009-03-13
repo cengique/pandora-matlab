@@ -44,14 +44,14 @@ if ~ exist('props')
 end
 
 % only keep what we care about
-a_db = onlyRowsTests(a_db, ':', {par1, par2, col});
+a_db = sortrows(onlyRowsTests(a_db, ':', {par1, par2, col}), {par1, par2});
 
 % get names
 col_names = getColNames(a_db);
 
 % find uniques
-par1_values = get(unique(onlyrowsTests(a_db, ':', par1)), 'data');
-par2_values = get(unique(onlyrowsTests(a_db, ':', par2)), 'data');
+par1_values = get(unique(onlyRowsTests(a_db, ':', par1)), 'data');
+par2_values = get(unique(onlyRowsTests(a_db, ':', par2)), 'data');
 
 % Make pages for each par2 value
 fold_3d_db = groupBy(a_db, par2);
@@ -78,12 +78,12 @@ end
 
 all_title = [ properTeXLabel(get(a_db, 'id')) ': ' short_title title_str ];
 
-axis_labels = properTeXLabel([col_names([1 2])]);
+axis_labels = properTeXLabel([col_names([2 1])]);
 
-plot_props = struct('XTick', 1:length(par1_values), 'YTick', 1:length(par2_values), ...
+plot_props = struct('XTick', 1:length(par2_values), 'YTick', 1:length(par1_values), ...
                     'border', [0 0 0.05 0], 'colorbar', 1);
-plot_props.XTickLabel = par1_values;
-plot_props.YTickLabel = par2_values;
+plot_props.XTickLabel = par2_values;
+plot_props.YTickLabel = par1_values;
 plot_props.truncateDecDigits = 2;
 
 if isfield(props, 'quiet')
