@@ -65,7 +65,7 @@ end
 
 % get row names if available
 row_idx = get(a_tests_db, 'row_idx');
-if ~ isempty(row_idx)
+if ~ isempty(fieldnames(row_idx))
   all_row_names = fieldnames(row_idx);
   row_names = [ all_row_names(row) ];
 else
@@ -80,10 +80,16 @@ a_plot = ...
 add_props = struct;
 if isfield(props, 'putLabels') && props.putLabels == 1
   label_plots = cell(1, dbsize(a_tests_db, 2));
-  
-  % Bars start from zero if no
-  % negative bars exist
-  min_val = min([min(data(row, :, 1)), 0]);  
+
+  % align label with axis limits if given
+  if isfield(props, 'axisLimits') && ...
+      ~isnan(props.axisLimits(3)) && ~isinf(props.axisLimits(3))
+    min_val = props.axisLimits(3);
+  else
+    % Bars start from zero if no
+    % negative bars exist
+    min_val = min([min(data(row, :, 1)), 0]);  
+  end
 
   % to make space for labels
   add_props = ...
