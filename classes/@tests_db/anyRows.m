@@ -19,7 +19,7 @@ function [idx rows_idx] = anyRows(db, rows)
 %		row. Non-matching entries were left as NaN.
 %
 % Example:
-%  >> db(anyRows(db(:, 'trial') == [12; 46; 37]), :)
+%  >> db(anyRows(db(:, 'trial'), [12; 46; 37]), :)
 % returns a db with rows having trial equal to any of the given values.
 %
 % See also: compareRows, eq, tests_db
