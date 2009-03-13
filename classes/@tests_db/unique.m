@@ -5,13 +5,14 @@ function a_db = unique(a_db)
 % Usage:
 % a_db = unique(a_db)
 %
-% Description:
-%
-%   Parameters:
-%	a_db: tests_db from which to find uniques.
+% Parameters:
+%   a_db: tests_db from which to find uniques.
 %		
-%   Returns:
-%	a_db: The resulting tests_db.
+% Returns:
+%   a_db: The resulting tests_db.
+%
+% Description:
+%   Keeps the original DB order.
 %
 % See also: unique
 %
@@ -29,4 +30,4 @@ function a_db = unique(a_db)
 a_db = set(a_db, 'id', [ 'uniques of ' get(a_db, 'id') ]);
 
 % filter contents
-a_db = set(a_db, 'data', unique(get(a_db, 'data'), 'rows'));
+a_db = set(a_db, 'data', uniqueValues(get(a_db, 'data')));
