@@ -62,7 +62,7 @@ switch (dim)
   case 1
     a_db = set(a_db, 'row_idx', makeIdx({'sum'}));
   case 2
-    a_db = set(a_db, 'col_idx', makeIdx({'sum'}))
+    a_db = set(a_db, 'col_idx', makeIdx({'sum'}));
 end
 
 % Recursive std needed for stripping NaNs in each dimension
