@@ -1,0 +1,411 @@
+
+                              < M A T L A B >
+                  Copyright 1984-2006 The MathWorks, Inc.
+                         Version 7.3.0.298 (R2006b)
+                              August 03, 2006
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+>> if usejava('jvm'), com.mathworks.services.Prefs.setBooleanPref('EditorGraphicalDebugging', false); end
+>> cd /Raw/gpslice07/gps0727/
+>> [a_ts, h5_info] = ...
+    ns_load_tracesets('gps0727a.hdf5', ...
+                      mergeStructs(struct('VmChan', 'Amp1 Vm', 'ImChan', 'Amp1 Im', ...
+                                          'trials', [1:18 34:63 79:103]), def_props));
+??? Undefined function or variable 'def_props'.
+
+>> 
+>> def_props = ...
+      struct('addTreats', struct('kynacid', 1e-3, 'picrotx', 1e-4, 'ttx', 0, 'drug_4ap', 0), ...
+             'renameTreats', struct('blocker_954AP', 'drug_4ap', ...
+                                    'attr_954AP', 'drug_4ap'));
+>> [a_ts, h5_info] = ...
+    ns_load_tracesets('gps0727a.hdf5', ...
+                      mergeStructs(struct('VmChan', 'Amp1 Vm', 'ImChan', 'Amp1 Im', ...
+                                          'trials', [1:18 34:63 79:103]), def_props));
+??? Undefined function or variable "log_num".
+
+Error in ==> <a href="error:/djlab/shared/matlab/lisu/ns_file_info.m,316,1">ns_file_info at 316</a>
+            for lg=1:log_num
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/functions/ns_load_tracesets.m,98,1">ns_load_tracesets at 98</a>
+  [nfo h5] = ns_file_info(data_src, 'hc');
+
+>> 
+>> [a_ts, h5_info] = ...
+    ns_load_tracesets('gps0727a.hdf5', ...
+                      mergeStructs(struct('VmChan', 'Amp1 Vm', 'ImChan', 'Amp1 Im', ...
+                                          'trials', [1:18 34:63 79:103]), def_props));
+??? Undefined function or variable "log_num".
+
+Error in ==> <a href="error:/djlab/shared/matlab/lisu/ns_file_info.m,316,1">ns_file_info at 316</a>
+            for lg=1:log_num
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/functions/ns_load_tracesets.m,98,1">ns_load_tracesets at 98</a>
+  [nfo h5] = ns_file_info(data_src, 'hc');
+
+>> 
+>> exit
+
+M-Shell finished
+ 
+                              < M A T L A B >
+                  Copyright 1984-2006 The MathWorks, Inc.
+                         Version 7.3.0.298 (R2006b)
+                              August 03, 2006
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+>> if usejava('jvm'), com.mathworks.services.Prefs.setBooleanPref('EditorGraphicalDebugging', false); end
+>> cd /Raw/gpslice07/gps0727/
+>> def_props = ...
+      struct('addTreats', struct('kynacid', 1e-3, 'picrotx', 1e-4, 'ttx', 0, 'drug_4ap', 0), ...
+             'renameTreats', struct('blocker_954AP', 'drug_4ap', ...
+                                    'attr_954AP', 'drug_4ap'))
+
+def_props = 
+
+       addTreats: [1x1 struct]
+    renameTreats: [1x1 struct]
+
+>> [a_ts, h5_info] = ...
+    ns_load_tracesets('gps0727a.hdf5', ...
+                      mergeStructs(struct('VmChan', 'Amp1 Vm', 'ImChan', 'Amp1 Im', ...
+                                          'trials', [1:18 34:63 79:103]), def_props))
+??? Error using ==> ns_file_info
+Too many output arguments.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/functions/ns_load_tracesets.m,98,1">ns_load_tracesets at 98</a>
+  [nfo h5] = ns_file_info(data_src, 'hc');
+
+>> exit
+
+M-Shell finished
+
+                              < M A T L A B >
+                  Copyright 1984-2006 The MathWorks, Inc.
+                         Version 7.3.0.298 (R2006b)
+                              August 03, 2006
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+>> if usejava('jvm'), com.mathworks.services.Prefs.setBooleanPref('EditorGraphicalDebugging', false); end
+>> cd /Raw/gpslice07/gps0727/
+>> def_props = ...
+      struct('addTreats', struct('kynacid', 1e-3, 'picrotx', 1e-4, 'ttx', 0, 'drug_4ap', 0), ...
+             'renameTreats', struct('blocker_954AP', 'drug_4ap', ...
+                                    'attr_954AP', 'drug_4ap'))
+
+def_props = 
+
+       addTreats: [1x1 struct]
+    renameTreats: [1x1 struct]
+
+>> [a_ts, h5_info] = ...
+    ns_load_tracesets('gps0727a.hdf5', ...
+                      mergeStructs(struct('VmChan', 'Amp1 Vm', 'ImChan', 'Amp1 Im', ...
+                                          'trials', [1:18 34:63 79:103]), def_props));
+>> 
+>> a_ts
+
+a_ts = 
+
+  Columns 1 through 2
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 3 through 4
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 5 through 6
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 7 through 8
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 9 through 10
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 11 through 12
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 13 through 14
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 15 through 16
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 17 through 18
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 19 through 20
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 21 through 22
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Column 23
+
+    [1x1 physiol_cip_traceset]
+
+>> a_fs = ...
+    physiol_cip_traceset_fileset([a_ts], [], [],...
+                                 struct('profile_class_name', ...
+                                        'getProfileAllSpikes', ...
+                                        'neuronIdStart', 159))
+physiol_cip_traceset_fileset, tracesets from  cell array
+
+ans = 
+
+              neuron_idx: [1x1 struct]
+    params_tests_dataset: [1x1 params_tests_dataset]
+
+params_tests_dataset, tracesets from  cell array
+
+ans = 
+
+     list: {1x23 cell}
+       dt: []
+       dy: []
+       id: 'tracesets from  cell array'
+    props: [1x1 struct]
+
+Optional properties of params_tests_dataset:
+
+ans = 
+
+    profile_class_name: 'getProfileAllSpikes'
+         neuronIdStart: 159
+
+>> cip_trace(a_ts, 1)
+??? Input argument "dy" is undefined.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@cip_trace/cip_trace.m,67,1">cip_trace.cip_trace at 67</a>
+  trace_obj = trace(datasrc, dt, dy, id, props);
+
+>> a_ct = cip_trace(a_ts{1}, 1)
+gps0727a_chan2(t1)
+
+ans = 
+
+    pulse_time_start: 300000
+    pulse_time_width: 0
+               trace: [1x1 trace]
+
+>> plot(a_ct)
+
+ans =
+
+     1
+
+>> a_ct.dt
+
+ans =
+
+   1.0000e-04
+
+>> help physiol_cip_traceset/cip_trace
+  cip_trace - Loads a cip_trace object from a raw data file in the traceset.
+ 
+  Usage:
+  a_cip_trace = cip_trace(traceset, trace_index, props)
+ 
+  Description:
+ 
+    Parameters:
+ 	traceset: A physiol_cip_traceset object.
+ 	trace_index: Index of file in traceset.
+ 	props: A structure with any optional properties.
+ 	  showParamsList: Cell array of params to add to id field.
+ 	  showName: Show the name of the cell in the id field (default=1).
+ 	  TracesetIndex: Indicates in the id field.
+ 		
+    Returns:
+ 	a_cip_trace: A cip_trace object that holds the raw data.
+ 
+  See also: <a href="matlab:help itemResultsRow">itemResultsRow</a>, <a href="matlab:help params_tests_fileset">params_tests_fileset</a>, <a href="matlab:help paramNames">paramNames</a>, <a href="matlab:help testNames">testNames</a>
+
+ 
+  $Id: cip_trace.m 919 2008-01-10 05:12:29Z cengiz $
+ 
+  Author: Cengiz Gunay <cgunay@emory.edu>, 2005/07/13
+ 
+  Modified by:
+ 	Li, Su <su.li@emory.edu>, 2007/06/10 for adding HDF5 compatibility.
+
+>> a_ct = cip_trace(a_ts{1}, 1, struct('spike_finder', 2))
+gps0727a_chan2(t1)
+
+ans = 
+
+    pulse_time_start: 300000
+    pulse_time_width: 0
+               trace: [1x1 trace]
+
+>> a_sp = spikes(a_ct)
+spikes, id=gps0727a_chan2(t1)
+
+ans = 
+
+          times: [1x136 double]
+    num_samples: 300000
+             dt: 1.0000e-04
+             id: 'gps0727a_chan2(t1)'
+
+>> plot(a_sp)
+
+ans =
+
+     2
+
+>> methods(a_sp)
+
+
+Methods for class spikes:
+
+
+ISICV                periodWhole          spikeRateISI         
+SFA                  plot                 spikes               
+addSpikes            plotData             subsref              
+display              plotFreqVsTime       vertcat              
+get                  plotISIs             withinPeriod         
+getISIs              set                  withinPeriodWOffset  
+getResults           spikeAmpSlope        
+intoPeriod           spikeRate            
+
+>> figure; hist(getISIs(a_sp))
+>> figure; hist(getISIs(a_sp, 100))
+??? Attempt to reference field of non-structure array.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/withinPeriodWOffset.m,29,1">spikes.withinPeriodWOffset at 29</a>
+s.times = s.times(s.times > a_period.start_time & s.times <= a_period.end_time);
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/withinPeriod.m,33,1">spikes.withinPeriod at 33</a>
+s = withinPeriodWOffset(s, a_period);
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/getISIs.m,34,1">spikes.getISIs at 34</a>
+  s = withinPeriod(s, a_period);
+
+>> getResults(a_sp)
+??? Reference to non-existent field 'trace'.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/getResults.m,36,1">spikes.getResults at 36</a>
+if isempty(s.trace.data) 
+
+>> getResults(a_sp, a_ct)
+??? Reference to non-existent field 'trace'.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/getResults.m,36,1">spikes.getResults at 36</a>
+if isempty(s.trace.data) 
+
+>> a_sp
+spikes, id=gps0727a_chan2(t1)
+
+ans = 
+
+          times: [1x136 double]
+    num_samples: 300000
+             dt: 1.0000e-04
+             id: 'gps0727a_chan2(t1)'
+
+>> struct(a_sp)
+
+ans = 
+
+          times: [1x136 double]
+    num_samples: 300000
+             dt: 1.0000e-04
+             id: 'gps0727a_chan2(t1)'
+
+>> getResults(a_sp, a_ct)
+??? Reference to non-existent field 'trace'.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/getResults.m,44,1">spikes.getResults at 44</a>
+ms_factor = 1e3 * s.trace.dt;
+
+>> getResults(a_sp, a_ct)
+??? Input argument "a_period" is undefined.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/ISICV.m,30,1">spikes.ISICV at 30</a>
+ISIs = getISIs(s, a_period);
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@spikes/getResults.m,49,1">spikes.getResults at 49</a>
+results.ISICV = ISICV(s);
+
+>> help spikes/ISICV
+  ISICV - Calculates the coefficient of variation (CV) of the 
+ 	inter-spike-intervals (ISI).
+ 
+  Usage:
+  cv = ISICV(s, a_period)
+ 
+  Description:
+ 
+    Parameters:
+ 	s: A spikes object.
+ 	a_period: The period where spikes were found (optional)
+ 
+    Returns:
+ 	cv: Coefficient of variation.
+ 
+  See also: <a href="matlab:help spikes">spikes</a>, <a href="matlab:help period">period</a>
+
+ 
+  $Id: ISICV.m 818 2007-08-28 20:28:51Z cengiz $
+ 
+  Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
+
+>> getResults(a_sp, a_ct)
+
+ans = 
+
+       spikeRate: 4.5333
+    spikeRateISI: 4.5317
+           ISICV: 0.0791
+
+>> plotFigure(plotFreqVsTime(a_sp))
+
+ans =
+
+     2
+
+>> getResults(a_ct)
+??? Input argument "a_spikes" is undefined.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@cip_trace/getResults.m,29,1">cip_trace.getResults at 29</a>
+results = mergeStructs(getRateResults(a_cip_trace, a_spikes), ...
+
+>> methods(trace)
+
+
+Methods for class trace:
+
+
+analyzeSpikesInPeriod   getDy                   setProp                 
+calcAvg                 getResults              spike_shape             
+calcMax                 getSpike                spikes                  
+calcMin                 periodWhole             subsref                 
+display                 plot                    trace                   
+findFilteredSpikes      plotData                withinPeriod            
+findFilteredSpikes-tom  plot_abstract           
+get                     set                     
+
+>> exit
+
+M-Shell finished

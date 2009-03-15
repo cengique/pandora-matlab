@@ -1,0 +1,3701 @@
+
+                              < M A T L A B >
+                  Copyright 1984-2006 The MathWorks, Inc.
+                         Version 7.3.0.298 (R2006b)
+                              August 03, 2006
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+>> if usejava('jvm'), com.mathworks.services.Prefs.setBooleanPref('EditorGraphicalDebugging', false); end
+>> ls /djlab/shared/databases/
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+GPe_cg_sim_halfact_2007_01  GPe_jre_physiol_2004-2005_PCDX
+GPe_cg_sim_maxcond_2005_07  GPe_jre_physiol_blockers_2007-08_HDF5
+
+>> ls /djlab/shared/databases/GPe_jre_physiol_2004-2005_PCDX/
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+cip_traces_all_axoclamp_Raw.txt
+cip_traces_all_axoclamp_Raw.txt~
+createPhysiolDB.m
+createPhysiolDB.m~
+loadLatestDB.m
+loadLatestDB.m~
+physiol_compare_bundle_10_fixed_ItemIndex.mat
+physiol_compare_bundle_11_updated_blockers.mat
+physiol_compare_bundle_12_manually_added_0802_and_missing_0728.mat
+physiol_compare_bundle_4_relocated.mat
+physiol_compare_bundle_5_added_missing.mat
+physiol_compare_bundle_6_lisu_findspikes.mat
+physiol_compare_bundle_7_added_halfwidth.mat
+physiol_compare_bundle_8_update_tracesets.mat
+physiol_compare_bundle_9_added_fixVwidth_measure.mat
+physiol_compare_bundle_9b_added_fixVwidth_wo_blockers.mat
+physiol_dataset_9_combined_blockers_2008.mat
+physiol_dball_9.mat
+README
+README~
+
+>> load '/djlab/shared/databases/GPe_jre_physiol_2004-2005_PCDX/physiol_dataset_9_combined_blockers_2008.mat'
+>> whos
+  Name      Size                Bytes  Class                           Attributes
+
+  a_fs      1x1             141445174  physiol_cip_traceset_fileset              
+
+>> a_fs.list
+
+ans = 
+
+  Columns 1 through 2
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 3 through 4
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 5 through 6
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 7 through 8
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 9 through 10
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 11 through 12
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 13 through 14
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 15 through 16
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 17 through 18
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 19 through 20
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 21 through 22
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 23 through 24
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 25 through 26
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 27 through 28
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 29 through 30
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 31 through 32
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 33 through 34
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 35 through 36
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 37 through 38
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 39 through 40
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 41 through 42
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 43 through 44
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 45 through 46
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 47 through 48
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 49 through 50
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 51 through 52
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 53 through 54
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 55 through 56
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 57 through 58
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 59 through 60
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 61 through 62
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 63 through 64
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 65 through 66
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 67 through 68
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 69 through 70
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 71 through 72
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 73 through 74
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 75 through 76
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 77 through 78
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 79 through 80
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 81 through 82
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 83 through 84
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 85 through 86
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 87 through 88
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 89 through 90
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 91 through 92
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 93 through 94
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 95 through 96
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 97 through 98
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 99 through 100
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 101 through 102
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 103 through 104
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 105 through 106
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 107 through 108
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 109 through 110
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 111 through 112
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 113 through 114
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 115 through 116
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 117 through 118
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 119 through 120
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 121 through 122
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 123 through 124
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 125 through 126
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 127 through 128
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 129 through 130
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 131 through 132
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 133 through 134
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 135 through 136
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 137 through 138
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 139 through 140
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 141 through 142
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 143 through 144
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 145 through 146
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 147 through 148
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 149 through 150
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 151 through 152
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 153 through 154
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 155 through 156
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 157 through 158
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 159 through 160
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 161 through 162
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 163 through 164
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 165 through 166
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 167 through 168
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 169 through 170
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 171 through 172
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 173 through 174
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 175 through 176
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 177 through 178
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 179 through 180
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 181 through 182
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 183 through 184
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 185 through 186
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 187 through 188
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 189 through 190
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 191 through 192
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 193 through 194
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 195 through 196
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 197 through 198
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 199 through 200
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 201 through 202
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 203 through 204
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 205 through 206
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 207 through 208
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 209 through 210
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 211 through 212
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 213 through 214
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 215 through 216
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 217 through 218
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 219 through 220
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 221 through 222
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 223 through 224
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 225 through 226
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 227 through 228
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 229 through 230
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 231 through 232
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 233 through 234
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 235 through 236
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 237 through 238
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 239 through 240
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 241 through 242
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 243 through 244
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 245 through 246
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 247 through 248
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 249 through 250
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 251 through 252
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 253 through 254
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 255 through 256
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 257 through 258
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 259 through 260
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 261 through 262
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 263 through 264
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 265 through 266
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 267 through 268
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 269 through 270
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 271 through 272
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 273 through 274
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 275 through 276
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 277 through 278
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 279 through 280
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 281 through 282
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 283 through 284
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 285 through 286
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 287 through 288
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 289 through 290
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 291 through 292
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 293 through 294
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 295 through 296
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 297 through 298
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 299 through 300
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 301 through 302
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 303 through 304
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 305 through 306
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 307 through 308
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 309 through 310
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 311 through 312
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 313 through 314
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 315 through 316
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 317 through 318
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 319 through 320
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 321 through 322
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 323 through 324
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 325 through 326
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Columns 327 through 328
+
+    [1x1 physiol_cip_traceset]    [1x1 physiol_cip_traceset]
+
+  Column 329
+
+    [1x1 physiol_cip_traceset]
+
+>> a_fs.list{1}
+physiol_cip_traceset, traceset gpd0411a (/Raw/gpd04/gpd0411/Gpd0411a.all), trials 5-33 
+
+ans = 
+
+                data_src: '/Raw/gpd04/gpd0411/Gpd0411a.all'
+                   vchan: 1
+                   ichan: 2
+                   vgain: 4
+                   igain: 10
+              treatments: [1x1 struct]
+               neuron_id: 'gpd0411a'
+    params_tests_dataset: [1x1 params_tests_dataset]
+
+Optional properties of physiol_cip_traceset:
+
+ans = 
+
+    profile_class_name: 'getProfileAllSpikes'
+              offset_y: -9
+              cip_list: [1x19 double]
+
+>> a_fs.list{329}
+physiol_cip_traceset, traceset gps0729c_chan2 (gps0729c.hdf5), trials 127 
+
+ans = 
+
+                data_src: 'gps0729c.hdf5'
+                   vchan: 2
+                   ichan: 1
+                   vgain: 1
+                   igain: 1
+              treatments: [1x1 struct]
+               neuron_id: 'gps0729c_chan2'
+    params_tests_dataset: [1x1 params_tests_dataset]
+
+Optional properties of physiol_cip_traceset:
+
+ans = 
+
+                ImChan: 'Amp1 Im'
+                VmChan: 'Amp1 Vm'
+             addTreats: [1x1 struct]
+          renameTreats: [1x1 struct]
+                trials: [1x52 double]
+                nsHDF5: []
+    profile_class_name: 'getProfileAllSpikes'
+                Trials: {[1x1 struct]}
+              cip_list: [1x1 struct]
+
+>> tic; phys_dball = params_tests_db(phys_fileset_big5, 1:10); toc
+??? Undefined function or variable 'phys_fileset_big5'.
+
+>> tic; phys_dball = params_tests_db(a_fs, 1:10); toc
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Warning: vPP curvature ignored, v' > 15 for gpd0411a(t1) (Spont spike#11)
+> In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/calcInitVmMaxCurvPhasePlane.m,253,1">spike_shape.calcInitVmMaxCurvPhasePlane at 253</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/calcInitVm.m,117,1">spike_shape.calcInitVm at 117</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/getResults.m,81,1">spike_shape.getResults at 81</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@trace/analyzeSpikesInPeriod.m,61,1">trace.analyzeSpikesInPeriod at 61</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@cip_trace/getProfileAllSpikes.m,36,1">cip_trace.getProfileAllSpikes at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/cip_trace_profile.m,56,1">physiol_cip_traceset.cip_trace_profile at 56</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/loadItemProfile.m,30,1">physiol_cip_traceset.loadItemProfile at 30</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/testNames.m,36,1">params_tests_dataset.testNames at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset_fileset/readDBItems.m,52,1">physiol_cip_traceset_fileset.readDBItems at 52</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/params_tests_db.m,60,1">params_tests_dataset.params_tests_db at 60</a>
+Warning: Warning: Max curv phase plane method signal failure, falling back to supersampled threshold method.
+> In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/calcInitVm.m,123,1">spike_shape.calcInitVm at 123</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/getResults.m,81,1">spike_shape.getResults at 81</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@trace/analyzeSpikesInPeriod.m,61,1">trace.analyzeSpikesInPeriod at 61</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@cip_trace/getProfileAllSpikes.m,36,1">cip_trace.getProfileAllSpikes at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/cip_trace_profile.m,56,1">physiol_cip_traceset.cip_trace_profile at 56</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/loadItemProfile.m,30,1">physiol_cip_traceset.loadItemProfile at 30</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/testNames.m,36,1">params_tests_dataset.testNames at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset_fileset/readDBItems.m,52,1">physiol_cip_traceset_fileset.readDBItems at 52</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/params_tests_db.m,60,1">params_tests_dataset.params_tests_db at 60</a>
+Reading fileset: 
+Loading traceset traceset gpd0411a (/Raw/gpd04/gpd0411/Gpd0411a.all), trials 5-33  on row 1
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Warning: vPP curvature ignored, v' > 15 for gpd0411a(t1) (Spont spike#11)
+> In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/calcInitVmMaxCurvPhasePlane.m,253,1">spike_shape.calcInitVmMaxCurvPhasePlane at 253</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/calcInitVm.m,117,1">spike_shape.calcInitVm at 117</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/getResults.m,81,1">spike_shape.getResults at 81</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@trace/analyzeSpikesInPeriod.m,61,1">trace.analyzeSpikesInPeriod at 61</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@cip_trace/getProfileAllSpikes.m,36,1">cip_trace.getProfileAllSpikes at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/cip_trace_profile.m,56,1">physiol_cip_traceset.cip_trace_profile at 56</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/loadItemProfile.m,30,1">physiol_cip_traceset.loadItemProfile at 30</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/testNames.m,36,1">params_tests_dataset.testNames at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/readDBItems.m,42,1">params_tests_dataset.readDBItems at 42</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset_fileset/readDBItems.m,69,1">physiol_cip_traceset_fileset.readDBItems at 69</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/params_tests_db.m,60,1">params_tests_dataset.params_tests_db at 60</a>
+Warning: Warning: Max curv phase plane method signal failure, falling back to supersampled threshold method.
+> In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/calcInitVm.m,123,1">spike_shape.calcInitVm at 123</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@spike_shape/getResults.m,81,1">spike_shape.getResults at 81</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@trace/analyzeSpikesInPeriod.m,61,1">trace.analyzeSpikesInPeriod at 61</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@cip_trace/getProfileAllSpikes.m,36,1">cip_trace.getProfileAllSpikes at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/cip_trace_profile.m,56,1">physiol_cip_traceset.cip_trace_profile at 56</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset/loadItemProfile.m,30,1">physiol_cip_traceset.loadItemProfile at 30</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/testNames.m,36,1">params_tests_dataset.testNames at 36</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/readDBItems.m,42,1">params_tests_dataset.readDBItems at 42</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset_fileset/readDBItems.m,69,1">physiol_cip_traceset_fileset.readDBItems at 69</a>
+  In <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/params_tests_db.m,60,1">params_tests_dataset.params_tests_db at 60</a>
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/readDBItems.m,42,1">params_tests_dataset.readDBItems at 42</a>
+  test_names = testNames(obj, items(1));
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@physiol_cip_traceset_fileset/readDBItems.m,69,1">physiol_cip_traceset_fileset.readDBItems at 69</a>
+  [item_params, tmp_param_names, item_tests, tmp_test_names] = readDBItems(item);
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@params_tests_dataset/params_tests_db.m,60,1">params_tests_dataset.params_tests_db at 60</a>
+[params, param_names, tests, test_names] = readDBItems(args{:});
+
+>> warning off backtrace
+>> warning off verbose
+>> warning off calcInitVm:info
+>> tic; phys_dball = params_tests_db(a_fs, 1:10); toc
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Reading fileset: 
+Loading traceset traceset gpd0411a (/Raw/gpd04/gpd0411/Gpd0411a.all), trials 5-33  on row 1
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 13, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411a(t9) (Recov spike#1).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 19, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 23, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 27, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 28, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 29, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 30, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411a.all, trace 33, channel 1 (3000 points @ 10 KHz)
+Elapsed time took 53.05 seconds.
+Loading traceset traceset gpd0411b (/Raw/gpd04/gpd0411/Gpd0411b.all), trials 1-42  on row 2
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 5, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 12, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t12) (Spont spike#20).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 14, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t14) (Recov spike#20).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 17, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t17) (Pulse spike#1).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 19, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t19) (Pulse spike#1).
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 22, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t22) (Spont spike#17).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 23, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 28, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t28) (Recov spike#22).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 29, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t29) (Recov spike#1).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 30, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 33, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t33) (Spont spike#11).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 34, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 34, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 35, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 35, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 36, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 36, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 37, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 37, channel 1 (3000 points @ 10 KHz)
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 38, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 38, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 39, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 39, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t39) (Spont spike#12).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 40, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 40, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411b(t40) (Spont spike#16).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 41, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 41, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 42, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411b.all, trace 42, channel 1 (3000 points @ 10 KHz)
+Elapsed time took 87.30 seconds.
+Loading traceset traceset gpd0411c (/Raw/gpd04/gpd0411/Gpd0411c.all), trials 1-37  on row 3
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 2, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411c(t2) (Recov spike#6).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 5, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 23, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 29, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 30, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 33, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 34, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 34, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 35, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 35, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 36, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 36, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 37, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411c.all, trace 37, channel 1 (3000 points @ 10 KHz)
+Elapsed time took 45.38 seconds.
+Loading traceset traceset gpd0411d (/Raw/gpd04/gpd0411/Gpd0411d.all), trials 1-29  on row 4
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 5, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 17, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411d(t17) (Recov spike#8).
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 20, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0411d(t20) (Pulse spike#1).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 22, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+Warning: Not a spike: gpd0411d(t22) (Recov spike#6).
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 23, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 24, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 28, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411d.all, trace 29, channel 1 (3000 points @ 10 KHz)
+Elapsed time took 42.45 seconds.
+Loading traceset traceset gpd0411e (/Raw/gpd04/gpd0411/Gpd0411e.all), trials 1-50  on row 5
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 7, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 16, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 23, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 29, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 30, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 33, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 34, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 34, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 35, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 35, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 36, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 36, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 37, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 37, channel 1 (3000 points @ 10 KHz)
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 38, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 38, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 39, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 39, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 40, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 40, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 41, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 41, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 42, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 42, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 43, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 43, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 44, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 44, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 45, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 45, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 46, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 46, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 47, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 47, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 48, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 48, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 49, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 49, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 50, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0411/Gpd0411e.all, trace 50, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+Elapsed time took 74.01 seconds.
+Loading traceset traceset gpd0412a (/Raw/gpd04/gpd0412/Gpd0412a.all), trials 1-38  on row 6
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 23, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 29, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 30, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+Warning: Not a spike: gpd0412a(t30) (Recov spike#1).
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 33, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 34, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 34, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 35, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 35, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 36, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 36, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 37, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 37, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 38, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412a.all, trace 38, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+Elapsed time took 43.69 seconds.
+Loading traceset traceset gpd0412b (/Raw/gpd04/gpd0412/Gpd0412b.all), trials 1-29  on row 7
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 5, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 23, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412b.all, trace 29, channel 1 (3000 points @ 10 KHz)
+Warning: Spike failed to repolarize.
+Elapsed time took 33.41 seconds.
+Loading traceset traceset gpd0412c (/Raw/gpd04/gpd0412/Gpd0412c.all), trials 1-58  on row 8
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0412c(t5) (Recov spike#3).
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 13, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 14, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 23, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0412c(t23) (Pulse spike#24).
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 29, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 30, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 33, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 34, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 34, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 35, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 35, channel 1 (3000 points @ 10 KHz)
+Warning: Negative sag! Make sure there're no spikes in CIP period.
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 36, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 36, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 37, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 37, channel 1 (3000 points @ 10 KHz)
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 38, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 38, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 39, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 39, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 40, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 40, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 41, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 41, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 42, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 42, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 43, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 43, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 44, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 44, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 45, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 45, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 46, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 46, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0412c(t46) (Pulse spike#1).
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 47, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 47, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 48, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 48, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 49, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 49, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 50, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 50, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 51, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 51, channel 1 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 52, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 52, channel 1 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 53, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 53, channel 1 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 54, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 54, channel 1 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 55, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 55, channel 1 (8000 points @ 10 KHz)
+39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 56, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 56, channel 1 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 57, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 57, channel 1 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 58, channel 2 (8000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0412/Gpd0412c.all, trace 58, channel 1 (8000 points @ 10 KHz)
+Elapsed time took 85.31 seconds.
+Loading traceset traceset gpd0413a (/Raw/gpd04/gpd0413/Gpd0413a.all), trials 1-29  on row 9
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 4, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0413a(t4) (Pulse spike#1).
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0413a(t5) (Recov spike#4).
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 8, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 22, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 22, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 23, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 23, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 24, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 24, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413a.all, trace 29, channel 1 (3000 points @ 10 KHz)
+Elapsed time took 37.55 seconds.
+Loading traceset traceset gpd0413b (/Raw/gpd04/gpd0413/Gpd0413b.all), trials 1-21 25-33  on row 10
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 1, channel 1 (3000 points @ 10 KHz)
+Reading: 
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 1, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 1, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 2, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 2, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 3, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 3, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 4, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 4, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 5, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 5, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0413b(t5) (Recov spike#1).
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 6, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 6, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 7, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 7, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 8, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 8, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0413b(t8) (Recov spike#1).
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 9, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 9, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 10, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 10, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 11, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 11, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 12, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 12, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 13, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 13, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 14, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 14, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 15, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 15, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 16, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 16, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 17, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 17, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 18, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 18, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 19, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 19, channel 1 (3000 points @ 10 KHz)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 20, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 20, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 21, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 21, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 25, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 25, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 26, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 26, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 27, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 27, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 28, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 28, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 29, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 29, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 30, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 30, channel 1 (3000 points @ 10 KHz)
+Warning: Not a spike: gpd0413b(t27) (Recov spike#1).
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 31, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 31, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 32, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 32, channel 1 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 33, channel 2 (3000 points @ 10 KHz)
+readpcdx: /Raw/gpd04/gpd0413/Gpd0413b.all, trace 33, channel 1 (3000 points @ 10 KHz)
+Elapsed time took 31.57 seconds.
+Elapsed time took 552.92 seconds.
+Elapsed time is 583.589085 seconds.
+>> dbsize(phys_dball)
+
+ans =
+
+   371   202
+
+>> 583 / 371
+
+ans =
+
+    1.5714
+
+>> ls /djlab/shared/databases/GPe_cg_sim_maxcond_2005_07/
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+loadLatestDB.m	 model_bundle_morph3_addedNaF_HCN_KCNQ_comp_3.mat
+loadLatestDB.m~
+
+>> ls ~/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+best_matches_gpd0421c.tex
+best_matches_gpd0429f.tex
+best_matches_gpd0430a.tex
+best_matches_gpd0501a_7nM_TTX.tex
+best_matches_gpd0501a_7nM_TTX_vs_half-block.tex
+best_matches_gpd0501a_control.pdf
+best_matches_gpd0501a_control.tex
+best_matches_gpd0501a_control_vs_half-block_noNaNs.tex
+best_matches_gpd0501a_control_vs_half-block.tex
+best_matches_gpd0501a_corr_std.tex
+best_matches_gpd0501a.tex
+best_matches_gpd0502a_7nM_TTX.tex
+best_matches_gpd0502a_control.pdf
+best_matches_gpd0502a_control.tex
+best_matches_gpd0502c_control.pdf
+best_matches_gpd0502c_control.tex
+best_matches_gpd0503b_10nM_Apamin.tex
+best_matches_gpd0503b_control.tex
+best_matches_gpd0503d_10nM_Apamin.tex
+best_matches_gpd0503d_control.tex
+best_matches_gpd0504c_5nM_Apamin.tex
+best_matches_gpd0504c_control.tex
+best_matches_gpd0512a1_control.tex
+best_matches_gpd0512b_1_5nM_Apamin.tex
+best_matches_gpd0512b_1_control.tex
+best_match_gpd501a_gpd502a_trial_4694.eps
+best_match_gpd501a_gpd502a_trial_4694.pdf
+crit_db_gpd0421c_0.mat
+crit_db_gpd0501a_ttx7nM_0.mat
+criterion_for_matching_row_117_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_119_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_121_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_135_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_135_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.pdf
+criterion_for_matching_row_153_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_155_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_157_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_1_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_1_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.pdf
+criterion_for_matching_row_1_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_1_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.pdf
+criterion_for_matching_row_28_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_2_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_2_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.pdf
+criterion_for_matching_row_35_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_3_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_3_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.pdf
+criterion_for_matching_row_46_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_47_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_4_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_56_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_5_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cell_traces_pharm_limitedcip_-200,-100,0,50,100,200_txt_mult_cip_-_top_50_-_params_distribution.eps
+criterion_for_matching_row_72_from_averaged_tracesets_from_+home+cengiz+brute_force+celldata+cip_traces_all_txt_mult_cip_-_top_50_-_params_distribution.eps
+dball_0_40_200pA_4.mat
+dball_0pA_0.mat
+dball_0pA_1.mat
+dball_0pA_2.mat
+dball_-100,0,40,100,200pA_4.mat
+dball_-100,0,40,50,100,200pA_0.mat
+dball_-100,0,40,50,100,200pA_1.mat
+dball_-100,0,50,100,200pA_0.mat
+dball_40_50_200pA_0a.mat
+dball_40_50_200pA_0b.mat
+dball_40_50_200pA_0.mat
+dball_40_50_200pA_1.mat
+dball_50_200pA_0.mat
+dball_exc1_0.mat
+dball_exc1_40pA_1.mat
+dball_exc1_joined_added_0.mat
+dball_exc2_0.mat
+dball_pm_100pA_0_a.mat
+dball_pm_100pA_0_b.mat
+dball_pm_100pA_1.mat
+dball_pm_100pA_2.mat
+dball_pm_100pA_3.mat
+dball_pm_100pA_4.mat
+db_exc1_0pA_0.mat
+db_exc1_0pA_1.mat
+db_exc1_200pA_0.mat
+db_exc1_pm_100pA_0.mat
+db_exc1_pm_100pA_1.mat
+db_exc2_40_200pA_0.mat
+doc_3morphs_3vals
+doc_cns
+doc_sfn05
+exc-subset-simple-scan-2.par
+exc-subset-simple-scan.par
+filesetall_0pA_0.mat
+filesetall_0pA_1.mat
+filesetall_0pA_2.mat
+filesetall_40_50_200pA_0.mat
+filesetall_50_200pA_0.mat
+filesetall_pm_100pA_1.mat
+fileset_exc1_0pA_0.mat
+fileset_exc1_0pA_1.mat
+fileset_exc1_200pA_0.mat
+fileset_exc1_40_200pA_0.mat
+fileset_exc1_pm_100pA_0.mat
+fileset_exc1_pm_100pA_1.mat
+fine_grained_dbs
+joined_added_dball_-100,0,40,100,200pA_0.mat
+joined_added_dball_-100,0,40,100,200pA_1.mat
+joined_added_dball_-100,0,40,100,200pA_2.mat
+joined_added_dball_-100,0,40,100,200pA_3.mat
+joined_added_dball_-100,0,40,100,200pA_4.mat
+joined_added_dball_-100,0,40,100,200pA_5.mat
+joined_dball_-100,0,50,100,200pA_0.mat
+joined_dball_-100,0,50,100,200pA_1.mat
+Makefile
+matlab_scripts
+matlab_session_1_2005-07-05_load_sim_db.log
+matlab_session_1_2005-07-05_load_sim_db.log~
+matlab_session_2005-10-06_subtypes_support.log
+matlab_session_2005-10-06_subtypes_support.log~
+matlab_session_2005-10-12_subtypes_support.log
+matlab_session_2005-10-12_subtypes_support.log~
+matlab_session_2005-10-13_subtypes_support.log
+matlab_session_2005-10-13_subtypes_support.log~
+matlab_session_2005-10-19_subtypes_support.log
+matlab_session_2005-10-19_subtypes_support.log~
+matlab_session_2005-10-21_subtypes_visualize.log
+matlab_session_2005-10-21_subtypes_visualize.log~
+matlab_session_2005-10-25_load_sim_db.log
+matlab_session_2005-10-25_load_sim_db.log~
+matlab_session_2005-11-28_load_sim_db_scripts.log
+matlab_session_2005-11-28_load_sim_db_scripts.log~
+matlab_session_2_2005-07-07_load_sim_db.log
+matlab_session_2_2005-07-07_load_sim_db.log~
+matlab_session_3_2005-07-14_comparisons.log
+matlab_session_3_2005-07-14_comparisons.log~
+matlab_session_4_2005-08-27_load_sim_db.log
+matlab_session_4_2005-08-27_load_sim_db.log~
+matlab_session_5_2005-08-27_load_sim_db2.log
+matlab_session_5_2005-08-27_load_sim_db2.log~
+matlab_session_6_2005_08_29_results_analysis.log
+matlab_session_6_2005_08_29_results_analysis.log~
+matlab_session_7_2005-10-02_load_sim_db1.log
+matlab_session_7_2005-10-02_load_sim_db1.log~
+matlab_session_8_2005-10-02_load_sim_db2.log
+matlab_session_8_2005-10-02_load_sim_db2.log~
+#matlab_session_9_2005-10-02_load_sim_db3.log#
+matlab_session_9_2005-10-02_load_sim_db3.log
+matlab_session_9_2005-10-02_load_sim_db3.log~
+mult_fileset_0.mat
+mult_fileset_1.mat
+mult_fileset_exc2_0.mat
+plotComparePhysSim.m
+plotComparePhysSim.m~
+plotPhysVertStack.m
+plotPhysVertStack.m~
+plotSimVertStack.m
+plotSimVertStack.m~
+sfn05
+startup.m
+startup.m~
+test.lyx
+test.lyx~
+
+>> ls ~/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/*.mat
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/crit_db_gpd0421c_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/crit_db_gpd0501a_ttx7nM_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_0_40_200pA_4.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_0pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_0pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_0pA_2.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_-100,0,40,100,200pA_4.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_-100,0,40,50,100,200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_-100,0,40,50,100,200pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_-100,0,50,100,200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_40_50_200pA_0a.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_40_50_200pA_0b.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_40_50_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_40_50_200pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_50_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_exc1_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_exc1_40pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_exc1_joined_added_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_exc2_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_pm_100pA_0_a.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_pm_100pA_0_b.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_pm_100pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_pm_100pA_2.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_pm_100pA_3.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/dball_pm_100pA_4.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/db_exc1_0pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/db_exc1_0pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/db_exc1_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/db_exc1_pm_100pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/db_exc1_pm_100pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/db_exc2_40_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/filesetall_0pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/filesetall_0pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/filesetall_0pA_2.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/filesetall_40_50_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/filesetall_50_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/filesetall_pm_100pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/fileset_exc1_0pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/fileset_exc1_0pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/fileset_exc1_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/fileset_exc1_40_200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/fileset_exc1_pm_100pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/fileset_exc1_pm_100pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_added_dball_-100,0,40,100,200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_added_dball_-100,0,40,100,200pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_added_dball_-100,0,40,100,200pA_2.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_added_dball_-100,0,40,100,200pA_3.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_added_dball_-100,0,40,100,200pA_4.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_added_dball_-100,0,40,100,200pA_5.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_dball_-100,0,50,100,200pA_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/joined_dball_-100,0,50,100,200pA_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/mult_fileset_0.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/mult_fileset_1.mat
+/djlab/private/cengiz/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/mult_fileset_exc2_0.mat
+
+>> cd ~/laotse/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis/
+>> ls *.mat
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+crit_db_gpd0421c_0.mat
+crit_db_gpd0501a_ttx7nM_0.mat
+dball_0_40_200pA_4.mat
+dball_0pA_0.mat
+dball_0pA_1.mat
+dball_0pA_2.mat
+dball_-100,0,40,100,200pA_4.mat
+dball_-100,0,40,50,100,200pA_0.mat
+dball_-100,0,40,50,100,200pA_1.mat
+dball_-100,0,50,100,200pA_0.mat
+dball_40_50_200pA_0a.mat
+dball_40_50_200pA_0b.mat
+dball_40_50_200pA_0.mat
+dball_40_50_200pA_1.mat
+dball_50_200pA_0.mat
+dball_exc1_0.mat
+dball_exc1_40pA_1.mat
+dball_exc1_joined_added_0.mat
+dball_exc2_0.mat
+dball_pm_100pA_0_a.mat
+dball_pm_100pA_0_b.mat
+dball_pm_100pA_1.mat
+dball_pm_100pA_2.mat
+dball_pm_100pA_3.mat
+dball_pm_100pA_4.mat
+db_exc1_0pA_0.mat
+db_exc1_0pA_1.mat
+db_exc1_200pA_0.mat
+db_exc1_pm_100pA_0.mat
+db_exc1_pm_100pA_1.mat
+db_exc2_40_200pA_0.mat
+filesetall_0pA_0.mat
+filesetall_0pA_1.mat
+filesetall_0pA_2.mat
+filesetall_40_50_200pA_0.mat
+filesetall_50_200pA_0.mat
+filesetall_pm_100pA_1.mat
+fileset_exc1_0pA_0.mat
+fileset_exc1_0pA_1.mat
+fileset_exc1_200pA_0.mat
+fileset_exc1_40_200pA_0.mat
+fileset_exc1_pm_100pA_0.mat
+fileset_exc1_pm_100pA_1.mat
+joined_added_dball_-100,0,40,100,200pA_0.mat
+joined_added_dball_-100,0,40,100,200pA_1.mat
+joined_added_dball_-100,0,40,100,200pA_2.mat
+joined_added_dball_-100,0,40,100,200pA_3.mat
+joined_added_dball_-100,0,40,100,200pA_4.mat
+joined_added_dball_-100,0,40,100,200pA_5.mat
+joined_dball_-100,0,50,100,200pA_0.mat
+joined_dball_-100,0,50,100,200pA_1.mat
+mult_fileset_0.mat
+mult_fileset_1.mat
+mult_fileset_exc2_0.mat
+
+>> pwd
+
+ans =
+
+/home/cengiz/brute_force/2005-07-02-big-db-jre-corrected-fI/analysis
+
+>> cd ../../
+>> ls
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+2004-03-05		       2005-05-02-half-Vm-9par-3lev
+2004-08-10-big-db	       2005-07-02-big-db-jre-corrected-fI
+2005-03-07		       
+2005-03-07-big-db	       2007-01-25-halfact-3morphs-bup.iso
+2005-03-13-blocked-sims-wrong  2007-08-28-tau
+2005-03-15-blocked-sims        celldata
+
+>> cd 2007-01-25-halfact-3morphs
+>> ls
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+analysis  data	scripts
+
+>> cd analysis
+>> ls *.mat
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+all_best_matches_halfact_0.mat	bundle_scr_2007-01cg_1.mat
+all_best_matches_maxcond_0.mat	bundle_scr_2007-01cg.mat
+
+>> load 'bundle_scr_2007-01cg_1.mat'
+>> whos
+  Name                     Size                Bytes  Class                           Attributes
+
+  a_fs                     1x1             141445174  physiol_cip_traceset_fileset              
+  ans                      1x68                  136  char                                      
+  mbundle_halfact0701      1x1             224714500  model_ct_bundle                           
+  phys_dball               1x1                803276  params_tests_db                           
+
+>> mbundle_halfact0701
+model_ct_bundle, halfact sim db 2007-01 cg mult CIP
+
+ans = 
+
+    dataset_db_bundle: [1x1 dataset_db_bundle]
+
+Optional properties of model_ct_bundle:
+
+ans = 
+
+0x0 struct array with no fields.
+
+>> mbundle_halfact0701.dataset_db_bundle.dataset
+multi_fileset_gpsim_cns2005, halfact sim db 2007-01 cg
+
+ans = 
+
+             fileset_0pA: [1x1 params_cip_trace_fileset]
+        fileset_40_200pA: [1x1 params_cip_trace_fileset]
+        fileset_pm_100pA: [1x1 params_cip_trace_fileset]
+    params_tests_dataset: [1x1 params_tests_dataset]
+
+Optional properties of multi_fileset_gpsim_cns2005:
+
+ans = 
+
+    isSubdirs: 1
+
+>> methods model_ct_bundle
+
+
+Methods for class model_ct_bundle:
+
+
+addToDB                               plotCompareRanks                      
+collectPhysiolMatches                 plotComparefICurve                    
+ctFromRows                            rankMatching                          
+get                                   reportCompareModelToPhysiolNeuron     
+getNeuronLabel                        reportRankingToPhysiolNeuronsTeXFile  
+getNeuronRowIndex                     set                                   
+getTrialNum                           
+model_ct_bundle                       
+
+>> methods multi_fileset_gpsim_cns2005
+
+
+Methods for class multi_fileset_gpsim_cns2005:
+
+
+addFileDir                   plotConcatSpontCIP           
+ctFromRows                   renamePath                   
+get                          set                          
+multi_fileset_gpsim_cns2005  
+params_tests_db              
+
+>> help  multi_fileset_gpsim_cns2005/params_tests_db
+  params_tests_db - Generates a params_tests_db object from the dataset.
+ 
+  Usage:
+  db_obj = params_tests_db(obj, items, props)
+ 
+  Description:
+    Loads databases from each of the included filesets.
+ 
+    Parameters:
+ 	obj: A params_tests_dataset object.
+ 	items: (Optional) List of fileset indices to use to create the db.
+ 		1- 0pA, 2- 40-200pA, 3- +/- 100pA
+ 	props: Any optional params to pass to params_tests_db.
+ 		SubitemsList: Cell array of index vectors to be loaded for each selected item.
+ 		
+    Returns:
+ 	db_obj: A params_tests_db object.
+ 
+  See also: <a href="matlab:help readDBItems">readDBItems</a>, <a href="matlab:help params_tests_db">params_tests_db</a>, <a href="matlab:help params_tests_dataset">params_tests_dataset</a>, <a href="matlab:help itemResultsRow">itemResultsRow</a>
+ 	    <a href="matlab:help testNames">testNames</a>, <a href="matlab:help paramNames">paramNames</a>
+
+ 
+  $Id: params_tests_db.m,v 1.7 2007/04/24 21:16:11 cengiz Exp $
+  Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/09
+
+>> a_model_dball = params_tests_db(mbundle_halfact0701.dataset.fileset_0pA, 1:10)
+Reading: 
+Elapsed time took 8.99 seconds.
+params_tests_db, halfact sim db 2007-01 cg
+
+ans = 
+
+    num_params: 16
+      tests_db: [1x1 tests_db]
+
+tests_db, halfact sim db 2007-01 cg
+10 rows in database with 201 columns, and 1 pages.
+Column names:
+    [  1]    'Vhalfm_NaF'                    
+    [  2]    'V0h_NaF'                       
+    [  3]    'V0s_NaF'                       
+    [  4]    'Vhalfm_NaP'                    
+    [  5]    'V0h_NaP'                       
+    [  6]    'V0s_NaP'                       
+    [  7]    'Vhalfn_Kv4'                    
+    [  8]    'V0h_Kv4'                       
+    [  9]    'Vhalfn_Kv3'                    
+    [ 10]    'Vhalfn_Kv2'                    
+    [ 11]    'Vhalfn_CaHVA'                  
+    [ 12]    'Vhalfm_HCN'                    
+    [ 13]    'Vhalfm_HCN2'                   
+    [ 14]    'morph'                         
+    [ 15]    'trial'                         
+    [ 16]    'pAcip'                         
+    [ 17]    'IniSpontISICV'                 
+    [ 18]    'IniSpontPotAvg'                
+    [ 19]    'IniSpontSpikeRate'             
+    [ 20]    'IniSpontSpikeRateISI'          
+    [ 21]    'PulseISICV'                    
+    [ 22]    'PulseIni100msISICV'            
+    [ 23]    'PulseIni100msRest1SpikeRate'   
+    [ 24]    'PulseIni100msRest1SpikeRateISI'
+    [ 25]    'PulseIni100msRest2SpikeRate'   
+    [ 26]    'PulseIni100msRest2SpikeRateISI'
+    [ 27]    'PulseIni100msSpikeRate'        
+    [ 28]    'PulseIni100msSpikeRateISI'     
+    [ 29]    'PulsePotAvg'                   
+    [ 30]    'PulsePotMin'                   
+    [ 31]    'PulsePotMinTime'               
+    [ 32]    'PulsePotSag'                   
+    [ 33]    'PulsePotTau'                   
+    [ 34]    'PulseSFA'                      
+    [ 35]    'PulseSpikeAmpDecayDelta'       
+    [ 36]    'PulseSpikeAmpDecayTau'         
+    [ 37]    'PulseSpikeRate'                
+    [ 38]    'PulseSpikeRateISI'             
+    [ 39]    'RecIniSpontPotRatio'           
+    [ 40]    'RecIniSpontRateRatio'          
+    [ 41]    'RecSpont1SpikeRate'            
+    [ 42]    'RecSpont1SpikeRateISI'         
+    [ 43]    'RecSpont2SpikeRate'            
+    [ 44]    'RecSpont2SpikeRateISI'         
+    [ 45]    'RecSpontFirstISI'              
+    [ 46]    'RecSpontFirstSpikeTime'        
+    [ 47]    'RecSpontISICV'                 
+    [ 48]    'RecSpontPotAvg'                
+    [ 49]    'RecSpontSpikeRate'             
+    [ 50]    'RecSpontSpikeRateISI'          
+    [ 51]    'SlowRD_ISIchange'              
+    [ 52]    'SlowRD_ISIdecayTime'           
+    [ 53]    'SpontSpikeAmplitudeMean'       
+    [ 54]    'SpontSpikeAmplitudeMode'       
+    [ 55]    'SpontSpikeAmplitudeSTD'        
+    [ 56]    'SpontSpikeBaseWidthMean'       
+    [ 57]    'SpontSpikeBaseWidthMode'       
+    [ 58]    'SpontSpikeBaseWidthSTD'        
+    [ 59]    'SpontSpikeDAHPMagMean'         
+    [ 60]    'SpontSpikeDAHPMagMode'         
+    [ 61]    'SpontSpikeDAHPMagSTD'          
+    [ 62]    'SpontSpikeFallTimeMean'        
+    [ 63]    'SpontSpikeFallTimeMode'        
+    [ 64]    'SpontSpikeFallTimeSTD'         
+    [ 65]    'SpontSpikeFixVWidthMean'       
+    [ 66]    'SpontSpikeFixVWidthMode'       
+    [ 67]    'SpontSpikeFixVWidthSTD'        
+    [ 68]    'SpontSpikeHalfVmMean'          
+    [ 69]    'SpontSpikeHalfVmMode'          
+    [ 70]    'SpontSpikeHalfVmSTD'           
+    [ 71]    'SpontSpikeHalfWidthMean'       
+    [ 72]    'SpontSpikeHalfWidthMode'       
+    [ 73]    'SpontSpikeHalfWidthSTD'        
+    [ 74]    'SpontSpikeInitTimeMean'        
+    [ 75]    'SpontSpikeInitTimeMode'        
+    [ 76]    'SpontSpikeInitTimeSTD'         
+    [ 77]    'SpontSpikeInitVmBySlopeMean'   
+    [ 78]    'SpontSpikeInitVmBySlopeMode'   
+    [ 79]    'SpontSpikeInitVmBySlopeSTD'    
+    [ 80]    'SpontSpikeInitVmMean'          
+    [ 81]    'SpontSpikeInitVmMode'          
+    [ 82]    'SpontSpikeInitVmSTD'           
+    [ 83]    'SpontSpikeMaxAHPMean'          
+    [ 84]    'SpontSpikeMaxAHPMode'          
+    [ 85]    'SpontSpikeMaxAHPSTD'           
+    [ 86]    'SpontSpikeMaxVmSlopeMean'      
+    [ 87]    'SpontSpikeMaxVmSlopeMode'      
+    [ 88]    'SpontSpikeMaxVmSlopeSTD'       
+    [ 89]    'SpontSpikeMinTimeMean'         
+    [ 90]    'SpontSpikeMinTimeMode'         
+    [ 91]    'SpontSpikeMinTimeSTD'          
+    [ 92]    'SpontSpikeMinVmMean'           
+    [ 93]    'SpontSpikeMinVmMode'           
+    [ 94]    'SpontSpikeMinVmSTD'            
+    [ 95]    'SpontSpikePeakVmMean'          
+    [ 96]    'SpontSpikePeakVmMode'          
+    [ 97]    'SpontSpikePeakVmSTD'           
+    [ 98]    'SpontSpikeRiseTimeMean'        
+    [ 99]    'SpontSpikeRiseTimeMode'        
+    [100]    'SpontSpikeRiseTimeSTD'         
+    [101]    'SpontSpikes'                   
+    [102]    'PulseSpikeAmplitudeMean'       
+    [103]    'PulseSpikeAmplitudeMode'       
+    [104]    'PulseSpikeAmplitudeSTD'        
+    [105]    'PulseSpikeBaseWidthMean'       
+    [106]    'PulseSpikeBaseWidthMode'       
+    [107]    'PulseSpikeBaseWidthSTD'        
+    [108]    'PulseSpikeDAHPMagMean'         
+    [109]    'PulseSpikeDAHPMagMode'         
+    [110]    'PulseSpikeDAHPMagSTD'          
+    [111]    'PulseSpikeFallTimeMean'        
+    [112]    'PulseSpikeFallTimeMode'        
+    [113]    'PulseSpikeFallTimeSTD'         
+    [114]    'PulseSpikeFixVWidthMean'       
+    [115]    'PulseSpikeFixVWidthMode'       
+    [116]    'PulseSpikeFixVWidthSTD'        
+    [117]    'PulseSpikeHalfVmMean'          
+    [118]    'PulseSpikeHalfVmMode'          
+    [119]    'PulseSpikeHalfVmSTD'           
+    [120]    'PulseSpikeHalfWidthMean'       
+    [121]    'PulseSpikeHalfWidthMode'       
+    [122]    'PulseSpikeHalfWidthSTD'        
+    [123]    'PulseSpikeInitTimeMean'        
+    [124]    'PulseSpikeInitTimeMode'        
+    [125]    'PulseSpikeInitTimeSTD'         
+    [126]    'PulseSpikeInitVmBySlopeMean'   
+    [127]    'PulseSpikeInitVmBySlopeMode'   
+    [128]    'PulseSpikeInitVmBySlopeSTD'    
+    [129]    'PulseSpikeInitVmMean'          
+    [130]    'PulseSpikeInitVmMode'          
+    [131]    'PulseSpikeInitVmSTD'           
+    [132]    'PulseSpikeMaxAHPMean'          
+    [133]    'PulseSpikeMaxAHPMode'          
+    [134]    'PulseSpikeMaxAHPSTD'           
+    [135]    'PulseSpikeMaxVmSlopeMean'      
+    [136]    'PulseSpikeMaxVmSlopeMode'      
+    [137]    'PulseSpikeMaxVmSlopeSTD'       
+    [138]    'PulseSpikeMinTimeMean'         
+    [139]    'PulseSpikeMinTimeMode'         
+    [140]    'PulseSpikeMinTimeSTD'          
+    [141]    'PulseSpikeMinVmMean'           
+    [142]    'PulseSpikeMinVmMode'           
+    [143]    'PulseSpikeMinVmSTD'            
+    [144]    'PulseSpikePeakVmMean'          
+    [145]    'PulseSpikePeakVmMode'          
+    [146]    'PulseSpikePeakVmSTD'           
+    [147]    'PulseSpikeRiseTimeMean'        
+    [148]    'PulseSpikeRiseTimeMode'        
+    [149]    'PulseSpikeRiseTimeSTD'         
+    [150]    'PulseSpikes'                   
+    [151]    'RecovSpikeAmplitudeMean'       
+    [152]    'RecovSpikeAmplitudeMode'       
+    [153]    'RecovSpikeAmplitudeSTD'        
+    [154]    'RecovSpikeBaseWidthMean'       
+    [155]    'RecovSpikeBaseWidthMode'       
+    [156]    'RecovSpikeBaseWidthSTD'        
+    [157]    'RecovSpikeDAHPMagMean'         
+    [158]    'RecovSpikeDAHPMagMode'         
+    [159]    'RecovSpikeDAHPMagSTD'          
+    [160]    'RecovSpikeFallTimeMean'        
+    [161]    'RecovSpikeFallTimeMode'        
+    [162]    'RecovSpikeFallTimeSTD'         
+    [163]    'RecovSpikeFixVWidthMean'       
+    [164]    'RecovSpikeFixVWidthMode'       
+    [165]    'RecovSpikeFixVWidthSTD'        
+    [166]    'RecovSpikeHalfVmMean'          
+    [167]    'RecovSpikeHalfVmMode'          
+    [168]    'RecovSpikeHalfVmSTD'           
+    [169]    'RecovSpikeHalfWidthMean'       
+    [170]    'RecovSpikeHalfWidthMode'       
+    [171]    'RecovSpikeHalfWidthSTD'        
+    [172]    'RecovSpikeInitTimeMean'        
+    [173]    'RecovSpikeInitTimeMode'        
+    [174]    'RecovSpikeInitTimeSTD'         
+    [175]    'RecovSpikeInitVmBySlopeMean'   
+    [176]    'RecovSpikeInitVmBySlopeMode'   
+    [177]    'RecovSpikeInitVmBySlopeSTD'    
+    [178]    'RecovSpikeInitVmMean'          
+    [179]    'RecovSpikeInitVmMode'          
+    [180]    'RecovSpikeInitVmSTD'           
+    [181]    'RecovSpikeMaxAHPMean'          
+    [182]    'RecovSpikeMaxAHPMode'          
+    [183]    'RecovSpikeMaxAHPSTD'           
+    [184]    'RecovSpikeMaxVmSlopeMean'      
+    [185]    'RecovSpikeMaxVmSlopeMode'      
+    [186]    'RecovSpikeMaxVmSlopeSTD'       
+    [187]    'RecovSpikeMinTimeMean'         
+    [188]    'RecovSpikeMinTimeMode'         
+    [189]    'RecovSpikeMinTimeSTD'          
+    [190]    'RecovSpikeMinVmMean'           
+    [191]    'RecovSpikeMinVmMode'           
+    [192]    'RecovSpikeMinVmSTD'            
+    [193]    'RecovSpikePeakVmMean'          
+    [194]    'RecovSpikePeakVmMode'          
+    [195]    'RecovSpikePeakVmSTD'           
+    [196]    'RecovSpikeRiseTimeMean'        
+    [197]    'RecovSpikeRiseTimeMode'        
+    [198]    'RecovSpikeRiseTimeSTD'         
+    [199]    'RecovSpikes'                   
+    [200]    'PulseSpontAmpRatio'            
+    [201]    'ItemIndex'                     
+
+Optional properties of tests_db:
+
+ans = 
+
+0x0 struct array with no fields.
+
+>> tic; a_model_dball = params_tests_db(mbundle_halfact0701.dataset.fileset_0pA, 1:100); toc
+Reading: 
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 
+57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 
+75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 
+Elapsed time took 99.50 seconds.
+Elapsed time is 111.351092 seconds.
+>> dbsize(a_model_dball)
+
+ans =
+
+   100   201
+
+>> 111/100
+
+ans =
+
+    1.1100
+
+>> tic; a_model_dball = params_tests_db(mbundle_halfact0701.dataset.fileset_pm_100pA, 1:100); toc
+
+Reading: 
+Warning: Spike failed to repolarize.
+Warning: Spike failed to repolarize.
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+Warning: Not a spike: halfact sim db 2007-01 cg(23) (Recov spike#16).
+Warning: Spike failed to repolarize.
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 
+Warning: Spike failed to repolarize.
+57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 
+Warning: Spike failed to repolarize.
+Warning: Not a spike: halfact sim db 2007-01 cg(86) (Pulse spike#38).
+Warning: Not a spike: halfact sim db 2007-01 cg(90) (Pulse spike#1).
+75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 
+Warning: Not a spike: halfact sim db 2007-01 cg(96) (Recov spike#15).
+Elapsed time took 129.89 seconds.
+Elapsed time is 142.062092 seconds.
+>> dbsize(a_model_dball)
+
+ans =
+
+   100   201
+
+>> a_model_dball
+params_tests_db, halfact sim db 2007-01 cg
+
+ans = 
+
+    num_params: 16
+      tests_db: [1x1 tests_db]
+
+tests_db, halfact sim db 2007-01 cg
+100 rows in database with 201 columns, and 1 pages.
+Column names:
+    [  1]    'Vhalfm_NaF'                    
+    [  2]    'V0h_NaF'                       
+    [  3]    'V0s_NaF'                       
+    [  4]    'Vhalfm_NaP'                    
+    [  5]    'V0h_NaP'                       
+    [  6]    'V0s_NaP'                       
+    [  7]    'Vhalfn_Kv4'                    
+    [  8]    'V0h_Kv4'                       
+    [  9]    'Vhalfn_Kv3'                    
+    [ 10]    'Vhalfn_Kv2'                    
+    [ 11]    'Vhalfn_CaHVA'                  
+    [ 12]    'Vhalfm_HCN'                    
+    [ 13]    'Vhalfm_HCN2'                   
+    [ 14]    'morph'                         
+    [ 15]    'trial'                         
+    [ 16]    'pAcip'                         
+    [ 17]    'IniSpontISICV'                 
+    [ 18]    'IniSpontPotAvg'                
+    [ 19]    'IniSpontSpikeRate'             
+    [ 20]    'IniSpontSpikeRateISI'          
+    [ 21]    'PulseISICV'                    
+    [ 22]    'PulseIni100msISICV'            
+    [ 23]    'PulseIni100msRest1SpikeRate'   
+    [ 24]    'PulseIni100msRest1SpikeRateISI'
+    [ 25]    'PulseIni100msRest2SpikeRate'   
+    [ 26]    'PulseIni100msRest2SpikeRateISI'
+    [ 27]    'PulseIni100msSpikeRate'        
+    [ 28]    'PulseIni100msSpikeRateISI'     
+    [ 29]    'PulsePotAvg'                   
+    [ 30]    'PulsePotMin'                   
+    [ 31]    'PulsePotMinTime'               
+    [ 32]    'PulsePotSag'                   
+    [ 33]    'PulsePotTau'                   
+    [ 34]    'PulseSFA'                      
+    [ 35]    'PulseSpikeAmpDecayDelta'       
+    [ 36]    'PulseSpikeAmpDecayTau'         
+    [ 37]    'PulseSpikeRate'                
+    [ 38]    'PulseSpikeRateISI'             
+    [ 39]    'RecIniSpontPotRatio'           
+    [ 40]    'RecIniSpontRateRatio'          
+    [ 41]    'RecSpont1SpikeRate'            
+    [ 42]    'RecSpont1SpikeRateISI'         
+    [ 43]    'RecSpont2SpikeRate'            
+    [ 44]    'RecSpont2SpikeRateISI'         
+    [ 45]    'RecSpontFirstISI'              
+    [ 46]    'RecSpontFirstSpikeTime'        
+    [ 47]    'RecSpontISICV'                 
+    [ 48]    'RecSpontPotAvg'                
+    [ 49]    'RecSpontSpikeRate'             
+    [ 50]    'RecSpontSpikeRateISI'          
+    [ 51]    'SlowRD_ISIchange'              
+    [ 52]    'SlowRD_ISIdecayTime'           
+    [ 53]    'SpontSpikeAmplitudeMean'       
+    [ 54]    'SpontSpikeAmplitudeMode'       
+    [ 55]    'SpontSpikeAmplitudeSTD'        
+    [ 56]    'SpontSpikeBaseWidthMean'       
+    [ 57]    'SpontSpikeBaseWidthMode'       
+    [ 58]    'SpontSpikeBaseWidthSTD'        
+    [ 59]    'SpontSpikeDAHPMagMean'         
+    [ 60]    'SpontSpikeDAHPMagMode'         
+    [ 61]    'SpontSpikeDAHPMagSTD'          
+    [ 62]    'SpontSpikeFallTimeMean'        
+    [ 63]    'SpontSpikeFallTimeMode'        
+    [ 64]    'SpontSpikeFallTimeSTD'         
+    [ 65]    'SpontSpikeFixVWidthMean'       
+    [ 66]    'SpontSpikeFixVWidthMode'       
+    [ 67]    'SpontSpikeFixVWidthSTD'        
+    [ 68]    'SpontSpikeHalfVmMean'          
+    [ 69]    'SpontSpikeHalfVmMode'          
+    [ 70]    'SpontSpikeHalfVmSTD'           
+    [ 71]    'SpontSpikeHalfWidthMean'       
+    [ 72]    'SpontSpikeHalfWidthMode'       
+    [ 73]    'SpontSpikeHalfWidthSTD'        
+    [ 74]    'SpontSpikeInitTimeMean'        
+    [ 75]    'SpontSpikeInitTimeMode'        
+    [ 76]    'SpontSpikeInitTimeSTD'         
+    [ 77]    'SpontSpikeInitVmBySlopeMean'   
+    [ 78]    'SpontSpikeInitVmBySlopeMode'   
+    [ 79]    'SpontSpikeInitVmBySlopeSTD'    
+    [ 80]    'SpontSpikeInitVmMean'          
+    [ 81]    'SpontSpikeInitVmMode'          
+    [ 82]    'SpontSpikeInitVmSTD'           
+    [ 83]    'SpontSpikeMaxAHPMean'          
+    [ 84]    'SpontSpikeMaxAHPMode'          
+    [ 85]    'SpontSpikeMaxAHPSTD'           
+    [ 86]    'SpontSpikeMaxVmSlopeMean'      
+    [ 87]    'SpontSpikeMaxVmSlopeMode'      
+    [ 88]    'SpontSpikeMaxVmSlopeSTD'       
+    [ 89]    'SpontSpikeMinTimeMean'         
+    [ 90]    'SpontSpikeMinTimeMode'         
+    [ 91]    'SpontSpikeMinTimeSTD'          
+    [ 92]    'SpontSpikeMinVmMean'           
+    [ 93]    'SpontSpikeMinVmMode'           
+    [ 94]    'SpontSpikeMinVmSTD'            
+    [ 95]    'SpontSpikePeakVmMean'          
+    [ 96]    'SpontSpikePeakVmMode'          
+    [ 97]    'SpontSpikePeakVmSTD'           
+    [ 98]    'SpontSpikeRiseTimeMean'        
+    [ 99]    'SpontSpikeRiseTimeMode'        
+    [100]    'SpontSpikeRiseTimeSTD'         
+    [101]    'SpontSpikes'                   
+    [102]    'PulseSpikeAmplitudeMean'       
+    [103]    'PulseSpikeAmplitudeMode'       
+    [104]    'PulseSpikeAmplitudeSTD'        
+    [105]    'PulseSpikeBaseWidthMean'       
+    [106]    'PulseSpikeBaseWidthMode'       
+    [107]    'PulseSpikeBaseWidthSTD'        
+    [108]    'PulseSpikeDAHPMagMean'         
+    [109]    'PulseSpikeDAHPMagMode'         
+    [110]    'PulseSpikeDAHPMagSTD'          
+    [111]    'PulseSpikeFallTimeMean'        
+    [112]    'PulseSpikeFallTimeMode'        
+    [113]    'PulseSpikeFallTimeSTD'         
+    [114]    'PulseSpikeFixVWidthMean'       
+    [115]    'PulseSpikeFixVWidthMode'       
+    [116]    'PulseSpikeFixVWidthSTD'        
+    [117]    'PulseSpikeHalfVmMean'          
+    [118]    'PulseSpikeHalfVmMode'          
+    [119]    'PulseSpikeHalfVmSTD'           
+    [120]    'PulseSpikeHalfWidthMean'       
+    [121]    'PulseSpikeHalfWidthMode'       
+    [122]    'PulseSpikeHalfWidthSTD'        
+    [123]    'PulseSpikeInitTimeMean'        
+    [124]    'PulseSpikeInitTimeMode'        
+    [125]    'PulseSpikeInitTimeSTD'         
+    [126]    'PulseSpikeInitVmBySlopeMean'   
+    [127]    'PulseSpikeInitVmBySlopeMode'   
+    [128]    'PulseSpikeInitVmBySlopeSTD'    
+    [129]    'PulseSpikeInitVmMean'          
+    [130]    'PulseSpikeInitVmMode'          
+    [131]    'PulseSpikeInitVmSTD'           
+    [132]    'PulseSpikeMaxAHPMean'          
+    [133]    'PulseSpikeMaxAHPMode'          
+    [134]    'PulseSpikeMaxAHPSTD'           
+    [135]    'PulseSpikeMaxVmSlopeMean'      
+    [136]    'PulseSpikeMaxVmSlopeMode'      
+    [137]    'PulseSpikeMaxVmSlopeSTD'       
+    [138]    'PulseSpikeMinTimeMean'         
+    [139]    'PulseSpikeMinTimeMode'         
+    [140]    'PulseSpikeMinTimeSTD'          
+    [141]    'PulseSpikeMinVmMean'           
+    [142]    'PulseSpikeMinVmMode'           
+    [143]    'PulseSpikeMinVmSTD'            
+    [144]    'PulseSpikePeakVmMean'          
+    [145]    'PulseSpikePeakVmMode'          
+    [146]    'PulseSpikePeakVmSTD'           
+    [147]    'PulseSpikeRiseTimeMean'        
+    [148]    'PulseSpikeRiseTimeMode'        
+    [149]    'PulseSpikeRiseTimeSTD'         
+    [150]    'PulseSpikes'                   
+    [151]    'RecovSpikeAmplitudeMean'       
+    [152]    'RecovSpikeAmplitudeMode'       
+    [153]    'RecovSpikeAmplitudeSTD'        
+    [154]    'RecovSpikeBaseWidthMean'       
+    [155]    'RecovSpikeBaseWidthMode'       
+    [156]    'RecovSpikeBaseWidthSTD'        
+    [157]    'RecovSpikeDAHPMagMean'         
+    [158]    'RecovSpikeDAHPMagMode'         
+    [159]    'RecovSpikeDAHPMagSTD'          
+    [160]    'RecovSpikeFallTimeMean'        
+    [161]    'RecovSpikeFallTimeMode'        
+    [162]    'RecovSpikeFallTimeSTD'         
+    [163]    'RecovSpikeFixVWidthMean'       
+    [164]    'RecovSpikeFixVWidthMode'       
+    [165]    'RecovSpikeFixVWidthSTD'        
+    [166]    'RecovSpikeHalfVmMean'          
+    [167]    'RecovSpikeHalfVmMode'          
+    [168]    'RecovSpikeHalfVmSTD'           
+    [169]    'RecovSpikeHalfWidthMean'       
+    [170]    'RecovSpikeHalfWidthMode'       
+    [171]    'RecovSpikeHalfWidthSTD'        
+    [172]    'RecovSpikeInitTimeMean'        
+    [173]    'RecovSpikeInitTimeMode'        
+    [174]    'RecovSpikeInitTimeSTD'         
+    [175]    'RecovSpikeInitVmBySlopeMean'   
+    [176]    'RecovSpikeInitVmBySlopeMode'   
+    [177]    'RecovSpikeInitVmBySlopeSTD'    
+    [178]    'RecovSpikeInitVmMean'          
+    [179]    'RecovSpikeInitVmMode'          
+    [180]    'RecovSpikeInitVmSTD'           
+    [181]    'RecovSpikeMaxAHPMean'          
+    [182]    'RecovSpikeMaxAHPMode'          
+    [183]    'RecovSpikeMaxAHPSTD'           
+    [184]    'RecovSpikeMaxVmSlopeMean'      
+    [185]    'RecovSpikeMaxVmSlopeMode'      
+    [186]    'RecovSpikeMaxVmSlopeSTD'       
+    [187]    'RecovSpikeMinTimeMean'         
+    [188]    'RecovSpikeMinTimeMode'         
+    [189]    'RecovSpikeMinTimeSTD'          
+    [190]    'RecovSpikeMinVmMean'           
+    [191]    'RecovSpikeMinVmMode'           
+    [192]    'RecovSpikeMinVmSTD'            
+    [193]    'RecovSpikePeakVmMean'          
+    [194]    'RecovSpikePeakVmMode'          
+    [195]    'RecovSpikePeakVmSTD'           
+    [196]    'RecovSpikeRiseTimeMean'        
+    [197]    'RecovSpikeRiseTimeMode'        
+    [198]    'RecovSpikeRiseTimeSTD'         
+    [199]    'RecovSpikes'                   
+    [200]    'PulseSpontAmpRatio'            
+    [201]    'ItemIndex'                     
+
+Optional properties of tests_db:
+
+ans = 
+
+0x0 struct array with no fields.
+
+>> a_model_dball(:, 'ItemIndex')
+params_tests_db, halfact sim db 2007-01 cg
+
+ans = 
+
+    num_params: 0
+      tests_db: [1x1 tests_db]
+
+tests_db, halfact sim db 2007-01 cg
+100 rows in database with 1 columns, and 1 pages.
+Column names:
+    [1]    'ItemIndex'
+
+Optional properties of tests_db:
+
+ans = 
+
+0x0 struct array with no fields.
+
+>> displayRows(a_model_dball(:, 'ItemIndex'))
+
+ans = 
+
+  Columns 1 through 10
+
+    'ItemIndex'    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]
+
+  Columns 11 through 19
+
+    [10]    [11]    [12]    [13]    [14]    [15]    [16]    [17]    [18]
+
+  Columns 20 through 28
+
+    [19]    [20]    [21]    [22]    [23]    [24]    [25]    [26]    [27]
+
+  Columns 29 through 37
+
+    [28]    [29]    [30]    [31]    [32]    [33]    [34]    [35]    [36]
+
+  Columns 38 through 46
+
+    [37]    [38]    [39]    [40]    [41]    [42]    [43]    [44]    [45]
+
+  Columns 47 through 55
+
+    [46]    [47]    [48]    [49]    [50]    [51]    [52]    [53]    [54]
+
+  Columns 56 through 64
+
+    [55]    [56]    [57]    [58]    [59]    [60]    [61]    [62]    [63]
+
+  Columns 65 through 73
+
+    [64]    [65]    [66]    [67]    [68]    [69]    [70]    [71]    [72]
+
+  Columns 74 through 82
+
+    [73]    [74]    [75]    [76]    [77]    [78]    [79]    [80]    [81]
+
+  Columns 83 through 91
+
+    [82]    [83]    [84]    [85]    [86]    [87]    [88]    [89]    [90]
+
+  Columns 92 through 100
+
+    [91]    [92]    [93]    [94]    [95]    [96]    [97]    [98]    [99]
+
+  Column 101
+
+    [100]
+
+>> displayRows(a_model_dball(:, 'ItemIndex') == 45)
+??? Undefined function or method 'displayRows' for input arguments of type 'logical'.
+
+>> tic; a_model_dball(:, 'ItemIndex') == 45; toc
+Elapsed time is 0.008714 seconds.
+>> tic; for i=1:100; a_model_dball(:, 'ItemIndex') == 45; end; toc
+Elapsed time is 0.779777 seconds.
+>> rows = a_model_dball(:, 'ItemIndex') == 45;
+>> tic; for i=1:100; a_model_dball(rows, []) == 45; end; toc
+??? Error using ==> minus
+Matrix dimensions must agree.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@tests_db/compareRows.m,80,1">tests_db.compareRows at 80</a>
+compared = db_data - row_data;
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@tests_db/eq.m,31,1">tests_db.eq at 31</a>
+rows = ~ compareRows(db, row);
+
+>> tic; for i=1:100; a_model_dball(rows, []); end; toc
+Elapsed time is 0.426304 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows, 1:10); end; toc
+Elapsed time is 0.479050 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows, 1:20); end; toc
+Elapsed time is 0.523232 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows, []); end; toc
+Elapsed time is 0.423733 seconds.
+>> %tic; for i=1:100; b_model_db = a_model_dball(rows, []); end; toc
+>> rows2 = rows(1:50);
+>> tic; for i=1:100; b_model_db = a_model_dball(rows2, []); end; toc
+Elapsed time is 0.426538 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows2, 1:10); end; toc
+Elapsed time is 0.485908 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows2, 1:20); end; toc
+Elapsed time is 0.523614 seconds.
+>> rows2 = rows(1:10);
+>> tic; for i=1:100; b_model_db = a_model_dball(rows2, 1:20); end; toc
+Elapsed time is 0.523791 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows2, 1:10); end; toc
+Elapsed time is 0.476370 seconds.
+>> tic; for i=1:100; b_model_db = a_model_dball(rows2, []); end; toc
+Elapsed time is 0.423908 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows2, []); end; toc
+Elapsed time is 4.247841 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, []); end; toc
+Elapsed time is 4.216862 seconds.
+>> a_model_dball2 = a_model_dball(1:10, :);
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, []); end; toc
+Elapsed time is 4.174600 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, []); end; toc
+Elapsed time is 4.235899 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, []); end; toc
+Elapsed time is 4.272167 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, []); end; toc
+Elapsed time is 4.268662 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, []); end; toc
+Elapsed time is 4.173149 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, []); end; toc
+Elapsed time is 4.184476 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, []); end; toc
+Elapsed time is 4.249456 seconds.
+>> 0.05 / 90 / 1000
+
+ans =
+
+   5.5556e-07
+
+>> 4.17e-3 - 55.5e-7
+
+ans =
+
+    0.0042
+
+>> format long
+>> 4.17e-3 - 55.5e-7
+
+ans =
+
+   0.004164450000000
+
+>> format 
+>> 4.17e-3 - 55.5e-7
+
+ans =
+
+    0.0042
+
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:10); end; toc
+Elapsed time is 4.769357 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:10); end; toc
+Elapsed time is 4.769280 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:20); end; toc
+Elapsed time is 5.236991 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:10); end; toc
+Elapsed time is 4.689746 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:10); end; toc
+Elapsed time is 4.696866 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:10); end; toc
+Elapsed time is 4.749920 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:10); end; toc
+Elapsed time is 4.675801 seconds.
+>> 4.16e-3 + 10 * 55.5e-6
+
+ans =
+
+    0.0047
+
+>> 4.16e-3 + 10 * 5.55e-7
+
+ans =
+
+    0.0042
+
+>> (4.69 - 4.2) / 100
+
+ans =
+
+    0.0049
+
+>> (4.69 - 4.2) / 100
+
+ans =
+
+    0.0049
+
+>> (4.69 - 4.17) / 100
+
+ans =
+
+    0.0052
+
+>> (4.76 - 4.21) / 1000
+
+ans =
+
+   5.5000e-04
+
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:100); end; toc
+Elapsed time is 9.231050 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:100); end; toc
+Elapsed time is 9.214812 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:100); end; toc
+Elapsed time is 9.155686 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball(rows, 1:100); end; toc
+Elapsed time is 9.202136 seconds.
+>> (9.20 - 4.76) * 1e-3 / 9000
+
+ans =
+
+   4.9333e-07
+
+>> (4.76 - 4.21) / 1000 / 1000
+
+ans =
+
+   5.5000e-07
+
+>> time_func = @(n,m)(4.16e-3 + n * (55.5e-8 + m * 4.93e-7));
+>> time_func(10,0)
+
+ans =
+
+    0.0042
+
+>> time_func(100,0)
+
+ans =
+
+    0.0042
+
+>> time_func(100,10)
+
+ans =
+
+    0.0047
+
+>> time_func(10,10)
+
+ans =
+
+    0.0042
+
+>> time_func(100,100)
+
+ans =
+
+    0.0091
+
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:100); end; toc
+Elapsed time is 9.152601 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:100); end; toc
+Elapsed time is 9.141099 seconds.
+>> tic; for i=1:1000; b_model_db = a_model_dball2(rows2, 1:100); end; toc
+Elapsed time is 9.135809 seconds.
+>> time_func(10,100)
+
+ans =
+
+    0.0047
+
+>> tic; for i=1:1000; a_model_dball2(rows2, 1:100); end; toc
+Elapsed time is 9.125420 seconds.
+>> tic; for i=1:1000; a_model_dball2(rows2, 1:10); end; toc
+Elapsed time is 4.678904 seconds.
+>> time_func(10,100)
+
+ans =
+
+    0.0047
+
+>> time_func(10,10)
+
+ans =
+
+    0.0042
+
+>> (9.20 - 4.76) * 1e-3 / 90
+
+ans =
+
+   4.9333e-05
+
+>> time_func2 = @(n,m)(4.16e-3 + n * 55.5e-8 + m * 4.93e-5);
+>> time_func2(10,100)
+
+ans =
+
+    0.0091
+
+>> time_func2(100,100)
+
+ans =
+
+    0.0091
+
+>> format long
+>> time_func2(100,100)
+
+ans =
+
+   0.009145500000000
+
+>> time_func2(10,100)
+
+ans =
+
+   0.009095550000000
+
+>> time_func2(10,10)
+
+ans =
+
+   0.004658550000000
+
+>> time_func2(100,10)
+
+ans =
+
+   0.004708500000000
+
+>> time_func2(10,0)
+
+ans =
+
+   0.004165550000000
+
+>> time_func2(100,0)
+
+ans =
+
+   0.004215500000000
+
+>> help joinRows
+ --- help for tests_db/joinRows.m ---
+
+  joinRows - Joins a_db rows with w_db rows having matching RowIndex values.
+ 
+  Usage:
+  a_db = joinRows(a_db, w_db, props)
+ 
+  Description:
+    Concatenates columns of rows matching the join condition from the two
+  databases. Each row index must appear only once in w_db. The created db
+  preserves the ordering of w_db. See the multipleIndices option if there
+  are several redundant index columns. Multiple pages in w_db are accepted
+  (see keepNaNs option).
+    This function is the equivalent of a "right outer join" command in SQL, w_db
+  being the database table on the right.
+ 
+    Parameters:
+ 	a_db: A tests_db object.
+ 	w_db: A tests_db object with a row index column.
+ 	props: A structure with any optional properties.
+ 	  indexColName: (Optional) Name of row index column
+ 	  	(default='RowIndex').
+ 	  keepNaNs: If 1, substitute NaN values for NaN indices. 
+ 		    (default=1, for multi-page DBs; 0, otherwise).
+ 	  multipleIndices: If 1, search for substitute RowIndex* columns for
+ 	  	indices with NaN values. It will fail if all indices are NaNs. (default=0)
+ 		
+    Returns:
+ 	a_db: A tests_db object.
+ 
+  See also: <a href="matlab:help tests_db">tests_db</a>
+ 
+  $Id: <a href="matlab:help joinRows.m">joinRows.m</a> <a href="matlab:help 1109">1109</a> 2008-10-<a href="matlab:help 13">13</a> 23:22:<a href="matlab:help 15z">15z</a> <a href="matlab:help cengiz">cengiz</a> $
+ 
+  Author: <a href="matlab:help Cengiz">Cengiz</a> <a href="matlab:help Gunay">Gunay</a> <cgunay@<a href="matlab:help emory.edu>">emory.edu></a>, <a href="matlab:help 2004/10/16">2004/10/16</a>
+
+    Overloaded functions or methods (ones with the same name in other directories)
+       <a href="matlab:help params_tests_db/joinRows.m">help params_tests_db/joinRows.m</a>
+
+>> tic; for i=1:100; a_model_dball(:, 'ItemIndex') == 45; end; toc
+Elapsed time is 0.838677 seconds.
+>> tic; for i=1:100; a_model_dball(:, 'ItemIndex') == 45; end; toc
+Elapsed time is 0.781103 seconds.
+>> tic; for i=1:100; a_model_dball(:, 'ItemIndex') == [45; 57]; end; toc
+??? Error using ==> tests_db.compareRows
+db and rows should contain same number of rows or db must be compared to a single row. Currently rows contains 2 rows, but db has 100 rows. See anyRows if you're looking to find db rows matching any given row.
+
+Error in ==> <a href="error:/djlab/private/cengiz/work/pandora/classes/@tests_db/eq.m,31,1">tests_db.eq at 31</a>
+rows = ~ compareRows(db, row);
+
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45; 57]); end; toc
+Elapsed time is 0.875382 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45; 57]); end; toc
+Elapsed time is 0.720512 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45; 57]); end; toc
+Elapsed time is 0.716540 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45; 57]); end; toc
+Elapsed time is 0.727403 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45]); end; toc
+Elapsed time is 0.720911 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45]); end; toc
+Elapsed time is 0.719455 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [45]); end; toc
+Elapsed time is 0.721358 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.723855 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.774374 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.771179 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.772430 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.780354 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:25)']); end; toc
+Elapsed time is 0.746577 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:25)']); end; toc
+Elapsed time is 0.773884 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:25)']); end; toc
+Elapsed time is 0.777466 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.734220 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.732758 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.732688 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.732966 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.787820 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.790339 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.786171 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1]); end; toc
+??? tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [(1]); end; toc
+                                                                |
+Error: Unbalanced or misused parentheses or brackets.
+
+>> tic; for i=1:100; anyRows(a_model_dball(:, 'ItemIndex'), [1]); end; toc
+Elapsed time is 0.717077 seconds.
+>> ver
+-------------------------------------------------------------------------------------
+MATLAB Version 7.3.0.298 (R2006b)
+MATLAB License Number: 300274
+Operating System: Linux 2.6.18.2-34-default #1 SMP Mon Nov 27 11:46:27 UTC 2006 x86_64
+Java VM Version: Java 1.5.0_04 with Sun Microsystems Inc. Java HotSpot(TM) 64-Bit Server VM mixed mode
+-------------------------------------------------------------------------------------
+MATLAB                                                Version 7.3        (R2006b)
+Simulink                                              Version 6.5        (R2006b)
+Bioinformatics Toolbox                                Version 2.4        (R2006b)
+Curve Fitting Toolbox                                 Version 1.1.6      (R2006b)
+Database Toolbox                                      Version 3.2        (R2006b)
+Image Processing Toolbox                              Version 5.3        (R2006b)
+MATLAB Compiler                                       Version 4.5        (R2006b)
+Neural Network Toolbox                                Version 5.0.1      (R2006b)
+Optimization Toolbox                                  Version 3.1        (R2006b)
+Signal Processing Blockset                            Version 6.4        (R2006b)
+Signal Processing Toolbox                             Version 6.6        (R2006b)
+Spline Toolbox                                        Version 3.3.1      (R2006b)
+Stateflow                                             Version 6.5        (R2006b)
+Statistics Toolbox                                    Version 5.3        (R2006b)
+Wavelet Toolbox                                       Version 3.1        (R2006b)
+
+Trademarks
+------------------
+MATLAB, Simulink, Stateflow, Handle Graphics, Real-Time Workshop, and xPC
+TargetBox are registered trademarks of The MathWorks, Inc. Other product or
+brand names are trademarks or registered trademarks of their respective holders.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [1]); end; toc
+Elapsed time is 0.705727 seconds.
+>> dbsize(a_model_dball2)
+
+ans =
+
+    10   201
+
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [1]); end; toc
+Elapsed time is 0.700649 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [1]); end; toc
+Elapsed time is 0.700605 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.711449 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.710875 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:10)']); end; toc
+Elapsed time is 0.709786 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:25)']); end; toc
+Elapsed time is 0.717824 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:25)']); end; toc
+Elapsed time is 0.718609 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:25)']); end; toc
+Elapsed time is 0.722927 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.762837 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.752315 seconds.
+>> tic; for i=1:100; anyRows(a_model_dball2(:, 'ItemIndex'), [(1:50)']); end; toc
+Elapsed time is 0.752985 seconds.
+>> pwd
+
+ans =
+
+/home/cengiz/brute_force/2007-01-25-halfact-3morphs/analysis
+
+>> cd ~/work/pandora/
+>> ls
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+add_license.pl
+Attribution Assurance License.txt
+ChangeLog
+CHANGES
+CHANGES~
+classes
+configure
+configure.ac
+configure.ac~
+COPYING
+CREDITS
+doc
+functions
+Makefile
+Makefile.in
+Makefile.in~
+matlab-session_2008-02-11_load-extracellular-trace.log
+matlab-session_2008-02-11_load-extracellular-trace.log~
+matlab-session_2008-10-16_measure-timings.log
+pandora-1.0b.tar.gz
+README
+README~
+README.cgmplot.dist
+README.dist
+semantic.cache
+semantic.cache~
+SUBSCRIBERS
+SUBSCRIBERS~
+TAGS
+TODO
+update_tags
+
+>> ls doc
+Xlib:  extension "XFree86-Misc" missing on display "localhost:10.0".
+bundle-classes.eps		      plot_stats_abstract.eps
+cip_trace_plot_compact.eps	      plot_stats_bars_multi.eps
+Dataset-classes.eps		      plot_stats_bars_single.eps
+data-wrapper-diagram.eps	      plot_stats_Var.eps
+DB-classes.eps			      plotVarBoxMatrix_example.eps
+db-overview.eps			      Profile-classes.eps
+func-ref.tex			      prog-manual.lyx
+generate_func_pages.pl		      prog-manual.pdf
+Makefile			      README
+params_tests_db_plot_param_hists.eps  scratch
+plot-classes.eps		      tests_db_plot_tests.eps
+plot_inset.eps			      website
+
+>> anyrows_time = @(params, n, m)(params * [1; n; m; n*m])
+
+anyrows_time = 
+
+    @(params, n, m)(params * [1; n; m; n*m])
+
+>> %anyrows_nm = []
+>> help fmins
+Searching class methods ... 93% (type ctrl-C to stop)Searching class methods ... 94% (type ctrl-C to stop)Searching class methods ... 95% (type ctrl-C to stop)Searching class methods ... 96% (type ctrl-C to stop)Searching class methods ... 97% (type ctrl-C to stop)Searching class methods ... 98% (type ctrl-C to stop)Searching class methods ... 99% (type ctrl-C to stop)                                                     
+fmins.m not found.
+
+Use the Help browser Search tab to <a href="matlab:docsearch fmins">search the documentation</a>, or
+type "<a href="matlab:help help">help help</a>" for help command options, such as help for methods.
+
+>> help fminsearch
+ FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
+    X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
+    X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
+    returns a scalar function value F evaluated at X. X0 can be a scalar, vector 
+    or matrix.
+ 
+    X = FMINSEARCH(FUN,X0,OPTIONS)  minimizes with the default optimization
+    parameters replaced by values in the structure OPTIONS, created
+    with the OPTIMSET function.  See OPTIMSET for details.  FMINSEARCH uses
+    these options: Display, TolX, TolFun, MaxFunEvals, MaxIter, FunValCheck,
+    PlotFcns, and OutputFcn.
+ 
+    X = FMINSEARCH(PROBLEM) finds the minimum for PROBLEM. PROBLEM is a
+    structure with the function FUN in PROBLEM.objective, the start point
+    in PROBLEM.x0, the options structure in PROBLEM.options, and solver
+    name 'fminsearch' in PROBLEM.solver. The PROBLEM structure must have
+    all the fields.
+ 
+    [X,FVAL]= FMINSEARCH(...) returns the value of the objective function,
+    described in FUN, at X.
+ 
+    [X,FVAL,EXITFLAG] = FMINSEARCH(...) returns an EXITFLAG that describes 
+    the exit condition of FMINSEARCH. Possible values of EXITFLAG and the 
+    corresponding exit conditions are
+ 
+     1  Maximum coordinate difference between current best point and other
+        points in simplex is less than or equal to TolX, and corresponding 
+        difference in function values is less than or equal to TolFun.
+     0  Maximum number of function evaluations or iterations reached.
+    -1  Algorithm terminated by the output function.
+ 
+    [X,FVAL,EXITFLAG,OUTPUT] = FMINSEARCH(...) returns a structure
+    OUTPUT with the number of iterations taken in OUTPUT.iterations, the
+    number of function evaluations in OUTPUT.funcCount, the algorithm name 
+    in OUTPUT.algorithm, and the exit message in OUTPUT.message.
+ 
+    Examples
+      FUN can be specified using @:
+         X = fminsearch(@sin,3)
+      finds a minimum of the SIN function near 3.
+      In this case, SIN is a function that returns a scalar function value
+      SIN evaluated at X.
+ 
+      FUN can also be an anonymous function:
+         X = fminsearch(@(x) norm(x),[1;2;3])
+      returns a point near the minimizer [0;0;0].
+ 
+    If FUN is parameterized, you can use anonymous functions to capture the 
+    problem-dependent parameters. Suppose you want to optimize the objective     
+    given in the function myfun, which is parameterized by its second argument c. 
+    Here myfun is an M-file function such as
+ 
+      function f = myfun(x,c)
+      f = x(1)^2 + c*x(2)^2;
+ 
+    To optimize for a specific value of c, first assign the value to c. Then 
+    create a one-argument anonymous function that captures that value of c 
+    and calls myfun with two arguments. Finally, pass this anonymous function 
+    to FMINSEARCH:
+     
+      c = 1.5; % define parameter first
+      x = fminsearch(@(x) myfun(x,c),[0.3;1])
+ 
+    FMINSEARCH uses the Nelder-Mead simplex (direct search) method.
+ 
+    See also <a href="matlab:help optimset">optimset</a>, <a href="matlab:help fminbnd">fminbnd</a>, <a href="matlab:help function_handle">function_handle</a>.
+
+
+    Reference page in Help browser
+       <a href="matlab:doc fminsearch">doc fminsearch</a>
+
+>> anyrows_time = @(params, [n m])(params * [1; n; m; n*m])
+??? anyrows_time = @(params, [n m])(params * [1; n; m; n*m])
+                             |
+Error: Unbalanced or misused parentheses or brackets.
+
+>> anyrows_time = @(params, nm)(params * [1; nm(1); nm(2); prod(nm)])
+
+anyrows_time = 
+
+    @(params, nm)(params * [1; nm(1); nm(2); prod(nm)])
+
+>> anyrows_nm_time = [100 1 71e-4; 100 10 72e-4; 100 25 75e-4; 100 50 78e-4; 10 1 70e-4; 10 10 71e-4; 10 25 71.8e-4; 10 50 75e-4]
+
+anyrows_nm_time =
+
+   1.0e+02 *
+
+   1.000000000000000   0.010000000000000   0.000071000000000
+   1.000000000000000   0.100000000000000   0.000072000000000
+   1.000000000000000   0.250000000000000   0.000075000000000
+   1.000000000000000   0.500000000000000   0.000078000000000
+   0.100000000000000   0.010000000000000   0.000070000000000
+   0.100000000000000   0.100000000000000   0.000071000000000
+   0.100000000000000   0.250000000000000   0.000071800000000
+   0.100000000000000   0.500000000000000   0.000075000000000
+
+>> format
+>> anyrows_nm_time = [100 1 71e-4; 100 10 72e-4; 100 25 75e-4; 100 50 78e-4; 10 1 70e-4; 10 10 71e-4; 10 25 71.8e-4; 10 50 75e-4]
+
+anyrows_nm_time =
+
+  100.0000    1.0000    0.0071
+  100.0000   10.0000    0.0072
+  100.0000   25.0000    0.0075
+  100.0000   50.0000    0.0078
+   10.0000    1.0000    0.0070
+   10.0000   10.0000    0.0071
+   10.0000   25.0000    0.0072
+   10.0000   50.0000    0.0075
+
+>> anyrows_error = @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+anyrows_error = 
+
+    @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+>> params_final = fminsearch(anyrows_error, [0 1 1 1])
+??? Error using ==> vertcat
+CAT arguments dimensions are not consistent.
+
+Error in ==> @(params, nm)(params * [1; nm(1); nm(2); prod(nm)])
+
+
+Error in ==> @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+
+Error in ==> <a href="error:/usr/local/src/matlab-2006b/toolbox/matlab/funfun/fminsearch.m,205,1">fminsearch at 205</a>
+fv(:,1) = funfcn(x,varargin{:});
+
+>> anyrows_time = @(params, nm)(params * [ones(1, size(nm, 1)); nm(:, 1)'; nm(:, 2)'; prod(nm, 2)'])
+
+anyrows_time = 
+
+    @(params, nm)(params * [ones(1, size(nm, 1)); nm(:, 1)'; nm(:, 2)'; prod(nm, 2)'])
+
+>> params_final = fminsearch(anyrows_error, [0 1 1 1])
+??? Error using ==> vertcat
+CAT arguments dimensions are not consistent.
+
+Error in ==> @(params, nm)(params * [1; nm(1); nm(2); prod(nm)])
+
+
+Error in ==> @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+
+Error in ==> <a href="error:/usr/local/src/matlab-2006b/toolbox/matlab/funfun/fminsearch.m,205,1">fminsearch at 205</a>
+fv(:,1) = funfcn(x,varargin{:});
+
+>> anyrows_error = @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+anyrows_error = 
+
+    @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+>> params_final = fminsearch(anyrows_error, [0 1 1 1])
+??? Error using ==> minus
+Matrix dimensions must agree.
+
+Error in ==> @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3))^2))
+
+
+Error in ==> <a href="error:/usr/local/src/matlab-2006b/toolbox/matlab/funfun/fminsearch.m,205,1">fminsearch at 205</a>
+fv(:,1) = funfcn(x,varargin{:});
+
+>> anyrows_time([1 1 1 1], anyrows_nm_time(:, 1:2))
+
+ans =
+
+  Columns 1 through 6
+
+         202        1111        2626        5151          22         121
+
+  Columns 7 through 8
+
+         286         561
+
+>> anyrows_error = @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3)')^2))
+
+anyrows_error = 
+
+    @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3)')^2))
+
+>> params_final = fminsearch(anyrows_error, [0 1 1 1])
+??? Error using ==> mpower
+Matrix must be square.
+
+Error in ==> @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3)')^2))
+
+
+Error in ==> <a href="error:/usr/local/src/matlab-2006b/toolbox/matlab/funfun/fminsearch.m,205,1">fminsearch at 205</a>
+fv(:,1) = funfcn(x,varargin{:});
+
+>> anyrows_error = @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3)').^2))
+
+anyrows_error = 
+
+    @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - anyrows_nm_time(:, 3)').^2))
+
+>> params_final = fminsearch(anyrows_error, [0 1 1 1])
+
+params_final =
+
+    0.0022    0.0001    0.0001   -0.0000
+
+>> params_final(4)
+
+ans =
+
+  -7.4950e-07
+
+>> params_final(1)
+
+ans =
+
+    0.0022
+
+>> params_final(2)
+
+ans =
+
+   5.5313e-05
+
+>> params_final(3)
+
+ans =
+
+   1.3717e-04
+
+>> params_final(4)
+
+ans =
+
+  -7.4950e-07
+
+>> anyrows_time
+
+anyrows_time = 
+
+    @(params, nm)(params * [ones(1, size(nm, 1)); nm(:, 1)'; nm(:, 2)'; prod(nm, 2)'])
+
+>> anyrows_time(params_final, [ 100 1])
+
+ans =
+
+    0.0078
+
+>> anyrows_time(params_final, [100 1])
+
+ans =
+
+    0.0078
+
+>> anyrows_time(params_final, [100 10])
+
+ans =
+
+    0.0084
+
+>> anyrows_time(params_final, [100 25])
+
+ans =
+
+    0.0093
+
+>> anyrows_time(params_final, [100 50])
+
+ans =
+
+    0.0109
+
+>> [params_final,FVAL,EXITFLAG,OUTPUT] = fminsearch(anyrows_error, [0 1 1 1])
+
+params_final =
+
+    0.0022    0.0001    0.0001   -0.0000
+
+
+FVAL =
+
+   4.4943e-05
+
+
+EXITFLAG =
+
+     1
+
+
+OUTPUT = 
+
+    iterations: 209
+     funcCount: 352
+     algorithm: 'Nelder-Mead simplex direct search'
+       message: [1x194 char]
+
+>> help fminsearch
+ FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
+    X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
+    X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
+    returns a scalar function value F evaluated at X. X0 can be a scalar, vector 
+    or matrix.
+ 
+    X = FMINSEARCH(FUN,X0,OPTIONS)  minimizes with the default optimization
+    parameters replaced by values in the structure OPTIONS, created
+    with the OPTIMSET function.  See OPTIMSET for details.  FMINSEARCH uses
+    these options: Display, TolX, TolFun, MaxFunEvals, MaxIter, FunValCheck,
+    PlotFcns, and OutputFcn.
+ 
+    X = FMINSEARCH(PROBLEM) finds the minimum for PROBLEM. PROBLEM is a
+    structure with the function FUN in PROBLEM.objective, the start point
+    in PROBLEM.x0, the options structure in PROBLEM.options, and solver
+    name 'fminsearch' in PROBLEM.solver. The PROBLEM structure must have
+    all the fields.
+ 
+    [X,FVAL]= FMINSEARCH(...) returns the value of the objective function,
+    described in FUN, at X.
+ 
+    [X,FVAL,EXITFLAG] = FMINSEARCH(...) returns an EXITFLAG that describes 
+    the exit condition of FMINSEARCH. Possible values of EXITFLAG and the 
+    corresponding exit conditions are
+ 
+     1  Maximum coordinate difference between current best point and other
+        points in simplex is less than or equal to TolX, and corresponding 
+        difference in function values is less than or equal to TolFun.
+     0  Maximum number of function evaluations or iterations reached.
+    -1  Algorithm terminated by the output function.
+ 
+    [X,FVAL,EXITFLAG,OUTPUT] = FMINSEARCH(...) returns a structure
+    OUTPUT with the number of iterations taken in OUTPUT.iterations, the
+    number of function evaluations in OUTPUT.funcCount, the algorithm name 
+    in OUTPUT.algorithm, and the exit message in OUTPUT.message.
+ 
+    Examples
+      FUN can be specified using @:
+         X = fminsearch(@sin,3)
+      finds a minimum of the SIN function near 3.
+      In this case, SIN is a function that returns a scalar function value
+      SIN evaluated at X.
+ 
+      FUN can also be an anonymous function:
+         X = fminsearch(@(x) norm(x),[1;2;3])
+      returns a point near the minimizer [0;0;0].
+ 
+    If FUN is parameterized, you can use anonymous functions to capture the 
+    problem-dependent parameters. Suppose you want to optimize the objective     
+    given in the function myfun, which is parameterized by its second argument c. 
+    Here myfun is an M-file function such as
+ 
+      function f = myfun(x,c)
+      f = x(1)^2 + c*x(2)^2;
+ 
+    To optimize for a specific value of c, first assign the value to c. Then 
+    create a one-argument anonymous function that captures that value of c 
+    and calls myfun with two arguments. Finally, pass this anonymous function 
+    to FMINSEARCH:
+     
+      c = 1.5; % define parameter first
+      x = fminsearch(@(x) myfun(x,c),[0.3;1])
+ 
+    FMINSEARCH uses the Nelder-Mead simplex (direct search) method.
+ 
+    See also <a href="matlab:help optimset">optimset</a>, <a href="matlab:help fminbnd">fminbnd</a>, <a href="matlab:help function_handle">function_handle</a>.
+
+
+    Reference page in Help browser
+       <a href="matlab:doc fminsearch">doc fminsearch</a>
+
+>> params_final(2)
+
+ans =
+
+   5.5313e-05
+
+>> params_final(3)
+
+ans =
+
+   1.3717e-04
+
+>> params_final(4)
+
+ans =
+
+  -7.4950e-07
+
+>> [params_final,FVAL,EXITFLAG,OUTPUT] = fminsearch(anyrows_error, params_final)
+
+params_final =
+
+    0.0023    0.0000    0.0001   -0.0000
+
+
+FVAL =
+
+   4.0247e-05
+
+
+EXITFLAG =
+
+     1
+
+
+OUTPUT = 
+
+    iterations: 2
+     funcCount: 7
+     algorithm: 'Nelder-Mead simplex direct search'
+       message: [1x194 char]
+
+>> anyrows_time(params_final, [100 50])
+
+ans =
+
+    0.0105
+
+>> anyrows_time(params_final, [10 50])
+
+ans =
+
+    0.0095
+
+>> anyrows_error = ...
+    @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) - ...
+                   anyrows_nm_time(:, 3)').^2 * 1e6))
+
+anyrows_error = 
+
+    @(params)(sum((anyrows_time(params, anyrows_nm_time(:, 1:2)) -                    anyrows_nm_time(:, 3)').^2 * 1e6))
+
+>> 
+>> [params_final,FVAL,EXITFLAG,OUTPUT] = fminsearch(anyrows_error, params_final)
+
+params_final =
+
+    0.0070    0.0000    0.0000    0.0000
+
+
+FVAL =
+
+    0.0071
+
+
+EXITFLAG =
+
+     1
+
+
+OUTPUT = 
+
+    iterations: 117
+     funcCount: 197
+     algorithm: 'Nelder-Mead simplex direct search'
+       message: [1x194 char]
+
+>> anyrows_time(params_final, [10 50])
+
+ans =
+
+    0.0075
+
+>> anyrows_time(params_final, [10 25])
+
+ans =
+
+    0.0072
+
+>> anyrows_time(params_final, [10 10])
+
+ans =
+
+    0.0071
+
+>> anyrows_time(params_final, [10 1])
+
+ans =
+
+    0.0070
+
+>> anyrows_time(params_final, [100 1])
+
+ans =
+
+    0.0071
+
+>> anyrows_time(params_final, [100 10])
+
+ans =
+
+    0.0072
+
+>> anyrows_time(params_final, [100 25])
+
+ans =
+
+    0.0075
+
+>> anyrows_time(params_final, [100 50])
+
+ans =
+
+    0.0078
+
+>> params_final(1)
+
+ans =
+
+    0.0070
+
+>> params_final(2)
+
+ans =
+
+   1.1678e-06
+
+>> params_final(3)
+
+ans =
+
+   9.4028e-06
+
+>> params_final(4)
+
+ans =
+
+   5.2598e-08
+
+>> params_final
+
+params_final =
+
+    0.0070    0.0000    0.0000    0.0000
+
+>> tic; for i=1:100; rows & rows; end; toc
+Elapsed time is 0.000254 seconds.
+>> tic; for i=1:1000; rows & rows; end; toc
+Elapsed time is 0.002099 seconds.
+>> tic; for i=1:1000; rows & rows; end; toc
+Elapsed time is 0.002120 seconds.
+>> tic; for i=1:1000; rows & rows; end; toc
+Elapsed time is 0.002105 seconds.
+>> tic; for i=1:1000; rows & rows; end; toc
+Elapsed time is 0.002101 seconds.
+>> tic; for i=1:1000; rows & rows; end; toc
+Elapsed time is 0.003711 seconds.
+>> tic; for i=1:1000; rows & rows; end; toc
+Elapsed time is 0.002115 seconds.
+>> tic; for i=1:1000; rows  & rows & rows & rows; end; toc
