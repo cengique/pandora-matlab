@@ -1,4 +1,4 @@
-function a_log = tests2log(db, dim_name, tests)
+function a_log = tests2log(db, dim_num, tests)
 
 % tests2log - Return logical array of indices from a test names/numbers specification.
 %
@@ -7,7 +7,7 @@ function a_log = tests2log(db, dim_name, tests)
 %
 % Parameters:
 %	db: A tests_db object.
-%	dim_name: String indicating 'row', 'col', or 'page'
+%	dim_num: Number between 1-3 to choose dimension: row, column, or page.
 %	tests: Either a single or array of column numbers, or a single
 %		test name or a cell array of test names. If ':', all
 %		tests. For name strings, regular expressions are
@@ -36,11 +36,6 @@ function a_log = tests2log(db, dim_name, tests)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% convert to dim_num from dim_name
-% note: page_idx only exists in tests_3D_db
-possible_dim_names = {'row', 'col', 'page'};
-dim_num = strmatch(dim_name, possible_dim_names, 'exact');
-
 % get logical indices from indices
 a_log = false(dbsize(db, dim_num), 1);
-a_log(tests2idx(db, dim_name, tests)) = true;
+a_log(tests2idx(db, dim_num, tests)) = true;

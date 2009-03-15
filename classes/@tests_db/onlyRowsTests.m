@@ -32,16 +32,16 @@ function obj = onlyRowsTests(obj, rows, tests, pages)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % Pages
-if ~ exist('tests')
+if ~ exist('tests', 'var')
   tests = ':';
 end
 
 % translate tests spec to array form
-cols = tests2idx(obj, 'col', tests);
-rows = tests2idx(obj, 'row', rows);
+cols = tests2idx(obj, 2, tests);
+rows = tests2idx(obj, 1, rows);
 
 % Pages
-if ~ exist('pages')
+if ~ exist('pages', 'var')
   pages = ':';
 end
 
