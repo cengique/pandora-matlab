@@ -25,7 +25,7 @@
 function [traces, ntraces] = ...
       loadtraces(file, tracelist, channel, quiet)
 
-  if ~ exist('quiet')
+  if ~ exist('quiet', 'var')
     quiet = 0;
   end
   

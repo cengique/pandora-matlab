@@ -49,7 +49,7 @@ if nargin == 0 % Called with no params, creates empty object
 elseif isa(num_scripts, 'script_factory') % copy constructor?
   obj = num_scripts;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct;
   end
 

@@ -37,7 +37,7 @@ function tex_string = rankingReportTeX(a_bundle, crit_bundle, crit_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

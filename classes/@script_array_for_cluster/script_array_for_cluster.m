@@ -53,7 +53,7 @@ if nargin == 0 % Called with no params, creates empty object
 elseif isa(num_runs, 'script_array_for_cluster') % copy constructor?
   a_script_cluster = num_runs;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct;
   end
 

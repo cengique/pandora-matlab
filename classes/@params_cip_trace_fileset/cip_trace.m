@@ -29,7 +29,7 @@ function a_cip_trace = cip_trace(fileset, file_index, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 

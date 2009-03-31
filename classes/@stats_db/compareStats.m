@@ -29,7 +29,7 @@ function a_mult_stats_db = compareStats(a_stats_db, varargin)
 % TODO: should take an array of stats_dbs rather than varargin, so that
 % additional arguments can be processed. Make sure to update user's manual.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

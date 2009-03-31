@@ -34,15 +34,15 @@ function a_plot = plotRowErrors(a_ranked_db, rows, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('rows')
+if ~ exist('rows', 'var')
   rows = ':';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 

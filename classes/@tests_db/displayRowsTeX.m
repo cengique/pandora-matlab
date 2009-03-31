@@ -32,11 +32,11 @@ function tex_string = displayRowsTeX(a_db, caption, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if ~ exist('caption') || isempty(caption)
+if ~ exist('caption', 'var') || isempty(caption)
   caption = [ 'Rows of ' strrep(get(a_db, 'id'), '_', '\_') '.' ];
 end
 

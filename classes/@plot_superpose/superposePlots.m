@@ -32,22 +32,22 @@ function a_plot = superposePlots(plots, axis_labels, title_str, command, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
 a_plot = plots(1);
 a_props = get(a_plot, 'props');
 
-if exist('title_str')
+if exist('title_str', 'var')
   a_plot = set(a_plot, 'title', title_str);
 end
 
-if exist('axis_labels')
+if exist('axis_labels', 'var')
   a_plot = set(a_plot, 'axis_labels', axis_labels);
 end
 
-if exist('command')
+if exist('command', 'var')
   a_plot = set(a_plot, 'command', command);
 end
 

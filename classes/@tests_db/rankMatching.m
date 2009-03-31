@@ -38,7 +38,7 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
@@ -82,7 +82,7 @@ elseif isfield(crit_db.props, 'testWeights')
   tests_weights = crit_db.props.testWeights;
 end
 
-if exist('tests_weights')
+if exist('tests_weights', 'var')
   [weighted_tests_names weights_order] = ...
       intersect(fieldnames(tests_weights), crit_tests);
   if ~ isempty(weighted_tests_names)

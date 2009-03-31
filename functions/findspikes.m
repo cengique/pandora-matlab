@@ -59,11 +59,11 @@ for k=1:nargin-3
     end
 end
 
-if ~exist('plotit')
+if ~exist('plotit', 'var')
     plotit = '';
 end
 
-if ~exist('direction')
+if ~exist('direction', 'var')
     if length(thres)==1
         direction = 1;
     else
@@ -103,7 +103,7 @@ for idx = 1:size(traces,2)
         right_edges=right_edges(1:spike_num);
 
         % eliminate the time windows out of the range.
-        if exist('win_range')
+        if exist('win_range', 'var')
             data_range=win_range.*fs;
             left_time=left_edges + (thresh_min - trace(left_edges)) ./ (trace(left_edges+1) - trace(left_edges));
             right_time=right_edges + (thresh_min - trace(right_edges)) ./ (trace(right_edges+1) - trace(right_edges));

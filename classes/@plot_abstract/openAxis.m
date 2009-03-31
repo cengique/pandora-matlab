@@ -58,7 +58,7 @@ end
 
 % Put some extra space on right hand side
 % TODO: save the axis handle!
-if ~ exist('layout_axis')
+if ~ exist('layout_axis', 'var')
   layout_axis = [];
 end
 

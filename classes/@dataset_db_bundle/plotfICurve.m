@@ -36,7 +36,7 @@ function a_plot = plotfICurve(a_bundle, an_index, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

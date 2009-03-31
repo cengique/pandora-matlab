@@ -27,11 +27,11 @@ function a_db = sum(a_db, dim, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if ~ exist('dim')
+if ~ exist('dim', 'var')
   dim = 1;                              % rows
 end
 

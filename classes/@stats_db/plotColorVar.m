@@ -31,7 +31,7 @@ function a_plot = plotColorSumVar(p_stats, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
@@ -64,7 +64,7 @@ for param_num = 1:num_params
 end
 plot_props.XTickLabel = properTeXLabel(col_labels);
 
-if ~ exist('title_str') || isempty(title_str)
+if ~ exist('title_str', 'var') || isempty(title_str)
   title_str = ['Summed matrix of ' lower(strrep(get(p_stats(1), 'id'), '_', ' ')) ];
 end
 

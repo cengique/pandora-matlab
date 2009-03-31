@@ -38,7 +38,7 @@ function makeGenesisParFile(a_db, filename, props)
 
 % TODO: read paramRanges.txt to verify parameter sequence
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 

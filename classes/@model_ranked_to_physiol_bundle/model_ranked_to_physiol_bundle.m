@@ -49,7 +49,7 @@ if nargin == 0 % Called with no params
 elseif isa(m_bundle, 'model_ranked_to_physiol_bundle') % copy constructor?
   r_bundle = m_bundle;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

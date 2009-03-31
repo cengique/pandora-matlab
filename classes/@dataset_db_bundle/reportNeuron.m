@@ -56,7 +56,7 @@ function a_doc = reportNeuron(a_bundle, an_index, props)
 
 % TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 

@@ -46,7 +46,7 @@ if nargin == 0 % Called with no params, creates empty object
 elseif isa(results, 'results_profile') % copy constructor?
   obj = results;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

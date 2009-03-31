@@ -38,7 +38,7 @@ function [pt_hists, p_stats] = paramsTestsHistsStats(p_t3ds, props)
 num_params = length(p_t3ds);
 num_tests = dbsize(p_t3ds(1), 2) - 2; % Subtract param and RowIndex columns
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 

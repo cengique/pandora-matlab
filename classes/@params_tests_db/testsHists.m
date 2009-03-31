@@ -39,7 +39,7 @@ else
   reduced_tests_db = a_db.tests_db;
 end
 
-if exist('num_bins')
+if exist('num_bins', 'var')
   hist_pars = {reduced_tests_db, num_bins};
 else
   hist_pars = {reduced_tests_db};

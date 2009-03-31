@@ -79,7 +79,7 @@ if nargin == 0 % Called with no params
 elseif isa(traceset_items, 'physiol_cip_traceset_fileset') % copy constructor?
   obj = traceset_items;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct;
   end
 

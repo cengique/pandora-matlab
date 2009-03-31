@@ -45,7 +45,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
     dim = 1; % Go down rows by default
   end
 
-  if ~ exist('a_func_name')
+  if ~ exist('a_func_name', 'var')
     if isa(a_func, 'function_handle')
       a_func_name = func2str(a_func);
     elseif ischar(a_func)

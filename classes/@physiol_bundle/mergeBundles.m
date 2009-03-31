@@ -29,7 +29,7 @@ function p_bundle = mergeBundles(p_bundle, w_bundle, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 

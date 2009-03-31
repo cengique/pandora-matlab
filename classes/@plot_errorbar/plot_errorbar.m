@@ -51,7 +51,7 @@ if nargin == 0 % Called with no params
 elseif isa(x_vals, 'plot_errorbar') % copy constructor?
   a_plot = x_vals;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

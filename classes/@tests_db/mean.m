@@ -29,7 +29,7 @@ function [a_db, varargout] = mean(a_db, dim)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('dim')
+if ~ exist('dim', 'var')
   dim = 1; % Go down rows by default
 end
 

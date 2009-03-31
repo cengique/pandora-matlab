@@ -45,7 +45,7 @@ if nargin == 0 % Called with no params, creates empty object
 elseif isa(results, 'spike_shape_profile') % copy constructor?
   a_ss_profile = results;
 else 
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

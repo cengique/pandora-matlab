@@ -53,15 +53,15 @@ if nargin == 0 % Called with no params
 elseif isa(plots, 'plot_superpose') % copy constructor?
   obj = plots;
 else
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 
-   if ~ exist('axis_labels')
+   if ~ exist('axis_labels', 'var')
      axis_labels = [];
    end
 
-   if ~ exist('title_str')
+   if ~ exist('title_str', 'var')
      title_str = '';
    end
 

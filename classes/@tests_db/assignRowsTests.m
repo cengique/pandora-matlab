@@ -31,7 +31,7 @@ function obj = assignRowsTests(obj, val, rows, tests, pages)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % Pages
-if ~ exist('tests')
+if ~ exist('tests', 'var')
   tests = ':';
 end
 
@@ -39,7 +39,7 @@ end
 cols = tests2cols(obj, tests);
 
 % Pages
-if ~ exist('pages')
+if ~ exist('pages', 'var')
   pages = ':';
 end
 

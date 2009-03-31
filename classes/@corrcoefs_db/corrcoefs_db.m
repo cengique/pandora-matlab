@@ -47,7 +47,7 @@ elseif isa(col_name, 'corrcoefs_db') % copy constructor?
   a_coef_db = col_name;
 else
   
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

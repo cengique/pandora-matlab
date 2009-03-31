@@ -60,7 +60,7 @@ if nargin == 0 % Called with no params
 elseif isa(datasrc, 'cip_trace') % copy constructor?
   obj = datasrc;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props.trace_time_start = 1;
   end
 

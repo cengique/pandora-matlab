@@ -65,7 +65,7 @@ elseif isa(list, 'params_tests_dataset') % copy constructor?
   obj = list;
 else
 
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

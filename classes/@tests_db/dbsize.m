@@ -25,7 +25,7 @@ function s = dbsize(db, dim)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if exist('dim')
+if exist('dim', 'var')
   s = size(db.data, dim);
 else
   s = size(db.data);

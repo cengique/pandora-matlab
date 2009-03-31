@@ -39,7 +39,7 @@ function a_plot = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
@@ -68,7 +68,7 @@ end
 
 plot_props.XTickLabel = col_labels;
 
-if ~ exist('title_str') || isempty(title_str)
+if ~ exist('title_str', 'var') || isempty(title_str)
   title_str = [ strrep(get(db, 'id'), '_', ' ') ];
 end
 

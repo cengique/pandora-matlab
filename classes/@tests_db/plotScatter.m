@@ -35,11 +35,11 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
@@ -56,7 +56,7 @@ col2_db = onlyRowsTests(col2_db, non_nans_rows, ':');
 
 test_names = fieldnames(get(a_db, 'col_idx'));
 
-if ~ exist('short_title') || isempty(short_title)
+if ~ exist('short_title', 'var') || isempty(short_title)
   short_title = [ strrep(test_names{col1}, '_', ' ') ' vs. ' ...
 		 strrep(test_names{col2}, '_', ' ') ];
 end

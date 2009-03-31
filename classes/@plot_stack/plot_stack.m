@@ -57,19 +57,19 @@ if nargin == 0 % Called with no params
  elseif isa(plots, 'plot_stack') % copy constructor?
    a_plot = plots;
  else
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 
-   if ~ exist('orientation')
+   if ~ exist('orientation', 'var')
      orientation = 'y';
    end
 
-   if ~ exist('axis_limits')
+   if ~ exist('axis_limits', 'var')
      axis_limits = [];
    end
 
-   if ~ exist('title_str')
+   if ~ exist('title_str', 'var')
      title_str = '';
    end
 

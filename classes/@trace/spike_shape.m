@@ -29,7 +29,7 @@ if nargin < 2 % Called with insufficient params
   error('Need parameters.');
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

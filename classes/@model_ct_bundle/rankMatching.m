@@ -30,7 +30,7 @@ function a_ranked_db = rankMatching(a_mbundle, a_crit_db, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 

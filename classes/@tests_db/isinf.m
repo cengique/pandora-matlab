@@ -26,7 +26,7 @@ function rows = isinf(db, col)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('col')
+if ~ exist('col', 'var')
   col = 1;
 end
 

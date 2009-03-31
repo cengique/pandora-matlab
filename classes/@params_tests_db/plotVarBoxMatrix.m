@@ -28,7 +28,7 @@ function a_plot_stack = plotVarBoxMatrix(a_db, p_t3ds, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

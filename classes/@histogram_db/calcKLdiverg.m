@@ -1,0 +1,91 @@
+function [kl_bits, a_plot] = calcKLdiverg(a_hist_db, dist_model, props)
+
+% calcKLdiverg - Calculates the Kullback-Leibler Divergence of the histogram to given distribution.
+%
+% Usage:
+% [mode_val, mode_mag] = calcKLdiverg(a_hist_db)
+%
+% Parameters:
+%   a_hist_db: A histogram_db object.
+%   dist_model: Structure that contains the distribution parameters. Must
+%   	be one of these:
+%	Normal distribution: struct('dist', 'norm', 'mu', mean, 'sigma', var)
+%	Poisson distribution: struct('dist', 'pois', 'lambda', l)
+%	Exponential distribution: struct('dist', 'exp', 'mu', m)
+%	Uniform distribution: struct('dist', 'uni')
+%   props: Structure with optional parameters.
+%     plot: If 1, return a plot_abstract object with both distributions.
+%		
+% Returns:
+%   kl_bits: The calculated divergence in bits.
+%
+% Description:
+%
+% See also: histogram_db
+%
+% $Id: calcKLdiverg.m 896 2007-12-17 18:48:55Z cengiz $
+%
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2009/03/24
+
+% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.php.
+
+if ~ exist('props', 'var')
+  props = struct;
+end
+
+data = get(a_hist_db, 'data');
+
+% Normalize histogram to simulate a probability distribution function
+% (PDF)
+norm_data = data(:, 2) / sum(data(:, 2));
+
+% Find ranges
+%data_range = [ min(data(:, 1)) max(data(:, 1))];
+
+% Calculate theoretical distribution
+
+% TODO: put these in common place in private directory to plot on top of
+% histogram
+switch dist_model.dist
+  case 'norm'
+    prob_func = ...
+        @(x)(1./(dist_model.sigma * sqrt(2 * pi)) * ...
+             exp( - (x-dist_model.mu).^2./(2*dist_model.sigma^2)));
+  case 'pois'
+  case 'exp'
+  case 'uni'
+  otherwise
+    error([ 'Probability distribution "' dist_model.dist ' not recognized.']);
+end
+  
+dist_data = prob_func(data(:, 1));
+
+% Calculate KL divergence
+kl_bits = 0;
+for bin_num = 1:size(data, 1)
+  if norm_data(bin_num) ~= 0
+    kl_bits = ...
+        kl_bits + ...
+        norm_data(bin_num) * log2(norm_data(bin_num) / ...
+                                  dist_data(bin_num));
+  end
+end
+
+if isfield(props, 'plot')
+  a_hist_db.tests_db.data = [ data(:, 1), norm_data ];
+  a_plot = ...
+      plot_superpose({...
+        plot_abstract(a_hist_db, ...
+                      ['Compare to ' dist_model.dist ...
+                      ' distribution'], ...
+                      mergeStructs(props, struct('shading', ...
+                                                 'flat'))), ...
+                     plot_abstract({data(:, 1), dist_data}, ...
+                                   {}, '', { [ dist_model.dist ' dist.'] }, ...
+                                   'plot', props)});
+end
+  

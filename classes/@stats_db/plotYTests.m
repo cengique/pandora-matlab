@@ -41,19 +41,19 @@ function a_p = plotYTests(a_stats_db, x_vals, tests, axis_labels, title_str, sho
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
-if ~ exist('short_title')
+if ~ exist('short_title', 'var')
   short_title = '';
 end
 
-if ~ exist('command') || isempty(command)
+if ~ exist('command', 'var') || isempty(command)
   command = 'plot';
 end
 

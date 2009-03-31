@@ -31,7 +31,7 @@ function a_cip_trace = ctFromRows(m_fileset, m_dball, a_db, cip_levels, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 

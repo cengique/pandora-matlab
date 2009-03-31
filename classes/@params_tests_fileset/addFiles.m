@@ -31,7 +31,7 @@ function [a_fileset, index_list] = addFiles(a_fileset, file_pattern, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

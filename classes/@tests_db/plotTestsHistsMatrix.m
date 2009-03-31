@@ -32,11 +32,11 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 

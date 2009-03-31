@@ -46,7 +46,7 @@ if (nargin==1 & length(x(:))==1 & ishandle(x)), resizefcn(x); return; end
 
 whissw = 0; % don't plot whisker inside the box.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

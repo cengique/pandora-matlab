@@ -55,7 +55,7 @@ if nargin == 0 % Called with no params
    a_cluster_db = data;
  else % Create a new object
 
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 

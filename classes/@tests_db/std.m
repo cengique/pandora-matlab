@@ -30,11 +30,11 @@ function [a_db, varargout] = std(a_db, sflag, dim)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('dim')
+if ~ exist('dim', 'var')
   dim = 1; % Go down rows by default
 end
 
-if ~ exist('sflag')
+if ~ exist('sflag', 'var')
   sflag = 0; % Normalize by N-1 by default
 end
 

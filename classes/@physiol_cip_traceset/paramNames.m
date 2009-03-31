@@ -26,7 +26,7 @@ function param_names = paramNames(traceset, item)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('item')
+if ~ exist('item', 'var')
   item = 1;
 end
 

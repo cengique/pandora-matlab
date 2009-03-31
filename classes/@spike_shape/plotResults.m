@@ -30,11 +30,11 @@ function a_plot = plotResults(s, title_str, props)
 
 % Note: There was a time this could be obsolete and used spike_shape_profile/plot_abstract.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 

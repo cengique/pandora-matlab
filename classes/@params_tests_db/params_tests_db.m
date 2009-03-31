@@ -61,7 +61,7 @@ elseif isa(params, 'params_tests_db') % copy constructor?
 elseif isa(param_names, 'tests_db')
   % Usage 2
   obj.num_params = params;
-  if exist('a_test_results')
+  if exist('a_test_results', 'var')
     props = a_test_results;
   else
     props = struct([]);
@@ -70,7 +70,7 @@ elseif isa(param_names, 'tests_db')
   obj = class(obj, 'params_tests_db', param_names);
 else
   % Usage 1
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

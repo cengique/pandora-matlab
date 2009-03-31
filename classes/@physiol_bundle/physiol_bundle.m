@@ -48,7 +48,7 @@ if nargin == 0 % Called with no params
 elseif isa(a_cell, 'physiol_bundle') % copy constructor?
   a_bundle = a_cell;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

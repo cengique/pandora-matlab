@@ -30,7 +30,7 @@ function row_index = collectPhysiolMatches(a_mbundle, a_crit_bundle, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 

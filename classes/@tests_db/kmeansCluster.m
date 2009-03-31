@@ -32,7 +32,7 @@ function a_cluster_db = kmeansCluster(db, num_clusters, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

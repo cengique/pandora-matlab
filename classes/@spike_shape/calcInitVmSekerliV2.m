@@ -33,7 +33,7 @@ function [init_idx, a_plot] = calcInitVmSekerliV2(s, max_idx, min_idx, plotit)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('plotit')
+if ~ exist('plotit', 'var')
   plotit = 0;
 end
 a_plot = [];

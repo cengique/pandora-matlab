@@ -29,7 +29,7 @@ function t_hists = testsHists(a_db, num_bins)
 
 num_tests = dbsize(a_db(1), 2);
 
-if exist('num_bins')
+if exist('num_bins', 'var')
   bin_param = { num_bins };
 else
   bin_param = {};

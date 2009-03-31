@@ -41,7 +41,7 @@ function a_doc_multi = ...
 
 % TODO: add a prop (clearPageAtEnd: If given, a page break is inserted at end of document.)
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

@@ -33,11 +33,11 @@ function db_obj = params_tests_db(obj, items, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if exist('items')
+if exist('items', 'var')
   args = {obj, items};
 else
   args = {obj};

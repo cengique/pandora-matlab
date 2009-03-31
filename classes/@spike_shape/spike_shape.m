@@ -73,7 +73,7 @@ elseif isa(data, 'spike_shape') % copy constructor?
 else
 
 
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

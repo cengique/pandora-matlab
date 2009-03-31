@@ -46,7 +46,7 @@ function a_pt_profile = getProfile(a_db, props)
 % - plotting funcs in a subclass?
 % - Feed test-reduced database?
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

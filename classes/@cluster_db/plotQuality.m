@@ -34,7 +34,7 @@ else
   distance_measure = 'correlation';
 end
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 

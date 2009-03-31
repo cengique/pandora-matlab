@@ -46,7 +46,7 @@ if nargin == 0 % Called with no params
 elseif isa(docs, 'doc_multi') % copy constructor?
   a_doc = docs;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

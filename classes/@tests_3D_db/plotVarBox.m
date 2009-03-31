@@ -30,23 +30,23 @@ function a_plot = plotVarBox(a_db, test1, test2, notch, sym, vert, whis, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if ~ exist('notch')
+if ~ exist('notch', 'var')
    notch = 1;
 end
 
-if ~ exist('sym')
+if ~ exist('sym', 'var')
   sym = '+';
 end
 
-if ~ exist('vert')
+if ~ exist('vert', 'var')
   vert = 1;
 end
 
-if ~ exist('whis')
+if ~ exist('whis', 'var')
   whis = 1.5;
 end
 

@@ -37,15 +37,15 @@ if nargin == 0 % Called with no params
   error('Need trace parameter.');
 end
 
-if ~ exist('a_period') || isempty(a_period)
+if ~ exist('a_period', 'var') || isempty(a_period)
   a_period = periodWhole(t);
 end
   
-if ~ exist('plotit')
+if ~ exist('plotit', 'var')
   plotit = 0;
 end
 
-if ~ exist('minamp')
+if ~ exist('minamp', 'var')
   if isfield(t.props, 'threshold')
     minamp = t.props.threshold;
   else

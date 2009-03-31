@@ -31,7 +31,7 @@ if nargin == 0 % Called with no params
   error('Need trace parameter.');
 end
 
-if ~ exist('plotit')
+if ~ exist('plotit', 'var')
   plotit = 0;
 end
 

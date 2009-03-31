@@ -27,11 +27,11 @@ function [a_bundle test_names] = constrainedMeasuresPreset(a_bundle, preset, pro
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 
-if ~exist('preset')
+if ~exist('preset', 'var')
   preset = 1;
 end
 

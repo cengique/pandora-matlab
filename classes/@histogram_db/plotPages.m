@@ -31,11 +31,11 @@ function a_plot = plotPages(a_hist_db, title_str, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % Defaults
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 

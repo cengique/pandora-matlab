@@ -40,7 +40,7 @@ function [a_db, ranked_dbs] = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('rows')
+if ~exist('rows', 'var')
   rows = 1:5;
 end
 

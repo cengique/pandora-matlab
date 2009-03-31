@@ -35,11 +35,11 @@ function a_p = plotImage(a_db, par1, par2, col, title_str, short_title, props)
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
@@ -70,7 +70,7 @@ if isfield(props, 'logScale')
   data_label = [ data_label ' (log)' ];
 end
 
-if ~ exist('short_title') || isempty(short_title)
+if ~ exist('short_title', 'var') || isempty(short_title)
   short_title = [ properTeXLabel(col_names{3}) ' with changing ' ...
                   properTeXLabel(col_names{1}) ' and ' ...
                   properTeXLabel(col_names{2}) ];

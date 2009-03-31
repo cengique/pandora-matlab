@@ -36,7 +36,7 @@ function a_plot = plotCovar(a_db, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct;
 end
 
@@ -85,7 +85,7 @@ end
 
 num_colors = 49;
 
-if ~ exist('title_str') || isempty(title_str)
+if ~ exist('title_str', 'var') || isempty(title_str)
   title_str = [properTeXLabel(get(a_db, 'id'))];
 end
 

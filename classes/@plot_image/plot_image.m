@@ -64,7 +64,7 @@ if nargin == 0 % Called with no params
 elseif isa(image_data, 'plot_image') % copy constructor?
   a_plot = image_data;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct;
   end
 

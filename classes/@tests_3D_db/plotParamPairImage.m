@@ -40,7 +40,7 @@ function a_plot = plotParamPairImage(a_db, test, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
@@ -67,7 +67,7 @@ end
 num_colors = 50;
 
 col_names = getColNames(a_db, test)
-if ~ exist('title_str') || isempty(title_str)
+if ~ exist('title_str', 'var') || isempty(title_str)
   title_str = ['Change of ' properTeXLabel(col_names{1}) ' in ' ...
 	       properTeXLabel(get(a_db, 'id'))];
 end

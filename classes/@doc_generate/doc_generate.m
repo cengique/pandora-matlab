@@ -49,7 +49,7 @@ if nargin == 0 % Called with no params
 elseif isa(text_string, 'doc_generate') % copy constructor?
   a_doc = text_string;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

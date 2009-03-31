@@ -30,7 +30,7 @@ function [a_tau, da_inf] = spikeAmpSlope(a_spikes, a_trace, a_period)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % By default apply to the whole of s, t
-if ~ exist('a_period')
+if ~ exist('a_period', 'var')
   a_period = periodWhole(s);
   s = a_spikes;
   t = a_trace;

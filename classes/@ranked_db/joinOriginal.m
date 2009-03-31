@@ -28,7 +28,7 @@ function a_db = joinOriginal(a_ranked_db, rows)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('rows')
+if ~exist('rows', 'var')
   rows = ':';
 end
 

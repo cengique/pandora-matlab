@@ -84,7 +84,7 @@ else
   obj.treatments = treatments;
   obj.neuron_id = neuron_id;
 
-  if ~ exist('treatments') || isempty(treatments)
+  if ~ exist('treatments', 'var') || isempty(treatments)
       obj.treatments = struct([]);
   end
   
@@ -96,7 +96,7 @@ else
       trace_str = array2str(trace_str); % edited by Li Su.
   end
 
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct;
   end
   

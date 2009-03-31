@@ -28,7 +28,7 @@ function results = getResults(s, plotit)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('plotit')
+if ~ exist('plotit', 'var')
   plotit = 0;
 end
 

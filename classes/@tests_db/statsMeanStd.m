@@ -27,11 +27,11 @@ function a_stats_db = statsMeanStd(db, tests, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if ~ exist('tests')
+if ~ exist('tests', 'var')
   tests = ':';
 end
 

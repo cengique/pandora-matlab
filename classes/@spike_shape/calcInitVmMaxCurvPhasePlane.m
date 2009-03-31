@@ -41,7 +41,7 @@ function [init_idx, max_d1o, a_plot, fail_cond] = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('plotit')
+if ~ exist('plotit', 'var')
   plotit = 0;
 end
 a_plot = [];

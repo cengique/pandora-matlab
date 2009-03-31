@@ -30,11 +30,11 @@ function s = displayRows(db, rows, pages)
 
 % Modified: CG 2005/08/17 - Renamed from displayRow
 
-if ~ exist('pages')
+if ~ exist('pages', 'var')
   pages = 1;
 end
 
-if ~ exist('rows')
+if ~ exist('rows', 'var')
   rows = ':';
 end
 

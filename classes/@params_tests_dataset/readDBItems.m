@@ -32,7 +32,7 @@ function [params, param_names, tests, test_names] = readDBItems(obj, items)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('items')
+if ~ exist('items', 'var')
   items = 1:length(obj.list);
 end
 

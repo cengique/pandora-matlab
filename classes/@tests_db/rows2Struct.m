@@ -27,11 +27,11 @@ function s = rows2Struct(db, rows, pages)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('pages')
+if ~ exist('pages', 'var')
   pages = 1;
 end
 
-if ~ exist('rows')
+if ~ exist('rows', 'var')
   rows = ':';
 end
 

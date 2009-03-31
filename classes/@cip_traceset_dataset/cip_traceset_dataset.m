@@ -49,11 +49,11 @@ elseif isa(cts, 'cip_traceset_dataset') % copy constructor?
   obj = cts;
 else
 
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 
-  if ~ exist('dy')
+  if ~ exist('dy', 'var')
     dy = 1e-3;
   end
    

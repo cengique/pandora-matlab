@@ -41,7 +41,7 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~exist('props')
+if ~exist('props', 'var')
   props = struct;
 end
 

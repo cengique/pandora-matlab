@@ -51,7 +51,7 @@ if verbose
   disp(a_plot_props);
 end
 
-if ~ exist('layout_axis')
+if ~ exist('layout_axis', 'var')
   layout_axis = [];
 end
 

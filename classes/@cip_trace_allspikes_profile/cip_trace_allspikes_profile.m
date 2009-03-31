@@ -61,7 +61,7 @@ elseif isa(a_cip_trace, 'cip_trace_allspikes_profile') % copy constructor?
   obj = a_cip_trace;
 else 
   % Create object with custom data (used from subclasses)
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

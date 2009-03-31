@@ -52,7 +52,7 @@ if nargin == 0 % Called with no params
    a_hist_db = col_name;
  else
 
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 

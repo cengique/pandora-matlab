@@ -52,7 +52,7 @@ if nargin == 0 % Called with no params
    % ping the connection to see if it's alive
    ping(db_conn);
    
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props = struct([]);
    end
 

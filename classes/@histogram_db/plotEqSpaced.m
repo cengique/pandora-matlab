@@ -29,15 +29,15 @@ function a_plot = plotEqSpaced(a_hist_db, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('command') || isempty(command)
+if ~ exist('command', 'var') || isempty(command)
   command = 'bar';
 end
 
-if ~ exist('props')
+if ~ exist('props', 'var')
   props = struct([]);
 end
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = '';
 end
 

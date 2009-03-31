@@ -54,7 +54,7 @@ if nargin == 0 % Called with no params
 elseif isa(a_dataset, 'dataset_db_bundle') % copy constructor?
   a_bundle = a_dataset;
 else
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

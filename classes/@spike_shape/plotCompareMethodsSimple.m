@@ -111,7 +111,7 @@ t_plots_row = plot_stack({spike_shape_time_plot, d_plot}, ...
 			 [], 'x', get(d_plot, 'title'), ...
 			 struct('titlesPos', 'none'));
 
-if ~ exist('title_str')
+if ~ exist('title_str', 'var')
   title_str = ', Comparison of AP threshold finding methods';
 end
 

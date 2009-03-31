@@ -54,7 +54,7 @@ elseif isa(test_results, 'stats_db') % copy constructor?
   a_stats_db = test_results;
 else
   
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 

@@ -59,7 +59,7 @@ if nargin == 0 % Called with no params
  elseif isa(mid_vals, 'plot_bars') % copy constructor?
    a_plot = mid_vals;
  else
-   if ~ exist('props')
+   if ~ exist('props', 'var')
      props.rotateXLabel = 45; % Degrees
      %props.XTickLabel = 1;
    end
@@ -77,7 +77,7 @@ if nargin == 0 % Called with no params
      props.XTickLabel = props.groupValues;
    end
 
-   if ~ exist('axis_limits')
+   if ~ exist('axis_limits', 'var')
      axis_limits = []; % Degrees
    end
 

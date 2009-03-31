@@ -36,7 +36,7 @@ if verbose
   disp([ 'plot_abstract, plot(' display(a_plot) ') {' ]);
 end
 
-if ~ exist('layout_axis')
+if ~ exist('layout_axis', 'var')
   layout_axis = [];
 end
 

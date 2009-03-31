@@ -44,11 +44,11 @@ else
    notch = 1;
 end
 
-if ~ exist('sym')
+if ~ exist('sym', 'var')
   sym = '';
 end
 
-if ~ exist('vert')
+if ~ exist('vert', 'var')
   vert = 1;
 end
 

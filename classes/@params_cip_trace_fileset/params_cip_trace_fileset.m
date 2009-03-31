@@ -64,7 +64,7 @@ elseif isa(file_pattern, 'params_cip_trace_fileset') % copy constructor?
   obj = file_pattern;
 else
 
-  if ~ exist('props')
+  if ~ exist('props', 'var')
     props = struct([]);
   end
 
