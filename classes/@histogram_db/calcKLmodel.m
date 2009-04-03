@@ -1,9 +1,9 @@
-function [kl_bits, a_plot] = calcKLdiverg(a_hist_db, dist_model, props)
+function [kl_bits, a_plot] = calcKLmodel(a_hist_db, dist_model, props)
 
-% calcKLdiverg - Calculates the Kullback-Leibler Divergence of the histogram to given distribution.
+% calcKLmodel - Calculates the Kullback-Leibler divergence of the histogram to a model distribution.
 %
 % Usage:
-% [kl_bits, a_plot] = calcKLdiverg(a_hist_db, dist_model, props)
+% [mode_val, mode_mag] = calcKLmodel(a_hist_db)
 %
 % Parameters:
 %   a_hist_db: A histogram_db object.
@@ -23,7 +23,7 @@ function [kl_bits, a_plot] = calcKLdiverg(a_hist_db, dist_model, props)
 %
 % See also: histogram_db
 %
-% $Id: calcKLdiverg.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id: calcKLmodel.m 896 2007-12-17 18:48:55Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/03/24
 
@@ -40,7 +40,7 @@ end
 data = get(a_hist_db, 'data');
 
 % approximate bin size from first two bin centers
-bin_size = diff(data(1:2, 1))
+bin_size = diff(data(1:2, 1));
 
 % Normalize histogram to simulate a probability distribution function
 % (PDF)
@@ -64,21 +64,13 @@ switch dist_model.dist
   otherwise
     error([ 'Probability distribution "' dist_model.dist ' not recognized.']);
 end
-  
+
 % multiply by bin size to get average prob for the whole bin
 % (integration would've been more accurate)
 dist_data = prob_func(data(:, 1)) * bin_size;
 
 % Calculate KL divergence
-kl_bits = 0;
-for bin_num = 1:size(data, 1)
-  if norm_data(bin_num) ~= 0
-    kl_bits = ...
-        kl_bits + ...
-        norm_data(bin_num) * log2(norm_data(bin_num) / ...
-                                  dist_data(bin_num));
-  end
-end
+kl_bits = calcKL(norm_data, dist_data);
 
 if isfield(props, 'plot')
   a_hist_db.tests_db.data = [ data(:, 1), norm_data ];
