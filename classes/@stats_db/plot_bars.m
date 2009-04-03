@@ -45,7 +45,7 @@ if isfield(props, 'pageVariable')
   page_vals = squeeze(get(onlyRowsTests(a_stats_db, 1, props.pageVariable, ':'), 'data'));
   % put it in props to pass to plot_bars
   props.groupValues = page_vals;
-  page_names = { getColNames(a_stats_db, props.pageVariable) };
+  page_names = getColNames(a_stats_db, props.pageVariable);
   % Then, remove the column
   a_stats_db = delColumns(a_stats_db, props.pageVariable);
 else

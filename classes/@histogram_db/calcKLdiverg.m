@@ -3,7 +3,7 @@ function [kl_bits, a_plot] = calcKLdiverg(a_hist_db, dist_model, props)
 % calcKLdiverg - Calculates the Kullback-Leibler Divergence of the histogram to given distribution.
 %
 % Usage:
-% [mode_val, mode_mag] = calcKLdiverg(a_hist_db)
+% [kl_bits, a_plot] = calcKLdiverg(a_hist_db, dist_model, props)
 %
 % Parameters:
 %   a_hist_db: A histogram_db object.
@@ -39,6 +39,9 @@ end
 
 data = get(a_hist_db, 'data');
 
+% approximate bin size from first two bin centers
+bin_size = diff(data(1:2, 1))
+
 % Normalize histogram to simulate a probability distribution function
 % (PDF)
 norm_data = data(:, 2) / sum(data(:, 2));
@@ -62,7 +65,9 @@ switch dist_model.dist
     error([ 'Probability distribution "' dist_model.dist ' not recognized.']);
 end
   
-dist_data = prob_func(data(:, 1));
+% multiply by bin size to get average prob for the whole bin
+% (integration would've been more accurate)
+dist_data = prob_func(data(:, 1)) * bin_size;
 
 % Calculate KL divergence
 kl_bits = 0;
