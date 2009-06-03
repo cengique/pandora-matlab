@@ -1,9 +1,9 @@
-function [y dy] = func(a_ps, x)
+function [y dy] = f(a_ps, x)
 
-% func - Evaluates the function at point x.
+% f - Evaluates the function at point x.
 %
 % Usage:
-%   [y dy] = func(a_ps, x)
+%   [y dy] = f(a_ps, x)
 %
 % Parameters:
 %   a_ps: A param_func object.
@@ -15,11 +15,11 @@ function [y dy] = func(a_ps, x)
 % Description:
 %
 % Example:
-%   >> y = func(a_ps, 5)
+%   >> y = f(a_ps, 5)
 %
 % See also: param_func
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id: f.m 1174 2009-03-31 03:14:21Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/05/29
 

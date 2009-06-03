@@ -61,8 +61,9 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
       props = struct;
     end
     
-    if isfield(props, 'paramRanges') && ~isfield(props, 'rangeFunc')
-      
+    if ~isfield(props, 'rangeFunc')
+      props.rangeFunc = @ldsatlins;
+    end
 
     ps = struct;
     ps.var_names = var_names;
