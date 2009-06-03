@@ -16,6 +16,12 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
 %   props: A structure with any optional properties.
 %     xMin, xMax: Minimal and maximal values for input variable, x.
 %     paramRanges: 2xn matrix of min and max values of each parameter.
+%		If a non-NaN range is specified for a parameter
+%		its parameters automatically become a ratio between [0,1]
+%		that point inside this range.
+%     rangeFunc: Function that translates range ratios into parameter
+%     		values. Options are 'satlin' for saturated linear and
+%     		'logsig' for logistic sigmoid (default='satlin'). 
 %		
 % Returns a structure object with the following fields:
 %	var_names, func, tests_db.
@@ -36,7 +42,7 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
 % Additional methods:
 %	See methods('param_func')
 %
-% See also: param_gate_inf, tests_db, plot_abstract
+% See also: param_act, tests_db, plot_abstract
 %
 % $Id: param_func.m 1174 2009-03-31 03:14:21Z cengiz $
 %
@@ -54,11 +60,15 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
     if ~ exist('props', 'var')
       props = struct;
     end
+    
+    if isfield(props, 'paramRanges') && ~isfield(props, 'rangeFunc')
+      
 
     ps = struct;
     ps.var_names = var_names;
     ps.func = func_handle;
     ps = class(ps, 'param_func', ...
-               tests_db(param_init_vals, param_names, {}, id, props));
+               tests_db(convertParams2Ratios(param_init_vals, props), ...
+                        param_names, {}, id, props));
   end
 

@@ -1,2 +1,0 @@
-function ps = param_set(init_vals, param_names, props)
-% base class for
