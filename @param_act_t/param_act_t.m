@@ -32,10 +32,6 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/02
 
-% TODO: 
-% - take as inputs: V_pre, V_now, param_m_inf_v, param_tau_v
-% - make func setParamV(V_pre, V_now)
-
   var_names = {'time [ms]', 'activation'};
   param_names = {'m0', 'minf', 'tau'};
   func_handle = @act_func;
@@ -58,6 +54,10 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
     a_ps = struct;
     a_ps.m_inf = a_param_m_inf_v;
     a_ps.tau = a_param_tau_v;
+    
+    if length(V_pre) == 1 && length(V_now) > 1
+      V_pre = repmat(V_pre, size(V_now));
+    end
     
     % set initial values
     param_init_vals = ...

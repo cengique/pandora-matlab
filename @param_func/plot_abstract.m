@@ -62,5 +62,5 @@ end
 
 a_plot = ...
     plot_abstract({x_vals, f(a_ps, x_vals)}, get(a_ps, 'var_names'), ...
-                  title_str, get(a_ps, 'id'), 'plot', props);
+                  title_str, {get(a_ps, 'id')}, 'plot', props);
 
