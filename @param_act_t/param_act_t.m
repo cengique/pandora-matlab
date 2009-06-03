@@ -38,7 +38,7 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
 
   var_names = {'time [ms]', 'activation'};
   param_names = {'m0', 'minf', 'tau'};
-  func_handle = @(p,t) deal(p(1) + (p(2) - p(1)).*(1-exp(-t./p(3))), NaN);
+  func_handle = @act_func;
 
   if ~ exist('props', 'var')
     props = struct;
@@ -68,4 +68,11 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
                  param_func(var_names, param_init_vals, param_names, ...
                            func_handle, id, props));
   end
+end
 
+function [act dact_dt] = act_func(p, t)
+  time_ones = ones(1, length(t));
+  act = p(:, 1) * time_ones + (p(:, 2) - p(:, 1)) * time_ones .* ...
+        (1-exp(-repmat(t, size(p, 1), 1) ./ (p(:, 3) * time_ones)));
+  dact_dt = NaN;
+end

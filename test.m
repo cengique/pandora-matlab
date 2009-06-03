@@ -35,6 +35,14 @@ a_inact_t = param_act_t(-90, 20, a_pi, a_p_tau_v, 'an inact. gate');
 a_cur = ...
     param_I_t([3 1 -80 20 10], a_act_t, a_inact_t, 'act-inact cur');
 
+% try with multiple voltage steps
+a_act_t = param_act_t([-90; -90], [20; 30], a_pa, a_p_tau_v, 'an act. gate');
+a_inact_t = param_act_t([-90; -90], [20; 30], a_pi, a_p_tau_v, 'an inact. gate');
+
+a_cur = ...
+    param_I_t([3 1 -80 20 10; 3 1 -80 30 10; ], a_act_t, a_inact_t, 'act-inact cur');
+
+
 % TODO: 
 % - create subclass for defining logsig functions easily
 % - override plot commands
