@@ -9,6 +9,7 @@ function a_plot = plot_abstract(a_ps, title_str, props)
 %   a_ps: A param_func object.
 %   title_str: (Optional) A string to be concatanated to the title.
 %   props: A structure with any optional properties.
+b
 %		
 % Returns:
 %   a_plot: A plot_abstract object that can be plotted.
