@@ -1,0 +1,112 @@
+
+@param_act/param_act.m,152
+function a_ps 1,0
+  param_names 31,895
+  func_handle 32,928
+  props 38,1051
+    a_ps 42,1178
+    a_ps 45,1363
+    a_ps 47,1398
+    a_ps 48,1417
+
+@param_act/set.m,50
+function a 1,0
+  a.param_func param_func14,455
+
+@param_act/get.m,28
+function b 1,0
+  b 14,474
+
+@param_func/param_func.m,205
+function ps 1,0
+    ps.var_names var_names53,2046
+    ps.func func54,2069
+    ps 55,2091
+    ps 58,2228
+    ps 68,2402
+    ps.var_names var_names69,2419
+    ps.func func70,2449
+    ps 71,2476
+
+@param_func/set.m,46
+function a 1,0
+  a.tests_db tests_db14,455
+
+@param_func/get.m,87
+function b 1,0
+  b 14,474
+% $$$   b 18,518
+% $$$   errstr 20,552
+% $$$   b 23,623
+
+@param_func/plot_abstract.m,115
+function a_plot 1,0
+props 51,1402
+x_min 53,1452
+x_max 54,1495
+x_steps 56,1539
+x_vals 57,1554
+a_plot 63,1680
+
+@param_func/private/convertParams2Ratios.m,47
+function param_vals 1,0
+  nonnan_idx 36,1087
+
+@param_func/private/convertRatios2Params.m,68
+function param_vals 1,0
+  param_abs 38,1144
+  nonnan_idx 40,1241
+
+@param_func/display.m,36
+function s 1,0
+displayRows(22,545
+
+@param_func/setParams.m,34
+function a_ps 1,0
+props 41,1087
+
+@param_func/getParams.m,45
+function param_vals 1,0
+param_vals 40,1022
+
+@param_func/f.m,14
+function 1,0
+
+@param_act_t/param_act_t.m,295
+function a_ps 1,0
+  param_names 40,1341
+  func_handle 41,1380
+  props 47,1512
+    a_ps.m_inf m_inf51,1636
+    a_ps.tau tau52,1664
+    a_ps 53,1692
+    a_ps 56,1881
+    a_ps 58,1916
+    a_ps.m_inf m_inf59,1935
+    a_ps.tau tau60,1969
+    param_init_vals 63,2029
+    a_ps 67,2171
+
+@param_act_t/setParamV.m,33
+function a_ps 1,0
+a_ps 39,1058
+
+@param_tau_v/param_tau_v.m,152
+function a_ps 1,0
+  param_names 31,915
+  func_handle 32,958
+  props 38,1091
+    a_ps 42,1218
+    a_ps 45,1407
+    a_ps 47,1442
+    a_ps 48,1461
+
+@param_tau_v/get.m,28
+function b 1,0
+  b 14,474
+
+@param_tau_v/set.m,50
+function a 1,0
+  a.param_func param_func14,455
+
+test.m,0
