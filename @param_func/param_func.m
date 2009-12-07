@@ -65,6 +65,8 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
       props.rangeFunc = @ldsatlins;
     end
 
+    param_init_vals = param_init_vals(:)'; % row vector only
+    
     ps = struct;
     ps.var_names = var_names;
     ps.func = func_handle;

@@ -40,6 +40,8 @@ end
 
 props = mergeStructs(props, get(a_ps, 'props'));
 
+param_vals = param_vals(:)';            % row vector only
+
 if ~ isfield(props, 'direct')
   param_vals = ...
       convertParams2Ratios(param_vals, get(a_ps, 'props'));
