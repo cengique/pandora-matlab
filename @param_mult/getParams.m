@@ -1,31 +1,31 @@
-function params_struct = getParamsStruct(a_ps, props)
+function param_vals = getParams(a_ps, props)
 
-% getParamsStruct - Gets the parameters of function as a structure.
+% getParams - Gets the parameters of all contained functions.
 %
 % Usage:
-%   params_struct = getParamsStruct(a_ps, props)
+%   param_vals = getParams(a_ps, props)
 %
 % Parameters:
-%   a_ps: A param_func object.
+%   a_ps: A param_mult object.
 %   props: A structure with any optional properties.
-%     (passed to getParams).
+%     (passed to param_func/getParams)
 %		
 % Returns:
-%   params_struct: Structure with parameter values.
+%   param_vals: Vector of parameter values.
 %
 % Description:
 %
 % Example:
 % Get absolute parameter values:
-%   >> params = getParamsStruct(a_ps)
+%   >> params = getParams(a_ps)
 % Set relative ratios:
-%   >> param_ratios = getParamsStruct(a_ps, struct('direct', 1))
+%   >> param_ratios = getParams(a_ps, struct('direct', 1))
 %
-% See also: getParams, param_func
+% See also: param_func, param_mult
 %
 % $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
 %
-% Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/01
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2009/12/09
 
 % Copyright (c) 2009 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -37,5 +37,8 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-params_struct = ...
-    cell2struct(num2cell(getParams(a_ps, props)), getParamNames(a_ps), 2);
+param_vals = [];
+for a_f = struct2cell(a_ps.f)'
+  a_f = a_f{1};
+  param_vals = [ param_vals, getParams(a_f, props) ];
+end
