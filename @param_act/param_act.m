@@ -29,7 +29,7 @@ function a_ps = param_act(param_init_vals, id, props)
 
   var_names = {'voltage [mV]', 'activation'};
   param_names = {'V_half', 'k'};
-  func_handle = @(p,x) deal(1./(1 + exp((x-p(1)) ./ p(2))), NaN);
+  func_handle = @(p,x) deal(1./(1 + exp((x-p.V_half) ./ p.k)), NaN);
 
   if ~ exist('props', 'var')
     props = struct;

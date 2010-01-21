@@ -28,7 +28,7 @@ function param_names = getParamNames(a_ps)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-param_names = {};
+param_names = getParamNames(a_ps.param_func);
 fs_cell = struct2cell(a_ps.f)';
 fs_names = fieldnames(a_ps.f);
 for f_num = 1:length(fs_cell)

@@ -1,6 +1,6 @@
 function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, props) 
   
-% param_act_t - Parameterized time profile of an (in)activation function.
+% param_act_t - An (in)activation function response to a voltage step.
 %
 % Usage:
 %   a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, props)
@@ -32,6 +32,8 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/02
 
+% TODO: rename class to V_step
+  
   var_names = {'time [ms]', 'activation'};
   param_names = {'m0', 'minf', 'tau'};
   func_handle = @act_func;

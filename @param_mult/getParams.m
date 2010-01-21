@@ -37,7 +37,7 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-param_vals = [];
+param_vals = getParams(a_ps.param_func, props);
 for a_f = struct2cell(a_ps.f)'
   a_f = a_f{1};
   param_vals = [ param_vals, getParams(a_f, props) ];

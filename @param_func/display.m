@@ -19,7 +19,8 @@ end
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 %struct(t)
 
-displayRows(t)
+disp([ sprintf('\n') 'Parameters:' ])
+disp(displayRows(t))
 
 disp('Optional properties:')
 disp(t.tests_db.props)

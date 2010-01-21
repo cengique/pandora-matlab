@@ -9,6 +9,7 @@ function param_vals = getParams(a_ps, props)
 %   a_ps: A param_func object.
 %   props: A structure with any optional properties.
 %     direct: If 1, return parameters directly as relative range ratios.
+%     onlySelect: If 1, return only parameters listed in selectParams prop.
 %		
 % Returns:
 %   param_vals: Vector of parameter values.
@@ -37,8 +38,20 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+props = mergeStructs(props, get(a_ps, 'props'));
+
+if isfield(props, 'onlySelect') && isfield(props, 'selectParams')
+  param_idx = tests2cols(a_ps, props.selectParams);
+else
+  param_idx = ':';
+end
+
 param_vals = get(a_ps, 'data');
+param_vals = param_vals(1, param_idx);
 
 if ~ isfield(props, 'direct')
-  param_vals = convertRatios2Params(param_vals, get(a_ps, 'props'));
+  param_vals = ...
+      convertRatios2Params(param_vals, ...
+                           mergeStructs(struct('onlyIdx', param_idx), ...
+                                        props));
 end

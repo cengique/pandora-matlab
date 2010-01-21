@@ -29,4 +29,4 @@ function [y dy] = f(a_ps, x)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-[y, dy] = feval(get(a_ps, 'func'), a_ps.f, x);
+[y, dy] = feval(get(a_ps, 'func'), a_ps.f, getParamsStruct(a_ps.param_func), x);

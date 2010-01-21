@@ -9,7 +9,7 @@ function a_ps = setParams(a_ps, param_vals, props)
 %   a_ps: A param_mult object.
 %   param_vals: Vector of new parameter values.
 %   props: A structure with any optional properties.
-%     (passed to param_func/setParams)
+%     (rest passed to param_func/setParams)
 %		
 % Returns:
 %   a_ps: Object with new parameter values.
@@ -39,11 +39,27 @@ if ~ exist('props', 'var')
 end
 
 param_ind = 1;
+a_ps_props = get(a_ps, 'props');
+if isfield(props, 'onlySelect') && isfield(a_ps_props, 'selectParams')
+  f_size = length(a_ps_props.selectParams);
+else
+  f_size = dbsize(a_ps.param_func, 2);
+end
+a_ps.param_func = ...
+    setParams(a_ps.param_func, ...
+              param_vals(param_ind:(param_ind - 1 + f_size)), props);
+param_ind = param_ind + f_size;
+
 new_fs = struct2cell(a_ps.f)';
 fs_names = fieldnames(a_ps.f);
 for f_num = 1:length(new_fs)
   a_f = new_fs{f_num};
-  f_size = dbsize(a_f, 2);
+  a_f_props = get(a_f, 'props');
+  if isfield(props, 'onlySelect') && isfield(a_f_props, 'selectParams')
+    f_size = length(a_f_props.selectParams);
+  else
+    f_size = dbsize(a_f, 2);
+  end
   new_fs{f_num} = ...
       setParams(a_f, param_vals(param_ind:(param_ind - 1 + f_size)), ...
                      props);

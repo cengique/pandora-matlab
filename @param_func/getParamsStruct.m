@@ -37,5 +37,13 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+props = mergeStructs(props, get(a_ps, 'props'));
+
+if isfield(props, 'onlySelect') && isfield(props, 'selectParams')
+  param_names = props.selectParams;
+else
+  param_names = getParamNames(a_ps);
+end
+
 params_struct = ...
-    cell2struct(num2cell(getParams(a_ps, props)), getParamNames(a_ps), 2);
+    cell2struct(num2cell(getParams(a_ps, props)), param_names, 2);

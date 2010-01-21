@@ -8,6 +8,7 @@ function param_vals = convertRatios2Params(param_ratios, props)
 % Parameters:
 %   param_ratios: Vector of parameter values.
 %   props: A structure with any optional properties.
+%     onlyIdx: Set only these parameters
 %		
 % Returns:
 %   param_vals: Vector of updated parameter values.
@@ -30,13 +31,24 @@ function param_vals = convertRatios2Params(param_ratios, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+if ~ exist('props', 'var')
+  props = struct;
+end
+
 param_vals = param_ratios;
 
 % convert only if ranges are defined
 if isfield(props, 'paramRanges')
+
+  if isfield(props, 'onlyIdx')
+    idx = props.onlyIdx;
+  else
+    idx = ':';
+  end
+
   param_ratios = feval(props.rangeFunc, param_ratios);
-  param_abs = props.paramRanges(1, :) + param_ratios .* ...
-      diff(props.paramRanges, 1, 1);
+  param_abs = props.paramRanges(1, idx) + param_ratios .* ...
+      diff(props.paramRanges(:, idx), 1, 1);
   nonnan_idx = ~isnan(param_abs);
   param_vals(nonnan_idx) = param_abs(nonnan_idx);
 end

@@ -18,11 +18,13 @@ end
 
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 
-disp(sprintf('\nComposed of:'))
+disp(sprintf('\nComposed of: {'))
 
 for a_f = struct2cell(t.f)'
   a_f = a_f{1};
   display(a_f)
 end
+
+disp('}')
 
 display(t.param_func)

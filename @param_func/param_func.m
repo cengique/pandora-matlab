@@ -22,6 +22,7 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
 %     rangeFunc: Function that translates range ratios into parameter
 %     		values. Options are 'satlin' for saturated linear and
 %     		'logsig' for logistic sigmoid (default='satlin'). 
+%     selectParams: Cell of param names that can be selected by g/setParams.
 %		
 % Returns a structure object with the following fields:
 %	var_names, func, tests_db.
