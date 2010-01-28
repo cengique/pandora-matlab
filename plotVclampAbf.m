@@ -27,7 +27,11 @@ function plot_handle = plotVclampAbf(filename, props)
   if ~ exist('props', 'var')
     props = struct;
   end
-  
+
+  if ~ exist('filename', 'var')
+    filename = '';
+  end
+
   % load data from ABF file
   [time, dt, data_i, data_v, cell_name] = ...
       loadVclampAbf(filename, props);
