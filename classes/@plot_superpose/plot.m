@@ -26,7 +26,10 @@ function handles = plot(a_plot, layout_axis)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% TODO: save the axis handle!
+% TODO: 
+% - save the axis handle!
+% - there should be a plotFigure function here that also copies props!
+
 if ~ exist('layout_axis', 'var')
   layout_axis = [];
 %  axes('position', layout_axis);
@@ -44,7 +47,7 @@ for plot_num = 1:num_plots
   else
     % Merge props from plot_superpose and first plot
     to_plot = set(a_plot.plots{1}, 'props', ...
-                                mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
+                  mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
   end
   handles = plot(to_plot, layout_axis); 
   all_handles = [all_handles, handles];

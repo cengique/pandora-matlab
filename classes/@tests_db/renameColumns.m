@@ -48,11 +48,15 @@ elseif iscell(test_names)
   % only one name, then
   test_names = test_names{1}; new_names = new_names{1};
 elseif ~ischar(test_names)
-  error(['Inputs for test_names and new_names must be sginle strings or ' ...
+  error(['Inputs for test_names and new_names must be single strings or ' ...
          'multiple strings in a cell array.']);
 end
 
 % Single column mode
+if strcmp(new_names, test_names)
+  return;                               % nothing to do
+end
+
 col_idx = a_db.col_idx;
 col_idx.(new_names) = col_idx.(test_names);
 col_idx = rmfield(col_idx, test_names);

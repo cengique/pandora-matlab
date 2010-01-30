@@ -55,7 +55,7 @@ num_outs = size(a_class_outputs, 2);
 num_in_class = [ diff(unique_idx); (num_outs - unique_idx(end) + 1)];
 num_classes = length(num_in_class);
 
-if ~ isfield(props, 'repeatSamples') || props.repeatSamples == 0
+if isfield(props, 'repeatSamples') && props.repeatSamples == 0
   % do not take more than the samples in the smallest class
   num_samples = min(num_in_class) * num_classes;
 else

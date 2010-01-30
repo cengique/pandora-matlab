@@ -28,3 +28,4 @@ function avg_t = runAvg(t)
 dt = get(t, 'dt');
 data = get(t, 'data');
 avg_t = set(t, 'data', cumsum(data) ./ (1:length(data))' * dt);
+avg_t = set(avg_t, 'id', [ 'Running average of ' get(avg_t, 'id') ]);

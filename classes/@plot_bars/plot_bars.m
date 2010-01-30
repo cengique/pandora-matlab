@@ -8,30 +8,35 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %		     title, axis_limits, props)
 %
 % Description:
-%   Subclass of plot_stack. The plot_abstract/plot command can be used to
-% plot this data. Rows of *_vals will create grouped bars, columns will
-% create new axes.
+%   Additional rows of data will result in grouped bars in each axis. If all
+% data is given as a column vector, then they will appear in a single
+% axis. plot_bars is a subclass of plot_stack. The plot_abstract/plot
+% command can be used to plot this data. Rows of *_vals will create grouped
+% bars, columns will create new axes.
 %
-%   Parameters:
-%	mid_vals: Middle points of error bars.
-%	lo_vals: Low points of error bars.
-%	hi_vals: High points of error bars.
-%	n_vals: Number of samples used for the statistic (Optional).
-%	x_labels, y_labels: Axis labels for each bar group. Must match with data columns.
-%	title: Plot description.
-%	axis_limits: If given, all plots contained will have these axis limits.
-%	props: A structure with any optional properties.
-%	  dispBarsLines: Choose between using 'bars' or 'lines' to connect the errorbars.
-%	  dispErrorbars: If 1, display errorbars for lo_vals and hi_vals deviation from mid_vals 
+% Parameters:
+%   mid_vals: Middle points of error bars.
+%   lo_vals: Low points of error bars.
+%   hi_vals: High points of error bars.
+%   n_vals: Number of samples used for the statistic (Optional).
+%   x_labels, y_labels: Axis labels for each bar group. Must match with data columns.
+%   title: Plot description.
+%   axis_limits: If given, all plots contained will have these axis limits.
+%   props: A structure with any optional properties.
+%     dispBarsLines: Choose between using 'bars' or 'lines' to connect the errorbars.
+%     dispErrorbars: If 1, display errorbars for lo_vals and hi_vals deviation from mid_vals 
 %		     (default=1).
-%	  dispNvals: If 1, display n_vals on top of each bar (default=1).
-%	  groupValues: List of within-group labels passed to XTickLabels,
+%     dispInnerBars: If 1, an inner bar extends from the base to hi_vals
+%     		     (default=0). Mutually exclusive with
+%     		     dispInnerBars. It will make the larger bars blank.
+%     dispNvals: If 1, display n_vals on top of each bar (default=1).
+%     groupValues: List of within-group labels passed to XTickLabels,
 %	  	instead of just a sequence of numbers.
-%	  truncateDecDigits: Truncate labels to this many decimal digits.
-%	  barAxisProps: props passed to plot_abstract objects with bar commands
+%     truncateDecDigits: Truncate labels to this many decimal digits.
+%     barAxisProps: props passed to plot_abstract objects with bar commands
 %		
-%   Returns a structure object with the following fields:
-%	plot_abstract
+% Returns a structure object with the following fields:
+%   plot_abstract
 %
 % General operations on plot_bars objects:
 %   plot_bars	- Construct a new plot_bars object.
@@ -90,6 +95,20 @@ if nargin == 0 % Called with no params
    else
        bar_axis_props = props;
    end
+   
+   if isfield(props, 'dispInnerBars') && props.dispInnerBars == 1
+     bar_axis_props = ...
+         mergeStructs(bar_axis_props, ...
+                      struct('plotProps', struct('FaceColor', 'none')));
+   end
+
+   if isempty(x_labels)
+     [ x_labels(1:num_plots) ] = deal({''});
+   end
+
+   if isempty(y_labels)
+     [ y_labels(1:num_plots) ] = deal({''});
+   end
 
    % Loop for each item and create a horizontal stack of plots
    for plot_num=1:num_plots
@@ -99,7 +118,8 @@ if nargin == 0 % Called with no params
        plot_components = ...
            {plot_abstract({group_locs, plot_mid_vals}, ...
                           {x_labels{plot_num}, y_labels{plot_num}}, '', ...
-                          {}, 'bar', bar_axis_props)};
+                          {}, 'bar', ...
+                          bar_axis_props)};
        linestyle = 'none';
      elseif strcmp(props.dispBarsLines, 'lines')
        % Enforce errorbar display then
@@ -111,6 +131,16 @@ if nargin == 0 % Called with no params
                props.dispBarsLines ]);
      end
 
+     if isfield(props, 'dispInnerBars') && props.dispInnerBars == 1
+       props.dispErrorbars = 0; % mutually exclusive with errorbars
+       plot_components = ...
+	   {plot_components{:}, ...
+	    plot_abstract({group_locs, ...
+                           mid_vals(:,plot_num) + hi_vals(:,plot_num), 0.2}, ...
+			  {x_labels{plot_num}, y_labels{plot_num}}, ...
+                          '', {}, 'bar', props)};
+     end
+
      if ~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1
        plot_components = ...
 	   {plot_components{:}, ...
@@ -120,6 +150,9 @@ if nargin == 0 % Called with no params
      end
 
      if ~isfield(props, 'dispNvals') || props.dispNvals == 1
+       if size(n_vals, 2) ~= num_plots
+         error(['Argument n_vals does not have ' num2str(num_plots) ' elements.']);
+       end
        plot_components = ...
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, ...

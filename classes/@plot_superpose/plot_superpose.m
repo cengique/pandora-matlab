@@ -20,7 +20,10 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 %	plots: Cell array of plot_abstract or subclass objects.
 %	axis_labels: Cell array of axis label strings.
 %	title_str: Plot description string.
-%	props: A structure with any optional properties (passed to plot_abstract).
+%	props: A structure with any optional properties (passed to
+%		plot_abstract).
+%	  noCombine: Do not auto-combine plots with same properties
+%	  	(default=0). This is especially important for plot_bars.
 %		
 %   Returns a structure object with the following fields:
 %	plot_abstract, plots
@@ -76,6 +79,12 @@ else
    % replicate the first plot to pre-allocate the array
    plot_array = plots{1};
    for plot_num=1:length(plots)
+     
+     % do not check if 
+     if isfield(props, 'noCombine')
+	 superposable = false;
+	 break;       
+     end
 
      % check if same plot classes are used
      if isempty(plot_class)

@@ -14,7 +14,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %	short_title: (Optional) Few words that may appear in legends of multiplot.
 %	props: A structure with any optional properties.
 %	  LineStyle: Plot line style to use. (default: 'x')
-%	  Regress: Calculate and plot a linear regression.
+%	  Regress: If exists, use these props for plotting the linear regression.
 %	  quiet: If 1, don't include database name on title.
 %		
 %   Returns:
@@ -95,7 +95,15 @@ a_p = plot_abstract({get(col1_db, 'data'), get(col2_db, 'data'), line_style{:}},
 		    props); 
 
 if isfield(props, 'Regress')
+  regress_props = struct;
+  if isstruct(props.Regress)
+    regress_props = props.Regress;
+  end
   x_lims = [min(get(col1_db, 'data')) max(get(col1_db, 'data'))];
-  a_p = plot_superpose({a_p, plot_abstract({x_lims, x_lims * b(2) + b(1), 'm-'}, ...
-					   { }, '', { 'regression' }, 'plot', props)}, {}, '');
+  regress_props_props = ...
+      mergeStructs(regress_props, ...
+                   struct('LineStyle', 'm-'));
+  a_p = plot_superpose({a_p, plot_abstract({x_lims, x_lims * b(2) + b(1)}, ...
+					   { }, '', { 'regression' }, ...
+                                           'plot', regress_props)}, {}, '');
 end

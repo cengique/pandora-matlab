@@ -68,20 +68,14 @@ else
                                       unique_test), 'data'));
 end
 
-% get stats for first unique value
+%  get stats for first unique value
 a_stats_db = ...
-    feval(stats_func, ...
-          onlyRowsTests(a_db, ...
-                        onlyRowsTests(a_db, ':', unique_test) == ...
-                        sorted_unique_vals(1), ':'));
-  
+    find_stats_for_unique(sorted_unique_vals(1));
+
 for unique_num = 2:length(sorted_unique_vals)
   a_stats_db = ...
       compareStats(a_stats_db, ...
-                       feval(stats_func, ...
-                             onlyRowsTests(a_db, ...
-                                           onlyRowsTests(a_db, ':', unique_test) == ...
-                                           sorted_unique_vals(unique_num), ':')));
+                   find_stats_for_unique(sorted_unique_vals(unique_num)));
 end
 
 if isfield(props, 'quiet')
@@ -118,3 +112,23 @@ if isfield(props, 'popMean')
       plot_superpose({a_bar_plot, a_line_plot }, {}, ' ', ...
                      mergeStructs(props, struct('tightLimits', 0, 'noLegends', 1)));
 end
+
+% this function returns NaN stats if no uniques were found
+function a_stats_db = ...
+    find_stats_for_unique(unique_val)
+
+a_unique_db = onlyRowsTests(a_db, ...
+                           onlyRowsTests(a_db, ':', unique_test) == ...
+                           unique_val, ':');
+% if empty, create a one-row NaN DB with same columns
+if dbsize(a_unique_db, 2) == 0
+  a_unique_db = tests_db(repmat(NaN, 1, dbsize(a_db, 2)), ...
+                         getColNames(a_db), {}, '', get(a_db, 'props'));
+
+end
+
+a_stats_db = feval(stats_func, a_unique_db);
+
+end % function find_stats_for_unique
+
+end % function plotUniquesStatsBars

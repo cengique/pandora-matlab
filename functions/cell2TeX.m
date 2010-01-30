@@ -7,14 +7,16 @@ function tex_string = cell2TeX(a_cell, props)
 %
 % Description:
 %
-%   Parameters:
-% 	a_cell: A cell matrix to be tabularized.
-%	props: A structure with any optional properties.
-%		hasTitleRow: The first row contains titles.
-%		hasTitleCol: The first column contains titles.
+% Parameters:
+%   a_cell: A cell matrix to be tabularized.
+%   props: A structure with any optional properties.
+%     hasTitleRow: The first row contains titles.
+%     titleColWidth: If specified, makes title cells \parbox'es with
+%     		     the given width.
+%     hasTitleCol: The first column contains titles.
 %		
-%   Returns:
-%	tex_string: LaTeX formatted table string.
+% Returns:
+%   tex_string: LaTeX formatted table string.
 %
 % See also: 
 %
@@ -52,6 +54,13 @@ for row=1:size(a_cell, 1)
     else
       add_string = [ '$' num2str(the_cell) '$' ];
     end
+    if isfield(props, 'titleColWidth') && isfield(props, 'hasTitleRow') ...
+        && row == 1
+      % ue a parbox for the title row if a width is specified
+      add_string = ...
+          [ '\parbox{' props.titleColWidth '}{\centering ' add_string '}' ...
+          ];
+    end
     row_string = [ row_string add_string ];
     if col ~= size(a_cell, 2)
       row_string = [ row_string ' & ' ];
@@ -59,7 +68,7 @@ for row=1:size(a_cell, 1)
   end
   tex_string = [ tex_string row_string '\\' sprintf('\n') ];
   if isfield(props, 'hasTitleRow') && row == 1
-    tex_string = [ tex_string '\hrule%' sprintf('\n') ]
+    tex_string = [ tex_string '\hline%' sprintf('\n') ];
   end
 end
 tex_string = [ tex_string '\end{tabular}' sprintf('\n') ];

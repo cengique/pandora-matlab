@@ -97,7 +97,9 @@ if nargin == 0 % Called with no params
 
    if size(test_results, 1) > 0 && ~ isempty(col_names) && ...
 	 size(test_results, 2) ~= length(col_names)
-     error('Number of columns in test_results and items in col_names must match.');
+     error([ 'Number of columns in test_results (' ...
+             num2str(size(test_results, 2)) ') and items in col_names (' ...
+             num2str(length(col_names)) ') must match.']);
    end
 
    obj.data = test_results;

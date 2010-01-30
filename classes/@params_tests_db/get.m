@@ -8,7 +8,7 @@ function b = get(a, attr)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
-if isfield(a, attr)
+if isfield(struct(a), attr)
   b = a.(attr);
 else
   b = get(a.tests_db, attr);

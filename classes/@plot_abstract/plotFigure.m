@@ -1,4 +1,4 @@
-function handle = plotFigure(a_plot, title_str)
+function handle = plotFigure(a_plot, title_str, props)
 
 % plotFigure - Draws this plot alone in a new figure window.
 %
@@ -7,9 +7,11 @@ function handle = plotFigure(a_plot, title_str)
 %
 % Description:
 %
-%   Parameters:
-%	a_plot: A plot_abstract object, or a subclass object.
-%	title_str: (Optional) String to append to plot title.
+% Parameters:
+%   a_plot: A plot_abstract object, or a subclass object.
+%   title_str: (Optional) String to append to plot title.
+%   props: A structure with any optional properties.
+%     figureHandle: Use this figure instead of opening a new one.
 %		
 %   Returns:
 %	handle: Handle of new figure.
@@ -30,6 +32,10 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
+if ~ exist('props', 'var')
+  props = struct;
+end
+
 s = size(a_plot);
 if max(s) > 1
   % Column vector
@@ -41,7 +47,14 @@ if max(s) > 1
   end
   handle = plotFigure(plot_stack(num2cell(a_plot), [], orientation, title_str));
 else
-  handle = figure;
+  if isfield(props, 'figureHandle')
+    handle = props.figureHandle;
+    % Use same figure, but wipe clean first
+    figure(handle); clf;
+    %set(handle, 'NextPlot', 'replace'); % clf; 
+  else
+    handle = figure;
+  end
   title = [ get(a_plot, 'title') title_str ];
   set(handle, 'Name', title);
 
@@ -98,6 +111,8 @@ else
     set(handle, a_plot.props.figureProps);
   end
 
+  % make it visible before matlab gets stuck doing other things
+  drawnow; 
 end
 
 % OBSOLETE, REDUNDANT! These are already considered in plot.m

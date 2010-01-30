@@ -3,7 +3,7 @@ function a_db = tests_db(a_sql_portal, query_string, query_id, props)
 % tests_db - Create a tests_db object from the results of a SQL query.
 %
 % Usage:
-% a_db = tests_db(a_sql_portal, query_string, props)
+% a_db = tests_db(a_sql_portal, query_string, query_id, props)
 %
 % Description:
 %   Converter function to get a tests_db object properly annotated with

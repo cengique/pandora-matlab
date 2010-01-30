@@ -55,7 +55,9 @@ if isfield(a_plot_props, 'LineStyleOrder')
 end
 
 if isfield(a_plot_props, 'ColorOrder')
-  set(gca, 'ColorOrder', a_plot_props.ColorOrder);
+  if ~ isempty(a_plot_props.ColorOrder)
+    set(gca, 'ColorOrder', a_plot_props.ColorOrder);
+  end
   if ~isnan(layout_axis)
     % Otherwise messes with superposed plots, by removing the "hold" state
     set(gca, 'NextPlot', 'replacechildren');

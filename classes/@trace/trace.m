@@ -106,8 +106,7 @@ if nargin == 0 % Called with no params
    obj = class(obj,'trace');
  elseif isa(data_src,'trace') % copy constructor?
    obj = data_src;
- else
-
+else
    if ~ exist('props','var')
      props = struct;
    end
@@ -202,7 +201,7 @@ if nargin == 0 % Called with no params
      end
 
    elseif isnumeric(data_src)
-     data = data_src;
+     data = data_src(:);                % convert to column vector
    else
      error('Unrecognized data source!');
    end

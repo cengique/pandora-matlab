@@ -78,6 +78,10 @@ a_nnet_outputs = ...
 a_nnet = feval(props.nnetFcn, a_nnet_inputs, ...
                 a_nnet_outputs, props.nnetParams{:});
 
+% debug:
+%a_nnet.outputs{1}
+%a_nnet.outputs{1}.processedRange = [0 1];
+
 % set display params
 if ~ verbose
   a_nnet.trainParam.show = NaN;
