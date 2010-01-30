@@ -18,13 +18,20 @@ end
 
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 
-disp(sprintf('\nComposed of: {'))
+display(t.param_func)
 
-for a_f = struct2cell(t.f)'
-  a_f = a_f{1};
-  display(a_f)
+disp(sprintf('\nComposed of subfunctions: '));
+
+disp(t.f)
+
+disp('{');
+
+funcs_cell = struct2cell(t.f);
+funcs_names = fieldnames(t.f);
+for num_f = 1:length(funcs_names)
+  disp([ '*** ' funcs_names{num_f} ' *** => ' ]);
+  display(funcs_cell{num_f})
 end
 
 disp('}')
 
-display(t.param_func)

@@ -19,6 +19,8 @@ end
 disp(sprintf('%s, %s', class(t), get(t, 'id')));
 %struct(t)
 
+disp(t.func);
+
 disp([ sprintf('\n') 'Parameters:' ])
 disp(displayRows(t))
 
