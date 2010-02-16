@@ -74,7 +74,7 @@ end
 
 function [act dact_dt] = act_func(p, t)
   time_ones = ones(1, length(t));
-  act = p(:, 1) * time_ones + (p(:, 2) - p(:, 1)) * time_ones .* ...
-        (1-exp(-repmat(t, size(p, 1), 1) ./ (p(:, 3) * time_ones)));
+  act = p.m0 * time_ones + (p.minf - p.m0) * time_ones .* ...
+        (1-exp(-repmat(t, size(p.m0, 1), 1) ./ (p.tau * time_ones)));
   dact_dt = NaN;
 end
