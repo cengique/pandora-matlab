@@ -1,13 +1,16 @@
 
+param_gmax.m,23
+function gmax_obj 1,0
+
 @param_act/param_act.m,152
 function a_ps 1,0
   param_names 31,895
   func_handle 32,928
-  props 38,1051
-    a_ps 42,1178
-    a_ps 45,1363
-    a_ps 47,1398
-    a_ps 48,1417
+  props 38,1054
+    a_ps 42,1181
+    a_ps 45,1366
+    a_ps 47,1401
+    a_ps 48,1420
 
 @param_act/set.m,50
 function a 1,0
@@ -17,16 +20,8 @@ function a 1,0
 function b 1,0
   b 14,474
 
-@param_func/param_func.m,205
-function ps 1,0
-    ps.var_names var_names53,2046
-    ps.func func54,2069
-    ps 55,2091
-    ps 58,2228
-    ps 68,2402
-    ps.var_names var_names69,2419
-    ps.func func70,2449
-    ps 71,2476
+@param_func/getParamNames.m,26
+function param_names 1,0
 
 @param_func/set.m,46
 function a 1,0
@@ -39,6 +34,40 @@ function b 1,0
 % $$$   errstr 20,552
 % $$$   b 23,623
 
+@param_func/private/convertParams2Ratios.m,62
+function param_vals 1,0
+  idx 40,1063
+  nonnan_idx 47,1261
+
+@param_func/private/convertRatios2Params.m,129
+function param_vals 1,0
+param_vals 38,1082
+    idx 46,1244
+  param_ratios 49,1266
+  param_abs 50,1321
+  nonnan_idx 52,1428
+
+@param_func/display.m,29
+function s 1,0
+disp(24,560
+
+@param_func/setParams.m,99
+function a_ps 1,0
+props 42,1163
+  param_idx 47,1336
+param_vals 50,1360
+all_param_vals 59,1639
+
+@param_func/getParams.m,101
+function param_vals 1,0
+props 41,1098
+  param_idx 46,1271
+param_vals 49,1295
+param_vals 50,1327
+
+@param_func/f.m,14
+function 1,0
+
 @param_func/plot_abstract.m,115
 function a_plot 1,0
 props 51,1402
@@ -48,58 +77,81 @@ x_steps 56,1539
 x_vals 57,1554
 a_plot 63,1680
 
-@param_func/private/convertParams2Ratios.m,47
-function param_vals 1,0
-  nonnan_idx 36,1087
+@param_func/getParamsStruct.m,89
+function params_struct 1,0
+props 40,1048
+  param_names 45,1205
+params_struct 48,1247
 
-@param_func/private/convertRatios2Params.m,68
-function param_vals 1,0
-  param_abs 38,1144
-  nonnan_idx 40,1241
+@param_func/setParam.m,94
+function a_pf 1,0
+  param_index 43,1138
+props 49,1270
+param_vals = geram_vals = g59,1573
 
-@param_func/display.m,36
-function s 1,0
-displayRows(22,545
-
-@param_func/setParams.m,34
-function a_ps 1,0
-props 41,1087
-
-@param_func/getParams.m,45
-function param_vals 1,0
-param_vals 40,1022
-
-@param_func/f.m,14
+@param_func/fp.m,14
 function 1,0
 
-@param_act_t/param_act_t.m,295
+@param_func/param_func.m,321
+function ps 1,0
+% See also: param_act,60,2380
+% See also: param_act, tests_db,60,2380
+    ps.var_names var_names68,2599
+    ps.func func69,2622
+    ps 70,2644
+    ps 73,2781
+      param_init_vals 85,3037
+    param_init_vals 88,3114
+    ps.var_names var_names91,3197
+    ps.func func92,3227
+    ps 93,3254
+
+test.m,85
+a_inact_t 32,1079
+a_cur 35,1166
+a_act_t 39,1282
+a_inact_t 40,1353
+a_cur 42,1429
+
+@param_act_t/param_act_t.m,347
 function a_ps 1,0
-  param_names 40,1341
-  func_handle 41,1380
-  props 47,1512
-    a_ps.m_inf m_inf51,1636
-    a_ps.tau tau52,1664
-    a_ps 53,1692
-    a_ps 56,1881
-    a_ps 58,1916
-    a_ps.m_inf m_inf59,1935
-    a_ps.tau tau60,1969
-    param_init_vals 63,2029
-    a_ps 67,2171
+  param_names 38,1263
+  func_handle 39,1302
+  props 45,1386
+    a_ps.m_inf m_inf49,1510
+    a_ps.tau tau50,1538
+    a_ps 51,1566
+    a_ps 54,1745
+    a_ps 56,1770
+    a_ps.m_inf m_inf57,1789
+    a_ps.tau tau58,1823
+    param_init_vals 65,1985
+    a_ps 69,2118
+function 75,2297
+  act 77,2371
+  dact_dt 79,2503
 
 @param_act_t/setParamV.m,33
 function a_ps 1,0
 a_ps 39,1058
 
+@param_act_t/get.m,28
+function b 1,0
+  b 14,474
+
+@param_act_t/set.m,50
+function a 1,0
+  a.param_func param_func14,455
+
 @param_tau_v/param_tau_v.m,152
 function a_ps 1,0
-  param_names 31,915
-  func_handle 32,958
-  props 38,1091
-    a_ps 42,1218
-    a_ps 45,1407
-    a_ps 47,1442
-    a_ps 48,1461
+  param_names 32,950
+  func_handle 33,993
+  props 39,1127
+    a_ps 43,1254
+    a_ps 46,1443
+    a_ps 48,1478
+    a_ps 49,1497
 
 @param_tau_v/get.m,28
 function b 1,0
@@ -109,4 +161,101 @@ function b 1,0
 function a 1,0
   a.param_func param_func14,455
 
-test.m,0
+param_I_t.m,56
+function cur_obj 1,0
+  num_Vs 6,143
+  cur_obj 11,278
+
+act_inact_cur.m,30
+function cur 1,0
+  cur 4,98
+
+@param_mult/param_mult.m,398
+function a_pm 1,0
+% See also: param_func,43,1491
+% See also: param_func, tests_db,43,1491
+  props 55,1799
+    a_pm 59,1926
+    a_pm 62,2084
+    a_pm 64,2115
+    a_pm.f f65,2134
+    %var_names var_names75,2471
+% $$$     param_names 81,2633
+% $$$     param_func_cell 82,2661
+% $$$       vn 85,2778
+% $$$       var_names 86,2810
+% $$$       pn 87,2856
+% $$$       param_names 89,2945
+
+@param_mult/get.m,28
+function b 1,0
+  b 14,474
+
+@param_mult/set.m,50
+function a 1,0
+  a.param_func param_func14,455
+
+@param_mult/getParams.m,67
+function param_vals 1,0
+param_vals 40,1015
+  param_vals 43,1110
+
+@param_mult/setParams.m,234
+function a_ps 1,0
+param_ind 41,1088
+a_ps_props 42,1103
+  f_size 46,1256
+a_ps.param_func param_func48,1299
+param_ind 51,1426
+new_fs 53,1459
+  a_f_props 57,1573
+    f_size 61,1730
+  new_fs{new_fs63,1765
+  param_ind 66,1889
+
+@param_mult/getParamNames.m,95
+function param_names 1,0
+fs_cell 32,789
+  f_name 36,906
+  pn 37,934
+  param_names 39,1046
+
+@param_mult/f.m,14
+function 1,0
+
+@param_mult/setFunc.m,19
+function a_pm 1,0
+
+@param_mult/display.m,50
+function s 1,0
+display(21,534
+  display(33,774
+
+param_act_int_v.m,92
+function a_pf 1,0
+  a_pf 36,1162
+  function 44,1368
+    dt 46,1438
+    dact_dt 51,1664
+
+param_cap_leak_int_t.m,121
+function a_pf 1,0
+  a_pf 34,1147
+  function 41,1348
+    dt 43,1411
+    % after solving Vm,48,1613
+    dIdt 50,1714
+
+param_I_v.m,204
+function a_pf 1,0
+% >> f_IClCa_v 29,1001
+% See also: param_act_int_v,31,1080
+% See also: param_act_int_v, param_func,31,1080
+% See also: param_act_int_v, param_func, tests_db,31,1080
+  a_pf 41,1316
+
+param_func_nil.m,34
+function a_pf 1,0
+  a_pf 40,855
+
+fit_example.m,0

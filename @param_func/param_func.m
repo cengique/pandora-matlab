@@ -1,5 +1,6 @@
-function ps = param_func(var_names, param_init_vals, param_names, func_handle, ...
-                        id, props)
+function ps = ...
+      param_func(var_names, param_init_vals, param_names, func_handle, ...
+                 id, props)
   
 % param_func - Holds parameters of a function, y = f(x).
 %
@@ -8,8 +9,10 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
 %
 % Parameters:
 %   var_names: Cell array of names for input and output variables, resp.
-%   param_init_vals: Initial values of function parameters.
-%   param_names: Cell array of parameter names.
+%   param_init_vals: Initial values of function parameters or struct of
+%     names and initial values.
+%   param_names: Cell array of parameter names (empty array if previous
+%     arg is a struct).
 %   func_handle: Function name or handle that takes params and variable
 %   		 to produce output.
 %   id: An identifying string for this function.
@@ -77,6 +80,11 @@ function ps = param_func(var_names, param_init_vals, param_names, func_handle, .
       props.rangeFunc = @ldsatlins;
     end
 
+    if isstruct(param_init_vals)
+      param_names = fieldnames(param_init_vals);
+      param_init_vals = cell2mat(struct2cell(param_init_vals));
+    end
+    
     param_init_vals = param_init_vals(:)'; % row vector only
     
     ps = struct;

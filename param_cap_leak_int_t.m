@@ -1,4 +1,4 @@
-function a_pf = param_cap_leak_int_t(ap_inf_v, ap_tau_v, id, props) 
+function a_pf = param_cap_leak_int_t(param_init_vals, id, props) 
   
 % param_cap_leak_int_t - Membrane capacitance and leak integrated over time.
 %
@@ -6,7 +6,9 @@ function a_pf = param_cap_leak_int_t(ap_inf_v, ap_tau_v, id, props)
 %   a_pf = param_cap_leak_int_t(ap_inf_v, ap_tau_v, id, props)
 %
 % Parameters:
-%   ap_inf_v, ap_tau_v: param_act objects for inf(v) and tau(v), resp.
+%   param_init_vals: Array or structure with initial values for Ri,
+%     Series resistance [MOhm]; gL, leak conductance [uS]; EL, leak
+%     reversal [mV]; and Cm, cell capacitance [nF]. 
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
@@ -22,33 +24,41 @@ function a_pf = param_cap_leak_int_t(ap_inf_v, ap_tau_v, id, props)
 %
 % See also: param_mult, param_func, param_act, tests_db, plot_abstract
 %
+% Example:
+% >> f_capleak = ...
+%    param_cap_leak_int_t(struct('Ri', 100, 'gL', 3, 'EL', -80, 'Cm', 1e-2), ...
+%                        ['Ca chan 3rd instar cap leak']);
+%
 % $Id: param_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
 %
-% Author: Cengiz Gunay <cgunay@emory.edu>, 2010/02/05
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/02
   
-% TODO:
-% - allow setting initial value rather than taking it from v(1)
-
   if ~ exist('props', 'var')
     props = struct;
   end
   
-  a_pf = ...
-      param_mult(...
-        {'time [ms]', 'activation'}, ...
-        [], {}, ...
-        struct('inf', ap_inf_v, ...
-               'tau', ap_tau_v), ...
-        @act_func_int, id, props);
+  if ~ isstruct(param_init_vals)
+    param_init_vals = ...
+        cell2struct(num2cell(param_init_vals(:)), ...
+                    {'Ri', 'gL', 'EL', 'Cm'}, 2);
+  end
   
-  function [act dact_dt] = act_func_int(fs, p, v_dt)
+  a_pf = ...
+      param_func(...
+        {'time [ms]', 'I_{cap+leak} [nA]'}, ...
+        param_init_vals, [], ...
+        @cap_leak_int , id, props);
+  
+  function [Im, dIdt] = cap_leak_int(p, v_dt)
     v = v_dt{1};
     dt = v_dt{2};
-    [t_tmp, act] = ...
-        ode15s(@(t,m) ((f(fs.inf, v(floor(t/dt)+1)) - m) / ...
-                       f(fs.tau, v(floor(t/dt)+1))), ...
-                       (0:(length(v) - 1))*dt, f(fs.inf, v(1)));
-    dact_dt = NaN;
+    [t_tmp, Vm] = ...
+        ode15s(@(t, Vm) ((Vm-p.EL)* p.gL + (v(floor(t/dt)+1) - Vm) ...
+                         / p.Ri )/ p.Cm, ...
+               (0:(length(v) - 1))*dt, v(1));
+    % after solving Vm, return total membrane current
+    Im = ((Vm-p.EL)* p.gL + (v - Vm) / p.Ri );
+    dIdt = NaN;
   end
 
 end

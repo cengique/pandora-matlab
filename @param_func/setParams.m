@@ -41,7 +41,8 @@ end
 
 props = mergeStructs(props, get(a_ps, 'props'));
 
-if isfield(props, 'onlySelect') && isfield(props, 'selectParams')
+if isfield(props, 'onlySelect') && props.onlySelect == 1 ...
+      && isfield(props, 'selectParams')
   param_idx = tests2cols(a_ps, props.selectParams);
 else
   param_idx = ':';
