@@ -45,6 +45,9 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO:
+% - find step times here?
+
 if nargin == 0 % Called with no params
   a_vc = struct;
   a_vc.i = trace;
