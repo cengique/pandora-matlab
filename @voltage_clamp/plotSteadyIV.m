@@ -1,13 +1,13 @@
 function a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 
-% plotSteadyIV - Plot the I/V curve at the end of a voltage step.
+% plotSteadyIV - Plot of the I/V curve at the end of a voltage step.
 %
 % Usage:
 % a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 %
 % Parameters:
 %   a_vc: A voltage clamp object.
-%   step_num: 1 for prestep, 2 for the first step, 3 for 2nd, etc.
+%   step_num: 1 for prestep, 2 for the first step, 3 for next, etc.
 %   title_str: (Optional) Text to appear in the plot title.
 %   props: A structure with any optional properties.
 %     quiet: If 1, only use given title_str.
@@ -35,6 +35,10 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+if ~ exist('title_str', 'var')
+  title_str = '';
+end
+
 if isfield(props, 'label')
   plot_label = props.label;
 else
@@ -55,46 +59,11 @@ else
       properTeXLabel([ 'I/V curve: ' cell_name title_str ]);
 end
 
-% find step start
-t_step_start = findChange(data_v(:, 1), 1, 3);
-  
-% find step ends
-t_step_end = findChange(data_v(:, 1), t_step_start + 20 / dt, 3);
-
-% calc prepulse steady-state values
-range_prepulse = (t_step_start - 10 / dt) : (t_step_start - 8 / dt);
-v_prepulse = ...
-    mean(data_v( range_prepulse, : ));
-i_prepulse = ...
-    mean(data_i( range_prepulse, : )); % Do for each current separately
-
-% calc step steady-state values
-range_steps = (t_step_end - 5 / dt) : (t_step_end - 1 / dt);
-v_steps = ...
-    mean(data_v( range_steps, : ), 1);
-
-i_steps = ...
-    mean(data_i( range_steps, : ), 1);
-
-if step_num == 1
-  % plot prepulse drift
-  a_p = ...
+a_p = ...
     plot_abstract(...
-      {v_steps, i_prepulse}, ...
-      {'step voltage [mV]', 'prepulse current [nA]'}, ...
+      {a_vc.v_steps(step_num, :), a_vc.i_steps(step_num, :)}, ...
+      {[ 'step ' num2str(step_num) ' voltage [mV]' ], 'current [nA]'}, ...
       all_title, {plot_label}, 'plot', ...
       mergeStructs(props, ...
                    struct('tightLimits', 1, ...
                           'plotProps', struct('LineWidth', 2))));
-elseif step_num == 2
-  a_p = ...
-    plot_abstract(...
-      {v_steps, i_steps}, ...
-      {'step voltage [mV]', 'current [nA]'}, ...
-      all_title, {plot_label}, 'plot', ...
-      mergeStructs(props, ...
-                   struct('tightLimits', 1, ...
-                          'plotProps', struct('LineWidth', 2))));  
-else
-  error('step_num > 2 not implemented.')
-end

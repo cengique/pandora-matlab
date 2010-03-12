@@ -25,6 +25,10 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 % Returns a structure object with the following fields:
 %   v: Voltage trace object, 
 %   i: Current trace object,
+%   time_steps: Times of voltage steps.
+%   v_steps: Mean voltage values before each step (including one after
+%            last step)
+%   i_steps: Mean current values of steady-state before each step.
 %   trace: A parent trace object to inherit methods from.
 %
 % General methods of voltage_clamp objects:
@@ -52,6 +56,9 @@ if nargin == 0 % Called with no params
   a_vc = struct;
   a_vc.i = trace;
   a_vc.v = trace;
+  a_vc.time_steps = [];
+  a_vc.v_steps = [];
+  a_vc.i_steps = [];
   a_vc = class(a_vc, 'voltage_clamp', trace);
 elseif isa(data_i, 'voltage_clamp') % copy constructor?
   a_vc = data_i;
@@ -60,9 +67,16 @@ else
     props = struct;
   end
 
+  % find time and values of voltage steps and steady-state currents
+  [time_steps, v_steps, i_steps] = ...
+    findSteps(data_v, data_i, dt, props);
+
   a_vc = struct;
   a_vc.i = trace(data_i, dt, di, [ id ', I' ], props);
   a_vc.v = trace(data_v, dt, dv, [ id ', V' ], props);
+  a_vc.time_steps = time_steps;
+  a_vc.v_steps = v_steps;
+  a_vc.i_steps = i_steps;
 
   a_vc = class(a_vc, 'voltage_clamp', trace([], dt, NaN, id, props));
 end
