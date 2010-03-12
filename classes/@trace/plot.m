@@ -44,10 +44,10 @@ if max(s) > 1
   else
     orientation = 'x';		% or horizontal
   end
-  plotFigure(plot_stack(num2cell(plotData(t)), [], orientation, title_str, props));
+  plotFigure(plot_stack(num2cell(plot_abstract(t)), [], orientation, title_str, props));
   %for i=1:length(t)
   %  plot(t(i), title_str);
   %end
 else
-  h = plotFigure(plotData(t, title_str, props));
+  h = plotFigure(plot_abstract(t, title_str, props));
 end
