@@ -97,8 +97,20 @@ catch
   end
 end
 
+if isfield(s_props, 'minInit2MaxAmp')
+    min_tm_amp = s_props.minInit2MaxAmp;
+else
+    min_tm_amp = 10;
+end
+
+if isfield(s_props, 'minMin2MaxAmp')
+    min_mm_amp = s_props.minMin2MaxAmp;
+else
+    min_mm_amp = 10;
+end
+
 % Sanity check for amplitude
-if  (max_val - init_val) * mV_factor < 10 
+if  (max_val - init_val) * mV_factor < min_tm_amp
   error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
 end
 
@@ -107,7 +119,7 @@ end
       calcWidthFall(s, peak_idx, peak_mag, init_idx, init_val, -10 * 1e-3);
 
 % Sanity check for amplitude (2)
-if (max_val - min_val) * mV_factor < 10
+if (max_val - min_val) * mV_factor < min_mm_amp
   error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
 end
 

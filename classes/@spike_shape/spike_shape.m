@@ -72,9 +72,8 @@ elseif isa(data, 'spike_shape') % copy constructor?
   obj = data;
 else
 
-
   if ~ exist('props', 'var')
-    props = struct([]);
+    props = struct;
   end
 
   if ~ isfield(props, 'init_Vm_method')
@@ -83,8 +82,14 @@ else
     % (no upper bound works more reliably)
     % OR
     %props(1).init_Vm_method = 7; % supersampled derivative threshold method
-    props(1).init_Vm_method = 8; % max vPP curvature, fallback on derivative threshold method
-    props(1).init_threshold = 15; % threshold crossing derivative in V/s (= mV/ms)
+    
+    % max vPP curvature, fallback on derivative threshold method
+    props.init_Vm_method = 8; 
+    % threshold crossing derivative in V/s (= mV/ms)
+    % do not overwrite if already set
+    if ~ isfield(props, 'init_threshold')
+      props.init_threshold = 15; 
+    end
   end
 
   trace_obj = trace(data, dt, dy, id, props);

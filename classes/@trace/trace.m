@@ -35,8 +35,15 @@ function obj = trace(data_src, dt, dy, id, props)
 %         traces: Trace numbers as a numeric array or as a string with
 %         	numeric ranges (e.g., '1 2 5-10 28') for PCDX files.
 %	  spike_finder: Method of finding spikes 
-%	                (1 for findFilteredSpikes, 2 for findspikes).
-%	  threshold: Spike threshold needed when using the findspikes method above.
+%	                (1 for findFilteredSpikes, 2 for Li Su's
+%	                findspikes, and 3 for Alfonso Delgado Reyes's 
+%			findspikes_old). Methods 2 and 3 require a threshold.
+%	  threshold: Spike threshold needed when using the findspikes
+%	  	     method above. Either a scalar, or [thres1 thres2] 
+%		     to define a range.
+%	  minInit2MaxAmp, minMin2MaxAmp: Minimal allowed values for
+%	  	     initial point to max point and minimal point to 
+%	             max point, resp.
 %	  init_Vm_method: Method of finding spike thresholds during spike
 %	  		shape calculation (see spike_shape/spike_shape).
 %	  init_threshold: Spike initiation threshold (deriv or accel).
@@ -201,7 +208,10 @@ else
      end
 
    elseif isnumeric(data_src)
-     data = data_src(:);                % convert to column vector
+     data = data_src;
+     if size(data_src, 2) > size(data_src, 2)
+       data = data';            % convert to column vector
+     end
    else
      error('Unrecognized data source!');
    end

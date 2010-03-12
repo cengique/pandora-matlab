@@ -35,7 +35,7 @@ function obj = getSpike(t, s, spike_num, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props', 'var')
-  props = struct([]);
+  props = struct;
 end
 
 num_traces = length(t);
@@ -64,10 +64,12 @@ if isempty(s)
   s = spikes(t);
 end
 
-trace_props = get(trace, 'props');
+trace_props = get(t, 'props');
 
 % Copy some props from trace to spike_shape
-copy_from_trace = {'init_Vm_method', 'init_threshold', 'init_lo_thr', 'init_hi_thr'};
+copy_from_trace = ...
+    {'init_Vm_method', 'init_threshold', 'init_lo_thr', ...
+     'init_hi_thr', 'minInit2MaxAmp', 'minMin2MaxAmp'};
 for i=1:length(copy_from_trace)
   if isfield(trace_props, copy_from_trace{i})
     props.(copy_from_trace{i}) = trace_props.(copy_from_trace{i});

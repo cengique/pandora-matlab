@@ -1,4 +1,4 @@
-#LyX 1.5.3 created this file. For more info see http://www.lyx.org/
+#LyX 1.5.5 created this file. For more info see http://www.lyx.org/
 \lyxformat 276
 \begin_document
 \begin_header
@@ -839,7 +839,7 @@ makebox[0pt]{
 
 \begin_inset Graphics
 	filename db-overview.eps
-	display none
+	lyxscale 50
 	width 80page%
 
 \end_inset
@@ -938,7 +938,7 @@ reference "figcap:Database-overview"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \align center
@@ -957,7 +957,7 @@ makebox[0pt]{
 
 \begin_inset Graphics
 	filename DB-classes.eps
-	display none
+	lyxscale 50
 	width 90page%
 
 \end_inset
