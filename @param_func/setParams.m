@@ -9,7 +9,7 @@ function a_ps = setParams(a_ps, param_vals, props)
 %   a_ps: A param_func object.
 %   param_vals: Vector of new parameter values.
 %   props: A structure with any optional properties.
-%     direct: If 1, set parameters directly as relative range ratios.
+%     direct: If 1, set parameters directly as relative range ratios (default=1).
 %     onlySelect: If 1, return only parameters listed in selectParams prop.
 %		
 % Returns:
@@ -39,6 +39,9 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+% defaults
+props = mergeStructs(props, struct('direct', 1));
+
 props = mergeStructs(props, get(a_ps, 'props'));
 
 if isfield(props, 'onlySelect') && props.onlySelect == 1 ...
@@ -50,7 +53,7 @@ end
 
 param_vals = param_vals(:)';            % row vector only
 
-if ~ isfield(props, 'direct')
+if ~ isfield(props, 'direct') || props.direct == 0
   param_vals = ...
       convertParams2Ratios(param_vals, ...
                            mergeStructs(struct('onlyIdx', param_idx), ...

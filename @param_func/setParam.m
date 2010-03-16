@@ -10,7 +10,7 @@ function a_pf = setParam(a_pf, param_name, value, props)
 %   param_name: Name of param to be set.
 %   value: New parameter value.
 %   props: A structure with any optional properties.
-%     direct: If 1, set parameters directly as relative range ratios.
+%     direct: If 1, set parameters directly as relative range ratios (default=1).
 %		
 % Returns:
 %   a_pf: Object with new parameter values.
@@ -39,6 +39,9 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+% defaults
+props = mergeStructs(props, struct('direct', 1));
+
 try
   param_index = tests2cols(a_pf, param_name);
 catch
@@ -48,7 +51,7 @@ end
 
 props = mergeStructs(props, get(a_pf, 'props'));
 
-if ~ isfield(props, 'direct')
+if ~ isfield(props, 'direct') || props.direct == 0
   value = ...
       convertParams2Ratios(value, ...
                            mergeStructs(struct('onlyIdx', param_index), ...

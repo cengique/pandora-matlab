@@ -18,13 +18,14 @@ function ps = ...
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 %     xMin, xMax: Minimal and maximal values for input variable, x.
-%     paramRanges: 2xn matrix of min and max values of each parameter.
+%     paramRanges: 2xn matrix of min (row 1) and max values of each parameter.
 %		If a non-NaN range is specified for a parameter
 %		its parameters automatically become a ratio between [0,1]
 %		that point inside this range.
 %     rangeFunc: Function that translates range ratios into parameter
 %     		values. Options are 'satlin' for saturated linear and
 %     		'logsig' for logistic sigmoid (default='satlin'). 
+%     direct: If 1, set parameters directly as relative range ratios (default=1).
 %     selectParams: Cell of param names that can be selected by g/setParams.
 %		
 % Returns a structure object with the following fields:
@@ -35,6 +36,10 @@ function ps = ...
 % function of a single variable, y = f(x). This is intended for describing
 % functions like m_inf and tau_inf curves. Uses tests_db to store
 % parameter name and values.
+%   If props.direct = 0 and paramRanges are given, saves parameters as value
+% between [0, 1] that correspond to the range given. This helps bounding the
+% parameter values during optimization when the optimizer does not allow
+% bounding parameters.
 %
 % General operations on param_func objects:
 %   param_func		- Construct a new param_func object.
@@ -76,6 +81,9 @@ function ps = ...
       props = struct;
     end
     
+    % defaults
+    props = mergeStructs(props, struct('direct', 1));
+
     if ~isfield(props, 'rangeFunc')
       props.rangeFunc = @ldsatlins;
     end
@@ -84,14 +92,20 @@ function ps = ...
       param_names = fieldnames(param_init_vals);
       param_init_vals = cell2mat(struct2cell(param_init_vals));
     end
-    
-    param_init_vals = param_init_vals(:)'; % row vector only
+
+    % row vector only
+    param_init_vals = param_init_vals(:)';
+
+    % use range-scaled values if specified
+    if ~ isfield(props, 'direct') || props.direct == 0
+      param_init_vals = convertParams2Ratios(param_init_vals, props);
+    end
     
     ps = struct;
     ps.var_names = var_names;
     ps.func = func_handle;
     ps = class(ps, 'param_func', ...
-               tests_db(convertParams2Ratios(param_init_vals, props), ...
+               tests_db(param_init_vals, ...
                         param_names, {}, id, props));
   end
 
