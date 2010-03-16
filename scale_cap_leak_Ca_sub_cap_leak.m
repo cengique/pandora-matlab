@@ -65,7 +65,7 @@ end
       mean(data_i( range_steps, : ), 1);
 
   % select the initial part before Ca currents get activated
-  range_cap_resp = floor((23:dt:28)/dt);
+  range_cap_resp = floor(23/dt + 0.49):1:floor(25/dt + 0.49);
 
   % nicely plot current and voltage trace in separate axes  
   plotFigure(...
