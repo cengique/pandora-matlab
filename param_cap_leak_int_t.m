@@ -6,9 +6,9 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %   a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %
 % Parameters:
-%   param_init_vals: Array or structure with initial values for 
-%     series resistance, Ri [MOhm]; leak conductance, gL [uS]; leak
-%     reversal, EL [mV]; cell capacitance, Cm [nF], and a delay [ms]. 
+%   param_init_vals: Array or structure with initial values for leak
+%     conductance, gL [uS]; leak reversal, EL [mV]; cell capacitance, Cm
+%     [nF], and a delay [ms].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
@@ -26,12 +26,13 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %
 % Example:
 % >> f_capleak = ...
-%    param_cap_leak_int_t(struct('Ri', 100, 'gL', 3, 'EL', -80, 'Cm', 1e-2), ...
+%    param_cap_leak_int_t(struct('gL', 3, 'EL', -80, ...
+%				 'Cm', 1e-2, 'delay', .1), ...
 %                        ['Ca chan 3rd instar cap leak']);
 %
 % $Id: param_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
 %
-% Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/02
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/16
   
 % TODO:
   
@@ -43,12 +44,21 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_names_ordered = {'Ri', 'gL', 'EL', 'Cm', 'delay'};
+  param_names_ordered = {'gL', 'EL', 'Cm', 'delay'};
   if ~ isstruct(param_init_vals)
     param_init_vals = ...
         cell2struct(num2cell(param_init_vals(:)'), ...
                     param_names_ordered, 2);
   else
+    % check if field names match to what this object needs
+    if length(intersect(fieldnames(param_init_vals), ...
+                        param_names_ordered)) ~= length(param_names_ordered)
+      disp('Provided params:')
+      disp(param_init_vals)
+      disp('Required param names:')
+      disp(param_names_ordered)
+      error([ 'Parameters supplied mismatch! See above.' ]);
+    end
     % make sure they're ordered consistently to match the range description
     param_init_vals = ...
         orderfields(param_init_vals, param_names_ordered);
@@ -56,8 +66,8 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
   
   % physiologic parameter ranges
   param_ranges = ...
-      [ eps eps -200 eps 0;...
-        1e3 1e3 100 1e3  10];
+      [ eps -200 eps 0;...
+        1e3 100 1e3  10];
   
   a_pf = ...
       param_func(...
@@ -66,26 +76,26 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function [Im, dIdt] = cap_leak_int(p, v_dt)
-    v = v_dt{1};
+  function [Ic, dIdt] = cap_leak_int(p, v_dt)
+    Vc = v_dt{1};
     dt = v_dt{2};
     
-    Im = repmat(NaN, size(v));
-    delay_dt = floor(p.delay/dt + 0.5);
+    %Ic = repmat(NaN, size(Vc));
     
-    % do columns of data separately
-    for col_num = 1:size(v, 2)
-      [t_tmp, Vm] = ...
-          ode15s(@(t, Vm) ...
-                 (- (Vm - p.EL) * p.gL + ...
-                  (v(max(floor(t/dt + 0.5) + 1 - delay_dt, 1), col_num) - Vm) / p.Ri ) ...
-                 / p.Cm, ...
-                 (0:(length(v) - 1))*dt, v(1, col_num));
-      % after solving Vm, return total input current
-      Im(:, col_num) = ...
-          ([repmat(v(1, col_num), delay_dt, 1); ...
-            v(1:(end-delay_dt), col_num)] - Vm) / p.Ri;
-    end
+    % do the delay as float and interpolate Vc so that the fitting
+    % algorithm can move it around
+    delay_dt = p.delay/dt;
+    delay_dt_int = floor(delay_dt);
+    delay_dt_frac = delay_dt - delay_dt_int;
+    
+    Vc_delay = ...
+        [ repmat(Vc(1, :), delay_dt_int + 1, 1); ...
+          Vc(2:(end-delay_dt_int), :) - ...
+          delay_dt_frac * ...
+          diff(Vc(1:(end-delay_dt_int), :)) ];
+    Ic = ...
+        p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
+        (Vc_delay - p.EL) * p.gL;
     dIdt = NaN;
   end
 
