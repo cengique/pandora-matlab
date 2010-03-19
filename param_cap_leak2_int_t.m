@@ -80,20 +80,22 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
     Vc = v_dt{1};
     dt = v_dt{2};
     
-    Ic = repmat(NaN, size(Vc));
+    %Ic = repmat(NaN, size(Vc));
     
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around
-    delay_dt = floor(p.delay/dt + 0.49);
+    delay_dt = p.delay/dt;
+    delay_dt_int = floor(delay_dt);
+    delay_dt_frac = delay_dt - delay_dt_int;
     
-    % do columns of data separately
-    for col_num = 1:size(Vc, 2)
-      Vc_col = ...
-          [ repmat(Vc(1, col_num), delay_dt, 1); ...
-            Vc(1:(end-delay_dt), col_num)];
-      Ic(:, col_num) = ...
-          p.Cm * [diff(Vc_col); 0] / dt + (Vc_col - p.EL) * p.gL;
-    end
+    Vc_delay = ...
+        [ repmat(Vc(1, :), delay_dt_int + 1, 1); ...
+          Vc(2:(end-delay_dt_int), :) - ...
+          delay_dt_frac * ...
+          diff(Vc(1:(end-delay_dt_int), :)) ];
+    Ic = ...
+        p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
+        (Vc_delay - p.EL) * p.gL;
     dIdt = NaN;
   end
 
