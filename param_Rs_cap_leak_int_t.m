@@ -7,7 +7,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %
 % Parameters:
 %   param_init_vals: Array or structure with initial values for 
-%     series resistance, Ri [MOhm]; leak conductance, gL [uS]; leak
+%     series resistance, Rs [MOhm]; leak conductance, gL [uS]; leak
 %     reversal, EL [mV]; cell capacitance, Cm [nF], and a delay [ms]. 
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
@@ -26,7 +26,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %
 % Example:
 % >> f_capleak = ...
-%    param_cap_leak_int_t(struct('Ri', 100, 'gL', 3, 'EL', -80, 'Cm', 1e-2), ...
+%    param_cap_leak_int_t(struct('Rs', 100, 'gL', 3, 'EL', -80, 'Cm', 1e-2), ...
 %                        ['Ca chan 3rd instar cap leak']);
 %
 % $Id: param_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
@@ -43,7 +43,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_names_ordered = {'Ri', 'gL', 'EL', 'Cm', 'delay'};
+  param_names_ordered = {'Rs', 'gL', 'EL', 'Cm', 'delay'};
   if ~ isstruct(param_init_vals)
     param_init_vals = ...
         cell2struct(num2cell(param_init_vals(:)'), ...
@@ -56,8 +56,8 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
   
   % physiologic parameter ranges
   param_ranges = ...
-      [ eps eps -200 eps 0;...
-        1e3 1e3 100 1e3  10];
+      [ eps eps -100 eps 0;...
+        1e3 1e3 -50 1e3  10];
   
   a_pf = ...
       param_func(...
@@ -67,25 +67,40 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
   function [Im, dIdt] = cap_leak_int(p, v_dt)
-    v = v_dt{1};
+    Vc = v_dt{1};
     dt = v_dt{2};
     
-    Im = repmat(NaN, size(v));
-    delay_dt = floor(p.delay/dt + 0.5);
+    % do the delay as float and interpolate Vc so that the fitting
+    % algorithm can move it around
+    delay_dt = p.delay/dt;
+    delay_dt_int = floor(delay_dt);
+    delay_dt_frac = delay_dt - delay_dt_int;
+
+    % prefix some data to reach steady-state
+    fixed_delay = round(2/dt);
+
+    % make a new vector for delayed voltage
+    Vc_delay = ...
+        [ repmat(Vc(1, :), fixed_delay + delay_dt_int + 1, 1); ...
+          Vc(2:(end-delay_dt_int), :) - ...
+          delay_dt_frac * ...
+          diff(Vc(1:(end-delay_dt_int), :)) ];
+
+    [t_tmp, Vm] = ...
+        ode15s(@(t, Vm) ...
+               (- (Vm - p.EL) * p.gL + ...
+                (Vc_delay(round(t/dt) + 1, :)' - Vm) / p.Rs ) / p.Cm, ...
+        (0:(size(Vc_delay, 1) - 1))*dt, Vc(1, :));
     
-    % do columns of data separately
-    for col_num = 1:size(v, 2)
-      [t_tmp, Vm] = ...
-          ode15s(@(t, Vm) ...
-                 (- (Vm - p.EL) * p.gL + ...
-                  (v(max(floor(t/dt + 0.5) + 1 - delay_dt, 1), col_num) - Vm) / p.Ri ) ...
-                 / p.Cm, ...
-                 (0:(length(v) - 1))*dt, v(1, col_num));
-      % after solving Vm, return total input current
-      Im(:, col_num) = ...
-          ([repmat(v(1, col_num), delay_dt, 1); ...
-            v(1:(end-delay_dt), col_num)] - Vm) / p.Ri;
-    end
+    % after solving Vm, return total input current (except manual
+    % correction for leak at -70 mV)
+    Im = (Vc_delay - Vm) / p.Rs - ...
+         ones(size(Vc_delay, 1), 1) * (Vc_delay(fixed_delay, :) - Vm(fixed_delay, :)) / p.Rs;
+    %ones(size(Vc, 1), 1) * (Vm(fixed_delay, :) - p.EL) * p.gL;
+    
+    % crop the fixed_delay part
+    Im = Im((fixed_delay + 1):end, :);
+
     dIdt = NaN;
   end
 

@@ -36,7 +36,10 @@ function a_ps = param_tau_v(param_init_vals, id, props)
     props = struct;
   end
 
-  props = mergeStructs(props, struct('xMin', -100, 'xMax', 100));
+  props = mergeStructs(props, ...
+                       struct('xMin', -100, 'xMax', 100, ...
+                              'paramRanges', ...
+                              [0 100; -100 100; -100 100; -100 100]'));
 
   if nargin == 0 % Called with no params
     a_ps = struct;

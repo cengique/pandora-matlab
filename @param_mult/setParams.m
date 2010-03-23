@@ -56,12 +56,13 @@ fs_names = fieldnames(a_ps.f);
 for f_num = 1:length(new_fs)
   a_f = new_fs{f_num};
   a_f_props = get(a_f, 'props');
-  if isfield(props, 'onlySelect') && props.onlySelect == 1 ...
-      && isfield(a_f_props, 'selectParams')
-    f_size = length(a_f_props.selectParams);
-  else
-    f_size = dbsize(a_f, 2);
-  end
+  f_size = length(getParams(a_f, props));
+  %if isfield(props, 'onlySelect') && props.onlySelect == 1 ...
+  %    && isfield(a_f_props, 'selectParams')
+  % f_size = length(a_f_props.selectParams);
+  %else
+  %f_size = dbsize(a_f, 2);
+  %end
   new_fs{f_num} = ...
       setParams(a_f, param_vals(param_ind:(param_ind - 1 + f_size)), ...
                      props);

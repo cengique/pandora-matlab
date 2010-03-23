@@ -48,8 +48,8 @@ par = getParams(a_ps, struct('onlySelect', 1)); % initial params
 param_ranges = getParamRanges(a_ps, struct('onlySelect', 1));
 
 optimset_props = ...
-    optimset('MaxIter', 1000, 'Display', 'iter', ...
-             'MaxFunEvals', 1000, 'TolFun', 1e-8);
+    struct('MaxIter', 1000, 'Display', 'iter', ...
+           'MaxFunEvals', 1000, 'TolFun', 1e-8);
     
 if isfield(props, 'optimset')
   optimset_props = mergeStructs(props.optimset, optimset_props);

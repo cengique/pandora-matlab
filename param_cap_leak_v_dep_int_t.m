@@ -1,20 +1,21 @@
-function a_pf = param_cap_leak_int_t(param_init_vals, id, props) 
+function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props) 
   
-% param_cap_leak_int_t - Membrane capacitance and leak integrated over time.
+% param_cap_leak_v_dep_int_t - Membrane capacitance and leak plus voltage-dependent ionic currents integrated over time.
 %
 % Usage:
-%   a_pf = param_cap_leak_int_t(param_init_vals, id, props)
+%   a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props)
 %
 % Parameters:
 %   param_init_vals: Array or structure with initial values for leak
 %     conductance, gL [uS]; leak reversal, EL [mV]; cell capacitance, Cm
 %     [nF], and a delay [ms].
+%   v_dep_I_f: A param_func that realizes {V [mV], dt [ms]} -> I [nA].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
 %		
-% Returns:
-%   a_pf: A param_func object that can be evaluated and fitted.
+% Returns a structure object with the following fields:
+%   a_pf: The param_multi function.
 %
 % Description:
 %   Defines a function f(a_pf, {v, dt}) where v is an array of voltage
@@ -24,15 +25,16 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %
 % Example:
 % >> f_capleak = ...
-%    param_cap_leak_int_t(struct('gL', 3, 'EL', -80, ...
+%    param_cap_leak_v_dep_int_t(struct('gL', 3, 'EL', -80, ...
 %				 'Cm', 1e-2, 'delay', .1), ...
 %                        ['Ca chan 3rd instar cap leak']);
 %
-% $Id: param_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id: param_cap_leak_v_dep_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/16
   
 % TODO:
+% - this can be replaced by a generic param_mult_sum function  
   
   if ~ exist('props', 'var')
     props = struct;
@@ -68,13 +70,14 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
         1e3 100 1e3  10];
   
   a_pf = ...
-      param_func(...
+      param_mult(...
         {'time [ms]', 'I_{cap+leak} [nA]'}, ...
         param_init_vals, [], ...
+        struct('I', v_dep_I_f), ...
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function [Ic, dIdt] = cap_leak_int(p, v_dt)
+  function [Ic, dIdt] = cap_leak_int(fs, p, v_dt)
     Vc = v_dt{1};
     dt = v_dt{2};
     
@@ -91,7 +94,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
           diff(Vc(1:(end-delay_dt_int), :)) ];
     Ic = ...
         p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
-        (Vc_delay - p.EL) * p.gL;
+        (Vc_delay - p.EL) * p.gL + f(fs.I, {Vc, dt});
     dIdt = NaN;
   end
 
