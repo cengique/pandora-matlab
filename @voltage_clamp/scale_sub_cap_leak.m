@@ -1,14 +1,14 @@
 function [f_capleak sub_vc] = ...
-      scale_cap_leak_Ca_sub_cap_leak(filename, title_str, props)
+      scale_sub_cap_leak(a_vc, title_str, props)
 
-% scale_cap_leak_Ca_sub_cap_leak - Scale capacitance and leak artifacts to subtract them.
+% scale_sub_cap_leak - Scale capacitance and leak artifacts to subtract them.
 %
 % Usage:
 % params = 
-%   scale_cap_leak_Ca_sub_cap_leak(filename, props)
+%   scale_sub_cap_leak(a_vc, props)
 %
 % Parameters:
-%   filename: Full path to filename.
+%   a_vc: Full path to a_vc.
 %   props: A structure with any optional properties.
 %     capLeakModel: Model object to fit (default obtained from
 %     param_cap_leak_int_t). Can choose object obtained from another
@@ -27,12 +27,12 @@ function [f_capleak sub_vc] = ...
 %
 % Example:
 % >> [time, dt, data_i, data_v, cell_name] = ...
-%    scale_cap_leak_Ca_sub_cap_leak('data-dir/cell-A.abf')
+%    scale_sub_cap_leak(abf2voltage_clamp('data-dir/cell-A.abf'))
 % >> plotVclampStack(time, data_i, data_v, cell_name);
 %
 % See also: param_I_v, param_func
 %
-% $Id: scale_cap_leak_Ca_sub_cap_leak.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id: scale_sub_cap_leak.m 1174 2009-03-31 03:14:21Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 
@@ -44,9 +44,6 @@ function [f_capleak sub_vc] = ...
 
 props = defaultValue('props', struct);
 title_str = defaultValue('title_str', '');
-
-% load data from ABF file
-a_vc = abf2voltage_clamp(filename, props);
 
 dt = get(a_vc, 'dt');
 cell_name = get(a_vc, 'id');
@@ -154,18 +151,17 @@ plotFigure(...
   line_colors = lines(length(v_steps)); %hsv(length(v_steps));
 
   % choose the range
-  range_steps = (a_vc.time_steps(1) - 1 / dt) : (a_vc.time_steps(2) + 5 / dt);
+  period_range = period(round(a_vc.time_steps(1) - 1 / dt), ...
+                        round(a_vc.time_steps(2) + 5 / dt));
+  range_steps = array(period_range);
 
-  Im = f(f_capleak, { a_vc.v.data(range_steps, :), dt});
-
-  % subtract the cap+leak part
-  data_sub_capleak = a_vc.i.data;
-  data_sub_capleak(range_steps, :) = data_sub_capleak(range_steps, :) - Im;
-
-  sub_vc = a_vc; 
-  sub_vc.i.data = data_sub_capleak;
+  % restrict the a_vc to given range to prepare for subtraction
+  a_range_vc = withinPeriod(a_vc, period_range); 
   
-  % superpose over data
+  model_vc = simModel(a_range_vc, f_capleak);
+  
+  % subtract the cap+leak part
+  sub_vc = a_range_vc - model_vc;
   
   if isfield(props, 'quiet')
     all_title = properTeXLabel(title_str);
@@ -174,19 +170,20 @@ plotFigure(...
         properTeXLabel([ cell_name ': Sim + sub data' extra_text title_str ]);
   end
 
+  % superpose over data  
   plotFigure(...
     plot_stack({...
       plot_superpose({...
         plot_abstract({time, a_vc.i.data}, {'time [ms]', 'I [nA]'}, ...
                       'data', v_legend, 'plot', ...
                       struct('ColorOrder', line_colors)), ...
-        plot_abstract({time(range_steps), Im}, ...
+        plot_abstract({time(range_steps), model_vc.i.data}, ...
                       {'time [ms]', 'I [nA]'}, ...
                       'est. I_{cap+leak}', {}, 'plot', ...
                       struct('plotProps', struct('LineWidth', 2), ...
                              'ColorOrder', line_colors))}, ...
                      {}, '', struct('noCombine', 1)), ...
-      plot_abstract({time, data_sub_capleak}, ...
+      plot_abstract({time(range_steps), sub_vc.i.data}, ...
                     {'time [ms]', 'I [nA]'}, ...
                     'data - I_{cap+leak}', {}, 'plot', ...
                     struct('ColorOrder', line_colors, ...
@@ -197,13 +194,7 @@ plotFigure(...
                       'fixedSize', [4 3], 'noTitle', 1)));
 
 if isfield(props, 'saveData')
-  % extract cell name and path from file
-  [pathstr, cell_name, ext, versn] = fileparts(filename);
-  %%
-  % write to text file for NeuroFit
-  dlmwrite([ pathstr filesep cell_name ' sub ' ...
-             get(f_capleak, 'id') '.txt' ], ...
-           [time(:), data_sub_capleak], ' ' );
+  saveDataTxt(sub_vc);
 end
 
 end
