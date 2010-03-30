@@ -32,7 +32,7 @@ function [f_capleak sub_vc] = ...
 %
 % See also: param_I_v, param_func
 %
-% $Id: scale_cap_leak_Ca_sub_cap_leak.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 

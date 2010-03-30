@@ -20,7 +20,7 @@ function plot_handle = plotVclampAbf(filename, props)
 % 
 % See also: loadVclampAbf, plotVclampStack
 %
-% $Id: plotVclampAbf.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/12/17
 
