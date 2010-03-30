@@ -38,31 +38,33 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+% select which levels to simulate
+if isfield(props, 'levels')
+  % only few (faster)
+  a_vc = setLevels(a_vc, props.levels);
+end
+
 dt = get(a_vc, 'dt');
 
-data_i = get(a_vc.i, 'data');
 data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
-time = (0:(size(data_i, 1)-1))*dt;
+time = (0:(size(data_v, 1)-1))*dt;
 
 % choose the range
 period_range = ...
-    period(max(1, (a_vc.time_steps(1) - round(10 / dt))), ...
-           min(size(data_v, 1), (a_vc.time_steps(2) + round(10 / dt))));
+    period((a_vc.time_steps(1) - round(10 / dt)), ...
+           (a_vc.time_steps(2) + round(10 / dt)));
+
+% set and update the period
+[a_vc period_range] = ...
+    withinPeriod(a_vc, period_range, struct('useAvailable', 1));
+
 range_steps = array(period_range);
 
 if isfield(props, 'delay')
   v_delay = props.delay; % ms, for space clamp error delay
 else
   v_delay = 0; 
-end
-
-% select which levels to simulate
-if isfield(props, 'levels')
-  % only few (faster)
-  v_step_idx = v_step_idx(props.levels);
-else
-  v_step_idx = 1:length(a_vc.v_steps);
 end
     
 % model data in vc
@@ -72,7 +74,7 @@ model_vc = a_vc;
 model_vc.i = ...
     set(model_vc.i, 'data', ...
                     f(f_I_v, { data_v(max(1, range_steps - round(v_delay/dt)), ...
-                                      v_step_idx ), dt}));
+                                      : ), dt}));
 % set a name
 model_vc = set(model_vc, 'id', [ 'sim ' get(f_I_v, 'id') ]);
 

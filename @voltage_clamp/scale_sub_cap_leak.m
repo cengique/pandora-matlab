@@ -41,6 +41,7 @@ function [f_capleak sub_vc] = ...
 % - prepare a doc_multi from this. Find a way to label figures but print later.
 % - also plot IClCa m_infty curve?
 % - have option to show no plots, to create database of params
+% - extract fitting to a separate function that returns the optimized _f
 
 props = defaultValue('props', struct);
 title_str = defaultValue('title_str', '');

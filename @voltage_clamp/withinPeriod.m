@@ -1,20 +1,21 @@
-function a_vc = withinPeriod(a_vc, a_period, props)
+function [a_vc a_period] = withinPeriod(a_vc, a_period, props)
 
 % withinPeriod - Returns a voltage_clamp object valid only within the given period.
 %
 % Usage:
-% a_vc = withinPeriod(a_vc, a_period, props)
+% [a_vc a_period] = withinPeriod(a_vc, a_period, props)
 %
 % Description:
 %
-%   Parameters:
-%	a_vc: A voltage_clamp object.
-%	a_period: The desired period [dt].
-%	props: A structure with any optional properties.
-%	  useAvailable: If 1, don't stop if period not available, use maximum available.
+% Parameters:
+%   a_vc: A voltage_clamp object.
+%   a_period: The desired period [dt].
+%   props: A structure with any optional properties.
+%     useAvailable: If 1, don't stop if period not available, use maximum available.
 %
-%   Returns:
-%	a_vc: A voltage_clamp object
+% Returns:
+%   a_vc: A voltage_clamp object
+%   a_period: The period object, updated if useAvailable is requested.
 %
 % See also: trace/withinPeriod, trace, period
 %
@@ -32,8 +33,8 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-a_vc.i = withinPeriod(a_vc.i, a_period, props);
-a_vc.v = withinPeriod(a_vc.v, a_period, props);
+[a_vc.i a_period] = withinPeriod(a_vc.i, a_period, props);
+[a_vc.v a_period] = withinPeriod(a_vc.v, a_period, props);
 
 num_samples = size(a_vc.v.data, 1);
 

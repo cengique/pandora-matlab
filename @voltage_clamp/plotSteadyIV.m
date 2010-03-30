@@ -12,6 +12,7 @@ function a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 %   props: A structure with any optional properties.
 %     quiet: If 1, only use given title_str.
 %     label: add this as a line label to be used in superposed plots.
+%     plotPeaks: If 1, use the props.iPeaks instead of steady-state.
 %		
 % Returns:
 %   a_p: A plot_abstract object.
@@ -39,11 +40,7 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if isfield(props, 'label')
-  plot_label = props.label;
-else
-  plot_label = 'data';
-end
+plot_label = getFieldDefault(props, 'label', 'data');
 
 dt = get(a_vc, 'dt');
 
@@ -51,6 +48,7 @@ data_i = get(a_vc.i, 'data');
 data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
 time = (0:(size(data_i, 1)-1))*dt;
+vc_props = get(a_vc, 'props');
 
 if isfield(props, 'quiet')
   all_title = properTeXLabel(title_str);
@@ -59,11 +57,17 @@ else
       properTeXLabel([ 'I/V curve: ' cell_name title_str ]);
 end
 
+if isfield(props, 'plotPeaks')
+  i_steps = vc_props.iPeaks;
+else
+  i_steps = a_vc.i_steps(step_num, :);
+end
+
 a_p = ...
     plot_abstract(...
-      {a_vc.v_steps(step_num, :), a_vc.i_steps(step_num, :)}, ...
+      {a_vc.v_steps(step_num, :), i_steps}, ...
       {[ 'step ' num2str(step_num) ' voltage [mV]' ], 'current [nA]'}, ...
       all_title, {plot_label}, 'plot', ...
-      mergeStructs(props, ...
-                   struct('tightLimits', 1, ...
-                          'plotProps', struct('LineWidth', 2))));
+      mergeStructsRecursive(props, ...
+                            struct('tightLimits', 1, ...
+                                   'plotProps', struct('LineWidth', 2))));

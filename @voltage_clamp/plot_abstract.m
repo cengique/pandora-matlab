@@ -40,7 +40,7 @@ end
 
 if isfield(props, 'label')
   plot_label = props.label;
-  cur_label = 'I_{' props.label '} [nA]';
+  cur_label = [ 'I_{' props.label '} [nA]' ];
 else
   plot_label = 'data';
   cur_label = 'I [nA]';
