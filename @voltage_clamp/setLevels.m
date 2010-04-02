@@ -16,7 +16,7 @@ function a_vc = setLevels(a_vc, levels, props)
 % Description:
 %
 % Example:
-% >> a_vc = setLevels(a_vc, 1:3) % only select the first 5 levels
+% >> a_vc = setLevels(a_vc, 1:3) % only select the first few levels
 %
 % See also: voltage_clamp
 %

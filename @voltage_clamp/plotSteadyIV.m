@@ -13,6 +13,10 @@ function a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 %     quiet: If 1, only use given title_str.
 %     label: add this as a line label to be used in superposed plots.
 %     plotPeaks: If 1, use the props.iPeaks instead of steady-state.
+%     stepRange: Uses the relative [start end] times in [ms] around 
+%       time of step_num to calculate the current averages. If vector has
+%       3 items, first one is the step number, which can be different
+%       than step_num.
 %		
 % Returns:
 %   a_p: A plot_abstract object.
@@ -59,6 +63,17 @@ end
 
 if isfield(props, 'plotPeaks')
   i_steps = vc_props.iPeaks;
+elseif isfield(props, 'stepRange')
+  if length(props.stepRange) > 2
+    cur_step_num = props.stepRange(1);
+    props.stepRange = props.stepRange(2:3);
+  else
+    cur_step_num = step_num;
+  end
+  props.stepRange = a_vc.time_steps(cur_step_num) + ...
+      round(props.stepRange / dt);
+  i_steps = ...
+      mean(a_vc.i.data(props.stepRange(1):props.stepRange(2), :));
 else
   i_steps = a_vc.i_steps(step_num, :);
 end
