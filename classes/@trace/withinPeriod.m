@@ -1,9 +1,9 @@
-function obj = withinPeriod(t, a_period, props)
+function [obj a_period] = withinPeriod(t, a_period, props)
 
 % withinPeriod - Returns a trace object valid only within the given period.
 %
 % Usage:
-% obj = withinPeriod(t, a_period, props)
+% [obj a_period] = withinPeriod(t, a_period, props)
 %
 % Description:
 %
@@ -15,6 +15,7 @@ function obj = withinPeriod(t, a_period, props)
 %
 %   Returns:
 %	obj: A trace object
+%	a_period: The period object, updated if useAvailable is requested.
 %
 % See also: trace, period
 %
@@ -37,20 +38,23 @@ if ~ exist('props', 'var')
 end
 
 try
-    if isfield(props, 'useAvailable')
-      t.data = t.data(max(1, a_period.start_time):min(a_period.end_time, length(t.data)));
-    else
-      t.data = t.data(a_period.start_time:a_period.end_time);
-    end
+  if isfield(props, 'useAvailable')
+    a_period = ...
+        period(max(1, a_period.start_time), ...
+               min(a_period.end_time, ...
+                   size(t.data, 1)));
+  end
+  t.data = t.data(a_period.start_time:a_period.end_time, :);
 catch
   err = lasterror;
-  if err.identifier == 'MATLAB:badsubscript'
-    error([ 'The requested period (' num2str(a_period.start_time) ', ' num2str(a_period.end_time) ...
-	    ') is out of range of the trace ' t.id ' with length ' num2str(length(t.data)) ]);
+  if strcmp(err.identifier, 'MATLAB:badsubscript')
+    error([ 'The requested period (' num2str(a_period.start_time) ...
+            ', ' num2str(a_period.end_time) ...
+	    ') is out of range of the trace ' t.id ' with length ' ...
+            num2str(size(t.data, 1)) '. Try prop useAvailable.']);
   else
     rethrow(err);
   end
 end
 
 obj = t;
-
