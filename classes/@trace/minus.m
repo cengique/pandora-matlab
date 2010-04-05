@@ -32,4 +32,4 @@ if ~ exist('props', 'var')
 end
 
 sub_tr = set(left_tr, 'data', get(left_tr, 'data') - get(right_tr, 'data'));
-sub_tr = set(sub_tr, 'id', [get(left_tr, 'id') ' - ' get(right_tr, 'id') ]);
+sub_tr = set(sub_tr, 'id', [get(left_tr, 'id') ' sub ' get(right_tr, 'id') ]);
