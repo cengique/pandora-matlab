@@ -22,7 +22,7 @@ function a_ps = setParamV(a_ps, V_pre, V_now, props)
 %
 % See also: param_act, param_tau_v, param_func
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/02
 

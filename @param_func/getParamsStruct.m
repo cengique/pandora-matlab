@@ -23,7 +23,7 @@ function params_struct = getParamsStruct(a_ps, props)
 %
 % See also: getParams, param_func
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/01
 

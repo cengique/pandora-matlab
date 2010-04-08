@@ -22,7 +22,7 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 %
 % See also: param_func, lsqcurvefit, optimset
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/04
 

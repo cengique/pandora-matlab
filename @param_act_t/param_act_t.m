@@ -28,7 +28,7 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
 %
 % See also: param_func, param_act, tests_db, plot_abstract
 %
-% $Id: param_act_t.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/02
 

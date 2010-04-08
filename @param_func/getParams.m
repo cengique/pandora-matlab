@@ -24,7 +24,7 @@ function param_vals = getParams(a_ps, props)
 %
 % See also: param_func
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/01
 

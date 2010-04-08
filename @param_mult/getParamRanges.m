@@ -23,7 +23,7 @@ function param_ranges = getParamRanges(a_ps, props)
 %
 % See also: param_func, param_mult
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/04
 

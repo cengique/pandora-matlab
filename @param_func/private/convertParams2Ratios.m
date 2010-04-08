@@ -20,7 +20,7 @@ function param_vals = convertParams2Ratios(param_vals, props)
 %
 % See also: param_func
 %
-% $Id: convertParams2Ratios.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/01
 

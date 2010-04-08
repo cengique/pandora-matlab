@@ -23,7 +23,7 @@ function a_ps = param_tau_v(param_init_vals, id, props)
 %
 % See also: param_func, param_act, param_act_t, tests_db, plot_abstract
 %
-% $Id: param_tau_v.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/06/02
 

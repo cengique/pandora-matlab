@@ -25,7 +25,7 @@ function a_pf = setParam(a_pf, param_name, value, props)
 %
 % See also: param_func
 %
-% $Id: func.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/18
 

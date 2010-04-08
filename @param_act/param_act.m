@@ -23,7 +23,7 @@ function a_ps = param_act(param_init_vals, id, props)
 %
 % See also: param_func, param_gate_inf, tests_db, plot_abstract
 %
-% $Id: param_act.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/05/29
 

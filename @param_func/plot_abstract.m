@@ -25,7 +25,7 @@ function a_plot = plot_abstract(a_ps, title_str, props)
 %
 % See also: plot_abstract/plot_abstract, plotFigure
 %
-% $Id: plot_abstract.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/05/28
 

@@ -29,7 +29,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %                                      -80, 'Cm', 1e-2, delay, .1), ...
 %                        ['cap, leak, Re, Ce']);
 %
-% $Id: param_Re_Ce_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/02
   

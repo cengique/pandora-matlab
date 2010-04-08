@@ -30,7 +30,7 @@ function a_pf = ...
 %
 % See also: param_act_int_v, param_func, tests_db, plot_abstract
 %
-% $Id: param_I_v.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 

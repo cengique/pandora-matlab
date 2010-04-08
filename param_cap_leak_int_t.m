@@ -28,7 +28,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %				 'Cm', 1e-2, 'delay', .1), ...
 %                        ['Ca chan 3rd instar cap leak']);
 %
-% $Id: param_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/16
   

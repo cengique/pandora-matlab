@@ -20,7 +20,7 @@ function [y dy] = fp(a_ps, p, x)
 %
 % See also: param_func
 %
-% $Id: fp.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/12/09
 
