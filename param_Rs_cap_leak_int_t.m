@@ -1,9 +1,9 @@
-function a_pf = param_cap_leak_int_t(param_init_vals, id, props) 
+function a_pf = param_Rs_cap_leak_int_t(param_init_vals, id, props) 
   
-% param_cap_leak_int_t - Membrane capacitance and leak integrated over time.
+% param_Rs_cap_leak_int_t - Membrane capacitance and leak integrated over time.
 %
 % Usage:
-%   a_pf = param_cap_leak_int_t(param_init_vals, id, props)
+%   a_pf = param_Rs_cap_leak_int_t(param_init_vals, id, props)
 %
 % Parameters:
 %   param_init_vals: Array or structure with initial values for 
@@ -26,10 +26,10 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %
 % Example:
 % >> f_capleak = ...
-%    param_cap_leak_int_t(struct('Rs', 100, 'gL', 3, 'EL', -80, 'Cm', 1e-2), ...
+%    param_Rs_cap_leak_int_t(struct('Rs', 100, 'gL', 3, 'EL', -80, 'Cm', 1e-2), ...
 %                        ['Ca chan 3rd instar cap leak']);
 %
-% $Id: param_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id: param_Rs_cap_leak_int_t.m 1174 2009-03-31 03:14:21Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/02
   
