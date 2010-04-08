@@ -8,7 +8,7 @@ function a_pf = ...
 %     param_I_v(param_vals, a_param_act, a_param_inact, id, props)
 %
 % Parameters:
-%   param_vals: Values for p, q, gmax and E.
+%   param_vals: Values for p, q, gmax [uS] and E [mV].
 %   a_param_act, a_param_inact: param_act objects for m and h, resp.,
 %   	obtained using the param_act_int_v function.
 %   id: An identifying string for this function.
