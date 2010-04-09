@@ -56,10 +56,10 @@ end
 
 switch props.timeScale
   case 's'
-    time = (1:length(t.data)) * t.dt; % in s
+    time = (1:size(t.data, 1)) * t.dt; % in s
     xlabel = 'time [s]';
   case 'ms'
-    time = (1:length(t.data)) * t.dt * 1e3; % in ms
+    time = (1:size(t.data, 1)) * t.dt * 1e3; % in ms
     xlabel = 'time [ms]';
 end
 

@@ -31,5 +31,26 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-sub_tr = set(left_tr, 'data', get(left_tr, 'data') - get(right_tr, 'data'));
-sub_tr = set(sub_tr, 'id', [get(left_tr, 'id') ' sub ' get(right_tr, 'id') ]);
+[left_data left_name a_tr] = getData(left_tr, []);
+[right_data right_name a_tr] = getData(right_tr, a_tr);
+
+sub_tr = set(a_tr, 'data', left_data - right_data);
+sub_tr = set(sub_tr, 'id', [left_name ' sub ' right_name ]);
+
+end
+
+function [data name a_tr] = getData(tr, a_tr)
+if isa(tr, 'trace')
+  data = get(tr, 'data');
+  if isempty(a_tr), a_tr = tr; end
+  name = get(tr, 'id');
+elseif isnumeric(tr)
+  data = tr;
+  name = 'a constant';
+else
+  disp('Cannot use in subtraction:');
+  disp(class(tr));
+  error('One of the operands is neither a trace or numeric data. See above.');
+end
+
+end
