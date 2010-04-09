@@ -46,7 +46,7 @@ end
 
 plot_label = getFieldDefault(props, 'label', 'data');
 
-dt = get(a_vc, 'dt');
+dt = get(a_vc, 'dt') * 1e3;             % convert to ms
 
 data_i = get(a_vc.i, 'data');
 data_v = get(a_vc.v, 'data');

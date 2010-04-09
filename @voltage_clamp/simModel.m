@@ -11,6 +11,7 @@ function model_vc = simModel(a_vc, f_I_v, props)
 %   props: A structure with any optional properties.
 %     delay: If given, use as voltage clamp delay [ms].
 %     levels: Only simulate these voltage level indices.
+%     period: Limit the simulation to this period of a_vc.
 %		
 % Returns:
 %   model_vc: A voltage_clamp object with simulated current data and
@@ -44,16 +45,16 @@ if isfield(props, 'levels')
   a_vc = setLevels(a_vc, props.levels);
 end
 
-dt = get(a_vc, 'dt');
+dt = get(a_vc, 'dt') * 1e3;             % convert to ms
 
 data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
 time = (0:(size(data_v, 1)-1))*dt;
 
 % choose the range
-period_range = ...
-    period((a_vc.time_steps(1) - round(10 / dt)), ...
-           (a_vc.time_steps(2) + round(10 / dt)));
+period_range = getFieldDefault(props, 'period', periodWhole(a_vc));
+% $$$ period((a_vc.time_steps(1) - round(10 / dt)), ...
+% $$$        (a_vc.time_steps(2) + round(10 / dt)));
 
 % set and update the period
 [a_vc period_range] = ...
@@ -80,6 +81,7 @@ model_vc = set(model_vc, 'id', [ 'sim ' get(f_I_v, 'id') ]);
 
 % recalculate values of step steady-state currents
 [time_steps, v_steps, i_steps] = ...
-    findSteps(model_vc.v.data, model_vc.i.data, get(model_vc, 'dt'), props);
+    findSteps(model_vc.v.data, model_vc.i.data, ...
+              get(model_vc, 'dt') * 1e3, props);
 
 model_vc.i_steps = i_steps;

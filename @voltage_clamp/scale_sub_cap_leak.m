@@ -4,8 +4,7 @@ function [f_capleak sub_vc] = ...
 % scale_sub_cap_leak - Scale capacitance and leak artifacts to subtract them.
 %
 % Usage:
-% params = 
-%   scale_sub_cap_leak(a_vc, props)
+% [f_capleak sub_vc] = scale_sub_cap_leak(a_vc, props)
 %
 % Parameters:
 %   a_vc: Full path to a_vc.
@@ -21,14 +20,25 @@ function [f_capleak sub_vc] = ...
 %     quiet: If 1, do not include cell name on title.
 % 
 % Returns:
-%   params: Structure with tuned parameters.
+%   f_capleak: Updated function with fitted parameters
+%   sub_vc: voltage_clamp object with passive-subtracted I trace.
 %
 % Description:
 %
 % Example:
-% >> [time, dt, data_i, data_v, cell_name] = ...
-%    scale_sub_cap_leak(abf2voltage_clamp('data-dir/cell-A.abf'))
-% >> plotVclampStack(time, data_i, data_v, cell_name);
+% % set up a function with passive electrode and membrane parameters
+% >> capleakReCe_f = ...
+%    param_Re_Ce_cap_leak_int_t(...
+%      struct('Re', 47, 'Ce', 12, 'gL', .56, ...
+%             'EL', -67, 'Cm', 270, 'delay', 0.21), ...
+%                         ['cap, leak, Re and Ce']);
+% % load ABF file and use above function to fit selected voltage steps
+% >> [capleakReCe_f sub_cap_leak_vc ] = ...
+%    scale_sub_cap_leak(...
+%      abf2voltage_clamp('calcium.abf'), '', ...
+%      struct('capLeakModel', capleakReCe_f, ...
+%             'fitRangeRel', [-.2 165], 'fitLevels', 1:5, ...
+%             'optimset', struct('Display', 'iter')));
 %
 % See also: param_I_v, param_func
 %
@@ -46,7 +56,7 @@ function [f_capleak sub_vc] = ...
 props = defaultValue('props', struct);
 title_str = defaultValue('title_str', '');
 
-dt = get(a_vc, 'dt');
+dt = get(a_vc, 'dt') * 1e3;             % convert to ms
 cell_name = get(a_vc, 'id');
 
 time = (0:(size(a_vc.v.data, 1) - 1)) * dt;
@@ -152,13 +162,14 @@ plotFigure(...
   line_colors = lines(length(v_steps)); %hsv(length(v_steps));
 
   % choose the range
-  period_range = period(round(a_vc.time_steps(1) - 1 / dt), ...
-                        round(a_vc.time_steps(2) + 5 / dt));
-  range_steps = array(period_range);
+  period_range = period(round(a_vc.time_steps(1) - 10 / dt), ...
+                        round(a_vc.time_steps(2) + 50 / dt));
 
   % restrict the a_vc to given range to prepare for subtraction
-  a_range_vc = withinPeriod(a_vc, period_range); 
-  
+  [a_range_vc period_range] = withinPeriod(a_vc, period_range); 
+
+  range_steps = array(period_range);
+
   model_vc = simModel(a_range_vc, f_capleak);
   
   % subtract the cap+leak part

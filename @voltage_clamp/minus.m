@@ -41,7 +41,7 @@ sub_vc = set(sub_vc, 'id', [get(left_vc, 'id') ' - ' get(right_vc, 'id') ]);
 
 % recalculate values of step steady-state currents
 [time_steps, v_steps, i_steps] = ...
-    findSteps(sub_vc.v.data, sub_vc.i.data, get(sub_vc, 'dt'), props);
+    findSteps(sub_vc.v.data, sub_vc.i.data, get(sub_vc, 'dt') * 1e3, props);
 
 sub_vc.i_steps = i_steps;
 

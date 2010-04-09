@@ -69,7 +69,7 @@ else
 
   % find time and values of voltage steps and steady-state currents
   [time_steps, v_steps, i_steps] = ...
-    findSteps(data_v, data_i, dt, props);
+    findSteps(data_v, data_i, dt * 1e3, props);
 
   a_vc = struct;
   a_vc.i = trace(data_i, dt, di, [ id ', I' ], props);
