@@ -60,8 +60,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
   
   % physiologic parameter ranges
   param_ranges = ...
-      [ eps eps eps -100 eps 0  -.1;...
-        1e3 1e3 1e3 -50 1e3  10  .1];
+      [ eps eps eps -100 eps 0  -.2;...
+        1e3 1e3 1e3 -50 1e3  10  .2];
   
   a_pf = ...
       param_func(...
@@ -81,7 +81,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     delay_dt_frac = delay_dt - delay_dt_int;
 
     % prefix some data to reach steady-state
-    fixed_delay = round(2/dt);
+    fixed_delay = round(10/dt);
 
     % make a new vector for delayed voltage
     Vc_delay = ...
