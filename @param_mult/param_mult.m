@@ -56,6 +56,7 @@ function a_pm = ...
 
   if nargin == 0 % Called with no params
     a_pm = struct;
+    a_pm.f = struct;
     a_pm = class(a_pm, 'param_mult', ...
                  param_func({}, [], {}, [], '', props));
   elseif isa(param_funcs, 'param_mult') % copy constructor?
