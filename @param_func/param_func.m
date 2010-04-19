@@ -68,6 +68,9 @@ function ps = ...
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/05/28
 
+% TODO: 
+% - make this independent of tests_db! use a struct to hold param values
+
   if nargin == 0 % Called with no params
     ps = struct;
     ps.var_names = {};
