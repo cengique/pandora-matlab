@@ -40,11 +40,13 @@ for k=1:nargin
     fields = fieldnames(varargin{k});
     % find common fields and look for structures
     [commonfields common_idx] = intersect(fieldcell, fields);
-    for common_id = common_idx
-      left_struct = valcell{common_id};
-      if isstruct(left_struct)
-        valcell{common_id} = ...
-            mergeStructsRecursive(left_struct, getfield(varargin{k}, fieldcell{common_id}));
+    if ~isempty(common_idx)
+      for common_id = common_idx
+        left_struct = valcell{common_id};
+        if isstruct(left_struct)
+          valcell{common_id} = ...
+              mergeStructsRecursive(left_struct, getfield(varargin{k}, fieldcell{common_id}));
+        end
       end
     end
     % find new fields on right-hand-side argument
