@@ -163,7 +163,7 @@ plotFigure(...
 
   % choose the range
   period_range = period(round(a_vc.time_steps(1) - 10 / dt), ...
-                        round(a_vc.time_steps(2) + 50 / dt));
+                        round(a_vc.time_steps(2) + 30 / dt));
 
   % restrict the a_vc to given range to prepare for subtraction
   [a_range_vc period_range] = withinPeriod(a_vc, period_range); 
