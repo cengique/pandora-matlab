@@ -166,7 +166,8 @@ plotFigure(...
                         round(a_vc.time_steps(2) + 30 / dt));
 
   % restrict the a_vc to given range to prepare for subtraction
-  [a_range_vc period_range] = withinPeriod(a_vc, period_range); 
+  [a_range_vc period_range] = ...
+      withinPeriod(a_vc, period_range, struct('useAvailable', 1)); 
 
   range_steps = array(period_range);
 

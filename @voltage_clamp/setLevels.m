@@ -39,4 +39,4 @@ a_vc.i_steps = a_vc.i_steps(:, levels);
 a_vc.v_steps = a_vc.v_steps(:, levels);
 
 a_vc = set(a_vc, 'id', [ get(a_vc, 'id') '; levels: [' ...
-                    sprintf('%d ', use_levels) ']' ] );
+                    sprintf('%d ', levels) ']' ] );
