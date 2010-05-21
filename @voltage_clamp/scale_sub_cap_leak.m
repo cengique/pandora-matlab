@@ -18,6 +18,7 @@ function [f_capleak sub_vc] = ...
 %     dispParams: If 1, display params at end of each iteration.
 %     saveData: If 1, save subtracted data into a new text file (default=0).
 %     quiet: If 1, do not include cell name on title.
+%     period: Limit the subtraction to this period of a_vc.
 % 
 % Returns:
 %   f_capleak: Updated function with fitted parameters
@@ -162,8 +163,9 @@ plotFigure(...
   line_colors = lines(length(v_steps)); %hsv(length(v_steps));
 
   % choose the range
-  period_range = period(round(a_vc.time_steps(1) - 10 / dt), ...
-                        round(a_vc.time_steps(2) + 30 / dt));
+  period_range = getFieldDefault(props, 'period', periodWhole(a_vc));
+% $$$   period_range = period(round(a_vc.time_steps(1) - 10 / dt), ...
+% $$$                         round(a_vc.time_steps(2) + 30 / dt));
 
   % restrict the a_vc to given range to prepare for subtraction
   [a_range_vc period_range] = ...
