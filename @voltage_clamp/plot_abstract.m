@@ -12,6 +12,7 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %     quiet: If 1, only use given title_str.
 %     label: add this as a line label to be used in superposed plots.
 %     onlyPlot: 'i' for current and 'v' for voltage plot.
+%     vColors: If 1 (default), always use same colors for same voltage levels.
 %     (rest passed to plot_stack and plot_abstract)
 %		
 % Returns:
@@ -38,12 +39,22 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+% assume 2nd step is the main pulse
+v_steps = a_vc.v_steps(2, :);
+
+v_legend = ...
+    cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
+            num2cell(v_steps'), ...
+            'UniformOutput', false);
+
 if isfield(props, 'label')
   plot_label = props.label;
   cur_label = [ 'I_{' props.label '} [nA]' ];
+  cur_legends = { plot_label };
 else
   plot_label = 'data';
   cur_label = 'I [nA]';
+  cur_legends = v_legend;
 end
 
 dt = get(a_vc, 'dt') * 1e3;             % convert to ms
@@ -60,19 +71,10 @@ else
       properTeXLabel([ cell_name title_str ]);
 end
 
-% assume 2nd step is the main pulse
-v_steps = a_vc.v_steps(2, :);
-
-v_legend = ...
-    cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
-            num2cell(v_steps'), ...
-            'UniformOutput', false);
-
 % use consistent colors
 line_colors = lines(length(v_steps)); 
 
 % common x-axis limits
-
 axis_limits = ...
     getFieldDefault(...
       props, 'axisLimits', ...
@@ -80,20 +82,22 @@ axis_limits = ...
        min(a_vc.time_steps(end) * dt + 10, size(data_v, 1) * dt), ...
        NaN NaN]);
 
+plot_props = mergeStructs(props, struct('axisLimits', axis_limits));
+
+if ~isfield(props, 'vColors') || props.vColors ~= 0
+  plot_props = mergeStructs(plot_props, struct('ColorOrder', line_colors));
+end
+
 plot_i = ...
     plot_abstract({time, data_i}, {'time [ms]', cur_label}, ...
-                  all_title, v_legend, 'plot', ...
-                  mergeStructs(props, ...
-                               struct('ColorOrder', line_colors, ...
-                                      'axisLimits', axis_limits)));
+                  all_title, cur_legends, 'plot', ...
+                  plot_props);
 
 plot_v = ...
     plot_abstract({time, data_v}, ...
                     {'time [ms]', 'V [mV]'}, ...
                     all_title, {plot_label}, 'plot', ...
-                    mergeStructs(props, ...
-                                 struct('ColorOrder', line_colors, ...
-                                        'axisLimits', axis_limits)));
+                    plot_props);
 
 if ~ isfield(props, 'onlyPlot')
   % create a vertical stack plot
