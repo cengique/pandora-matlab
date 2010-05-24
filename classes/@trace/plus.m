@@ -1,9 +1,9 @@
-function sub_tr = minus(left_tr, right_tr, props)
+function sub_tr = plus(left_tr, right_tr, props)
 
-% minus - Subtract trace object right_tr from left_tr.
+% plus - Subtract trace object right_tr from left_tr.
 %
 % Usage:
-% sub_tr = minus(left_tr, right_tr, props)
+% sub_tr = plus(left_tr, right_tr, props)
 %
 % Parameters:
 %   left_tr, right_tr: trace objects.
@@ -15,15 +15,15 @@ function sub_tr = minus(left_tr, right_tr, props)
 % Description:
 %
 % Example:
-% >> sub_tr = minus(vc1, vc2)
+% >> sub_tr = plus(vc1, vc2)
 % OR
-% >> sub_tr = vc1 - vc2;
+% >> sub_tr = vc1 + vc2;
 % plot the subtracted voltage clamp
 % >> plot(sub_tr)
 %
-% See also: trace, minus
+% See also: trace, plus
 %
-% $Id: minus.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id: plus.m 1174 2009-03-31 03:14:21Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/11
 
@@ -31,4 +31,4 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-sub_tr = binary_op(left_tr, right_tr, @minus, '-');
+sub_tr = binary_op(left_tr, right_tr, @plus, '+');
