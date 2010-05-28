@@ -8,6 +8,7 @@ function saveDataTxt(a_vc, props)
 % Parameters:
 %   a_vc: A voltage_clamp object.
 %   props: A structure with any optional properties.
+%     addName: String to append to file name.
 %		
 % Returns:
 %
@@ -40,5 +41,5 @@ vc_props = get(a_vc, 'props');
 [pathstr, cell_name, ext, versn] = fileparts(vc_props.filename);
 
 % write to text file for NeuroFit (time + current traces)
-dlmwrite([ pathstr filesep cell_name '.txt' ], ...
+dlmwrite([ pathstr filesep cell_name getFieldDefault(props, 'addName', '') '.txt' ], ...
          [time(:), data_i], ' ' );
