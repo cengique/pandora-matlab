@@ -14,7 +14,8 @@ function [f_capleak sub_vc] = ...
 %     function such as: param_Rs_cap_leak_int_t, param_cap_leak_2comp_int_t.
 %     fitRange: Start and end times of range to apply the optimization [ms].
 %     fitRangeRel: Start and end times of range relative to first voltage step [ms].
-%     fitLevels: Indices of voltage/current levels to use from clamp data.
+%     fitLevels: Indices of voltage/current levels to use from clamp
+%     		 data. If empty, not fit is done.
 %     dispParams: If 1, display params at end of each iteration.
 %     saveData: If 1, save subtracted data into a new text file (default=0).
 %     quiet: If 1, do not include cell name on title.
@@ -106,7 +107,21 @@ else
       mergeStructsRecursive(props, struct('optimset', optimset));      
 end
 
-disp('Fitting...');
+  function stop = disp_out(x, optimValues, state)
+    disp(getParamsStruct(setParams(f_capleak, x, struct('onlySelect', 1))));
+    stop = false;
+  end
+
+  % list of voltage steps for labeling
+  v_steps = a_vc.v_steps(2, :);
+  v_legend = ...
+      cellfun(@(x)([ sprintf('%.0f', x) ' mV']), num2cell(v_steps'), ...
+              'UniformOutput', false);
+
+  params = getParamsStruct(f_capleak);
+
+if ~ isempty(use_levels)
+  disp('Fitting...');
   %select_params = {'Ri', 'Cm', 'delay'}
   %select_params = {'gL', 'EL'}
   %f_capleak = setProp(f_capleak, 'selectParams', select_params); 
@@ -117,23 +132,15 @@ disp('Fitting...');
                {a_vc.v.data(range_cap_resp, use_levels), dt}, ...
                a_vc.i.data(range_cap_resp, use_levels), ...
                props);
-
-  function stop = disp_out(x, optimValues, state)
-    disp(getParamsStruct(setParams(f_capleak, x, struct('onlySelect', 1))));
-    stop = false;
-  end
   
   % show all parameters
   params = getParamsStruct(f_capleak)
+
 
   Im = f(f_capleak, { a_vc.v.data(range_cap_resp, use_levels), dt});
 
   % nicely plot current and voltage trace in separate axes only for
   % part fitted
-  v_steps = a_vc.v_steps(2, :);
-  v_legend = ...
-      cellfun(@(x)([ sprintf('%.0f', x) ' mV']), num2cell(v_steps'), ...
-              'UniformOutput', false);
 
   line_colors = lines(length(use_levels)); %hsv(length(v_steps));
 
@@ -160,6 +167,8 @@ plotFigure(...
              struct('titlesPos', 'none', 'xLabelsPos', 'bottom', ...
                     'fixedSize', [4 3], 'noTitle', 1)));
 
+end
+
   line_colors = lines(length(v_steps)); %hsv(length(v_steps));
 
   % choose the range
@@ -175,8 +184,11 @@ plotFigure(...
 
   model_vc = simModel(a_range_vc, f_capleak);
   
-  % subtract the cap+leak part
+  % subtract the cap+leak part from current
   sub_vc = a_range_vc - model_vc;
+  
+  % recalculate voltage traces based on series resistance
+  sub_vc.v = sub_vc.v - model_vc.i * params.Re;
   
   if isfield(props, 'quiet')
     all_title = properTeXLabel(title_str);
