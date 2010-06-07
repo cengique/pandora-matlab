@@ -12,10 +12,12 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %     [ms], and a current "offset" [nA].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
-% 	   (Rest passed to param_func)
+%     v_dep_I_f: A voltage-dependent current that is simulated with
+%     		Vm. That is, A param_func with {V [mV], dt [ms]} -> I [nA].
+%     (Rest passed to param_mult)
 %		
-% Returns a structure object with the following fields:
-%	param_mult: Holds the inf and tau functions.
+% Returns:
+%	a_pf: a param_mult object.
 %
 % Description:
 %   Defines a function f(a_pf, {v, dt}) where v is an array of voltage
@@ -63,14 +65,17 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
       [ eps eps eps -100 eps 0  -.2;...
         1e3 1e3 1e3 -50 1e3  10  .2];
   
+  v_dep_I_f = getFieldDefault(props, 'v_dep_I_f', param_func_nil(0));
+  
   a_pf = ...
-      param_func(...
+      param_mult(...
         {'time [ms]', 'I_{cap+leak+electrode} [nA]'}, ...
         param_init_vals, [], ...
+        struct('I', v_dep_I_f), ...        
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function [Im, dIdt] = cap_leak_int(p, v_dt)
+  function [Im, dIdt] = cap_leak_int(fs, p, v_dt)
     Vc = v_dt{1};
     dt = v_dt{2};
     
@@ -90,21 +95,21 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
           delay_dt_frac * ...
           diff(Vc(1:(end-delay_dt_int), :)) ];
 
+    % get a handle with fixed parameters first
+    f_I_h = fHandle(fs.I);
+    
     [t_tmp, Vm] = ...
         ode15s(@(t, Vm) ...
-               (- (Vm - p.EL) * p.gL + ...
+               (- (Vm - p.EL) * p.gL + f_I_h({Vc, dt}) + ...
                 (Vc_delay(round(t/dt) + 1, :)' - Vm) / p.Re ) / p.Cm, ...
         (0:(size(Vc_delay, 1) - 1))*dt, Vc(1, :));
     
-    % after solving Vm, return total input current (except manual
-    % correction for leak at -70 mV)
+    % after solving Vm, return total input current
     Im = p.offset + ...
          p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt ...
          + (Vc_delay - Vm) / p.Re;% ...
-                                  %- ones(size(Vc_delay, 1), 1) * (Vc_delay(fixed_delay, :) - Vm(fixed_delay, :)) / p.Re;
-    %ones(size(Vc, 1), 1) * (Vm(fixed_delay, :) - p.EL) * p.gL;
     
-    % crop the fixed_delay part
+    % crop the prepended fixed_delay
     Im = Im((fixed_delay + 1):end, :);
 
     dIdt = NaN;
