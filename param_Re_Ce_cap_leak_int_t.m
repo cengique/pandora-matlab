@@ -7,9 +7,9 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %
 % Parameters:
 %   param_init_vals: Array or structure with initial values for electrode
-%     resistance, Re [MOhm], and capacitance, Ce [nF]; leak conductance, gL
-%     [uS]; leak reversal, EL [mV]; cell capacitance, Cm [nF], a delay
-%     [ms], and a current offset error [nA].
+%     resistance, 'Re' [MOhm], and capacitance, 'Ce' [nF]; leak conductance, 'gL'
+%     [uS]; leak reversal, 'EL' [mV]; cell capacitance, 'Cm' [nF], a 'delay'
+%     [ms], and a current "offset" [nA].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
