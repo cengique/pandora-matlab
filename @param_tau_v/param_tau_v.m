@@ -30,7 +30,7 @@ function a_ps = param_tau_v(param_init_vals, id, props)
 % TODO: doesn't need to be a class
   var_names = {'voltage [mV]', 'time constant [ms]'};
   param_names = {'a', 'b', 'V_half', 'k'};
-  func_handle = @(p,x) deal(p.a + p.b./(1 + exp((x+p.V_half) ./ p.k)), NaN);
+  func_handle = @(p,x) p.a + p.b./(1 + exp((x+p.V_half) ./ p.k));
 
   if ~ exist('props', 'var')
     props = struct;

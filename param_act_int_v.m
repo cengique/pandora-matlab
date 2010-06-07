@@ -41,14 +41,13 @@ function a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props)
                'tau', ap_tau_v), ...
         @act_func_int, id, props);
   
-  function [act dact_dt] = act_func_int(fs, p, v_dt)
+  function act = act_func_int(fs, p, v_dt)
     v = v_dt{1};
     dt = v_dt{2};
     [t_tmp, act] = ...
         ode15s(@(t,m) ((f(fs.inf, v(round(t/dt)+1, :)') - m) ./ ...
                        f(fs.tau, v(round(t/dt)+1, :)')), ...
                        (0:(size(v, 1) - 1))*dt, f(fs.inf, v(1, :)));
-    dact_dt = NaN;
   end
 
 end

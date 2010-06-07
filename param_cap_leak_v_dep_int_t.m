@@ -77,7 +77,7 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function [Ic, dIdt] = cap_leak_int(fs, p, v_dt)
+  function Ic = cap_leak_int(fs, p, v_dt)
     Vc = v_dt{1};
     dt = v_dt{2};
     
@@ -95,7 +95,6 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
     Ic = ...
         p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
         (Vc_delay - p.EL) * p.gL + f(fs.I, {Vc, dt});
-    dIdt = NaN;
   end
 
 end

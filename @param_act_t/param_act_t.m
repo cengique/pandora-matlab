@@ -72,9 +72,8 @@ function a_ps = param_act_t(V_pre, V_now, a_param_m_inf_v, a_param_tau_v, id, pr
   end
 end
 
-function [act dact_dt] = act_func(p, t)
+function act = act_func(p, t)
   time_ones = ones(1, length(t));
   act = p.m0 * time_ones + (p.minf - p.m0) * time_ones .* ...
         (1-exp(-repmat(t, size(p.m0, 1), 1) ./ (p.tau * time_ones)));
-  dact_dt = NaN;
 end

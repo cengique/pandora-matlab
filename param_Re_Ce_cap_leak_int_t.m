@@ -75,7 +75,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function [Im, dIdt] = cap_leak_int(fs, p, v_dt)
+  function Im = cap_leak_int(fs, p, v_dt)
     Vc = v_dt{1};
     dt = v_dt{2};
     
@@ -111,8 +111,6 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     
     % crop the prepended fixed_delay
     Im = Im((fixed_delay + 1):end, :);
-
-    dIdt = NaN;
   end
 
 end
