@@ -1,16 +1,16 @@
-function [y dy] = f(a_ps, x)
+function y = f(a_ps, x)
 
 % f - Evaluates the function at point x.
 %
 % Usage:
-%   [y dy] = f(a_ps, x)
+%   y = f(a_ps, x)
 %
 % Parameters:
 %   a_ps: A param_func object.
 %   x: Input to the function.
 %		
 % Returns:
-%   y, dy: The value and time derivative (optional) of the function at x.
+%   y: The value of the function at x.
 %
 % Description:
 %
@@ -29,4 +29,4 @@ function [y dy] = f(a_ps, x)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-[y, dy] = feval(get(a_ps, 'func'), a_ps.f, getParamsStruct(a_ps.param_func), x);
+y = feval(get(a_ps, 'func'), a_ps.f, getParamsStruct(a_ps.param_func), x);

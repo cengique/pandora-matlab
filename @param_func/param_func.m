@@ -27,6 +27,8 @@ function ps = ...
 %     		'logsig' for logistic sigmoid (default='satlin'). 
 %     direct: If 1, set parameters directly as relative range ratios (default=1).
 %     selectParams: Cell of param names that can be selected by g/setParams.
+%     isIntable: If 1, this function can be integrated and will be added
+%     		to a integrator solver_int when requested by initSolver.
 %		
 % Returns a structure object with the following fields:
 %	var_names, func, tests_db.

@@ -18,7 +18,7 @@ function a_pm = ...
 %   		 and variable (fs,p,x) to produce output.
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
-% 	   (Rest passed to param_func)
+%     (Rest passed to param_func)
 %		
 % Returns a structure object with the following fields:
 %	f: param_funcs from above,

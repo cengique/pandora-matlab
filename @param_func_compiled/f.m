@@ -1,25 +1,25 @@
 function y = f(a_ps, x)
 
-% f - Evaluates the function at point x.
+% f - Evaluates the compiled function at point x.
 %
 % Usage:
 %   y = f(a_ps, x)
 %
 % Parameters:
-%   a_ps: A param_func object.
+%   a_ps: A param_func_compiled object.
 %   x: Input to the function.
 %		
 % Returns:
-%   y: The value and time derivative (optional) of the function at x.
+%   y: The value of the function at x.
 %
 % Description:
 %
 % Example:
 %   >> y = f(a_ps, 5)
 %
-% See also: param_func
+% See also: param_func, param_func/fHandle
 %
-% $Id$
+% $Id: f.m 88 2010-04-08 17:41:24Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/05/29
 
@@ -29,4 +29,4 @@ function y = f(a_ps, x)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-y = feval(get(a_ps, 'func'), getParamsStruct(a_ps), x);
+y = feval(a_ps.func, x);

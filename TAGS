@@ -4,12 +4,12 @@ function gmax_obj 1,0
 
 @param_act/param_act.m,134
 function a_ps 1,0
-  param_names 31,893
-  func_handle 32,926
-  props 38,1052
-    a_ps 44,1278
-    a_ps 49,1498
-    a_ps 50,1517
+  param_names 31,894
+  func_handle 32,927
+  props 38,1042
+    a_ps 44,1268
+    a_ps 49,1488
+    a_ps 50,1507
 
 @param_act/set.m,50
 function a 1,0
@@ -76,8 +76,8 @@ props 44,1175
 param_vals 53,1407
 param_vals 54,1439
 
-@param_func/f.m,14
-function 1,0
+@param_func/f.m,16
+function y 1,0
 
 @param_func/getParamNames.m,26
 function param_names 1,0
@@ -125,54 +125,45 @@ a_plot 63,1678
 
 @param_func/param_func.m,422
 function ps 1,0
-% See also: param_act,65,2720
-% See also: param_act, tests_db,65,2720
-    ps.var_names var_names76,3021
-    ps.func func77,3044
-    ps 78,3066
-    ps 81,3203
-    props 88,3311
-      param_init_vals 96,3529
-    param_init_vals 100,3624
-    ps 107,3849
-    ps.var_names var_names108,3866
-    ps.func func109,3896
-    ps 110,3923
-                        param_names, {}, id, props)112,4005
+% See also: param_act,65,2709
+% See also: param_act, tests_db,65,2709
+    ps.var_names var_names76,3010
+    ps.func func77,3033
+    ps 78,3055
+    ps 81,3192
+    props 88,3300
+      param_init_vals 96,3518
+    param_init_vals 100,3613
+    ps 107,3838
+    ps.var_names var_names108,3855
+    ps.func func109,3885
+    ps 110,3912
+                        param_names, {}, id, props)112,3994
 
 @param_func/fHandle.m,38
 function f_handle 1,0
 params 34,852
 
-test.m,98
-a_pa 10,356
-a_inact_t 32,1079
-a_cur 35,1166
-a_act_t 39,1282
-a_inact_t 40,1353
-a_cur 42,1429
-
-@param_act_t/param_act_t.m,347
-function a_ps 1,0
-  param_names 38,1261
-  func_handle 39,1300
-  props 45,1384
-    a_ps.m_inf m_inf49,1508
-    a_ps.tau tau50,1536
-    a_ps 51,1564
-    a_ps 54,1743
-    a_ps 56,1768
-    a_ps.m_inf m_inf57,1787
-    a_ps.tau tau58,1821
-    param_init_vals 65,1983
-    a_ps 69,2116
-function 75,2295
-  act 77,2369
-  dact_dt 79,2501
-
 @param_act_t/setParamV.m,33
 function a_ps 1,0
 a_ps 39,1061
+
+@param_act_t/param_act_t.m,332
+function a_ps 1,0
+  param_names 38,1262
+  func_handle 39,1301
+  props 45,1385
+    a_ps.m_inf m_inf49,1509
+    a_ps.tau tau50,1537
+    a_ps 51,1565
+    a_ps 54,1744
+    a_ps 56,1769
+    a_ps.m_inf m_inf57,1788
+    a_ps.tau tau58,1822
+    param_init_vals 65,1984
+    a_ps 69,2117
+function act 75,2296
+  act 77,2360
 
 @param_act_t/get.m,28
 function b 1,0
@@ -184,12 +175,12 @@ function a 1,0
 
 @param_tau_v/param_tau_v.m,134
 function a_ps 1,0
-  param_names 32,948
-  func_handle 33,991
-  props 39,1125
-    a_ps 46,1402
-    a_ps 51,1626
-    a_ps 52,1645
+  param_names 32,949
+  func_handle 33,992
+  props 39,1115
+    a_ps 46,1392
+    a_ps 51,1616
+    a_ps 52,1635
 
 @param_tau_v/get.m,28
 function b 1,0
@@ -224,6 +215,16 @@ function b 1,0
 function a 1,0
   a.param_func param_func14,455
 
+@param_mult/fHandle.m,153
+function f_handle 1,0
+func 37,876
+params 38,902
+a_struct 39,934
+f_names 41,954
+num_funcs 42,984
+f_ps 43,1013
+  a_struct.(f_names{f_names46,1087
+
 @param_mult/setParams.m,258
 function a_ps 1,0
 param_ind 41,1091
@@ -240,31 +241,31 @@ new_fs 54,1497
 
 @param_mult/param_mult.m,512
 function a_pm 1,0
-% See also: param_func,43,1481
-% See also: param_func, tests_db,43,1481
-  props 55,1788
-    a_pm.f f59,1915
-    a_pm 60,1936
-                 param_func({}, [], {}, [], '', props)61,1977
-    a_pm 63,2094
-    a_pm 65,2125
-    a_pm.f f66,2144
-    %var_names var_names76,2481
-% $$$     var_names 81,2617
-% $$$     param_names 82,2643
-% $$$     param_func_cell 83,2671
-% $$$       vn 86,2788
-% $$$       var_names 87,2820
-% $$$       pn 88,2866
-% $$$       param_names 90,2955
+% See also: param_func,43,1469
+% See also: param_func, tests_db,43,1469
+  props 55,1776
+    a_pm.f f59,1903
+    a_pm 60,1924
+                 param_func({}, [], {}, [], '', props)61,1965
+    a_pm 63,2082
+    a_pm 65,2113
+    a_pm.f f66,2132
+    %var_names var_names76,2469
+% $$$     var_names 81,2605
+% $$$     param_names 82,2631
+% $$$     param_func_cell 83,2659
+% $$$       vn 86,2776
+% $$$       var_names 87,2808
+% $$$       pn 88,2854
+% $$$       param_names 90,2943
 
 @param_mult/getParams.m,67
 function param_vals 1,0
 param_vals 40,1018
   param_vals 43,1113
 
-@param_mult/f.m,14
-function 1,0
+@param_mult/f.m,16
+function y 1,0
 
 @param_mult/getParamNames.m,95
 function param_names 1,0
@@ -278,7 +279,7 @@ function s 1,0
 display(21,534
   display(33,774
 
-param_Re_Ce_cap_leak_int_t.m,540
+param_Re_Ce_cap_leak_int_t.m,524
 function a_pf 1,0
 %     resistance, 'Re' [MOhm], and capacitance, 'Ce' [nF]; leak conductance,10,378
 %     [uS]; leak reversal,11,460
@@ -289,15 +290,62 @@ function a_pf 1,0
   param_ranges 64,2202
   v_dep_I_f 68,2304
   a_pf 70,2377
-  function 78,2647
-    dt 80,2715
-    delay_dt 84,2840
-    delay_dt_int 85,2867
-    delay_dt_frac 86,2903
-    fixed_delay 89,2994
-    f_I_h 99,3326
-    Im 113,3821
-    dIdt 115,3861
+  function Im 78,2647
+    dt 80,2707
+    delay_dt 84,2832
+    delay_dt_int 85,2859
+    delay_dt_frac 86,2895
+    fixed_delay 89,2986
+    f_I_h 99,3318
+    Im 114,3842
+
+param_act_int_v.m,177
+function a_pf 1,0
+% values [mV] changing with dt time steps [ms]. The 19,631
+  a_pf 36,1161
+        @act_func_int, id, props)42,1329
+  function act 44,1367
+    dt 46,1427
+
+@solver_int/solver_int.m,447
+function a_sol 1,0
+%   % solver with two system variables; m,33,1086
+%   a_sol 34,1131
+%   r 40,1398
+    a_sol.vars vars52,1647
+    a_sol.dfdtHs dfdtHs53,1672
+    a_sol.id id54,1699
+    a_sol 55,1718
+    a_sol 57,1817
+    num_vars 63,1914
+    a_sol 65,1954
+    a_sol.vars vars66,1974
+    a_sol.dfdtHs dfdtHs67,1999
+      a_sol.vars.(var_id)72,2152
+      a_sol.dfdtHs.(var_id)73,2183
+    a_sol.id id76,2254
+    a_sol 77,2273
+
+@solver_int/add.m,20
+function a_sol 1,0
+
+@solver_int/getVal.m,18
+function val 1,0
+
+@solver_int/initVal.m,20
+function a_sol 1,0
+
+@solver_int/setVals.m,20
+function a_sol 1,0
+
+@solver_int/integrate.m,165
+function res 1,0
+num_vars 35,964
+dfdt_init 36,1007
+dfdtHs 37,1045
+  function dfdt 43,1202
+  dfdt 45,1271
+    dfdt(var_num) = feval(dfdtHs{var_num}, x)47,1318
 
 param_I_v.m,205
 function a_pf 1,0
@@ -305,18 +353,9 @@ function a_pf 1,0
 % See also: param_act_int_v,31,1090
 % See also: param_act_int_v, param_func,31,1090
 % See also: param_act_int_v, param_func, tests_db,31,1090
-  props 41,1322
+  props 41,1323
 
-param_act_int_v.m,194
-function a_pf 1,0
-% values [mV] changing with dt time steps [ms]. The 19,631
-  a_pf 36,1160
-        @act_func_int, id, props)42,1328
-  function 44,1366
-    dt 46,1436
-    dact_dt 51,1675
-
-param_cap_leak_int_t.m,682
+param_cap_leak_int_t.m,667
 function a_pf 1,0
 %     conductance, gL [uS]; leak reversal,10,302
 %     conductance, gL [uS]; leak reversal, EL 10,302
@@ -326,20 +365,52 @@ function a_pf 1,0
 % See also: param_mult, param_func, param_act,23,759
 % See also: param_mult, param_func, param_act, tests_db,23,759
 % >> f_capleak 26,843
-  param_names_ordered 45,1253
-    param_init_vals 61,1937
-  param_ranges 66,2064
-  a_pf 70,2141
-  function 77,2357
-    dt 79,2421
-    delay_dt 83,2546
-    delay_dt_int 84,2573
-    delay_dt_frac 85,2609
-    Vc_delay 87,2659
-    Ic 92,2852
-    dIdt 95,2965
+  param_names_ordered 45,1254
+    param_init_vals 61,1938
+  param_ranges 66,2065
+  a_pf 70,2142
+  function Ic 77,2358
+    dt 79,2414
+    delay_dt 83,2539
+    delay_dt_int 84,2566
+    delay_dt_frac 85,2602
+    Vc_delay 87,2652
+    Ic 92,2845
 
-param_cap_leak_2comp_int_t.m,750
+test.m,98
+a_pa 10,345
+a_inact_t 32,1068
+a_cur 35,1155
+a_act_t 39,1271
+a_inact_t 40,1342
+a_cur 42,1418
+
+param_Rs_cap_leak_int_t.m,615
+function a_pf 1,0
+%     series resistance, Rs [MOhm]; leak conductance,10,307
+%     series resistance, Rs [MOhm]; leak conductance, gL 10,307
+%     reversal,11,375
+%     reversal, EL 11,375
+%     reversal, EL [mV]; cell capacitance,11,375
+%     reversal, EL [mV]; cell capacitance, Cm 11,375
+% values [mV] changing with dt time steps [ms]. The 21,777
+  param_names_ordered 46,1474
+    param_init_vals 53,1775
+  param_ranges 58,1902
+  a_pf 62,1987
+  function Im 69,2203
+    dt 71,2259
+    delay_dt 75,2384
+    delay_dt_int 76,2411
+    delay_dt_frac 77,2447
+    fixed_delay 80,2538
+    Im 102,3381
+
+param_func_nil.m,34
+function a_pf 1,0
+  a_pf 40,854
+
+param_cap_leak_2comp_int_t.m,734
 function a_pf 1,0
 %     conductance, gL [uS]; leak reversal,10,344
 %     conductance, gL [uS]; leak reversal, EL 10,344
@@ -351,46 +422,19 @@ function a_pf 1,0
 % See also: param_func,24,909
 % See also: param_func, param_cap_leak_int_t,24,909
 % >> f_capleak 27,992
-  param_names_ordered 46,1441
-    param_init_vals 62,2144
-  param_ranges 67,2271
-  a_pf 71,2372
-  function 78,2598
-    dt 80,2662
-    delay_dt 84,2787
-    delay_dt_int 85,2814
-    delay_dt_frac 86,2850
-    % first estimate of 2nd compartment voltage95,3134
-    Ic 101,3402
-    dIdt 104,3540
+  param_names_ordered 46,1442
+    param_init_vals 62,2145
+  param_ranges 67,2272
+  a_pf 71,2373
+  function Ic 78,2599
+    dt 80,2655
+    delay_dt 84,2780
+    delay_dt_int 85,2807
+    delay_dt_frac 86,2843
+    % first estimate of 2nd compartment voltage95,3127
+    Ic 101,3395
 
-param_func_nil.m,34
-function a_pf 1,0
-  a_pf 40,853
-
-param_Rs_cap_leak_int_t.m,631
-function a_pf 1,0
-%     series resistance, Rs [MOhm]; leak conductance,10,307
-%     series resistance, Rs [MOhm]; leak conductance, gL 10,307
-%     reversal,11,375
-%     reversal, EL 11,375
-%     reversal, EL [mV]; cell capacitance,11,375
-%     reversal, EL [mV]; cell capacitance, Cm 11,375
-% values [mV] changing with dt time steps [ms]. The 21,777
-  param_names_ordered 46,1473
-    param_init_vals 53,1774
-  param_ranges 58,1901
-  a_pf 62,1986
-  function 69,2202
-    dt 71,2266
-    delay_dt 75,2391
-    delay_dt_int 76,2418
-    delay_dt_frac 77,2454
-    fixed_delay 80,2545
-    Im 102,3388
-    dIdt 104,3428
-
-param_cap_leak_v_dep_int_t.m,683
+param_cap_leak_v_dep_int_t.m,668
 function a_pf 1,0
 %     conductance, gL [uS]; leak reversal,10,380
 %     conductance, gL [uS]; leak reversal, EL 10,380
@@ -400,17 +444,51 @@ function a_pf 1,0
 % See also: param_mult, param_func, param_act,24,925
 % See also: param_mult, param_func, param_act, tests_db,24,925
 % >> f_capleak 27,1009
-  param_names_ordered 47,1495
-    param_init_vals 63,2179
-  param_ranges 68,2306
-  a_pf 72,2383
-  function 80,2635
-    dt 82,2703
-    delay_dt 86,2828
-    delay_dt_int 87,2855
-    delay_dt_frac 88,2891
-    Vc_delay 90,2941
-    Ic 95,3134
-    dIdt 98,3267
+  param_names_ordered 47,1496
+    param_init_vals 63,2180
+  param_ranges 68,2307
+  a_pf 72,2384
+  function Ic 80,2636
+    dt 82,2696
+    delay_dt 86,2821
+    delay_dt_int 87,2848
+    delay_dt_frac 88,2884
+    Vc_delay 90,2934
+    Ic 95,3127
+
+@param_func_compiled/param_func_compiled.m,225
+function ps 1,0
+% See also: param_func/fHandle,fHandle34,1073
+    ps.func func42,1296
+    ps.id id43,1318
+    ps 44,1334
+    ps 46,1446
+    ps 52,1545
+    ps.func func53,1562
+    ps.id id54,1589
+    ps 55,1605
+
+@param_func_compiled/f.m,16
+function y 1,0
+
+@deriv_func@/deriv_func.m,518
+function a_slb 1,0
+% See also: param_func,43,1461
+% See also: param_func, tests_db,43,1461
+  props 55,1771
+    a_slb.f f59,1899
+    a_slb 60,1921
+                 param_func({}, [], {}, [], '', props)61,1967
+    a_slb 63,2087
+    a_slb 65,2119
+    a_slb.f f66,2139
+    %var_names var_names76,2482
+% $$$     var_names 81,2618
+% $$$     param_names 82,2644
+% $$$     param_func_cell 83,2672
+% $$$       vn 86,2789
+% $$$       var_names 87,2821
+% $$$       pn 88,2867
+% $$$       param_names 90,2956
 
 fit_example.m,0
