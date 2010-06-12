@@ -41,7 +41,7 @@ cell_data = struct2cell(a_struct);
 if size(cell_data{1}, 1) > size(cell_data{1}, 2)
   data_matx = cell2mat(cell_data');
 else
-  data_matx = cell2mat(cell_data)';
+  data_matx = squeeze(cell2mat(cell_data))';
 end
 
 a_tests_db = ...
