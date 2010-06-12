@@ -103,6 +103,10 @@ param_vals = geram_vals = g52,1332
 value 53,1364
 props 55,1398
 
+@param_func/initSolver.m,34
+function a_sol 1,0
+name 38,1077
+
 @param_func/optimize.m,161
 function a_ps 1,0
 props 39,1096
@@ -125,20 +129,20 @@ a_plot 63,1678
 
 @param_func/param_func.m,422
 function ps 1,0
-% See also: param_act,65,2709
-% See also: param_act, tests_db,65,2709
-    ps.var_names var_names76,3010
-    ps.func func77,3033
-    ps 78,3055
-    ps 81,3192
-    props 88,3300
-      param_init_vals 96,3518
-    param_init_vals 100,3613
-    ps 107,3838
-    ps.var_names var_names108,3855
-    ps.func func109,3885
-    ps 110,3912
-                        param_names, {}, id, props)112,3994
+% See also: param_act,67,2847
+% See also: param_act, tests_db,67,2847
+    ps.var_names var_names78,3148
+    ps.func func79,3171
+    ps 80,3193
+    ps 83,3330
+    props 90,3438
+      param_init_vals 98,3656
+    param_init_vals 102,3751
+    ps 109,3976
+    ps.var_names var_names110,3993
+    ps.func func111,4023
+    ps 112,4050
+                        param_names, {}, id, props)114,4132
 
 @param_func/fHandle.m,38
 function f_handle 1,0
@@ -279,6 +283,14 @@ function s 1,0
 display(21,534
   display(33,774
 
+@param_mult/initSolver.m,113
+function a_sol 1,0
+a_sol 39,969
+child_names 41,1014
+num_childs 42,1048
+child_cells 43,1082
+  a_sol 48,1211
+
 param_Re_Ce_cap_leak_int_t.m,524
 function a_pf 1,0
 %     resistance, 'Re' [MOhm], and capacitance, 'Ce' [nF]; leak conductance,10,378
@@ -297,7 +309,7 @@ function a_pf 1,0
     delay_dt_frac 86,2895
     fixed_delay 89,2986
     f_I_h 99,3318
-    Im 114,3842
+    Im 114,3840
 
 param_act_int_v.m,177
 function a_pf 1,0
@@ -307,27 +319,26 @@ function a_pf 1,0
   function act 44,1367
     dt 46,1427
 
-@solver_int/solver_int.m,447
+@solver_int/solver_int.m,497
 function a_sol 1,0
-%   % solver with two system variables; m,33,1086
-%   a_sol 34,1131
-%   r 40,1398
-    a_sol.vars vars52,1647
-    a_sol.dfdtHs dfdtHs53,1672
-    a_sol.id id54,1699
-    a_sol 55,1718
-    a_sol 57,1817
-    num_vars 63,1914
-    a_sol 65,1954
-    a_sol.vars vars66,1974
-    a_sol.dfdtHs dfdtHs67,1999
-      a_sol.vars.(var_id)72,2152
-      a_sol.dfdtHs.(var_id)73,2183
-    a_sol.id id76,2254
-    a_sol 77,2273
-
-@solver_int/add.m,20
-function a_sol 1,0
+%   % solver with two system variables; m,33,1050
+%   a_sol 34,1095
+%   r 40,1356
+    a_sol.vars vars52,1602
+    a_sol.dfdtHs dfdtHs53,1627
+    a_sol.dt dt54,1654
+    a_sol.id id55,1673
+    a_sol 56,1692
+    a_sol 58,1792
+    num_vars 64,1890
+    a_sol 66,1931
+    a_sol.vars vars67,1951
+    a_sol.dfdtHs dfdtHs68,1976
+      a_sol.vars.(var_id)73,2130
+      a_sol.dfdtHs.(var_id)74,2161
+    a_sol.dt dt77,2235
+    a_sol.id id78,2254
+    a_sol 79,2273
 
 @solver_int/getVal.m,18
 function val 1,0
@@ -335,17 +346,22 @@ function val 1,0
 @solver_int/initVal.m,20
 function a_sol 1,0
 
+@solver_int/add.m,88
+function a_sol 1,0
+name 38,1068
+a_sol.vars.(name)40,1133
+a_sol.dfdtHs.(name)41,1156
+
 @solver_int/setVals.m,20
 function a_sol 1,0
 
-@solver_int/integrate.m,165
+@solver_int/integrate.m,111
 function res 1,0
-num_vars 35,964
-dfdt_init 36,1007
-dfdtHs 37,1045
-  function dfdt 43,1202
-  dfdt 45,1271
-    dfdt(var_num) = feval(dfdtHs{var_num}, x)47,1318
+num_vars 35,961
+dfdt_init 36,1004
+dfdtHs 37,1042
+  function dfdt 46,1278
+  dfdt 48,1347
 
 param_I_v.m,205
 function a_pf 1,0
@@ -471,24 +487,44 @@ function ps 1,0
 @param_func_compiled/f.m,16
 function y 1,0
 
-@deriv_func@/deriv_func.m,518
-function a_slb 1,0
-% See also: param_func,43,1461
-% See also: param_func, tests_db,43,1461
-  props 55,1771
-    a_slb.f f59,1899
-    a_slb 60,1921
-                 param_func({}, [], {}, [], '', props)61,1967
-    a_slb 63,2087
-    a_slb 65,2119
-    a_slb.f f66,2139
-    %var_names var_names76,2482
-% $$$     var_names 81,2618
-% $$$     param_names 82,2644
-% $$$     param_func_cell 83,2672
-% $$$       vn 86,2789
-% $$$       var_names 87,2821
-% $$$       pn 88,2867
-% $$$       param_names 90,2956
+@deriv_func@/deriv_func.m,190
+function a_df 1,0
+% See also: solver_int,41,1259
+    a_df.f f53,1525
+    a_df 54,1546
+                 param_func({}, [], {}, [], '', props)55,1587
+    a_df 57,1702
+    a_df 59,1731
+
+@deriv_func@/fHandle.m,56
+function f_handle 1,0
+%   >> s 20,453
+params 38,1028
+
+param_act_deriv_v.m,213
+function a_pf 1,0
+% values [mV] changing with dt time steps [ms]. The 19,642
+  a_pf 36,1174
+        @act_func_deriv, id, props)42,1342
+  function dact 44,1382
+    v 46,1449
+    dt 47,1468
+    dact 48,1488
+
+param_I_int_v.m,383
+function a_pf 1,0
+% >> f_IClCa_v 29,1015
+% See also: param_act_int_v,31,1094
+% See also: param_act_int_v, param_func,31,1094
+% See also: param_act_int_v, param_func, tests_db,31,1094
+  props 41,1327
+      @I_int, id, props)50,1653
+  function I 52,1682
+    v 54,1738
+    dt 55,1757
+      s = solver_int({}, dt,57,1795
+      s 58,1848
+      var_int 59,1879
+    I 61,1924
 
 fit_example.m,0

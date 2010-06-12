@@ -17,7 +17,7 @@ function a_pf = param_Rs_cap_leak_int_t(param_init_vals, id, props)
 %	param_mult: Holds the inf and tau functions.
 %
 % Description:
-%   Defines a function f(a_pf, {v, dt}) where v is an array of voltage
+%   Defines a function f(a_pf, struct('v', V [mV], 'dt', dt [ms])) where v is an array of voltage
 % values [mV] changing with dt time steps [ms]. The (in)activation is then
 % is the result of the integration of dm = (inf-m)/tau for each value of
 % v. Initial value is taken from the first voltage value.
@@ -66,9 +66,9 @@ function a_pf = param_Rs_cap_leak_int_t(param_init_vals, id, props)
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function Im = cap_leak_int(p, v_dt)
-    Vc = v_dt{1};
-    dt = v_dt{2};
+  function Im = cap_leak_int(p, x)
+    Vc = x.v;
+    dt = x.dt;
     
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around

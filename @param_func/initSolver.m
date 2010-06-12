@@ -9,7 +9,8 @@ function a_sol = initSolver(a_pf, a_sol, props)
 %   a_pf: A param_func object.
 %   a_sol: A solver_int object.
 %   props: A structure with any optional properties.
-%		
+%     name: Use this name to register the function in the solver.
+%
 % Returns:
 %   a_sol: Updated solver. 
 %
@@ -34,6 +35,8 @@ function a_sol = initSolver(a_pf, a_sol, props)
 
 props = mergeStructs(defaultValue('props', struct), get(a_pf, 'props'));
 
+name = getFieldDefault(props, 'name', get(a_pf, 'id'));
+
 if isfield(props, 'isIntable') && props.isIntable == 1
-  a_sol = add(a_sol, a_pf);
+  a_sol = add(a_sol, a_pf, struct('name', name));
 end

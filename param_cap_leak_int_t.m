@@ -17,7 +17,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %   a_pf: A param_func object that can be evaluated and fitted.
 %
 % Description:
-%   Defines a function f(a_pf, {v, dt}) where v is an array of voltage
+%   Defines a function f(a_pf, struct('v', V [mV], 'dt', dt [ms])) where v is an array of voltage
 % values [mV] changing with dt time steps [ms]. 
 %
 % See also: param_mult, param_func, param_act, tests_db, plot_abstract
@@ -74,9 +74,9 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function Ic = cap_leak_int(p, v_dt)
-    Vc = v_dt{1};
-    dt = v_dt{2};
+  function Ic = cap_leak_int(p, x)
+    Vc = x.v;
+    dt = x.dt;
     
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around

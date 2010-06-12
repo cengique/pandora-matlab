@@ -9,7 +9,7 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
 %   param_init_vals: Array or structure with initial values for leak
 %     conductance, gL [uS]; leak reversal, EL [mV]; cell capacitance, Cm
 %     [nF], and a delay [ms].
-%   v_dep_I_f: A param_func that realizes {V [mV], dt [ms]} -> I [nA].
+%   v_dep_I_f: A param_func that realizes struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
@@ -18,7 +18,7 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
 %   a_pf: The param_multi function.
 %
 % Description:
-%   Defines a function f(a_pf, {v, dt}) where v is an array of voltage
+%   Defines a function f(a_pf, struct('v', V [mV], 'dt', dt [ms])) where v is an array of voltage
 % values [mV] changing with dt time steps [ms]. 
 %
 % See also: param_mult, param_func, param_act, tests_db, plot_abstract
@@ -77,9 +77,9 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function Ic = cap_leak_int(fs, p, v_dt)
-    Vc = v_dt{1};
-    dt = v_dt{2};
+  function Ic = cap_leak_int(fs, p, x)
+    Vc = x.v;
+    dt = x.dt;
     
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around
@@ -94,7 +94,7 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
           diff(Vc(1:(end-delay_dt_int), :)) ];
     Ic = ...
         p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
-        (Vc_delay - p.EL) * p.gL + f(fs.I, {Vc, dt});
+        (Vc_delay - p.EL) * p.gL + f(fs.I, struct('v', Vc, 'dt', dt));
   end
 
 end

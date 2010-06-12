@@ -1,14 +1,15 @@
-function res = integrate(a_sol, time, x, props)
+function res = integrate(a_sol, x, props)
 
 % integrate - Set values of all variable.
 %
 % Usage:
-%   res = integrate(a_sol, time, props)
+%   res = integrate(a_sol, x, props)
 %
 % Parameters:
 %   a_sol: A param_func object.
-%   time: Array of time points where functions should be integrated.
 %   props: A structure with any optional properties.
+%     time: Array of time points where functions should be integrated
+%           (default=for all points in x)
 %		
 % Returns:
 %   res: A structure array with the array of variable solutions.
@@ -36,15 +37,22 @@ num_vars = length(fieldnames(a_sol.vars));
 dfdt_init = repmat(NaN, num_vars, 1);
 dfdtHs = struct2cell(a_sol.dfdtHs);
 
+% by default integrate for all values in x
+time = getFieldDefault(props, 'time', (0:(size(x, 1) - 1))*a_sol.dt);
+size(time)
+cell2mat(struct2cell(a_sol.vars)')
+
 [t_tmp, res] = ...
     ode15s(@(t,vars) deriv_all(t, vars), ...
-           (0:(size(x, 1) - 1))*a_sol.dt, a_sol.vars);
+           time, cell2mat(struct2cell(a_sol.vars)'));
 
-  function dfdt = deriv_all(t, vars)
+function dfdt = deriv_all(t, vars)
   a_sol = setVals(a_sol, vars);
   dfdt = dfdt_init;
   for var_num = 1:num_vars
-    dfdt(var_num) = feval(dfdtHs{var_num}, x);
+    dfdt(var_num) = ...
+        feval(dfdtHs{var_num}, ...
+              struct('s', a_sol, 'v', x, 'dt', a_sol.dt));
   end
   end
 

@@ -13,14 +13,14 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 %     v_dep_I_f: A voltage-dependent current that is simulated with
-%     		Vm. That is, A param_func with {V [mV], dt [ms]} -> I [nA].
+%     		Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
 %     (Rest passed to param_mult)
 %		
 % Returns:
 %	a_pf: a param_mult object.
 %
 % Description:
-%   Defines a function f(a_pf, {v, dt}) where v is an array of voltage
+%   Defines a function f(a_pf, struct) where v is an array of voltage
 % values [mV] changing with dt time steps [ms]. 
 %
 % See also: param_Rs_cap_leak_int_t, param_cap_leak_int_t
@@ -75,9 +75,9 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
   
-  function Im = cap_leak_int(fs, p, v_dt)
-    Vc = v_dt{1};
-    dt = v_dt{2};
+  function Im = cap_leak_int(fs, p, x)
+    Vc = x.v;
+    dt = x.dt;
     
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around
@@ -99,8 +99,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     f_I_h = fHandle(fs.I);
     
     [t_tmp, Vm] = ...
-        ode15s(@(t, VmI) ...
-               [(- (VmI(1) - p.EL) * p.gL + f_I_h({Vm, dt}) + ...
+        ode15s(@(t, Vm) ...
+               [(- (Vm(1) - p.EL) * p.gL + f_I_h(struct('v', Vm, 'dt', dt)) + ...
                 (Vc_delay(round(t/dt) + 1, :)' - Vm) / p.Re ) / p.Cm; ...
                 ], ...
         (0:(size(Vc_delay, 1) - 1))*dt, Vc(1, :));

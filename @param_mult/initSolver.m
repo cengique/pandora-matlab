@@ -38,7 +38,12 @@ end
 % call parent function
 a_sol = initSolver(a_pm.param_func, a_sol);
 
+child_names = fieldnames(a_pm.f);
+num_childs = length(child_names);
+child_cells = struct2cell(a_pm.f)';
+
 % call recursively for child functions
-for a_f = struct2cell(a_pm.f)'
-  a_sol = initSolver(a_f{1}, a_sol);
+for f_num = 1:num_childs
+  a_f = child_cells{f_num};
+  a_sol = initSolver(a_f, a_sol, struct('name', child_names{f_num}));
 end

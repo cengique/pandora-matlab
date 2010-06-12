@@ -1,9 +1,9 @@
-function a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props) 
+function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props) 
   
-% param_act_int_v - An (in)activation function integrated over a changing V.
+% param_act_deriv_v - Derivative of an (in)activation function that changes with V.
 %
 % Usage:
-%   a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props)
+%   a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
 %
 % Parameters:
 %   ap_inf_v, ap_tau_v: param_act objects for inf(v) and tau(v), resp.
@@ -22,7 +22,7 @@ function a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props)
 %
 % See also: param_mult, param_func, param_act, tests_db, plot_abstract
 %
-% $Id$
+% $Id: param_act_deriv_v.m 128 2010-06-07 21:36:08Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/12/11
   
@@ -39,16 +39,13 @@ function a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props)
         [], {}, ...
         struct('inf', ap_inf_v, ...
                'tau', ap_tau_v), ...
-        @act_func_int, id, props);
+        @act_func_deriv, id, mergeStructs(props, struct('isIntable', 1)));
   
-  function act = act_func_int(fs, p, x)
+  function dact = act_func_deriv(fs, p, x)
+    s = x.s;
     v = x.v;
     dt = x.dt;
-    [t_tmp, act] = ...
-        ode15s(@(t,m) ((f(fs.inf, v(round(t/dt)+1, :)') - m) ./ ...
-                       f(fs.tau, v(round(t/dt)+1, :)')), ...
-                       (0:(size(v, 1) - 1))*dt, f(fs.inf, v(1, :)));
+    dact = ((f(fs.inf, v(round(t/dt)+1, :)') - m) ./ ...
+            f(fs.tau, v(round(t/dt)+1, :)'));
   end
-
 end
-

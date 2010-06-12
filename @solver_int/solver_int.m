@@ -3,7 +3,7 @@ function a_sol = solver_int(deriv_funcs, dt, id, props)
 % solver_int - Solver for integrating a system of differential equations, dy/dt = A*x+b.
 %
 % Usage:
-%   a_sol = solver_int(var_names, param_init_vals, param_names, func_handle, id, props)
+%   a_sol = solver_int(deriv_funcs, dt, id, props)
 %
 % Parameters:
 %   deriv_funcs: deriv_func objects to be integrated.
@@ -51,6 +51,7 @@ function a_sol = solver_int(deriv_funcs, dt, id, props)
     a_sol = struct;
     a_sol.vars = struct;
     a_sol.dfdtHs = struct;
+    a_sol.dt = '';
     a_sol.id = '';
     a_sol = class(a_sol, 'solver_int');
   elseif isa(deriv_funcs, 'solver_int') % copy constructor?
@@ -70,9 +71,10 @@ function a_sol = solver_int(deriv_funcs, dt, id, props)
     for var_num = 1:num_vars
       var_id = get(deriv_funcs{var_num}, 'id');
       a_sol.vars.(var_id) = 0;
-      a_sol.dfdtHs.(var_id) = dfdtH(deriv_funcs{var_num});
+      a_sol.dfdtHs.(var_id) = fHandle(deriv_funcs{var_num});
     end
     
+    a_sol.dt = dt;
     a_sol.id = id;
     a_sol = class(a_sol, 'solver_int');
   end
