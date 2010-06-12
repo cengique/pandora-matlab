@@ -129,7 +129,7 @@ if ~ isempty(use_levels)
   % optimize
   f_capleak = ...
       optimize(f_capleak, ...
-               {a_vc.v.data(range_cap_resp, use_levels), dt}, ...
+               struct('v', a_vc.v.data(range_cap_resp, use_levels), 'dt', dt), ...
                a_vc.i.data(range_cap_resp, use_levels), ...
                props);
   
@@ -137,7 +137,7 @@ if ~ isempty(use_levels)
   params = getParamsStruct(f_capleak)
 
 
-  Im = f(f_capleak, { a_vc.v.data(range_cap_resp, use_levels), dt});
+  Im = f(f_capleak, struct('v', a_vc.v.data(range_cap_resp, use_levels), 'dt', dt));
 
   % nicely plot current and voltage trace in separate axes only for
   % part fitted
@@ -187,7 +187,9 @@ end
   % subtract the cap+leak part from current
   sub_vc = a_range_vc - model_vc;
   
-  % recalculate voltage traces based on series resistance
+  % Recalculate voltage traces based on series resistance.
+  % There is a problem because additional currents will still affect the
+  % voltage, although it is good to keep to see the membrane voltage?
   sub_vc.v = sub_vc.v - model_vc.i * params.Re;
   
   if isfield(props, 'quiet')
