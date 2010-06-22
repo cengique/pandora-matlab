@@ -3,20 +3,17 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 % voltage_clamp - Voltage clamp object with current and voltage traces.
 %
 % Usage:
-% a_vc = voltage_clamp(datasrc, dt, dy,
-%		  pulse_time_start, pulse_time_width, id, props)
+% a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 %
 % Description:
 %		
-% Uses the generic trace object to store an averaged spike shape. 
+% Uses the generic trace object to store voltage clamp I, V data.
 % Inherits the common methods defined in trace.
 %
-%   Parameters:
-%	datasrc: A vector of data points containing the spike shape.
+% Parameters:
+%	data_i,data_v: Column vectors of I and V data traces.
 %	dt: Time resolution [s].
-%	dy: y-axis resolution [ISI (V, A, etc.)]
-%	pulse_time_start, pulse_time_width:
-%		Start and width of the pulse [dt]
+%	di,dv: y-axis resolution for I and V [A and V, resp]
 %	id: Identification string.
 %	props: A structure with any optional properties, such as:
 %		trace_time_start: Samples in the beginning to discard [dt]
