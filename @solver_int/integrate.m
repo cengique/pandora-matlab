@@ -1,6 +1,6 @@
 function res = integrate(a_sol, x, props)
 
-% integrate - Set values of all variable.
+% integrate - Integrate all variables of a system and return a matrix of [time, vars, columns].
 %
 % Usage:
 %   res = integrate(a_sol, x, props)
@@ -39,20 +39,26 @@ dfdtHs = struct2cell(a_sol.dfdtHs);
 
 % by default integrate for all values in x
 time = getFieldDefault(props, 'time', (0:(size(x, 1) - 1))*a_sol.dt);
-size(time)
-cell2mat(struct2cell(a_sol.vars)')
 
-[t_tmp, res] = ...
-    ode15s(@(t,vars) deriv_all(t, vars), ...
-           time, cell2mat(struct2cell(a_sol.vars)'));
+% integrate each column separately
+num_columns = size(x, 2);
+res = repmat(NaN, [length(time), num_vars, num_columns]);
+for column_num = 1:num_columns
+  % initialize
+  a_sol_tmp = a_sol;
+  v_col = x(:, column_num);
+  [t_tmp, res(:, :, column_num)] = ...
+      ode15s(@(t,vars) deriv_all(t, vars), ...
+             time, cell2mat(struct2cell(a_sol.vars)'));
+end
 
 function dfdt = deriv_all(t, vars)
-  a_sol = setVals(a_sol, vars);
+  a_sol_tmp = setVals(a_sol_tmp, vars);
   dfdt = dfdt_init;
   for var_num = 1:num_vars
     dfdt(var_num) = ...
         feval(dfdtHs{var_num}, ...
-              struct('s', a_sol, 'v', x, 'dt', a_sol.dt));
+              struct('t', t, 's', a_sol_tmp, 'v', v_col, 'dt', a_sol.dt));
   end
   end
 

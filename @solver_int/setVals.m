@@ -1,14 +1,13 @@
 function a_sol = setVals(a_sol, vals)
 
-% setVals - Set values of all variable.
+% setVals - Set values of all variables.
 %
 % Usage:
 %   a_sol = setVals(a_sol, vals)
 %
 % Parameters:
 %   a_sol: A param_func object.
-%   var_id: Id string of variable to set
-%   va: Initial value of variable.
+%   vals: Values of variables.
 %		
 % Returns:
 %   a_sol: Updated solver_int object.
@@ -32,4 +31,4 @@ function a_sol = setVals(a_sol, vals)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-a_sol.vars = cell2struct(vals(:), fieldnames(a_sol.vars), 1);
+a_sol.vars = cell2struct(num2cell(vals(:)), fieldnames(a_sol.vars), 1);

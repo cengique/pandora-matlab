@@ -32,7 +32,10 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
   if ~ exist('props', 'var')
     props = struct;
   end
-  
+
+  % for inner function
+  name = getFieldDefault(props, 'name', id);
+
   a_pf = ...
       param_mult(...
         {'time [ms]', 'activation'}, ...
@@ -40,12 +43,14 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
         struct('inf', ap_inf_v, ...
                'tau', ap_tau_v), ...
         @act_func_deriv, id, mergeStructs(props, struct('isIntable', 1)));
-  
+
+
   function dact = act_func_deriv(fs, p, x)
+    t = x.t;
     s = x.s;
     v = x.v;
     dt = x.dt;
-    dact = ((f(fs.inf, v(round(t/dt)+1, :)') - m) ./ ...
+    dact = ((f(fs.inf, v(round(t/dt)+1, :)') - getVal(s, name)) ./ ...
             f(fs.tau, v(round(t/dt)+1, :)'));
   end
 end

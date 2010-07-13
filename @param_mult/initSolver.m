@@ -31,13 +31,21 @@ function a_sol = initSolver(a_pm, a_sol, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props', 'var')
-  props = struct;
+props = mergeStructs(defaultValue('props', struct), get(a_pm, 'props'));
+
+% call parent function [causes problems with fHandle]
+% a_sol = initSolver(a_pm.param_func, a_sol);
+
+% get name
+name = getFieldDefault(props, 'name', get(a_pm, 'id'));
+
+% add this function first
+if isfield(props, 'isIntable') && props.isIntable == 1
+  disp(['Adding intable ' name ])
+  a_sol = add(a_sol, a_pm, struct('name', name));
 end
 
-% call parent function
-a_sol = initSolver(a_pm.param_func, a_sol);
-
+% then add children
 child_names = fieldnames(a_pm.f);
 num_childs = length(child_names);
 child_cells = struct2cell(a_pm.f)';
@@ -45,5 +53,6 @@ child_cells = struct2cell(a_pm.f)';
 % call recursively for child functions
 for f_num = 1:num_childs
   a_f = child_cells{f_num};
+  %disp(['Adding ' child_names{f_num} ', (' class(a_f) ')'])
   a_sol = initSolver(a_f, a_sol, struct('name', child_names{f_num}));
 end

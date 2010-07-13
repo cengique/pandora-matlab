@@ -37,5 +37,8 @@ end
 
 name = getFieldDefault(props, 'name', get(a_deriv_func, 'id'));
 
+% remove offending characters
+name = regexprep(name, '[{}]', '');
+
 a_sol.vars.(name) = 0;
 a_sol.dfdtHs.(name) = fHandle(a_deriv_func);

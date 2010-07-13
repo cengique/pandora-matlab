@@ -52,16 +52,27 @@ function a_pf = ...
   function I = I_int (fs, p, x)
     s = getFieldDefault(x, 's', []);
     v = x.v;
+    t = getFieldDefault(x, 't', 0);
     dt = x.dt;
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
-      s = initSolver(a_pf, s);
+      s = setVals(initSolver(a_pf, s), [0 1]); % add variables and initialize
       var_int = integrate(s, v);
+      m = squeeze(var_int(:, 1, :));
+      h = squeeze(var_int(:, 2, :));
+      v_val = v;
+    else
+      % otherwise this is part of a bigger integration, just return
+      % values for this time step
+      m = getVal(s, 'm');
+      h = getVal(s, 'h');
+      v_val = v(round(t/dt)+1, :);
     end
     I = p.gmax * ...
-      getVal(s, 'm') .^ p.p .* ...
-      getVal(s, 'h') .^ p.q .* ...
-      (v - p.E);
+        m .^ p.p .* ...
+        h .^ p.q .* ...
+        (v - p.E);
+
 end
 
 end
