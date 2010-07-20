@@ -41,7 +41,7 @@ name = getFieldDefault(props, 'name', get(a_pm, 'id'));
 
 % add this function first
 if isfield(props, 'isIntable') && props.isIntable == 1
-  disp(['Adding intable ' name ])
+  %disp(['Adding intable ' name ])
   a_sol = add(a_sol, a_pm, struct('name', name));
 end
 

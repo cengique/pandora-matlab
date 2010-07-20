@@ -47,9 +47,10 @@ for column_num = 1:num_columns
   % initialize
   a_sol_tmp = a_sol;
   v_col = x(:, column_num);
-  [t_tmp, res(:, :, column_num)] = ...
+  [t_tmp, result] = ...
       ode15s(@(t,vars) deriv_all(t, vars), ...
              time, cell2mat(struct2cell(a_sol.vars)'));
+  res(:, :, column_num) = result;
 end
 
 function dfdt = deriv_all(t, vars)

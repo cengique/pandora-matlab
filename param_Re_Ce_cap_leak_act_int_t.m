@@ -31,7 +31,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %                                      -80, 'Cm', 1e-2, delay, .1), ...
 %                        ['cap, leak, Re, Ce']);
 %
-% $Id$
+% $Id: param_Re_Ce_cap_leak_int_t.m 131 2010-06-12 04:02:36Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/02
   
@@ -66,22 +66,47 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         1e3 1e3 1e3 -50 1e3  10  .2];
   
   v_dep_I_f = getFieldDefault(props, 'v_dep_I_f', param_func_nil(0));
+
+  % make a sub param_func for membrane derivative
+  mem_pf = ...
+      param_mult(...
+        {'time [ms]', 'activation'}, ...
+        param_init_vals, {}, ...
+        struct('I', v_dep_I_f), ...
+        @mem_deriv, ...
+        'Membrane derivative with Re', ...
+        mergeStructs(props, struct('isIntable', 1, 'name', 'Vm', 'paramRanges', param_ranges)));
   
   a_pf = ...
       param_mult(...
         {'time [ms]', 'I_{cap+leak+electrode} [nA]'}, ...
-        param_init_vals, [], ...
-        struct('I', v_dep_I_f), ...        
+        [], [], ...
+        struct('Vm', mem_pf), ...        
         @cap_leak_int, id, ...
-        mergeStructs(props, struct('paramRanges', param_ranges)));
-  
+        mergeStructs(props, struct));
+
+  function dVmdt = mem_deriv(fs, p, x)
+  % get a handle with fixed parameters first
+  %f_I_h = fHandle(fs.I);
+    
+    Vm = getVal(x.s, 'Vm');
+    
+    dVmdt = ...
+        (- (Vm - p.EL) * p.gL - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) + ...
+         (x.v(round(x.t/x.dt) + 1, :)' - Vm) / p.Re ) / p.Cm;
+  end
+        
   function Im = cap_leak_int(fs, p, x)
     Vc = x.v;
     dt = x.dt;
-    
+    s = getFieldDefault(x, 's', []);
+    t = getFieldDefault(x, 't', 0);
+
+    Vm_p = getParamsStruct(fs.Vm);
+
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around
-    delay_dt = p.delay/dt;
+    delay_dt = Vm_p.delay/dt;
     delay_dt_int = floor(delay_dt);
     delay_dt_frac = delay_dt - delay_dt_int;
 
@@ -95,19 +120,28 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
           delay_dt_frac * ...
           diff(Vc(1:(end-delay_dt_int), :)) ];
 
-    % get a handle with fixed parameters first
-    f_I_h = fHandle(fs.I);
-    
-    [t_tmp, Vm] = ...
-        ode15s(@(t, Vm) ...
-               [(- (Vm - p.EL) * p.gL + f_I_h(struct('v', Vm, 'dt', dt)) + ...
-                (Vc_delay(round(t/dt) + 1, :)' - Vm) / p.Re ) / p.Cm], ...
-        (0:(size(Vc_delay, 1) - 1))*dt, Vc(1, :));
+    if isempty(s)
+      s = solver_int({}, dt, [ 'solver for ' id ] );
+      % add variables and initialize. add  [0 1] for m & h
+      s = setVals(initSolver(fs.this, s), [-70 0 .85]); 
+      var_int = integrate(s, Vc_delay);
+      Vm = squeeze(var_int(:, 1, :));
+      m = squeeze(var_int(:, 2, :));
+      h = squeeze(var_int(:, 3, :));
+      %v_val = Vm;
+    else
+      % otherwise this is part of a bigger integration, just return
+      % values for this time step
+      % TODO: this is not going to work as is. Need to address into Vc using t.
+      %m = getVal(s, 'm');
+      %h = getVal(s, 'h');
+      %v_val = v(round(t/dt)+1, :);
+    end
     
     % after solving Vm, return total input current
-    Im = p.offset + ...
-         p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt ...
-         + (Vc_delay - Vm) / p.Re;% ...
+    Im = Vm_p.offset + ...
+         Vm_p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt ...
+         + (Vc_delay - Vm) / Vm_p.Re;
     
     % crop the prepended fixed_delay
     Im = Im((fixed_delay + 1):end, :);

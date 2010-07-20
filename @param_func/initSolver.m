@@ -38,6 +38,6 @@ props = mergeStructs(defaultValue('props', struct), get(a_pf, 'props'));
 name = getFieldDefault(props, 'name', get(a_pf, 'id'));
 
 if isfield(props, 'isIntable') && props.isIntable == 1
-  disp(['Adding intable ' name ])
+  %disp(['Adding intable ' name ])
   a_sol = add(a_sol, a_pf, struct('name', name));
 end

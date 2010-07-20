@@ -56,7 +56,7 @@ function a_pf = ...
     dt = x.dt;
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
-      s = setVals(initSolver(a_pf, s), [0 1]); % add variables and initialize
+      s = setVals(initSolver(fs.this, s), [0 1]); % add variables and initialize
       var_int = integrate(s, v);
       m = squeeze(var_int(:, 1, :));
       h = squeeze(var_int(:, 2, :));
@@ -66,7 +66,7 @@ function a_pf = ...
       % values for this time step
       m = getVal(s, 'm');
       h = getVal(s, 'h');
-      v_val = v(round(t/dt)+1, :);
+      v_val = v; % (round(t/dt)+1, :); it already gets only this v value
     end
     I = p.gmax * ...
         m .^ p.p .* ...
