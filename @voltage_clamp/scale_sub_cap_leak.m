@@ -13,10 +13,12 @@ function [f_capleak sub_vc] = ...
 %     param_cap_leak_int_t). Can choose object obtained from another
 %     function such as: param_Rs_cap_leak_int_t, param_cap_leak_2comp_int_t.
 %     fitRange: Start and end times of range to apply the optimization [ms].
-%     fitRangeRel: Start and end times of range relative to first voltage step [ms].
+%     fitRangeRel: Start and end times of range relative to first voltage
+%     		   step [ms]. Specify any other voltage step as the first element.
 %     fitLevels: Indices of voltage/current levels to use from clamp
 %     		 data. If empty, not fit is done.
 %     dispParams: If 1, display params at end of each iteration.
+%     dispPlot: If non-zero, update a plot of the fit at end of this many iterations.
 %     saveData: If 1, save subtracted data into a new text file (default=0).
 %     quiet: If 1, do not include cell name on title.
 %     period: Limit the subtraction to this period of a_vc.
@@ -65,9 +67,16 @@ time = (0:(size(a_vc.v.data, 1) - 1)) * dt;
 
 % select the initial part before v-dep currents get activated
 range_rel = getFieldDefault(props, 'fitRangeRel', [-.2, +1]); % [ms]
+
+if length(range_rel) > 2
+  step_num = range_rel(1);
+  range_rel = range_rel(2:end);
+else
+  step_num = 1;
+end
 range_maxima = ...
     getFieldDefault(props, 'fitRange', ...
-                           [a_vc.time_steps(1) + ...
+                           [a_vc.time_steps(step_num) + ...
                     floor(range_rel / dt + .49)]);
 range_cap_resp = round(range_maxima(1)):round(range_maxima(2));
 
@@ -101,14 +110,59 @@ if isfield(props, 'dispParams')
       mergeStructsRecursive(...
         props, ...
         struct('optimset', optimset('OutputFcn', @disp_out)));      
-else
-  % need to run optimset at least once to get all the fields
-  props = ...
-      mergeStructsRecursive(props, struct('optimset', optimset));      
 end
+
+if isfield(props, 'dispPlot') && props.dispPlot > 0
+  props = ...
+      mergeStructsRecursive(...
+        props, ...
+        struct('optimset', optimset('OutputFcn', @plot_out)));      
+end
+
+% need to run optimset at least once to get all the fields
+props = ...
+    mergeStructsRecursive(props, struct('optimset', optimset));      
+
+
+  line_colors = lines(length(use_levels)); %hsv(length(v_steps));
 
   function stop = disp_out(x, optimValues, state)
     disp(getParamsStruct(setParams(f_capleak, x, struct('onlySelect', 1))));
+    stop = false;
+  end
+
+  fig_props = struct;
+  
+  function stop = plot_out(p, optimValues, state)
+    if mod(optimValues.iteration, props.dispPlot) == 0 
+      f_capleak = setParams(f_capleak, p, struct('onlySelect', 1));
+      Im = f(f_capleak, struct('v', a_vc.v.data(range_cap_resp, use_levels), 'dt', dt));
+      fig_handle = ...
+          plotFigure(...
+            plot_stack({...
+              plot_superpose({...
+                plot_abstract({time(range_cap_resp), ...
+                          a_vc.i.data(range_cap_resp, use_levels)}, ...
+                              {'time [ms]', 'I [nA]'}, ...
+                              'fitted currents', {}, 'plot', ...
+                              struct('ColorOrder', line_colors, ...
+                                     'noLegends', 1)), ...
+                plot_abstract({time(range_cap_resp), Im}, ...
+                              {'time [ms]', 'I [nA]'}, ...
+                              'est. I_{cap+leak}', {}, 'plot', ...
+                              struct('plotProps', struct('LineWidth', 2), ...
+                                     'ColorOrder', line_colors))}, ...
+                             {}, '', struct('noCombine', 1)), ...
+              plot_abstract({time(range_cap_resp), ...
+                          a_vc.v.data(range_cap_resp, use_levels)}, {'time [ms]', 'V_m [mV]'}, ...
+                            'all currents', {}, 'plot', struct)}, ...
+                       [min(range_cap_resp) * dt, max(range_cap_resp) * dt NaN NaN], ...
+                       'y', all_title, ...
+                       struct('titlesPos', 'none', 'xLabelsPos', 'bottom', ...
+                              'fixedSize', [4 3], 'noTitle', 1)), '', ...
+            fig_props);
+      fig_props = mergeStructs(struct('figureHandle', fig_handle), fig_props);
+    end
     stop = false;
   end
 
@@ -136,13 +190,10 @@ if ~ isempty(use_levels)
   % show all parameters
   params = getParamsStruct(f_capleak)
 
-
   Im = f(f_capleak, struct('v', a_vc.v.data(range_cap_resp, use_levels), 'dt', dt));
 
   % nicely plot current and voltage trace in separate axes only for
   % part fitted
-
-  line_colors = lines(length(use_levels)); %hsv(length(v_steps));
 
 plotFigure(...
   plot_stack({...
@@ -187,10 +238,14 @@ end
   % subtract the cap+leak part from current
   sub_vc = a_range_vc - model_vc;
   
+  % HACK: choose between Re and Vm_Re
+  Re = getFieldDefault(params, 'Re', getFieldDefault(params, 'Vm_Re', NaN));
+  
   % Recalculate voltage traces based on series resistance.
   % There is a problem because additional currents will still affect the
   % voltage, although it is good to keep to see the membrane voltage?
-  sub_vc.v = sub_vc.v - model_vc.i * params.Re;
+  % TODO: shift back the delay in the current trace?
+  sub_vc.v = sub_vc.v - model_vc.i * Re;
   
   if isfield(props, 'quiet')
     all_title = properTeXLabel(title_str);
