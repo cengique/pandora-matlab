@@ -34,7 +34,7 @@ end
 [right_data right_name a_tr] = getData(right_tr, a_tr);
 
 result_tr = set(a_tr, 'data', feval(op_func, left_data, right_data));
-result_tr = set(result_tr, 'id', [left_name ' ' op_id ' ' right_name ]);
+result_tr = set(result_tr, 'id', ['(' left_name ' ' op_id ' ' right_name ')']);
 
 end
 
