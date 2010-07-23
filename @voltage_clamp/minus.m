@@ -37,7 +37,8 @@ if ~ exist('props', 'var')
 end
 
 sub_vc = set(left_vc, 'i', left_vc.i - right_vc.i);
-sub_vc = set(sub_vc, 'id', [get(left_vc, 'id') ' - ' get(right_vc, 'id') ]);
+sub_vc = set(sub_vc, 'id', ...
+                     ['(' get(left_vc, 'id') ' - ' get(right_vc, 'id') ')' ]);
 
 % recalculate values of step steady-state currents
 [time_steps, v_steps, i_steps] = ...
