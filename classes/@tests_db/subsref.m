@@ -39,8 +39,11 @@ end
 
 if size(index, 2) > 1
   first = subsref(a, index(1));
-  % recursive
-  b = subsref(first, index(2:end));
+  % tail recursion converted to loop
+  b = first;
+  for index_num = 2:length(index)
+    b = subsref(b, index(index_num));
+  end
 else
   switch index.type
     case '()'
