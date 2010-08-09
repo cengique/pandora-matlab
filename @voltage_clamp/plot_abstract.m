@@ -34,10 +34,9 @@ function a_p = plot_abstract(a_vc, title_str, props)
 % TODO: 
 % - let choose I or V
 % - make legend optional
-  
-if ~ exist('props', 'var')
-  props = struct;
-end
+
+props = defaultValue('props', struct);
+title_str = defaultValue('title_str', '');
 
 % assume 2nd step is the main pulse
 v_steps = a_vc.v_steps(2, :);

@@ -29,21 +29,27 @@ function a_vc = calcCurPeaks(a_vc, step_num, props)
   
 props = defaultValue('props', struct);
 step_num = defaultValue('step_num', 2);
+num_vsteps = size(a_vc.i_steps, 2);
 
-% find direction of peaks
-steps_mag = mean(a_vc.i_steps(step_num, :));
-
-if steps_mag > 0
-  f = @max;
-else
-  f = @min;
-end
 
 assert(step_num > 1);
 
+% don't take last 3 ms of period
 range_vc = ...
     withinPeriod(a_vc, period(a_vc.time_steps(step_num - 1), ...
-                              a_vc.time_steps(step_num)));
+                              a_vc.time_steps(step_num) - 3e-3 / get(a_vc, 'dt')));
 
-a_vc = setProp(a_vc, 'iPeaks', ...
-                     feval(f, range_vc.i.data, [], 1));
+for vstep_num = 1:num_vsteps
+  % find direction of peaks for each voltage step
+  steps_mag = mean(a_vc.i.data(:, vstep_num));
+
+  if steps_mag > 0
+    f = @max;
+  else
+    f = @min;
+  end
+  
+  i_peaks(vstep_num) = ...
+      feval(f, range_vc.i.data(:, vstep_num), [], 1);
+end
+a_vc = setProp(a_vc, 'iPeaks', i_peaks);
