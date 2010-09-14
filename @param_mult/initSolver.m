@@ -39,10 +39,22 @@ props = mergeStructs(defaultValue('props', struct), get(a_pm, 'props'));
 % get name
 name = getFieldDefault(props, 'name', get(a_pm, 'id'));
 
+child_props = struct;
+if isfield(props, 'initV')
+  child_props.initV = props.initV;
+end
+
 % add this function first
 if isfield(props, 'isIntable') && props.isIntable == 1
   %disp(['Adding intable ' name ])
   a_sol = add(a_sol, a_pm, struct('name', name));
+  if isfield(props, 'initV')
+    a_sol = ...
+        initVal(a_sol, name, ...
+                feval(getFieldDefault(props, 'init_val_func', @(a, x) x ), ...
+                      a_pm.f, props.initV));
+    child_props.initV = props.initV;
+  end
 end
 
 % then add children
@@ -50,9 +62,11 @@ child_names = fieldnames(a_pm.f);
 num_childs = length(child_names);
 child_cells = struct2cell(a_pm.f)';
 
+
 % call recursively for child functions
 for f_num = 1:num_childs
   a_f = child_cells{f_num};
   %disp(['Adding ' child_names{f_num} ', (' class(a_f) ')'])
-  a_sol = initSolver(a_f, a_sol, struct('name', child_names{f_num}));
+  a_sol = initSolver(a_f, a_sol, mergeStructs(struct('name', child_names{f_num}), ...
+                                              child_props));
 end

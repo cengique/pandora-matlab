@@ -123,7 +123,12 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
       % add variables and initialize. add  [0 1] for m & h
-      s = setVals(initSolver(fs.this, s), [-70 0 .85]); 
+      %s = setVals(
+      s = initSolver(fs.this, s, struct('initV', Vc_delay(1))); % , [-70 0 .85]); 
+      % check initial conditions set based on V only
+% $$$       Vm = getVal(s, 'Vm')
+% $$$       m = getVal(s, 'm')
+% $$$       h = getVal(s, 'h')
       var_int = integrate(s, Vc_delay);
       Vm = squeeze(var_int(:, 1, :));
       m = squeeze(var_int(:, 2, :));

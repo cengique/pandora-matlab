@@ -66,8 +66,14 @@ disp([ 'Exit flag: ' num2str(exitflag) ])
 disp('Output:')
 output
 
-% $$$ disp('Jacob:')
-% $$$ jacobian
+disp('Resnorm:')
+size(resnorm)
+
+disp('Lambda:')
+lambda
+
+disp('Jacob:')
+jacobian
 
 % set back fitted parameters
 a_ps = setParams(a_ps, par, struct('onlySelect', 1));

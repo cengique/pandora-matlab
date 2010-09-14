@@ -8,8 +8,8 @@ function a_sol = initVal(a_sol, var_id, val)
 % Parameters:
 %   a_sol: A param_func object.
 %   var_id: Id string of variable to set
-%   va: Initial value of variable.
-%		
+%   val: Initial value of variable. 
+%
 % Returns:
 %   a_sol: Updated solver_int object.
 %
