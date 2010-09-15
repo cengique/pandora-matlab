@@ -67,13 +67,18 @@ disp('Output:')
 output
 
 disp('Resnorm:')
-size(resnorm)
+resnorm
 
-disp('Lambda:')
-lambda
+% $$$ disp('Residual:') % size as big as time points x num traces
+% $$$ size(residual)
 
-disp('Jacob:')
-jacobian
+% $$$ disp('Lambda:') % got all zeros???
+% $$$ lambda
+% $$$ lambda.lower
+% $$$ lambda.upper
+
+% $$$ disp('Jacob:') % this is huge!!!
+% $$$ jacobian
 
 % set back fitted parameters
 a_ps = setParams(a_ps, par, struct('onlySelect', 1));
