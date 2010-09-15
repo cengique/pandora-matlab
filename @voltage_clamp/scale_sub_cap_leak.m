@@ -17,7 +17,7 @@ function [f_capleak sub_vc] = ...
 %     		   step [ms]. Specify any other voltage step as the first element.
 %     fitLevels: Indices of voltage/current levels to use from clamp
 %     		 data. If empty, not fit is done.
-%     dispParams: If 1, display params at end of each iteration.
+%     dispParams: If non-zero, display params every once this many iterations.
 %     dispPlot: If non-zero, update a plot of the fit at end of this many iterations.
 %     saveData: If 1, save subtracted data into a new text file (default=0).
 %     quiet: If 1, do not include cell name on title.
@@ -109,7 +109,7 @@ if isfield(props, 'dispParams')
   props = ...
       mergeStructsRecursive(...
         props, ...
-        struct('optimset', optimset('OutputFcn', @disp_out)));      
+        struct('optimset', optimset('OutputFcn', @disp_out)));
 end
 
 if isfield(props, 'dispPlot') && props.dispPlot > 0
@@ -127,14 +127,18 @@ props = ...
   line_colors = lines(length(use_levels)); %hsv(length(v_steps));
 
   function stop = disp_out(x, optimValues, state)
-    disp(getParamsStruct(setParams(f_capleak, x, struct('onlySelect', 1))));
+    if mod(optimValues.iteration, props.dispParams) == 0 && ...
+          strcmp(state, 'iter')
+      disp(getParamsStruct(setParams(f_capleak, x, struct('onlySelect', 1))));
+    end
     stop = false;
   end
 
   fig_props = struct;
   
   function stop = plot_out(p, optimValues, state)
-    if mod(optimValues.iteration, props.dispPlot) == 0 
+    if mod(optimValues.iteration, props.dispPlot) == 0  && ...
+          strcmp(state, 'iter')
       f_capleak = setParams(f_capleak, p, struct('onlySelect', 1));
       Im = f(f_capleak, struct('v', a_vc.v.data(range_cap_resp, use_levels), 'dt', dt));
       fig_handle = ...
@@ -275,7 +279,8 @@ end
                [min(range_steps) * dt, max(range_steps) * dt NaN NaN], ...
                'y', all_title, ...
                struct('titlesPos', 'none', 'xLabelsPos', 'bottom', ...
-                      'fixedSize', [4 3], 'noTitle', 1)));
+                      'fixedSize', [4 3], 'noTitle', 1, ...
+                      'relativeSizes', [3 1])));
 
 if isfield(props, 'saveData')
   saveDataTxt(sub_vc);
