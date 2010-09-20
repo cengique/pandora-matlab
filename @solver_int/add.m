@@ -31,9 +31,7 @@ function a_sol = add(a_sol, a_deriv_func, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props', 'var')
-  props = struct;
-end
+props = mergeStructs(defaultValue('props', struct), get(a_deriv_func, 'props'));
 
 name = getFieldDefault(props, 'name', get(a_deriv_func, 'id'));
 
@@ -42,3 +40,5 @@ name = regexprep(name, '[{}]', '');
 
 a_sol.vars.(name) = 0;
 a_sol.dfdtHs.(name) = fHandle(a_deriv_func);
+
+

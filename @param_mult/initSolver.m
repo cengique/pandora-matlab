@@ -40,6 +40,7 @@ props = mergeStructs(defaultValue('props', struct), get(a_pm, 'props'));
 name = getFieldDefault(props, 'name', get(a_pm, 'id'));
 
 child_props = struct;
+
 if isfield(props, 'initV')
   child_props.initV = props.initV;
 end
@@ -48,12 +49,12 @@ end
 if isfield(props, 'isIntable') && props.isIntable == 1
   %disp(['Adding intable ' name ])
   a_sol = add(a_sol, a_pm, struct('name', name));
+  % initialize variable with given V value if given
   if isfield(props, 'initV')
     a_sol = ...
         initVal(a_sol, name, ...
                 feval(getFieldDefault(props, 'init_val_func', @(a, x) x ), ...
                       a_pm.f, props.initV));
-    child_props.initV = props.initV;
   end
 end
 
@@ -61,7 +62,6 @@ end
 child_names = fieldnames(a_pm.f);
 num_childs = length(child_names);
 child_cells = struct2cell(a_pm.f)';
-
 
 % call recursively for child functions
 for f_num = 1:num_childs
