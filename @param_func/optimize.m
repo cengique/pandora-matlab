@@ -40,6 +40,7 @@ props = mergeStructs(props, get(a_ps, 'props'));
 
 out_size = prod(size(out_data));
 
+% do we call fHandle here to do it faster? [no, everything only called once]
 error_func_lsq = ...
     @(p, x)f(setParams(a_ps, p, struct('onlySelect', 1)), x);
 
@@ -55,12 +56,14 @@ if isfield(props, 'optimset')
   optimset_props = mergeStructs(props.optimset, optimset_props);
 end
 
+tic;
 [par, resnorm, residual, exitflag, output, lambda, jacobian] = ...
     lsqcurvefit(error_func_lsq, par', inp_data, ...
                 out_data, ...
                 param_ranges(1, :), param_ranges(2, :), ...
                 optimset_props);
 
+toc
 disp([ 'Exit flag: ' num2str(exitflag) ])
 
 disp('Output:')
