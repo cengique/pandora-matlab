@@ -40,7 +40,6 @@ name = getFieldDefault(props, 'name', get(a_pf, 'id'));
 if isfield(props, 'isIntable') && props.isIntable == 1
   %disp(['Adding intable ' name ])
   a_sol = add(a_sol, a_pf, struct('name', name));
-  % initialize variable with given V value if given
   if isfield(props, 'initV')
     a_sol = ...
         initVal(a_sol, name, ...
@@ -48,3 +47,4 @@ if isfield(props, 'isIntable') && props.isIntable == 1
                       struct, props.initV));
   end
 end
+
