@@ -14,6 +14,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %   props: A structure with any optional properties.
 %     v_dep_I_f: A voltage-dependent current that is simulated with
 %     		Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
+%     ReFunc: A param_func of voltage difference on Re.
 %     (Rest passed to param_mult)
 %		
 % Returns:
@@ -59,20 +60,28 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     param_init_vals = ...
         orderfields(param_init_vals, param_defaults);
   end
+
   
   % physiologic parameter ranges
   param_ranges = ...
       [ eps eps eps -100 eps 0  -.2;...
         1e3 1e3 1e3 -50 1e3  10  .2];
   
-  v_dep_I_f = getFieldDefault(props, 'v_dep_I_f', param_func_nil(0));
+  funcs = ...
+      struct('I', getFieldDefault(props, 'v_dep_I_f', param_func_nil(0)));
 
+  Re_is_func = false;
+  if isfield(props, 'ReFunc')
+    Re_is_func = true;
+    funcs.Re = props.ReFunc
+  end
+  
   % make a sub param_func for membrane derivative
   mem_pf = ...
       param_mult(...
         {'time [ms]', 'activation'}, ...
         param_init_vals, {}, ...
-        struct('I', v_dep_I_f), ...
+        funcs, ...
         @mem_deriv, ...
         'Membrane derivative with Re', ...
         mergeStructs(props, struct('isIntable', 1, 'name', 'Vm', 'paramRanges', param_ranges)));
@@ -91,9 +100,18 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     
     Vm = getVal(x.s, 'Vm');
     
+    % voltage over Re
+    V_Re = (x.v(round(x.t/x.dt) + 1, :)' - Vm);
+
+    if Re_is_func
+      Re = f(fs.Re, abs(V_Re));
+    else
+      Re = p.Re;
+    end
+    
     dVmdt = ...
         (- (Vm - p.EL) * p.gL - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) + ...
-         (x.v(round(x.t/x.dt) + 1, :)' - Vm) / p.Re ) / p.Cm;
+         V_Re / Re ) / p.Cm;
   end
         
   function Im = cap_leak_int(fs, p, x)
@@ -131,8 +149,10 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 % $$$       h = getVal(s, 'h')
       var_int = integrate(s, Vc_delay);
       Vm = squeeze(var_int(:, 1, :));
-      m = squeeze(var_int(:, 2, :));
-      h = squeeze(var_int(:, 3, :));
+      if isfield(s.vars, 'm')
+        m = squeeze(var_int(:, 2, :));
+        h = squeeze(var_int(:, 3, :));
+      end
       %v_val = Vm;
     else
       % otherwise this is part of a bigger integration, just return
@@ -142,11 +162,25 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
       %h = getVal(s, 'h');
       %v_val = v(round(t/dt)+1, :);
     end
-    
+
+    % voltage over Re
+    V_Re = (Vc_delay - Vm);
+
+    % TODO: this won't work if solver is initialized outside and we don't
+    % have access to the "real" fs anymore
+    if Re_is_func
+      Re = f(fs.Vm.f.Re, abs(V_Re));
+    else
+      Re = Vm_p.Re;
+    end
+
+% $$$     disp(['V_Re min= ' num2str(min(min(abs(V_Re)))) ', max=' ...
+% $$$           num2str(max(max(abs(V_Re)))) ])
+        
     % after solving Vm, return total input current
     Im = Vm_p.offset + ...
          Vm_p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt ...
-         + (Vc_delay - Vm) / Vm_p.Re;
+         + V_Re ./ Re;
     
     % crop the prepended fixed_delay
     Im = Im((fixed_delay + 1):end, :);
