@@ -29,6 +29,9 @@ function a_ps = param_spline_func(x_vals, init_vals, var_names, id, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/09/16
 
+% TODO: measure time, improve eval functions by using interpolation
+% table?
+  
   props = defaultValue('props', struct);
   
   num_breaks = length(init_vals);
