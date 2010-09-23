@@ -1,6 +1,6 @@
 function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props) 
   
-% param_Re_Ce_cap_leak_int_t - OBSOLETE, BUGGY. Membrane capacitance and leak integrated over time with a model of electrode resistance and capacitance.
+% param_Re_Ce_cap_leak_int_t - Membrane capacitance and leak integrated over time with a model of electrode resistance and capacitance.
 %
 % Usage:
 %   a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)

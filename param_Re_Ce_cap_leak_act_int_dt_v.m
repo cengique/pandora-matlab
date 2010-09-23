@@ -1,6 +1,6 @@
 function a_pf = param_Re_Ce_cap_leak_act_int_dt_v(param_init_vals, id, props) 
   
-% param_Re_Ce_cap_leak_int_t - Membrane capacitance, leak and active channels integrated over time with a model of electrode resistance and capacitance.
+% param_Re_Ce_cap_leak_int_t - DOESN'T WORK. Membrane capacitance, leak and active channels integrated over time with a model of electrode resistance and capacitance.
 %
 % Usage:
 %   a_pf = param_Re_Ce_cap_leak_act_int_dt_v(param_init_vals, id, props)
@@ -112,9 +112,14 @@ function a_pf = param_Re_Ce_cap_leak_act_int_dt_v(param_init_vals, id, props)
     t_offset = round(x.t/x.dt) + 1;
     Vm = x.v(t_offset, :) - Re * Im;
 
+% $$$     dImdt = ...
+% $$$         ((Vm - p.EL) * p.gL + f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ) / ( p.Cm * Re) ...
+% $$$          + ( x.v(t_offset, :) - x.v(max(t_offset - 1, 1), :) ) / x.dt / Re; 
+
     dImdt = ...
-        ((Vm - p.EL) * p.gL + f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ) / ( p.Cm * Re) ...
-         + ( x.v(t_offset, :) - x.v(max(t_offset - 1, 1), :) ) / x.dt / p.Cm; 
+        ( p.Cm / Re) * ( x.v(t_offset, :) - x.v(max(t_offset - 1, 1), :) ) / x.dt / ...
+        ((Vm - p.EL) * p.gL + f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ) - 1 / Re; 
+
     % TODO: 
     % - fix crude estimate of 1st derivative 
     % - return parts of the equation separately
@@ -164,7 +169,7 @@ function a_pf = param_Re_Ce_cap_leak_act_int_dt_v(param_init_vals, id, props)
       %v_val = v(round(t/dt)+1, :);
     end
 
-    Ic = Im + Im_p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt;
+    Ic = Im; % + Im_p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt;
     
     % crop the prepended fixed_delay
     Ic = Ic((fixed_delay + 1):end, :);
