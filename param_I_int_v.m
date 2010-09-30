@@ -56,10 +56,14 @@ function a_pf = ...
     dt = x.dt;
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
-      s = setVals(initSolver(fs.this, s), [0 1]); % add variables and initialize
+      s = initSolver(fs.this, s, struct('initV', v(1)));
       var_int = integrate(s, v);
       m = squeeze(var_int(:, 1, :));
-      h = squeeze(var_int(:, 2, :));
+      if size(var_int, 2) > 1
+        h = squeeze(var_int(:, 2, :));
+      else
+        h = 1;
+      end
       v_val = v;
     else
       % otherwise this is part of a bigger integration, just return

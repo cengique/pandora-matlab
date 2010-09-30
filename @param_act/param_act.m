@@ -1,6 +1,6 @@
 function a_ps = param_act(param_init_vals, id, props)
   
-% param_act - Holds parameters of an (in)activation function, y = logsig(-(x+p(1))/p(2)).
+% param_act - Holds parameters of an (in)activation function, y = 1./(1 + exp((x-p.V_half) ./ p.k)).
 %
 % Usage:
 %   a_ps = param_act(param_init_vals, id, props)
