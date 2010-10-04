@@ -1,4 +1,4 @@
-function param_names = getParamNames(a_ps)
+function param_names = getParamNames(a_ps, props)
 
 % getParamNames - Gets the parameter names of function.
 %
@@ -28,13 +28,15 @@ function param_names = getParamNames(a_ps)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-param_names = getParamNames(a_ps.param_func);
+props = defaultValue('props', struct);
+
+param_names = getParamNames(a_ps.param_func, props);
 fs_cell = struct2cell(a_ps.f)';
 fs_names = fieldnames(a_ps.f);
 for f_num = 1:length(fs_cell)
   a_f = fs_cell{f_num};
   f_name = fs_names{f_num};
-  pn = cellfun(@(p_name) [ f_name '_' p_name ], getParamNames(a_f), ...
+  pn = cellfun(@(p_name) [ f_name '_' p_name ], getParamNames(a_f, props), ...
                'UniformOutput', false);
   param_names = [ param_names, pn{:} ];
 end

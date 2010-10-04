@@ -1,0 +1,38 @@
+function disp_cell = displayParams(a_pf, props)
+
+% displayParams - Display parameter values.
+%
+% Usage:
+%   disp_cell = displayParams(a_pf)
+%
+% Parameters:
+%   a_pf: A param_func object.
+%   props: A structure with any optional properties.
+%     lastParams: show changes with these param values.
+%     (Rest passed to getParams, etc)
+%
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/04
+
+% Copyright (c) 2010 Cengiz Gunay <cengique@users.sf.net>.
+% This work is licensed under the Academic Free License ("AFL")
+% v. 3.0. To view a copy of this license, please look at the COPYING
+% file distributed with this software or visit
+% http://opensource.org/licenses/afl-3.0.php.
+
+% Handle differently if an array of DBs
+if length(a_pf) > 1
+  disp(a_pf);
+  return;
+end
+
+props = defaultValue('props', struct);
+
+param_struct = getParamsStruct(a_pf, props);
+
+disp_cell = [ getParamNames(a_pf)', struct2cell(param_struct) ];
+disp_cell = [ {'Param', 'Value'}; disp_cell ];
+
+if isfield(props, 'lastParams')
+  param_diff = props.lastParams - getParams(a_pf);
+  disp_cell = [ disp_cell, [ {'Diff'}; num2cell(param_diff(:)) ] ];
+end
