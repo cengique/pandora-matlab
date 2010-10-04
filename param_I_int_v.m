@@ -57,7 +57,7 @@ function a_pf = ...
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
       s = initSolver(fs.this, s, struct('initV', v(1)));
-      var_int = integrate(s, v);
+      var_int = integrate(s, v, mergeStructs(get(fs.this, 'props'), props));
       m = squeeze(var_int(:, 1, :));
       if size(var_int, 2) > 1
         h = squeeze(var_int(:, 2, :));

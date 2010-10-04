@@ -15,6 +15,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %     v_dep_I_f: A voltage-dependent current that is simulated with
 %     		Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
 %     ReFunc: A param_func of voltage difference on Re.
+%     name: Use this to make labels unique.
 %     (Rest passed to param_mult)
 %		
 % Returns:
@@ -75,6 +76,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     Re_is_func = true;
     funcs.Re = props.ReFunc
   end
+
+  Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
   
   % make a sub param_func for membrane derivative
   mem_pf = ...
@@ -84,7 +87,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         funcs, ...
         @mem_deriv, ...
         'Membrane derivative with Re', ...
-        mergeStructs(props, struct('isIntable', 1, 'name', 'Vm', 'paramRanges', param_ranges)));
+        mergeStructs(props, struct('isIntable', 1, 'name', Vm_name, 'paramRanges', param_ranges)));
   
   a_pf = ...
       param_mult(...
@@ -98,7 +101,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
   % get a handle with fixed parameters first
   %f_I_h = fHandle(fs.I);
     
-    Vm = getVal(x.s, 'Vm');
+    Vm = getVal(x.s, Vm_name);
     
     % voltage over Re
     V_Re = (x.v(round(x.t/x.dt) + 1, :)' - Vm);
@@ -147,7 +150,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 % $$$       Vm = getVal(s, 'Vm')
 % $$$       m = getVal(s, 'm')
 % $$$       h = getVal(s, 'h')
-      var_int = integrate(s, Vc_delay);
+      var_int = integrate(s, Vc_delay, mergeStructs(get(fs.this, 'props'), props));
       Vm = squeeze(var_int(:, 1, :));
       if isfield(s.vars, 'm')
         m = squeeze(var_int(:, 2, :));

@@ -11,5 +11,10 @@ function a = set(a, attr, val)
 try
   a.(attr) = val;
 catch
-  a.param_func = set(a.param_func, attr, val);
+  % set only existing sub functions
+  if isfield(a.f, attr)
+    a.f.(attr) = val;
+  else
+    a.param_func = set(a.param_func, attr, val);
+  end
 end

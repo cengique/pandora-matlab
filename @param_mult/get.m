@@ -11,5 +11,10 @@ function b = get(a, attr)
 if isfield(struct(a), attr)
   b = a.(attr);
 else
-  b = get(a.param_func, attr);
+  try
+    % try sub functions
+    b = a.f.(attr);
+  catch
+    b = get(a.param_func, attr);
+  end
 end

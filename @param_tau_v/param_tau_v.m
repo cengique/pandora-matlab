@@ -44,7 +44,7 @@ function a_ps = param_tau_v(param_init_vals, id, props)
   if nargin == 0 % Called with no params
     a_ps = struct;
     a_ps = class(a_ps, 'param_tau_v', ...
-                 param_func(var_names, [], param_names, func_handle, '', props));
+                 param_func(var_names, repmat(NaN, 1, length(param_names)), param_names, func_handle, '', props));
   elseif isa(param_init_vals, 'param_tau_v') % copy constructor?
     a_ps = param_init_vals;
   else
