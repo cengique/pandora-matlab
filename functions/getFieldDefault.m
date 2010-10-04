@@ -15,10 +15,10 @@ function value = getFieldDefault(strc, f, def_val)
   try
     value = strc.(f);
   catch err
-    if err.identifier == 'MATLAB:nonExistentField'
+    if strcmp(err.identifier, 'MATLAB:nonExistentField')
       value = def_val;
     else 
-      throw(er);
+      throw(err);
     end      
   end
 % $$$   
