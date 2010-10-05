@@ -47,4 +47,4 @@ for f_num = 1:num_funcs
 end
 
 % return as new handle
-f_handle = @(x) feval(func, a_struct, params, x);
+f_handle = @(x) func(a_struct, params, x);

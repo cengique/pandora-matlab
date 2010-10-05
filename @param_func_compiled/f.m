@@ -29,4 +29,4 @@ function y = f(a_ps, x)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-y = feval(a_ps.func, x);
+y = a_ps.func(x);

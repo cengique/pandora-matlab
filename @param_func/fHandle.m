@@ -34,4 +34,4 @@ func = get(a_ps, 'func');
 params = getParamsStruct(a_ps);
 
 % return as new handle
-f_handle = @(x) feval(func, params, x);
+f_handle = @(x) func(params, x);
