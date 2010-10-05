@@ -52,7 +52,8 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
     s = x.s;
     v = x.v;
     dt = x.dt;
-    dact = ((f(fs.inf, v(round(t/dt)+1, :)') - getVal(s, name)) ./ ...
-            f(fs.tau, v(round(t/dt)+1, :)'));
+    %v_ind = 1; %v(round(t/dt)+1, :)';
+    dact = ((f(fs.inf, v) - getVal(s, name)) ./ ...
+            f(fs.tau, v));
   end
 end

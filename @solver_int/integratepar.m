@@ -49,18 +49,19 @@ res = repmat(NaN, [length(time), num_vars, num_columns]);
 deriv_all_func = @deriv_all;
 parfor column_num = 1:num_columns
   [t_tmp, result] = ...
-      ode15s(@(t,vars) feval(deriv_all_func, t, vars, x(:, column_num)), ...
+      ode15s(@(t,vars) deriv_all_func(t, vars, column_num), ... % x(:, column_num)
              time, cell2mat(struct2cell(a_sol.vars)'));
   res(:, :, column_num) = result;
 end
 
-function dfdt = deriv_all(t, vars, v_col)
+function dfdt = deriv_all(t, vars, column_num)
   a_sol_tmp = setVals(a_sol, vars);
   dfdt = dfdt_init;
+  v_ind = x(round(t/a_sol.dt) + 1, column_num);
   for var_num = 1:num_vars
     dfdt(var_num) = ...
         feval(dfdtHs{var_num}, ...
-              struct('t', t, 's', a_sol_tmp, 'v', v_col, 'dt', a_sol.dt));
+              struct('t', t, 's', a_sol_tmp, 'v', v_ind, 'dt', a_sol.dt)); 
   end
 end
 

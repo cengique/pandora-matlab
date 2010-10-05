@@ -104,7 +104,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     Vm = getVal(x.s, Vm_name);
     
     % voltage over Re
-    V_Re = (x.v(round(x.t/x.dt) + 1, :)' - Vm);
+    V_Re = (x.v  - Vm); %x.v(round(x.t/x.dt) + 1, :)'
 
     if Re_is_func
       Re = f(fs.Re, abs(V_Re));
