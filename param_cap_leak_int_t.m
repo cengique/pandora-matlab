@@ -11,7 +11,9 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 %     [nF], and a delay [ms].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
-% 	   (Rest passed to param_func)
+%     v_dep_I_f: A voltage-dependent current that is simulated with
+%     		Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
+%    (Rest passed to param_func)
 %		
 % Returns:
 %   a_pf: A param_func object that can be evaluated and fitted.
@@ -42,7 +44,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_names_ordered = {'gL', 'EL', 'Cm', 'delay'};
+  param_names_ordered = {'gL', 'EL', 'Cm', 'delay', 'offset'};
   if ~ isstruct(param_init_vals)
     param_init_vals = ...
         cell2struct(num2cell(param_init_vals(:)'), ...
@@ -64,17 +66,18 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
   
   % physiologic parameter ranges
   param_ranges = ...
-      [ eps -200 eps 0;...
-        1e3 100 1e3  10];
-  
+      [ eps -200 eps 0 -.2;...
+        1e3 100 1e3  10 .2];
+
   a_pf = ...
-      param_func(...
+      param_mult(...
         {'time [ms]', 'I_{cap+leak} [nA]'}, ...
         param_init_vals, [], ...
+        struct('I', getFieldDefault(props, 'v_dep_I_f', param_func_nil(0))), ...
         @cap_leak_int, id, ...
         mergeStructs(props, struct('paramRanges', param_ranges)));
-  
-  function Ic = cap_leak_int(p, x)
+
+  function Ic = cap_leak_int(fs, p, x)
     Vc = x.v;
     dt = x.dt;
     
@@ -89,9 +92,9 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
           Vc(2:(end-delay_dt_int), :) - ...
           delay_dt_frac * ...
           diff(Vc(1:(end-delay_dt_int), :)) ];
-    Ic = ...
+    Ic = p.offset + ...
         p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
-        (Vc_delay - p.EL) * p.gL;
+        (Vc_delay - p.EL) * p.gL + f(fs.I, struct('v', Vc_delay, 'dt', dt));
   end
 
 end

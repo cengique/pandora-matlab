@@ -1,6 +1,6 @@
 function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props) 
   
-% param_cap_leak_v_dep_int_t - Membrane capacitance and leak plus voltage-dependent ionic currents integrated over time.
+% param_cap_leak_v_dep_int_t - OBSOLETE (use param_cap_leak_int_t with props) Membrane capacitance and leak plus voltage-dependent ionic currents integrated over time.
 %
 % Usage:
 %   a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props)
@@ -94,7 +94,7 @@ function a_pf = param_cap_leak_v_dep_int_t(param_init_vals, v_dep_I_f, id, props
           diff(Vc(1:(end-delay_dt_int), :)) ];
     Ic = ...
         p.Cm * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt + ...
-        (Vc_delay - p.EL) * p.gL + f(fs.I, struct('v', Vc, 'dt', dt));
+        (Vc_delay - p.EL) * p.gL + f(fs.I, struct('v', Vc_delay, 'dt', dt));
   end
 
 end
