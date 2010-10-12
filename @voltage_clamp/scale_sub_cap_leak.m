@@ -131,7 +131,7 @@ props = ...
     if mod(optimValues.iteration, props.dispParams) == 0 && ...
           strcmp(state, 'iter')
       disp(displayParams(setParams(f_capleak, x, struct('onlySelect', 1)), ...
-                         struct('lastParams', getParams(f_capleak), ...
+                         struct('lastParamsF', f_capleak, ...
                                 'onlySelect', 1)));
     end
     stop = false;
@@ -187,6 +187,9 @@ if ~ isempty(use_levels)
   %select_params = {'gL', 'EL'}
   %f_capleak = setProp(f_capleak, 'selectParams', select_params); 
 
+  % save before optimization
+  f_capleak_orig = f_capleak;
+  
   % optimize
   f_capleak = ...
       optimize(f_capleak, ...
@@ -208,8 +211,12 @@ if ~ isempty(use_levels)
         properTeXLabel([ cell_name ': Raw data' extra_text title_str ]);
   end
 
-  % show all parameters
-  params = getParamsStruct(f_capleak)
+  % show all parameters (only the ones optimized)
+  disp(displayParams(f_capleak, ...
+                     struct('lastParamsF', f_capleak_orig, ...
+                            'onlySelect', 1)));
+  
+  params = getParamsStruct(f_capleak);
 
   Im = f(f_capleak, struct('v', a_vc.v.data(range_cap_resp, use_levels), 'dt', dt));
 
