@@ -47,30 +47,25 @@ dfdtHs = struct2cell(a_sol.dfdtHs);
 time = getFieldDefault(props, 'time', (0:(size(x, 1) - 1))*a_sol.dt);
 
 % integrate each column separately
-% TODO: use parfor selectively based on installation
 num_columns = size(x, 2);
 res = repmat(NaN, [length(time), num_vars, num_columns]);
-% separate tmp copies for parallel execution
-% $$$ a_sol_tmp = repmat(a_sol, num_columns, 1);
 for column_num = 1:num_columns
-  % initialized above already
-  %a_sol_tmp(column_num) = a_sol;
-  v_col = x(:, column_num);
   [t_tmp, result] = ...
-      ode15s(@(t,vars) deriv_all(t, vars, a_sol, v_col, num_vars, dfdtHs), ...
+      ode15s(@deriv_all, ...
              time, cell2mat(struct2cell(a_sol.vars)'));
   res(:, :, column_num) = result;
 end
 
-end
-
-function dfdt = deriv_all(t, vars, a_sol, v_col, num_vars, dfdtHs)
-  a_sol = setVals(a_sol, vars);
+function dfdt = deriv_all(t, vars)
+  a_sol_tmp = setVals(a_sol, vars);
   %dfdt = dfdt_init;
   dfdt = repmat(NaN, num_vars, 1);
+  v_ind = x(round(t/a_sol.dt) + 1, column_num);
   for var_num = 1:num_vars
     dfdt(var_num) = ...
         feval(dfdtHs{var_num}, ...
-              struct('t', t, 's', a_sol, 'v', v_col, 'dt', a_sol.dt));
+              struct('t', t, 's', a_sol_tmp, 'v', v_ind, 'dt', a_sol.dt));
   end
+end
+
   end
