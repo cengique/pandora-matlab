@@ -9,6 +9,7 @@ function disp_cell = displayParams(a_pf, props)
 %   a_pf: A param_func object.
 %   props: A structure with any optional properties.
 %     lastParams: show changes with these param values.
+%     lastParamsF: get lastParams from this function.
 %     (Rest passed to getParams, etc)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/04
@@ -29,10 +30,14 @@ props = defaultValue('props', struct);
 
 param_struct = getParamsStruct(a_pf, props);
 
-disp_cell = [ getParamNames(a_pf)', struct2cell(param_struct) ];
+disp_cell = [ getParamNames(a_pf, props)', struct2cell(param_struct) ];
 disp_cell = [ {'Param', 'Value'}; disp_cell ];
 
+if isfield(props, 'lastParamsF')
+  props.lastParams = getParams(props.lastParamsF, props);
+end
+
 if isfield(props, 'lastParams')
-  param_diff = props.lastParams - getParams(a_pf);
+  param_diff = getParams(a_pf, props) - props.lastParams;
   disp_cell = [ disp_cell, [ {'Diff'}; num2cell(param_diff(:)) ] ];
 end

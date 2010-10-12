@@ -44,3 +44,6 @@ end
 if isfield(props, 'onlySelect')
   param_names = param_names(param_idx);
 end
+
+% return row vector always
+param_names = param_names(:)';
