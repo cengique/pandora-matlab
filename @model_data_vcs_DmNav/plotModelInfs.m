@@ -34,12 +34,6 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if isfield(props, 'quiet')
-  all_title = title_str;
-else
-  all_title = [ ', ' a_md.id get(a_md.model_f, 'id') ' m_inf, m_inf^3, and h_inf ' title_str ];
-end
-
 % find the current (I) object
 if isfield(a_md.model_f.f, 'I')
   I = a_md.model_f.I;
@@ -47,9 +41,19 @@ else
   I = a_md.model_f;
 end
 
+p = getParam(I, 'p');
+
+if isfield(props, 'quiet')
+  all_title = title_str;
+else
+  all_title = [ ', ' a_md.id get(a_md.model_f, 'id') ' m_inf, m_inf^' ...
+                num2str(p) ', and h_inf ' title_str ];
+end
+
+
 a_p = ...
     plot_superpose({plot_abstract(I.m.inf, all_title), ...
-                    plot_abstract(I.m.inf .^ 3), ...
+                    plot_abstract(I.m.inf .^ p), ...
                     plot_abstract(I.h.inf, '', ...
                           struct('quiet', 1, 'noTitle', 1, 'fixedSize', [2.5 2], ...
                                  'plotProps', struct('LineWidth', 2)))});
