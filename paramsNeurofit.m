@@ -45,7 +45,7 @@ params = rmfield(params, 'nh');
 
 % model section 
 act_inf_str = ...
-    regexp(nfit_str, '\n\s+Model Parameters.*Fit\?\s*\n(.*)\n\s*Time', 'tokens');
+    regexp(nfit_str, '\n\s+Model Parameters.*Fit\?\s*(\n.*)\n\s*Time', 'tokens');
 
 % get params
 act_inf_val = regexp(act_inf_str{1}{1}, '\n\s+(\w+)\s*(-?\d+)', 'tokens');
@@ -61,14 +61,14 @@ tau_str = ...
 % get tau, volt, fitted value and is fitted answer
 
 addTau(tau_str, 'm');
-addTau(tau_str, 'h');
+addTau(tau_str, 'h1');
 
 % function ends here
 
 % convert cell of param-value pairs to a structure
   function addParams(cell_str)
   for par_num = 1:length(cell_str)
-    params.(cell_str{par_num}{1}) = cell_str{par_num}{2};
+    params.(cell_str{par_num}{1}) = str2num(cell_str{par_num}{2});
   end
   end
 
