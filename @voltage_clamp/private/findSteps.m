@@ -48,7 +48,7 @@ time_change = 1 - step_delay;
 % find all voltage steps
 time_steps = [];
 while ~ isempty(time_change)
-  time_change = findChange(data_v(:, 1), time_change + step_delay, 3, dt); 
+  time_change = findChange(data_v(:, 2), time_change + step_delay, 3, dt); 
   time_steps = [ time_steps, time_change ];
 end
 
