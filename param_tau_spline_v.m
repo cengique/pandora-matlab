@@ -47,7 +47,7 @@ function a_ps = param_tau_spline_v(v_vals, init_vals, id, props)
   props = mergeStructs(props, ...
                        struct('xMin', min(v_vals), 'xMax', max(v_vals), ...
                               'paramRanges', ...
-                              repmat([0 1e3]', 1, num_breaks)));
+                              repmat([eps 1e3]', 1, num_breaks)));
 
   a_ps = ...
       param_func({'voltage [mV]', 'time constant [ms]'}, init_vals, param_names, ...
@@ -57,8 +57,8 @@ function a_ps = param_tau_spline_v(v_vals, init_vals, id, props)
   % TODO: when making this class, only make spline once in handle version
   % make spline interpolation
     pp = pchip(v_vals, cell2mat(struct2cell(p)));
-    % return interpolated value
-    val = ppval(pp, x);
+    % return interpolated value (never negative!)
+    val = max(ppval(pp, x), eps);
   end
 
   end
