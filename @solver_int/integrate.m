@@ -34,7 +34,7 @@ function res = integrate(a_sol, x, props)
 
 props = defaultValue('props', struct);
 
-if isfield(props, 'parfor')
+if isfield(props, 'parfor') && props.parfor == 1
   res = integratepar(a_sol, x, props);
   return;
 end
