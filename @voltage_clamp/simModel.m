@@ -75,13 +75,10 @@ model_vc = a_vc;
 model_vc.i = ...
     set(model_vc.i, 'data', ...
                     f(f_I_v, struct('v', data_v(max(1, range_steps - round(v_delay/dt)), ...
-                                                : ), 'dt', dt)));
+                                                : ), 'dt', dt)))
+
 % set a name
 model_vc = set(model_vc, 'id', [ 'sim ' get(f_I_v, 'id') ]);
 
 % recalculate values of step steady-state currents
-[time_steps, v_steps, i_steps] = ...
-    findSteps(model_vc.v.data, model_vc.i.data, ...
-              get(model_vc, 'dt') * 1e3, props);
-
-model_vc.i_steps = i_steps;
+model_vc = updateSteps(model_vc);
