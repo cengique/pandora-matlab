@@ -43,17 +43,31 @@ end
 
 p = getParam(I, 'p');
 
+if p > 1
+  a_m_p = plot_abstract(I.m.inf .^ p);
+  a_m_label = [ ', m_inf^' num2str(p) ];
+else
+  a_m_p = plot_abstract;
+  a_m_label = '';
+end
+
+if isfield(struct(I.f.h), 'f')
+  a_h_p = plot_abstract(I.h.inf);
+  a_h_label = ', and h_inf ';
+else
+  a_h_p = plot_abstract;
+  a_h_label = '';
+end
+
 if isfield(props, 'quiet')
   all_title = title_str;
 else
-  all_title = [ ', ' a_md.id get(a_md.model_f, 'id') ' m_inf, m_inf^' ...
-                num2str(p) ', and h_inf ' title_str ];
+  all_title = [ ', ' a_md.id get(a_md.model_f, 'id') ' m_inf' a_m_label a_h_label title_str ];
 end
 
-
 a_p = ...
-    plot_superpose({plot_abstract(I.m.inf, all_title), ...
-                    plot_abstract(I.m.inf .^ p), ...
-                    plot_abstract(I.h.inf, '', ...
-                          struct('quiet', 1, 'noTitle', 1, 'fixedSize', [2.5 2], ...
-                                 'plotProps', struct('LineWidth', 2)))});
+    plot_superpose({plot_abstract(I.m.inf, all_title, ...
+                                  struct('quiet', 1, 'noTitle', 1, 'fixedSize', [2.5 2], ...
+                                         'axisProps', struct('Box', 'off'), ...
+                                         'plotProps', struct('LineWidth', 2))), ...
+                    a_m_p, a_h_p}, {}, '');
