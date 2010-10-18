@@ -18,7 +18,7 @@ function rel_time = getTimeRelStep(a_vc, step_num, rel_time, props)
 %
 % Example:
 % Select [-10, 50] ms range from step 1 into a new VC object.
-% >> new_vc = withinPeriod(a_vc, period(getTimeRelStep(a_vc, 1, -10), getTimeRelStep(a_vc, 1, 50)))
+% >> new_vc = withinPeriod(a_vc, period(getTimeRelStep(a_vc, 1, [-10 50])))
 %
 % See also: voltage_clamp
 %
@@ -31,4 +31,4 @@ if ~ exist('props', 'var')
 end
 
 rel_time = ...
-    a_vc.time_steps(step_num) + round(rel_time / get(a_vc, 'dt') / 1e3);
+    a_vc.time_steps(step_num) + round(rel_time * 1e-3/ get(a_vc, 'dt') );
