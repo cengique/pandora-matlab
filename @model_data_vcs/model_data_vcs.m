@@ -12,7 +12,8 @@ function a_md = model_data_vcs(model_f, data_vc, id, props)
 %   props: A structure with any optional properties.
 %
 % Returns a structure object with the following fields:
-%   model_f, data_vc.
+%   model_f, data_vc,
+%   model_vc: Obtained by simulating model.
 %
 % Description:
 %   For tasks such as plotting comparison of model to data and generating
@@ -42,7 +43,7 @@ if nargin == 0 % Called with no params
   a_md.model_vc = voltage_clamp;
   a_md.data_vc = voltage_clamp;
   a_md.id = '';
-  a_md = class(a_md, 'model_data_vcs', trace);
+  a_md = class(a_md, 'model_data_vcs');
 elseif isa(model_f, 'model_data_vcs') % copy constructor?
   a_md = model_f;
 else
