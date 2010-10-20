@@ -37,15 +37,10 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-props = mergeStructs(props, get(a_ps, 'props'));
+% BUG!!! propagates selectParams!!! What was the purpose for this?
+% props = mergeStructs(props, get(a_ps, 'props'));
 
 param_names = getParamNames(a_ps, props);
-
-% $$$ if isfield(props, 'onlySelect') && props.onlySelect == 1 ...
-% $$$       && isfield(props, 'selectParams')
-% $$$   param_names = props.selectParams;
-% $$$ else
-% $$$ end
 
 params_struct = ...
     cell2struct(num2cell(getParams(a_ps, props)), param_names, 2);
