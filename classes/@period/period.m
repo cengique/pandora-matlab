@@ -1,18 +1,18 @@
 function obj = period(start_time, end_time)
 
-% period - Start and end times of a period in terms of the dt of the trace
-%	to which belongs.
+% period - Start and end times of a period in terms of the dt of the trace to which belongs.
 %
 % Usage:
 % obj = period(start_time, end_time)
 %
-% Description:
-%
-%   Parameters:
-%	(see below for the rest)
+% Parameters:
+%   start_time, end_time: Inclusive period [dt]. If end_time is missing
+%   	and start_time has two values, the second one is used as end_time.
 %		
-%   Returns a structure object with the following fields:
-%	start_time, end_time: Inclusive period [dt].
+% Returns a structure object with the following fields:
+%   start_time, end_time.
+%
+% Description:
 %
 % General operations on period objects:
 %   period		- Construct a new period object.
@@ -44,9 +44,12 @@ if nargin == 0 % Called with no params
    obj = class(obj,'period');
  elseif isa(start_time,'period') % copy constructor?
    obj = start_time;
- else
-   obj.start_time = start_time;
-   obj.end_time = end_time;
-   obj = class(obj,'period');
+else
+  if length(start_time) == 2 && ~ exist('end_time', 'var')
+  end_time = start_time(2);
+  start_time = start_time(1);
+  end
+  obj.start_time = start_time;
+  obj.end_time = end_time;
+  obj = class(obj,'period');
 end
-
