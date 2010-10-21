@@ -22,7 +22,7 @@ function a_p = plotModelTaus(a_md, title_str, props)
 %
 % See also: model_data_vcs_DmNav, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: plotModelTaus.m 89 2010-04-09 19:54:00Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/11
 

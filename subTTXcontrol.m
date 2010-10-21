@@ -21,7 +21,7 @@ function sub_vc = subTTXcontrol(vc1, vc2, title_str, props)
 %
 % See also: voltage_clamp
 %
-% $Id: subTTXcontrol.m 79 2010-03-30 15:55:11Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/12
 

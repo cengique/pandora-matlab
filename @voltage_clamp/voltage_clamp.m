@@ -36,7 +36,7 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 %
 % See also: trace, period
 %
-% $Id: voltage_clamp.m 132 2010-06-22 13:32:03Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/02/05
 

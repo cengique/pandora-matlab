@@ -32,7 +32,7 @@ function params = ...
 %
 % See also: param_I_v, param_func
 %
-% $Id: scale_IClCa_NaP_sub_IClCa.m 79 2010-03-30 15:55:11Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 

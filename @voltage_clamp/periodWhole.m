@@ -12,7 +12,7 @@ function whole_period = periodWhole(a_vc)
 %
 % See also: period, trace, voltage_clamp
 %
-% $Id: periodWhole.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/04/08
 

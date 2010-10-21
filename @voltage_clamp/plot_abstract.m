@@ -27,7 +27,7 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %
 % See also: plotSteadyIV, plot_abstract, plotFigure, plot_superpose, plot_stack
 %
-% $Id: plot_abstract.m 142 2010-08-09 17:20:50Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/11
 

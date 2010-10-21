@@ -22,7 +22,7 @@ function rel_time = getTimeRelStep(a_vc, step_num, rel_time, props)
 %
 % See also: voltage_clamp
 %
-% $Id: getTimeRelStep.m 79 2010-03-30 15:55:11Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/18
 

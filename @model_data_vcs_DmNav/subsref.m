@@ -21,7 +21,7 @@ function b = subsref(a,index)
 %
 % See also: subsref, tests_db
 %
-% $Id: subsref.m 1198 2010-08-09 17:26:53Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 

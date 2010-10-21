@@ -29,7 +29,7 @@ function model_vc = simModel(a_vc, f_I_v, props)
 %
 % See also: param_I_v, param_func, plot_abstract
 %
-% $Id: simModel.m 214 2010-10-19 23:19:06Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/29
 

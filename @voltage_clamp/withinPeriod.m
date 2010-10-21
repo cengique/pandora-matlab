@@ -19,7 +19,7 @@ function [a_vc a_period] = withinPeriod(a_vc, a_period, props)
 %
 % See also: trace/withinPeriod, trace, period
 %
-% $Id: withinPeriod.m 81 2010-03-30 19:20:22Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/29
 

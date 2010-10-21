@@ -24,7 +24,7 @@ function params = ...
 %
 % See also: param_I_v, param_func
 %
-% $Id: scale_cap_leak_Ca_sub_cap_leak.m 79 2010-03-30 15:55:11Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 

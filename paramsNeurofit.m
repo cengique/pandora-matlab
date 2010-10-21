@@ -26,7 +26,7 @@ function params = paramsNeurofit(file_name, props)
 %
 % See also: 
 %
-% $Id: paramsNeurofit.m 172 2010-10-06 00:38:29Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/13
 

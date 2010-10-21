@@ -31,7 +31,7 @@ function a_md = fit(a_md, title_str, props)
 %
 % See also: param_I_v, param_func
 %
-% $Id: fit.m 172 2010-10-06 00:38:29Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/12
 

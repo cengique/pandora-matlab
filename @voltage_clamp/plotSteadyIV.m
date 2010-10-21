@@ -30,7 +30,7 @@ function a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 %
 % See also: voltage_clamp, plot_abstract, plotFigure, plot_superpose
 %
-% $Id: plotSteadyIV.m 89 2010-04-09 19:54:00Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/10
 

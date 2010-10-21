@@ -26,7 +26,7 @@ function a_md = model_data_vcs_DmNav(model_f, data_vc, id, props)
 %
 % See also: voltage_clamp, param_func
 %
-% $Id: model_data_vcs_DmNav.m 132 2010-06-22 13:32:03Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/11
 

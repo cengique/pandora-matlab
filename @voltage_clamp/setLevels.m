@@ -20,7 +20,7 @@ function a_vc = setLevels(a_vc, levels, props)
 %
 % See also: voltage_clamp
 %
-% $Id: setLevels.m 79 2010-03-30 15:55:11Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/30
 
