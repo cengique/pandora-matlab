@@ -10,15 +10,9 @@ function b = get(a, attr)
 % http://opensource.org/licenses/afl-3.0.php.
 if isfield(struct(a), attr)
   b = a.(attr);
+elseif find(ismember(getColNames(a.tests_db), attr))
+  % TODO: stop using tests_db!
+  b = onlyRowsTests(a.tests_db, 1, attr);
 else
   b = get(a.tests_db, attr);
 end
-
-% $$$ try
-% $$$   b = a.(attr);
-% $$$ catch
-% $$$   errstr = lasterror;
-% $$$ 
-% $$$   % Then try the parent class
-% $$$   b = get(a.tests_db, attr);
-% $$$ end
