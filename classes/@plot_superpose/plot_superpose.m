@@ -144,7 +144,7 @@ else
   end
 
   if isempty(title_str)
-    title_str = plots{1}.title;
+    title_str = get(plots{1}, 'title');
   end
 
   obj = class(obj, 'plot_superpose', plot_abstract({}, axis_labels, title_str, ...
