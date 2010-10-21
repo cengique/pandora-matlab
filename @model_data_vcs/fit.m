@@ -15,6 +15,7 @@ function a_md = fit(a_md, title_str, props)
 %     		 data. If empty, not fit is done.
 %     dispParams: If non-zero, display params every once this many iterations.
 %     dispPlot: If non-zero, update a plot of the fit at end of this many iterations.
+%     saveModelFile: If given, save the model every dispParams iteration.
 %     quiet: If 1, do not include cell name on title.
 % 
 % Returns:
@@ -124,6 +125,9 @@ line_colors = lines(length(use_levels)); %hsv(length(v_steps));
       disp(displayParams(setParams(f_model, x, struct('onlySelect', 1)), ...
                          struct('lastParamsF', f_model, ...
                                 'onlySelect', 1)));
+      if isfield(props, 'saveModelFile')
+        save(props.saveModelFile, 'f_model');
+      end
     end
     stop = false;
   end
