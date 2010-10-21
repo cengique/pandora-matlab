@@ -50,6 +50,34 @@ else
   if ~ exist('props', 'var')
     props = struct;
   end
+
+  % pre_data_vc and data_vc may not be the same size, so truncate one:
+  len_pre_data = size(pre_data_vc.v.data, 1);
+  len_data = size(data_vc.v.data, 1);
+  
+  total_shift = len_pre_data - len_data;
+                      
+  % align start with time of up step:
+  align = pre_data_vc.time_steps(2) - data_vc.time_steps(2);
+  
+  assert(sign(total_shift) * (total_shift - align) > 0, ...
+         'pre_data_vc and data_vc steps incompatible, cannot be aligned');
+  
+  if total_shift > 0 
+    pre_data_vc = ...
+      withinPeriod(pre_data_vc, ...
+                   period(align + 1, len_pre_data - (total_shift - align)));
+  else
+    data_vc = ...
+        withinPeriod(data_vc, ...
+                     period(-align + 1, len_data + (total_shift - align)));
+  end
+  
+  % do not concat here, or should we?
+% $$$   Kall_vc = Kslow_trunc_vc;
+% $$$ 
+% $$$   Kall_vc.i.data = [ Kslow_trunc_vc.i.data, Kslowfast_vc.i.data ];
+% $$$   Kall_vc.v.data = [ Kslow_trunc_vc.v.data, Kslowfast_vc.v.data ];
   
   a_md = struct;
   a_md.md_pre = ...
