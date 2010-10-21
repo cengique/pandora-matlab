@@ -11,5 +11,10 @@ function a = set(a, attr, val)
 try
   a.(attr) = val;
 catch
-  a.tests_db = set(a.tests_db, attr, val);
+  if find(ismember(getColNames(a.tests_db), attr))
+    % TODO: stop using tests_db!
+    a.tests_db = assignRowsTests(a.tests_db, val, 1, attr);
+  else
+    a.tests_db = set(a.tests_db, attr, val);
+  end
 end
