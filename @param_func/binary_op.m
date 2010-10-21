@@ -47,6 +47,10 @@ result_obj = ...
 function [func name] = getOperand(op_obj, left_right)
 if isa(op_obj, 'param_func')
   if isempty(pf_obj), pf_obj = op_obj; end
+  op_props = get(op_obj, 'props');
+  if isfield(op_props, 'name')
+    left_right = op_props.name;
+  end
   pf_objs.(left_right) = op_obj;
   func = [ 'f(fs.' left_right ', x)' ];
   name = get(op_obj, 'id');
