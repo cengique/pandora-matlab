@@ -34,4 +34,6 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+title_str = defaultValue('title_str', '');
+
 a_plot = plotData(t, title_str, props);
