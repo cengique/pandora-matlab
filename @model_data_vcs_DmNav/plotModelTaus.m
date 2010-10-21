@@ -1,6 +1,6 @@
 function a_p = plotModelTaus(a_md, title_str, props)
 
-% plotModelTaus - Plot I/V curves comparing model and data.
+% plotModelTaus - Plot model tau voltage dependence curves.
 %
 % Usage:
 % a_p = plotModelTaus(a_md, title_str, props)
