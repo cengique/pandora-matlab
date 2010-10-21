@@ -47,12 +47,19 @@ else
   I = a_md.model_f;
 end
 
-a_p = plot_abstract(I.m.tau, all_title);
+a_p = { plot_abstract(I.m.tau, all_title) };
 
 if isfield(struct(I.f.h), 'f')
-  a_p = plot_superpose({a_p, plot_abstract(I.h.tau)});
+  a_p = [ a_p, { plot_abstract(I.h.tau) }];
 end
-  
+
+if isfield(I.f, 'h2')
+  a_p = [ a_p, { plot_abstract(I.h2.tau) }];
+end
+
+a_p = ...
+    plot_superpose(a_p);
+
 a_p.props = ...
     struct('noTitle', 1, 'fixedSize', [2.5 2], ...
            'plotProps', struct('LineWidth', 2));
