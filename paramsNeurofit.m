@@ -34,21 +34,21 @@ function params = paramsNeurofit(file_name, props)
 nfit_str = fileread(file_name);
 
 % get p & q
-pq_val = regexp(nfit_str, '\n\s+(p|nh)\s*=\s*(\d+)', 'tokens');
+pq_val = regexp(nfit_str, '\n\s+(p|nh|nnonh)\s*=\s*(\d+)', 'tokens');
 
 params = struct;
 addParams(pq_val);
 
 % rename 'nh' => 'q'
-params.q = params.nh;
-params = rmfield(params, 'nh');
+% $$$ params.q = params.nh;
+% $$$ params = rmfield(params, 'nh');
 
 % model section 
 act_inf_str = ...
     regexp(nfit_str, '\n\s+Model Parameters.*Fit\?\s*(\n.*)\n\s*Time', 'tokens');
 
 % get params
-act_inf_val = regexp(act_inf_str{1}{1}, '\n\s+(\w+)\s*(-?\d+)', 'tokens');
+act_inf_val = regexp(act_inf_str{1}{1}, '\n\s+(\w+)\s*(-?\d+\.?\d*)', 'tokens');
 
 addParams(act_inf_val);
 
@@ -62,6 +62,11 @@ tau_str = ...
 
 addTau(tau_str, 'm');
 addTau(tau_str, 'h1');
+
+% check for a 2nd tauh
+if ~isempty(regexp(tau_str{1}{1}, '\n\s+Th2\('))
+  addTau(tau_str, 'h2');
+end
 
 % function ends here
 
