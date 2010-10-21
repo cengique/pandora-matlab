@@ -22,7 +22,7 @@ function saveDataTxt(a_vc, props)
 %
 % See also: voltage_clamp
 %
-% $Id$
+% $Id: saveDataTxt.m 172 2010-10-06 00:38:29Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/29
 

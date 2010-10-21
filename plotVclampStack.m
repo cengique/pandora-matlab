@@ -25,7 +25,7 @@ function plot_handle = plotVclampStack(time, data_i, data_v, cell_name, props)
 %
 % See also: loadVclampAbf, plot_stack
 %
-% $Id$
+% $Id: plotVclampStack.m 79 2010-03-30 15:55:11Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/12/17
 

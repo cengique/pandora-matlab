@@ -29,7 +29,7 @@ function [time, dt, sub_data_i, sub_data_v, cell_name_1, cell_name_2] = ...
 %
 % See also: abf2load, plotVclampAbf, plotVclampStack
 %
-% $Id$
+% $Id: sub2VclampAbf.m 79 2010-03-30 15:55:11Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/02/05
 

@@ -26,7 +26,7 @@ function params = ...
 %
 % See also: voltage_clamp, param_I_v, param_func
 %
-% $Id$
+% $Id: scale_IClCa_NaP_sub_IClCa.m 89 2010-04-09 19:54:00Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/02/05
 
