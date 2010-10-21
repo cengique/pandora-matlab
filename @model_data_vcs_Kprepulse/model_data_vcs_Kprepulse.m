@@ -72,13 +72,7 @@ else
         withinPeriod(data_vc, ...
                      period(-align + 1, len_data + (total_shift - align)));
   end
-  
-  % do not concat here, or should we?
-% $$$   Kall_vc = Kslow_trunc_vc;
-% $$$ 
-% $$$   Kall_vc.i.data = [ Kslow_trunc_vc.i.data, Kslowfast_vc.i.data ];
-% $$$   Kall_vc.v.data = [ Kslow_trunc_vc.v.data, Kslowfast_vc.v.data ];
-  
+    
   a_md = struct;
   a_md.md_pre = ...
       model_data_vcs(model_f, pre_data_vc, [ id 'w/ inact prepulse'], props);
