@@ -45,15 +45,16 @@ step_delay = 2 / dt;
 % start from beginning
 time_change = 1 - step_delay;
 
-% find all voltage steps
+num_mags = size(data_v, 2);
+
+% find all voltage steps (use 2nd magnitude if available)
 time_steps = [];
 while ~ isempty(time_change)
-  time_change = findChange(data_v(:, 2), time_change + step_delay, 3, dt); 
+  time_change = findChange(data_v(:, min(2, num_mags)), time_change + step_delay, 3, dt); 
   time_steps = [ time_steps, time_change ];
 end
 
 num_steps = length(time_steps);
-num_mags = size(data_v, 2);
 
 % for each step, find mean voltage and current
 v_steps = repmat(NaN, num_steps + 1, num_mags);
