@@ -60,7 +60,8 @@ else
 
   % wait a second for figure to materialize (workaround for
   % Compiz-fusion)
-  a_timer = timer('StartDelay', .5, 'TimerFcn', '1');
+  % this was printing out a '1' on the console!
+  a_timer = timer('StartDelay', .5, 'TimerFcn', '1;'); 
   start(a_timer); wait(a_timer);
 
   if isfield(a_plot.props, 'fixedSize')
