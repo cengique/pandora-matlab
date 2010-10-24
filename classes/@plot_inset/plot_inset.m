@@ -67,6 +67,11 @@ if nargin == 0 % Called with no params
    a_plot.plots = plots;
    a_plot.axis_locations = axis_locations;
 
+   % same as plot_superpose
+   if isempty(title_str)
+    title_str = get(plots{1}, 'title');
+  end
+
    % Initialize with empty plot_abstract instance
    % because we override most of the default behavior
    % defined there anyway. 
