@@ -31,6 +31,7 @@ function a_ps = param_spline_func(x_vals, init_vals, var_names, id, props)
 
 % TODO: measure time, improve eval functions by using interpolation
 % table?
+% - allow changing prefix on param names and use voltage values
   
   props = defaultValue('props', struct);
   
