@@ -27,4 +27,4 @@ function a_pf = power(left_pf, right_pf, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/11
 
-a_pf = binary_op(left_pf, right_pf, @power, '.^');
+a_pf = binary_op(left_pf, right_pf, @power, '^');
