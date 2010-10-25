@@ -12,7 +12,8 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 %   props: A structure with any optional properties.
 %     optimset: optimization toolbox parameters supercedes defaults.
 %     optimmethod: Matlab optimizer to use: 'lsqcurvefit' (default), 'ktrlink'
-%		
+%     fitOutRange: Two-element vector denoting the range to optimize [dt]. 
+%
 % Returns:
 %   a_ps: param_func object with optimized parameters.
 %
@@ -41,10 +42,20 @@ props = mergeStructs(props, get(a_ps, 'props'));
 
 out_size = prod(size(out_data));
 
-% do we call fHandle here to do it faster? [no, everything only called once]
-error_func_lsq = ...
-    @(p, x) f(setParams(a_ps, p, struct('onlySelect', 1)), x);
+if isfield(props, 'fitOutRange')
+  % TODO: this is temporary, make a better one with a full trace template
+  index = struct;
+  index.type = '()';
+  index.subs = {props.fitOutRange(1):props.fitOutRange(2), ':'}
+  error_func_lsq = ...
+      @(p, x) subsref(f(setParams(a_ps, p, struct('onlySelect', 1)), x), index);
 
+  out_data = out_data(props.fitOutRange(1):props.fitOutRange(2), :);
+else
+  % do we call fHandle here to do it faster? [no, everything only called once]
+  error_func_lsq = ...
+      @(p, x) f(setParams(a_ps, p, struct('onlySelect', 1)), x);
+end
 error_func_sse = ...
     @(p) sum(sum((error_func_lsq(p, inp_data) - out_data).^2));
 
