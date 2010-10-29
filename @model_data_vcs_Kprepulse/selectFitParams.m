@@ -52,7 +52,7 @@ switch (select_what)
       a_m.I.Kf = removeSelect(a_m.I.Kf);
       a_m.I.Ks = removeSelect(a_m.I.Ks);
     else
-      a_m.I.Kf = setProp(a_m.I.Kf, 'selectParams', {'gmax'});
+      a_m.I.Kf = setProp(a_m.I.Kf, 'selectParams', {'gmax', 'fh'});
       a_m.I.Ks = setProp(a_m.I.Ks, 'selectParams', {'gmax'});      
     end
   otherwise
