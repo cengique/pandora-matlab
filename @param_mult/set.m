@@ -12,8 +12,12 @@ try
   a.(attr) = val;
 catch
   % set only existing sub functions
-  if isfield(a.f, attr)
-    a.f.(attr) = val;
+  if isfield(a.f, attr) 
+    if isa(val, 'param_func')
+      a.f.(attr) = val;
+    else
+      error('Can only set param_func objects as sub functions.');
+    end
   else
     a.param_func = set(a.param_func, attr, val);
   end
