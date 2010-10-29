@@ -31,9 +31,8 @@ function a_ps = param_act(param_init_vals, id, props)
   param_names = {'V_half', 'k'};
   func_handle = @(p,x) 1./(1 + exp((x-p.V_half) ./ p.k));
 
-  if ~ exist('props', 'var')
-    props = struct;
-  end
+  props = defaultValue('props', struct);
+  id = defaultValue('id', '');
 
   props = mergeStructs(props, ...
                        struct('xMin', -100, 'xMax', 100, ...

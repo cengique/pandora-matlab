@@ -1,12 +1,12 @@
 function a_ps = param_tau_v(param_init_vals, id, props)
   
-% param_tau_v - Parameterized time constant function, y = a + b/(1+exp((x+c)/d)).
+% param_tau_v - Parameterized time constant [ms] function, y = a + b/(1+exp((x+c)/d)).
 %
 % Usage:
 %   a_ps = param_tau_v(param_init_vals, id, props)
 %
 % Parameters:
-%   param_init_vals: Initial values of function parameters, p = [a b c d].
+%   param_init_vals: Initial values of function parameters, p = [a b c d] in [ms].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
@@ -32,9 +32,8 @@ function a_ps = param_tau_v(param_init_vals, id, props)
   param_names = {'a', 'b', 'V_half', 'k'};
   func_handle = @(p,x) p.a + p.b./(1 + exp((x+p.V_half) ./ p.k));
 
-  if ~ exist('props', 'var')
-    props = struct;
-  end
+  props = defaultValue('props', struct);
+  id = defaultValue('id', '');
 
   props = mergeStructs(props, ...
                        struct('xMin', -100, 'xMax', 100, ...
