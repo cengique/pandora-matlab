@@ -1,17 +1,17 @@
 function a_pf = ...
-      param_I_v(param_vals, a_param_act, a_param_inact, a_param_inact2, id, props)
+      param_I_2tauh_int_v(param_vals, a_param_act, a_param_inact, a_param_inact2, id, props)
   
-% param_I_v - An (non)inactivating current integrated over a changing V.
+% param_I_2tauh_int_v - An (non)inactivating current integrated over a changing V.
 %
 % Usage:
 %   a_pf = 
-%     param_I_v(param_vals, a_param_act, a_param_inact, dt, id, props)
+%     param_I_2tauh_int_v(param_vals, a_param_act, a_param_inact, a_param_inact2, id, props)
 %
 % Parameters:
 %   param_vals: Values for p, gmax [uS], E [mV] and a tau weight factor
 %   	(f*tauh1+(1-f)*tauh2). q is always 1.
-%   a_param_act, a_param_inact: param_act objects for m and h, resp.,
-%   	obtained using the param_act_int_v function.
+%   a_param_act, a_param_inact, a_param_inact2: param_act objects 
+%       for m, h and h2 obtained using the param_act_deriv_v function.
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
@@ -26,18 +26,20 @@ function a_pf = ...
 % value.
 %
 % Example:
-% >> m_ClCa = param_act_int_v(f_IClCa_minf_v, f_IClCa_tau_v, 'm');
-% >> f_IClCa_v = param_I_v([1 0 1 -41.7], m_ClCa, param_func_nil, 'I_ClCa');
+% Shal current has two inactivation time constants:
+% >> m_Shal = param_act_deriv_v(f_IShal_minf_v, f_IShal_tau_v, 'm');
+% >> h_Shal = param_act_deriv_v(f_IShal_hinf_v, f_IShal_htau_v, 'm');
+% >> h2_Shal = param_act_deriv_v(f_IShal_hinf_v, f_IShal_h2tau_v, 'm');
+% >> f_IShal_v = param_I_2tauh_int_v([1 -80 0.5], m_Shal, h_Shal, h2_Shal, 'I_Shal');
 %
-% See also: param_act_int_v, param_func, tests_db, plot_abstract
+% See also: param_I_int_v, param_act_deriv_v, param_func, tests_db, plot_abstract
 %
-% $Id: param_I_v.m 128 2010-06-07 21:36:08Z cengiz $
+% $Id: param_I_2tauh_int_v.m 128 2010-06-07 21:36:08Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 
-  if ~ exist('props', 'var')
-    props = struct;
-  end
+  props = defaultValue('props', struct);
+  id = defaultValue('id', ''); % complain if id is not supplied?
 
   props = mergeStructs(props, ...
                        struct('paramRanges', ...
