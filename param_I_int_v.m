@@ -34,9 +34,8 @@ function a_pf = ...
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 
-  if ~ exist('props', 'var')
-    props = struct;
-  end
+  props = defaultValue('props', struct);
+  id = defaultValue('id', ''); % complain if not supplied?
 
   props = mergeStructs(props, ...
                        struct('paramRanges', ...
