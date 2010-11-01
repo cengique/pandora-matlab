@@ -85,6 +85,8 @@ function param_I_int_v_test
     % check peaks of first voltage step
     [z peak_int] = max(I_int(:, 1));
     [z peak_ideal] = max(I_ideal(:, 1));
+    
+    % 1 dt of tolerance
     assertElementsAlmostEqual(peak_int, peak_ideal, 'absolute', 1);
 
     % compare steady state against ideal solution
