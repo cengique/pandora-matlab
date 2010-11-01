@@ -37,6 +37,7 @@ end
 func = get(a_ps, 'func');
 params = getParamsStruct(a_ps);
 a_struct = struct;
+a_struct.this = a_ps;
 
 f_names = fieldnames(a_ps.f);
 num_funcs = length(f_names);

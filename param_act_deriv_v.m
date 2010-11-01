@@ -9,7 +9,9 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
 %   ap_inf_v, ap_tau_v: param_act objects for inf(v) and tau(v) in [ms], resp.
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
-% 	   (Rest passed to param_func)
+%     name: Variable name to use in solver (will be superceded by
+%     	    param_mult name of this object).
+%     (Rest passed to param_func)
 %		
 % Returns a structure object with the following fields:
 %	param_mult: Holds the inf and tau functions.
@@ -30,14 +32,15 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
 % - allow setting initial value rather than taking it from v(1)
 
   props = defaultValue('props', struct);
-  id = defaultValue('id', '');
+  id = defaultValue('id', ''); % complain if not supplied?
 
   % for inner function
-  name = getFieldDefault(props, 'name', id);
+  props.name = getFieldDefault(props, 'name', id);
 
-  if isempty(name), name = 'm'; end
-  
-  props.name = name;
+  % put a default name, but can be overwritten if object is added to
+  % solver by a param_mult object. Then, variable name inside param_mult
+  % is used as the name.
+  if isempty(props.name), props.name = 'm'; end
   
   a_pf = ...
       param_mult(...
@@ -60,6 +63,7 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
     v = x.v;
     t = getFieldDefault(x, 't', 0);
     dt = x.dt;
+    props = get(fs.this, 'props');
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
       s = initSolver(fs.this, s, struct('initV', v(1)));
@@ -68,8 +72,8 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
       dact = squeeze(var_int(:, 1, :));
     else
       % return derivative
-      dact = (f(fs.inf, v) - getVal(s, name)) ./ ...
-              f(fs.tau, v); % TODO: convert to [s] => WRONG!!!
+      dact = (f(fs.inf, v) - getVal(s, props.name)) ./ ...
+              f(fs.tau, v); 
     end
   end
 end

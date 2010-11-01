@@ -38,7 +38,13 @@ name = getFieldDefault(props, 'name', get(a_deriv_func, 'id'));
 % remove offending characters
 name = regexprep(name, '[{}]', '');
 
+if isfield(a_sol.vars, name)
+  error(['Variable ''' name ''' not unique! Already exists in solver.']);
+end
+
 a_sol.vars.(name) = 0;
-a_sol.dfdtHs.(name) = fHandle(a_deriv_func);
+
+% reinforce the name using whatever was passed to initSolver
+a_sol.dfdtHs.(name) = fHandle(setProp(a_deriv_func, 'name', name));
 
 
