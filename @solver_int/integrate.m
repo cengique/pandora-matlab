@@ -8,7 +8,7 @@ function res = integrate(a_sol, x, props)
 % Parameters:
 %   a_sol: A param_func object.
 %   props: A structure with any optional properties.
-%     time: Array of time points where functions should be integrated
+%     time: Array of time points where functions should be integrated [ms]
 %           (default=for all points in x)
 %     parfor: If defined, use parallel execution.
 %     odefun: Matlab ODE solver function (default=@ode45).
