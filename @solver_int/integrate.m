@@ -11,6 +11,7 @@ function res = integrate(a_sol, x, props)
 %     time: Array of time points where functions should be integrated
 %           (default=for all points in x)
 %     parfor: If defined, use parallel execution.
+%     odefun: Matlab ODE solver function (default=@ode45).
 %		
 % Returns:
 %   res: A structure array with the array of variable solutions.
@@ -34,6 +35,8 @@ function res = integrate(a_sol, x, props)
 
 props = defaultValue('props', struct);
 
+odefun = getFieldDefault(props, 'odefun', @ode45);
+
 if isfield(props, 'parfor') && props.parfor == 1
   res = integratepar(a_sol, x, props);
   return;
@@ -51,7 +54,7 @@ num_columns = size(x, 2);
 res = repmat(NaN, [length(time), num_vars, num_columns]);
 for column_num = 1:num_columns
   [t_tmp, result] = ...
-      ode15s(@deriv_all, ...
+      odefun(@deriv_all, ...
              time, cell2mat(struct2cell(a_sol.vars)'));
   res(:, :, column_num) = result;
 end
