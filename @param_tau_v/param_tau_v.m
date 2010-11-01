@@ -33,7 +33,7 @@ function a_ps = param_tau_v(param_init_vals, id, props)
   func_handle = @(p,x) p.a + p.b./(1 + exp((x+p.V_half) ./ p.k));
 
   props = defaultValue('props', struct);
-  id = defaultValue('id', '');
+  id = defaultValue('id', ''); % complain if not provided?
 
   props = mergeStructs(props, ...
                        struct('xMin', -100, 'xMax', 100, ...
