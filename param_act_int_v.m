@@ -1,6 +1,6 @@
 function a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props) 
   
-% param_act_int_v - An (in)activation function integrated over a changing V.
+% param_act_int_v - (OBSOLETE: use param_act_deriv_v ) An (in)activation function integrated over a changing V.
 %
 % Usage:
 %   a_pf = param_act_int_v(ap_inf_v, ap_tau_v, id, props)
