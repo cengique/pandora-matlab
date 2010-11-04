@@ -38,20 +38,20 @@ if ~ exist('props', 'var')
 end
 
 time = (0:(size(data_i, 1)-1))*dt;
+num_mags = size(data_v, 2);
 
 % 2 ms delay after steps to look for next
 step_delay = 2 / dt; 
 
-% start from beginning
-time_change = 1 - step_delay;
+% Start from beginning to find all voltage steps. Use 1st and 2nd
+% magnitudes if available because sometimes voltage steps can be missed if
+% they remain at same voltage for one step)
+time_steps = findTimes(1, 1 - step_delay);
+time_steps2 = findTimes(2, 1 - step_delay);
 
-num_mags = size(data_v, 2);
-
-% find all voltage steps (use 2nd magnitude if available)
-time_steps = [];
-while ~ isempty(time_change)
-  time_change = findChange(data_v(:, min(2, num_mags)), time_change + step_delay, 3, dt); 
-  time_steps = [ time_steps, time_change ];
+% use whichever found more steps 
+if length(time_steps2) > length(time_steps)
+  time_steps = time_steps2;
 end
 
 num_steps = length(time_steps);
@@ -77,3 +77,12 @@ step_range = ...
 
 v_steps(step_num + 1, :) = ...
     mean(data_v( step_range, : ));
+
+function time_steps = findTimes(mag_num, time_change)
+  time_steps = [];
+  while ~ isempty(time_change)
+    time_change = findChange(data_v(:, min(mag_num, num_mags)), time_change + step_delay, 3, dt); 
+    time_steps = [ time_steps, time_change ];
+  end
+end
+end
