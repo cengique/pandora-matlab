@@ -15,7 +15,8 @@ function a_md = fit(a_md, title_str, props)
 %     fitLevels: Indices of voltage/current levels to use from clamp
 %     		 data. If empty, not fit is done.
 %     dispParams: If non-zero, display params every once this many iterations.
-%     dispPlot: If non-zero, update a plot of the fit at end of this many iterations.
+%     dispPlot: If non-zero, update a plot of the fit at end of this many
+%     	        iterations. A zero means no plot will be produced at the end.
 %     saveModelFile: If given, save the model every dispParams iteration.
 %     savePlotFile: If given, save the plot to this file every dispPlot iteration.
 %     plotMd: model_data_vcs or subclass object to be used for plots.
@@ -149,6 +150,11 @@ end
   fig_props = struct;
   
   function dispPlot(a_model)
+  % is plotting disabled?
+    if isfield(props, 'dispPlot') && props.dispPlot == 0
+      return;
+    end
+    
     extra_text = ...
     [ '; fit range [' ...
       sprintf('%.2f ', [range_maxima.start_time range_maxima.end_time] * dt) ']' ...
