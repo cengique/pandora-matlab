@@ -32,7 +32,7 @@ a_m = a_md.model_data_vcs.model_f;
 
 switch (select_what)
   case 'fast'
-    a_m.I.Kf = fitNoFit(a_m.I.Ks);
+    a_m.I.Kf = fitNoFit(a_m.I.Kf);
     a_m.I.Kf.m.inf = fitNoFit(a_m.I.Kf.m.inf);
     a_m.I.Kf.m.tau = fitNoFit(a_m.I.Kf.m.tau);
     a_m.I.Kf.h.inf = fitNoFit(a_m.I.Kf.h.inf);
@@ -72,7 +72,9 @@ end
 end
 
 function m = removeSelect(m)
-m.props = rmfield(m.props, 'selectParams');
+if isfield(m.props, 'selectParams')
+  m.props = rmfield(m.props, 'selectParams');
+end
 end
 
 function m = selectNone(m)
