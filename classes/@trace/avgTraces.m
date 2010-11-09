@@ -28,6 +28,8 @@ function [avg_tr sd_tr] = avgTraces(traces, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% manually tested, make a unit test in the future
+
 if ~ exist('props', 'var')
   props = struct;
 end

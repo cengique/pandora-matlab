@@ -1,9 +1,9 @@
 function result_tr = binary_op(left_tr, right_tr, op_func, op_id, props)
 
-% binary_op - Subtract trace object right_tr from left_tr.
+% binary_op - Generic binary operator applications for trace objects.
 %
 % Usage:
-% result_tr = binary_op(left_tr, right_tr, props)
+% result_tr = binary_op(left_tr, right_tr, op_func, op_id, props)
 %
 % Parameters:
 %   left_tr, right_tr: trace objects.
@@ -13,7 +13,7 @@ function result_tr = binary_op(left_tr, right_tr, op_func, op_id, props)
 %   props: A structure with any optional properties.
 %		
 % Returns:
-%   result_tr: trace object with subtracted data of left_tr.
+%   result_tr: Resulting trace object.
 %
 % Description:
 %
