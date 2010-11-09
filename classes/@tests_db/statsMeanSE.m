@@ -38,7 +38,7 @@ end
 
 a_db = onlyRowsTests(db, ':', tests, ':');
 [means n] = mean(a_db, 1);
-test_results = [means.data; get(std(a_db, 0, 1), 'data') ./ n; n];
+test_results = [means.data; get(std(a_db, 0, 1), 'data') ./ sqrt(n); n];
 row_names = {'mean', 'SE', 'n'};
 
 % Original column names
