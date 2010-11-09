@@ -36,6 +36,8 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+props = mergeStructs(props, a_plot.props);
+
 s = size(a_plot);
 if max(s) > 1
   % Column vector
@@ -64,22 +66,22 @@ else
   a_timer = timer('StartDelay', .5, 'TimerFcn', '1;'); 
   start(a_timer); wait(a_timer);
 
-  if isfield(a_plot.props, 'fixedSize')
-    a_plot.props.PaperPosition = [0 0 a_plot.props.fixedSize];
-    if ~isfield(a_plot.props, 'resizeControl')
-      a_plot.props.resizeControl = 0;
+  if isfield(props, 'fixedSize')
+    props.PaperPosition = [0 0 props.fixedSize];
+    if ~isfield(props, 'resizeControl')
+      props.resizeControl = 0;
     end
   end
 
-  if isfield(a_plot.props, 'PaperPosition')
-    set(handle, 'PaperPosition', a_plot.props.PaperPosition);
+  if isfield(props, 'PaperPosition')
+    set(handle, 'PaperPosition', props.PaperPosition);
     old_units = get(handle, 'Units');
     % Paper position is in inches
     set(handle, 'Units', 'inches');
     old_pos = get(handle, 'Position');
     % get the width and height from the paper position
     set(handle, 'Position', ...
-                [ old_pos(1:2) a_plot.props.PaperPosition(3:4) ]);
+                [ old_pos(1:2) props.PaperPosition(3:4) ]);
     set(handle, 'Units', old_units);
   end
 
@@ -87,7 +89,7 @@ else
   % Save plot_abstract object in the figure
   set(handle, 'UserData', a_plot);
 
-  if ~isfield(a_plot.props, 'resizeControl') || a_plot.props.resizeControl == 1
+  if ~isfield(props, 'resizeControl') || props.resizeControl == 1
     set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot); decorate(a_plot);']);
   else
     % print figure at the size seen on screen
@@ -98,8 +100,8 @@ else
   decorate(a_plot);
   
   % set the colormap for the figure
-  if isfield(a_plot.props, 'colormap')
-    a_colormap = a_plot.props.colormap;
+  if isfield(props, 'colormap')
+    a_colormap = props.colormap;
     if isa(a_colormap, 'function_handle')
       a_colormap = a_colormap();
     end
@@ -108,8 +110,8 @@ else
 
   
   % pass all of these to plot props
-  if isfield(a_plot.props, 'figureProps')
-    set(handle, a_plot.props.figureProps);
+  if isfield(props, 'figureProps')
+    set(handle, props.figureProps);
   end
 
   % make it visible before matlab gets stuck doing other things
