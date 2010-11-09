@@ -58,8 +58,11 @@ if isfield(props, 'zoom')
     error([ 'props.zoom = ''' props.zoom ''' not recognized. Use ''act'' ' ...
             'or ''inact''.' ]);
   end
+elseif isfield(props, 'axisLimits')
+    props.xTicksPos = 'bottom'; % if fixed axis, do not repeat x ticks
+    axis_limits = props.axisLimits; 
 else
-  axis_limits = getFieldDefault(props, 'axisLimits', [NaN NaN NaN NaN]); 
+    axis_limits = [NaN NaN NaN NaN]; 
 end
 
 if isfield(props, 'quiet')
