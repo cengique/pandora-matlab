@@ -81,6 +81,7 @@ range_maxima = ...
 range_vc = ...
     withinPeriod(a_vc, period(range_maxima(1), range_maxima(2)));
 
+i_peaks = repmat(NaN, 1, num_vsteps);
 for vstep_num = 1:num_vsteps
   % find direction of peaks for each voltage step
   steps_mag = mean(range_vc.i.data(:, vstep_num));
