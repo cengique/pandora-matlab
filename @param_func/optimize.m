@@ -46,7 +46,7 @@ if isfield(props, 'fitOutRange')
   % TODO: this is temporary, make a better one with a full trace template
   index = struct;
   index.type = '()';
-  index.subs = {props.fitOutRange(1):props.fitOutRange(2), ':'}
+  index.subs = {props.fitOutRange(1):props.fitOutRange(2), ':'};
   error_func_lsq = ...
       @(p, x) subsref(f(setParams(a_ps, p, struct('onlySelect', 1)), x), index);
 
