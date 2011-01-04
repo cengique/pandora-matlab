@@ -1,4 +1,4 @@
-function a_data = data_L1_passive(data_vc, id, props)
+function a_data = data_L1_passive(data_vc, model_f, id, props)
 
 % data_L1_passive - Holds passive recordings from L1 cells.
 %
@@ -7,12 +7,12 @@ function a_data = data_L1_passive(data_vc, id, props)
 %
 % Parameters:
 %   data_vc: A voltage_clamp object with the data.
+%   model_f: Passive model to fit the data (e.g., param_Re_Ce_cap_leak_act_int_t)
 %   id: Identification string.
 %   props: A structure with any optional properties.
 %
 % Returns a structure object with the following fields:
-%   model_f: model fitted to data, 
-%   data_vc.
+%   model_f, data_vc.
 %
 % Description:
 %   Encapsulates the data and provides functions that find fits and return plots and
@@ -24,7 +24,7 @@ function a_data = data_L1_passive(data_vc, id, props)
 % Additional methods:
 %   See methods('data_L1_passive')
 %
-% See also: voltage_clamp, param_func
+% See also: voltage_clamp, param_func, param_Re_Ce_cap_leak_act_int_t
 %
 % $Id: data_L1_passive.m 234 2010-10-21 22:06:52Z cengiz $
 %
