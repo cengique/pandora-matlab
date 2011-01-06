@@ -98,6 +98,9 @@ output
 disp('Resnorm:')
 resnorm
 
+% save resnorm in a_ps
+a_ps = setProp(a_ps, 'resnorm', resnorm);
+
 % $$$ disp('Residual:') % size as big as time points x num traces
 % $$$ size(residual)
 
