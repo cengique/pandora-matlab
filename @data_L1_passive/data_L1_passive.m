@@ -51,9 +51,9 @@ else
   if ~ exist('props', 'var')
     props = struct;
   end
-  
+
   a_data = struct;
-  a_data.model_f = model_f;
+  a_data.model_f = defaultValue('model_f', param_func);
   a_data.data_vc = data_vc;
   a_data.id = defaultValue('id', [ get(a_data.data_vc, 'id') ]);
 

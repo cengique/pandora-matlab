@@ -11,9 +11,9 @@ function [gL, EL, offset] = calcSteadyLeak(pas, props)
 %     EL: Specify EL value [mV] (default=-80).
 %
 % Returns:
-%   gL: Leak conductance [pA].
+%   gL: Leak conductance [uS].
 %   EL: Leak reversal [mV].
-%   offset: Manual current offset applied [pA].
+%   offset: Manual current offset applied [nA].
 %
 % Description:
 %   Calculates gL, EL and offset values.
