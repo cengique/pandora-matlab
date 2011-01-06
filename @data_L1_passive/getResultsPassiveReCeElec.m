@@ -44,6 +44,7 @@ if nargin == 0 % Called with no params or empty object
   results.Cm = NaN;
   results.delay = NaN;
   results = mergeStructs(results, getParamsStruct(param_Re_Ce_cap_leak_act_int_t(nan(7,1))));
+  results.resnorm=NaN;
   return;
 end
 
@@ -95,3 +96,5 @@ a_md = fit(a_md, ...
 plotFigure(plotDataCompare(a_md, ', estimate after fitting model'));
 
 results = mergeStructs(results, getParamsStruct(a_md.model_f));
+
+results.resnorm = a_md.model_f.props.resnorm;
