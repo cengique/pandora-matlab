@@ -79,6 +79,6 @@ if ~ isempty(t_change)
     timeconstant = t_change(1);
 end
 
-Re = timeconstant * dt/ Cm
+Re = timeconstant * dt/ Cm;
 
 end

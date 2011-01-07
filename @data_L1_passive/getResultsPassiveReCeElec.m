@@ -62,9 +62,13 @@ delay = calcDelay(pas);
 % => Re kinda consistent w before, Cm a bit high. prolly because it
 % includes Ce. should be good as starting point for fits.
 % TODO: 
-% - make getresults func that first run these and then a fit
 % - run test with surrogate data
-% - put a sanity limit on resnorm, say fit failed
+
+%CG test!!!
+Re = max(Re, 50); % limit to 50 MOhm 
+if Re == 50 
+    warning('Re set to minimum 50 MOhm');
+end
 
 results.Re = Re;
 results.Cm = Cm;
@@ -79,22 +83,40 @@ capleakReCe_f = ...
 
 a_md = ...
     model_data_vcs(capleakReCe_f, pas.data_vc, ...
-                   ['capleak, ' ...
-                    'Re, Ce est']);
-plotFigure(plotDataCompare(a_md, ', cap estimate with integral'));
+                   [ pas.data_vc.id ': capleak, Re, Ce est']);
+plotFigure(plotDataCompare(a_md, ' - integral method', struct('zoom', 'act')));
 
 a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
                                              {'Re', 'Ce', 'Cm', 'delay'});
 
-a_md = fit(a_md, ...
-           '', struct('fitRangeRel', [1 -1 20], ...
+runFit([1 -1 10], 'after fit');
+
+if results.resnorm > 0.04
+    warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
+    % fit very narrow range after step
+    runFit([1 -1 2], '2nd fit (narrow)');
+    if results.resnorm > 0.04
+        error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
+    else
+        % do full fit again
+        warning(['narrow fit improved, doing a full fit again.' ]);
+        runFit([1 -1 10], '3rd fit (full)');
+        assert(results.resnorm < 0.04);
+    end
+end
+
+function runFit(fitrange, str)
+        a_md = fit(a_md, ...
+           '', struct('fitRangeRel', fitrange, ...
                       'dispParams', 5,  ...
                       'dispPlot', 0, ...
                       'optimset', ...
                       struct('Display', 'iter')));
+    results = mergeStructs(results, getParamsStruct(a_md.model_f));
 
-plotFigure(plotDataCompare(a_md, ', estimate after fitting model'));
+    % reveal fit results
+    results.resnorm = a_md.model_f.props.resnorm
+    plotFigure(plotDataCompare(a_md, [ ' - ' str ], struct('zoom', 'act')));
 
-results = mergeStructs(results, getParamsStruct(a_md.model_f));
-
-results.resnorm = a_md.model_f.props.resnorm;
+end
+end

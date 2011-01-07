@@ -68,7 +68,7 @@ end
 if isfield(props, 'quiet')
   all_title = title_str;
 else
-  all_title = [ ', ' a_md.id label_zoom title_str ];
+  all_title = [ a_md.id label_zoom title_str ];
 end
 
 color_num_levels = getFieldDefault(props, 'colorLevels', size(a_md.data_vc.v_steps, 2));
