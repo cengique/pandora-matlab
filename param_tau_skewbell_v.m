@@ -27,7 +27,7 @@ function a_ps = param_tau_skewbell_v(param_init_vals, id, props)
 
   var_names = {'voltage [mV]', 'time constant [ms]'};
   param_names = {'tau0', 'sig', 'v', 's'};
-  func_handle = @(p,x) (p.tau0 * exp(p.sig * (x-p.v) ./ p.s)) / (1 + exp((x-p.v) ./ p.s)) ;
+  func_handle = @(p,x) (p.tau0 * exp(p.sig .* (x-p.v) ./ p.s)) ./ (1 + exp((x-p.v) ./ p.s)) ;
 
   if ~ exist('props', 'var')
     props = struct;
