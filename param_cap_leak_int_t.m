@@ -8,7 +8,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 % Parameters:
 %   param_init_vals: Array or structure with initial values for leak
 %     conductance, gL [uS]; leak reversal, EL [mV]; cell capacitance, Cm
-%     [nF], and a delay [ms].
+%     [nF], delay [ms], and an offset [nA].
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 %     v_dep_I_f: A voltage-dependent current that is simulated with
@@ -27,7 +27,7 @@ function a_pf = param_cap_leak_int_t(param_init_vals, id, props)
 % Example:
 % >> f_capleak = ...
 %    param_cap_leak_int_t(struct('gL', 3, 'EL', -80, ...
-%				 'Cm', 1e-2, 'delay', .1), ...
+%				 'Cm', 1e-2, 'delay', .1, 'offset', 0), ...
 %                        ['Ca chan 3rd instar cap leak']);
 %
 % $Id$
