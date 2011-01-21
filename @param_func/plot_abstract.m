@@ -47,6 +47,16 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
+num_funcs = length(a_ps);
+if num_funcs > 1 
+  % Create array of plots
+  [a_plot(1:num_funcs)] = deal(plot_abstract);
+  for plot_num = 1:num_funcs
+    a_plot(plot_num) = plot_abstract(a_ps(plot_num), title_str, props);
+  end
+  return;
+end
+
 % gather props from the param_func object
 props = mergeStructs(props, get(a_ps, 'props'));
 
