@@ -9,7 +9,7 @@ function [Re Cm] = calcReCm(pas, props)
 %   pas: A data_L1_passive object.
 %   props: Structure with optional properties.
 %     stepNum: Voltage pulse to be considered (default=1).
-%     traceNum: Trace number ti be analyzed (default=1).
+%     traceNum: Trace number to be analyzed (default=1).
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
@@ -61,12 +61,12 @@ else
   end_dt = size(pas.data_vc.i.data, 1);
 end
 
-% integrate current
-int_I = cumsum(pas.data_vc.i.data(start_dt:end_dt, trace_num)) * dt - ...
-        (end_dt - start_dt) * dt * ((pas.data_vc.v_steps(step_num+1) - EL) ...
-                                    * gL + offset);
+% integrate current, remove I2 before integration
+% (still ignores Re, so rough estimate)
+I2 = ((pas.data_vc.v_steps(step_num+1) - EL) * gL + offset);
+int_I = cumsum(pas.data_vc.i.data(start_dt:end_dt, trace_num) - I2) * dt;
 
-%figure; plot(int_I);
+% $$$ figure; plot(int_I);
 
 % find steady-state value
 max_I = mean(int_I(end - 10:end));
