@@ -13,6 +13,8 @@ function results = getResultsPassiveReCeElec(pas, props)
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
+%     minResnorm: Lowest resnorm to accept (default=0.04).
+%     minRe: Lowest Re value accepted.
 %
 % Returns:
 %   Re: Series resistance [MOhm].
@@ -36,6 +38,8 @@ function results = getResultsPassiveReCeElec(pas, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 props = defaultValue('props', struct);
+min_resnorm = getFieldDefault(props, 'minResnorm', 0.04);
+min_Re = getFieldDefault(props, 'minRe', 50);
 
 results = struct;
 
@@ -49,26 +53,24 @@ if nargin == 0 % Called with no params or empty object
 end
 
 [gL, EL, offset] = calcSteadyLeak(pas);
-% $$$ gL = 5.8943e-05 uS
-% $$$ EL = -80 mV
-% $$$ offset = 5.0336e-04 nA
-   
+
+if gL > 0.025
+  warning(['gL = ' num2str(gL) ' uS is quite large. Expect estimation ' ...
+                      'errors for gL and offset parameters.']);
+end
+
 delay = calcDelay(pas);
-% delay = 0.5 ms
 
 [Re Cm] = calcReCm(pas, struct('delay', delay, 'gL', gL, 'EL', EL, 'offset', offset));
-% $$$ Cm = 0.0057
-% $$$ Re = 183.16
-% => Re kinda consistent w before, Cm a bit high. prolly because it
-% includes Ce. should be good as starting point for fits.
-% TODO: 
-% - run test with surrogate data
 
-%CG test!!!
-Re = max(Re, 50); % limit to 50 MOhm 
-if Re == 50 
-    warning('Re set to minimum 50 MOhm');
+if Re < min_Re
+    warning(['Re=' num2str(Re) ' MOhm too large, setting to minimum 50 MOhm.']);
+    Re = max(Re, min_Re); % limit
 end
+
+% TODO: 
+% - recalculate gL based on Re estimate
+% - iterate once more to find a new Re estimate afterwards
 
 results.Re = Re;
 results.Cm = Cm;
@@ -91,17 +93,17 @@ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
 
 runFit([1 -1 10], 'after fit');
 
-if results.resnorm > 0.04
+if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
     runFit([1 -1 2], '2nd fit (narrow)');
-    if results.resnorm > 0.04
+    if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
     else
         % do full fit again
         warning(['narrow fit improved, doing a full fit again.' ]);
         runFit([1 -1 10], '3rd fit (full)');
-        assert(results.resnorm < 0.04);
+        assert(results.resnorm < min_resnorm);
     end
 end
 
