@@ -34,11 +34,15 @@ function a_ps = param_tau_v(param_init_vals, id, props)
 
   props = defaultValue('props', struct);
   id = defaultValue('id', ''); % complain if not provided?
-
+  label = getFieldDefault(props, 'label', 'tau');
+  
+  xpp_func = @(p) [ properAlphaNum(label) ' = ' num2str(p.a) ' + ' num2str(p.b) ' / (1 + exp((V + ' num2str(p.V_half) ...
+                    ') / ' num2str(p.k) '))' ];
   props = mergeStructs(props, ...
                        struct('xMin', -100, 'xMax', 100, ...
                               'paramRanges', ...
-                              [0 100; -100 100; -100 100; -100 100]'));
+                              [0 100; -100 100; -100 100; -100 100]', ...
+                              'trans2XPP', @(tauf) xpp_func(getParamsStruct(tauf)) ));
 
   if nargin == 0 % Called with no params
     a_ps = struct;

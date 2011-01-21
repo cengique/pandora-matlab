@@ -33,10 +33,15 @@ function a_ps = param_act(param_init_vals, id, props)
 
   props = defaultValue('props', struct);
   id = defaultValue('id', ''); % complain if id is not supplied?
+  label = getFieldDefault(props, 'label', 'm');
+  
+  xpp_func = @(p) [ properAlphaNum(label) ' = 1 / (1 + exp((V - ' num2str(p.V_half) ...
+                    ') / ' num2str(p.k) '))' ];
 
   props = mergeStructs(props, ...
                        struct('xMin', -100, 'xMax', 100, ...
-                              'paramRanges', [-100 100; -100 100]'));
+                              'paramRanges', [-100 100; -100 100]', ...
+                              'trans2XPP', @(tauf) xpp_func(getParamsStruct(tauf))));
 
   if nargin == 0 % Called with no params
     a_ps = struct;

@@ -29,6 +29,9 @@ function ps = ...
 %     selectParams: Cell of param names that can be selected by g/setParams.
 %     isIntable: If 1, this function can be integrated and will be added
 %     		to a integrator solver_int when requested by initSolver.
+%     label: Short label string used for plots and exporting.
+%     trans2XPP: Use this function to translate the parameters into the
+%               XPP format (e.g., '@(a_fs) getParams(a_fs)'. 
 %		
 % Returns a structure object with the following fields:
 %	var_names, func, tests_db.
