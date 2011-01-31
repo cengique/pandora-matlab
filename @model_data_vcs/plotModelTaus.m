@@ -37,7 +37,7 @@ end
 if isfield(props, 'quiet')
   all_title = title_str;
 else
-  all_title = [ ', ' a_md.id get(a_md.model_f, 'id') ' time constants ' title_str ];
+  all_title = [ a_md.id get(a_md.model_f, 'id') ' time constants ' title_str ];
 end
 
 % find the current (I) object
