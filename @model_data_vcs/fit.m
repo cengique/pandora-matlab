@@ -127,10 +127,11 @@ end
     stop = false;
   end
   
-  function dispParams(a_model)
+  function dispParams(a_model, a_props)
+    a_props = defaultValue('a_props', struct);
     disp(displayParams(a_model, ...
-                       struct('lastParamsF', f_model_orig, ...
-                              'onlySelect', 1)));
+                       mergeStructs(a_props, struct('lastParamsF', f_model_orig, ...
+                                                   'onlySelect', 1))));
     if isfield(props, 'saveModelFile')
       save(props.saveModelFile, 'a_model');
     end
@@ -212,8 +213,8 @@ if ~ isempty(use_levels)
                props);
 
   % show all parameters (only the ones optimized)
-  dispParams(f_model);
-  
+  dispParams(f_model, struct('relConfInt', f_model.props.relConfInt));
+
   % simulate new model here
   a_md = updateModel(a_md, f_model);
 
