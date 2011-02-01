@@ -95,11 +95,33 @@ disp([ 'Exit flag: ' num2str(exitflag) ])
 disp('Output:')
 output
 
-disp('Resnorm:')
 resnorm
 
-% save resnorm in a_ps
-a_ps = setProp(a_ps, 'resnorm', resnorm);
+% save fit stats in a_ps
+a_ps = setProp(a_ps, 'resnorm', resnorm, 'residual', residual, 'jacobian', jacobian);
+
+% calc confidence intervals
+[~,R] = qr(full(jacobian),0);
+Rinv = R \ eye(length(R));
+
+% degrees of freedom:
+dfe = length(inp_data.v) - length(par);
+sse = resnorm;
+level = 0.95; % confidence level
+
+% ripped from @cfit/confint
+v = sum(Rinv.^2,2) * (sse / dfe);
+b = par;
+alpha = (1-level)/2;
+t = -tinv(alpha,dfe); % switched cftinv to tinv from Stats toolbox
+                       
+% ignore bounds                      
+% db = NaN*zeros(1,length(activebounds));
+db = t * sqrt(v');
+ci = [b-db', b+db'];
+
+a_ps = setProp(a_ps, 'confInt', ci);
+a_ps = setProp(a_ps, 'relConfInt', db');
 
 % $$$ disp('Residual:') % size as big as time points x num traces
 % $$$ size(residual)

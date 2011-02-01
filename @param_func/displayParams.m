@@ -10,6 +10,7 @@ function disp_cell = displayParams(a_pf, props)
 %   props: A structure with any optional properties.
 %     lastParams: show changes with these param values.
 %     lastParamsF: get lastParams from this function.
+%     confInt: show nx2 matrix of confidence intervals.
 %     (Rest passed to getParams, etc)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/04
@@ -40,4 +41,18 @@ end
 if isfield(props, 'lastParams')
   param_diff = getParams(a_pf, props) - props.lastParams;
   disp_cell = [ disp_cell, [ {'Diff'}; num2cell(param_diff(:)) ] ];
+end
+
+if isfield(props, 'confInt')
+  int_str = ...
+      cellfun(@(x,y) sprintf('(%f, %f)', x, y), ...
+              num2cell(props.confInt(:, 1)), ...
+              num2cell(props.confInt(:, 2)), 'UniformOutput', false);
+  disp_cell = [ disp_cell, [ {'95% conf. int.'}; int_str ] ];
+end
+
+if isfield(props, 'relConfInt')
+  int_str = ...
+      cellfun(@(x) sprintf('+/- %g', x), num2cell(props.relConfInt), 'UniformOutput', false);
+  disp_cell = [ disp_cell, [ {'95% rel. conf.'}; int_str ] ];
 end
