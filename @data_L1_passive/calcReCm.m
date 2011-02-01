@@ -14,6 +14,8 @@ function [Re Cm] = calcReCm(pas, props)
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
 %     offset: Amplifier offset (default=calculated).
+%     ifPlot: If 1, create a plot for debugging that shows the current
+%      	      integral, time constant point (red star) and the leak (dashed line).
 %
 % Returns:
 %   Re: Series resistance [MOhm].
@@ -45,12 +47,13 @@ trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
 delay = getFieldDefault(props, 'delay', calcDelay(pas, props));
 
+pas_res = struct;
 if ~ isfield(props, 'gL') || ~ isfield(props, 'EL')  || ~ isfield(props, 'offset')
-  [gL, EL, offset] = calcSteadyLeak(pas, props);
+  pas_res = calcSteadyLeak(pas, props);
 else
- gL = getFieldDefault(props, 'gL', NaN);
- EL = getFieldDefault(props, 'EL', NaN);
- offset = getFieldDefault(props, 'offset', NaN);
+ pas_res.gL = getFieldDefault(props, 'gL', NaN);
+ pas_res.EL = getFieldDefault(props, 'EL', NaN);
+ pas_res.offset = getFieldDefault(props, 'offset', NaN);
 end
 
 dt = pas.data_vc.trace.dt * 1e3;
@@ -63,10 +66,9 @@ end
 
 % integrate current, remove I2 before integration
 % (still ignores Re, so rough estimate)
-I2 = ((pas.data_vc.v_steps(step_num+1) - EL) * gL + offset);
+I2 = ((pas.data_vc.v_steps(step_num+1) - pas_res.EL) * pas_res.gL + pas_res.offset);
 int_I = cumsum(pas.data_vc.i.data(start_dt:end_dt, trace_num) - I2) * dt;
 
-% $$$ figure; plot(int_I);
 
 % find steady-state value
 max_I = mean(int_I(end - 10:end));
@@ -80,5 +82,12 @@ if ~ isempty(t_change)
 end
 
 Re = timeconstant * dt/ Cm;
+
+if isfield(props, 'ifPlot')
+  plotFigure(plot_abstract({(start_dt:end_dt)*dt, int_I, (start_dt + timeconstant) * dt, int_I(timeconstant), '*r', ...
+                      [start_dt end_dt]*dt, [I2 I2], '--k'}, ...
+                           {'time [ms]', 'integral of I [nA]'}, '', {}, ...
+                           'plot'));
+end
 
 end

@@ -1,22 +1,26 @@
-function [gL, EL, offset] = calcSteadyLeak(pas, props)
+function res = calcSteadyLeak(pas, props)
 
 % calcSteadyLeak - Calculates passive parameter values based on initial and steady-state values after pulse.
 %
 % Usage:
-% [gL, EL, offset] = calcSteadyLeak(pas, props)
+% results = calcSteadyLeak(pas, props)
 %
 % Parameters:
 %   pas: A data_L1_passive object.
 %   props: Structure with optional properties.
-%     EL: Specify EL value [mV] (default=-80).
+%     calcOffsetWithEL: Calculate a manual offset using this EL value [mV]. 
+%     calcSealLeakWithEL: Calculate a separate electrode seal leak
+%     		 using this EL value [mV].
+%     offset: Specify manual offset [nA] (default=0).
 %
 % Returns:
+%  results: a structure with the following:
 %   gL: Leak conductance [uS].
 %   EL: Leak reversal [mV].
 %   offset: Manual current offset applied [nA].
 %
 % Description:
-%   Calculates gL, EL and offset values.
+%   Calculates membrane and electrode seal leak gL, EL and manual offset values.
 %
 % See also: 
 %
@@ -35,10 +39,34 @@ if nargin == 0 % Called with no params
 end
 
 props = defaultValue('props', struct);
-EL = getFieldDefault(props, 'EL', -80);
+
+res = struct;
 
 % calculate gL from initial and after pulse steady levels
-gL = diff(pas.data_vc.i_steps(1:2))/diff(pas.data_vc.v_steps(1:2));
+res.gL = diff(pas.data_vc.i_steps(1:2))/diff(pas.data_vc.v_steps(1:2));
 
-% resolve offset last
-offset = pas.data_vc.i_steps(1) - (pas.data_vc.v_steps(1) - EL) * gL;
+% effective EL
+res.EL = pas.data_vc.v_steps(1) - pas.data_vc.i_steps(1) / res.gL;
+
+% default
+res.offset = 0;
+
+if isfield(props, 'calcOffsetWithEL')
+  res.EL = props.calcOffsetWithEL;
+
+  % resolve offset last
+  res.offset = pas.data_vc.i_steps(1) - (pas.data_vc.v_steps(1) - res.EL) * res.gL;
+elseif isfield(props, 'calcSealLeakWithEL')
+  res.ELm = props.calcSealLeakWithEL;
+    
+  % see k-channel.lyx/pdf appendix
+  res.gLm = res.gL * res.EL / res.ELm;
+  res.gS = res.gL - res.gLm;
+end
+
+% by default return effective EL
+
+
+end
+
+
