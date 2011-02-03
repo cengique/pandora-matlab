@@ -57,7 +57,9 @@ if isfield(obj, 'neuron_idx')
     end
 end
 
-[params, param_names, tests, test_names] = readDBItems(args{:});
+[params, param_names, tests, test_names, a_doc] = readDBItems(args{:});
+
+props.doc = a_doc;
 
 db_obj = params_tests_db(params, param_names, tests, test_names, ...
 			 obj.id, props);

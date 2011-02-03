@@ -1,4 +1,4 @@
-function [params, param_names, tests, test_names] = readDBItems(obj, items)
+function [params, param_names, tests, test_names, docs] = readDBItems(obj, items)
 
 % readDBItems - Reads all items to generate a params_tests_db object.
 %
@@ -62,6 +62,7 @@ end
 % Preallocating matrices dramatically speeds up the filling process
 params = repmat(0, num_items, length(param_names));
 tests = repmat(0, num_items, length(test_names));
+docs = cell(num_items, 1);
 
 % Batch process all items
 start_time = cputime;
@@ -92,10 +93,11 @@ try
 	line_buffer = '';
       end
     end
-    [params_row, tests_row] = itemResultsRow(obj, item_index);
+    [params_row, tests_row, a_doc] = itemResultsRow(obj, item_index);
     
     params(row_index, :) = params_row;
     tests(row_index, :) = tests_row;
+    docs{row_index} = a_doc;
     row_index = row_index + 1;
   end
 catch
@@ -116,6 +118,10 @@ catch
   tests(row_index:size(tests, 1), :) = [];
 end
 
+% put the docs together
+docs = doc_multi(docs, get(obj, 'id'));
+
 end_time = cputime;
 
 disp(sprintf('Elapsed time took %.2f seconds.', end_time - start_time));
+

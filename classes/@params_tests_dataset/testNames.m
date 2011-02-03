@@ -33,5 +33,10 @@ end
 
 % Load the first file and
 % convert test names to cell array
-test_names = fieldnames(getResults(loadItemProfile(dataset, item)));
+a_prof = loadItemProfile(dataset, item);
+if iscell(a_prof)
+  [a_prof a_doc] = deal(a_prof{:});
+end
+
+test_names = fieldnames(getResults(a_prof));
 test_names = {test_names{:}, 'ItemIndex'};

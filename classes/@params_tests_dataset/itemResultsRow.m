@@ -1,4 +1,4 @@
-function [params_row, tests_row] = itemResultsRow(dataset, index)
+function [params_row, tests_row, a_doc] = itemResultsRow(dataset, index)
 
 % itemResultsRow - Processes a raw data file from the dataset and return
 %		its parameter and test values.
@@ -31,8 +31,15 @@ function [params_row, tests_row] = itemResultsRow(dataset, index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+a_doc = [];
+
 % Load any profile object
 a_profile = loadItemProfile(dataset, index);
+
+% there can be a doc hidden in there
+if iscell(a_profile)
+  [a_profile a_doc] = deal(a_profile{:});
+end
 
 % Get params row vector
 params_row = getItemParams(dataset, index, a_profile);
