@@ -56,7 +56,7 @@ if length(plots) > 1
     if isfield(one_props, 'ColorOrder')
       color_order = [color_order; one_props.ColorOrder];
     end
-    a_props = mergeStructs(a_props, one_props);
+    a_props = mergeStructsRecursive(a_props, one_props);
     if isempty(data)
       data = one_plot.data;
     else
@@ -83,7 +83,7 @@ else
 end
 
 a_plot = set(plots(1), 'data', data);
-a_plot = set(a_plot, 'props', mergeStructs(props, a_props));
+a_plot = set(a_plot, 'props', mergeStructsRecursive(props, a_props));
 a_plot = set(a_plot, 'legend', legend);
 
 if exist('title_str', 'var') && ~ isempty(title_str)
