@@ -43,7 +43,7 @@ first_ms = 2;
 t_begin = first_ms/dt;
 
 delay = (find_change(pas.data_vc.i.data(:, trace_num), ...
-                     start_dt - min(t_begin, start_dt - 1), 5) - start_dt) * dt;
+                     start_dt - min(t_begin + 1/dt, start_dt - 1), 5) - start_dt) * dt;
 
 function t_change = find_change(data, idx_start, num_mV, dt)
 % find starting baseline

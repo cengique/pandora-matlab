@@ -30,7 +30,7 @@ end
 % recalculate values of step steady-state currents
 [time_steps, v_steps, i_steps] = ...
     findSteps(a_vc.v.data, a_vc.i.data, ...
-              get(a_vc, 'dt') * 1e3, props);
+              get(a_vc, 'dt') * 1e3, mergeStructs(props, get(a_vc, 'props')));
 
 a_vc.time_steps = time_steps;
 a_vc.v_steps = v_steps;

@@ -12,6 +12,8 @@ function [time_steps, v_steps, i_steps] = ...
 %   data_i: Current traces (assumed [nA]),
 %   dt: Time step [ms],
 %   props: A structure with any optional properties.
+%     timeBefore: Time to skip before step [ms] (default=2).
+%     timeAvg: Time to average [ms] (default=2).
 %		
 % Returns:
 %   time_steps: Times of voltage steps.
@@ -41,7 +43,8 @@ time = (0:(size(data_i, 1)-1))*dt;
 num_mags = size(data_v, 2);
 
 % 2 ms delay after steps to look for next
-step_delay = 2 / dt; 
+step_delay = getFieldDefault(props, 'timeBefore', 2) / dt; 
+step_dur = getFieldDefault(props, 'timeAvg', 2) / dt; 
 
 % Start from beginning to find all voltage steps. Use 1st and 2nd
 % magnitudes if available because sometimes voltage steps can be missed if
@@ -62,7 +65,7 @@ i_steps = repmat(NaN, num_steps, num_mags);
 for step_num = 1:num_steps
   step_time = time_steps(step_num);
   step_range = ...
-      max(step_time - 2*step_delay, 1) : (step_time - step_delay);
+      max(step_time - step_delay - step_dur, 1) : (step_time - step_delay);
   v_steps(step_num, :) = ...
        mean(data_v( step_range, : ));
   i_steps(step_num, :) = ...

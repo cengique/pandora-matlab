@@ -42,6 +42,11 @@ if nargin == 0 % Called with no params
   error('Need object.');
 end
 
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
+% TODO: make sure step num < -60 mV 
+% (getResultsPassiveReCeElec only sends those)
 props = defaultValue('props', struct);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
@@ -56,6 +61,7 @@ else
  pas_res.offset = getFieldDefault(props, 'offset', NaN);
 end
 
+% mark the whole voltage step
 dt = pas.data_vc.trace.dt * 1e3;
 start_dt = pas.data_vc.time_steps(step_num) + round(delay/dt);
 if step_num < length(pas.data_vc.time_steps)
@@ -64,16 +70,32 @@ else
   end_dt = size(pas.data_vc.i.data, 1);
 end
 
+% look at peak capacitive artifact and it's half-width as an estimate
+% for until when to integrate
+peak_vc = calcCurPeaks(pas.data_vc, step_num + 1);
+peak_halfmag = peak_vc.props.iPeaks(trace_num) / 2;
+if peak_halfmag < 0
+  half_time = ...
+      find(peak_vc.i.data(start_dt:end_dt, trace_num) < peak_halfmag);
+else
+  half_time = ...
+      find(peak_vc.i.data(start_dt:end_dt, trace_num) > peak_halfmag);
+end
+% choose a multiple of half-width
+end_dt = (start_dt + 10*half_time(end) - 1);
+
 % integrate current, remove I2 before integration
 % (still ignores Re, so rough estimate)
-I2 = ((pas.data_vc.v_steps(step_num+1) - pas_res.EL) * pas_res.gL + pas_res.offset);
+I2 = ((pas.data_vc.v_steps(step_num+1, trace_num) - pas_res.EL) * pas_res.gL + pas_res.offset);
 int_I = cumsum(pas.data_vc.i.data(start_dt:end_dt, trace_num) - I2) * dt;
 
 
 % find steady-state value
 max_I = mean(int_I(end - 10:end));
 
-Cm = max_I / diff(pas.data_vc.v_steps(step_num:step_num+1));
+Cm = max_I / diff(pas.data_vc.v_steps(step_num:step_num+1, trace_num));
+
+assert(Cm > 0 && Cm < 0.1);
 
 % find time constant
 t_change = find(abs(int_I) > (1-exp(-1)) * abs(max_I));
@@ -83,11 +105,12 @@ end
 
 Re = timeconstant * dt/ Cm;
 
-if isfield(props, 'ifPlot')
-  plotFigure(plot_abstract({(start_dt:end_dt)*dt, int_I, (start_dt + timeconstant) * dt, int_I(timeconstant), '*r', ...
-                      [start_dt end_dt]*dt, [I2 I2], '--k'}, ...
-                           {'time [ms]', 'integral of I [nA]'}, '', {}, ...
-                           'plot'));
+assert(Re > 0);
+
+if isfield(props, 'ifPlot') || verbose
+  plotFigure(plot_abstract({(start_dt:end_dt)*dt, int_I, (start_dt + timeconstant) * dt, int_I(timeconstant), '*r'}, ...
+                      {'time [ms]', 'integral of I [nA]'}, '', {}, ...
+                      'plot'));
 end
 
 end

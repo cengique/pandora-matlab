@@ -1,4 +1,4 @@
-function results = getResultsPassiveReCeElec(pas, props)
+function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 
 % getResultsPassiveReCeElec - Estimates passive cell params based on Re Ce electrode model.
 %
@@ -37,9 +37,15 @@ function results = getResultsPassiveReCeElec(pas, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+  vs = warning('query', 'verbose');
+  verbose = strcmp(vs.state, 'on');
+
+  
 props = defaultValue('props', struct);
 min_resnorm = getFieldDefault(props, 'minResnorm', 0.04);
 min_Re = getFieldDefault(props, 'minRe', 50);
+trace_num = getFieldDefault(props, 'traceNum', 1);
+step_num = getFieldDefault(props, 'stepNum', 1);
 
 results = struct;
 
@@ -52,19 +58,43 @@ if nargin == 0 % Called with no params or empty object
   return;
 end
 
-pas_res = calcSteadyLeak(pas);
+% first find levels < -55 mV
+pas_vsteps_idx = find(pas.data_vc.v_steps(step_num, :) < -55 & pas.data_vc.v_steps(step_num + 1, :) < -55);
+% discretize to 1 mV steps 
+quant_steps = ...
+    quant(pas.data_vc.v_steps([step_num step_num+1], pas_vsteps_idx)', ...
+          1);
+% eliminate no-change steps
+diff_steps = diff(quant_steps, 1, 2);
+yes_change_idx = abs(diff_steps) > 0;
+quant_steps = quant_steps(yes_change_idx, :);
+pas_vsteps_idx = pas_vsteps_idx(yes_change_idx);
+% find distinct values (do not process multiple steps of same values)
+[pas_vsteps pas_vsteps_uidx] = ...
+    unique(quant_steps, 'rows', 'first');
+[largest_step, largest_step_idx] = ...
+    max(abs(diff(pas_vsteps, 1, 2)));
+pas_vsteps_idx = pas_vsteps_idx(pas_vsteps_uidx);
+
+pas_res = calcSteadyLeak(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
 
 if pas_res.gL > 0.025
   warning(['gL = ' num2str(pas_res.gL) ' uS is quite large. Expect estimation ' ...
                       'errors for gL and offset parameters.']);
 end
 
-delay = calcDelay(pas);
+delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
 
-[Re Cm] = calcReCm(pas, mergeStructs(props, mergeStructs(struct('delay', delay), pas_res)));
+[Re Cm] = ...
+    calcReCm(pas, mergeStructs(props, ...
+                               mergeStructs(struct('traceNum', pas_vsteps_idx(largest_step_idx), 'delay', delay), pas_res)));
+
+if verbose
+  pas_res, Re, Cm, delay
+end
 
 if Re < min_Re
-    warning(['Re=' num2str(Re) ' MOhm too large, setting to minimum 50 MOhm.']);
+    warning(['Re=' num2str(Re) ' MOhm too small, setting to minimum 50 MOhm.']);
     Re = max(Re, min_Re); % limit
 end
 
@@ -86,30 +116,33 @@ capleakReCe_f = ...
 a_md = ...
     model_data_vcs(capleakReCe_f, pas.data_vc, ...
                    [ pas.data_vc.id ': capleak, Re, Ce est']);
-plotFigure(plotDataCompare(a_md, ' - integral method', struct('zoom', 'act')));
+plotFigure(plotDataCompare(a_md, ' - integral method', ...
+                           struct('levels', pas_vsteps_idx, ...
+                                  'zoom', 'act')));
 
 a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
                                              {'Re', 'Ce', 'Cm', 'delay'});
 
 runFit([1 -1 10], 'after fit');
 
-if results.resnorm > min_resnorm
+if results.resnorm/length(pas_vsteps_idx) > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
     runFit([1 -1 2], '2nd fit (narrow)');
-    if results.resnorm > min_resnorm
+    if results.resnorm/length(pas_vsteps_idx) > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
     else
         % do full fit again
         warning(['narrow fit improved, doing a full fit again.' ]);
         runFit([1 -1 10], '3rd fit (full)');
-        assert(results.resnorm < min_resnorm);
+        assert(results.resnorm/length(pas_vsteps_idx) < min_resnorm);
     end
 end
 
 function runFit(fitrange, str)
   a_md = fit(a_md, ...
              '', struct('fitRangeRel', fitrange, ...
+                        'fitLevels', pas_vsteps_idx, ...
                         'dispParams', 5,  ...
                         'dispPlot', 0, ...
                         'optimset', ...
@@ -118,7 +151,19 @@ function runFit(fitrange, str)
 
   % reveal fit results
   results.resnorm = a_md.model_f.props.resnorm;
-  plotFigure(plotDataCompare(a_md, [ ' - ' str ], struct('zoom', 'act')));
-
+  % ('zoom', 'act')
+  % final fit
+  fit_plot = ...
+      plotDataCompare(a_md, [ ' - ' str ], ...
+                      struct('levels', pas_vsteps_idx, ...
+                             'axisLimits', ...
+                             [getTimeRelStep(pas.data_vc, ...
+                                             fitrange(1), -.1) ...
+                      * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm] ...
+                      NaN NaN]));
+  plotFigure(fit_plot);
+  a_doc = doc_plot(fit_plot, [ 'Fitting passive parameters of ' pas.data_vc.id ', ' str ], ...
+                   [ pas.data_vc.props.filename '-passive-fits' ], struct, ...
+                   pas.data_vc.id);
 end
 end
