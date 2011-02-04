@@ -28,22 +28,7 @@ function [a_profile a_doc] = loadItemProfile(traceset, trace_index)
 
 traceset_props = get(traceset, 'props');
 
-basedir = getFieldDefault(traceset_props, 'baseDir', '');
-
-a_trace = getItem(traceset, trace_index);
-
-% use the template if provided
-if isfield(traceset_props, 'fileTempl')
-  a_trace = sprintf(traceset_props.fileTempl, a_trace);
-end
-
-% load the voltage_clamp object
-if ischar(a_trace)
-  a_trace = abf2voltage_clamp([ basedir a_trace ], ...
-                              [ '-' num2str(trace_index) ], traceset_props);
-end
-
-assert(isa(a_trace, 'voltage_clamp'));
+a_trace = getItemVC(traceset, trace_index);
 
 % get the results
 [a_profile a_doc] = ...

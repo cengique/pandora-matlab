@@ -1,9 +1,9 @@
-function [a_db, Cm_avg] = processCapEst(traceset, props)
+function [a_db, a_stats_db, Cm_avg] = processCapEst(traceset, props)
 
 % processCapEst - Generates a DB of the cell's trace set by estimating their capacitances.
 %
 % Usage:
-% processCapEst(traceset)
+% [a_db, a_stats_db, Cm_avg] = processCapEst(traceset)
 %
 % Parameters:
 %   traceset: A traceset object.
@@ -12,7 +12,8 @@ function [a_db, Cm_avg] = processCapEst(traceset, props)
 % Returns:
 %
 % Description:
-%   Also generates statistics and saves a lot of files.
+%   Also generates statistics and saves a lot of files. Will create a
+% LaTeX document in the proper directory.
 %
 % See also: traceset_L1_passive, data_L1_passive
 %
@@ -56,13 +57,12 @@ displayRows([a_db; a_stats_db])
 
 for_stats_db = delColumns(a_db, {'TraceNum', '/offset/', 'resnorm', 'ItemIndex'});
 
-% TODO: maybe collect many cells and plot them all together
 % - put traceset id as file name
 stats_name = 'passive_params_stats';
 stats_plot = doc_plot(plot_bars(statsMeanSE(for_stats_db), '', ...
                                   struct('fixedSize', [12 3], 'noTitle', ...
                                          1, 'Color', gray(1))), ...
-                      [ 'Statistics of passive params of ' properTeXLabel(traceset_id) ], ...
+                      [ 'Mean and standard error (SE) of passive parameters from ' properTeXLabel(traceset_id) ], ...
                       [ stats_name ], struct('width', '\columnwidth'), ...
                       properTeXLabel([ stats_name '-' traceset_id ]), ...
                       mergeStructs(props, ...
