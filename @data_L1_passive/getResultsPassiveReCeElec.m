@@ -125,17 +125,17 @@ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
 
 runFit([1 -1 10], 'after fit');
 
-if results.resnorm/length(pas_vsteps_idx) > min_resnorm
+if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
     runFit([1 -1 2], '2nd fit (narrow)');
-    if results.resnorm/length(pas_vsteps_idx) > min_resnorm
+    if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
     else
         % do full fit again
         warning(['narrow fit improved, doing a full fit again.' ]);
         runFit([1 -1 10], '3rd fit (full)');
-        assert(results.resnorm/length(pas_vsteps_idx) < min_resnorm);
+        assert(results.resnorm < min_resnorm);
     end
 end
 
@@ -150,7 +150,7 @@ function runFit(fitrange, str)
   results = mergeStructs(results, getParamsStruct(a_md.model_f));
 
   % reveal fit results
-  results.resnorm = a_md.model_f.props.resnorm;
+  results.resnorm = a_md.model_f.props.resnorm / length(pas_vsteps_idx);
   % ('zoom', 'act')
   % final fit
   fit_plot = ...
@@ -162,8 +162,8 @@ function runFit(fitrange, str)
                       * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm] ...
                       NaN NaN]));
   plotFigure(fit_plot);
-  a_doc = doc_plot(fit_plot, [ 'Fitting passive parameters of ' pas.data_vc.id ', ' str ], ...
-                   [ pas.data_vc.props.filename '-passive-fits' ], struct, ...
-                   pas.data_vc.id);
+  a_doc = doc_plot(fit_plot, [ 'Fitting passive parameters of ' pas.data_vc.id ', ' str '.' ], ...
+                   [ get(pas.data_vc, 'id') '-passive-fits' ], struct, ...
+                   pas.data_vc.id, props);
 end
 end
