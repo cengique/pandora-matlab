@@ -99,12 +99,14 @@ if Re < min_Re
 end
 
 % TODO: 
-% - recalculate gL based on Re estimate
 % - iterate once more to find a new Re estimate afterwards
 
-results.Re = Re;
-results.Cm = Cm;
-results.delay = delay;
+results.int_Re_MO = Re;
+results.int_Cm_pF = Cm * 1e3;
+results.int_gL_nS = pas_res.gL * 1e3;
+results.int_EL_mV = pas_res.EL;
+results.int_offset_pA = pas_res.offset * 1e3;
+results.est_delay_ms = delay;
 
 capleakReCe_f = ...
     param_Re_Ce_cap_leak_act_int_t(...
@@ -139,6 +141,36 @@ if results.resnorm > min_resnorm
     end
 end
 
+% do a final fit with more params relaxed.
+% this also recalculates gL and EL based on the Re estimate.
+a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+                                             {'Re', 'Ce', 'Cm', 'gL', 'EL'});
+runFit([1 -1 30], 'final fit w/ gL,EL');
+
+% rename all Vm_ columns
+renameFields('Vm_', 'fit_');
+
+% add units to names
+renameFields('(fit_C.)', '$1_pF');
+results.fit_Ce_pF = results.fit_Ce_pF * 1e3;
+results.fit_Cm_pF = results.fit_Cm_pF * 1e3;
+
+renameFields('(fit_EL)', '$1_mV');
+renameFields('(fit_gL)', '$1_nS');
+results.fit_gL_nS = results.fit_gL_nS * 1e3;
+
+renameFields('(fit_Re)', '$1_MO');
+renameFields('(fit_delay)', '$1_ms');
+renameFields('(fit_offset)', '$1_pA');
+results.fit_offset_pA = results.fit_offset_pA * 1e3;
+
+function renameFields(re_from, re_to)
+  results = cell2struct(struct2cell(results), ...
+                          regexprep(fieldnames(results), ...
+                                    re_from, re_to));
+  
+end
+
 function runFit(fitrange, str)
   a_md = fit(a_md, ...
              '', struct('fitRangeRel', fitrange, ...
@@ -147,7 +179,7 @@ function runFit(fitrange, str)
                         'dispPlot', 0, ...
                         'optimset', ...
                         struct('Display', 'iter')));
-  results = mergeStructs(results, getParamsStruct(a_md.model_f));
+  results = mergeStructs(getParamsStruct(a_md.model_f), results);
 
   % reveal fit results
   results.resnorm = a_md.model_f.props.resnorm / length(pas_vsteps_idx);
