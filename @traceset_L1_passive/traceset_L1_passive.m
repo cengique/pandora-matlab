@@ -6,8 +6,8 @@ function a_tset = traceset_L1_passive(traces_cell, treatments, neuron_id, props)
 % a_tset = traceset_L1_passive(traces_cell, treatments, neuron_id, props)
 %
 % Parameters:
-%   traces_cell: Cell array of file names or voltage_clamp objects.
-%   treatments: Structure with treatments/mutations and values.
+%   traces_cell: Cell array of file names, numeric file indices for fileTempl or voltage_clamp objects.
+%   treatments: Structure with protocol names and corresponding trace lists.
 %   neuron_id: Neuron name.
 %   props: A structure with any optional properties.
 %     fileTempl: A sprintf template to place the items in traces_cell to
@@ -60,6 +60,10 @@ elseif isa(traces_cell, 'traceset_L1_passive') % copy constructor?
 else
   a_tset.treatments = treatments;
   a_tset.neuron_id = neuron_id;
+
+  if isnumeric(traces_cell)
+    traces_cell = num2cell(traces_cell);
+  end
   
   % Create the object 
   a_tset = class(a_tset, 'traceset_L1_passive', ...

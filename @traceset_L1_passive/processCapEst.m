@@ -1,4 +1,4 @@
-function [a_db, a_stats_db, Cm_avg] = processCapEst(traceset, props)
+function [a_db, a_stats_db, Cm_avg, tex_file] = processCapEst(traceset, props)
 
 % processCapEst - Generates a DB of the cell's trace set by estimating their capacitances.
 %
@@ -34,9 +34,14 @@ traceset_id = get(traceset, 'id');
 % Save the db and load it later instead of processing
 db_file = [ props.docDir filesep traceset_id filesep 'passive_params_db.mat' ];
 if ~exist(db_file, 'file')
-  % generate the DB and docs
-  a_db = params_tests_db(traceset);
+  % generate the DB and docs from passive protocols
+  a_db = params_tests_db(set(traceset, 'list', num2cell(traceset.treatments.passive)));
   % TODO: remove some columns?
+  % check and create directory
+  final_dir = [ props.docDir filesep traceset_id ];
+  if ~ exist(final_dir, 'dir')
+    mkdir(props.docDir, traceset_id);
+  end
   save(db_file, 'a_db');
   % TODO: also save a csv file of DB
 else
@@ -68,11 +73,12 @@ stats_plot = doc_plot(plot_bars(statsMeanSE(for_stats_db), '', ...
                       mergeStructs(props, ...
                                    struct('plotRelDir', ...
                                           [properTeXFilename(get(traceset, 'id')) '/' ])));
-
+tex_file = ...
+    [traceset_id '-passive-fits.tex'];
 string2File([getTeXString(a_db.props.doc) ...
              displayRowsTeX([a_db; a_stats_db], ['Calculated passive ' ...
-                    'properties and their statistics.'], ...
+                    'properties and their statistics of ' properTeXLabel(traceset_id) '.'], ...
                             struct('rotate', 0, 'width', '\columnwidth', ...
                                    'height', '!')) ...
              getTeXString(stats_plot)], ...
-            [ props.docDir filesep traceset_id '-passive-fits.tex' ]);
+            [ props.docDir filesep tex_file ]);
