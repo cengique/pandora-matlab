@@ -8,7 +8,8 @@ function t_change = find_change(data, idx_start, num_mV, dt)
   % find beginning of step (used to be: 5*v_start_sd)
   t_change = find(abs(data(idx_start:end) - v_start) > num_mV); 
   if ~ isempty(t_change)
-    t_change = idx_start - 1 + t_change(1);
+    % one more -1 to get the previous step before threshold crossing
+    t_change = idx_start - 1 + t_change(1) - 1;
   end % else return empty
 end
 
