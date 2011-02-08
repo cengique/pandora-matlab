@@ -72,7 +72,8 @@ end
 
 % look at peak capacitive artifact and it's half-width as an estimate
 % for until when to integrate
-peak_vc = calcCurPeaks(pas.data_vc, step_num + 1);
+peak_vc = calcCurPeaks(pas.data_vc, step_num + 1, ...
+                       struct('pulseStartRel', delay, 'pulseEndRel', [1 50]));
 peak_halfmag = peak_vc.props.iPeaks(trace_num) / 2;
 if peak_halfmag < 0
   half_time = ...

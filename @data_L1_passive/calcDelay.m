@@ -40,8 +40,10 @@ start_dt = pas.data_vc.time_steps(step_num);
 dt = pas.data_vc.trace.dt * 1e3;
 
 first_ms = 2;
-t_begin = first_ms/dt;
+t_begin = first_ms/dt + 1; % [dt] always starts from 1
 
+% [ms]=([dt]-1)*dt because [dt] starts from 1. below is a subtraction of
+% two [dt]s, so no need to subtract one more.
 delay = (find_change(pas.data_vc.i.data(:, trace_num), ...
                      start_dt - min(t_begin + 1/dt, start_dt - 1), 5) - start_dt) * dt;
 
@@ -53,7 +55,7 @@ function t_change = find_change(data, idx_start, num_mV, dt)
   % find beginning of step (used to be: 5*v_start_sd)
   t_change = find(abs(data(idx_start:end) - v_start) > 5*v_start_sd); 
   if ~ isempty(t_change)
-    t_change = idx_start - 1 + t_change(1);
+    t_change = idx_start - 2 + t_change(1); % rewind one step
   end % else return empty
 end
 
