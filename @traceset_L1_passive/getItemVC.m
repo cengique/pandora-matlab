@@ -1,13 +1,16 @@
-function a_vc = getItemVC(traceset, trace_index)
+function a_vc = getItemVC(traceset, trace_index, props)
 
 % getItemVC - Loads and returns a voltage_clamp object.
 %
 % Usage:
 % a_vc = getItemVC(traceset, trace_index)
 %
-%   Parameters:
-%	traceset: A traceset object.
-%	trace_index: Index of item in traceset.
+% Parameters:
+%   traceset: A traceset object.
+%   trace_index: Index of item in traceset.
+%   props: Structure with optional parameters.
+%     absolute: If 1, trace_index is an absolute trace number, use it
+%     		directly with the file name template.
 %		
 %   Returns:
 %	a_vc: A voltage_clamp object.
@@ -26,11 +29,16 @@ function a_vc = getItemVC(traceset, trace_index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = defaultValue('props', struct);
 traceset_props = get(traceset, 'props');
 
 basedir = getFieldDefault(traceset_props, 'baseDir', '');
 
-a_vc = getItem(traceset, trace_index);
+if ~ isfield(props, 'absolute')
+  a_vc = getItem(traceset, trace_index);
+else
+  a_vc = trace_index;
+end
 
 % use the template if provided
 if isfield(traceset_props, 'fileTempl')

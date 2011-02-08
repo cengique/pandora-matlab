@@ -11,6 +11,8 @@ function a_cset = cellset_L1(cells_list, treatments, cellset_id, props)
 %   cellset_id: Name for this set.
 %   props: A structure with any optional properties.
 %     docDir: Directory to find the files.
+%     protZoom: Structure connecting protocol names to axisLimits
+%     		quadruples for proper zooming into trace plots.
 %     (All other props are passed to ...)
 %		
 %   Returns a structure object with the following fields:

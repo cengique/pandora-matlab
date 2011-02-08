@@ -9,7 +9,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %   pas: A data_L1_passive object.
 %   props: Structure with optional properties.
 %     stepNum: Voltage pulse to be considered (default=1).
-%     traceNum: Trace number ti be analyzed (default=1).
+%     traceNum: Trace number to be analyzed (default=1).
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
