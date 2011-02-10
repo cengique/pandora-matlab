@@ -101,7 +101,7 @@ resnorm
 a_ps = setProp(a_ps, 'resnorm', resnorm, 'residual', residual, 'jacobian', jacobian);
 
 % calc confidence intervals
-[~,R] = qr(full(jacobian),0);
+[a,R] = qr(full(jacobian),0);
 Rinv = R \ eye(length(R));
 
 % degrees of freedom:
