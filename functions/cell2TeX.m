@@ -49,6 +49,8 @@ for row=1:size(a_cell, 1)
       else
 	add_string = strrep(the_cell, '_', ' '); % replace _ with space
       end
+    elseif isempty(the_cell)
+      add_string = '';
     elseif isnan(the_cell) || isinf(the_cell)
       add_string = [ num2str(the_cell) ];
     else
