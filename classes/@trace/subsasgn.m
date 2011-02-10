@@ -25,10 +25,12 @@ if size(index, 2) > 1
 else
   switch index.type
     case '()'
-      error('{} not defined for trace.')
+      warning('() not defined for trace; using built-in method.');
+      a = builtin('subsasgn', a, index, val);
     case '.'
       a = set(a, index.subs, val);
     case '{}'
-      error('{} not defined for trace.');
+      warning('{} not defined for trace; using built-in method.');
+      a = builtin('subsasgn', a, index, val);
   end
 end
