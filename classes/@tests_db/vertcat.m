@@ -57,6 +57,15 @@ end
 % check for column consistency
 [col_names, wcol_names] = checkConsistentCols(db, with_db);
 
+% concat row names
+num_db_rows = dbsize(db, 1);
+db_rows = get(db, 'row_idx');
+wdb_rows = get(with_db, 'row_idx');
+db = set(db, 'row_idx', ...
+             mergeStructs(db_rows, ...
+                          cell2struct(num2cell(cell2mat(struct2cell(wdb_rows)) + ...
+                                               num_db_rows), fieldnames(wdb_rows))));
+
 % concatenate and preserve column order of first DB
 a_db = set(db, 'data', [ get(db, 'data'); ...
 			get(onlyRowsTests(with_db, ':', col_names), 'data') ] );
