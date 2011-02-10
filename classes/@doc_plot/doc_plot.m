@@ -13,6 +13,7 @@ function a_doc = doc_plot(a_plot, caption, plot_filename, float_props, id, props
 %	id: An identifying string.
 %	props: A structure with any optional properties.
 %	  orient: Passed to the orient command before printing to figure file.
+%	  (others passed to doc_plot/getTeXString and TeXtable)
 %		
 % Description:
 %   The generated file may take an extension according to chosen format.

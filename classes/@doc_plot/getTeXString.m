@@ -11,6 +11,10 @@ function tex_string = getTeXString(a_doc, props)
 %   Parameters:
 %	a_doc: A doc_plot object.
 %	props: A structure with any optional properties.
+%	  docDir: Base directory for files.
+%         plotRelDir: Subdirectory for plot files. \input commands will
+%         	   include this directory.
+%	       (passed to TeXtable)
 %		
 %   Returns:
 %	tex_string: A string that contains TeX commands, which upon writing to a file,
@@ -34,12 +38,29 @@ function tex_string = getTeXString(a_doc, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = mergeStructs(defaultValue('props', struct), get(a_doc, 'props'));
+doc_dir = getFieldDefault(props, 'docDir', '');
+plot_dir = getFieldDefault(props, 'plotRelDir', '');
+
+if ~isempty(doc_dir), doc_dir = [ doc_dir '/' ]; end
+if ~isempty(plot_dir), plot_dir = [ plot_dir '/' ]; end
+
 fig_num = plot(a_doc);
 
 filename = properTeXFilename(a_doc.plot_filename);
 
-print('-depsc2', [  filename '.eps' ] );
+% check and create directory
+final_dir = [ doc_dir plot_dir ];
+if ~ exist(final_dir, 'dir')
+  mkdir(doc_dir, plot_dir);
+end
+
+% put file in final dir
+print('-depsc2', [  final_dir filename '.eps' ] );
 
 a_doc.float_props.floatType = 'figure';
+a_doc.float_props.label = [ 'fig:' get(a_doc, 'id') ];
 
-tex_string = TeXtable([ '\includegraphics{' filename '}' ], a_doc.caption, a_doc.float_props);
+% TeX points to relative dir
+tex_string = TeXtable([ '\includegraphics{' plot_dir filename '}' ], a_doc.caption, ...
+                      mergeStructs(props, a_doc.float_props));

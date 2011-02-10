@@ -38,7 +38,11 @@ num_docs = length(a_doc.docs);
 
 % Concatenate all docs together
 tex_string = [];
-docs = a_doc.docs;
+if ~ iscell(a_doc.docs)
+  docs = num2cell(a_doc.docs);
+else
+  docs = a_doc.docs;
+end
 for doc_num = 1:num_docs
-  tex_string = [tex_string getTeXString(docs(doc_num))];
+  tex_string = [tex_string getTeXString(docs{doc_num})];
 end
