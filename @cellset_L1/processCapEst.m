@@ -8,6 +8,7 @@ function [a_db, a_stats_db, Cm_avg_db] = processCapEst(cellset, props)
 % Parameters:
 %   cellset: A cellset object.
 %   props: Structure with optional parameters.
+%     closeFigs: If 1, close figures after processing each traceset.
 %
 % Returns:
 %
@@ -63,10 +64,14 @@ if ~exist(stats_db_name, 'file') || ~exist(Cm_db_name, 'file')
     
     string2File([ tex_string sprintf('\n') ], ...
             [ doc_dir filesep tex_pre_name ]);
+    if isfield(props, 'closeFigs')
+      close all
+    end
   end
   a_stats_db = compareStats(stats_dbs{:});
   Cm_avg_db = params_tests_db(Cm_vals(:, 1), {'Cell_Id'}, Cm_vals(:, 2), {'Cm_avg_pF'}, ...
                               [ 'Cap estimate stats from ' cellset_id ]);
+  
   % save them
   save(stats_db_name, 'a_stats_db');
   save(Cm_db_name, 'Cm_avg_db');
@@ -77,7 +82,7 @@ else
 end
 
 % make a new stats plot
-for_stats_db = delColumns(a_stats_db, {'TraceNum', '/offset/', 'resnorm', 'ItemIndex'});
+for_stats_db = delColumns(a_stats_db, {'TraceNum', '/int_offset/', '/int_delay/', 'resnorm', 'ItemIndex'});
 
 stats_name = 'passive_params_stats';
 stats_plot = doc_plot(plot_bars(for_stats_db, [ 'Compare passive param stats of ' cellset_id ], ...

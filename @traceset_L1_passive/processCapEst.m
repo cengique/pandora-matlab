@@ -60,7 +60,7 @@ Cm_avg = a_stats_db('mean', 'fit_Cm_pF').data;
 
 displayRows([a_db; a_stats_db])
 
-for_stats_db = delColumns(a_db, {'TraceNum', '/offset/', 'resnorm', 'ItemIndex'});
+for_stats_db = delColumns(a_db, {'TraceNum', '/int_offset/', 'resnorm', 'ItemIndex'});
 
 % - put traceset id as file name
 stats_name = 'passive_params_stats';

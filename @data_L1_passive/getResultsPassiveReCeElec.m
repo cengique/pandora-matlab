@@ -85,7 +85,7 @@ end
 
 delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
 
-[Re Cm] = ...
+[Re Cm peak_mag] = ...
     calcReCm(pas, mergeStructs(props, ...
                                mergeStructs(struct('traceNum', pas_vsteps_idx(largest_step_idx), 'delay', delay), pas_res)));
 
@@ -96,6 +96,13 @@ end
 if Re < min_Re
     warning(['Re=' num2str(Re) ' MOhm too small, setting to minimum 50 MOhm.']);
     Re = max(Re, min_Re); % limit
+end
+
+% look at peak capacitive artifact to scale plot axis
+if peak_mag < 0
+  y_lims = [peak_mag * 1.1,  -0.1 * peak_mag];
+else
+  y_lims = [-0.1 * peak_mag, peak_mag * 1.1];
 end
 
 % TODO: 
@@ -122,14 +129,30 @@ plotFigure(plotDataCompare(a_md, ' - integral method', ...
                            struct('levels', pas_vsteps_idx, ...
                                   'zoom', 'act')));
 
+% fit to make a better Re estimate
 a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-                                             {'Re', 'Ce', 'Cm', 'delay'});
+                                        {'Re', 'Ce', 'Cm', 'delay'});
 
-runFit([1 -1 10], 'after fit');
+runFit([1 -1 10], 'fit 1-10ms');
+
+% do another fit with more params relaxed.
+% this also recalculates gL and EL based on the Re estimate.
+a_md.model_f.Vm = ...
+    setProp(a_md.model_f.Vm, 'selectParams', ...
+                          {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
+
+% repeat regular fit
+% $$$ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+% $$$                                         {'Re', 'Ce', 'Cm', 'delay'});
+
+runFit([1 -1 10], 'fit 1-10ms');
 
 if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
+    a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+                                             {'Re', 'Ce', 'Cm', 'delay'});
     runFit([1 -1 2], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
@@ -140,12 +163,6 @@ if results.resnorm > min_resnorm
         assert(results.resnorm < min_resnorm);
     end
 end
-
-% do a final fit with more params relaxed.
-% this also recalculates gL and EL based on the Re estimate.
-a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-                                             {'Re', 'Ce', 'Cm', 'gL', 'EL'});
-runFit([1 -1 30], 'final fit w/ gL,EL');
 
 % rename all Vm_ columns
 renameFields('Vm_', 'fit_');
@@ -172,6 +189,7 @@ function renameFields(re_from, re_to)
 end
 
 function runFit(fitrange, str)
+  disp([ 'Running: ' str ])
   a_md = fit(a_md, ...
              '', struct('fitRangeRel', fitrange, ...
                         'fitLevels', pas_vsteps_idx, ...
@@ -191,8 +209,8 @@ function runFit(fitrange, str)
                              'axisLimits', ...
                              [getTimeRelStep(pas.data_vc, ...
                                              fitrange(1), -.1) ...
-                      * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm] ...
-                      NaN NaN]));
+                      * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm], ...
+                      y_lims]));
   plotFigure(fit_plot);
   a_doc = doc_plot(fit_plot, [ 'Fitting passive parameters of ' pas.data_vc.id ', ' str '.' ], ...
                    [ get(pas.data_vc, 'id') '-passive-fits' ], struct, ...

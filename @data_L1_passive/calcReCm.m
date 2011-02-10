@@ -1,4 +1,4 @@
-function [Re Cm] = calcReCm(pas, props)
+function [Re Cm peak_mag] = calcReCm(pas, props)
 
 % calcReCm - Estimates series resistance and membrane capacitance from membrane charging transient.
 %
@@ -75,7 +75,8 @@ end
 peak_vc = calcCurPeaks(pas.data_vc, step_num + 1, ...
                        struct('pulseStartRel', delay, ...
                               'pulseEndRel', [1 min((end_dt - pas.data_vc.time_steps(step_num))*dt, 50)]));
-peak_halfmag = peak_vc.props.iPeaks(trace_num) / 2;
+peak_mag = peak_vc.props.iPeaks(trace_num);
+peak_halfmag = peak_mag / 2;
 if peak_halfmag < 0
   half_time = ...
       find(peak_vc.i.data(start_dt:end_dt, trace_num) < peak_halfmag);

@@ -10,10 +10,10 @@ function a_vc = calcCurPeaks(a_vc, step_num, props)
 %   step_num: 1 for prestep, 2 for the first step, 3 for next, etc (default=2).
 %   props: A structure with any optional properties.
 %     pulseRange: Use this range for finding peaks [dt].
-%     pulseStartRel: Time to start relative to the step beginning
-%       [ms]. If it has two elements, first one  specifies which voltage step.
-%     pulseEndRel: Time to end relative to the step end [ms]. Like
-%       pulseStartRel, allows specifying which step.
+%     pulseStartRel: Time to start relative to the step beginning (default=+.3)
+%       [ms]. If it has two elements, first one  specifies the voltage step .
+%     pulseEndRel: Time to end relative to the step end (default=-.3) [ms]. Like
+%       pulseStartRel, allows specifying voltage step.
 %		
 % Returns:
 %   a_vc: Updated voltage_clamp object that contains props.iPeaks.
