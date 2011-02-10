@@ -45,7 +45,11 @@ if isa(tr, 'trace')
   name = get(tr, 'id');
 elseif isnumeric(tr)
   data = tr;
-  name = 'a constant';
+  if length(tr) > 1
+    name = 'a constant vector';
+  else
+    name = num2str(tr);
+  end
 else
   disp('Cannot use in subtraction:');
   disp(class(tr));
