@@ -48,11 +48,14 @@ end
 
 % Add row names
 row_names = fieldnames(db.row_idx);
+row_nums = cell2mat(struct2cell(db.row_idx));
 if ~ isempty(row_names)
   if ~ isempty(col_names)
     col_header = {''};
   else
     col_header = {};
   end
-  s = cat(1, [col_header, row_names'], s); % {'', row_names{:}}
+  all_row_names = cell(1, dbsize(db, 1));
+  [ all_row_names{row_nums} ] = deal(row_names{:});
+  s = cat(1, [col_header, all_row_names], s); % {'', row_names{:}}
 end
