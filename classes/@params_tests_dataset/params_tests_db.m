@@ -34,7 +34,7 @@ function db_obj = params_tests_db(obj, items, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props', 'var')
-  props = struct([]);
+  props = struct;
 end
 
 if exist('items', 'var')
