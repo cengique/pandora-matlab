@@ -1,6 +1,7 @@
 function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props) 
   
 % param_Re_Ce_cap_leak_int_t - Membrane capacitance and leak integrated over time with a model of electrode resistance and capacitance.
+% BROKEN: other integrated  variables in the solver only get Vc, not Vm.
 %
 % Usage:
 %   a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
@@ -137,10 +138,10 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     % make a new vector for delayed voltage
     Vc_delay = ...
         [ repmat(Vc(1, :), fixed_delay + delay_dt_int + 1, 1); ...
-          Vc(2:(end-delay_dt_int), :) - ...
+          Vc(2:min(end, end-delay_dt_int), :) - ...
           delay_dt_frac * ...
-          diff(Vc(1:(end-delay_dt_int), :)) ];
-
+          diff(Vc(1:min(end, end-delay_dt_int), :)) ];
+    
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
       % add variables and initialize. add  [0 1] for m & h
