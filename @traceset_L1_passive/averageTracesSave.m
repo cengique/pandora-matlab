@@ -10,6 +10,7 @@ function [avg_vc sd_vc tex_file] = averageTracesSave(traceset, prot_name, props)
 %   prot_name: Name of protocol to choose from traceset treatments. Also
 %   	added to saved file name.
 %   props: Structure with optional parameters.
+%     recalc: If 1, recalculate even if saved file is found.
 %
 % Returns:
 %   avg_vc: Average VC object
@@ -48,21 +49,19 @@ avg_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep ...
 sd_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep ...
             'AverageSD-' properTeXFilename(prot_name) '.mat' ];
 
-if ~exist(avg_file, 'file') || ~exist(sd_file, 'file')
+if ~exist(avg_file, 'file') || ~exist(sd_file, 'file') || isfield(props, 'recalc')
   tracelist = traceset.treatments.(prot_name);
 
   num_traces = length(tracelist);
   traces = repmat(trace, 1, num_traces);
 
+  % TODO:
+  % - sub LS and save VC files here
+  
   % take first as template voltage protocol
-  avg_vc = getItemVC(traceset, tracelist(1), ...
-                               struct('absolute', 1));
-
   % then average only current traces
-  traces(1) = get(avg_vc, 'i');
-  for trace_index = 2:num_traces
-    traces(trace_index) = get(getItemVC(traceset, tracelist(trace_index), ...
-                                                  struct('absolute', 1)), 'i');
+  for trace_index = 1:num_traces
+    [traces(trace_index) avg_vc] = doLSsub(trace_index);
   end
 
   [avg_tr sd_tr] = avgTraces(traces, struct('id', [traceset_id '-' prot_name]));
@@ -110,3 +109,28 @@ else
   load(sd_file);
 end
 
+% returns the current trace, but saves the LS version in the meantime
+  function [i_trace sub_vc] = doLSsub(trace_index)
+  a_vc = getItemVC(traceset, tracelist(trace_index), ...
+                             struct('absolute', 1));
+
+  ls_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep ...
+              'LS-trace-' num2str(tracelist(trace_index)) '-' ...
+              properTeXFilename(prot_name) '.mat' ];
+  if ~exist(ls_file, 'file') || isfield(props, 'recalc')
+    % subtract leak and passive currents
+    [sub_vc pas_doc] = ...
+        passiveSubVC(traceset, a_vc, prot_name, ...
+                     mergeStructs(props, ...
+                                  struct('traceNum', ...
+                                         tracelist(trace_index))));
+    save(ls_file, 'sub_vc');
+  else
+    load(ls_file);
+  end
+
+  i_trace = get(sub_vc, 'i');  
+  end
+
+
+end
