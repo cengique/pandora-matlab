@@ -127,40 +127,35 @@ a_md = ...
                    [ pas.data_vc.id ': capleak, Re, Ce est']);
 plotFigure(plotDataCompare(a_md, ' - integral method', ...
                            struct('levels', pas_vsteps_idx, ...
-                                  'zoom', 'act')));
+                                  'zoom', 'act', ...
+                                  'axisLimits', ...
+                                  [getTimeRelStep(pas.data_vc, ...
+                                                  1, -.1) ...
+                    * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm], ...
+                    y_lims])));
 
 % fit to make a better Re estimate
 a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
                                         {'Re', 'Ce', 'Cm', 'delay'});
 
-runFit([1 -1 10], 'fit 1-10ms');
 
-% do another fit with more params relaxed.
-% this also recalculates gL and EL based on the Re estimate.
-a_md.model_f.Vm = ...
-    setProp(a_md.model_f.Vm, 'selectParams', ...
-                          {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
-runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
-
-% repeat regular fit
-% $$$ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-% $$$                                         {'Re', 'Ce', 'Cm', 'delay'});
-
-runFit([1 -1 10], 'fit 1-10ms');
+narrowToWide();
 
 if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
     a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
                                              {'Re', 'Ce', 'Cm', 'delay'});
-    runFit([1 -1 2], '2nd fit (narrow)');
+    runFit([1 -.1 3*Re*Cm], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
     else
         % do full fit again
         warning(['narrow fit improved, doing a full fit again.' ]);
         runFit([1 -1 10], '3rd fit (full)');
-        assert(results.resnorm < min_resnorm);
+        assert(results.resnorm < min_resnorm, ...
+               ['Resnorm (' num2str(results.resnorm) ') > ' num2str(min_resnorm) ...
+                ' after narrow and full fits.' ]);
     end
 end
 
@@ -181,6 +176,48 @@ renameFields('(fit_delay)', '$1_ms');
 renameFields('(fit_offset)', '$1_pA');
 results.fit_offset_pA = results.fit_offset_pA * 1e3;
 
+function narrowToWide()
+% new try:
+% 1- do narrow fit first
+% 2- then relax to larger range and more params
+
+% TODO: use new Re and Cm estimates at some point?
+  runFit([1 -.1 3*Re*Cm], 'Starting narrow fit');
+
+  % do another fit with more params relaxed.
+  % this also recalculates gL and EL based on the Re estimate.
+  a_md.model_f.Vm = ...
+      setProp(a_md.model_f.Vm, 'selectParams', ...
+                            {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+  runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
+  
+  % last do narrower range
+  runFit([1 -1 10], 'fit 1-10ms');
+end
+
+function oneFitsAll()
+% old method:
+% 1- fit 1-10 ms
+% 2- relax and fit to 30 ms
+% 3- then same relaxed params, fit 1-10 ms
+% 4- if resnorm fails, do another narrow and full fit
+
+  runFit([1 -1 10], 'fit 1-10ms');
+
+% do another fit with more params relaxed.
+% this also recalculates gL and EL based on the Re estimate.
+a_md.model_f.Vm = ...
+    setProp(a_md.model_f.Vm, 'selectParams', ...
+                          {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
+
+% repeat regular fit
+% $$$ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+% $$$                                         {'Re', 'Ce', 'Cm', 'delay'});
+
+runFit([1 -1 10], 'fit 1-10ms');
+end
+
 function renameFields(re_from, re_to)
   results = cell2struct(struct2cell(results), ...
                           regexprep(fieldnames(results), ...
@@ -189,7 +226,7 @@ function renameFields(re_from, re_to)
 end
 
 function runFit(fitrange, str)
-  disp([ 'Running: ' str ])
+  disp([ pas.data_vc.id ': ' str ])
   a_md = fit(a_md, ...
              '', struct('fitRangeRel', fitrange, ...
                         'fitLevels', pas_vsteps_idx, ...

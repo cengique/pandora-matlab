@@ -9,6 +9,7 @@ function [tex_file] = averageTracesSave(cellset, props)
 %   cellset: A cellset object.
 %   props: Structure with optional parameters.
 %     protNames: Cell array of protocol(s) to average.
+%     recalc: If 1, recalculate even if saved file is found.
 %
 % Returns:
 %   tex_file: Name of TeX file generated.
@@ -43,7 +44,7 @@ prot_tex_file = ...
       [ properTeXFilename([cellset_id '-averages-all-protocols' ]) '.tex' ];
 
 % TODO: if Cm doesn't exist, run that first
-if ~exist(Cm_db_name, 'file')
+if ~exist(Cm_db_name, 'file') || isfield(props, 'recalc')
   [a_db, a_stats_db, Cm_avg_db] = processCapEst(cellset, props);
 else
   load(Cm_db_name);
@@ -68,7 +69,7 @@ for prot_name = prot_names
               '.mat' ];
 
   % Do only if files don't exist
-  if ~exist(avg_file, 'file') || ~exist(sd_file, 'file')
+  if ~exist(avg_file, 'file') || ~exist(sd_file, 'file') || isfield(props, 'recalc')
     celllist = get(cellset, 'list');
     
     num_cells = length(celllist);
@@ -120,7 +121,6 @@ for prot_name = prot_names
       superposePlots(plot_abstract(norm_traces, [ ' - ' plot_title], ...
                                    mergeStructs(props, ...
                                                 struct('noTitle', 1, 'ColorOrder', [0.7 0.7 0.7], ...
-                                                      'fixedSize', [6 4], ...
                                                       'axisLimits', prot_zoom)))), ...
       plot_abstract(avg_tr, '', struct('ColorOrder', [0 0 0], ...
                                        'plotProps', struct('LineWidth', 2)))}, {}, '', ...
@@ -128,9 +128,7 @@ for prot_name = prot_names
                      plot_title, ...
                      [ plot_name ], struct('width', '.7\columnwidth'), ...
                      properTeXLabel([ plot_name '-' cellset_id ]), ...
-                     mergeStructs(props, ...
-                                  struct('plotRelDir', ...
-                                         [properTeXFilename(get(traceset, 'id')) '/' ])));
+                     mergeStructs(props, struct('fixedSize', [6 4])));
     
     % this can be done during averaging or after
     % put protocols in tex file, too
