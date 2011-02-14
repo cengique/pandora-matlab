@@ -42,8 +42,8 @@ props = mergeStructs(defaultValue('props', struct), get(a_doc, 'props'));
 doc_dir = getFieldDefault(props, 'docDir', '');
 plot_dir = getFieldDefault(props, 'plotRelDir', '');
 
-if ~isempty(doc_dir), doc_dir = [ doc_dir '/' ]; end
-if ~isempty(plot_dir), plot_dir = [ plot_dir '/' ]; end
+if ~isempty(doc_dir) && doc_dir(end) ~= '/', doc_dir = [ doc_dir '/' ]; end
+if ~isempty(plot_dir)  && plot_dir(end) ~= '/', plot_dir = [ plot_dir '/' ]; end
 
 fig_num = plot(a_doc);
 
