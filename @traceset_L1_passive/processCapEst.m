@@ -8,6 +8,7 @@ function [a_db, a_stats_db, Cm_avg, tex_file] = processCapEst(traceset, props)
 % Parameters:
 %   traceset: A traceset object.
 %   props: Structure with optional parameters.
+%     recalc: If 1, recalculate even if saved file is found.
 %
 % Returns:
 %
@@ -33,7 +34,7 @@ traceset_id = get(traceset, 'id');
 
 % Save the db and load it later instead of processing
 db_file = [ props.docDir filesep traceset_id filesep 'passive_params_db.mat' ];
-if ~exist(db_file, 'file')
+if ~exist(db_file, 'file') || isfield(props, 'recalc')
   % generate the DB and docs from passive protocols
   a_db = params_tests_db(set(traceset, 'list', num2cell(traceset.treatments.passive)));
   % TODO: remove some columns?
@@ -46,6 +47,8 @@ if ~exist(db_file, 'file')
   % TODO: also save a csv file of DB
 else
   disp(['Found existing DB in ''' db_file '''. Loading...']);
+  % TODO: check the TraceNums in DB to make sure it has all, and do the
+  % subtracted subset
   load(db_file);
 end
 
