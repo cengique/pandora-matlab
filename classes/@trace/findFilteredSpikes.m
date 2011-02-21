@@ -1,5 +1,5 @@
 function [times, peaks, n] = ...
-      findFilteredSpikes(t, a_period, plotit, minamp)
+      findFilteredSpikes(t, a_period, plotit, minamp, props)
 
 % findFilteredSpikes - Runs a frequency filter over the data and then finds all peaks using findspikes.
 %
@@ -15,16 +15,19 @@ function [times, peaks, n] = ...
 %   post-processed to make sure the rise and fall times are consistent.
 %   Note: The filter employed only works with data sampled at 10kHz.
 %
-% 	Parameters: 
-%		t: Trace object
-%		a_period: Period of interest.
-%		plotit: Plots the spikes found if 1.
-%		minamp (optional): minimum amplitude above baseline that must be reached.
-%			--> adjust as necessary to discriminate spikes from EPSPs.
-%	Returns:
-%		times: The times of spikes [dt].
-%		peaks: The peaks corresponding to the times of spikes.
-%		n: The number of spikes.
+% Parameters: 
+%   t: Trace object
+%   a_period: Period of interest.
+%   plotit: Plots the spikes found if 1.
+%   minamp (optional): minimum amplitude above baseline that must be reached.
+% 	--> adjust as necessary to discriminate spikes from EPSPs.
+%   props: A structure with any optional properties, such as:
+%     downThreshold: Size of trough after spike (default=-2)
+%
+% Returns:
+%   times: The times of spikes [dt].
+%   peaks: The peaks corresponding to the times of spikes.
+%   n: The number of spikes.
 %
 % See also: findspikes, period
 %
@@ -42,10 +45,12 @@ function [times, peaks, n] = ...
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = defaultValue('props', struct);
+
 s = load('spike_filter_50_3000Hz_ChebII.mat');
 fields = fieldnames(s);
 fd = getfield(s, fields{1});	% Assuming there's only one element
-dn_threshold = -2;
+dn_threshold = getFieldDefault(props, 'downThreshold', -2);
 
 % Scale to mV for spike finder
 mV_factor = 1e3 * t.dy;
@@ -141,8 +146,8 @@ for k=1:n
     times(k) = old_time;
   end
 
-  % There should be a trough within 3ms before and within 15ms after the peak
-  period_before = floor(3e-3 / t.dt);
+  % There should be a trough within 5ms before and within 15ms after the peak
+  period_before = floor(5e-3 / t.dt);
   period_after = floor(15e-3 / t.dt);
   min1 = min(filtered(max(1, times(k) - period_before) : times(k)));
   min2 = min(filtered(times(k) : min(times(k) + period_after, length(filtered))));

@@ -22,7 +22,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %	  offset_y: Y-axis offset to be added to loaded and scaled data.
 %	  trace_time_start: Samples in the beginning to discard [dt]
 %	  baseline: Resting potential.
-%	  channel: Channel to read from file Genesis, PCDX, NeuroShare or Neuron file.
+%	  channel: Channel to read from file Genesis, PCDX, NeuroShare or
+%	  	   Neuron file, or column in a data vector.
 %	  file_type: Specify file type instead of guessing from extension:
 %		'genesis': Raw binary files created with Genesis disk_out method.
 %		'genesis_flac': Compressed Genesis binary files.
@@ -38,9 +39,13 @@ function obj = trace(data_src, dt, dy, id, props)
 %	                (1 for findFilteredSpikes, 2 for Li Su's
 %	                findspikes, and 3 for Alfonso Delgado Reyes's 
 %			findspikes_old). Methods 2 and 3 require a threshold.
-%	  threshold: Spike threshold needed when using the findspikes
-%	  	     method above. Either a scalar, or [thres1 thres2] 
-%		     to define a range.
+%	  threshold: Spike finding threshold. For the findspikes method,
+%	  	     it is either a scalar, or [thres1 thres2] to define
+%	  	     a range. For findFilteredSpikes it is used on the
+%	  	     filtered data and the default is 2/3 max amplitude
+%	  	     of band-passed data, but with a minimum of 15. 
+%         downThreshold: (Only for findFilteredSpikes) Size of the trough
+%         	     after the spike peak in filtered data (Default=-2).
 %	  minInit2MaxAmp, minMin2MaxAmp: Minimal allowed values for
 %	  	     initial point to max point and minimal point to 
 %	             max point, resp.
@@ -56,8 +61,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %                      butterworth, different than the default high-order
 %                      Cheby2. Creates new prop called 'butterWorth' to
 %                      hold the filter.
-%         lowPassFreq: if set, it sets a new low pass cutoff. default is 3000Hz
-%         highPassFreq: if set it sets a new high pass cutoff. default is 50 Hz
+%         lowPassFreq: If set, it sets a new low pass cutoff for custom filter. Default is 3000Hz
+%         highPassFreq: If set it sets a new high pass cutoff for custom filter. Default is 50 Hz
 %	  quiet: If 1, reduces the amount of textual description in plots, etc.
 %		
 %   Returns a structure object with the following fields:
@@ -212,6 +217,7 @@ else
      if size(data_src, 2) > size(data_src, 2)
        data = data';            % convert to column vector
      end
+     data = data(:, getFieldDefault(props, 'channel', ':'));
    else
      error('Unrecognized data source!');
    end
@@ -241,7 +247,7 @@ else
 
    % Crop the data if desired
    if isfield(props, 'trace_time_start')
-     data =  data(props.trace_time_start:end);
+     data =  data(:, props.trace_time_start:end);
    end
 
    % Custom filter props
@@ -251,19 +257,22 @@ else
      else
        hpf = 50;
      end
-     % make a new filter based on the given dt
-     [b,a] = butter(2,2*hpf*dt,'high');
-     butterWorth.highPass = struct('b', b, 'a', a);
      if isfield(props, 'lowPassFreq')
        lpf = props.lowPassFreq;
      else
        lpf =3000;
      end
+     % make a new filter based on the given dt
+     % multiply by 2 to find nyquist freq
+     assert(all(2*[lpf hpf]*dt <= 1), ...
+            [ 'For custom filter, highPassFreq and lowPassFreq must be <= ' ...
+              'Nyquist freq (' num2str(1/dt/2) ').' ]);
+     [b,a] = butter(2,2*hpf*dt,'high');
+     butterWorth.highPass = struct('b', b, 'a', a);
      [b,a] = butter(2,2*lpf*dt,'low');
      butterWorth.lowPass = struct('b', b, 'a', a);
      props.butterWorth = butterWorth;
    end
-
    obj.data = data;
    obj.dt = dt;
    obj.dy = dy;
