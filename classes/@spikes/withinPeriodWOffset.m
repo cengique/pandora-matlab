@@ -26,6 +26,18 @@ function obj = withinPeriodWOffset(s, a_period)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% check if input is an array
+num_objs = length(s);
+if num_objs > 1
+  obj = repmat(spikes, 1, num_objs);
+  for obj_num = 1:num_objs
+    obj(obj_num) = ...
+        withinPeriodWOffset(s(obj_num), a_period);
+  end
+  return
+end
+
+% for single spikes object
 s.times = s.times(s.times > a_period.start_time & s.times <= a_period.end_time);
 s.num_samples = a_period.end_time - a_period.start_time;
 

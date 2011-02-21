@@ -53,6 +53,18 @@ if ~ exist('minamp', 'var')
   end
 end
 
+% if the trace object contains multiple traces, return array of spikes
+% objects 
+num_traces = size(t.data, 2);
+if num_traces > 1
+  obj = repmat(spikes, 1, num_traces);
+  for trace_num = 1:num_traces
+    obj(trace_num) = ...
+        spikes(set(t, 'data', t.data(:, trace_num)), a_period, plotit, minamp);
+  end
+  return
+end
+
 if (a_period.end_time - a_period.start_time) > 0
 
 % Choose an appropriate spike finder here and indicate in id.
@@ -79,9 +91,11 @@ elseif isfield(t.props, 'spike_finder') && ...
     [times, peaks, n] = ...
       findspikes_old(t.data(a_period.start_time:a_period.end_time) * mV_factor, ...
 		 t.props.threshold, plotit);
-else % Assume spike_finder == 1 for filtered method
-    
-	[times, peaks, n] = findFilteredSpikes(t, a_period, plotit, minamp);
+else 
+  % Assume spike_finder == 1 for filtered method.
+  % Pass t.props:
+  [times, peaks, n] = ...
+      findFilteredSpikes(t, a_period, plotit, minamp, t.props);
 end
 
 obj = spikes(times, length(t.data), t.dt, t.id);
