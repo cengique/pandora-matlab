@@ -5,19 +5,14 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 % Usage:
 % a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 %
-% Description:
-%		
-% Uses the generic trace object to store voltage clamp I, V data.
-% Inherits the common methods defined in trace.
-%
 % Parameters:
-%	data_i,data_v: Column vectors of I and V data traces.
-%	dt: Time resolution [s].
-%	di,dv: y-axis resolution for I and V [A and V, resp]
-%	id: Identification string.
-%	props: A structure with any optional properties, such as:
-%		trace_time_start: Samples in the beginning to discard [dt]
-%		(see trace for more)
+%   data_i,data_v: Column vectors of I and V data traces.
+%   dt: Time resolution [s].
+%   di,dv: y-axis resolution for I and V [A and V, resp]
+%   id: Identification string.
+%   props: A structure with any optional properties, such as:
+%     trace_time_start: Samples in the beginning to discard [dt]
+%     (see trace for more)
 %
 % Returns a structure object with the following fields:
 %   v: Voltage trace object, 
@@ -27,6 +22,10 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 %            last step)
 %   i_steps: Mean current values of steady-state before each step.
 %   trace: A parent trace object to inherit methods from.
+%
+% Description:
+%   Uses the generic trace object to store voltage clamp I, V data.
+% Inherits the common methods defined in trace.
 %
 % General methods of voltage_clamp objects:
 %   voltage_clamp		- Construct a new voltage_clamp object.
@@ -66,8 +65,8 @@ else
 
   % find time and values of voltage steps and steady-state currents
   [time_steps, v_steps, i_steps] = ...
-    findSteps(data_v, data_i, dt * 1e3, props);
-
+      findSteps(data_v, data_i, dt * 1e3, props);
+  
   a_vc = struct;
   a_vc.i = trace(data_i, dt, di, [ id ', I' ], props);
   a_vc.v = trace(data_v, dt, dv, [ id ', V' ], props);

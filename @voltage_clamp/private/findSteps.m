@@ -14,6 +14,8 @@ function [time_steps, v_steps, i_steps] = ...
 %   props: A structure with any optional properties.
 %     timeBefore: Time to skip before step [ms] (default=2).
 %     timeAvg: Time to average [ms] (default=2).
+%     iSteps: If 1, assume current-clamp data, find step times from
+%     	      current data.
 %		
 % Returns:
 %   time_steps: Times of voltage steps.
@@ -39,12 +41,22 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+if isfield(props, 'iSteps')
+  % current-clamp
+  data_t = data_i;
+else
+  % voltage-clamp
+  data_t = data_v;
+end
+
 time = (0:(size(data_i, 1)-1))*dt;
 num_mags = size(data_v, 2);
 
 % 2 ms delay after steps to look for next
 step_delay = getFieldDefault(props, 'timeBefore', 2) / dt; 
 step_dur = getFieldDefault(props, 'timeAvg', 2) / dt; 
+
+thr = max(max(data_t))/20;
 
 % Start from beginning to find all voltage steps. Use 1st and 2nd
 % magnitudes if available because sometimes voltage steps can be missed if
@@ -84,7 +96,7 @@ v_steps(step_num + 1, :) = ...
 function time_steps = findTimes(mag_num, time_change)
   time_steps = [];
   while ~ isempty(time_change)
-    time_change = findChange(data_v(:, min(mag_num, num_mags)), time_change + step_delay, 3, dt); 
+    time_change = findChange(data_t(:, min(mag_num, num_mags)), time_change + step_delay, thr, dt); 
     time_steps = [ time_steps, time_change ];
   end
 end
