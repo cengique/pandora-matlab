@@ -46,7 +46,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %	  	     of band-passed data, but with a minimum of 15. 
 %         downThreshold: (Only for findFilteredSpikes) Size of the trough
 %         	     after the spike peak in filtered data (Default=-2).
-%	  minInit2MaxAmp, minMin2MaxAmp: Minimal allowed values for
+%	  minInit2MaxAmp, minMin2MaxAmp: For spike_shape elimination,
+%	  	     conditions of minimal allowed values for 
 %	  	     initial point to max point and minimal point to 
 %	             max point, resp.
 %	  init_Vm_method: Method of finding spike thresholds during spike
@@ -217,7 +218,11 @@ else
      if size(data_src, 2) > size(data_src, 2)
        data = data';            % convert to column vector
      end
-     data = data(:, getFieldDefault(props, 'channel', ':'));
+     channel = getFieldDefault(props, 'channel', ':');
+     if ~ strcmp(channel, ':')
+       data = data(:, channel);
+       id = [id ', chan ' num2str(channel) ];
+     end
    else
      error('Unrecognized data source!');
    end
