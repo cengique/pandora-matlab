@@ -22,6 +22,6 @@ else
   catch
     % delegate to upper level
     b = a;
-    b.trace = set(a.voltage_clamp, attr, val);
+    b.voltage_clamp = set(a.voltage_clamp, attr, val);
   end
 end
