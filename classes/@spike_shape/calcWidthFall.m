@@ -52,10 +52,25 @@ function [base_width, half_width, half_Vm, fixed_Vm_width, fall_time, min_idx, m
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
-% Find depolarized part (+/- 1mV tolerance)
-depol = find(s.trace.data(floor(max_idx):end) <= (init_val + 1));
+% Find depolarized part 
+depol = find(s.trace.data(floor(max_idx):end) >= init_val);
 
-if isempty(depol) || floor((depol(1) + max_idx - 1)) == length(s.trace.data)
+% Find the first discontinuity to match only the first down ramp
+end_depol = find(diff(depol) > 1) - 1;
+
+if isempty(end_depol)
+  end_depol = depol(end);
+end
+
+% Within that range make sure to pick up the minimum point in case it is
+% concave
+[tmp end_depol] = min(s.trace.data(floor(max_idx):(end_depol + max_idx - 1)));
+
+end_depol = end_depol + max_idx - 1;
+ 
+% give +5mV tolerance for repolarization sanity check, or repolarization
+% fails before trace end
+if s.trace.data(floor(end_depol)) > (init_val + 5) || floor(end_depol) == length(s.trace.data)
   warning('spike_shape:no_repolarize', 'Spike failed to repolarize.');
   base_width = NaN;
   half_width = NaN;
@@ -71,7 +86,6 @@ if isempty(depol) || floor((depol(1) + max_idx - 1)) == length(s.trace.data)
   return;
 end
 
-end_depol = depol(1) + max_idx - 1;
 
 % Interpolate to find the threshold crossing point
 denum = (s.trace.data(floor(end_depol)) - s.trace.data(floor(end_depol) + 1));
