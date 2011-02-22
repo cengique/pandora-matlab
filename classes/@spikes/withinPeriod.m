@@ -33,7 +33,19 @@ function obj = withinPeriod(s, a_period)
 s = withinPeriodWOffset(s, a_period);
 
 % reset the offset
-s.times = s.times - a_period.start_time + 1; 
+% check if input is an array
+num_objs = length(s);
+if num_objs > 1
+  for obj_num = 1:num_objs
+    if ~ isempty(s(obj_num).times)
+      s(obj_num).times = s(obj_num).times - a_period.start_time + 1; 
+    end
+  end
+else
+  if ~ isempty(s.times)
+    s.times = s.times - a_period.start_time + 1; 
+  end
+end
 
 obj = s;
 
