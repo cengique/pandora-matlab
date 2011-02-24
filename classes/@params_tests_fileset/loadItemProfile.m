@@ -29,5 +29,12 @@ function a_profile = loadItemProfile(fileset, file_index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% Load a trace_profile object
-a_profile = trace_profile(fileset, file_index);
+props = get(fileset, 'props');
+
+if isfield(props, 'profile_method_name')
+  a_profile = ...
+      feval(props.profile_method_name, trace(fileset, file_index));
+else
+  % Load a trace_profile object
+  a_profile = trace_profile(fileset, file_index);
+end
