@@ -56,7 +56,7 @@ num_mags = size(data_v, 2);
 step_delay = getFieldDefault(props, 'timeBefore', 2) / dt; 
 step_dur = getFieldDefault(props, 'timeAvg', 2) / dt; 
 
-thr = max(max(data_t))/20;
+thr = abs(max(max(data_t))/20);
 
 % Start from beginning to find all voltage steps. Use 1st and 2nd
 % magnitudes if available because sometimes voltage steps can be missed if
