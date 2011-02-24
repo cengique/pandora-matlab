@@ -161,7 +161,11 @@ else
 
      elseif strcmpi(props.file_type, 'neuron') % Untested!
        [c_type, maxsize, endian] = computer;
-       data = readNeuronVecBin(data_src, endian);
+       [data err] = readNeuronVecBin(data_src, endian);
+       if isempty(strfind(err, 'Success'))
+         error([ 'Failed to load Neuron binary ''' data_src ''' because of ' ...
+                 'error: ' err ]);
+       end
        channel = 1; % by default
        if isfield(props, 'channel')
          channel = props.channel;
