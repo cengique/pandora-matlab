@@ -91,7 +91,9 @@ for prot_name = prot_names
                                                 prot_zoom)));
       
       % subtract leak and passive currents
-      [sub_vc pas_doc] = passiveSubVC(traceset, avg_vc, prot_name, props);
+      % LS is already done in individual cells! Remove this!
+      %[sub_vc pas_doc] = passiveSubVC(traceset, avg_vc, prot_name, props);
+      sub_vc = avg_vc;
       
       % capacitance normalize
       Cm_val = ...
@@ -100,9 +102,9 @@ for prot_name = prot_names
       
       norm_traces(cell_index) = sub_vc.i ./ Cm_val;
       
-      cell_tex_str = ...
-          [ cell_tex_str '\input{' ts_tex_file '}' sprintf('\n') ...
-            getTeXString(pas_doc) ];
+       cell_tex_str = ...
+           [ cell_tex_str '\input{' ts_tex_file '}' sprintf('\n') ];
+%                     getTeXString(pas_doc) ];
     end % cell_index
     
     % average across cells
