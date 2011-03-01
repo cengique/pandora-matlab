@@ -48,10 +48,13 @@ load(ts_db_file); % a_db
 
 if isfield(props, 'traceNum')
   Cm_row_db = a_db(a_db(:, 'TraceNum') == props.traceNum, :);
-  assert(dbsize(Cm_row_db, 1) > 0, ...
-         [ 'Cannot find TraceNum == ' ...
-           num2str(props.traceNum) ' in passive parameters DB.']);
-else
+  if dbsize(Cm_row_db, 1) == 0
+      warning([ 'Cannot find TraceNum == ' ...
+           num2str(props.traceNum) ' in passive parameters DB. Using average passive params.']);
+  end
+end
+
+if ~isfield(props, 'traceNum') || dbsize(Cm_row_db, 1) == 0
   ts_stats_db = statsMeanSE(a_db);
   Cm_row_db = ts_stats_db('mean', :);
 end
