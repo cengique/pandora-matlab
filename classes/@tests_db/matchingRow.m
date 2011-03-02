@@ -53,6 +53,11 @@ else
   dist_db = db;
 end
 
+assert(dbsize(noNaNRows(dist_db), 1) > 1, ...
+       ['Must have more than one row with no NaNs in db to find standard ' ...
+        'deviation for z-scores. Weed out columns that have NaNs before ' ...
+        'running matchingRow.']);
+
 % Calculate covariance for using Mahalonobis distance
 cov_db = cov(noNaNRows(onlyRowsTests(dist_db, ':', crit_tests)));
 
