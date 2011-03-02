@@ -33,8 +33,13 @@ function [params_row, tests_row, a_doc] = itemResultsRow(dataset, index)
 
 a_doc = [];
 
+% look if custom function defined
+prof_func = ...
+    getFieldDefault(get(dataset, 'props'), 'loadItemProfileFunc', ...
+                                  @loadItemProfile);
+
 % Load any profile object
-a_profile = loadItemProfile(dataset, index);
+a_profile = feval(prof_func, dataset, index);
 
 % there can be a doc hidden in there
 if iscell(a_profile)
@@ -45,7 +50,15 @@ end
 params_row = getItemParams(dataset, index, a_profile);
 
 % Convert results to row vector
-resultCell = struct2cell(getResults(a_profile));
+resultCell = squeeze(struct2cell(getResults(a_profile)))';
 
-% Add the index as last column
-tests_row = [ resultCell{:}, index ];
+% if multiple rows returned
+num_rows = size(resultCell, 1);
+if num_rows > 1
+  params_row = repmat(params_row, num_rows, 1);
+  % Add the index as last column
+  tests_row = [ cell2mat(resultCell), repmat(index, num_rows, 1) ];
+else
+  % Add the index as last column
+  tests_row = [ resultCell{:}, index ];
+end

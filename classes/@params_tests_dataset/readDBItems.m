@@ -72,6 +72,7 @@ line_buffer = '';
 
 try 
   row_index = 1;
+  doc_row_index = 1;
   for item_index=items
     %disp(sprintf('File number: %d\r', item_index));
     
@@ -94,11 +95,23 @@ try
       end
     end
     [params_row, tests_row, a_doc] = itemResultsRow(obj, item_index);
-    
-    params(row_index, :) = params_row;
-    tests(row_index, :) = tests_row;
-    docs{row_index} = a_doc;
-    row_index = row_index + 1;
+
+    % allow multiple rows returned by one item
+    num_rows = size(tests_row, 1);
+    if num_rows > 1
+      params(row_index:(row_index+num_rows-1), :) = params_row;
+      tests(row_index:(row_index+num_rows-1), :) = tests_row;
+      docs{doc_row_index} = a_doc;
+      row_index = row_index + num_rows;      
+      % TODO: pre-allocate based on new estimate! 
+      % e.g., params(est_row, :) = repmat(NaN, ...)
+    else
+      params(row_index, :) = params_row;
+      tests(row_index, :) = tests_row;
+      docs{doc_row_index} = a_doc;
+      row_index = row_index + 1;
+    end
+    doc_row_index = doc_row_index + 1;
   end
 catch
   err = lasterror;

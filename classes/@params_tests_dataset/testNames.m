@@ -31,9 +31,15 @@ if ~ exist('item', 'var')
   item = 1;
 end
 
+prof_func = ...
+    getFieldDefault(get(dataset, 'props'), 'loadItemProfileFunc', ...
+                                  @loadItemProfile);
+
+% Load any profile object
+a_prof = feval(prof_func, dataset, item);
+
 % Load the first file and
 % convert test names to cell array
-a_prof = loadItemProfile(dataset, item);
 if iscell(a_prof)
   [a_prof a_doc] = deal(a_prof{:});
 end
