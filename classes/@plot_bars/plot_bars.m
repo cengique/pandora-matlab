@@ -1,11 +1,11 @@
 function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labels, ...
-			    title, axis_limits, props)
+			    title_str, axis_limits, props)
 
 % plot_bars - Bar plot with error lines in individual axes for each variable.
 %
 % Usage:
 % a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labels, ...
-%		     title, axis_limits, props)
+%		     title_str, axis_limits, props)
 %
 % Description:
 %   Additional rows of data will result in grouped bars in each axis. If all
@@ -20,7 +20,7 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %   hi_vals: High points of error bars.
 %   n_vals: Number of samples used for the statistic (Optional).
 %   x_labels, y_labels: Axis labels for each bar group. Must match with data columns.
-%   title: Plot description.
+%   title_str: Plot description.
 %   axis_limits: If given, all plots contained will have these axis limits.
 %   props: A structure with any optional properties.
 %     dispBarsLines: Choose between using 'bars' or 'lines' to connect the errorbars.
@@ -32,6 +32,8 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %     dispNvals: If 1, display n_vals on top of each bar (default=1).
 %     groupValues: List of within-group labels passed to XTickLabels,
 %	  	instead of just a sequence of numbers.
+%     groupValuesLoc: If 1, use specified group values as the location of bars
+%     		      or errorbars. By default locations are set arbitrarily as 1:n.
 %     truncateDecDigits: Truncate labels to this many decimal digits.
 %     barAxisProps: props passed to plot_abstract objects with bar commands
 %		
@@ -69,17 +71,28 @@ if nargin == 0 % Called with no params
      %props.XTickLabel = 1;
    end
    
-   group_locs = 1:size(mid_vals, 1);
-   if isfield(props, 'groupValues') && ...
-	 ~(isfield(props, 'XTickLabel') && isempty(props.XTickLabel))
-     if isnumeric(props.groupValues) 
-       if isfield(props, 'truncateDecDigits') 
-         dig_exp = 10^props.truncateDecDigits;
-         props.groupValues = round(dig_exp * props.groupValues) / dig_exp;
-       end
-       props.groupValues = num2cell(props.groupValues);
+   if isfield(props, 'groupValuesLoc')
+     if isfield(props, 'groupValues')
+       group_locs = props.groupValues;
+     else
+       error('Using groupValuesLoc requires setting groupValues.');
      end
-     props.XTickLabel = props.groupValues;
+   else
+     % otherwise use arbitrary values as group_locs and change XTicks to
+     % display values if selected
+     group_locs = 1:size(mid_vals, 1);
+     if isfield(props, 'groupValues') && ...
+	 ~(isfield(props, 'XTickLabel') && isempty(props.XTickLabel))
+       if isnumeric(props.groupValues) 
+         if isfield(props, 'truncateDecDigits') 
+           dig_exp = 10^props.truncateDecDigits;
+           props.groupValues = round(dig_exp * props.groupValues) / dig_exp;
+         end
+         props.groupValues = num2cell(props.groupValues);
+       end
+       props.XTickLabel = props.groupValues;
+       props.XTick = group_locs;
+     end
    end
 
    if ~ exist('axis_limits', 'var')
@@ -118,7 +131,7 @@ if nargin == 0 % Called with no params
        plot_components = ...
            {plot_abstract({group_locs, plot_mid_vals}, ...
                           {x_labels{plot_num}, y_labels{plot_num}}, '', ...
-                          {}, 'bar', ...
+                          {title_str}, 'bar', ...
                           bar_axis_props)};
        linestyle = 'none';
      elseif strcmp(props.dispBarsLines, 'lines')
@@ -146,7 +159,7 @@ if nargin == 0 % Called with no params
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
 			   lo_vals(:,plot_num), hi_vals(:,plot_num), 'LineStyle', linestyle}, ... % '+'
-			  {x_labels{plot_num}, y_labels{plot_num}}, '', {}, 'errorbar', props)};
+			  {x_labels{plot_num}, y_labels{plot_num}}, '', {title_str}, 'errorbar', props)};
      end
 
      if ~isfield(props, 'dispNvals') || props.dispNvals == 1
@@ -171,7 +184,7 @@ if nargin == 0 % Called with no params
    end
 
    a_plot = class(a_plot, 'plot_bars', ...
-		  plot_stack(plots, axis_limits, 'x', title, props));
+		  plot_stack(plots, axis_limits, 'x', title_str, props));
 end
 
 % cellstr(strcat('n=', num2str(n_vals(:,plot_num))))
