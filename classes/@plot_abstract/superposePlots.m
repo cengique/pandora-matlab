@@ -46,9 +46,14 @@ if length(plots) > 1
     if isempty(command)
       command = one_plot.command;
     else
-      if ~strcmp(command, one_plot.command)
+      if ~strcmp(command, one_plot.command) || strcmp(command, 'errorbar')
 	warning('mixed-command plot, using plot_superpose instead.');
-	a_plot = plot_superpose(num2cell(plots));
+        plot_props = struct;
+        if strcmp(command, 'errorbar')
+          plot_props.noCombine = 1;
+        end
+	a_plot = plot_superpose(num2cell(plots), {}, '', ...
+                                mergeStructsRecursive(props, plot_props));
 	return;
       end
     end
