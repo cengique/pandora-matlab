@@ -5,6 +5,18 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 % Usage:
 % obj = plot_superpose(plots, axis_labels, title_str, props)
 %
+% Parameters:
+%   plots: Cell array of plot_abstract or subclass objects.
+%   axis_labels: Cell array of axis label strings.
+%   title_str: Plot description string.
+%   props: A structure with any optional properties (passed to
+%		plot_abstract).
+%     noCombine: Do not auto-combine plots with same properties
+%	  	(default=0). This is especially important for plot_bars.
+%		
+%   Returns a structure object with the following fields:
+%	plot_abstract, plots
+%
 % Description:
 %   Subclass of plot_abstract. Contains multiple plot_abstract objects to be
 % plotted on the same axis. This is different than the
@@ -14,19 +26,10 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 % comes from this object and not children plots. This behavior is different
 % than plot_stack, where each plot has its own decorations. If you want each
 % plot to have its own axis (e.g. an inset, or plot with multiple axis
-% labels) then you should use plot_inset.
-%
-%   Parameters:
-%	plots: Cell array of plot_abstract or subclass objects.
-%	axis_labels: Cell array of axis label strings.
-%	title_str: Plot description string.
-%	props: A structure with any optional properties (passed to
-%		plot_abstract).
-%	  noCombine: Do not auto-combine plots with same properties
-%	  	(default=0). This is especially important for plot_bars.
-%		
-%   Returns a structure object with the following fields:
-%	plot_abstract, plots
+% labels) then you should use plot_inset. For convenience, the props of
+% first plot is inherited by plot_superpose objects. For instance, in the
+% example below, the fixedSize property is used by plotFigure because
+% it's in the first subplot.
 %
 % General operations on plot_superpose objects:
 %   plot_superpose	- Construct a new plot_superpose object.
@@ -35,6 +38,13 @@ function obj = plot_superpose(plots, axis_labels, title_str, props)
 %
 % Additional methods:
 %	See methods('plot_superpose')
+%
+% Example:
+% >> a_p = plot_abstract({[0 0], [1 2]}, {}, '', {}, 'plot',
+%      struct('fixedSize', [3 2]));
+% >> a_p2 = plot_abstract(...)
+% >> a_p3 = plot_abstract(...)
+% >> plotFigure(plot_superpose({a_p1, a_p2, a_p3}))
 %
 % See also: plot_abstract/superpose, plot_superpose/plot
 %
@@ -147,7 +157,10 @@ else
     title_str = get(plots{1}, 'title');
   end
 
-  obj = class(obj, 'plot_superpose', plot_abstract({}, axis_labels, title_str, ...
-						   legend, '', props));
+  % always merge first plot's props
+  obj = class(obj, 'plot_superpose', ...
+              plot_abstract({}, axis_labels, title_str, ...
+                            legend, '', ...
+                            mergeStructs(props, plots{1}.props)));
 end
 
