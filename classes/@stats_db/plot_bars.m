@@ -71,11 +71,18 @@ elseif isfield(row_idx, 'SE')
   highs = data(row_idx.SE,:,:);
 end
 
-% If there are negative elements, put STD and SE on the lows
+% special handling for STD and SE
 if (isfield(row_idx, 'STD') || isfield(row_idx, 'SE'))
-  neg_data = sign(data(1,:, :)) < 0;
-  lows(neg_data) = highs(neg_data);
-  highs(neg_data) = 0;
+  % if no bars are drawn, make low ends go down
+  if isfield(props, 'dispBarsLines') && ...
+      strcmp(props.dispBarsLines, 'lines')
+    lows = -highs;
+  else
+    % If there are negative elements, put STD and SE on the lows
+    neg_data = sign(data(1,:, :)) < 0;
+    lows(neg_data) = highs(neg_data);
+    highs(neg_data) = 0;
+  end
 end
 
 if isfield(row_idx, 'max')
