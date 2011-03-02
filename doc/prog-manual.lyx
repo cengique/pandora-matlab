@@ -1,5 +1,5 @@
-#LyX 1.5.5 created this file. For more info see http://www.lyx.org/
-\lyxformat 276
+#LyX 1.6.7svn created this file. For more info see http://www.lyx.org/
+\lyxformat 345
 \begin_document
 \begin_header
 \textclass article
@@ -126,6 +126,7 @@
 
 \newindex{funcref}{frx}{fnd}{Function Index}
 \end_preamble
+\use_default_options false
 \language english
 \inputencoding auto
 \font_roman times
@@ -136,9 +137,11 @@
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics none
 \paperfontsize default
 \spacing single
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 2
@@ -165,7 +168,9 @@
 \begin_layout Title
 Plotting and Analysis for Neural Database-Oriented Research Applications
  (PANDORA) Toolbox --- 
-\newline
+\begin_inset Newline newline
+\end_inset
+
 User's and Programmer's Manual
 \end_layout
 
@@ -174,7 +179,7 @@ Cengiz G
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -191,7 +196,7 @@ Document Revision
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -204,7 +209,7 @@ CVSRevision{}
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -220,11 +225,11 @@ today
 \begin_inset Note Comment
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -237,7 +242,7 @@ begin{latexonly}
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -255,7 +260,8 @@ end{latexonly}
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand tableofcontents
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
 
 \end_inset
 
@@ -266,7 +272,7 @@ end{latexonly}
 \begin_inset Note Comment
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset FloatList figure
 
 \end_inset
@@ -283,33 +289,33 @@ status collapsed
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 - make a tutorial section that explains usage bottom-up.
  start from trace, profile, and dataset to database.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 - more visualization.
  look at paper figures and do similar examples.
  weed out obsolete methods, put examples into funcref of current usage.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 - add section on extensibility.
  maybe at end of software part.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 - put download info in install section.
  before that include all external functions, choose a license, and make
  an ant file to create binary and documentation packages.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 - separate document into two? user's and admin manuals? [no...]
 \end_layout
 
@@ -327,7 +333,7 @@ What is the
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -344,7 +350,7 @@ The
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -412,7 +418,7 @@ Matlab
 \begin_inset Foot
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 At the time of initial design, the author did not have access to the DB
  toolbox.
  Future versions may support the DB toolbox.
@@ -432,7 +438,7 @@ The
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -450,7 +456,7 @@ command-line.
 \begin_inset Foot
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This version of the toolbox does not yet have a general graphical user interface
  (GUI).
  The author prefers to have a flexible command-line interface than to maintain
@@ -478,7 +484,7 @@ Who is it made for?
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -498,7 +504,7 @@ appname{}
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 link to extensibility section
 \end_layout
 
@@ -509,7 +515,8 @@ link to extensibility section
 
 \begin_layout Subsection
 Finding your way around
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sub:Finding-your-way-around"
 
 \end_inset
@@ -601,14 +608,15 @@ Overview of this document
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 put this in the preface?
 \end_layout
 
 \end_inset
 
 Next, Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sec:Installation"
 
 \end_inset
@@ -617,7 +625,8 @@ reference "sec:Installation"
 s.
  You can skip this section if you already have a running software environment.
  Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sec:Class-hierarchies"
 
 \end_inset
@@ -627,7 +636,8 @@ reference "sec:Class-hierarchies"
  You can also skip this part if you're not interested in the guts of the
  system and you are in favor of a quick start.
  The recipes in Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sec:Recipes"
 
 \end_inset
@@ -638,14 +648,16 @@ reference "sec:Recipes"
  However, it is recommended that you familiarize yourself with the basic
  organization of the classes before proceeding into more complex tasks.
  Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sec:Visualization"
 
 \end_inset
 
  takes the tutorial approach to describe common visualization tasks.
  Finally, Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sec:Function-Reference"
 
 \end_inset
@@ -660,7 +672,8 @@ Matlab
 
 \begin_layout Section
 Installation
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sec:Installation"
 
 \end_inset
@@ -669,7 +682,7 @@ name "sec:Installation"
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 move everything from alf and cengiz directories into the toolbox, and make
  the installation automatic.
  make package available on ftp/http site.
@@ -685,8 +698,13 @@ Download the latest package file from:
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand url
-target "http://userwww.service.emory.edu/~cgunay/pandora"
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://userwww.service.emory.edu/~cgunay/pandora
+\end_layout
 
 \end_inset
 
@@ -721,7 +739,7 @@ pandora/
 \begin_inset Note Comment
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 either by copying the 
 \family typewriter
 pandora/
@@ -808,7 +826,8 @@ Software Architecture
 
 \begin_layout Section
 Toolbox Components
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sec:Class-hierarchies"
 
 \end_inset
@@ -822,12 +841,12 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -848,7 +867,7 @@ makebox[0pt]{
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -858,11 +877,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Database-overview"
 
 \end_inset
@@ -878,7 +898,8 @@ Schematic overview of the database software.
 \end_inset
 
 An overview of the toolbox functionality is shown in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Database-overview"
 
 \end_inset
@@ -920,7 +941,8 @@ Databases hold all the information
 
 \begin_layout Standard
 The database object is at the center of this toolbox (see Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Database-overview"
 
 \end_inset
@@ -940,12 +962,12 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -966,7 +988,7 @@ makebox[0pt]{
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -976,11 +998,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Database-class-hierarchy"
 
 \end_inset
@@ -997,7 +1020,8 @@ Database class hierarchy.
 
 A database object can be created from any of the classes in the hierarchy
  of Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Database-class-hierarchy"
 
 \end_inset
@@ -1033,7 +1057,7 @@ tests_db
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 put links to reference section?
 \end_layout
 
@@ -1151,7 +1175,7 @@ cluster_db
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -1170,7 +1194,8 @@ Datasets create the databases
 \begin_layout Standard
 The dataset object is responsible for creating the database objects (see
  Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Database-overview"
 
 \end_inset
@@ -1192,12 +1217,12 @@ wide false
 sideways false
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -1209,7 +1234,7 @@ makebox[0pt]{
 
 \begin_inset Graphics
 	filename Dataset-classes.eps
-	display none
+	display false
 	width 80page%
 
 \end_inset
@@ -1218,7 +1243,7 @@ makebox[0pt]{
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -1228,11 +1253,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Dataset-class-hierarchy"
 
 \end_inset
@@ -1248,7 +1274,8 @@ Dataset class hierarchy.
 \end_inset
 
 Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Dataset-class-hierarchy"
 
 \end_inset
@@ -1337,8 +1364,14 @@ physiol_cip_traceset
 \begin_layout Description
 
 \family typewriter
-cip_traces_dataset,\InsetSpace ~
-cip_traceset,\InsetSpace ~
+cip_traces_dataset,
+\begin_inset space ~
+\end_inset
+
+cip_traceset,
+\begin_inset space ~
+\end_inset
+
 cip_traceset_dataset
 \family default
  These are obsolete classes that allow loading physiology traces from older
@@ -1353,7 +1386,7 @@ Matlab
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -1375,11 +1408,11 @@ wide false
 sideways false
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename bundle-classes.eps
-	display none
+	display false
 	width 100text%
 
 \end_inset
@@ -1387,11 +1420,12 @@ status open
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Bundle-class-hierarchy"
 
 \end_inset
@@ -1423,7 +1457,8 @@ The top-level
 dataset_db_bundle
 \family default
  class in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Bundle-class-hierarchy"
 
 \end_inset
@@ -1476,7 +1511,7 @@ joined_control_db
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 put bundles here, and in recipes
 \end_layout
 
@@ -1486,7 +1521,7 @@ put bundles here, and in recipes
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -1508,7 +1543,8 @@ Wrapper classes are designed to hold data and provide simple methods that
  They can either hold raw data, or intermediate processed forms of data
  being byproducts of analysis routines.
  In the overall schema of Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Database-overview"
 
 \end_inset
@@ -1524,11 +1560,11 @@ wide false
 sideways false
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename data-wrapper-diagram.eps
-	display none
+	display false
 	width 100text%
 
 \end_inset
@@ -1536,11 +1572,12 @@ status open
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Datawrapper-class-hierarchy"
 
 \end_inset
@@ -1556,7 +1593,8 @@ Data wrapper class hierarchy.
 \end_inset
 
 Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Datawrapper-class-hierarchy"
 
 \end_inset
@@ -1644,7 +1682,7 @@ spikes
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -1666,11 +1704,11 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename Profile-classes.eps
-	display none
+	display false
 	width 90text%
 
 \end_inset
@@ -1678,11 +1716,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Profile-class-hierarchy"
 
 \end_inset
@@ -1713,7 +1752,8 @@ Profile classes are designed to hold results of analysis and measurements
 
 \begin_layout Standard
 In Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Profile-class-hierarchy"
 
 \end_inset
@@ -1834,7 +1874,7 @@ params_tests_db
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -1856,11 +1896,11 @@ wide false
 sideways false
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename plot-classes.eps
-	display none
+	display false
 	width 100text%
 
 \end_inset
@@ -1868,11 +1908,12 @@ status open
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Plot-class-hierarchy"
 
 \end_inset
@@ -1893,7 +1934,8 @@ Matlab
 \noun default
  plotting features are implemented in the supporting classes seen in Figure
  
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Plot-class-hierarchy"
 
 \end_inset
@@ -1994,7 +2036,7 @@ plot_abstract
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 use an example figure here? or point to one later?
 \end_layout
 
@@ -2065,7 +2107,7 @@ plot_simple
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -2207,7 +2249,7 @@ Matlab
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -2319,7 +2361,7 @@ subsref
 \begin_inset Foot
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 May not be implemented for all objects.
 \end_layout
 
@@ -2449,7 +2491,8 @@ User's Manual
 
 \begin_layout Section
 Recipes for Common Tasks
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sec:Recipes"
 
 \end_inset
@@ -2505,7 +2548,8 @@ which initiates the loading of files.
 
 \begin_layout Subsubsection
 Creating a dataset for physiology data
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sub:loading-phys"
 
 \end_inset
@@ -2612,12 +2656,18 @@ cip_list
 \begin_inset Formula $-200$
 \end_inset
 
-\InsetSpace ~
+
+\begin_inset space ~
+\end_inset
+
 pA will be assumed to be 
 \begin_inset Formula $-200$
 \end_inset
 
-\InsetSpace ~
+
+\begin_inset space ~
+\end_inset
+
 pA.
  The default 
 \family typewriter
@@ -2658,12 +2708,18 @@ cip_traces
 \begin_inset Formula $100$
 \end_inset
 
-\InsetSpace ~
+
+\begin_inset space ~
+\end_inset
+
 pA and 
 \begin_inset Formula $-100$
 \end_inset
 
-\InsetSpace ~
+
+\begin_inset space ~
+\end_inset
+
 pA CIP levels
 \end_layout
 
@@ -2749,7 +2805,7 @@ Matlab
 \begin_inset Note Note
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Point to reference manual at the end of this manual.
  You know, the automatically generated one.
 \end_layout
@@ -3064,7 +3120,8 @@ NeuronId
 
 \begin_layout Subsection
 Sorting the database according to a measure
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sub:Sorting-the-database"
 
 \end_inset
@@ -3381,7 +3438,7 @@ Preprocessing a raw (physiology) database by elimination and averaging
 \begin_inset OptArg
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Preprocessing a raw (physiology) database
 \end_layout
 
@@ -3455,7 +3512,8 @@ There are two counterparts to selecting which CIP-levels to include in a
 cip_list
 \family default
  optional parameter described in Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sub:loading-phys"
 
 \end_inset
@@ -3550,7 +3608,7 @@ l) parameters
 \begin_inset OptArg
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Averaging multiple traces of same neuron
 \end_layout
 
@@ -4676,7 +4734,8 @@ ans =
 
 \begin_layout Section
 Visualization
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sec:Visualization"
 
 \end_inset
@@ -4722,7 +4781,7 @@ Figures generated by the plotting system of the
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -4771,11 +4830,11 @@ wide false
 sideways false
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename cip_trace_plot_compact.eps
-	display none
+	display false
 	width 50text%
 
 \end_inset
@@ -4783,11 +4842,12 @@ status open
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:cip_trace"
 
 \end_inset
@@ -4811,7 +4871,8 @@ trace,
 cip_trace
 \family default
 , has the plot command overloaded to draw the raw trace in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:cip_trace"
 
 \end_inset
@@ -4911,7 +4972,8 @@ ans =
 Note that, in the output, database rows appear as columns, and database
  columns appear as rows.
  See in above Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sub:Sorting-the-database"
 
 \end_inset
@@ -5131,11 +5193,11 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename tests_db_plot_tests.eps
-	display none
+	display false
 	width 120text%
 
 \end_inset
@@ -5143,11 +5205,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:tests_hists"
 
 \end_inset
@@ -5167,7 +5230,8 @@ For plotting all measure histograms in a DB, the following method of
 tests_db
 \family default
  creates the horizontal stack plot in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:tests_hists"
 
 \end_inset
@@ -5198,11 +5262,11 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename params_tests_db_plot_param_hists.eps
-	display none
+	display false
 	width 120text%
 
 \end_inset
@@ -5210,11 +5274,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:params_hists"
 
 \end_inset
@@ -5234,7 +5299,8 @@ For plotting all parameter histograms in a DB, the following method of
 params_tests_db
 \family default
  creates the horizontal stack plot in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:params_hists"
 
 \end_inset
@@ -5281,12 +5347,12 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -5303,7 +5369,7 @@ stats_db
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 ]{
 \end_layout
@@ -5313,7 +5379,7 @@ status collapsed
 
 \begin_inset Graphics
 	filename plot_stats_abstract.eps
-	display none
+	display false
 	scale 50
 
 \end_inset
@@ -5322,7 +5388,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -5333,7 +5399,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -5354,7 +5420,7 @@ stats_db
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 ]{
 \end_layout
@@ -5364,7 +5430,7 @@ status collapsed
 
 \begin_inset Graphics
 	filename plot_stats_bars_single.eps
-	display none
+	display false
 	scale 50
 
 \end_inset
@@ -5373,7 +5439,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -5383,12 +5449,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -5409,7 +5475,7 @@ plot_bars
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 ]{
 \end_layout
@@ -5419,7 +5485,7 @@ status collapsed
 
 \begin_inset Graphics
 	filename plot_stats_bars_multi.eps
-	display none
+	display false
 	scale 50
 
 \end_inset
@@ -5428,7 +5494,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -5439,7 +5505,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -5456,7 +5522,7 @@ plotVar
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 ]{
 \end_layout
@@ -5466,7 +5532,7 @@ status collapsed
 
 \begin_inset Graphics
 	filename plot_stats_Var.eps
-	display none
+	display false
 	scale 50
 
 \end_inset
@@ -5475,7 +5541,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -5485,11 +5551,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "figcap:Statistics-plots"
 
 \end_inset
@@ -5530,7 +5597,8 @@ An alternative plotting form is using filled bars with extending errorbars:
 
 \begin_layout Standard
 which are both seen in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Statistics-plots"
 
 \end_inset
@@ -5585,7 +5653,8 @@ The combined statistics object can then be fed into
 plot_bars
 \family default
  as seen in Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Statistics-plots"
 
 \end_inset
@@ -5607,11 +5676,11 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename plotVarBoxMatrix_example.eps
-	display none
+	display false
 	width 95col%
 
 \end_inset
@@ -5619,11 +5688,12 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "cap:plot-varboxmatrix"
 
 \end_inset
@@ -5647,7 +5717,8 @@ plotVar
 stats_db
 \family default
  can be used to achieve Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "figcap:Statistics-plots"
 
 \end_inset
@@ -5674,7 +5745,8 @@ plotVarMatrix
 stats_db
 \family default
  can be used (see Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "cap:plot-varboxmatrix"
 
 \end_inset
@@ -5721,7 +5793,7 @@ params_tests_db/invarParams
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The 
 \family typewriter
 noNaNRows
@@ -5839,11 +5911,11 @@ wide false
 sideways false
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename plot_inset.eps
-	display none
+	display false
 	width 50text%
 
 \end_inset
@@ -5851,11 +5923,12 @@ status open
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
-\begin_inset LatexCommand label
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
 name "fig:insets"
 
 \end_inset
@@ -5871,7 +5944,8 @@ Creating insets in figures.
 \end_inset
 
 See Figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "fig:insets"
 
 \end_inset
@@ -5910,9 +5984,10 @@ Currently a LaTeX document is created that needs to be included in either
 \begin_inset Foot
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This document is prepared using the LyX document preparation system 
-\begin_inset LatexCommand citep
+\begin_inset CommandInset citation
+LatexCommand citep
 key "lyx-03"
 
 \end_inset
@@ -5921,7 +5996,7 @@ key "lyx-03"
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -5931,7 +6006,8 @@ LaTeXe{}
 \end_inset
 
  typesetting language 
-\begin_inset LatexCommand citep
+\begin_inset CommandInset citation
+LatexCommand citep
 key "lamport-94"
 
 \end_inset
@@ -5942,7 +6018,7 @@ key "lamport-94"
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -5951,11 +6027,19 @@ LaTeXe{}
 
 \end_inset
 
- is copyrighted by D.\InsetSpace ~
-E.\InsetSpace ~
-Knuth and the Free Software Foundation, Inc.\InsetSpace ~
-and is covered
- by both the TeX copyright and the GNU GPL.
+ is copyrighted by D.
+\begin_inset space ~
+\end_inset
+
+E.
+\begin_inset space ~
+\end_inset
+
+Knuth and the Free Software Foundation, Inc.
+\begin_inset space ~
+\end_inset
+
+and is covered by both the TeX copyright and the GNU GPL.
 \end_layout
 
 \end_inset
@@ -6005,9 +6089,10 @@ tex_string
 \end_layout
 
 \begin_layout Standard
-\begin_inset LatexCommand bibtex
-options "bibtotoc,plainnat"
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
 bibfiles "~/Documents/writings/refs/ref"
+options "bibtotoc,plainnat"
 
 \end_inset
 
@@ -6021,7 +6106,8 @@ Appendices
 
 \begin_layout Section
 Function Reference
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "sec:Function-Reference"
 
 \end_inset
@@ -6031,7 +6117,8 @@ name "sec:Function-Reference"
 
 \begin_layout Standard
 See Section 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sub:Finding-your-way-around"
 
 \end_inset
@@ -6047,7 +6134,7 @@ Matlab
 \begin_inset Note Comment
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 [Supposed to have all class and method documentation automagically generated
  from matlab help files.]
 \end_layout
@@ -6058,8 +6145,9 @@ status collapsed
 \end_layout
 
 \begin_layout Standard
-\begin_inset Include \input{func-ref.tex}
-preview false
+\begin_inset CommandInset include
+LatexCommand input
+filename "func-ref.tex"
 
 \end_inset
 
@@ -6067,8 +6155,9 @@ preview false
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
 
-\clearpage
 
 \end_layout
 
@@ -6076,14 +6165,14 @@ preview false
 \begin_inset ERT
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
 addcontentsline{toc}{section}{Function Index}
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
