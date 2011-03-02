@@ -74,6 +74,17 @@ results.RecIniSpontRateRatio = ...
 
 % Whole pulse period rate methods compared
 
+% Delay to 1st spike
+pulse_spikes = withinPeriod(a_spikes, periodPulse(a_cip_trace));
+if length(pulse_spikes.times) > 1
+  results.PulseFirstSpikeTime = pulse_spikes.times(1) * ms_factor;
+  pulse_ISIs = getISIs(pulse_spikes);
+  results.PulseFirstISI = pulse_ISIs(1) * ms_factor;
+else
+  results.PulseFirstSpikeTime = NaN;
+  results.PulseFirstISI = NaN;
+end
+
 % ISI-CV 
 results.IniSpontISICV = ISICV(a_spikes, periodIniSpont(a_cip_trace));
 results.PulseISICV = ISICV(a_spikes, periodPulse(a_cip_trace));
