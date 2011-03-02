@@ -69,9 +69,9 @@ if nargin == 0 % Called with no params, creates empty object
   obj = class(obj, 'trace_profile', results_profile);
 elseif isa(varargin{1}, 'trace_profile') % copy constructor?
   obj = varargin{1};
-elseif nargin < 4 && isnumeric(varargin{2})
+elseif ~ isa(varargin{2}, 'spikes') % nargin < 4 && isnumeric(varargin{2})
   % Create all data structures and collect results
-  obj.trace = trace(varargin{1:5}, props);
+  obj.trace = trace(varargin{1:5});
   obj.spikes = spikes(obj.trace);
   obj.spike_shape = spike_shape(obj.trace, obj.spikes);
 
