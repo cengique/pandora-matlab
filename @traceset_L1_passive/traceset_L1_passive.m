@@ -1,23 +1,25 @@
-function a_tset = traceset_L1_passive(traces_cell, treatments, neuron_id, props)
+function a_tset = traceset_L1_passive(traces_cell, protocols, neuron_id, props)
 
 % traceset_L1_passive - Dataset of multiple ABF files that belong to the same cell.
 %
 % Usage:
-% a_tset = traceset_L1_passive(traces_cell, treatments, neuron_id, props)
+% a_tset = traceset_L1_passive(traces_cell, protocols, neuron_id, props)
 %
 % Parameters:
 %   traces_cell: Cell array of file names, numeric file indices for fileTempl or voltage_clamp objects.
-%   treatments: Structure with protocol names and corresponding trace lists.
+%   protocols: Structure with protocol names and corresponding trace lists.
 %   neuron_id: Neuron name.
 %   props: A structure with any optional properties.
 %     fileTempl: A sprintf template to place the items in traces_cell to
 %     		 generate the final filename. See example below.
 %     baseDir: Directory to find the files.
+%     treatments: A structure with parameter name-value pairs that apply
+%     		  to all traces (e.g., struct('cadmium', 1)).
 %     (All other props are passed to getResultsPassiveReCeElec in loadItemProfile)
 %		
 %   Returns a structure object with the following fields:
 %	params_tests_dataset,
-%	treatments, neuron_id.
+%	protocols, neuron_id.
 %
 % Description:
 %   This is a subclass of params_tests_dataset. 
@@ -52,13 +54,13 @@ vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
 
 if nargin == 0 % Called with no params
-  a_tset.treatments = struct;
+  a_tset.protocols = struct;
   a_tset.neuron_id = '';
   a_tset = class(a_tset, 'traceset_L1_passive', params_tests_dataset);
 elseif isa(traces_cell, 'traceset_L1_passive') % copy constructor?
   a_tset = traces_cell;
 else
-  a_tset.treatments = treatments;
+  a_tset.protocols = protocols;
   a_tset.neuron_id = neuron_id;
 
   if isnumeric(traces_cell)

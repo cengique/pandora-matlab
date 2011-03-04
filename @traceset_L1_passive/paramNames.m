@@ -26,8 +26,15 @@ function param_names = paramNames(fileset, item)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = get(fileset, 'props');
+
 if ~ exist('item', 'var')
   item = 1;
 end
 
 param_names = {'TraceNum'};
+
+% add treatments
+if isfield(props, 'treatments')
+  param_names = [ param_names, fieldnames(props.treatments)' ];
+end

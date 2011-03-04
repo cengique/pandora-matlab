@@ -30,6 +30,8 @@ function params_row = getItemParams(dataset, index, a_profile)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = get(dataset, 'props');
+
 % assuming the item is the trace number to be put into the file template
 trace_num = getItem(dataset, index)
 
@@ -37,4 +39,9 @@ if isnumeric(trace_num)
   params_row = trace_num;
 else
   params_row = index;
+end
+
+% add the treatments
+if isfield(props, 'treatments')
+  params_row = [ params_row, cell2mat(struct2cell(props.treatments))' ];
 end
