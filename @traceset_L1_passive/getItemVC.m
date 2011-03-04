@@ -3,7 +3,7 @@ function a_vc = getItemVC(traceset, trace_index, props)
 % getItemVC - Loads and returns a voltage_clamp object.
 %
 % Usage:
-% a_vc = getItemVC(traceset, trace_index)
+% a_vc = getItemVC(traceset, trace_index, props)
 %
 % Parameters:
 %   traceset: A traceset object.
@@ -48,7 +48,8 @@ end
 % load the voltage_clamp object
 if ischar(a_vc)
   a_vc = abf2voltage_clamp([ basedir a_vc ], ...
-                              [ '-' num2str(trace_index) ], traceset_props);
+                           [ '-' num2str(trace_index) ], ...
+                           mergeStructs(props, traceset_props));
 end
 
 assert(isa(a_vc, 'voltage_clamp'));
