@@ -37,7 +37,7 @@ db_file = [ props.docDir filesep traceset_id filesep 'passive_params_db.mat' ];
 if ~exist(db_file, 'file') || isfield(props, 'recalc')
   % generate the DB and docs from passive protocols
   a_db = params_tests_db(set(traceset, 'list', num2cell(traceset.treatments.passive)));
-  % TODO: remove some columns?
+  % TODO: remove some columns? add treatments?
   % check and create directory
   final_dir = [ props.docDir filesep traceset_id ];
   if ~ exist(final_dir, 'dir')
