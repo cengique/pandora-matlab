@@ -3,7 +3,7 @@ function [results profs] = getResults(a_cc, props)
 % getResults - Extract measurement results.
 %
 % Usage:
-% results = getResults(a_cc)
+% [results profs] = getResults(a_cc)
 %
 % Parameters:
 %   a_cc: A cip_trace object.
@@ -12,6 +12,7 @@ function [results profs] = getResults(a_cc, props)
 %
 % Returns:
 %   results: A structure associating test names with result values.
+%   profs: Cell array of results_profile objects for each current step.
 %
 % Description:
 %
