@@ -49,7 +49,7 @@ function obj = trace(data_src, dt, dy, id, props)
 %	  minInit2MaxAmp, minMin2MaxAmp: For spike_shape elimination,
 %	  	     conditions of minimal allowed values for 
 %	  	     initial point to max point and minimal point to 
-%	             max point, resp.
+%	             max point, respectively (Default=10 for both).
 %	  init_Vm_method: Method of finding spike thresholds during spike
 %	  		shape calculation (see spike_shape/spike_shape).
 %	  init_threshold: Spike initiation threshold (deriv or accel).
