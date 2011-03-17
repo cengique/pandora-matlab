@@ -9,6 +9,8 @@ function a_db = params_tests_db(a_cc, props)
 %   a_cc: A cip_trace object.
 %   props: A structure with any optional properties.
 %     stepNum: Current step to get results for (default=2).
+%     paramsStruct: Contains parameter names and values that are constant
+%     		    for these traces.
 %
 % Returns:
 %   a_db: A params_tests_db with results collected from getResults
@@ -29,8 +31,22 @@ function a_db = params_tests_db(a_cc, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 props = ...
-    defaultValue('props', struct);
+    mergeStructs(defaultValue('props', struct), get(a_cc, 'props'));
 
 [res profs] = getResults(a_cc, props);
 
-a_db = params_tests_db(1, struct2DB(res), props);
+a_db = struct2DB(res);
+
+if isfield(props, 'paramsStruct')
+  num_rows = dbsize(a_db, 1);
+  param_names = fieldnames(props.paramsStruct);
+  num_params = length(param_names);
+  % put params first
+  a_db = addColumns(tests_db(repmat(cell2mat(struct2cell(props.paramsStruct))', ...
+                                    num_rows, 1), param_names, {}, ''), a_db);
+else
+  num_params = 0;
+end
+
+% add cip_level_pA as param
+a_db = params_tests_db(num_params + 1, a_db, props);
