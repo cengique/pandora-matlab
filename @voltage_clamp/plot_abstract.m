@@ -12,6 +12,7 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %     quiet: If 1, only use given title_str.
 %     label: add this as a line label to be used in superposed plots.
 %     onlyPlot: 'i' for current and 'v' for voltage plot.
+%     curUnit: Display units for current trace (default='nA').
 %     vColors: If 1 (default), always use same colors for same voltage levels.
 %     (rest passed to plot_stack and plot_abstract)
 %		
@@ -32,11 +33,22 @@ function a_p = plot_abstract(a_vc, title_str, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/11
 
 % TODO: 
-% - let choose I or V
 % - make legend optional
 
 props = defaultValue('props', struct);
 title_str = defaultValue('title_str', '');
+
+cur_unit = getFieldDefault(props, 'curUnit', 'nA');
+
+switch (cur_unit)
+  case 'nA'
+    cur_scale = 1;
+  case 'pA'
+    cur_scale = 1e3;
+  otherwise
+    error([ 'props.curUnit = ''' cur_unit ...
+            ''' not recognized. Use only nA or pA.']);
+end
 
 % assume 2nd step is the main pulse
 v_steps = a_vc.v_steps(2, :);
@@ -48,17 +60,17 @@ v_legend = ...
 
 if isfield(props, 'label')
   plot_label = props.label;
-  cur_label = [ 'I_{' props.label '} [nA]' ];
+  cur_label = [ 'I_{' props.label '} [' cur_unit ']' ];
   cur_legends = { plot_label };
 else
   plot_label = 'data';
-  cur_label = 'I [nA]';
+  cur_label = [ 'I [' cur_unit ']' ];
   cur_legends = v_legend;
 end
 
 dt = get(a_vc, 'dt') * 1e3;             % convert to ms
 
-data_i = get(a_vc.i, 'data');
+data_i = get(a_vc.i, 'data') * cur_scale;
 data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
 time = (0:(size(data_i, 1)-1))*dt;
