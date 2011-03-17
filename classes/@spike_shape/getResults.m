@@ -111,7 +111,10 @@ end
 
 % Sanity check for amplitude
 if  (max_val - init_val) * mV_factor < min_tm_amp
-  error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
+  error('spike_shape:not_a_spike', ...
+        ['%s not a spike! Spike threshold-to-max amplitude=%f is shorter than ' ...
+         'props.minInit2MaxAmp=%f. See trace props.'], ...
+        get(s, 'id'), (max_val - init_val) * mV_factor, min_tm_amp);
 end
 
 [base_width, half_width, half_Vm, fixed_Vm_width, fall_time, min_idx, min_val, ...
@@ -120,7 +123,10 @@ end
 
 % Sanity check for amplitude (2)
 if (max_val - min_val) * mV_factor < min_mm_amp
-  error('spike_shape:not_a_spike', '%s not a spike! Too short.', get(s, 'id'));
+  error('spike_shape:not_a_spike', ...
+        ['%s not a spike! Spike min-to-max amplitude=%f is shorter than ' ...
+         'props.minMin2MaxAmp=%f. See trace props.'], ...
+        get(s, 'id'), (max_val - min_val) * mV_factor, min_mm_amp);
 end
 
 % If you change any of the following names, 
