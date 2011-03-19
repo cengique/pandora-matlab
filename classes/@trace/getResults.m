@@ -1,10 +1,10 @@
-function results = getResults(t, plotit)
+function results = getResults(a_trace, a_spikes)
 
 % getResults - Runs all tests defined by this class and return them in a 
 %		structure.
 %
 % Usage:
-% results = getResults(t)
+% results = getResults(a_trace)
 %
 % Description:
 %
@@ -21,6 +21,7 @@ function results = getResults(t, plotit)
 %
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
+%   Vladislav Sekulic <vlad.sekulic@utoronto.ca>, 2011/03/19
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -28,23 +29,5 @@ function results = getResults(t, plotit)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('plotit', 'var')
-  plotit = 0;
-end
-
-% Check for empty object first.
-if isempty(t.data) 
-  results.min = NaN;
-  results.avg = NaN;
-  results.max = NaN;
-  return;
-end
-
-% convert all to ms/mV(mA)
-ms_factor = 1e3 * t.dt;
-mV_factor = 1e3 * t.dy;
-
-% Run tests
-results.min = calcMin(t) * mV_factor;
-results.max = calcMax(t) * mV_factor;
-results.avg = calcAvg(t) * mV_factor;
+results = mergeStructs(getRateResults(a_trace, a_spikes), ...
+		       getPotResults(a_trace));

@@ -31,11 +31,17 @@ end
 
 if ~ exist('props', 'var')
   props = struct([]);
+  error('EMPTY STRUCT');
 end
 
 % Find minimal ISI value for maximal range that can be acquired with
 % single spikes
 min_isi = min(getISIs(s));
+
+% Set min_isi to 0 if no ISI so that left, right don't become empty lists
+if isempty(min_isi)
+  min_isi = 0;
+end
 
 % Points from left side of peak, depends on the half minimal isi
 left = floor(min(5e-3 / t.dt, min_isi/2));

@@ -1,16 +1,16 @@
 function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs] = ...
-      analyzeSpikesInPeriod(a_cip_trace, a_spikes, period, prefix_str)
+      analyzeSpikesInPeriod(a_trace, a_spikes, period, prefix_str)
 
-% analyzeSpikesInPeriod - Returns results and a db of spikes by collecting test results of a cip_trace, analyzing each individual spike.
+% analyzeSpikesInPeriod - Returns results and a db of spikes by collecting test results of a trace, analyzing each individual spike.
 %
 % Usage:
 % [results period_spikes a_spikes_db spikes_stats_db spikes_hists_dbs] =
-%      analyzeSpikesInPeriod(a_cip_trace, a_spikes, period, prefix_str)
+%      analyzeSpikesInPeriod(a_trace, a_spikes, period, prefix_str)
 %
 %   Parameters:
-%	a_cip_trace: A cip_trace object.
-%	a_spikes: A spikes object from the a_cip_trace object.
-%	period: A period of object of a_cip_trace object of interest.
+%	a_trace: A trace object.
+%	a_spikes: A spikes object from the a_trace object.
+%	period: A period of object of a_trace object of interest.
 %	prefix_str: Prefix string to be added to spike shape results.
 %
 % Description:
@@ -22,7 +22,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 %	spikes_stats_db: Statistics from the mini spikes database.
 %	spikes_hists_dbs: Cell array of histograms from the mini spikes database.
 % 
-% See also: cip_trace, spikes, period, spike_shape, getProfileAllSpikes
+% See also: trace, spikes, period, spike_shape, getProfileAllSpikes
 %
 % $Id$
 %
@@ -37,9 +37,9 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
 
-  ms_factor = 1e3 * get(a_cip_trace, 'dt');
+  ms_factor = 1e3 * get(a_trace, 'dt');
 
-  period_trace = withinPeriod(a_cip_trace, period);
+  period_trace = withinPeriod(a_trace, period);
   period_spikes = withinPeriod(a_spikes, period);
   num_spikes = length(period_spikes.times);
 
@@ -71,7 +71,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 	  % Leave as empty shape object
 	  warning('spike_shape:info', 'Not a spike: %s.', get(s, 'id'))
 	else
-	  warning('cip_trace:info', 'Rethrowing error in %s spikes:', prefix_str);
+	  warning('trace:info', 'Rethrowing error in %s spikes:', prefix_str);
 	  rethrow(err);
 	end
       end
@@ -89,7 +89,7 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
   % TODO: add spike number/time as parameter
   results_matx = cell2mat(struct2cell(spike_results))';
   a_spikes_db = spikes_db(results_matx, test_names, period_trace, period_spikes, ...
-			  [ prefix_str ' spikes of ' get(a_cip_trace, 'id') ]);
+			  [ prefix_str ' spikes of ' get(a_trace, 'id') ]);
 
   % find mean, std (except the -Index and -Time fields)
   spikes_stats_db = statsMeanStd(onlyRowsTests(a_spikes_db, ':', 1:(num_tests - 2)));

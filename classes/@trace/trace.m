@@ -256,7 +256,8 @@ else
 
    % Crop the data if desired
    if isfield(props, 'trace_time_start')
-     data =  data(:, props.trace_time_start:end);
+%     data =  data(:, props.trace_time_start:end);
+     data =  data(props.trace_time_start:end, :);
    end
 
    % Custom filter props
