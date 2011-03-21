@@ -67,7 +67,7 @@ elseif isa(plots, 'plot_superpose') % copy constructor?
   obj = plots;
 else
    if ~ exist('props', 'var')
-     props = struct([]);
+     props = struct;
    end
 
    if ~ exist('axis_labels', 'var')
@@ -161,6 +161,6 @@ else
   obj = class(obj, 'plot_superpose', ...
               plot_abstract({}, axis_labels, title_str, ...
                             legend, '', ...
-                            mergeStructs(props, plots{1}.props)));
+                            mergeStructs(props, get(plots{1}, 'props'))));
 end
 

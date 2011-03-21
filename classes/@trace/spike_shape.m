@@ -30,8 +30,7 @@ if nargin < 2 % Called with insufficient params
 end
 
 if ~ exist('props', 'var')
-  props = struct([]);
-  error('EMPTY STRUCT');
+  props = struct;
 end
 
 % Find minimal ISI value for maximal range that can be acquired with

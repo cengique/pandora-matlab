@@ -29,10 +29,10 @@ function results = getRateResults(a_trace, a_spikes)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % Whole periods only
-results.WholeSpontSpikeRate = ...
+results.SpikeRate = ...
     spikeRate(a_spikes, periodWhole(a_trace));
-results.WholeSpontSpikeRateISI = ...
+results.SpikeRateISI = ...
     spikeRateISI(a_spikes, periodWhole(a_trace));
 
 % ISI-CV 
-results.WholeSpontISICV = ISICV(a_spikes, periodWhole(a_trace));
+results.ISICV = ISICV(a_spikes, periodWhole(a_trace));
