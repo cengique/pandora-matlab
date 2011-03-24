@@ -12,7 +12,8 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 %   props: A structure with any optional properties.
 %     optimset: optimization toolbox parameters supercedes defaults.
 %     optimmethod: Matlab optimizer to use: 'lsqcurvefit' (default), 'ktrlink'
-%     fitOutRange: Two-element vector denoting the range to optimize [dt]. 
+%     fitOutRange: Two-element vector denoting the data range to optimize
+%     		for[dt]. Multiple rows indicate different ranges to combine.
 %
 % Returns:
 %   a_ps: param_func object with optimized parameters.
@@ -43,14 +44,22 @@ props = mergeStructs(props, get(a_ps, 'props'));
 out_size = prod(size(out_data));
 
 if isfield(props, 'fitOutRange')
+  fit_range = {};
+  num_ranges = size(props.fitOutRange, 1);
+  for range_num = 1:num_ranges
+    fit_range{range_num} = ...
+        props.fitOutRange(range_num, 1):props.fitOutRange(range_num, 2);
+  end
+  % cell to array
+  fit_range = [ fit_range{:} ];
   % TODO: this is temporary, make a better one with a full trace template
   index = struct;
   index.type = '()';
-  index.subs = {props.fitOutRange(1):props.fitOutRange(2), ':'};
+  index.subs = {fit_range, ':'};
   error_func_lsq = ...
       @(p, x) subsref(f(setParams(a_ps, p, struct('onlySelect', 1)), x), index);
 
-  out_data = out_data(props.fitOutRange(1):props.fitOutRange(2), :);
+  out_data = out_data(fit_range, :);
 else
   % do we call fHandle here to do it faster? [no, everything only called once]
   error_func_lsq = ...
