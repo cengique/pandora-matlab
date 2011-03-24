@@ -14,6 +14,8 @@ function [Re Cm peak_mag] = calcReCm(pas, props)
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
 %     offset: Amplifier offset (default=calculated).
+%     compCap: Emulate compensation of this much capacitance [pF]. If a
+%     		two-element vector, use it as series resistance as in [Cm_pF Re_MO].
 %     ifPlot: If 1, create a plot for debugging that shows the current
 %      	      integral, time constant point (red star) and the leak (dashed line).
 %
@@ -61,6 +63,41 @@ else
  pas_res.offset = getFieldDefault(props, 'offset', NaN);
 end
 
+% fake capacitance compensation
+if isfield(props, 'compCap')
+  if isa(props.compCap, 'param_func')
+    capleak_f = props.compCap;
+  elseif length(props.compCap) > 1 % with Re
+    capleak_f = ...
+        param_Re_Ce_cap_leak_act_int_t(struct('gL', 0, 'EL', 0, 'Ce', 1e-3, ...
+                                              'Re', props.compCap(2), ...
+                                              'Cm', props.compCap(1)*1e-3, ...
+                                              'delay', delay, 'offset', pas_res.offset), ...
+                                       'amplifier Re-cap comp', ...
+                                       struct);
+  else
+    capleak_f = ...
+        param_cap_leak_int_t(struct('gL', 0, 'EL', 0, 'Cm', props.compCap*1e-3, ...
+                                    'delay', delay, 'offset', pas_res.offset), ...
+                             'amplifier cap comp', ...
+                             struct);
+  end
+  % simulate model
+  cap_md = ...
+      model_data_vcs(capleak_f, pas.data_vc, ...
+                     [ pas.data_vc.id ': cap comp']);
+  % add to I
+  orig_i = pas.data_vc.i;
+  pas.data_vc.i = pas.data_vc.i + cap_md.model_vc.i;
+
+  if isfield(props, 'ifPlot') || verbose
+    plotFigure(plot_superpose({...
+      plot_abstract(orig_i, 'orig data', struct), ...
+      plot_abstract(cap_md.model_vc.i, 'sim cap comp'), ...
+      plot_abstract(pas.data_vc.i, 'combined')}));
+  end
+end
+
 % mark the whole voltage step
 dt = pas.data_vc.trace.dt * 1e3;
 start_dt = pas.data_vc.time_steps(step_num) + round(delay/dt);
@@ -94,11 +131,12 @@ int_I = cumsum(pas.data_vc.i.data(start_dt:end_dt, trace_num) - I2) * dt;
 
 
 % find steady-state value
-max_I = mean(int_I(end - 10:end));
+max_I = mean(int_I(max(1, end - 10):end));
 
 Cm = max_I / diff(pas.data_vc.v_steps(step_num:step_num+1, trace_num));
 
-assert(Cm > 0 && Cm < 0.1);
+assert(Cm > 0 && Cm < 0.1, ...
+       [ 'Cm=' num2str(Cm) ' nF out of range!']);
 
 % find time constant
 t_change = find(abs(int_I) > (1-exp(-1)) * abs(max_I));

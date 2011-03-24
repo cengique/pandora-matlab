@@ -15,6 +15,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     EL: Leak reversal (default=calculated).
 %     minResnorm: Lowest resnorm to accept (default=0.04).
 %     minRe: Lowest Re value accepted.
+%     compCap: Emulate compensation of this much capacitance [pF].
 %
 % Returns:
 %   Re: Series resistance [MOhm].
@@ -85,9 +86,43 @@ end
 
 delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
 
+if isfield(props, 'compCap')
+  if length(props.compCap) > 1 % with Re
+    capleak_f = ...
+        param_Re_Ce_cap_leak_act_int_t(struct('gL', 0, 'EL', 0, 'Ce', 1e-10, ...
+                                              'Re', props.compCap(2), ...
+                                              'Cm', props.compCap(1)*1e-3, ...
+                                              'delay', delay, 'offset', 0), ...
+                                       'amplifier Re-cap comp', ...
+                                       struct);
+    capleak_f.Vm = setProp(capleak_f.Vm, 'selectParams', {}); %'delay', 'Ce'
+  else
+    mod_param_props = struct;
+    mod_param_props.selectParams = {'delay'};
+    capleak_f = ...
+        param_cap_leak_int_t(struct('gL', 0, 'EL', 0, 'Cm', props.compCap*1e-3, ...
+                                    'delay', delay, 'offset', 0), ...
+                             'amplifier cap comp', ...
+                             mod_param_props);
+  end
+  props.compCap = capleak_f;
+  % simulate model
+  cap_md = ...
+      model_data_vcs(capleak_f, pas.data_vc, ...
+                     [ pas.data_vc.id ': cap comp']);
+  % add to I
+  orig_i = pas.data_vc.i;
+  pas.data_vc.i = pas.data_vc.i + cap_md.model_vc.i;
+  
+  % remove compCap
+  props = rmfield(props, 'compCap');
+end
+
 [Re Cm peak_mag] = ...
     calcReCm(pas, mergeStructs(props, ...
-                               mergeStructs(struct('traceNum', pas_vsteps_idx(largest_step_idx), 'delay', delay), pas_res)));
+                               mergeStructs(struct('traceNum', ...
+                                                  pas_vsteps_idx(largest_step_idx), ...
+                                                  'delay', delay), pas_res))); 
 
 if verbose
   pas_res, Re, Cm, delay
@@ -122,6 +157,10 @@ capleakReCe_f = ...
       ['cap, leak, Re and Ce (int)'], ...
       struct('parfor', 1));
 
+% $$$ if isfield(props, 'compCap')
+% $$$   capleakReCe_f = capleakReCe_f - capleak_f;
+% $$$ end
+
 a_md = ...
     model_data_vcs(capleakReCe_f, pas.data_vc, ...
                    [ pas.data_vc.id ': capleak, Re, Ce est']);
@@ -135,17 +174,26 @@ plotFigure(plotDataCompare(a_md, ' - integral method', ...
                     y_lims])));
 
 % fit to make a better Re estimate
-a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-                                        {'Re', 'Ce', 'Cm', 'delay'});
-
+if isfield(props, 'compCap') && false
+  a_md.model_f.left.Vm = setProp(a_md.model_f.left.Vm, 'selectParams', ...
+                                               {'Re', 'Ce', 'Cm', 'delay'});
+else
+  a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+                                          {'Re', 'Ce', 'Cm', 'delay'});
+end
 
 narrowToWide();
 
 if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
-    a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-                                             {'Re', 'Ce', 'Cm', 'delay'});
+    if isfield(props, 'compCap') && false
+      a_md.model_f.left.Vm = setProp(a_md.model_f.left.Vm, 'selectParams', ...
+                                              {'Re', 'Ce', 'Cm', 'delay'});
+    else
+      a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+                                              {'Re', 'Ce', 'Cm', 'delay'});
+    end
     runFit([1 -.1 3*Re*Cm], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
@@ -154,7 +202,7 @@ if results.resnorm > min_resnorm
         warning(['narrow fit improved, doing a full fit again.' ]);
         runFit([1 -1 10], '3rd fit (full)');
         assert(results.resnorm < min_resnorm, ...
-               ['Resnorm (' num2str(results.resnorm) ') > ' num2str(min_resnorm) ...
+               ['Fit failed. Resnorm (' num2str(results.resnorm) ') > ' num2str(min_resnorm) ...
                 ' after narrow and full fits.' ]);
     end
 end
@@ -186,9 +234,15 @@ function narrowToWide()
 
   % do another fit with more params relaxed.
   % this also recalculates gL and EL based on the Re estimate.
-  a_md.model_f.Vm = ...
-      setProp(a_md.model_f.Vm, 'selectParams', ...
-                            {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+  if isfield(props, 'compCap') && false
+    a_md.model_f.left.Vm = ...
+        setProp(a_md.model_f.left.Vm, 'selectParams', ...
+                              {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+  else
+    a_md.model_f.Vm = ...
+        setProp(a_md.model_f.Vm, 'selectParams', ...
+                              {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+  end
   runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
   
   % last do narrower range
@@ -206,9 +260,15 @@ function oneFitsAll()
 
 % do another fit with more params relaxed.
 % this also recalculates gL and EL based on the Re estimate.
-a_md.model_f.Vm = ...
-    setProp(a_md.model_f.Vm, 'selectParams', ...
-                          {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+if isfield(props, 'compCap') && false
+  a_md.model_f.left.Vm = ...
+      setProp(a_md.model_f.left.Vm, 'selectParams', ...
+                            {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+else
+  a_md.model_f.Vm = ...
+      setProp(a_md.model_f.Vm, 'selectParams', ...
+                            {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
+end
 runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
 
 % repeat regular fit
@@ -234,8 +294,12 @@ function runFit(fitrange, str)
                         'dispPlot', 0, ...
                         'optimset', ...
                         struct('Display', 'iter')));
-  results = mergeStructs(getParamsStruct(a_md.model_f), results);
-
+  if isfield(props, 'compCap') && false
+    results = mergeStructs(getParamsStruct(a_md.model_f.left), results);
+  else
+    results = mergeStructs(getParamsStruct(a_md.model_f), results);
+  end
+  
   % reveal fit results
   results.resnorm = a_md.model_f.props.resnorm / length(pas_vsteps_idx);
   % ('zoom', 'act')
