@@ -8,16 +8,23 @@ function a_md = fit(a_md, title_str, props)
 % Parameters:
 %   a_md: A model_data_vcs object.
 %   props: A structure with any optional properties.
-%     fitRange: Start and end times of range to apply the optimization [ms].
-%     fitRangeRel: Start and end times of simualted range relative to first voltage
-%     		   step [ms]. Specify any other voltage step as the first element.
-%     outRangeRel: Only use this range for fitting. Defined same as fitRangeRel.
+%     fitRange: Start and end times [ms] of simulated range used for
+%     		optimization. Note that simulated range must include prior
+%     		stimulation steps to set state of diff. eqs.
+%     fitRangeRel: Like fitRange, but relative to first voltage step
+%     		[ms]. Specify any other voltage step as the first element.
+%     outRangeRel: Only use this range of the simulated data for
+%     		fitting. Defined same as fitRangeRel. Multiple rows can contain
+%     		separate ranges are patched together.
 %     fitLevels: Indices of voltage/current levels to use from clamp
-%     		 data. If empty, not fit is done.
+%     		data. If empty, not fit is done.
 %     dispParams: If non-zero, display params every once this many iterations.
 %     dispPlot: If non-zero, update a plot of the fit at end of this many
 %     	        iterations. A zero means no plot will be produced at the end.
 %     saveModelFile: If given, save the model every dispParams iteration.
+%     saveModelAutoNum: Use this as a base number and use saveModelFile as sprintf formatted
+%     		string that includes a number string (e.g., '%d') and increment it
+%     		until a non-existing file name is found.
 %     savePlotFile: If given, save the plot to this file every dispPlot iteration.
 %     plotMd: model_data_vcs or subclass object to be used for plots.
 %     quiet: If 1, do not include cell name on title.
@@ -85,9 +92,33 @@ range_cap_resp = round(range_maxima.start_time):round(range_maxima.end_time);
 % TODO: temporary fix!
 if isfield(props, 'outRangeRel')
   % adjust relative to simulated part
-  props.fitOutRange = ...
-      getTimeRelStep(data_vc, props.outRangeRel(1), props.outRangeRel(2:3)) ...
-      - range_maxima.start_time;
+  for range_num = 1:size(props.outRangeRel, 1)
+    props.fitOutRange(range_num, :) = ...
+        getTimeRelStep(data_vc, props.outRangeRel(range_num, 1), props.outRangeRel(range_num, 2:3)) ...
+        - range_maxima.start_time;
+  end
+  plot_zoom = [min(props.fitOutRange(:, 1), [], 1) ...
+               max(props.fitOutRange(:, 2), [], 1)] * dt;
+else
+  plot_zoom = [range_maxima.start_time range_maxima.end_time] * dt;
+end
+
+if isfield(props, 'saveModelFile')
+  if ~ isfield(props, 'saveModelAutoNum')
+    save_model_file = props.saveModelFile;
+    num_iter_label = '';
+  else
+    num_iter = props.saveModelAutoNum;
+    % skip existing files
+    while exist(sprintf(props.saveModelFile, num_iter), 'file')
+      num_iter = num_iter + 1;
+    end
+    save_model_file = sprintf(props.saveModelFile, num_iter);
+    disp(['Found non-existing file name ''' ...
+          save_model_file, ...
+          ''' for saving model.']);
+    num_iter_label = [ ' #' num2str(num_iter) ' ' ];
+  end
 end
 
 % use all voltage levels by default
@@ -132,9 +163,9 @@ end
     disp(displayParams(a_model, ...
                        mergeStructs(a_props, struct('lastParamsF', f_model_orig, ...
                                                    'onlySelect', 1))));
-    if isfield(props, 'saveModelFile')
-      save(props.saveModelFile, 'a_model');
-    end
+    
+    save(save_model_file, 'a_model');
+    
 
   end
 
@@ -158,7 +189,7 @@ end
     
     extra_text = ...
     [ '; fit range [' ...
-      sprintf('%.2f ', [range_maxima.start_time range_maxima.end_time] * dt) ']' ...
+      sprintf('%.2f ', plot_zoom) ']' ...
       '; levels: [' sprintf('%d ', use_levels) '], ' ...
       getParamsString(a_model) ];
 
@@ -166,7 +197,7 @@ end
       all_title = properTeXLabel(title_str);
     else
       all_title = ...
-          properTeXLabel([ cell_name extra_text title_str ]);
+          properTeXLabel([ cell_name num_iter_label extra_text title_str ]);
     end
 
     % TODO: fix problem of compatibility with model_data_vcs_Kprepulse
@@ -176,7 +207,7 @@ end
                                    all_title, ...
                                    struct(... %'levels', use_levels, ...
                                           'axisLimits', ...
-                                          [range_maxima.start_time * dt, range_maxima.end_time * dt NaN NaN])), ...
+                                          [plot_zoom NaN NaN])), ...
                      '', fig_props);
 
 % $$$       fig_handle = ...
