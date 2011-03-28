@@ -6,18 +6,20 @@ function a_cc = current_clamp(data_i, data_v, dt, di, dv, id, props)
 % a_cc = current_clamp(data_i, data_v, dt, di, dv, id, props)
 %
 % Parameters:
-%	data_i,data_v: Column vectors of I and V data traces.
-%	dt: Time resolution [s].
-%	di,dv: y-axis resolution for I and V [A and V, resp]
-%	id: Identification string.
-%	props: A structure with any optional properties, such as:
+%   data_i,data_v: Column vectors of I and V data traces.
+%   dt: Time resolution [s].
+%   di,dv: y-axis resolution for I and V [A and V, resp]
+%   id: Identification string.
+%   props: A structure with any optional properties, such as:
+%     paramsStruct: Contains parameter names and values that are constant
+%     		    for these traces.
 %		trace_time_start: Samples in the beginning to discard [dt]
 %		(see trace for more)
 % Usage 2:
 % a_cc = current_clamp(a_vc)
 %
 % Parameters:
-%       a_vc: An existing voltage_clamp object that actually contains
+%   a_vc: An existing voltage_clamp object that actually contains
 %       	current-clamp data.
 %
 % Returns a structure object with the following fields:

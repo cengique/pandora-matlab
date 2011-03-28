@@ -11,6 +11,9 @@ function a_db = params_tests_db(a_cc, props)
 %     stepNum: Current step to get results for (default=2).
 %     paramsStruct: Contains parameter names and values that are constant
 %     		    for these traces.
+%     paramsVary: Contains parameter names and their varying values for
+%     		    each of these traces in a structure array (e.g.,
+%     		    struct('Na', {10, 50 ,100}))
 %
 % Returns:
 %   a_db: A params_tests_db with results collected from getResults
@@ -41,11 +44,19 @@ if isfield(props, 'paramsStruct')
   num_rows = dbsize(a_db, 1);
   param_names = fieldnames(props.paramsStruct);
   num_params = length(param_names);
-  % put params first
+  % put const params first
   a_db = addColumns(tests_db(repmat(cell2mat(struct2cell(props.paramsStruct))', ...
                                     num_rows, 1), param_names, {}, ''), a_db);
 else
   num_params = 0;
+end
+
+if isfield(props, 'paramsVary')
+  param_names = fieldnames(props.paramsVary);
+  num_params = num_params + length(param_names);
+  % then varying params
+  a_db = addColumns(tests_db(cell2mat(struct2cell(props.paramsVary))', ...
+                             param_names, {}, ''), a_db);
 end
 
 % add cip_level_pA as param
