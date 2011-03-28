@@ -71,6 +71,8 @@ end
 
 num_steps = length(time_steps);
 
+assert(num_steps > 0, 'No steps found in data!');
+
 % for each step, find mean voltage and current
 v_steps = repmat(NaN, num_steps + 1, num_mags);
 i_steps = repmat(NaN, num_steps, num_mags);
