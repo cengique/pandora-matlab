@@ -163,10 +163,9 @@ end
     disp(displayParams(a_model, ...
                        mergeStructs(a_props, struct('lastParamsF', f_model_orig, ...
                                                    'onlySelect', 1))));
-    
-    save(save_model_file, 'a_model');
-    
-
+    if isfield(props, 'saveModelFile')
+      save(save_model_file, 'a_model');
+    end
   end
 
   function stop = plot_out(p, optimValues, state)
