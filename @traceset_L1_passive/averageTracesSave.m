@@ -50,7 +50,7 @@ sd_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep ...
             'AverageSD-' properTeXFilename(prot_name) '.mat' ];
 
 if ~exist(avg_file, 'file') || ~exist(sd_file, 'file') || isfield(props, 'recalc')
-  tracelist = traceset.treatments.(prot_name);
+  tracelist = traceset.protocols.(prot_name);
 
   num_traces = length(tracelist);
   traces = repmat(trace, 1, num_traces);
