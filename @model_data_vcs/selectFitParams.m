@@ -52,7 +52,7 @@ switch (select_what)
     a_m.I.h.tau = fitNoFit(a_m.I.h.tau);
     case 'infs'
         a_m.I.m.inf = fitNoFit(a_m.I.m.inf);
-%     a_m.I.h.inf = fitNoFit(a_m.I.h.inf);
+    a_m.I.h.inf = fitNoFit(a_m.I.h.inf);
 %     a_m.I.h2.inf = fitNoFit(a_m.I.h2.inf);            
   otherwise
     error('Select what?');
