@@ -77,6 +77,9 @@ if nargin == 0 % Called with no params
    % defined there anyway. 
    a_plot = ...
        class(a_plot, 'plot_inset', ...
-	     plot_abstract([], {}, title_str, {}, '', props));
+	     plot_abstract([], {}, title_str, {}, '', ...
+                           props));
+   % inheriting props of first plot does weird things:
+   % mergeStructs(props, get(plots{1}, 'props'))
 end
 
