@@ -28,43 +28,37 @@ function a_md = selectFitParams(a_md, select_what, fit_nofit, props)
 % TODO: move these to param_func and param_mult to have a better
 % selection system.
 
-a_m = a_md.model_data_vcs.model_f;
+a_m = a_md.model_f;
 
 switch (select_what)
-  case 'fast'
-    a_m.I.Kf = fitNoFit(a_m.I.Kf);
-    a_m.I.Kf.m.inf = fitNoFit(a_m.I.Kf.m.inf);
-    a_m.I.Kf.m.tau = fitNoFit(a_m.I.Kf.m.tau);
-    a_m.I.Kf.h.inf = fitNoFit(a_m.I.Kf.h.inf);
-    a_m.I.Kf.h.tau = fitNoFit(a_m.I.Kf.h.tau);
-    a_m.I.Kf.h2.inf = fitNoFit(a_m.I.Kf.h2.inf);
-    a_m.I.Kf.h2.tau = fitNoFit(a_m.I.Kf.h2.tau);
-  case 'fastInactInf'
-    a_m.I.Kf.h.inf = fitNoFit(a_m.I.Kf.h.inf);
-  case 'slow'
-    a_m.I.Ks = fitNoFit(a_m.I.Ks);
-    a_m.I.Ks.m.inf = fitNoFit(a_m.I.Ks.m.inf);
-    a_m.I.Ks.m.tau = fitNoFit(a_m.I.Ks.m.tau);
   case 'passive'
-    a_m = fitNoFit(a_m, fit_nofit);
+    a_m = fitNoFit(a_m);
   case 'pq'
     if fit_nofit == 1
-      a_m.I.Kf = removeSelect(a_m.I.Kf);
-      a_m.I.Ks = removeSelect(a_m.I.Ks);
+      a_m.I = removeSelect(a_m.I);
     else
-      a_m.I.Kf = setProp(a_m.I.Kf, 'selectParams', {'gmax', 'fh'});
-      a_m.I.Ks = setProp(a_m.I.Ks, 'selectParams', {'gmax'});      
+      a_m.I = setProp(a_m.I, 'selectParams', {'gmax'});
     end
-  case 'onlyTaus'
-    a_m.I.Kf = removeSelect(a_m.I.Kf);
-    a_m.I.Ks = removeSelect(a_m.I.Ks);
-    
+  case 'all'
+    a_m.I = fitNoFit(a_m.I);
+    a_m.I.m.inf = fitNoFit(a_m.I.m.inf);
+    a_m.I.h.inf = fitNoFit(a_m.I.h.inf);
+    a_m.I.h2.inf = fitNoFit(a_m.I.h2.inf);    
+    a_m.I.m.tau = fitNoFit(a_m.I.m.tau);
+    a_m.I.h.tau = fitNoFit(a_m.I.h.tau);
+    a_m.I.h2.tau = fitNoFit(a_m.I.h2.tau);
+  case 'taus'
+    a_m.I.m.tau = fitNoFit(a_m.I.m.tau);
+    a_m.I.h.tau = fitNoFit(a_m.I.h.tau);
+    case 'infs'
+        a_m.I.m.inf = fitNoFit(a_m.I.m.inf);
+%     a_m.I.h.inf = fitNoFit(a_m.I.h.inf);
+%     a_m.I.h2.inf = fitNoFit(a_m.I.h2.inf);            
   otherwise
     error('Select what?');
 end
 % write back
-a_md.model_data_vcs.model_f = a_m;
-a_md.md_pre.model_f = a_m;
+a_md.model_f = a_m;
 % end of main func
 
 function m = fitNoFit(m)

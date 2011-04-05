@@ -27,9 +27,8 @@ function a_p = plotPeaksCompare(a_md, title_str, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/11
 
-if ~ exist('props', 'var')
-  props = struct;
-end
+% DAMN!!!! get(a_md, 'props')
+props = mergeStructs(defaultValue('props', struct), struct);
 
 if ~ exist('title_str', 'var')
   title_str = '';
