@@ -60,7 +60,7 @@ else
   % align start with time of up step:
   align = pre_data_vc.time_steps(2) - data_vc.time_steps(2);
   
-  assert(sign(total_shift) * (total_shift - align) > 0, ...
+  assert(sign(total_shift) * (total_shift - align) >= 0, ...
          'pre_data_vc and data_vc steps incompatible, cannot be aligned');
   
   if total_shift > 0 
