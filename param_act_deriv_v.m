@@ -56,11 +56,17 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
 % subclass of param_mult, where the f function is overloaded to do the
 % integration.
 
-% TODO: simplify this function, running too slow again!
+% TODO: simplify this function, running too slow again! Make it return a
+% string description of the function
 
   function dact = act_func_deriv(fs, p, x)
     s = getFieldDefault(x, 's', []);
-    v = x.v;
+    fs_props = get(fs.this, 'props');
+    if isfield(fs_props, 'VmName')
+      v = getVal(s, fs_props.Vm);
+    else
+      v = x.v;
+    end
     t = getFieldDefault(x, 't', 0);
     dt = x.dt;
     props = get(fs.this, 'props');

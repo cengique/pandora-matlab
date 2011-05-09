@@ -68,7 +68,11 @@ function a_pf = ...
       % otherwise this is part of a bigger integration, just return
       % values for this time step
       m = getVal(s, 'm');
-      h = getVal(s, 'h');
+      if isfield(s.vars, 'h')
+        h = getVal(s, 'h');
+      else
+        h = 1;
+      end
       v_val = v; %(round(t/dt)+1, :); % it already gets only this v value??
     end
     I = p.gmax * ...

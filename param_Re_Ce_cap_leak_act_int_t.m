@@ -69,8 +69,10 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
       [ eps eps eps -100 eps 0  -.2;...
         1e3 1e3 1e3 -50 1e3  10  .2];
   
+  Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
+  
   funcs = ...
-      struct('I', getFieldDefault(props, 'v_dep_I_f', param_func_nil(0)));
+      struct('I', setVmName(getFieldDefault(props, 'v_dep_I_f', param_func_nil(0)), Vm_name));
 
   Re_is_func = false;
   if isfield(props, 'ReFunc')
@@ -78,7 +80,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     funcs.Re = props.ReFunc
   end
 
-  Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
+  
   
   % make a sub param_func for membrane derivative
   mem_pf = ...
@@ -161,6 +163,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
       Vm = squeeze(var_int(:, 1, :));
       if isfield(s.vars, 'm')
         m = squeeze(var_int(:, 2, :));
+      end
+      if isfield(s.vars, 'h')
         h = squeeze(var_int(:, 3, :));
       end
       %v_val = Vm;
