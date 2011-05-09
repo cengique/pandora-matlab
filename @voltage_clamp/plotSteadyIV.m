@@ -11,6 +11,7 @@ function a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 %   title_str: (Optional) Text to appear in the plot title.
 %   props: A structure with any optional properties.
 %     quiet: If 1, only use given title_str.
+%     curUnit: Display units for current trace (default='nA').
 %     label: add this as a line label to be used in superposed plots.
 %     plotPeaks: If 1, use the props.iPeaks instead of steady-state.
 %     stepRange: Uses the relative [start end] times in [ms] around 
@@ -38,6 +39,20 @@ function a_p = plotSteadyIV(a_vc, step_num, title_str, props)
 
 if ~ exist('props', 'var')
   props = struct;
+end
+
+% TODO: make this part a private function; it is shared between this and
+% plot_abstract
+cur_unit = getFieldDefault(props, 'curUnit', 'nA');
+
+switch (cur_unit)
+  case 'nA'
+    cur_scale = 1;
+  case 'pA'
+    cur_scale = 1e3;
+  otherwise
+    error([ 'props.curUnit = ''' cur_unit ...
+            ''' not recognized. Use only nA or pA.']);
 end
 
 if ~ exist('title_str', 'var')
@@ -80,8 +95,8 @@ end
 
 a_p = ...
     plot_abstract(...
-      {a_vc.v_steps(step_num, :), i_steps}, ...
-      {[ 'step ' num2str(step_num) ' voltage [mV]' ], 'current [nA]'}, ...
+      {a_vc.v_steps(step_num, :), i_steps * cur_scale}, ...
+      {[ 'step ' num2str(step_num) ' voltage [mV]' ], [ 'current [' cur_unit ']' ]}, ...
       all_title, {plot_label}, 'plot', ...
       mergeStructsRecursive(props, ...
                             struct('tightLimits', 1, ...

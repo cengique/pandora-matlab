@@ -14,6 +14,7 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %     onlyPlot: 'i' for current and 'v' for voltage plot.
 %     curUnit: Display units for current trace (default='nA').
 %     vColors: If 1 (default), always use same colors for same voltage levels.
+%     vColorsFunc: Function to get voltage colors (default=@lines)
 %     (rest passed to plot_stack and plot_abstract)
 %		
 % Returns:
@@ -82,8 +83,10 @@ else
       properTeXLabel([ cell_name title_str ]);
 end
 
+vcolor_func = getFieldDefault(props, 'vColorsFunc', @lines);
+
 % use consistent colors
-line_colors = lines(length(v_steps)); 
+line_colors = feval(vcolor_func, length(v_steps)); 
 
 % common x-axis limits
 axis_limits = ...

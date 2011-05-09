@@ -104,10 +104,10 @@ else
   plot_zoom = [range_maxima.start_time range_maxima.end_time] * dt;
 end
 
+num_iter_label = '';
 if isfield(props, 'saveModelFile')
   if ~ isfield(props, 'saveModelAutoNum')
     save_model_file = props.saveModelFile;
-    num_iter_label = '';
   else
     num_iter = props.saveModelAutoNum;
     % skip existing files
