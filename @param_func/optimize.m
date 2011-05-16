@@ -114,7 +114,12 @@ a_ps = setProp(a_ps, 'resnorm', resnorm, 'residual', residual, 'jacobian', jacob
 Rinv = R \ eye(length(R));
 
 % degrees of freedom:
-dfe = length(inp_data.v) - length(par);
+if isstruct(inp_data)
+  inp_points = length(inp_data.v);
+else
+  inp_points = length(inp_data);
+end
+dfe = inp_points - length(par);
 sse = resnorm;
 level = 0.95; % confidence level
 
