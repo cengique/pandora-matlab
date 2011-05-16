@@ -8,7 +8,8 @@ function param_vals = getParams(a_ps, props)
 % Parameters:
 %   a_ps: A param_mult object.
 %   props: A structure with any optional properties.
-%     (passed to param_func/getParams)
+%     recursive: If 1, include all child objects (default=1).
+%     (rest passed to param_func/getParams)
 %		
 % Returns:
 %   param_vals: Vector of parameter values.
@@ -36,9 +37,13 @@ function param_vals = getParams(a_ps, props)
 if ~ exist('props', 'var')
   props = struct;
 end
+isRec = getFieldDefault(props, 'recursive', 1);
 
 param_vals = getParams(a_ps.param_func, props);
-for a_f = struct2cell(a_ps.f)'
-  a_f = a_f{1};
-  param_vals = [ param_vals, getParams(a_f, props) ];
+
+if isRec ~= 0
+  for a_f = struct2cell(a_ps.f)'
+    a_f = a_f{1};
+    param_vals = [ param_vals, getParams(a_f, props) ];
+  end
 end
