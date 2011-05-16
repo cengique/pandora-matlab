@@ -57,6 +57,8 @@ parfor column_num = 1:num_columns
   res(:, :, column_num) = result;
 end
 
+% note: cannot call function handles that are not transparently visible
+% from this scope
 function dfdt = deriv_all(t, vars, column_num)
   a_sol_tmp = setVals(a_sol, vars);
   dfdt = dfdt_init;
