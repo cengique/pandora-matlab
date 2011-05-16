@@ -5,7 +5,7 @@ function a_pm = ...
 %
 % Usage:
 %   a_pm = 
-%     param_HH_chan_int_v(param_vals, a_param_act, a_param_inact, dt, id, props)
+%     param_HH_chan_int_v(param_vals, a_param_act, a_param_inact, id, props)
 %
 % Parameters:
 %   param_vals: Values for p, gmax [uS], E [mV] and fh, a tau weight factor
@@ -78,7 +78,7 @@ end
 
 props = mergeStructs(props, ...
                      struct('paramRanges', ...
-                            [0 4; 0 4; 0 1e3; -100 100]'));
+                            [0 4; 0 10e3; -150 150; 0 1]'));
 
 a_pm = struct;
 a_pm = class(a_pm, 'param_HH_chan_int_v', ...
