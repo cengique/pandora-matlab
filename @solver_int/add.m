@@ -45,6 +45,6 @@ end
 a_sol.vars.(name) = 0;
 
 % reinforce the name using whatever was passed to initSolver
-a_sol.dfdtHs.(name) = fHandle(setProp(a_deriv_func, 'name', name));
+a_sol.dfdtHs.(name) = fHandle(setProp(a_deriv_func, 'name', name), a_sol);
 
 

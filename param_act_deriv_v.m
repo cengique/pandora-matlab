@@ -48,38 +48,32 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
         [], {}, ...
         struct('inf', ap_inf_v, ...
                'tau', ap_tau_v), ...
-        @act_func_deriv, id, mergeStructs(props, struct('isIntable', 1, ...
-                                                    'init_val_func', ...
-                                                    @(fs, v) f(fs.inf, v))));
-
+        @(fs, p, x) feval(eval(deriv_func(fs, getFieldDefault(x, 's', []))), p, x), id, ...
+        mergeStructs(props, struct('isIntable', 1, ...
+                                   'fHandle', @deriv_func, ...
+                                   'init_val_func', ...
+                                   @(fs, v) f(fs.inf, v))));
+  
 % TODO: this should be an object of deriv_func, which should be a
 % subclass of param_mult, where the f function is overloaded to do the
 % integration.
 
-% TODO: simplify this function, running too slow again! Make it return a
-% string description of the function
-
-  function dact = act_func_deriv(fs, p, x)
-    s = getFieldDefault(x, 's', []);
+  function dfunc_str = deriv_func(fs, s)
     fs_props = get(fs.this, 'props');
     if isfield(fs_props, 'VmName')
-      v = getVal(s, fs_props.Vm);
+      % this can be made faster if getVal is not used
+      v_str = [ 'getVal(s, ''' fs_props.Vm ''')' ];
     else
-      v = x.v;
+      v_str = 'x.v';
     end
-    t = getFieldDefault(x, 't', 0);
-    dt = x.dt;
     props = get(fs.this, 'props');
     if isempty(s)
-      s = solver_int({}, dt, [ 'solver for ' id ] );
-      s = initSolver(fs.this, s, struct('initV', v(1)));
-      var_int = integrate(s, v, mergeStructs(get(fs.this, 'props'), props));
-      % return integrated variable
-      dact = squeeze(var_int(:, 1, :));
+      % return function that initiates integration
+      dfunc_str = [ '@(p, x) squeeze(integrate(fs.this, x, props))' ];
     else
-      % return derivative
-      dact = (f(fs.inf, v) - getVal(s, props.name)) ./ ...
-              f(fs.tau, v); 
+      % return derivative (fs binds to the instance here)
+      dfunc_str = [ '@(p, x) (f(fs.inf, ' v_str ') - getVal(x.s, ''' props.name ''')) ./ ' ...
+                    'f(fs.tau, ' v_str ')' ]; 
     end
   end
 end

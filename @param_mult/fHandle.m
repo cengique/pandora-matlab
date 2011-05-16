@@ -1,4 +1,4 @@
-function f_handle = fHandle(a_ps)
+function f_handle = fHandle(a_ps, s)
 
 % fHandle - Return a handle to function with fixed parameters.
 %
@@ -7,6 +7,7 @@ function f_handle = fHandle(a_ps)
 %
 % Parameters:
 %   a_ps: A param_mult object.
+%   s: solver_int object (optional).
 %		
 % Returns:
 %   f_handle: Handle to compiled function that can evaluate f_handle(x).
@@ -33,6 +34,8 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
+props = mergeStructs(get(a_ps, 'props'), props);
+
 % calculate function and parameters
 func = get(a_ps, 'func');
 params = getParamsStruct(a_ps);
@@ -47,5 +50,12 @@ for f_num = 1:num_funcs
   a_struct.(f_names{f_num}) = param_func_compiled(fHandle(a_f), get(a_f, 'id'));
 end
 
-% return as new handle
-f_handle = @(x) func(a_struct, params, x);
+if isfield(props, 'fHandle')
+  % function returns function handle
+  f_handle = props.fHandle(a_struct, s);
+  fs = a_struct;
+  f_handle = @(x) feval(eval(f_handle), params, x);
+else
+  % return as new handle
+  f_handle = @(x) func(a_struct, params, x);
+end
