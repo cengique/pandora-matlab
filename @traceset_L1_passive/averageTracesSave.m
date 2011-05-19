@@ -36,7 +36,13 @@ function [avg_vc sd_vc tex_file] = averageTracesSave(traceset, prot_name, props)
 
 props = mergeStructs(defaultValue('props', struct), get(traceset, 'props'));
 
-traceset_id = get(traceset, 'id');
+if isfield(props, 'treatments')
+  treat_str = [ '_' struct2str(props.treatments) ];
+else
+  treat_str = '';
+end
+
+traceset_id = [ get(traceset, 'id') treat_str ];
 
 % doc file names
 plot_name = ['compare-orig-average-' properTeXFilename(prot_name)];
@@ -50,18 +56,31 @@ sd_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep ...
             'AverageSD-' properTeXFilename(prot_name) '.mat' ];
 
 if ~exist(avg_file, 'file') || ~exist(sd_file, 'file') || isfield(props, 'recalc')
+  axis_limits = ...
+      getFieldDefault(props, 'axisLimits', ...
+                             getFieldDefault(getFieldDefault(props, 'protZoom', struct), ...
+                                             prot_name, repmat(NaN, 1, 4)))
+  
   tracelist = traceset.protocols.(prot_name);
 
   num_traces = length(tracelist);
   traces = repmat(trace, 1, num_traces);
 
-  % TODO:
-  % - sub LS and save VC files here
-  
   % take first as template voltage protocol
   % then average only current traces
-  for trace_index = 1:num_traces
-    [traces(trace_index) avg_vc] = doLSsub(trace_index);
+  if ~ isfield(props, 'leakSub') || props.leakSub == 0
+    % for the voltage traces
+    avg_vc = ...
+        getItemVC(traceset, tracelist(1), struct('absolute', 1));
+    for trace_index = 1:num_traces
+      traces(trace_index) = ...
+          get(getItemVC(traceset, tracelist(trace_index), ...
+                                  struct('absolute', 1)), 'i');
+    end
+  else
+    for trace_index = 1:num_traces
+      [traces(trace_index) avg_vc] = doLSsub(trace_index);
+    end
   end
 
   [avg_tr sd_tr] = avgTraces(traces, struct('id', [traceset_id '-' prot_name]));
@@ -81,7 +100,8 @@ if ~exist(avg_file, 'file') || ~exist(sd_file, 'file') || isfield(props, 'recalc
     superposePlots(plot_abstract(traces, [ ' - ' plot_title], ...
                                  mergeStructs(props, struct('noTitle', 1, ...
                                                     'ColorOrder', [0.7 0.7 0.7], ...
-                                                    'fixedSize', [6 4])))), ...
+                                                    'fixedSize', [6 4], ...
+                                                    'axisLimits', axis_limits)))), ...
     plot_abstract(avg_tr, '', struct('ColorOrder', [0 0 0], ...
                                      'plotProps', struct('LineWidth', 2)))}, {}, '', ...
                                   struct('noCombine', 1)), ...
@@ -90,7 +110,7 @@ if ~exist(avg_file, 'file') || ~exist(sd_file, 'file') || isfield(props, 'recalc
                    properTeXLabel([ plot_name '-' traceset_id ]), ...
                    mergeStructs(props, ...
                                 struct('plotRelDir', ...
-                                       [properTeXFilename(get(traceset, 'id')) '/' ])));
+                                       [properTeXFilename(traceset_id) '/' ])));
 
   % this can be done during averaging or after
   % TODO: put a TeX label
