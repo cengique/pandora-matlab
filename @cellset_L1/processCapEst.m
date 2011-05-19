@@ -1,9 +1,9 @@
-function [a_db, a_stats_db, Cm_avg_db] = processCapEst(cellset, props)
+function [tex_file, a_stats_db, Cm_avg_db] = processCapEst(cellset, props)
 
 % processCapEst - Collects capacitance estimate DBs of the cells.
 %
 % Usage:
-% [a_db, a_stats_db, Cm_avg_db] = processCapEst(cellset)
+% [tex_file, a_stats_db, Cm_avg_db] = processCapEst(cellset, props)
 %
 % Parameters:
 %   cellset: A cellset object.
@@ -12,6 +12,9 @@ function [a_db, a_stats_db, Cm_avg_db] = processCapEst(cellset, props)
 %     recalc: If 1, recalculate even if saved file is found.
 %
 % Returns:
+%   tex_file: Name of TeX file generated.
+%   a_stats_db: a 3D statistics DB that compares multiple cells.
+%   Cm_avg_db: Avg Cm values from all cells in one DB.
 %
 % Description:
 %   Also generates statistics and saves a lot of files. Will create a
@@ -106,6 +109,8 @@ end
 % TODO: also put \include statements to individual TeX files. Put
 % section, clearpage, etc. Then summary section with the bar graph and
 % table and maybe some text.
+tex_file = ...
+    [ properTeXFilename(cellset_id) '-passive-fits.tex' ];
 string2File([ '\input{' tex_pre_name '}' sprintf('\n') ...
               '\clearpage\cellsection{Summary for ' properTeXLabel(cellset_id) ...
               '}' sprintf('\n') ...
@@ -115,4 +120,4 @@ string2File([ '\input{' tex_pre_name '}' sprintf('\n') ...
                              struct('rotate', 0, 'width', '\columnwidth', ...
                                     'height', '!')), ...
               getTeXString(stats_plot)  ], ...
-            [ doc_dir filesep properTeXFilename(cellset_id) '-passive-fits.tex' ]);
+            [ doc_dir filesep tex_file ]);

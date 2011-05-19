@@ -88,11 +88,7 @@ for prot_name = prot_names
           averageTracesSave(traceset, prot_name, ...
                             mergeStructs(props, ...
                                          struct('axisLimits', ...
-                                                prot_zoom)));
-      
-      % subtract leak and passive currents
-      % LS is already done in individual cells! Remove this!
-      %[sub_vc pas_doc] = passiveSubVC(traceset, avg_vc, prot_name, props);
+                                                prot_zoom)));      
       sub_vc = avg_vc;
       
       % capacitance normalize
@@ -156,3 +152,5 @@ end % prot_name
 
 string2File([ prot_tex_str ], ...
             [ props.docDir filesep prot_tex_file ]);
+
+tex_file = prot_tex_file;
