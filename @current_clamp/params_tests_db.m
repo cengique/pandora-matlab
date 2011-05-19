@@ -55,7 +55,13 @@ if isfield(props, 'paramsVary')
   param_names = fieldnames(props.paramsVary);
   num_params = num_params + length(param_names);
   % then varying params
-  a_db = addColumns(tests_db(cell2mat(struct2cell(props.paramsVary))', ...
+  all_vals = ...
+      cell2mat(struct2cell(props.paramsVary));
+  param_vals = cell(1, num_params);
+  for param_num = 1:num_params
+    param_vals{param_num} = all_vals(param_num, :);
+  end
+  a_db = addColumns(tests_db(combvec(param_vals{:})', ...
                              param_names, {}, ''), a_db);
 end
 
