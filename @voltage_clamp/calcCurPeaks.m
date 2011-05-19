@@ -14,6 +14,8 @@ function a_vc = calcCurPeaks(a_vc, step_num, props)
 %       [ms]. If it has two elements, first one  specifies the voltage step .
 %     pulseEndRel: Time to end relative to the step end (default=-.3) [ms]. Like
 %       pulseStartRel, allows specifying voltage step.
+%     avgAroundMs: If given, after finding a peak, average +/- ms around
+%     	it to reduce noise.
 %		
 % Returns:
 %   a_vc: Updated voltage_clamp object that contains props.iPeaks.
@@ -92,8 +94,19 @@ for vstep_num = 1:num_vsteps
   else
     f = @min;
   end
-  
-  i_peaks(vstep_num) = ...
+
+  if isfield(props, 'avgAroundMs')
+    avgDts = round(props.avgAroundMs * 1e-3 / dt);
+    [tmp_val idx]  = ...
       feval(f, range_vc.i.data(:, vstep_num), [], 1);
+    i_peaks(vstep_num) = ...
+        mean(range_vc.i.data(idx + ...
+                             [max(-avgDts, -(idx - 1)):min(avgDts, ...
+                                                      diff(range_maxima) ...
+                                                      - idx)], vstep_num));
+  else
+    i_peaks(vstep_num) = ...
+      feval(f, range_vc.i.data(:, vstep_num), [], 1);
+  end
 end
 a_vc = setProp(a_vc, 'iPeaks', i_peaks);
