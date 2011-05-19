@@ -15,6 +15,7 @@ function a_tset = traceset_L1_passive(traces_cell, protocols, neuron_id, props)
 %     baseDir: Directory to find the files.
 %     treatments: A structure with parameter name-value pairs that apply
 %     		  to all traces (e.g., struct('cadmium', 1)).
+%     leakSub: If 1, do a leak subtraction before averaging (default=1).
 %     (All other props are passed to getResultsPassiveReCeElec in loadItemProfile)
 %		
 %   Returns a structure object with the following fields:
@@ -25,9 +26,13 @@ function a_tset = traceset_L1_passive(traces_cell, protocols, neuron_id, props)
 %   This is a subclass of params_tests_dataset. 
 %
 % Example:
-% > a_ts = traceset_L1_passive({1, 5, 456}, 'my neuron',
+% > a_ts = traceset_L1_passive({1, 5, 456}, 
+%				struct('passive', [1], ...
+%                                      'holdM90', [5], ...
+%                                      'holdM20', [456]), 
+% 				'my neuron',
 % 				struct('fileTempl', 'file%05d.abf',
-% 				'baseDir', 'C:/myfiles/'));
+% 				'baseDir', 'C:/myfiles/', 'docDir', 'doc/'));
 % would make a traceset out of file00001.abf, file00005 and file00456.abf.
 %
 % General operations on traceset_L1_passive objects:
