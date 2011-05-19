@@ -68,7 +68,8 @@ else
       findSteps(data_v, data_i, dt * 1e3, props);
   
   a_vc = struct;
-  a_vc.i = trace(data_i, dt, di, [ id ', I' ], props);
+  a_vc.i = trace(data_i, dt, di, [ id ', I' ], mergeStructs(props, ...
+                                                    struct('unit_y', 'A')));
   a_vc.v = trace(data_v, dt, dv, [ id ', V' ], props);
   a_vc.time_steps = time_steps;
   a_vc.v_steps = v_steps;
