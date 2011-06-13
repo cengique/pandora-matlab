@@ -54,19 +54,45 @@ if ~isfield(props, 'timeScale')
   props.timeScale = 'ms';
 end
 
+time = (0:(size(t.data, 1) - 1)) * t.dt; % in s
 switch props.timeScale
   case 's'
-    time = (1:size(t.data, 1)) * t.dt; % in s
     xlabel = 'time [s]';
   case 'ms'
-    time = (1:size(t.data, 1)) * t.dt * 1e3; % in ms
+    time = time * 1e3; % in ms
     xlabel = 'time [ms]';
 end
 
+% default:
+scale_y = 1/t.dy;
+unit_y = getFieldDefault(t.props, 'unit_y', 'V');
+
+switch (unit_y)
+  case 'A'
+    switch (t.dy)
+      case 1e-9
+        curunit = 'nA';
+      case 1e-12
+        curunit = 'pA';
+      case 1e-6
+        curunit = '\mu{}A'; 
+      otherwise
+        curunit = 'nA';
+        scale_y = 1e9;
+    end
+    ylabel = [ 'current [' curunit ']' ];
+  case 'V'
+    scale_y = 1e3;
+    ylabel = 'voltage [mV]';
+  otherwise
+    error([ 'Unit name ''' t.props.unit_y ''' not recognized. Must be ' ...
+            'one of ''A'' or ''V''.' ]);
+end
+
+
+% overwrite if given 
 if isfield(t.props, 'y_label')
   ylabel = t.props.y_label;
-else
-  ylabel = 'voltage [mV]';
 end
 
 % Remove all '_' characters, because they interfere with TeX interpretation
@@ -84,7 +110,7 @@ else
   the_title = [ sprintf('%s: %s', class_name, t.id) title_str ];
 end
 
-a_plot = plot_abstract({time, t.dy * t.data * 1e3}, ...
+a_plot = plot_abstract({time, t.dy * t.data * scale_y}, ...
 		       {xlabel, ylabel}, ...
 		       properTeXLabel(the_title), ...
 		       {properTeXLabel(the_legend)}, 'plot', props);
