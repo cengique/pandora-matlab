@@ -58,6 +58,10 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
 % subclass of param_mult, where the f function is overloaded to do the
 % integration.
 
+function dval = act_func_deriv(fs, p, x)
+  error('This function doesn''t exist anymore!');
+end
+
   function dfunc_str = deriv_func(fs, s)
     fs_props = get(fs.this, 'props');
     if isfield(fs_props, 'VmName')
