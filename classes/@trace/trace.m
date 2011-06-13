@@ -20,6 +20,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %    props: A structure with any optional properties.
 %	  scale_y: Y-axis scale to be applied to loaded data.
 %	  offset_y: Y-axis offset to be added to loaded and scaled data.
+%	  unit_y: Unit of Y-axis as in 'V' or 'A' (default='V').
+%         y_label: String to put on Y-axis of plots.
 %	  trace_time_start: Samples in the beginning to discard [dt]
 %	  baseline: Resting potential.
 %	  channel: Channel to read from file Genesis, PCDX, NeuroShare or
@@ -125,17 +127,20 @@ else
    end
 
    if isa(data_src, 'char') % filename?
-     [path, filename, ext, ver] = fileparts(data_src);
+     [path, filename, ext] = fileparts(data_src);
 
      ext = lower(ext); % Case insensitive matches for file extension
 
      % if file type not specified, use file extension to guess it
      if ~ isfield(props, 'file_type')
-       props.file_type = '';
+       if strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') % Genesis file
+         props.file_type = 'genesis';
+       else
+         props.file_type = '';
+       end
      end
 
-     if strcmpi(props.file_type, 'genesis') || ...
-	   strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') % Genesis file
+     if strcmpi(props.file_type, 'genesis') 
        channel = 1; % by default
        if isfield(props, 'channel')
         channel = props.channel;
@@ -159,7 +164,7 @@ else
        data = readgenesis16bit(data_src);
        data = data(:, channel);
 
-     elseif strcmpi(props.file_type, 'neuron') % Untested!
+     elseif strcmpi(props.file_type, 'neuron')
        [c_type, maxsize, endian] = computer;
        [data err] = readNeuronVecBin(data_src, endian);
        if isempty(strfind(err, 'Success'))
