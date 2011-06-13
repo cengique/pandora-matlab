@@ -14,7 +14,7 @@ num = length(a);
 if num == 0
   a = builtin('subsasgn', val, index, val);
   return;
-elseif length(a) > 1
+elseif length(a) > 1 || iscell(a)
   a = builtin('subsasgn', a, index, val);
   return;
 end
