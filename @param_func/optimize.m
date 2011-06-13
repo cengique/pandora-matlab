@@ -35,6 +35,9 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: add the 'fmincon' optimizer that allows choosing different
+% algorithms and equality constraints
+
 if ~ exist('props', 'var')
   props = struct;
 end
