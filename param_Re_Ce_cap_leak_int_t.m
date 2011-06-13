@@ -2,6 +2,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
   
 % param_Re_Ce_cap_leak_int_t - Membrane capacitance and leak integrated over time with a model of electrode resistance and capacitance.
 %
+% OBSOLETE - superceded by param_Re_Ce_cap_leak_act_int_t
+%
 % Usage:
 %   a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 %
@@ -106,7 +108,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     
     % after solving Vm, return total input current
     Im = p.offset + ...
-         p.Ce * [diff(Vc_delay); zeros(1, size(Vc, 2))] / dt ...
+         p.Ce * [repmat(Vc_delay(1, :), 1, 1); diff(Vc_delay)] / dt ...
          + (Vc_delay - Vm) / p.Re;% ...
     
     % crop the prepended fixed_delay
