@@ -199,10 +199,12 @@ objectvar scene_vector_[1]
 {doNotify()}
 
 
-// simulate
+// simulate & save current into file
 run()
+saveCurrent(1, "Ic")
 
-// save current into file
+LinearCircuit[0].VC_amp1 = -50
+run()
 saveCurrent(1, "Ic")
 
 // TODO: make a for loop and save all 4 steps
