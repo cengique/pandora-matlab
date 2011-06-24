@@ -136,10 +136,10 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     
     % do the delay as float and interpolate Vc so that the fitting
     % algorithm can move it around
-    delay_dt = Vm_p.delay/dt;
+    delay_dt = min(Vm_p.delay/dt, size(Vc, 1) - 1);
     delay_dt_int = floor(delay_dt);
     delay_dt_frac = delay_dt - delay_dt_int;
-
+    
     % prefix some data to reach steady-state
     fixed_delay = round(1/dt);
 
@@ -148,7 +148,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         [ repmat(Vc(1, :), fixed_delay + delay_dt_int + 1, 1); ...
           Vc(2:end-delay_dt_int, :) - ...
           delay_dt_frac * ...
-          diff(Vc(1:end-delay_dt_int, :)) ];
+          diff(Vc(1:end-delay_dt_int, :), [], 1) ];
     
     if isempty(s)
       s = solver_int({}, dt, [ 'solver for ' id ] );
