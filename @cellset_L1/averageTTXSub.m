@@ -16,7 +16,8 @@ function [tex_file] = averageTTXSub(cellset, props)
 %
 % Description:
 %   Also generates statistics and saves a lot of files. Will create a
-% LaTeX document in the proper directory.
+% LaTeX document in the proper directory. Will search for a zoom
+% definition identified with a protocol name suffixed with 'TTXsub'.
 %
 % See also: cellset_L1, traceset_L1_passive/averageTracesSave, data_L1_passive
 %
@@ -50,9 +51,17 @@ for prot_name = prot_names
   tex_file = ...
       [ properTeXFilename([cellset_id '-' plot_name]) '.tex' ];
 
+  % diff zoom for avgs
+  prot_zoom_avg = ...
+      getFieldDefault(getFieldDefault(props, 'protZoom', struct), ...
+                                      prot_name, repmat(NaN, 1, 4));
+  
+  % try prot_name + 'TTXsub' first
   prot_zoom = ...
       getFieldDefault(getFieldDefault(props, 'protZoom', struct), ...
-                      prot_name, repmat(NaN, 1, 4));
+                      [ prot_name 'TTXsub' ], ...
+                      getFieldDefault(getFieldDefault(props, 'protZoom', struct), ...
+                                      prot_name, repmat(NaN, 1, 4)));
 
   % names
   sub_file = [ props.docDir filesep properTeXFilename(cellset_id) ' - TTXsub-' properTeXFilename(prot_name) ...
@@ -86,7 +95,7 @@ for prot_name = prot_names
           averageTracesSave(traceset, prot_name, ...
                             mergeStructs(props, ...
                                          struct('axisLimits', ...
-                                                prot_zoom)));      
+                                                prot_zoom_avg)));      
 
       if traceset_props.treatments.TTX == 0
         control_vc = avg_vc;

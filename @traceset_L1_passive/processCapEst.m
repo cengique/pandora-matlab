@@ -30,18 +30,24 @@ function [a_db, a_stats_db, Cm_avg, tex_file] = processCapEst(traceset, props)
 
 props = mergeStructs(defaultValue('props', struct), get(traceset, 'props'));
 
-traceset_id = get(traceset, 'id');
+if isfield(props, 'treatments')
+  treat_str = [ '_' struct2str(props.treatments) ];
+else
+  treat_str = '';
+end
+
+traceset_id = [ get(traceset, 'id') treat_str ];
 
 % Save the db and load it later instead of processing
-db_file = [ props.docDir filesep traceset_id filesep 'passive_params_db.mat' ];
+db_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep 'passive_params_db.mat' ];
 if ~exist(db_file, 'file') || isfield(props, 'recalc')
   % generate the DB and docs from passive protocols
   a_db = params_tests_db(set(traceset, 'list', num2cell(traceset.protocols.passive)));
   % TODO: remove some columns? add treatments?
   % check and create directory
-  final_dir = [ props.docDir filesep traceset_id ];
+  final_dir = [ props.docDir filesep properTeXFilename(traceset_id) ];
   if ~ exist(final_dir, 'dir')
-    mkdir(props.docDir, traceset_id);
+    mkdir(props.docDir, properTeXFilename(traceset_id));
   end
   save(db_file, 'a_db');
   % TODO: also save a csv file of DB
@@ -75,9 +81,9 @@ stats_plot = doc_plot(plot_bars(statsMeanSE(for_stats_db), '', ...
                       properTeXLabel([ stats_name '-' traceset_id ]), ...
                       mergeStructs(props, ...
                                    struct('plotRelDir', ...
-                                          [properTeXFilename(get(traceset, 'id')) '/' ])));
+                                          [properTeXFilename(traceset_id) '/' ])));
 tex_file = ...
-    [traceset_id '-passive-fits.tex'];
+    [properTeXFilename(traceset_id) '-passive-fits.tex'];
 string2File([getTeXString(a_db.props.doc) ...
              displayRowsTeX([a_db; a_stats_db], ['Calculated passive ' ...
                     'properties and their statistics of ' properTeXLabel(traceset_id) '.'], ...

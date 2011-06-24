@@ -1,6 +1,6 @@
 function a_md = model_data_vcs_DmNav(model_f, data_vc, id, props)
 
-% model_data_vcs_DmNav - Combines model description that fits a voltage clamp data.
+% model_data_vcs_DmNav - OBSOLETE Combines model description that fits a voltage clamp data.
 %
 % Usage:
 % a_md = model_data_vcs_DmNav(model_f, data_vc, id, props)

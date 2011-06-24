@@ -26,16 +26,24 @@ function [a_profile a_doc] = loadItemProfile(traceset, trace_index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-traceset_props = get(traceset, 'props');
+props = get(traceset, 'props');
 
 a_trace = getItemVC(traceset, trace_index);
+
+if isfield(props, 'treatments')
+  treat_str = [ '_' struct2str(props.treatments) ];
+else
+  treat_str = '';
+end
+
+traceset_id = [ get(traceset, 'id') treat_str ];
 
 % get the results
 [a_profile a_doc] = ...
     getResultsPassiveReCeElec(data_L1_passive(a_trace), ...
-                              mergeStructs(struct('plotRelDir', [properTeXFilename(get(traceset, 'id')) '/' ]), ...
-                                           traceset_props));
+                              mergeStructs(struct('plotRelDir', [properTeXFilename(traceset_id) '/' ]), ...
+                                           props));
 
 % pack it into a cell
-a_profile = {results_profile(a_profile, [get(traceset, 'id') ' - Item=' ...
+a_profile = {results_profile(a_profile, [traceset_id ' - Item=' ...
                     num2str(trace_index) ]) a_doc};

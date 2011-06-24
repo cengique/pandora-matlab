@@ -84,7 +84,8 @@ if pas_res.gL > 0.025
                       'errors for gL and offset parameters.']);
 end
 
-delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
+% TODO: maybe allow small negative delays? Implement in param_Re_Ce_cap_leak_act_int_t
+delay = max(0, calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx))));
 
 if isfield(props, 'compCap')
   if length(props.compCap) > 1 % with Re
@@ -293,15 +294,14 @@ function runFit(fitrange, str)
                         'dispParams', 5,  ...
                         'dispPlot', 0, ...
                         'optimset', ...
-                        struct('Display', 'iter')));
+                        struct('Display', 'iter', 'MaxFunEvals', 200)));
   if isfield(props, 'compCap') && false
     results = mergeStructs(getParamsStruct(a_md.model_f.left), results);
   else
     results = mergeStructs(getParamsStruct(a_md.model_f), results);
   end
-  
-  % reveal fit results
-  results.resnorm = a_md.model_f.props.resnorm / length(pas_vsteps_idx);
+  % reveal fit results (use normalized SSE)
+  results.resnorm = a_md.model_f.props.ssenorm / length(pas_vsteps_idx);
   % ('zoom', 'act')
   % final fit
   fit_plot = ...

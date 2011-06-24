@@ -110,7 +110,7 @@ end
 % look at peak capacitive artifact and it's half-width as an estimate
 % for until when to integrate
 peak_vc = calcCurPeaks(pas.data_vc, step_num + 1, ...
-                       struct('pulseStartRel', delay, ...
+                       struct('pulseStartRel', max(0, delay), ...
                               'pulseEndRel', [1 min((end_dt - pas.data_vc.time_steps(step_num))*dt, 50)]));
 peak_mag = peak_vc.props.iPeaks(trace_num);
 peak_halfmag = peak_mag / 2;
@@ -121,8 +121,17 @@ else
   half_time = ...
       find(peak_vc.i.data(start_dt:end_dt, trace_num) > peak_halfmag);
 end
+
+% if there are multiple peaks!
+half_discont = find(diff(half_time) > 1);
+if ~isempty(half_discont)
+  half_time = half_time(half_discont - 1);
+else
+  half_time = half_time(end);
+end
+
 % choose a multiple of half-width
-end_dt = (start_dt + 10*half_time(end) - 1);
+end_dt = min(start_dt + 10*half_time(end) - 1, size(pas.data_vc.i.data, 1));
 
 % integrate current, remove I2 before integration
 % (still ignores Re, so rough estimate)
@@ -135,7 +144,7 @@ max_I = mean(int_I(max(1, end - 10):end));
 
 Cm = max_I / diff(pas.data_vc.v_steps(step_num:step_num+1, trace_num));
 
-assert(Cm > 0 && Cm < 0.1, ...
+assert(Cm > 0 && Cm < 1e3, ...
        [ 'Cm=' num2str(Cm) ' nF out of range!']);
 
 % find time constant

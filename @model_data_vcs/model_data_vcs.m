@@ -56,6 +56,7 @@ else
   a_md.model_vc = simModel(data_vc, model_f);  % simulate model
   a_md.data_vc = data_vc;
   a_md.id = defaultValue('id', [ get(a_md.model_f, 'id') ' vs. ' get(a_md.data_vc, 'id')]);
-
+  a_md.props = props;
+  
   a_md = class(a_md, 'model_data_vcs');
 end

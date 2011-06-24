@@ -87,26 +87,35 @@ range_vc = ...
 i_peaks = repmat(NaN, 1, num_vsteps);
 for vstep_num = 1:num_vsteps
   % find direction of peaks for each voltage step
-  steps_mag = mean(range_vc.i.data(:, vstep_num));
+  %steps_mag = mean(range_vc.i.data(:, vstep_num));
+% $$$   if steps_mag > 0
+% $$$     f = @max;
+% $$$   else
+% $$$     f = @min;
+% $$$   end
 
-  if steps_mag > 0
-    f = @max;
+  % compare magnitude of min and max peaks; mean may give wrong results
+  % if averaged across a long duration
+  [min_val min_idx]  = ...
+      min(range_vc.i.data(:, vstep_num), [], 1);
+  [max_val max_idx]  = ...
+      max(range_vc.i.data(:, vstep_num), [], 1);
+
+  if abs(min_val) > abs(max_val)
+    val = min_val; idx = min_idx;
   else
-    f = @min;
-  end
+    val = max_val; idx = max_idx;
+  end  
 
   if isfield(props, 'avgAroundMs')
     avgDts = round(props.avgAroundMs * 1e-3 / dt);
-    [tmp_val idx]  = ...
-      feval(f, range_vc.i.data(:, vstep_num), [], 1);
     i_peaks(vstep_num) = ...
         mean(range_vc.i.data(idx + ...
                              [max(-avgDts, -(idx - 1)):min(avgDts, ...
                                                       diff(range_maxima) ...
                                                       - idx)], vstep_num));
   else
-    i_peaks(vstep_num) = ...
-      feval(f, range_vc.i.data(:, vstep_num), [], 1);
+    i_peaks(vstep_num) = val;
   end
 end
 a_vc = setProp(a_vc, 'iPeaks', i_peaks);

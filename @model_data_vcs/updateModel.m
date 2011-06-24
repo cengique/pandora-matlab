@@ -1,13 +1,14 @@
 function a_md = updateModel(a_md, model_f, props)
 
-% updateModel - Plot model m_inf and h_inf curves.
+% updateModel - Simulate and save new model into object.
 %
 % Usage:
 % a_md = updateModel(a_md, model_f, props)
 %
 % Parameters:
 %   a_md: A model_data_vcs object.
-%   model_f: param_func or subclass object that holds the new model function.
+%   model_f: (optional) param_func or subclass object that holds the new
+%   	     model function. If not given, existing model is simulated.
 %   props: A structure with any optional properties.
 %		
 % Returns:
@@ -30,5 +31,5 @@ if ~ exist('props', 'var')
   props = struct;
 end
 
-a_md.model_f = model_f;
-a_md.model_vc = simModel(a_md.data_vc, model_f);  % simulate model
+a_md.model_f = defaultValue('model_f', a_md.model_f);
+a_md.model_vc = simModel(a_md.data_vc, a_md.model_f);  % simulate model

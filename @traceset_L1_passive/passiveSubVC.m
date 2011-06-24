@@ -13,14 +13,18 @@ function [sub_vc pas_doc] = passiveSubVC(traceset, avg_vc, prot_name, props)
 %   props: Structure with optional parameters.
 %     traceNum: If specified use the indexed trace's passive params
 %     		  instead of the population mean.
+%     leakSub: If 'passiveOnly', do the leak subtraction only a passive
+%     		trace from the same trace exists. Do not use average data.
 %
 % Returns:
 %   sub_vc: Subtracted VC object
 %   pas_doc: The plot document.
 %
 % Description:
-%   Also generates statistics and saves a lot of files. Will create a
-% LaTeX document in the proper directory.
+%   From passive properties database of the traceset, it will look for
+% passive values from same file. If not found, it will use the average
+% passive properties. Also generates statistics and saves a lot of
+% files. Will create a LaTeX document in the proper directory.
 %
 % See also: traceset_L1_passive, data_L1_passive
 %
@@ -37,20 +41,35 @@ function [sub_vc pas_doc] = passiveSubVC(traceset, avg_vc, prot_name, props)
 % TODO: make it only for avg and save it permanently?
 
 props = mergeStructs(defaultValue('props', struct), get(traceset, 'props'));
-traceset_id = get(traceset, 'id');
+if isfield(props, 'treatments')
+  treat_str = [ '_' struct2str(props.treatments) ];
+else
+  treat_str = '';
+end
+
+traceset_id = [ get(traceset, 'id') treat_str ];
 prot_zoom = ...
     getFieldDefault(getFieldDefault(props, 'protZoom', struct), ...
                     prot_name, repmat(NaN, 1, 4));
 
 % leak & passive subtract (TODO: make it optional!)
-ts_db_file = [ props.docDir filesep traceset_id filesep 'passive_params_db.mat' ];
+ts_db_file = [ props.docDir filesep properTeXFilename(traceset_id) filesep 'passive_params_db.mat' ];
 load(ts_db_file); % a_db
 
 if isfield(props, 'traceNum')
   Cm_row_db = a_db(a_db(:, 'TraceNum') == props.traceNum, :);
   if dbsize(Cm_row_db, 1) == 0
-      warning([ 'Cannot find TraceNum == ' ...
-           num2str(props.traceNum) ' in passive parameters DB. Using average passive params.']);
+      if isfield(props, 'leakSub') && ...
+          strcmp(props.leakSub, 'passiveOnly')
+        % do not subtract, just return avg_vc
+        sub_vc = avg_vc;
+        pas_doc = doc_plot;             % empty
+        return;
+      else
+        warning([ 'Cannot find TraceNum == ' ...
+                  num2str(props.traceNum) ' in passive parameters DB. ' ...
+                  'Using average passive params.']);
+      end
   end
 end
 
