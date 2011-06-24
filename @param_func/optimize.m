@@ -109,8 +109,12 @@ output
 
 resnorm
 
+% normalized SSE
+ssenorm = resnorm / (sum(sum(abs(out_data))) ^2)
+
 % save fit stats in a_ps
-a_ps = setProp(a_ps, 'resnorm', resnorm, 'residual', residual, 'jacobian', jacobian);
+a_ps = setProp(a_ps, 'resnorm', resnorm, 'residual', residual, 'jacobian', ...
+                     jacobian, 'ssenorm', ssenorm);
 
 % calc confidence intervals
 [a,R] = qr(full(jacobian),0);
