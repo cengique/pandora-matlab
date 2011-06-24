@@ -10,7 +10,7 @@ function a_pm = ...
 % Parameters:
 %   param_vals: Values for p, gmax [uS], E [mV] and fh, a tau weight factor
 %   	(fh*tauh1+(1-fh)*tauh2). q is always 1.
-%   a_param_act, a_param_inact: param_act objects for m and h, resp.,
+%   a_param_act, a_param_inact: param_act_deriv_v objects for m and h, resp.,
 %   	obtained using the param_act_int_v function.
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
@@ -78,7 +78,7 @@ end
 
 props = mergeStructs(props, ...
                      struct('paramRanges', ...
-                            [0 4; 0 10e3; -150 150; 0 1]'));
+                            [0 4; 0 10e3; -200 200; 0 1]'));
 
 a_pm = struct;
 a_pm = class(a_pm, 'param_HH_chan_int_v', ...
