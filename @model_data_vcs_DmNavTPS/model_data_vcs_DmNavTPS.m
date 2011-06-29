@@ -8,7 +8,7 @@ function a_md = model_data_vcs_DmNavTPS(model_nat, model_nap, data_vc, ...
 %
 % Parameters:
 %   model_nat: Can be a param_func or a NeuroFit file name. Make sure to specify
-%   		required paramsNeurofit props below.
+%   		required param_I_Neurofit props below.
 %   model_nap: Can be empty or a param_func. If empty, it a default will
 %   		be created from model_nat.
 %   data_vc: Data file name or voltage_clamp data object (unfiltered).
@@ -32,7 +32,7 @@ function a_md = model_data_vcs_DmNavTPS(model_nat, model_nap, data_vc, ...
 % Additional methods:
 %   See methods('model_data_vcs_DmNavTPS')
 %
-% See also: voltage_clamp, param_func
+% See also: model_data_vcs, param_I_Neurofit
 %
 % $Id: model_data_vcs_DmNavTPS.m 451 2011-04-18 09:54:33Z cengiz $
 %
