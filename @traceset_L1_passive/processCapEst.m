@@ -63,7 +63,7 @@ end
 a_stats_db = statsAll(a_db);
 
 % mean capacitance:
-Cm_avg = a_stats_db('mean', 'fit_Cm_pF').data;
+Cm_avg = a_stats_db('mean', '/fit_Cm_.F/').data;
 
 % TODO: save the final Cm value?
 
