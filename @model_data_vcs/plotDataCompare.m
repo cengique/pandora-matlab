@@ -109,7 +109,7 @@ a_p = ...
                                               'fixedSize', [4 3])));
 plots = { a_p };
 sizes = [ 3 ] ;
-if isfield(props, 'showSub') 
+if isfield(props, 'showSub') && props.showSub ~= 0
   plots = [ plots, 
             { set(plot_abstract(a_md.data_vc - a_md.model_vc, '', ...
                             struct('onlyPlot', 'i', 'ColorOrder', line_colors, ...
@@ -120,7 +120,7 @@ if isfield(props, 'showSub')
             } ];         
   sizes = [ sizes, 1];
 end
-if isfield(props, 'showV') 
+if isfield(props, 'showV') && props.showV ~= 0
   plots = [ plots, 
             { plot_abstract(a_md.data_vc, '', ...
                             struct('onlyPlot', 'v', 'ColorOrder', line_colors, ...
