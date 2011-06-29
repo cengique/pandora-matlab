@@ -16,6 +16,10 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     minResnorm: Lowest resnorm to accept (default=0.04).
 %     minRe: Lowest Re value accepted.
 %     compCap: Emulate compensation of this much capacitance [pF].
+%     initCe: Initial value for Ce [pF].
+%     unitCap: Units of capacitance, such as 'nF' and 'pF' (default).
+%     unitCond: Units of conductance, such as 'uS' and 'nS' (default).
+%     unitRes: Units of resistance, such as 'kO' and 'MO' (default).
 %
 % Returns:
 %   Re: Series resistance [MOhm].
@@ -47,6 +51,8 @@ min_resnorm = getFieldDefault(props, 'minResnorm', 0.04);
 min_Re = getFieldDefault(props, 'minRe', 50);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
+
+fig_handle = [];
 
 results = struct;
 
@@ -144,16 +150,53 @@ end
 % TODO: 
 % - iterate once more to find a new Re estimate afterwards
 
-results.int_Re_MO = Re;
-results.int_Cm_pF = Cm * 1e3;
-results.int_gL_nS = pas_res.gL * 1e3;
+% select proper units
+unit_cap = getFieldDefault(props, 'unitCap', 'pF');
+if ~strcmp(unit_cap, 'nF') && ~strcmp(unit_cap, 'pF')
+  error(['Capacitance unit ''' unit_cap ''' in ' ...
+         'props.unitCap not recognized.']);
+end
+
+unit_res = getFieldDefault(props, 'unitRes', 'MO');
+if ~strcmp(unit_res, 'MO') && ~strcmp(unit_res, 'kO')
+    error(['Resistance unit ''' unit_res ''' in ' ...
+           'props.unitRes not recognized.']);
+end
+
+unit_cond = getFieldDefault(props, 'unitCond', 'nS');
+if ~strcmp(unit_cond, 'nS') && ~strcmp(unit_cond, 'uS')
+  error(['Conductance unit ''' unit_cond ''' in ' ...
+         'props.unitCond not recognized.']);
+end
+
+% save passive properties in results structure
+switch (unit_res)
+  case 'MO'
+    results.int_Re_MO = Re;
+  case 'kO'
+    results.int_Re_kO = Re * 1e3;
+end
+
+switch (unit_cap)
+  case 'pF'
+    results.int_Cm_pF = Cm * 1e3;
+  case 'nF'
+    results.int_Cm_nF = Cm;
+end
+
+switch (unit_cond)
+  case 'nS'
+    results.int_gL_nS = pas_res.gL * 1e3;
+  case 'uS'
+    results.int_gL_uS = pas_res.gL;
+end
 results.int_EL_mV = pas_res.EL;
 results.int_offset_pA = pas_res.offset * 1e3;
 results.est_delay_ms = delay;
 
 capleakReCe_f = ...
     param_Re_Ce_cap_leak_act_int_t(...
-      struct('Re', Re, 'Ce', 1.2e-3, 'gL', pas_res.gL, ...
+      struct('Re', Re, 'Ce', getFieldDefault(props, 'initCe', 1.2)*1e-3, 'gL', pas_res.gL, ...
              'EL', pas_res.EL, 'Cm', Cm, 'delay', delay, 'offset', pas_res.offset), ...
       ['cap, leak, Re and Ce (int)'], ...
       struct('parfor', 1));
@@ -212,15 +255,33 @@ end
 renameFields('Vm_', 'fit_');
 
 % add units to names
-renameFields('(fit_C.)', '$1_pF');
-results.fit_Ce_pF = results.fit_Ce_pF * 1e3;
-results.fit_Cm_pF = results.fit_Cm_pF * 1e3;
+switch (unit_cap)
+  case 'pF'
+    renameFields('(fit_C.)', '$1_pF');
+    results.fit_Ce_pF = results.fit_Ce_pF * 1e3;
+    results.fit_Cm_pF = results.fit_Cm_pF * 1e3;
+  case 'nF'
+    renameFields('(fit_C.)', '$1_nF');
+end
 
 renameFields('(fit_EL)', '$1_mV');
-renameFields('(fit_gL)', '$1_nS');
-results.fit_gL_nS = results.fit_gL_nS * 1e3;
 
-renameFields('(fit_Re)', '$1_MO');
+switch (unit_cond)
+  case 'nS'
+    renameFields('(fit_gL)', '$1_nS');
+    results.fit_gL_nS = results.fit_gL_nS * 1e3;
+  case 'uS'
+    renameFields('(fit_gL)', '$1_uS');
+end
+
+switch (unit_res)
+  case 'MO'
+    renameFields('(fit_Re)', '$1_MO');
+  case 'kO'
+    renameFields('(fit_Re)', '$1_kO');
+    results.fit_Re_kO = results.fit_Re_kO * 1e3;
+end
+    
 renameFields('(fit_delay)', '$1_ms');
 renameFields('(fit_offset)', '$1_pA');
 results.fit_offset_pA = results.fit_offset_pA * 1e3;
@@ -288,6 +349,9 @@ end
 
 function runFit(fitrange, str)
   disp([ pas.data_vc.id ': ' str ])
+  if isempty(fig_handle)
+    fig_handle = figure;
+  end
   a_md = fit(a_md, ...
              '', struct('fitRangeRel', fitrange, ...
                         'fitLevels', pas_vsteps_idx, ...
@@ -312,7 +376,7 @@ function runFit(fitrange, str)
                                              fitrange(1), -.1) ...
                       * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm], ...
                       y_lims]));
-  plotFigure(fit_plot);
+  plotFigure(fit_plot, '', struct('figureHandle', fig_handle));
   a_doc = doc_plot(fit_plot, [ 'Fitting passive parameters of ' pas.data_vc.id ', ' str '.' ], ...
                    [ get(pas.data_vc, 'id') '-passive-fits' ], struct, ...
                    pas.data_vc.id, props);
