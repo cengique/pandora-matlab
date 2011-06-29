@@ -125,6 +125,13 @@ end
 % if there are multiple peaks!
 half_discont = find(diff(half_time) > 1);
 if ~isempty(half_discont)
+  if length(half_discont) > 1 && half_discont(1) < 2
+    % skip artifact that may appear at the end of first time step
+    half_discont = half_discont(2);
+  else
+    % first discontinuity should indicate the end of first peak
+    half_discont = half_discont(1);
+  end
   half_time = half_time(half_discont - 1);
 else
   half_time = half_time(end);
