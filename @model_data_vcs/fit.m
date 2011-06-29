@@ -183,7 +183,13 @@ end
     stop = false;
   end
 
-  fig_props = struct;
+  fig_handle = getFieldDefault(props, 'figureHandle', []);
+  
+  if ~ isempty(fig_handle)
+    fig_props = struct('figureHandle', fig_handle);
+  else
+    fig_props = struct;
+  end
   
   function dispPlot(a_model)
   % is plotting disabled?
@@ -201,7 +207,7 @@ end
       all_title = properTeXLabel(title_str);
     else
       all_title = ...
-          properTeXLabel([ cell_name num_iter_label extra_text title_str ]);
+          properTeXLabel([ num_iter_label extra_text title_str ]);
     end
 
     % TODO: fix problem of compatibility with model_data_vcs_Kprepulse
