@@ -43,6 +43,7 @@ if nargin == 0 % Called with no params
   a_md.model_vc = voltage_clamp;
   a_md.data_vc = voltage_clamp;
   a_md.id = '';
+  a_md.props = struct;
   a_md = class(a_md, 'model_data_vcs');
 elseif isa(model_f, 'model_data_vcs') % copy constructor?
   a_md = model_f;
