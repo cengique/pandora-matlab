@@ -13,7 +13,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
-%     minResnorm: Lowest resnorm to accept (default=0.04).
+%     minResnorm: Lowest resnorm to accept (default=0.001).
 %     minRe: Lowest Re value accepted.
 %     compCap: Emulate compensation of this much capacitance [pF].
 %     initCe: Initial value for Ce [pF].
@@ -47,7 +47,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 
   
 props = defaultValue('props', struct);
-min_resnorm = getFieldDefault(props, 'minResnorm', 0.04);
+min_resnorm = getFieldDefault(props, 'minResnorm', 0.001);
 min_Re = getFieldDefault(props, 'minRe', 50);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
