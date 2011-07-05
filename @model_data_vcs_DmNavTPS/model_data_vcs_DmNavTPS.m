@@ -8,9 +8,12 @@ function a_md = model_data_vcs_DmNavTPS(model_nat, model_nap, data_vc, ...
 %
 % Parameters:
 %   model_nat: Can be a param_func or a NeuroFit file name. Make sure to specify
-%   		required param_I_Neurofit props below.
+%   		required param_I_Neurofit props below. If param_mult, subfunctions nat
+%   		and nap are recognized. If [], loadModel is called.
 %   model_nap: Can be empty or a param_func. If empty, it a default will
-%   		be created from model_nat.
+%   		be created from model_nat, or can be specified by giving a
+%   		param_mult as model_nat. If model_nat is [], then
+%   		model_nap is treated as the append_name argument for loadModel.
 %   data_vc: Data file name or voltage_clamp data object (unfiltered).
 %   name: The DmNav name (e.g., 'DmNav43')
 %   id: Identification string used for display and in file names
@@ -46,14 +49,24 @@ function a_md = model_data_vcs_DmNavTPS(model_nat, model_nap, data_vc, ...
 
 if nargin == 0 % Called with no params
   a_md = struct;
-  a_md.md_pre = model_data_vcs;
+  a_md.name = '';
+  a_md.filt_vc = voltage_clamp;
   a_md = class(a_md, 'model_data_vcs_DmNavTPS', model_data_vcs);
 elseif isa(model_nat, 'model_data_vcs_DmNavTPS') % copy constructor?
   a_md = model_nat;
 else
   props = defaultValue('props', struct);
+
+  % TODO: also load .MAT files for models
   
-  if ischar(model_nat)
+  if isempty(model_nat)
+    % load from default location
+    a_model = ...
+        loadModel(set(set(model_data_vcs_DmNavTPS, 'name', name), 'id', id), model_nap, ...
+                  struct('onlyModel', 1));
+    model_nat = a_model.nat;
+    model_nap = a_model.nap;
+  elseif ischar(model_nat)
     % assume Neurofit filename
     model_nat = ...
         param_I_Neurofit(paramsNeurofit(model_nat), ...
@@ -63,8 +76,13 @@ else
                                              'gmaxDS', 1e-6, 'parfor', ...
                                              1)));
   else
-    model_nat = ...
-        setProp(model_nat, 'name', 'nat');
+    if isfield(model_nat.f, 'nat')
+      model_nap = model_nat.nap;
+      model_nat = model_nat.nat;
+    else
+      model_nat = ...
+          setProp(model_nat, 'name', 'nat');
+    end
   end
 
   if isempty(model_nap)
@@ -74,11 +92,20 @@ else
                             param_func_nil(1), [ 'I_{' name '}' ], ...
                             struct('name', [ 'nap' ], 'parfor', 1));
   end
-  
+
   % load data if necessary
   if ischar(data_vc)
-    s = load(data_vc);
-    data_vc = s.sub_vc;
+    [pathstr, filename, ext] = fileparts(data_vc);
+    if strcmpi(ext, '.abf')
+      data_vc = ...
+          abf2voltage_clamp(data_vc, [ ', ' name]);
+      elseif strcmpi(ext, '.mat')
+        s = load(data_vc);
+        data_vc = s.sub_vc;
+    else
+      error([ 'Format of data file ''' data_vc ''' not recognized. Only know ' ...
+              '.MAT or .ABF files.']);
+    end
   end
   
   % filter data
