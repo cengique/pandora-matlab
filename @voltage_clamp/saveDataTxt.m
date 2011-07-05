@@ -45,7 +45,7 @@ end
 vc_props = get(a_vc, 'props');
 
 % extract cell name and path from file
-[pathstr, cell_name, ext, versn] = fileparts(vc_props.filename);
+[pathstr, cell_name, ext] = fileparts(vc_props.filename);
 
 % write to text file for NeuroFit (time + current traces)
 dlmwrite([ pathstr filesep cell_name getFieldDefault(props, 'addName', '') '.txt' ], ...
