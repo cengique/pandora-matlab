@@ -8,6 +8,7 @@ function a_md = convertTauFromSpline(a_md, props)
 % Parameters:
 %   a_md: A model_data_vcs_DmNavTPS object.
 %   props: A structure with any optional properties.
+%     vRange: Voltage values to evaluate spline function (default=-30:60)
 %		
 % Returns:
 %   a_md: (updated)
