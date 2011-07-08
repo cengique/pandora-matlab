@@ -71,7 +71,7 @@ elseif ischar(tests)
   if tests(1) == '/'
     idx = findRegExpIdx(tests, fieldnames(ind_struct)');
   else
-    idx = getfuzzyfield(ind_struct, tests);
+    idx = getfuzzyfield(ind_struct, tests, NaN, 1);
     if isempty(idx)
       error(['Field ''' tests ''' not found in db']);
     end
@@ -86,7 +86,7 @@ elseif iscell(tests)
       if test(1) == '/'
         ind = findRegExpIdx(test, all_names');
       else
-        ind = getfuzzyfield(ind_struct, test);
+        ind = getfuzzyfield(ind_struct, test, NaN, 1);
         if isempty(ind)
           error(['Field ''' test ''' not found in db']);
         end
