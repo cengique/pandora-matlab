@@ -1,19 +1,20 @@
-function test_names = testNames(dataset, item)
+function [test_names a_prof] = testNames(dataset, item)
 
 % testNames - Returns the ordered names of tests for this dataset.
 %
 % Usage:
-% test_names = testNames(dataset, item)
+% [test_names a_prof] = testNames(dataset, item)
+%
+% Parameters:
+%   dataset: A params_tests_dataset.
+%   item: (Optional) If given, read names by loading item at this index.
+%		
+% Returns:
+%   test_names: Cell array with ordered parameter names.
+%   a_prof: Profile of the item read to find test names.
 %
 % Description:
 % Looks at the results of the first file to find the test names.
-%
-%   Parameters:
-%	dataset: A params_tests_dataset.
-%		
-%   Returns:
-%	params_names: Cell array with ordered parameter names.
-%	item: (Optional) If given, read names by loading item at this index.
 %
 % See also: params_tests_dataset, paramNames, testNames
 %

@@ -38,8 +38,12 @@ end
 
 try 
   % Collect info for generating the DB
-  param_names = paramNames(obj, items(1));
-  test_names = testNames(obj, items(1));
+  [test_names a_prof] = testNames(obj, items(1));
+  if isa(a_prof, 'params_results_profile')
+    param_names = fieldnames(a_prof.params)';
+  else
+    param_names = paramNames(obj, items(1));
+  end
   num_items = length(items);
 catch
   err = lasterror;

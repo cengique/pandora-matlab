@@ -47,7 +47,11 @@ if iscell(a_profile)
 end
 
 % Get params row vector
-params_row = getItemParams(dataset, index, a_profile);
+if isa(a_profile, 'params_results_profile')
+  params_row = cell2mat(struct2cell(a_profile.params)');
+else
+  params_row = getItemParams(dataset, index, a_profile);
+end
 
 % Convert results to row vector
 resultCell = squeeze(struct2cell(getResults(a_profile)))';
