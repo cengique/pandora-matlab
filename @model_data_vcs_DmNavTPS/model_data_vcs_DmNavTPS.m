@@ -91,6 +91,9 @@ else
                             model_nat.m, ...
                             param_func_nil(1), [ 'I_{' name '}' ], ...
                             struct('name', [ 'nap' ], 'parfor', 1));
+  else
+    model_nap = ...
+        setProp(model_nap, 'name', 'nap');
   end
 
   % load data if necessary
