@@ -5,16 +5,17 @@ function s = displayRows(db, rows, pages)
 % Usage:
 % s = displayRows(db, rows, pages)
 %
-% Description:
-%
-%   Parameters:
-%	db: A tests_db object.
-%	rows: Indices of rows in db.
-%	pages: Pages of db.
+% Parameters:
+%   db: A tests_db object.
+%   rows: Indices of rows in db.
+%   pages: Pages of db.
 %		
-%   Returns:
-%	s: A cell array of trasposed database contents, prefixed with 
-%	   column names on each row. Meant to be displayed on the screen.
+% Returns:
+%   s: A cell array of trasposed database contents, prefixed with 
+%	column names on each row. Meant to be displayed on the screen.
+%
+% Description:
+% Use transpose() on db to rotate display.
 %
 % See also: tests_db
 %

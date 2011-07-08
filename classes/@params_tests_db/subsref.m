@@ -13,7 +13,8 @@ function b = subsref(a,index)
   % to return cell array to be consistent with matlab convention. -CG 2005/12/08
 
 % If a is an array, use built-in methods
-if length(a) > 1
+num_dbs = length(a);
+if num_dbs > 1
   b = builtin('subsref', a, index);
   return;
 end
@@ -32,24 +33,29 @@ else
 	b = onlyRowsTests(a, index.subs{:});
       end
     case '.'
-      num_dbs = length(a);
       % If multiple DBs addressed at the same time
-      if num_dbs > 1
-	% Do one to learn the return type
-	tmp = subsref(a(1), index);
-	b(1) = tmp;			% meaningless, but the only way to make it work
-	% allocate space
-	[b(2:num_dbs)] = deal(tmp); 
-	% and time
-	for db_num=2:num_dbs
-	  % Recurse
-	  b(db_num) = subsref(a(db_num), index);
-	end
-      else
+      % => disabled because some operations become ambigious in subsref
+      % and subsasgn
+% $$$       if num_dbs > 1
+% $$$ 	% Do one to learn the return type
+% $$$ 	tmp = subsref(a(1), index);
+% $$$ 	b(1) = tmp;			% meaningless, but the only way to make it work
+% $$$ 	% allocate space
+% $$$ 	[b(2:num_dbs)] = deal(tmp); 
+% $$$ 	% and time
+% $$$ 	for db_num=2:num_dbs
+% $$$ 	  % Recurse
+% $$$ 	  b(db_num) = subsref(a(db_num), index);
+% $$$ 	end
+% $$$       else
 	% Ground case: only one DB, only one index
 	b = get(a, index.subs); 
-      end
+% $$$       end
     case '{}'
+      if num_dbs > 1
+        b = builtin('subsref', a, index);
+        return;
+      end
       b = a{index.subs{:}};
   end
 end

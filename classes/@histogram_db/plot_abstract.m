@@ -56,7 +56,7 @@ if num_dbs > 1
   % flatten to array
   flat_dbs = reshape(a_hist_db, num_dbs, 1);
   % Create array of plots
-  [a_plot(1:num_dbs)] = deal(plot_simple);
+  [a_plot(1:num_dbs)] = deal(plot_abstract);
   for plot_num = 1:num_dbs
     a_plot(plot_num) = plot_abstract(flat_dbs(plot_num), title_str, props);
   end

@@ -30,11 +30,12 @@ function t_hists = testsHists(a_db, num_bins)
 
 num_dbs = length(a_db);
 if num_dbs > 1
-  [reduced_db(1:num_dbs)] = deal(params_tests_db);
+  [reduced_tests_db(1:num_dbs)] = deal(tests_db);
   for db_num=1:num_dbs
-    reduced_db(db_num) = reduce_db(a_db(db_num));
+    reduced_tests_db(db_num) = get(reduce_db(a_db(db_num)), 'tests_db');
   end
-  reduced_tests_db = subsref(reduced_db, substruct('.', 'tests_db'));
+  % Hell no! this causes all kinds of trouble in subsref and subsasgn:
+  % reduced_tests_db = subsref(reduced_db, substruct('.', 'tests_db'));
 else
   reduced_tests_db = a_db.tests_db;
 end
