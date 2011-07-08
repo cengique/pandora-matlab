@@ -28,6 +28,7 @@ function t_hists = testsHists(a_db, num_bins)
 % http://opensource.org/licenses/afl-3.0.php.
 
 num_tests = dbsize(a_db(1), 2);
+num_dbs = length(a_db);
 
 if exist('num_bins', 'var')
   bin_param = { num_bins };
@@ -35,8 +36,10 @@ else
   bin_param = {};
 end
 
-[t_hists(1:num_tests)] = deal(histogram_db);
+t_hists = repmat(histogram_db, num_tests, num_dbs);
+% use cells instead OR use a 2nd dimension!
+%t_hists = cell(1, num_tests);
 for test_num=1:num_tests
   params = {a_db, test_num, bin_param{:}};
-  t_hists(test_num) = histogram(params{:});
+  t_hists(test_num, :) = histogram(params{:});
 end

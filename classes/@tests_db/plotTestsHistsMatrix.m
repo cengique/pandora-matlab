@@ -5,20 +5,20 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 % Usage:
 % a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 %
+% Parameters:
+%   a_db: One or more params_tests_db object. Multiple databases in an
+%	  array will produce vertical stacks.
+%   title_str: (Optional) A string to be concatanated to the title.
+%   props: A structure with any optional properties, passed to plot_abstract.
+%     orient: Orientation of the plot_stack. 'x', 'y', or 'matrix' (default).
+%     histBins: Number of histogram bins.
+%     quiet: Don't put the DB id on the title.
+% 
+% Returns:
+%   a_pm: A plot_stack with the plots organized in matrix form.
+%
 % Description:
 %   Skips the 'ItemIndex' test.
-%
-%   Parameters:
-%	a_db: A params_tests_db object.
-%	title_str: (Optional) A string to be concatanated to the title.
-%	props: A structure with any optional properties, passed to plot_abstract.
-%	  orient: Orientation of the plot_stack. 'x', 'y', or 'matrix' (default).
-%	  histBins: Number of histogram bins.
-%	  quiet: Don't put the DB id on the title.
-%	  axisLimits: Only x-ranges are used from this expression.
-% 
-%   Returns:
-%	a_pm: A plot_stack with the plots organized in matrix form
 %
 % See also: params_tests_profile, plotVar
 %
@@ -31,6 +31,11 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
+
+% TODO:
+%     plotProps: Props passed to individual plots.
+%     stackProps: Passed to vertical plot stacks. From axisLimits, only
+%     		  y-ranges are overwritten with maximal found from db.
 
 if ~ exist('title_str', 'var')
   title_str = '';
@@ -59,10 +64,10 @@ if num_dbs > 1
   hists_cell = testsHists(hist_pars{:});
   [all_pm(1:num_tests)] = deal(plot_stack);
   for test_num=1:num_tests
-    plots = plot_abstract(hists_cell{test_num}, '', ...
+    plots = plot_abstract(hists_cell(test_num, :), '', ...
 			  mergeStructs(props, struct('rotateXLabel', 10)));
     % find maximal y-axis value
-    hists = hists_cell{test_num};
+    hists = hists_cell(test_num, :);
     max_val = -Inf;
     for db_num=1:num_dbs
       max_val = max(max_val, ...
@@ -71,15 +76,16 @@ if num_dbs > 1
     end
 
     if test_num == 1
-      extra_props = struct('xLabelsPos', 'bottom', 'yLabelsPos', 'left');
+      extra_props = struct('xLabelsPos', 'bottom', 'yTicksPos', 'left', ...
+                           'yLabelsPos', 'left');
     else
-      extra_props = struct('xLabelsPos', 'bottom', 'yLabelsPos', 'none');
+      extra_props = struct('xLabelsPos', 'bottom', 'yTicksPos', 'none', 'yLabelsPos', 'none');
     end
 
     if isfield(props, 'axisLimits')
       axis_limits = props.axisLimits;
     else
-      axis_limits = repmat(NaN, 1, 4);
+      axis_limits = repmat(Inf, 1, 4);
     end
     axis_limits(3:4) = [0 max_val];
 
@@ -88,25 +94,24 @@ if num_dbs > 1
 				  mergeStructs(props, extra_props));
   end
   % final horizontal stack
-  a_pm = plot_stack(all_pm, [], 'x', ...
+  a_pm = plot_stack(num2cell(all_pm), [], 'x', ...
 		   all_title, mergeStructs(props, extra_props));
+else % num_dbs > 1
+  plots = plot_abstract(testsHists(hist_pars{:}), '', ...
+                        mergeStructs(props, struct('rotateXLabel', 10)));
   
-else
-plots = plot_abstract(testsHists(hist_pars{:}), '', ...
-		      mergeStructs(props, struct('rotateXLabel', 10)));
+  if isfield(props, 'orient') && strcmp(props.orient, 'x')  
+    extra_props = struct('yLabelsPos', 'left');
+  else
+    extra_props = struct;
+  end
 
-if isfield(props, 'orient') && strcmp(props.orient, 'x')  
-  extra_props = struct('yLabelsPos', 'left');
-else
-  extra_props = struct;
-end
-
-if isfield(props, 'orient') && (strcmp(props.orient, 'x')  || ...
-				strcmp(props.orient, 'y'))
-  a_pm = plot_stack(plots, [], props.orient, ...
-		   all_title, mergeStructs(props, extra_props));
-else
-  a_pm = matrixPlots(plots, {}, all_title, props);
-end
+  if isfield(props, 'orient') && (strcmp(props.orient, 'x')  || ...
+                                  strcmp(props.orient, 'y'))
+    a_pm = plot_stack(plots, [], props.orient, ...
+                      all_title, mergeStructs(props, extra_props));
+  else
+    a_pm = matrixPlots(plots, {}, all_title, props);
+  end
 
 end
