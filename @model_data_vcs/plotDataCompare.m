@@ -19,6 +19,8 @@ function a_p = plotDataCompare(a_md, title_str, props)
 %     colorLevels: Cycle colors every this number.
 %     axisLimits: Set current traces to these limits unless 'zoom' prop
 %     	    is specified.
+%     iLimits: If specified, override axisLimits y-axis values with these
+%     	    only for the data plot (not the subtraction plot).
 % 
 % Returns:
 %   a_p: A plot_abstract object.
@@ -44,9 +46,15 @@ if ~ exist('title_str', 'var')
 end
 
 skip_step = getFieldDefault(props, 'skipStep', 0);
+label_zoom = '';
+
+if isfield(props, 'quiet')
+  all_title = title_str;
+else
+  all_title = [ a_md.id label_zoom title_str ];
+end
 
 % zoom to act/inact portions of data
-label_zoom = '';
 if isfield(props, 'zoom')
   if strcmp(props.zoom, 'act')
     axis_limits = [getTimeRelStep(a_md.data_vc, 1 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
@@ -61,14 +69,24 @@ if isfield(props, 'zoom')
 elseif isfield(props, 'axisLimits')
     props.xTicksPos = 'bottom'; % if fixed axis, do not repeat x ticks
     axis_limits = props.axisLimits; 
+    if size(props.axisLimits, 1) > 1
+      % make an X-stack of several plots with different zooms into specified axisLimits
+      data_ps = {};
+      for limit_num = 1:size(props.axisLimits, 1)
+        % recurse
+        data_ps{limit_num} = ...
+            plotDataCompare(a_md, title_str, ...
+                            mergeStructs(rmfield(props, 'axisLimits'), ...
+                                         struct('showSub', 1, 'showV', 1, ...
+                                                'axisLimits', props.axisLimits(limit_num, :))));
+      end
+      a_p = plot_stack(data_ps, [], 'x', all_title, ...
+                          struct('yLabelsPos', 'left', 'yTicksPos', ...
+                                 'left', 'noTitle', 1));
+      return;
+    end
 else
     axis_limits = [NaN NaN NaN NaN]; 
-end
-
-if isfield(props, 'quiet')
-  all_title = title_str;
-else
-  all_title = [ a_md.id label_zoom title_str ];
 end
 
 color_num_levels = getFieldDefault(props, 'colorLevels', size(a_md.data_vc.v_steps, 2));
@@ -83,7 +101,9 @@ end
 
 data_props = ...
     struct('onlyPlot', 'i', ...
-           'axisLimits', axis_limits, ... % 'noLegends', 1, ...
+           'axisLimits', ...
+           [ axis_limits(1:2) ...
+             getFieldDefault(props, 'iLimits', axis_limits(3:4))], ... % 'noLegends', 1, ...
            'ColorOrder', line_colors);
 
 model_props = ...
@@ -99,13 +119,18 @@ if size(a_md.data_vc.data, 2) == 1
       mergeStructs(struct('label', 'model'), model_props);
 end
 
+plot_props = props;
+if isfield(props, 'axisLimits')
+  plot_props = rmfield(plot_props, 'axisLimits');
+end
+
 a_p = ...
     plot_superpose({...
       plot_abstract(a_md.data_vc, all_title, ...
                     data_props), ...
       plot_abstract(a_md.model_vc, '', ...
                     model_props)}, {}, '', ...
-                   mergeStructs(props, struct('noCombine', 1, 'noTitle', 1, ...
+                   mergeStructs(plot_props, struct('noCombine', 1, 'noTitle', 1, ...
                                               'fixedSize', [4 3])));
 plots = { a_p };
 sizes = [ 3 ] ;
