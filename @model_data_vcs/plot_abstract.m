@@ -21,6 +21,8 @@ function a_p = plot_abstract(a_md, title_str, props)
 %     	    is specified. If it has multiple rows, create multiple data
 %     	    plots for each set of limits.
 %     vLimits: If given, limit all voltage plot X axes to these.
+%     iLimits: If specified, override axisLimits y-axis values with these
+%     	    only for the data plot (not the subtraction plot).
 % 
 % Returns:
 %   a_p: A plot_abstract object.
