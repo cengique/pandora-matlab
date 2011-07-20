@@ -51,6 +51,21 @@ else
   if ~ exist('props', 'var')
     props = struct;
   end
+
+  % load data if necessary
+  if ischar(data_vc)
+    [pathstr, filename, ext] = fileparts(data_vc);
+    if strcmpi(ext, '.abf')
+      data_vc = ...
+          abf2voltage_clamp(data_vc, [ ', ' name]);
+      elseif strcmpi(ext, '.mat')
+        s = load(data_vc);
+        data_vc = s.sub_vc;
+    else
+      error([ 'Format of data file ''' data_vc ''' not recognized. Only know ' ...
+              '.MAT or .ABF files.']);
+    end
+  end
   
   a_md = struct;
   a_md.model_f = model_f;
