@@ -47,7 +47,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 
   
 props = defaultValue('props', struct);
-min_resnorm = getFieldDefault(props, 'minResnorm', 0.001);
+min_resnorm = getFieldDefault(props, 'minResnorm', 0.002);
 min_Re = getFieldDefault(props, 'minRe', 50);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
@@ -90,8 +90,7 @@ if pas_res.gL > 0.025
                       'errors for gL and offset parameters.']);
 end
 
-% TODO: maybe allow small negative delays? Implement in param_Re_Ce_cap_leak_act_int_t
-delay = max(0, calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx))));
+delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
 
 if isfield(props, 'compCap')
   if length(props.compCap) > 1 % with Re
@@ -130,6 +129,9 @@ end
                                mergeStructs(struct('traceNum', ...
                                                   pas_vsteps_idx(largest_step_idx), ...
                                                   'delay', delay), pas_res))); 
+
+% TODO: maybe allow small negative delays? Implement in param_Re_Ce_cap_leak_act_int_t
+delay = max(0, delay);
 
 if verbose
   pas_res, Re, Cm, delay
