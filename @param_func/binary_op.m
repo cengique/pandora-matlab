@@ -39,7 +39,7 @@ pf_objs = struct;
 result_obj = ...
     param_mult(get(pf_obj, 'var_names'), [], {}, ...
                pf_objs, ...
-               eval([ '@(fs, p, x) feval(op_func, ' func_left ', ' ...
+               eval([ '@(fs, p, x) ' func2str(op_func) '(' func_left ', ' ...
                     func_right ')']), ...
                ['(' left_name '' op_id '' right_name ')'], ...
                props);
@@ -56,8 +56,14 @@ if isa(op_obj, 'param_func')
   name = get(op_obj, 'id');
 elseif isnumeric(op_obj)
   % is a scalar
-  func = 'right_obj';
-  name = num2str(right_obj); % if this doesn't work: 'a constant'
+  func = [ left_right '_obj' ];
+  name = 'a constant';
+  if max(size(right_obj)) < 2
+    try
+      name = num2str(right_obj); % if this doesn't work: 'a constant'
+    catch
+    end
+  end
 else
   disp([ 'Cannot use in "' op_id '" operation:']);
   disp(class(op_obj));
