@@ -13,12 +13,15 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 %     orient: Orientation of the plot_stack. 'x', 'y', or 'matrix' (default).
 %     histBins: Number of histogram bins.
 %     quiet: Don't put the DB id on the title.
+%     plotProps: Props passed to individual plots.
+%     stackProps: Passed to vertical plot stacks.
 % 
 % Returns:
 %   a_pm: A plot_stack with the plots organized in matrix form.
 %
 % Description:
-%   Skips the 'ItemIndex' test.
+%   Skips the 'ItemIndex' test. If no axisLimits is given in stackProps, 
+% y-ranges are the maximal found from db.
 %
 % See also: params_tests_profile, plotVar
 %
@@ -26,16 +29,13 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/17
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2011 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
 % TODO:
-%     plotProps: Props passed to individual plots.
-%     stackProps: Passed to vertical plot stacks. From axisLimits, only
-%     		  y-ranges are overwritten with maximal found from db.
 
 if ~ exist('title_str', 'var')
   title_str = '';
@@ -44,6 +44,8 @@ end
 if ~ exist('props', 'var')
   props = struct;
 end
+
+stack_props = getFieldDefault(props, 'stackProps', struct);
 
 if isfield(props, 'histBins')
   hist_pars = {a_db, props.histBins};
@@ -65,7 +67,9 @@ if num_dbs > 1
   [all_pm(1:num_tests)] = deal(plot_stack);
   for test_num=1:num_tests
     plots = plot_abstract(hists_cell(test_num, :), '', ...
-			  mergeStructs(props, struct('rotateXLabel', 10)));
+			  mergeStructs(getFieldDefault(props, 'plotProps', ...
+                                                              struct), ...
+                                       struct('rotateXLabel', 10)));
     % find maximal y-axis value
     hists = hists_cell(test_num, :);
     max_val = -Inf;
@@ -75,27 +79,38 @@ if num_dbs > 1
 			    'data'), [], 1));
     end
 
-    if test_num == 1
-      extra_props = struct('xLabelsPos', 'bottom', 'yTicksPos', 'left', ...
-                           'yLabelsPos', 'left');
-    else
-      extra_props = struct('xLabelsPos', 'bottom', 'yTicksPos', 'none', 'yLabelsPos', 'none');
-    end
+      extra_props = ...
+          mergeStructs(stack_props, struct('xLabelsPos', 'bottom', 'xTicksPos', 'bottom'));
 
-    if isfield(props, 'axisLimits')
-      axis_limits = props.axisLimits;
+      % no need for this, controlled by final stack props
+% $$$     if test_num == 1
+% $$$     else
+% $$$       extra_props = ...
+% $$$           mergeStructs(stack_props, struct('xLabelsPos', 'bottom', 'xTicksPos', 'bottom', ...
+% $$$                                            'yLabelsPos', 'none'));
+% $$$       % Change to 'none' if 'yTicksPos'='left' is given in stackProps
+% $$$       if strcmp(getFieldDefault(stack_props, 'yTicksPos', ''), 'left')
+% $$$         extra_props = ...
+% $$$             mergeStructs(struct('yTicksPos', 'none'), extra_props);
+% $$$       end
+% $$$     end
+
+    if isfield(stack_props, 'axisLimits')
+      axis_limits = stack_props.axisLimits;
     else
       axis_limits = repmat(Inf, 1, 4);
+      axis_limits(3:4) = [0 max_val];
     end
-    axis_limits(3:4) = [0 max_val];
 
     % vertical histogram stack for each test
     all_pm(test_num) = plot_stack(plots, axis_limits, 'y', '', ...
-				  mergeStructs(props, extra_props));
+				  extra_props);
   end
   % final horizontal stack
   a_pm = plot_stack(num2cell(all_pm), [], 'x', ...
-		   all_title, mergeStructs(props, extra_props));
+                    all_title, mergeStructs(props, ...
+                                            struct('xLabelsPos', 'bottom', 'xTicksPos', 'bottom', ...
+                                                   'yLabelsPos', 'left')));
 else % num_dbs > 1
   plots = plot_abstract(testsHists(hist_pars{:}), '', ...
                         mergeStructs(props, struct('rotateXLabel', 10)));
