@@ -38,7 +38,8 @@ function ps = ...
 %
 % Description:  
 %   Base class for a minimal set of parameters that stand for a single
-% function of a single variable, y = f(x). This is intended for describing
+% function of a single variable, y = f(p, x), where p is a structure that
+% holds the function parameters. This is intended for describing
 % functions like m_inf and tau_inf curves. Uses tests_db to store
 % parameter name and values.
 %   If props.direct = 0 and paramRanges are given, saves parameters as value
