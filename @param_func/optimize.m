@@ -10,8 +10,13 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 %   inp_data, out_data: Input data to feed into function and output data
 %     to compare its output with, respectively.
 %   props: A structure with any optional properties.
+%     normalize: If 1, normalize out_data and function output before comparison.
 %     optimset: optimization toolbox parameters supercedes defaults.
-%     optimmethod: Matlab optimizer to use: 'lsqcurvefit' (default), 'ktrlink'
+%     optimAeq,optimbeq: Matrix Aeq and vector beq for specifying
+%     		equality constraints (see fmincon).
+%     optimmethod: Matlab optimizer to use: 'lsqcurvefit' (default),
+%     		   'ktrlink' (requires external libraries), 'fmincon'
+%     		   (requires Optimization Toolbox).
 %     fitOutRange: Two-element vector denoting the data range to optimize
 %     		for[dt]. Multiple rows indicate different ranges to combine.
 %
@@ -35,8 +40,6 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% TODO: add the 'fmincon' optimizer that allows choosing different
-% algorithms and equality constraints
 
 if ~ exist('props', 'var')
   props = struct;
@@ -68,6 +71,13 @@ else
   error_func_lsq = ...
       @(p, x) f(setParams(a_ps, p, struct('onlySelect', 1)), x);
 end
+
+if isfield(props, 'normalize')
+  out_data = normdata(out_data);
+  error_func_lsq = ...
+      @(p, x) normdata(error_func_lsq(p, x));
+end
+
 error_func_sse = ...
     @(p) sum(sum((error_func_lsq(p, inp_data) - out_data).^2));
 
@@ -99,6 +109,20 @@ tic;
           ktrlink(error_func_sse, par', [], [], [], [], ...
                       param_ranges(1, :), param_ranges(2, :), ...
                       [], optimset_props);
+      jacobian = NaN;
+      residual = NaN;
+    case 'fmincon'
+      % allows choosing different algorithms and equality constraints
+      % TODO: function needs to return gradient and Hessian to take full
+      % advantage of optimizer
+      [par, resnorm, exitflag, output, lambda, grad, hessian] = ...
+          fmincon(error_func_sse, par', [], [], ...
+                  getFieldDefault(props, 'optimAeq', []), ...
+                  getFieldDefault(props, 'optimbeq', []), ...
+                      param_ranges(1, :), param_ranges(2, :), ...
+                      [], optimset_props);
+      jacobian = hessian;
+      residual = NaN;
   end
 
 toc
@@ -157,3 +181,11 @@ a_ps = setProp(a_ps, 'relConfInt', db');
 
 % set back fitted parameters
 a_ps = setParams(a_ps, par, struct('onlySelect', 1));
+
+end
+
+% normalization function
+function output_data = normdata(input_data)
+max_data = max(max(abs(input_data)));
+output_data = input_data ./ max_data;
+end
