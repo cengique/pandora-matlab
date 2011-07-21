@@ -66,8 +66,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
   
   % physiologic parameter ranges
   param_ranges = ...
-      [ eps eps eps -100 eps 0  -.2;...
-        1e3 1e3 1e3 -50 1e3  10  .2];
+      [ eps eps eps -120 eps 0  -.2;...
+        1e3 1e3 1e3 30 1e3  10  .2];
   
   Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
   
