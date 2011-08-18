@@ -1,4 +1,4 @@
-function y = f(a_ps, x)
+function [y outs] = f(a_ps, x)
 
 % f - Evaluates the function at point x.
 %
@@ -29,4 +29,11 @@ function y = f(a_ps, x)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-y = feval(get(a_ps, 'func'), mergeStructs(struct('this', a_ps), a_ps.f), getParamsStruct(a_ps.param_func), x);
+if nargout > 1
+  [y outs] = ...
+      feval(get(a_ps, 'func'), mergeStructs(struct('this', a_ps), a_ps.f), ...
+            getParamsStruct(a_ps.param_func), x);
+else
+  y = feval(get(a_ps, 'func'), mergeStructs(struct('this', a_ps), a_ps.f), ...
+            getParamsStruct(a_ps.param_func), x);
+end

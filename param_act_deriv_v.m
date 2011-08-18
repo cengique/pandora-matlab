@@ -11,6 +11,7 @@ function a_pf = param_act_deriv_v(ap_inf_v, ap_tau_v, id, props)
 %   props: A structure with any optional properties.
 %     name: Variable name to use in solver (will be superceded by
 %     	    param_mult name of this object).
+%     VmName: Use this solver variable for voltage signal.
 %     (Rest passed to param_func)
 %		
 % Returns a structure object with the following fields:
@@ -62,22 +63,22 @@ function dval = act_func_deriv(fs, p, x)
   error('This function doesn''t exist anymore!');
 end
 
-  function dfunc_str = deriv_func(fs, s)
-    fs_props = get(fs.this, 'props');
-    if isfield(fs_props, 'VmName')
-      % this can be made faster if getVal is not used
-      v_str = [ 'getVal(s, ''' fs_props.Vm ''')' ];
-    else
-      v_str = 'x.v';
-    end
-    props = get(fs.this, 'props');
-    if isempty(s)
-      % return function that initiates integration
-      dfunc_str = [ '@(p, x) squeeze(integrate(fs.this, x, props))' ];
-    else
-      % return derivative (fs binds to the instance here)
-      dfunc_str = [ '@(p, x) (f(fs.inf, ' v_str ') - getVal(x.s, ''' props.name ''')) ./ ' ...
-                    'f(fs.tau, ' v_str ')' ]; 
-    end
+function dfunc_str = deriv_func(fs, s)
+  fs_props = get(fs.this, 'props');
+  if isfield(fs_props, 'VmName')
+    % this can be made faster if getVal is not used
+    v_str = [ 'getVal(x.s, ''' fs_props.VmName ''')' ];
+  else
+    v_str = 'x.v';
   end
+  props = get(fs.this, 'props');
+  if isempty(s)
+    % return function that initiates integration
+    dfunc_str = [ '@(p, x) squeeze(integrate(fs.this, x, props))' ];
+  else
+    % return derivative (fs binds to the instance here)
+    dfunc_str = [ '@(p, x) (f(fs.inf, ' v_str ') - getVal(x.s, ''' props.name ''')) ./ ' ...
+                  'f(fs.tau, ' v_str ')' ]; 
+  end
+end
 end

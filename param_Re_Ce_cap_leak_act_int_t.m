@@ -1,7 +1,6 @@
 function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props) 
   
 % param_Re_Ce_cap_leak_int_t - Membrane capacitance and leak integrated over time with a model of electrode resistance and capacitance.
-% BROKEN: other integrated  variables in the solver only get Vc, not Vm.
 %
 % Usage:
 %   a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
@@ -72,7 +71,10 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
   Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
   
   funcs = ...
-      struct('I', setVmName(getFieldDefault(props, 'v_dep_I_f', param_func_nil(0)), Vm_name));
+      struct('I', ...
+             setVmName(getFieldDefault(props, 'v_dep_I_f', ...
+                                              param_func_nil(0)), ...
+                       Vm_name, struct('recursive', 1)));
 
   Re_is_func = false;
   if isfield(props, 'ReFunc')
@@ -90,7 +92,9 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         funcs, ...
         @mem_deriv, ...
         'Membrane derivative with Re', ...
-        mergeStructs(props, struct('isIntable', 1, 'name', Vm_name, 'paramRanges', param_ranges)));
+        mergeStructs(props, ...
+                     struct('isIntable', 1, 'name', Vm_name, ...
+                            'paramRanges', param_ranges)));
   
   a_pf = ...
       param_mult(...
@@ -119,8 +123,37 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
         (- (Vm - p.EL) * p.gL - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) + ...
          V_Re / Re ) / p.Cm;
   end
-        
-  function Im = cap_leak_int(fs, p, x)
+
+  function dVmdt_str = mem_deriv_str(fs, s)
+
+    props = get(fs.this, 'props');
+    Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
+
+    Vm = [ 'getVal(x.s, ' Vm_name ')'];
+    
+    % voltage over Re
+    V_Re = [ '(x.v  - ' Vm ')' ];
+
+    if Re_is_func
+      Re = [ 'f(fs.Re, abs(' V_Re '))' ];
+    else
+      Re = 'p.Re';
+    end
+    
+      if isempty(s)
+        % return function that initiates integration
+        dVmdt_str = [ '@(p, x) squeeze(integrate(fs.this, x, props))' ];
+      else
+        % return derivative (fs binds to the instance here)
+        dVmdt_str = ...
+            [ '@(p, x) (- (' Vm ' - p.EL) * p.gL - ' ...
+              'f(fs.I, struct(''t'', x.t, ''v'', ' Vm ', ''dt'', x.dt, ' ...
+              '''s'', x.s)) + ' V_Re ' / ' Re ') / p.Cm' ];
+      end
+
+  end
+
+  function [Im outs] = cap_leak_int(fs, p, x)
     Vc = x.v;
     dt = x.dt;
     s = getFieldDefault(x, 's', []);
@@ -191,13 +224,26 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
 % $$$     disp(['V_Re min= ' num2str(min(min(abs(V_Re)))) ', max=' ...
 % $$$           num2str(max(max(abs(V_Re)))) ])
         
+    I_Ce = ...
+        Vm_p.Ce * [repmat(Vc_delay(1, :), 1, 1); diff(Vc_delay)] / dt;
+    
     % after solving Vm, return total input current
-    Im = Vm_p.offset + ...
-         Vm_p.Ce * [repmat(Vc_delay(1, :), 1, 1); diff(Vc_delay)] / dt ...
-         + V_Re ./ Re;
+    Im = Vm_p.offset + I_Ce + V_Re ./ Re;
     
     % crop the prepended fixed_delay
     Im = Im((fixed_delay + 1):end, :);
+    
+    if nargout > 1
+      outs = ...
+          cell2struct(mat2cell(cat(3, I_Ce((fixed_delay + 1):end, :), ...
+                                   permute(var_int((fixed_delay + 1):end, :, :), ...
+                                           [1 3 2])), ...
+                               size(var_int((fixed_delay + 1):end, :), 1), ...
+                               size(var_int, 3), ...
+                               ones(1, size(var_int, 2) + 1)), ...
+                      [ 'ICe'; fieldnames(s.vars)], 3);
+      
+    end
   end
 
 end
