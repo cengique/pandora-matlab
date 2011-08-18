@@ -10,6 +10,7 @@ function a_md = updateModel(a_md, model_f, props)
 %   model_f: (optional) param_func or subclass object that holds the new
 %   	     model function. If not given, existing model is simulated.
 %   props: A structure with any optional properties.
+%	   (passed to voltage_clamp/simModel)
 %		
 % Returns:
 %   a_md: Updated object.
@@ -32,4 +33,4 @@ if ~ exist('props', 'var')
 end
 
 a_md.model_f = defaultValue('model_f', a_md.model_f);
-a_md.model_vc = simModel(a_md.data_vc, a_md.model_f);  % simulate model
+a_md.model_vc = simModel(a_md.data_vc, a_md.model_f, props);  % simulate model
