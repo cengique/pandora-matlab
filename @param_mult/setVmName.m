@@ -40,8 +40,8 @@ if isfield(props, 'recursive')
   fs_names = fieldnames(a_m.f);
   for f_num = 1:length(fs_names)
     a_m.f.(fs_names{f_num}) = ...
-      setProp(a_m.f.(fs_names{f_num}), 'VmName', name);  
+      setVmName(a_m.f.(fs_names{f_num}), name, props);  
   end
 end
 
-a_m.param_func = setVmName(a_m.param_func, name);
+a_m.param_func = setVmName(a_m.param_func, name, props);
