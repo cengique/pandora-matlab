@@ -12,6 +12,7 @@ function model_vc = simModel(a_vc, f_I_v, props)
 %     delay: If given, use as voltage clamp delay [ms].
 %     levels: Only simulate these voltage level indices.
 %     period: Limit the simulation to this period of a_vc.
+%     updateVm: If 1, update v trace from simulation Vm. 
 %		
 % Returns:
 %   model_vc: A voltage_clamp object with simulated current data and
@@ -71,11 +72,21 @@ end
 % model data in vc
 model_vc = a_vc;
 
+if isfield(props, 'updateVm')
+  [Im outs] = f(f_I_v, ...
+                struct('v', data_v(max(1, range_steps - round(v_delay/dt)), ...
+                                   : ), 'dt', dt));
+  model_vc.v = set(model_vc.v, 'data', outs.Vm);
+  % return all integrated variables
+  model_vc = setProp(model_vc, 'intOuts', outs);
+else
+  Im = f(f_I_v, ...
+         struct('v', data_v(max(1, range_steps - round(v_delay/dt)), ...
+                            : ), 'dt', dt));
+end
+
 % integrate current for selected voltage steps
-model_vc.i = ...
-    set(model_vc.i, 'data', ...
-                    f(f_I_v, struct('v', data_v(max(1, range_steps - round(v_delay/dt)), ...
-                                                : ), 'dt', dt)));
+model_vc.i = set(model_vc.i, 'data', Im);
 
 % set a name
 model_vc = set(model_vc, 'id', [ 'sim ' get(f_I_v, 'id') ]);
