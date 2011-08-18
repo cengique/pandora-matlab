@@ -6,8 +6,10 @@ function a_md = model_data_vcs(model_f, data_vc, id, props)
 % a_md = model_data_vcs(model_f, data_vc, id, props)
 %
 % Parameters:
-%   model_f: A param_func object with the model.
-%   data_vc: A voltage_clamp object with the data.
+%   model_f: Model as a param_func object or a NeuroFit file name. 
+%	     Make sure to specify required param_I_Neurofit props below. 
+%   data_vc: Data as a voltage_clamp object directly or in a MAT file or
+%   	     from an ABF file.
 %   id: Identification string.
 %   props: A structure with any optional properties.
 %
@@ -52,6 +54,25 @@ else
     props = struct;
   end
 
+  % load model if necessary
+  if ischar(model_f)
+    [pathstr, filename, ext] = fileparts(model_f);
+    if strcmpi(ext, '.txt')
+      % assume Neurofit filename
+      model_f = ...
+          param_I_Neurofit(paramsNeurofit(model_f), ...
+                           'I', ...
+                           mergeStructs(props, ...
+                                        struct('tauDt', 1, 'gmaxDS', 1e-6, ...
+                                               'parfor', 1)));
+    elseif strcmpi(ext, '.mat')
+        model_f = getfield(load(model_f), 'a_model');
+    else
+      error(['Model data file ''' model_f ''' not recognized. Only Neurofit ' ...
+             'reports (.txt) and Matlab (.mat) files accepted.']);
+    end
+  end
+  
   % load data if necessary
   if ischar(data_vc)
     [pathstr, filename, ext] = fileparts(data_vc);
@@ -69,7 +90,7 @@ else
   
   a_md = struct;
   a_md.model_f = model_f;
-  a_md.model_vc = simModel(data_vc, model_f);  % simulate model
+  a_md.model_vc = simModel(data_vc, model_f, props);  % simulate model
   a_md.data_vc = data_vc;
   a_md.id = defaultValue('id', [ get(a_md.model_f, 'id') ' vs. ' get(a_md.data_vc, 'id')]);
   a_md.props = props;
