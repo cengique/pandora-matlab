@@ -35,8 +35,10 @@ if ~ exist('title_str', 'var')
 end
 
 % find the current (I) object
-if isfield(a_md.model_f.f, 'I')
-  I = a_md.model_f.I;
+if isfield(a_md.model_f.f, 'Vm')
+    I = a_md.model_f.Vm.I;
+elseif isfield(a_md.model_f.f, 'I')
+    I = a_md.model_f.I;
 else
   I = a_md.model_f;
 end
