@@ -3,7 +3,7 @@ function f_handle = fHandle(a_ps, s)
 % fHandle - Return a handle to function with fixed parameters.
 %
 % Usage:
-%   f_handle = fHandle(a_ps)
+%   f_handle = fHandle(a_ps, s)
 %
 % Parameters:
 %   a_ps: A param_mult object.
@@ -15,7 +15,8 @@ function f_handle = fHandle(a_ps, s)
 % Description:
 %
 % Example:
-%   >> f_h = fHandle(a_ps)
+%   >> s = solver_int();
+%   >> f_h = fHandle(a_ps, s)
 %   >> a = f_h(x)
 %
 % See also: param_mult, function_handle
@@ -47,7 +48,7 @@ num_funcs = length(f_names);
 f_ps = struct2cell(a_ps.f)';
 for f_num = 1:num_funcs
   a_f = f_ps{f_num};
-  a_struct.(f_names{f_num}) = param_func_compiled(fHandle(a_f), get(a_f, 'id'));
+  a_struct.(f_names{f_num}) = param_func_compiled(fHandle(a_f, s), get(a_f, 'id'));
 end
 
 if isfield(props, 'fHandle')
