@@ -53,8 +53,8 @@ time = (0:(size(data_i, 1)-1))*dt;
 num_mags = size(data_v, 2);
 
 % 2 ms delay after steps to look for next
-step_delay = getFieldDefault(props, 'timeBefore', 2) / dt; 
-step_dur = getFieldDefault(props, 'timeAvg', 2) / dt; 
+step_delay = round(getFieldDefault(props, 'timeBefore', 2) / dt); 
+step_dur = round(getFieldDefault(props, 'timeAvg', 2) / dt); 
 
 thr = abs(max(max(data_t))/20);
 
@@ -77,7 +77,7 @@ assert(num_steps > 0, 'No steps found in data!');
 v_steps = repmat(NaN, num_steps + 1, num_mags);
 i_steps = repmat(NaN, num_steps, num_mags);
 for step_num = 1:num_steps
-  step_time = time_steps(step_num);
+  step_time = round(time_steps(step_num));
   step_range = ...
       max(step_time - step_delay - step_dur, 1) : (step_time - step_delay);
   v_steps(step_num, :) = ...
