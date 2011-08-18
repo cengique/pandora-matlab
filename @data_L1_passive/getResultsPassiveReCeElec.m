@@ -14,12 +14,13 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
 %     minResnorm: Lowest resnorm to accept (default=0.001).
-%     minRe: Lowest Re value accepted.
+%     minRe: Lowest Re value accepted (default=50MO).
 %     compCap: Emulate compensation of this much capacitance [pF].
 %     initCe: Initial value for Ce [pF].
 %     unitCap: Units of capacitance, such as 'nF' and 'pF' (default).
 %     unitCond: Units of conductance, such as 'uS' and 'nS' (default).
 %     unitRes: Units of resistance, such as 'kO' and 'MO' (default).
+%     passiveV: limit below which traces are only passive (default=-55mV)
 %
 % Returns:
 %   Re: Series resistance [MOhm].
@@ -66,7 +67,8 @@ if nargin == 0 % Called with no params or empty object
 end
 
 % first find levels < -55 mV
-pas_vsteps_idx = find(pas.data_vc.v_steps(step_num, :) < -55 & pas.data_vc.v_steps(step_num + 1, :) < -55);
+pas_level = getFieldDefault(props, 'passiveV', -55);
+pas_vsteps_idx = find(pas.data_vc.v_steps(step_num, :) < pas_level & pas.data_vc.v_steps(step_num + 1, :) < pas_level);
 % discretize to 1 mV steps 
 quant_steps = ...
     quant(pas.data_vc.v_steps([step_num step_num+1], pas_vsteps_idx)', ...
