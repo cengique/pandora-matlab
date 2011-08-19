@@ -28,9 +28,7 @@ function a_md = updateModel(a_md, model_f, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/14
 
-if ~ exist('props', 'var')
-  props = struct;
-end
+props = mergeStructs(defaultValue('props', struct), get(a_md, 'props'));
 
 a_md.model_f = defaultValue('model_f', a_md.model_f);
 a_md.model_vc = simModel(a_md.data_vc, a_md.model_f, props);  % simulate model
