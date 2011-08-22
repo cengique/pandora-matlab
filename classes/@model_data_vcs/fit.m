@@ -245,6 +245,8 @@ if ~ isempty(use_levels)
 
   % save before optimization
   f_model_orig = f_model;
+
+  % TODO: models are unitless, but we should have units and use vc.dy here
   
   % optimize
   f_model = ...
