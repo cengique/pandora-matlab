@@ -74,6 +74,9 @@ switch (unit_y)
         curunit = 'nA';
       case 1e-12
         curunit = 'pA';
+      case 1e-15
+        curunit = 'pA';
+        scale_y = 1e12;
       case 1e-6
         curunit = '\mu{}A'; 
       otherwise
