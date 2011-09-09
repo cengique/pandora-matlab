@@ -154,7 +154,8 @@ if nargin == 0 % Called with no params
                           '', {}, 'bar', props)};
      end
 
-     if ~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1
+     if (~isfield(props, 'dispErrorbars') || props.dispErrorbars == 1) && ...
+           ~ isempty(lo_vals) && ~ isempty(hi_vals)
        plot_components = ...
 	   {plot_components{:}, ...
 	    plot_abstract({group_locs, mid_vals(:,plot_num), ...
@@ -162,7 +163,8 @@ if nargin == 0 % Called with no params
 			  {x_labels{plot_num}, y_labels{plot_num}}, '', {title_str}, 'errorbar', props)};
      end
 
-     if ~isfield(props, 'dispNvals') || props.dispNvals == 1
+     if (~isfield(props, 'dispNvals') || props.dispNvals == 1) && ...
+           ~ isempty(n_vals)
        if size(n_vals, 2) ~= num_plots
          error(['Argument n_vals does not have ' num2str(num_plots) ' elements.']);
        end

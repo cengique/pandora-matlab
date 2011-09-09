@@ -5,8 +5,6 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 % Usage:
 % a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %
-% Description:
-%
 %   Parameters:
 %	a_db: A tests_db object.
 %	test1, test2: X & Y variables.
@@ -19,6 +17,10 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %		
 %   Returns:
 %	a_p: A plot_abstract.
+%
+% Description:
+%   If 'warning on verbose' is issued before this, it will display
+% regression statistics: R^2, F, p, and the error variance.
 %
 % See also: plotScatter3D, plotImage
 %
