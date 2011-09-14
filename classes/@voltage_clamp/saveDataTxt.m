@@ -15,7 +15,7 @@ function saveDataTxt(a_vc, props)
 %
 % Description:
 %   File will be written to the same directory as the original vc was
-% loaded from.
+% loaded from (using the value of props.filename).
 %
 % Example:
 % >> saveDataTxt(a_vc)
