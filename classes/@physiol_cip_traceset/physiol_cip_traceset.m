@@ -28,7 +28,7 @@ function obj = physiol_cip_traceset(trace_str, data_src, ...
 %	  nsHDF5: For NeuroSAGE HDF5 files, processing is faster if the output
 %	  	  of ns_open_file is given here. Must be defined to allow
 %	  	  special NeuroSAGE processing.
-%	  profile_class_name: Use this cip_trace function to return a
+%	  profile_method_name: Use this cip_trace method to return a
 %	  		profile (Default: 'getProfileAllSpikes').
 %	  cip_list: Vector of cip levels to which the current trace will be matched.
 %	  (All other props are passed to cip_trace objects)
@@ -99,9 +99,13 @@ else
   if ~ exist('props', 'var')
     props = struct;
   end
-  
-  if ~ isfield(props, 'profile_class_name')
-    props.profile_class_name = 'getProfileAllSpikes';
+
+  if isfield(props, 'profile_class_name')
+    error('Prop "profile_class_name" is superceded with "profile_method_name"');
+  end
+
+  if ~ isfield(props, 'profile_method_name')
+    props.profile_method_name = 'getProfileAllSpikes';
   end
   
   if isfield(props, 'nsHDF5') || ~isempty(strfind(data_src, '.hdf5'))

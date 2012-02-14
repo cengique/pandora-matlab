@@ -37,7 +37,7 @@ function obj = physiol_cip_traceset_fileset(traceset_items, dt, dy, props)
 %	dt: time resolution [s].
 %	dy: y-axis resolution [V] or [A].
 %	props: A structure with any optional properties.
-%	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  profile_method_name: Use this cip_trace method (see physiol_cip_traceset).
 %	  nsHDF5: If 1, source is a NeuroSAGE HDF5 file. (see physiol_cip_traceset)
 %	  neuronIdStart: Start counting neuron_id's from this number.
 %	  (All other props are passed to physiol_cip_traceset and cip_trace objects)
@@ -81,6 +81,10 @@ elseif isa(traceset_items, 'physiol_cip_traceset_fileset') % copy constructor?
 else
   if ~ exist('props', 'var')
     props = struct;
+  end
+
+  if isfield(props, 'profile_class_name')
+    error('Prop "profile_class_name" is superceded with "profile_method_name"');
   end
 
   obj.neuron_idx = struct;

@@ -32,7 +32,11 @@ props = get(fileset, 'props');
 filename = getItem(fileset, file_index);
 fullname = fullfile(get(fileset, 'path'), filename);
 
-if ~ isfield(props, 'profile_class_name')
+if isfield(props, 'profile_class_name')
+  error('Property "profile_class_name" is superceded with "profile_method_name"');
+end
+
+if ~ isfield(props, 'profile_method_name')
   % Load a cip_trace_profile object
   a_cip_trace_profile = ...
       cip_trace_profile(fullname, get(fileset, 'dt'), get(fileset, 'dy'), ...
@@ -49,6 +53,6 @@ else
 			  get(fileset, 'props'));
   %disp('after reading');
   a_cip_trace_profile = ...
-      feval(props.profile_class_name, a_cip_trace);
+      feval(props.profile_method_name, a_cip_trace);
   %disp(['after profile' filename]);
 end

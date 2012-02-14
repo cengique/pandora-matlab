@@ -2588,7 +2588,7 @@ physiol_cip_traceset_fileset
 \end_layout
 
 \begin_layout LyX-Code
-                                  struct('profile_class_name', 
+                                  struct('profile_method_name', 
 \end_layout
 
 \begin_layout LyX-Code

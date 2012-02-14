@@ -21,7 +21,10 @@ function obj = ...
 %		Start and width of the pulse [dt]
 %	id: An identification string
 %	props: A structure with any optional properties.
-%	  profile_class_name: Use this profile class (Default: 'cip_trace_profile').
+%	  profile_method_name: Use this profile method that takes a
+%	  	cip_trace object and returns a results_profile class. It
+%	  	can be 'cip_trace_profile' (default, but outdated) or
+%	  	'getProfileAllSpikes' (more current).
 %	  (All other props are passed to cip_trace objects)
 %		
 %   Returns a structure object with the following fields:
@@ -68,12 +71,15 @@ else
     props = struct([]);
   end
 
+  if isfield(props, 'profile_class_name')
+    error('Prop "profile_class_name" is superceded with "profile_method_name"');
+  end
+  
   obj.pulse_time_start = pulse_time_start;
   obj.pulse_time_width = pulse_time_width;
 
   % Create the object 
   obj = class(obj, 'params_cip_trace_fileset', ...
 	      params_tests_fileset(file_pattern, dt, dy, id, props));
-
 end
 
