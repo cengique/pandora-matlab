@@ -10,7 +10,8 @@ function obj = spike_shape(t, s, props)
 %	spikes: A spikes object on trace.
 %
 % Description:
-%   Creates a spike_shape object.
+%   Creates a spike_shape object from averaged spikes. USE THIS ONLY IF
+% YOU WANT TO USE AVERAGED SPIKE SHAPES.
 %		
 % See also: spike_shape
 %
@@ -39,11 +40,16 @@ min_isi = min(getISIs(s));
 
 % Set min_isi to 0 if no ISI so that left, right don't become empty lists
 if isempty(min_isi)
-  min_isi = 0;
+  if ~isempty(s.times)
+    spike_time = s.times;
+  else
+    spike_time = NaN;
+  end
+  min_isi = 7e-3 / t.dt + length(t.data) - spike_time - floor(3e-3 / t.dt);
 end
 
 % Points from left side of peak, depends on the half minimal isi
-left = floor(min(5e-3 / t.dt, min_isi/2));
+left = floor(min(7e-3 / t.dt, min_isi/2));
 
 % Calculate right side accordingly
 % Add some more on the right side
