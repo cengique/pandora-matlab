@@ -24,7 +24,7 @@ function names_vals = parseGenesisFilename(raw_filename)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-[path, filename, ext, ver] = fileparts(raw_filename);
+[path, filename, ext] = fileparts(raw_filename);
 
 sep_indices = [ 0 strfind(filename, '_') ];
 

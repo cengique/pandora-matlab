@@ -94,7 +94,7 @@ else
     num_patterns = 1;
 
     % Separate filename components
-    [obj.path, name, ext, ver] = fileparts(file_pattern);
+    [obj.path, name, ext] = fileparts(file_pattern);
   end
 
   % Remove the last directory if the subdirs option is given
