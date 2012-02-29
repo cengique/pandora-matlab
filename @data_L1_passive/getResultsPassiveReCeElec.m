@@ -13,9 +13,10 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
 %     EL: Leak reversal (default=calculated).
-%     minResnorm: Lowest resnorm to accept (default=0.001).
+%     minResnorm: Lowest resnorm to accept (default=0.004).
 %     minRe: Lowest Re value accepted (default=50MO).
-%     compCap: Emulate compensation of this much capacitance [pF].
+%     compCap: Emulate compensation of this much capacitance [pF]. If
+%     	       there is a second index, it is series resistence [MO].
 %     initCe: Initial value for Ce [pF].
 %     unitCap: Units of capacitance, such as 'nF' and 'pF' (default).
 %     unitCond: Units of conductance, such as 'uS' and 'nS' (default).
@@ -29,7 +30,8 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 % Description:
 %   Integrates current response and divides by voltage difference to get
 % capacitance. Membrane charge time constant is series resistance times
-% capacitance. I=Cm*dV/dt+(V-EL)*gL
+% capacitance. I=Cm*dV/dt+(V-EL)*gL. Run it after 'warning on verbose' to get
+% detailed information.
 %
 % See also: 
 %
@@ -45,10 +47,9 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
-
   
 props = defaultValue('props', struct);
-min_resnorm = getFieldDefault(props, 'minResnorm', 0.002);
+min_resnorm = getFieldDefault(props, 'minResnorm', 0.004);
 min_Re = getFieldDefault(props, 'minRe', 50);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
@@ -81,11 +82,18 @@ pas_vsteps_idx = pas_vsteps_idx(yes_change_idx);
 % find distinct values (do not process multiple steps of same values)
 [pas_vsteps pas_vsteps_uidx] = ...
     unique(quant_steps, 'rows', 'first');
+if verbose
+disp(['Found unique Vsteps [mV]: ', ...
+      sprintf('%d -> %d, ', pas_vsteps(1, :), pas_vsteps(2, :))]);
+end
 [largest_step, largest_step_idx] = ...
     max(abs(diff(pas_vsteps, 1, 2)));
 pas_vsteps_idx = pas_vsteps_idx(pas_vsteps_uidx);
 
-pas_res = calcSteadyLeak(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
+assert(length(pas_vsteps_idx) > 0, 'No passive steps were found with given parameters.');
+
+pas_res = calcSteadyLeak(pas, struct('stepNum', step_num, ...
+                                     'traceNum', pas_vsteps_idx(largest_step_idx)));
 
 if pas_res.gL > 0.025
   warning(['gL = ' num2str(pas_res.gL) ' uS is quite large. Expect estimation ' ...
@@ -242,13 +250,13 @@ if results.resnorm > min_resnorm
       a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
                                               {'Re', 'Ce', 'Cm', 'delay'});
     end
-    runFit([1 -.1 3*Re*Cm], '2nd fit (narrow)');
+    runFit([step_num -.1 3*Re*Cm], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
     else
         % do full fit again
         warning(['narrow fit improved, doing a full fit again.' ]);
-        runFit([1 -1 10], '3rd fit (full)');
+        runFit([step_num -1 10], '3rd fit (full)');
         assert(results.resnorm < min_resnorm, ...
                ['Fit failed. Resnorm (' num2str(results.resnorm) ') > ' num2str(min_resnorm) ...
                 ' after narrow and full fits.' ]);
@@ -296,7 +304,7 @@ function narrowToWide()
 % 2- then relax to larger range and more params
 
 % TODO: use new Re and Cm estimates at some point?
-  runFit([1 -.1 3*Re*Cm], 'Starting narrow fit');
+  runFit([step_num -.1 3*Re*Cm], 'Starting narrow fit');
 
   % do another fit with more params relaxed.
   % this also recalculates gL and EL based on the Re estimate.
@@ -309,10 +317,15 @@ function narrowToWide()
         setProp(a_md.model_f.Vm, 'selectParams', ...
                               {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
   end
-  runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
+  runFit([step_num -1 40], 'fit w/ relaxed gL,EL and offset');
+
+  % remove El, gL before narrow fit (added 2012/02/29)
+  a_md.model_f.Vm = ...
+      setProp(a_md.model_f.Vm, 'selectParams', ...
+                            {'Re', 'Ce', 'Cm', 'offset'});
   
   % last do narrower range
-  runFit([1 -1 10], 'fit 1-10ms');
+  runFit([step_num -1 10], 'fit 1-10ms');
 end
 
 function oneFitsAll()
@@ -322,7 +335,7 @@ function oneFitsAll()
 % 3- then same relaxed params, fit 1-10 ms
 % 4- if resnorm fails, do another narrow and full fit
 
-  runFit([1 -1 10], 'fit 1-10ms');
+  runFit([step_num -1 10], 'fit 1-10ms');
 
 % do another fit with more params relaxed.
 % this also recalculates gL and EL based on the Re estimate.
@@ -335,13 +348,13 @@ else
       setProp(a_md.model_f.Vm, 'selectParams', ...
                             {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
 end
-runFit([1 -1 30], 'fit w/ relaxed gL,EL and offset');
+runFit([step_num -1 30], 'fit w/ relaxed gL,EL and offset');
 
 % repeat regular fit
 % $$$ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
 % $$$                                         {'Re', 'Ce', 'Cm', 'delay'});
 
-runFit([1 -1 10], 'fit 1-10ms');
+runFit([step_num -1 10], 'fit 1-10ms');
 end
 
 function renameFields(re_from, re_to)

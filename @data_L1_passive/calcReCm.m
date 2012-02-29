@@ -111,7 +111,7 @@ end
 % for until when to integrate
 peak_vc = calcCurPeaks(pas.data_vc, step_num + 1, ...
                        struct('pulseStartRel', max(0, delay), ...
-                              'pulseEndRel', [1 min((end_dt - pas.data_vc.time_steps(step_num))*dt, 50)]));
+                              'pulseEndRel', [(step_num + 2) min((end_dt - pas.data_vc.time_steps(step_num))*dt, 50)]));
 peak_mag = peak_vc.props.iPeaks(trace_num);
 peak_halfmag = peak_mag / 3;
 if peak_halfmag < 0
