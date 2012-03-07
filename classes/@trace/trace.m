@@ -30,12 +30,14 @@ function obj = trace(data_src, dt, dy, id, props)
 %		'genesis': Raw binary files created with Genesis disk_out method.
 %		'genesis_flac': Compressed Genesis binary files.
 %		'neuron': Binary files created with Neuron's Vector.vwrite method.
-%		'neuronascii': Ascii files created from Neuron's Vector objects.
+%		'neuronascii': Ascii files created from Neuron's Vector objects. 
+%			       Uses time step in file to scale given dt (Must be in ms).
 %		'pcdx': .ALL data acquisition files from PCDX program.
 %		'matlab': Matlab .MAT binary files with matrix data.
 %		'neuroshare': One of the vendor formats recognized by
 %			NeuroShare Windows DLLs. See above and http://neuroshare.org. A
 %			scale_y value may need to be supplied to get the correct units.
+%		'abf': AxoClamp .ABF format read with abf2load from Matlab FileExchange.
 %         traces: Trace numbers as a numeric array or as a string with
 %         	numeric ranges (e.g., '1 2 5-10 28') for PCDX files.
 %	  spike_finder: Method of finding spikes 
@@ -67,7 +69,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %                      hold the filter.
 %         lowPassFreq: If set, it sets a new low pass cutoff for custom filter. Default is 3000Hz
 %         highPassFreq: If set it sets a new high pass cutoff for custom filter. Default is 50 Hz
-%	  quiet: If 1, reduces the amount of textual description in plots, etc.
+%	  quiet: If 1, reduces the amount of textual description in plots
+%	  	and does not add information to id field.
 %		
 %   Returns a structure object with the following fields:
 %	data: The trace column matrix.
@@ -184,7 +187,7 @@ else
      
      elseif strcmpi(props.file_type, 'neuronascii')
        [data, label] = readNeuronVecAscii(data_src);
-       dt = diff(data(1:2, 1)); % first column is time?
+       dt = dt * diff(data(1:2, 1)); % scale given dt by delat in first column
        data = data(:, 2);
        id = [ id label];
 
@@ -222,6 +225,16 @@ else
        
        % assume units in mV? Nothing specified in Matlab loader
        if isempty(dy), dy = 1e-3; end
+     elseif strcmpi(ext, '.abf') || strcmpi(props.file_type, 'abf')
+       % Load AxoClamp ABF format using MathWorks fileExchange entry
+       % abf2load
+       [dt, data, y_units, dy, cell_name] = loadABF(data_src, props);
+
+       props.unit_y = y_units;
+       if ~ isfield(props, 'quiet')
+         id = [ cell_name id ];
+       end
+
      else
        error(['No matching load function found for file ''' data_src ...
               ''' or specified type ''' ...
