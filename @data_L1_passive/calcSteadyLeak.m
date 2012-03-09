@@ -48,10 +48,13 @@ props = defaultValue('props', struct);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
 
+% check current units
+nA_scale = pas.data_vc.i.dy / 1e-9;
+
 res = struct;
 
 % calculate gL from initial and after pulse steady levels
-res.gL = diff(pas.data_vc.i_steps(step_num:(step_num+1), trace_num))/ ...
+res.gL = diff(pas.data_vc.i_steps(step_num:(step_num+1), trace_num)) / nA_scale / ...
          diff(pas.data_vc.v_steps(step_num:(step_num+1), trace_num));
 
 % effective EL
@@ -65,7 +68,7 @@ if isfield(props, 'calcOffsetWithEL')
   res.EL = props.calcOffsetWithEL;
 
   % resolve offset last
-  res.offset = pas.data_vc.i_steps(step_num, trace_num) - ...
+  res.offset = pas.data_vc.i_steps(step_num, trace_num) / nA_scale - ...
       (pas.data_vc.v_steps(step_num, trace_num) - res.EL) * res.gL;
 elseif isfield(props, 'calcSealLeakWithEL')
   res.ELm = props.calcSealLeakWithEL;
@@ -85,7 +88,8 @@ if isfield(props, 'ifPlot')  || verbose
   else
   end_dt = size(pas.data_vc.i.data, 1);
   end
-  I2 = ((pas.data_vc.v.data(:, trace_num) - res.EL) * res.gL + res.offset);
+  I2 = ((pas.data_vc.v.data(:, trace_num) - res.EL) * res.gL + res.offset) ...
+       * nA_scale;
   plotFigure(plot_superpose({...
     plot_abstract(setLevels(pas.data_vc, trace_num), '', struct('onlyPlot', 'i')), ...
     plot_abstract({(1:size(pas.data_vc.i.data, 1))*dt, I2, '--k'}, ...
