@@ -47,8 +47,8 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_defaults = struct('Re', 0.05, 'Ce', 10, 'gL', 1, 'EL', -80, ...
-                          'Cm', 10, 'delay', 0, 'offset', 0);
+  param_defaults = struct('Re', 0.05, 'Ce', 1e-3, 'gL', 1, 'EL', -80, ...
+                          'Cm', 10e-3, 'delay', 0, 'offset', 0);
   if ~ isstruct(param_init_vals)
     param_init_vals = ...
         cell2struct(num2cell(param_init_vals(:)'), ...
@@ -66,7 +66,7 @@ function a_pf = param_Re_Ce_cap_leak_int_t(param_init_vals, id, props)
   % physiologic parameter ranges
   param_ranges = ...
       [ eps eps eps -120 eps 0  -.2;...
-        1e3 1e3 1e3 30 1e3  10  .2];
+        1e3 1e3 1e4 30 1e3  10  .2];
   
   Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
   
