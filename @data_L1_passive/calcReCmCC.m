@@ -155,6 +155,8 @@ assert(Cm > 0 && Cm < 1e3, ...
        [ 'Cm=' num2str(Cm) ' nF out of range!']);
 
 % find time constant
+% MISTAKE: time constant of integral do not correspond to anything. Need
+% to fit exp to actual current, not integral.
 t_change = find(abs(int_I) > (1-exp(-1)) * abs(max_I));
 if ~ isempty(t_change)
     timeconstant = t_change(1);
