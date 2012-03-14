@@ -3,7 +3,7 @@ function [Re Cm peak_mag] = calcReCm(pas, props)
 % calcReCm - Estimates series resistance and membrane capacitance from membrane charging transient.
 %
 % Usage:
-% [Re Cm] = calcReCm(pas, props)
+% [Re Cm peak_mag] = calcReCm(pas, props)
 %
 % Parameters:
 %   pas: A data_L1_passive object.
@@ -22,6 +22,7 @@ function [Re Cm peak_mag] = calcReCm(pas, props)
 % Returns:
 %   Re: Series resistance [MOhm].
 %   Cm: Cell capacitance [nF].
+%   peak_mag: Peak current [same units as in pas]
 %
 % Description:
 %   Integrates current response and divides by voltage difference to get
