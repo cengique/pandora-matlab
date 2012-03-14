@@ -131,10 +131,11 @@ disp([ 'Exit flag: ' num2str(exitflag) ])
 disp('Output:')
 output
 
-resnorm
 
 % normalized SSE
-ssenorm = resnorm / (sum(sum(abs(out_data))) ^2)
+ssenorm = resnorm / (sum(sum(abs(out_data))) ^2);
+
+disp(['resnorm: ' num2str(resnorm) ', ssenorm: ' num2str(ssenorm)]);
 
 % save fit stats in a_ps
 a_ps = setProp(a_ps, 'resnorm', resnorm, 'residual', residual, 'jacobian', ...
