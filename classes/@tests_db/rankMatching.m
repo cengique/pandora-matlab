@@ -125,6 +125,7 @@ end
 
 if isfield(props, 'limitSTD') 
   % limit any measure to this many STDs max
+  % TODO: shouldn't this be looking at abs values?
   exceedingSTDs = wghd_data > props.limitSTD;
   wghd_data(exceedingSTDs) = props.limitSTD;
 end
