@@ -247,12 +247,15 @@ if ~ isempty(use_levels)
   f_model_orig = f_model;
 
   % TODO: models are unitless, but we should have units and use vc.dy here
-  
+
+  % assume models produce current in nA
+  nA_scale = data_vc.i.dy / 1e-9;
+
   % optimize
   f_model = ...
       optimize(f_model, ...
                struct('v', data_vc.v.data(range_cap_resp, use_levels), 'dt', dt), ...
-               data_vc.i.data(range_cap_resp, use_levels), ...
+               data_vc.i.data(range_cap_resp, use_levels) * nA_scale, ...
                props);
 
   % show all parameters (only the ones optimized)
