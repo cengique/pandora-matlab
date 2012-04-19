@@ -38,6 +38,9 @@ function obj = trace(data_src, dt, dy, id, props)
 %			NeuroShare Windows DLLs. See above and http://neuroshare.org. A
 %			scale_y value may need to be supplied to get the correct units.
 %		'abf': AxoClamp .ABF format read with abf2load from Matlab FileExchange.
+%         file_endian: 'l' for little endian and 'b' for big endian
+%           (default='n', for native endian). See machineformat option 
+%	    in fopen for more info.
 %         traces: Trace numbers as a numeric array or as a string with
 %         	numeric ranges (e.g., '1 2 5-10 28') for PCDX files.
 %	  spike_finder: Method of finding spikes 
@@ -139,6 +142,11 @@ else
 
      ext = lower(ext); % Case insensitive matches for file extension
 
+     % Default if native endian of this computer
+     if ~ isfield(props, 'file_endian')
+       props.file_endian = 'n';
+     end
+     
      % if file type not specified, use file extension to guess it
      if ~ isfield(props, 'file_type')
        if strcmpi(ext, '.bin') || strcmpi(ext, '.gbin') % Genesis file
@@ -155,12 +163,27 @@ else
        end
 
        if ~ isempty(findstr(filename, '_BE_')) || ...
-	     ~ isempty(findstr(filename, '_BE.'))
-         % Use big-endian (Mac, Sun) version of readgenesis
-         data = readgenesis_BE(data_src, channel);
+           ~ isempty(findstr(filename, '_BE.')) || ...
+           strcmpi(props.file_endian, 'b')
+         % check if readgenesis.mex* file available
+         if exist('readgenesis_BE') == 3
+           % Use big-endian (Mac, Sun) version of readgenesis
+           data = readgenesis_BE(data_src, channel);
+         else
+           % otherwise use native Matlab reader
+           data = readgenbin(data_src, NaN, NaN, props.file_endian);
+           data = data(:, channel);
+         end
        else
-         % Use regular (i386 PCs) little-endian version of readgenesis
-         data = readgenesis(data_src, channel);
+         % check if readgenesis.mex* file available
+         if exist('readgenesis') == 3
+           % Use regular (i386 PCs) little-endian version of readgenesis
+           data = readgenesis(data_src, channel);
+         else
+           % otherwise use native Matlab reader
+           data = readgenbin(data_src, NaN, NaN, props.file_endian);
+           data = data(:, channel);
+         end           
        end
 
      elseif strcmpi(props.file_type, 'genesis_flac') || ...
@@ -173,8 +196,7 @@ else
        data = data(:, channel);
 
      elseif strcmpi(props.file_type, 'neuron')
-       [c_type, maxsize, endian] = computer;
-       [data err] = readNeuronVecBin(data_src, endian);
+       [data err] = readNeuronVecBin(data_src, props.file_endian);
        if isempty(strfind(err, 'Success'))
          error([ 'Failed to load Neuron binary ''' data_src ''' because of ' ...
                  'error: ' err ]);
