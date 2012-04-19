@@ -29,7 +29,7 @@ function [data, time_trace] = readgenbin(filename, start_time, end_time, endian)
 % machines (like old Mac and Solaris machines with PowerPC architecture)
 % must be loaded with the endian='b' option. There are sanity checks to
 % flag that the file may be reverse-endian, but this is not automatically
-% corrected.
+% corrected. Runs faster is you don't request the time_trace output.
 %
 % Example:
 % Fully read a native-endian file:
@@ -45,9 +45,10 @@ function [data, time_trace] = readgenbin(filename, start_time, end_time, endian)
 % See also: fopen
 %
 % Author:
-%   Alfonso Delgado-Reyes <adelgado@biology.emory.edu> original version based in open
+%   Alfonso Delgado-Reyes original version based in open
 %   binary from Simon Peron.
-%   Cengiz Gunay <cengique@users.sf.net> for minor modifications and endian support.
+%   Cengiz Gunay <cengique _AT_ users.sf.net> for error checking, verbose
+%   output, endian support, and other minor modifications.
 
 % $Id$
 
