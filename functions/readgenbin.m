@@ -10,7 +10,7 @@ function [data, time_trace] = readgenbin(filename, start_time, end_time, endian)
 %   start_time, end_time: Time in milliseconds relative to the ACTUAL 
 %           time of the experiment at which data adquisition started 
 %           (if you start gathering data at 200 ms and you specify 0
-%           start time it will not work). If either is NaN, defaults
+%           start time it will not work). If either is [] or NaN, defaults
 % 	    to beginning and end of trace, respectively. end_time is 
 %	    not inclusive.
 %   endian: (optional) Indicates file format; 'l' for little endian
@@ -23,7 +23,8 @@ function [data, time_trace] = readgenbin(filename, start_time, end_time, endian)
 %   time_trace: (Optional) Corresponding time range vector (in ms).
 %
 % Description:
-%   No checking for binary type is made, so if you want reliability please
+%   Files should be created by the disk_out method in the GENESIS neural
+% simulator. No checking for binary type is made, so if you want reliability please
 % ensure the file is a binary. Files written by GENESIS on big-endian
 % machines (like old Mac and Solaris machines with PowerPC architecture)
 % must be loaded with the endian='b' option. There are sanity checks to
