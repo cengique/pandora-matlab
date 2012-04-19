@@ -16,7 +16,7 @@ function col_names = getParamNames(db)
 %
 % See also: tests_db/getColNames, tests_db
 %
-% $Id: getParamNames.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/03
 

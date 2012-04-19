@@ -16,7 +16,7 @@ function a_str = struct2str(a_struct, props)
 %
 % See also: cell2TeX
 %
-% $Id: struct2str.m,v 1.1 2004/12/13 21:38:23 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/05/17
 
 % Copyright (c) 20011 Cengiz Gunay <cengique@users.sf.net>.

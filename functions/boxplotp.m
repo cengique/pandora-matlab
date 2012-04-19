@@ -40,7 +40,7 @@ function boxplotp(x,g,notch,sym,vert,whis,props)
 %   Made outlier display optional. Also some plot decorations are now optional.
 
 %   Copyright 1993-2002 The MathWorks, Inc. 
-%   $Revision: 1.2 $  $Date: 2004/11/15 23:20:51 $
+%   $Revision$  $Date$
 
 if (nargin==1 & length(x(:))==1 & ishandle(x)), resizefcn(x); return; end
 

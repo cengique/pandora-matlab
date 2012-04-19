@@ -21,10 +21,10 @@ function makeGenesisParFile(a_db, filename, props)
 %	nothing.
 %
 %   Example:
-%>> blocked_rows_db = makeModifiedParamDB(ranked_for_gps0501a_db, 1, [1, 2], 10, [-100 100]);
-%>> makeGenesisParFile(blocked_rows_db, 'blocked_gps0501-03.par')
+%>> naf_rows_db = scanParamAllRows(a_db(desired_rows, :), 'NaF', 0, 1000, 100);
+%>> makeGenesisParFile(naf_rows_db, 'naf.par')
 %
-% See also: makeModifiedParamDB, scanParamAllRows, scaleParamsOneRow
+% See also: scanParamAllRows, scaleParamsOneRow
 %
 % $Id$
 %

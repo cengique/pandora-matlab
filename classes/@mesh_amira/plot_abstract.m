@@ -23,7 +23,7 @@ function a_p = plot_abstract(a_mesh, title_str, props)
 %
 % See also: plotFigure, plot_superpose, plot_stack
 %
-% $Id: plot_abstract.m 456 2011-05-09 20:53:12Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2012/02/03
 

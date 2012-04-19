@@ -24,7 +24,7 @@ function [idx rows_idx] = anyRows(db, rows)
 %
 % See also: compareRows, eq, tests_db
 %
-% $Id: anyRows.m 809 2007-08-08 19:39:02Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/17
 

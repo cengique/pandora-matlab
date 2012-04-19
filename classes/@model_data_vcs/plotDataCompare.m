@@ -33,7 +33,7 @@ function a_p = plotDataCompare(a_md, title_str, props)
 %
 % See also: model_data_vcs, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: plotDataCompare.m 543 2011-08-18 14:42:01Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/12
 

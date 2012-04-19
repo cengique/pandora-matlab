@@ -22,7 +22,7 @@ function result_tr = binary_op(left_tr, right_tr, op_func, op_id, props)
 %
 % See also: trace, plus, minus
 %
-% $Id: binary_op.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/05/21
 

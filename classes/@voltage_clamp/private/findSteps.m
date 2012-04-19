@@ -31,7 +31,7 @@ function [time_steps, v_steps, i_steps] = ...
 %
 % See also: voltage_clamp, plot_abstract, plotFigure, plot_superpose
 %
-% $Id: findSteps.m 546 2011-08-18 14:44:46Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/11
 

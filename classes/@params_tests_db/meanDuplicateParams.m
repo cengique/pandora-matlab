@@ -19,7 +19,7 @@ function a_params_tests_db = meanDuplicateParams(a_params_tests_db, props)
 %
 % See also: tests_db/meanDuplicateRows, tests_db/mean, tests_db/std, sortedUniqueValues
 %
-% $Id: meanDuplicateParams.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/20
 

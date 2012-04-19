@@ -15,7 +15,7 @@ function a_db = uminus(left_obj)
 %
 % See also: uminus, uop
 %
-% $Id: uminus.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/16
 

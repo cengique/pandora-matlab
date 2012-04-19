@@ -34,7 +34,7 @@ function a_mesh = mesh_amira(filename, id, props)
 %
 % See also: private/loadAmiraMesh
 %
-% $Id: mesh_amira.m 478 2011-05-19 20:40:42Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2012/02/03
 

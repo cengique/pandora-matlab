@@ -24,7 +24,7 @@ function a_db = rop(left_obj, right_obj, op_func, op_id)
 %
 % See also: tests_db/plus, tests_db/minus, tests_db/mtimes, tests_db/rdivide
 %
-% $Id: rop.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/13
 

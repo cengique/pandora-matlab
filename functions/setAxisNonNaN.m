@@ -18,7 +18,7 @@ function new_axis = setAxisNonNaN(layout_axis)
 %
 % See also: plot_abstract
 %
-% $Id: plot.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/10/29
 

@@ -18,7 +18,7 @@ function a_profile = loadItemProfile(dataset, item_index)
 %
 % See also: itemResultsRow, params_tests_fileset, paramNames, testNames
 %
-% $Id: loadItemProfile.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/07/05
 

@@ -27,7 +27,7 @@ function a_vc = calcCurPeaks(a_vc, step_num, props)
 %
 % See also: voltage_clamp, findSteps
 %
-% $Id: calcCurPeaks.m 497 2011-06-24 18:44:14Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/30
 

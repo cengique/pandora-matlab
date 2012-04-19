@@ -25,7 +25,7 @@ function obj = loadAmiraMesh(filename, isverbose)
 %
 % See also: 
 %
-% $Id: loadAmiraMesh.m 1306 2011-07-08 19:58:45Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu> <cengique@users.sf.net>, 2012/02/03
 

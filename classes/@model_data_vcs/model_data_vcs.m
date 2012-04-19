@@ -29,7 +29,7 @@ function a_md = model_data_vcs(model_f, data_vc, id, props)
 %
 % See also: voltage_clamp, param_func
 %
-% $Id: model_data_vcs.m 542 2011-08-18 14:39:05Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/11
 

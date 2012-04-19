@@ -25,7 +25,7 @@ function [trace_data, trace_dt, trace_id, props] = trace_loadns(filename, props)
 %
 % See also: trace.m
 %
-% $Id: trace.m 1099 2008-05-27 20:26:33Z cengiz $
+% $Id$
 %
 % Author: 
 % Cengiz Gunay <cgunay@emory.edu> and Ralph Meier <meier@biologie.uni-freiburg.de>, 2008/10/20

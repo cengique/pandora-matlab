@@ -22,7 +22,7 @@ function a_p = plotSimCurrent(a_vc, f_I_v, props)
 %
 % See also: param_I_v, param_func, plot_abstract
 %
-% $Id: plotSimCurrent.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/29
 

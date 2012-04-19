@@ -20,9 +20,9 @@ function a_params_db = scaleParamsOneRow(a_db, params, levels)
 %
 %   Example:
 % Blocks NaF from 0%-100% with 10% increments.
-% >> naf_rows_db = scanOneParam(a_db(desired_row, :), 'NaF', 0:0.1:1);
+% >> naf_rows_db = scaleParamsOneRow(a_db(desired_row, :), 'NaF', 0:0.1:1);
 %
-% See also: ranked_db/blockedDistances, getParamRowIndices, makeGenesisParFile
+% See also: scanParamAllRows, makeGenesisParFile, ranked_db/blockedDistances, getParamRowIndices
 %
 % $Id$
 %
@@ -34,9 +34,14 @@ function a_params_db = scaleParamsOneRow(a_db, params, levels)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: preserve order of columns at the end
+
 if ~ iscell(params)
   params = {params};
 end
+
+% make column vector
+levels=levels(:); 
 
 % Get only first row
 a_params_db = onlyRowsTests(a_db, 1, params);

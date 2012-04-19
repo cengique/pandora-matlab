@@ -24,7 +24,7 @@ function tex_string = TeXtable(contents, caption, props)
 %
 % See also: 
 %
-% $Id: TeXtable.m,v 1.5 2006/01/18 22:10:28 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/13
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

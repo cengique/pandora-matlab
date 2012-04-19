@@ -20,7 +20,7 @@ function a_dom = exportMorphML(a_mesh, props)
 %
 % See also: 
 %
-% $Id: exportMorphML.m 456 2011-05-09 20:53:12Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2012/02/03
 

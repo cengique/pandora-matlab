@@ -16,7 +16,7 @@ function a_db = unique(a_db)
 %
 % See also: unique
 %
-% $Id: unique.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/11/19
 

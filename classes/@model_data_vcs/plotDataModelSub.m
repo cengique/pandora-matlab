@@ -30,7 +30,7 @@ function a_p = plotDataModelSub(a_md, title_str, props)
 %
 % See also: model_data_vcs, voltage_clamp, voltage_clamp/plot_abstract, plot_abstract, plotFigure
 %
-% $Id: plotDataModelSub.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/21
 

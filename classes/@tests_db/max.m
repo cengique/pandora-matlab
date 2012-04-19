@@ -19,7 +19,7 @@ function [a_db, varargout] = max(a_db, dim)
 %
 % See also: max, tests_db
 %
-% $Id: max.m 909 2008-01-10 05:08:34Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 

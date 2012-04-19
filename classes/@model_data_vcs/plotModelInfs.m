@@ -22,7 +22,7 @@ function a_p = plotModelInfs(a_md, title_str, props)
 %
 % See also: model_data_vcs, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: plotModelInfs.m 544 2011-08-18 14:42:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/12
 

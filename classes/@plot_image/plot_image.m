@@ -46,7 +46,7 @@ function a_plot = plot_image(image_data, axis_labels, ...
 %
 % See also: plot_abstract, plot_abstract/plot
 %
-% $Id: plot_image.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/15
 

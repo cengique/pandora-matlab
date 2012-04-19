@@ -39,7 +39,7 @@ function an_image_plot = plotUniquesStats2D(a_db, unique_test1, unique_test2, ..
 %
 % See also: tests_db, sortedUniqueValues, statsMeanStd, plot_abstract, plotImage
 %
-% $Id: plotUniquesStats2D.m 858 2007-11-29 21:47:47Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/14
 

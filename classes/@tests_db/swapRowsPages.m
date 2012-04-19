@@ -17,7 +17,7 @@ function a_db = swapRowsPages(db)
 %
 % See also: tests_db
 %
-% $Id: swapRowsPages.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/04
 

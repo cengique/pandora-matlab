@@ -17,7 +17,7 @@ function t = lowpassfilt(t, n, cutoff_freq)
 %
 % See also: trace, butter, filter, filtfilt
 %
-% $Id: lowpassfilt.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/04/08
 

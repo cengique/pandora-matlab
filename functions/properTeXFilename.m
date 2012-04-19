@@ -18,7 +18,7 @@ function filename = properTeXFilename(filename)
 % >> fname = properTeXFilename('hello world/1')
 % ans = 'hello_world+1' 
 %
-% $Id: properTeXFilename.m,v 1.2 2006/02/13 04:27:43 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/12/20
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

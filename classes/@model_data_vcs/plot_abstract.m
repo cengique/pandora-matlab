@@ -35,7 +35,7 @@ function a_p = plot_abstract(a_md, title_str, props)
 %
 % See also: model_data_vcs, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: plot_abstract.m 238 2010-10-22 22:41:07Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/12
 

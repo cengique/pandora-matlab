@@ -25,7 +25,7 @@ function kl_bits = calcKLhist(two_hist_dbs, props)
 %
 % See also: histogram_db, calcKLmodel, tests_db/histogram
 %
-% $Id: calcKLhist.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/04/03
 

@@ -31,7 +31,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 %
 % See also: max, mean, feval, tests_db
 %
-% $Id: mean.m 909 2008-01-10 05:08:34Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 

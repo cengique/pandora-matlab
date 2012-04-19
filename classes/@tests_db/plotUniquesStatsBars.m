@@ -30,7 +30,7 @@ function a_bar_plot = plotUniquesStatsBars(a_db, unique_test, stat_test, title_s
 %
 % See also: tests_db, sortedUniqueValues, statsMeanStd, plot_bars
 %
-% $Id: plotUniquesStatsBars.m 858 2007-11-29 21:47:47Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/14
 

@@ -27,7 +27,7 @@ function [new_inputs, new_outputs] = ...
 %
 % See also: approxMappingNNet, tests_db
 %
-% $Id: balanceInputProbs.m 883 2007-12-13 17:28:47Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/09
 

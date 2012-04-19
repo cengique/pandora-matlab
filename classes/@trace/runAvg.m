@@ -15,7 +15,7 @@ function avg_t = runAvg(t)
 %
 % See also: trace
 %
-% $Id: runAvg.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/14
 

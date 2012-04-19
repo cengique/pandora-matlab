@@ -18,7 +18,7 @@ function a_label = properAlphaNum(a_label)
 % >> a_label = properAlphaNum('to \this _day+1 and ^5')
 % ans = 'tothis_day1and5' 
 %
-% $Id: properAlphaNum.m,v 1.2 2006/08/11 16:53:45 cengiz Exp $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/01/19
 

@@ -33,7 +33,7 @@ function a_pbundle = physiol_bundle(phys_dball, phys_dataset, props)
 %
 % See also: physiol_bundle, params_tests_db
 %
-% $Id: physiol_bundle.m,v 1.4 2006/02/08 23:18:29 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/21
 % Modified: Li Su, added various new props and fixes, 2008/03
 

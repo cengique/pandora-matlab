@@ -25,7 +25,7 @@ function a_stacked_plot = ...
 %
 % See also: tests_db, sortedUniqueValues, statsMeanStd, plot_abstract, plotImage
 %
-% $Id: plotUniquesStatsStacked3D.m 858 2007-11-29 21:47:47Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/15
 

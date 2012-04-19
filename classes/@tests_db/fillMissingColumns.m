@@ -17,7 +17,7 @@ function db = fillMissingColumns(db, col_names, fill_value)
 %
 % See also: tests_db, addColumns, params_tests_db/addParams, params_tests_db/unionCat
 %
-% $Id: fillMissingColumns.m 993 2008-03-17 21:22:35Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/06/02 
 % - based on code from Li Su in unionCat.

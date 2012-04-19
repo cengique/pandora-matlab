@@ -20,7 +20,7 @@ function csv_string = displayRowsCSV(a_db, props)
 %
 % See also: displayRows, displayRowsTeX
 %
-% $Id: displayRowsCSV.m 1182 2010-01-30 16:20:45Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/07/07
 

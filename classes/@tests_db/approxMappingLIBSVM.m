@@ -40,7 +40,7 @@ function [an_approx_db, an_svm] = approxMappingLIBSVM(a_db, input_cols, output_c
 %
 % See also: tests_db, newff
 %
-% $Id: approxMappingLIBSVM.m 1106 2008-10-13 23:20:59Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/12
 

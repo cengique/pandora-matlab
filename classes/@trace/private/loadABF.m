@@ -27,7 +27,7 @@ function [dt, data, y_units, dy, cell_name] = loadABF(filename, props)
 %
 % See also: abf2load
 %
-% $Id: loadABF.m 482 2011-05-19 20:44:40Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2012/03/07
 

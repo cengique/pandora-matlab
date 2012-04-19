@@ -23,7 +23,7 @@ function sub_tr = plus(left_tr, right_tr, props)
 %
 % See also: trace, plus
 %
-% $Id: plus.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/11
 

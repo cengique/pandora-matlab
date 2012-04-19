@@ -42,7 +42,7 @@ function [a_tss h5_infos] = ns_load_tracesets(data_src, props)
 %
 % See also: physiol_cip_traceset_fileset, physiol_cip_traceset, params_tests_dataset
 %
-% $Id: ns_load_tracesets.m 894 2007-12-17 17:30:33Z cengiz $
+% $Id$
 %
 % Author: Li, Su; Cengiz Gunay <cgunay@emory.edu>; and Jeremy Edgerton, 2007/12/18
 %

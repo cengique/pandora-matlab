@@ -18,7 +18,7 @@ function obj = vertcat(obj, obj2)
 %
 % See also: physiol_cip_traceset_fileset
 %
-% $Id: vertcat.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/13
 

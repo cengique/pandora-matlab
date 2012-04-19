@@ -15,7 +15,7 @@ function ranges = axis(a_plot)
 %
 % See also: plot_abstract, plot_abstract/plot, axis
 %
-% $Id: axis.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/13
 

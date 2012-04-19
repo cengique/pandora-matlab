@@ -52,8 +52,12 @@ a_param_db = addColumns(onlyRowsTests(obj, ':', 1:num_params), ...
 
 % Concat the rest of original DB 
 a_test_db = onlyRowsTests(obj, ':', (num_params + 1):dbsize(obj, 2));
-obj = addColumns(a_param_db, fieldnames(get(a_test_db, 'col_idx')), ...
-		 get(a_test_db, 'data'));
+if dbsize(a_test_db, 2) > 0
+  obj = addColumns(a_param_db, fieldnames(get(a_test_db, 'col_idx')), ...
+                   get(a_test_db, 'data'));
+else
+  obj = a_param_db;
+end
 
 % Adjust number of params
 obj.num_params = num_params + length(param_names);

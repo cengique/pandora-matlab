@@ -24,7 +24,7 @@ function a_md = updateModel(a_md, model_f, props)
 %
 % See also: model_data_vcs
 %
-% $Id: updateModel.m 545 2011-08-18 14:43:08Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/14
 

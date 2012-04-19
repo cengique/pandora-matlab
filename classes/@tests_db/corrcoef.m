@@ -20,7 +20,7 @@ function a_coefs_db = corrcoef(db, props)
 %
 % See also: tests_db, corrcoefs_db
 %
-% $Id: corrcoef.m 1075 2008-04-25 21:23:34Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/25
 

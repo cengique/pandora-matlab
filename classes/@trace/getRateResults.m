@@ -17,7 +17,7 @@ function results = getRateResults(a_trace, a_spikes)
 %
 % See also: trace, spikes, spike_shape
 %
-% $Id: getRateResults.m 1284 2011-03-02 23:09:54Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/08/30
 % 	  Vladislav Sekulic <vlad.sekulic@utoronto.ca>, 2011/03/19

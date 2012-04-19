@@ -28,7 +28,7 @@ function sub_vc = minus(left_vc, right_vc, props)
 %
 % See also: voltage_clamp
 %
-% $Id: minus.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/10
 

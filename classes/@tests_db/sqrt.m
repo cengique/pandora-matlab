@@ -16,7 +16,7 @@ function a_db = sqrt(a_db)
 %
 % See also: sqrt
 %
-% $Id: sqrt.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/13
 

@@ -28,7 +28,7 @@ function [trace_v] = makeIdealClampV(t_vals, pre_v, pulse_v, post_v, dt, ...
 %
 % See also: trace, voltage_clamp
 %
-% $Id: makeIdealClampV.m 414 2011-03-17 17:51:05Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/07
 

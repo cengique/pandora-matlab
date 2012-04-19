@@ -17,7 +17,7 @@ function str = display(a_md)
 %
 % See also: model_data_vcs
 %
-% $Id: display.m 238 2010-10-22 22:41:07Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/05/31
 

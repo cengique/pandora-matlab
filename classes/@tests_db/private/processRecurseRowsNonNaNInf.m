@@ -25,7 +25,7 @@ function [s, n] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
 %
 % See also: processDimNonNaNInf, max, mean, feval, tests_db
 %
-% $Id: mean.m 909 2008-01-10 05:08:34Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 

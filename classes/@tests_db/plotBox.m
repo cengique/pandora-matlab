@@ -20,7 +20,7 @@ function a_plot = plotBox(a_tests_db, title_str, props)
 %
 % See also: plot_abstract, plotFigure, boxplotp
 %
-% $Id: plotBox.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/16
 

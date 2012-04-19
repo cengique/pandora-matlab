@@ -23,7 +23,7 @@ function [kl_bits, a_plot] = calcKLmodel(a_hist_db, dist_model, props)
 %
 % See also: histogram_db
 %
-% $Id: calcKLmodel.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/03/24
 

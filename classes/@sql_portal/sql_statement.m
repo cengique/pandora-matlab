@@ -21,7 +21,7 @@ function response_str = sql_statement(a_sql_portal, statement_string, props)
 %
 % See also: sql_portal/tests_db, database
 %
-% $Id: sql_statement.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/18
 

@@ -22,7 +22,7 @@ function a_p = plotScatter3D(a_db, test1, test2, test3, title_str, short_title, 
 %
 % See also: 
 %
-% $Id: plotScatter3D.m 858 2007-11-29 21:47:47Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/11/30
 

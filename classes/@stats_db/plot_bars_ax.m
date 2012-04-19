@@ -20,7 +20,7 @@ function a_plot = plot_bars_ax(a_stats_db, title_str, props)
 %
 % See also: plot_abstract, plotFigure, stats_db/plot_bars
 %
-% $Id: plot_bars_ax.m 966 2008-02-11 21:06:54Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/17
 

@@ -27,7 +27,7 @@ function a_tests_3D_db = groupBy(db, cols)
 % See also: invarValues, tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair,
 % 	    joinRows, tests_3D_db/swapRowsPages, tests_3D_db/mergePages
 %
-% $Id: groupBy.m 1067 2008-04-23 18:27:09Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 

@@ -19,7 +19,7 @@ function a_vc = updateSteps(a_vc, props)
 %
 % See also: voltage_clamp
 %
-% $Id: updateSteps.m 334 2011-02-03 20:54:30Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/18
 

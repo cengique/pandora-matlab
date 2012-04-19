@@ -23,7 +23,7 @@ function a_p = plotPeaksCompare(a_md, title_str, props)
 %
 % See also: model_data_vcs, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: plotPeaksCompare.m 474 2011-05-19 20:38:59Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/11
 
