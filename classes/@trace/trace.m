@@ -144,7 +144,8 @@ else
 
      % Default if native endian of this computer
      if ~ isfield(props, 'file_endian')
-       props.file_endian = 'n';
+       [c,maxsize,endian] = computer;
+       props.file_endian = endian;
      end
      
      % if file type not specified, use file extension to guess it
