@@ -1,29 +1,32 @@
-function writeNeuronVecAscii(filename, data, dt, dy, unit_y, label)
+function writeNeuronVecAscii(filename, datax, datay, dx, dy, unit_x, unit_y, label)
 
 % writeNeuronVecAscii - Writes ascii file to be read by Neuron simulator as Vector object.
 %
 % Usage:
-% writeNeuronVecAscii(filename, data, dt, dy, unit_y, label)
+% writeNeuronVecAscii(filename, datax, datay, dx, dy, unit_x, unit_y, label)
 %
 % Parameters: 
 %   filename: Full path to Neuron file.
-%   data: Column or row vector of data.
-%   dt: Time resolution in [s].
+%   datax: (Optional) X-axis points. Give empty vector to skip.
+%   datay: Column or row vector of data.
+%   dx: X-axis resolution in [s] or [V].
 %   dy: y-axis resolution in [A] or [V].
-%   unit_y: Units of y-axis; 'A' or 'V'.
+%   unit_x: Units of x-axis; 'V' or 's'.
+%   unit_y: Units of y-axis; 'A', 'V', or 's'.
 %   label: Text label to export to Neuron (spaces will be replaced with '_')
 %
 % Returns:
+%   Nothing.
 % 
 % Description:
 %   It's one line of code just to write the data: 
 % dlmwrite(filename, ...
-%         [(0:(num_samples - 1))'*dt*1e3, data*1e-3], '-append', ...
+%         [(0:(num_samples - 1))'*dx*1e3, datay*1e-3], '-append', ...
 %         'delimiter', '\t')
-% Data converted to Neuron units of nA and mV.
+% Data converted to Neuron units of nA, mV, and ms.
 %
 % Example:
-%   writeNeuronVecAscii('myvec.dat', data, 1e-4, 1e-3, 'V', 'my membrane voltage');
+%   writeNeuronVecAscii('myvec.dat', [], datay, 1e-4, 1e-3, 's', 'V', 'my membrane voltage');
 %
 % Also see: dlmread, http://www.neuron.yale.edu
 %
@@ -36,21 +39,35 @@ function writeNeuronVecAscii(filename, data, dt, dy, unit_y, label)
 % http://opensource.org/licenses/afl-3.0.php.
 
 % convert to column vector
-  data = data(:);
+  datay = datay(:);
   
-  num_samples = length(data);
+  num_samples = length(datay);
   
 % create file and write label
 string2File(sprintf('label:%s\n%d\n', strrep(label, ' ', '_'), num_samples), filename);
 
-if strcmp(unit_y, 'A'), mult = dy*1e9; % nA
-elseif strcmp(unit_y, 'V'), mult = dy*1e3; % mV
+if strcmp(unit_y, 'A'), dy = dy*1e9; % nA
+elseif strcmp(unit_y, 'V'), dy = dy*1e3; % mV
+elseif strcmp(unit_y, 's'), dy = dy*1e3; % ms
 else 
   unit_y
-  error(['unit_y must be ''A'' or ''V''.']);
+  error(['unit_y must be ''A'', ''V'' or ''s''.']);
+end
+
+if strcmp(unit_x, 'V'), dx = dx*1e3; % mV
+elseif strcmp(unit_x, 's'), dx = dx*1e3; % ms
+else 
+  unit_x
+  error(['unit_x must be ''V'' or ''s''.']);
+end
+
+if isempty(datax)
+  datax = (0:(num_samples - 1))';
+else
+  datax=datax(:); % convert to column vec
 end
 
 % convert to ms and nA
 dlmwrite(filename, ...
-         [(0:(num_samples - 1))'*dt*1e3, data*mult], '-append', ...
+         [datax*dx, datay*dy], '-append', ...
          'delimiter', '\t')
