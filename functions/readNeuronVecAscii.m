@@ -1,4 +1,4 @@
-function [data, label] = readNeuronVecAscii(filename,machineformat) 
+function [data, label] = readNeuronVecAscii(filename) 
 
 % readNeuronVecAscii - Reads Neuron simulator Vector object data from ascii files.
 %
@@ -31,7 +31,7 @@ function [data, label] = readNeuronVecAscii(filename,machineformat)
 % read label
   [fid,errmsg] = fopen(filename,'r'); 
   if fid==-1 
-    error(errmsg);
+    error([ 'Cannot open file "' filename '":' errmsg]);
   end 
 
   label = regexprep(fgetl(fid), 'label:', '');
