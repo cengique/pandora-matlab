@@ -1,25 +1,29 @@
 function obj = tests_db(test_results, col_names, row_names, id, props)
 
-% tests_db - A generic database of test results organized in a matrix format.
+% tests_db - Construct a numeric database organized in a matrix format.
 %
 % Usage:
 % obj = tests_db(test_results, col_names, row_names, id, props)
 %
-% Description:
-%   Defines all operations on this structure so that subclasses can use them.
-%
-%   Parameters:
-%	test_results: A matrix that contains columns associated with
-%		tests and rows for separate observations.
-%	col_names: Cell array of column names of test_results.
-%	row_names: Cell array of row names of test_results.
-%	id: An identifying string.
-%	props: A structure with any optional properties.
+% Parameters:
+%   test_results: Either a CSV file name or a matrix that contains
+%   		measurement columns and separate observations as rows.
+%   col_names: Cell array of column names of test_results.
+%   row_names: Cell array of row names of test_results.
+%   id: An identifying string.
+%   props: A structure with any optional properties.
+%     csvArgs: Cell array of arguments passed to csvread function (e.g.,
+%     	{R, C, [r1 c1 r2 c2]}).
+%     csvReadColNames: If 1, first row of the file is used to read column
+%     	names.
 %		
-%   Returns a structure object with the following fields:
-%	data: The data matrix.
-%	row_idx, col_idx: Structure associating row/column names to indices.
-%	id, props.
+% Returns a structure object with the following fields:
+%   data: The data matrix.
+%   row_idx, col_idx: Structure associating row/column names to indices.
+%   id, props.
+%
+% Description:
+%   This is the base database class. 
 %
 % General operations on tests_db objects:
 %   tests_db		- Construct a new tests_db object.
@@ -88,6 +92,33 @@ if nargin == 0 % Called with no params
    if ~ exist('props', 'var')
      props = struct([]);
    end
+
+   % Is CSV file name?
+   if ischar(test_results) 
+     [path, filename, ext] = fileparts(test_results);
+     % assert file has correct extension? [not necessary]
+     %strcmpi(ext, '.csv')
+     csv_args = getFieldDefault(props, 'csvArgs', {});
+     
+     % read column names from 1st row
+     if isfield(props, 'csvReadColNames')
+       fid = fopen(test_results);
+       oneline = fgetl(fid);
+       col_names = textscan(oneline, '"%[^"]"', 'Delimiter', ',');
+       if isempty(col_names)
+         col_names = textscan(oneline, '%s', 'Delimiter', ',');
+       end
+       fclose(fid);
+       col_names = properAlphaNum(col_names{1}');
+       
+       if length(csv_args) == 0 
+         csv_args{1} = 1; % skip 1st row
+       end
+     end
+     
+     test_results = ...
+         csvread(test_results, csv_args{:});
+   end     
 
    % Only allow numeric arrays as test_results
    % TODO: add cell arrays?
