@@ -254,6 +254,10 @@ else
        % abf2load
        [dt, data, y_units, dy, cell_name] = loadABF(data_src, props);
 
+       if isfield(props, 'channel')
+         data = data(:, props.channel);
+       end
+
        props.unit_y = y_units;
        if ~ isfield(props, 'quiet')
          id = [ cell_name id ];
