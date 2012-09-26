@@ -1,8 +1,28 @@
 
-See ChangeLog for details of evolution.
+See ChangeLog or "svn log" for details of evolution.
 
 Version history:
 --------------------
+
+v1_3b: Cengiz Gunay, 2012/09/24. Public beta release.
+	- More stable support for reading ABF and reading/writing
+	Neuron binary and text files. 
+	- Lots of new utility functions. 
+	- Many bugfixes thanks to new users (e.g., Vladislav Sekulic,
+	Anca Doloc-Mihu), so more options and stable operation for
+	recordings from different organisms and systems. 
+	- Took Readgenbin out as an independent tool (see it on
+	github). 
+	- Support for voltage and current-clamp data as paired
+	traces and related tools. VC data is used for Hodgkin-Huxley
+	type channel data fitting.
+	- Better unit support for data fitting and plots.
+	- Better handling of NaNs in database operations.
+	- New data measurements like "time to 1st spike".
+	- Improved KL divergence calculation.
+	- Optimized DB indexing and addressing operations, sped up 50x.
+	- uniqueValues now preserves row order.
+	- Improved use of NNet and SVM classifiers
 
 v1_2b: Cengiz Gunay, 2008/10/31. Public beta "Halloween" release with
 	bugfixes and support for NeuroShare-compatible files.
