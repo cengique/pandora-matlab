@@ -36,11 +36,13 @@ function plot_handle = plotVclampAbf(filename, props)
   [time, dt, data_i, data_v, cell_name] = ...
       loadVclampAbf(filename, props);
 
-  num_pages = size(data_i, 3);
-  if num_pages > 1
-    for page_num=1:num_pages
+  % if there are multiple current traces, assume they share the same
+  % voltage trace
+  num_cols = size(data_i, 2);
+  if num_cols > 1
+    for col_num=1:num_cols
       plot_handle = ...
-          plotVclampStack(time, squeeze(data_i(:, page_num, :)), data_v, cell_name, ...
+          plotVclampStack(time, squeeze(data_i(:, col_num, :)), data_v, cell_name, ...
                           mergeStructs(props, ...
                                        struct('fixedSize', [8 6])));
     end
