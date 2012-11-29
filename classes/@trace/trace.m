@@ -203,7 +203,7 @@ else
          error([ 'Failed to load Neuron binary ''' data_src ''' because of ' ...
                  'error: ' err ]);
        end
-       channel = 1; % by default
+       channel = ':'; % by default
        if isfield(props, 'channel')
          channel = props.channel;
        end
@@ -264,9 +264,12 @@ else
        end
 
      else
-       error(['No matching load function found for file ''' data_src ...
+       warning(['No matching load function found for file ''' data_src ...
               ''' or specified type ''' ...
-	      props.file_type '''.']);
+	      props.file_type '''; using Matlab load function.']);
+       s = load(data_src);
+       data = getfield(s, fields{1});	% Assuming there's only one vector
+       data = data(:, getFieldDefault(props, 'channel', ':'));
      end
 
      % use the filename as id unless otherwise specified
