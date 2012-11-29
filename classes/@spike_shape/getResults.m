@@ -129,6 +129,13 @@ if (max_val - min_val) * mV_factor < min_mm_amp
         get(s, 'id'), (max_val - min_val) * mV_factor, min_mm_amp);
 end
 
+% Sanity check for repolarization
+if isnan(base_width)
+  error('spike_shape:not_a_spike', ...
+        ['%s not a spike! See warning about repolarization above..'], ...
+        get(s, 'id'));
+end
+
 % If you change any of the following names, 
 % make sure to change the above NaN names, too.
 results.MinVm = min_val * mV_factor;
