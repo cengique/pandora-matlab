@@ -1,6 +1,6 @@
 function [results profs] = getResults(a_cc, props)
 
-% getResults - Extract measurement results.
+% getResults - Extract measurement results from all current steps.
 %
 % Usage:
 % [results profs] = getResults(a_cc)

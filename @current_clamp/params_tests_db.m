@@ -1,6 +1,6 @@
-function a_db = params_tests_db(a_cc, props)
+function [a_db profs] = params_tests_db(a_cc, props)
 
-% params_tests_db - Extract measurement results.
+% params_tests_db - Create a database of measurement results changing with applied current.
 %
 % Usage:
 % a_db = params_tests_db(a_cc, props)
@@ -8,7 +8,8 @@ function a_db = params_tests_db(a_cc, props)
 % Parameters:
 %   a_cc: A cip_trace object.
 %   props: A structure with any optional properties.
-%     stepNum: Current step to get results for (default=2).
+%     stepNum: Current period to get results for. Choose 1 for the
+%     		initial period, 2 for the pulse period (default) and so on).
 %     paramsStruct: Contains parameter names and values that are constant
 %     		    for these traces.
 %     paramsVary: Contains parameter names and their varying values for
@@ -17,9 +18,10 @@ function a_db = params_tests_db(a_cc, props)
 %
 % Returns:
 %   a_db: A params_tests_db with results collected from getResults
+%   profs: (Optional) Cell array of cip_trace_allspikes_profile objects for all current steps.
 %
 % Description:
-%   Selects cip_level_pA as the only parameter. 
+%   Selects cip_level_pA as the only database parameter. 
 %
 % See also: getResults, cip_trace, trace, spike_shape
 %
