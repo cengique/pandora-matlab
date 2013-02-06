@@ -62,6 +62,14 @@ end
 num_traces = length(cip_vals);
 num_allpts = size(a_tr.data, 1);
 num_onepts = num_allpts / num_traces;
+
+% sanity check
+if mod(num_allpts, num_traces) ~= 0
+  error(['number of current levels=' num2str(num_traces) ...
+         ' does not evenly divide data vector of size=' ...
+         num2str(num_allpts)]);
+end
+
 data = reshape(a_tr.data, num_onepts, num_traces);
 
 I_hold = getFieldDefault(props, 'Ihold', cip_vals(1));
