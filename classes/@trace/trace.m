@@ -27,6 +27,8 @@ function obj = trace(data_src, dt, dy, id, props)
 %	  baseline: Resting potential.
 %	  channel: Channel to read from file Genesis, PCDX, NeuroShare or
 %	  	   Neuron file, or column in a data vector.
+%         numTraces: Divide the single column vector of data into this
+%         		many columns by making it a matrix.
 %	  file_type: Specify file type instead of guessing from extension:
 %		'genesis': Raw binary files created with Genesis disk_out method.
 %		'genesis_flac': Compressed Genesis binary files.
@@ -266,7 +268,7 @@ else
      else
        warning(['No matching load function found for file ''' data_src ...
               ''' or specified type ''' ...
-	      props.file_type '''; using Matlab load function.']);
+	      props.file_type '''; defaulting to Matlab load() function.']);
        s = load(data_src);
        data = getfield(s, fields{1});	% Assuming there's only one vector
        data = data(:, getFieldDefault(props, 'channel', ':'));
@@ -291,6 +293,17 @@ else
      error('Unrecognized data source!');
    end
 
+   % reshape data if requested
+   if isfield(props, 'numTraces')
+     total_len = size(data, 1);
+     if mod(total_len, props.numTraces) ~= 0
+       error(['props.numTraces=' num2str(props.numTraces) ...
+              ' does not evenly divide data vector of size=' ...
+              num2str(size(data, 1))]);
+     end
+     data = reshape(data, total_len/props.numTraces, props.numTraces);
+   end
+   
    % Scale the loaded data if desired
    if isfield(props, 'scale_y')
      % scale HDF5 data only if gain is unspecified in file metadata (by Li Su)
