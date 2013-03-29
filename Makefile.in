@@ -25,7 +25,7 @@ dist:
 	cp -a doc/prog-manual.pdf $(DIRNAME)/doc
 	cp README.dist $(DIRNAME)/README
 	cp COPYING CHANGES CREDITS $(DIRNAME)
-	tar -cz --exclude .svn -f $(DIRNAME).tar.gz $(DIRNAME)
+	tar -cz --exclude .svn --exclude '*~' -f $(DIRNAME).tar.gz $(DIRNAME)
 	rm -rf $(DIRNAME)
 
 distdochtml: doc/html
@@ -45,7 +45,7 @@ distplots:
 	cp COPYING $(PLOTDIRNAME)
 	mkdir $(PLOTDIRNAME)/$(PLOTPKGNAME)
 	cp -a classes/\@plot_* functions/*  $(PLOTDIRNAME)/$(PLOTPKGNAME)/
-	tar -cz --exclude .svn -f $(PLOTDIRNAME).tar.gz $(PLOTDIRNAME)
+	tar -cz --exclude .svn --exclude '*~' -f $(PLOTDIRNAME).tar.gz $(PLOTDIRNAME)
 	rm -rf $(PLOTDIRNAME)
 
 clean: 
