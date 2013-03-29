@@ -58,7 +58,14 @@ end
 
 % Open the file with desired endianness
 disp([ 'Reading ' filename ]);
+
+assert(exist(filename, 'file') ~= 0, ...
+       [ 'Cannot find file: "' filename '". Does it exist?']);
+
 fil = fopen(filename, 'r', endian);
+
+assert(fil ~= -1, ...
+       [ 'Cannot open file: "' filename '".']);
 
 % Figure out how many bytes we can read at most
 fseek(fil, 0, 'eof');
