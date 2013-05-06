@@ -27,7 +27,9 @@ function a_md = fit(a_md, title_str, props)
 %     		string that includes a number string (e.g., '%d') and increment it
 %     		until a non-existing file name is found.
 %     savePlotFile: If given, save the plot to this file every dispPlot iteration.
-%     plotMd: model_data_vcs or subclass object to be used for plots.
+%     plotMd: model_data_vcs or subclass object to be used for
+%     		plots. This reuses the data in the md and only updates the model
+%     		parameters in the plot.
 %     quiet: If 1, do not include cell name on title.
 % 
 % Returns:
