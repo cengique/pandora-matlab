@@ -3,7 +3,7 @@ function param_names = getParamNames(a_ps, props)
 % getParamNames - Gets the parameter names of function.
 %
 % Usage:
-%   param_names = getParamNames(a_ps)
+%   param_names = getParamNames(a_ps, props)
 %
 % Parameters:
 %   a_ps: A param_func object.
