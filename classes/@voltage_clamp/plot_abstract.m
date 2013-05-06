@@ -10,6 +10,7 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %   title_str: (Optional) Text to appear in the plot title.
 %   props: A structure with any optional properties.
 %     quiet: If 1, only use given title_str.
+%     vStep: Index of step with varying voltages (default=2).
 %     label: add this as a line label to be used in superposed plots.
 %     onlyPlot: 'i' for current and 'v' for voltage plot.
 %     curUnit: Display units for current trace (default='nA').
@@ -52,7 +53,7 @@ switch (cur_unit)
 end
 
 % assume 2nd step is the main pulse
-v_steps = a_vc.v_steps(2, :);
+v_steps = a_vc.v_steps(getFieldDefault(props, 'vStep', 2), :);
 
 v_legend = ...
     cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
