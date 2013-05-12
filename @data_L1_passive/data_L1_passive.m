@@ -3,7 +3,7 @@ function a_data = data_L1_passive(data_vc, model_f, id, props)
 % data_L1_passive - Holds passive recordings from L1 cells.
 %
 % Usage:
-% a_data = data_L1_passive(data_vc, id, props)
+% a_data = data_L1_passive(data_vc, model_f, id, props)
 %
 % Parameters:
 %   data_vc: A voltage_clamp object with the data.
