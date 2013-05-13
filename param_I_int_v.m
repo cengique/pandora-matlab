@@ -1,11 +1,11 @@
 function a_pf = ...
-      param_I_v(param_vals, a_param_act, a_param_inact, id, props)
+      param_I_int_v(param_vals, a_param_act, a_param_inact, id, props)
   
-% param_I_v - An (non)inactivating current integrated over a changing V.
+% param_I_int_v - An (non)inactivating current integrated over a changing V.
 %
 % Usage:
 %   a_pf = 
-%     param_I_v(param_vals, a_param_act, a_param_inact, dt, id, props)
+%     param_I_int_v(param_vals, a_param_act, a_param_inact, id, props)
 %
 % Parameters:
 %   param_vals: Values for p, q, gmax [uS] and E [mV].
@@ -26,11 +26,11 @@ function a_pf = ...
 %
 % Example:
 % >> m_ClCa = param_act_int_v(f_IClCa_minf_v, f_IClCa_tau_v, 'm');
-% >> f_IClCa_v = param_I_v([1 0 1 -41.7], m_ClCa, param_func_nil, 'I_ClCa');
+% >> f_IClCa_v = param_I_int_v([1 0 1 -41.7], m_ClCa, param_func_nil, 'I_ClCa');
 %
 % See also: param_act_int_v, param_func, tests_db, plot_abstract
 %
-% $Id: param_I_v.m 128 2010-06-07 21:36:08Z cengiz $
+% $Id: param_I_int_v.m 128 2010-06-07 21:36:08Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/01/17
 
