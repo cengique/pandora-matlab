@@ -17,6 +17,9 @@ function a_md = fit(a_md, title_str, props)
 %   a_md: Updated object.
 %
 % Description:
+%   WARNING: fitRangeRel, outRangeRel, and fitRange parameters need to be
+% re-interpreted because this object will concat the two data files and
+% call the super fit function.
 %
 % Example:
 % >> a_md = fit(model_data_vcs(model, data_vc))
@@ -47,6 +50,32 @@ else
   Kall_vc.v.data = [ Kall_vc.v.data, a_md.model_data_vcs.data_vc.v.data ];
 
   Kall_vc = updateSteps(Kall_vc);
+end
+
+% do not allow fitRange and fitRangeRel
+if isfield(props, 'fitRangeRel') || isfield(props, 'fitRange')
+  error([ 'fitRange and fitRangeRel not allowed for model_data_vcs_Kprepulse ' ...
+          'because two voltage protocols are concatenated and must be ' ...
+          'simulated one after another.' ]);
+end
+
+% re-interpret fitRangeRel params
+if isfield(props, 'outRangeRel')
+  num_steps = length(Kall_vc.time_steps);
+  new_range = [];
+  for row_num = 1:size(props.outRangeRel, 1)
+    if size(props.outRangeRel, 2) == 2
+      props.outRangeRel = [ones(size(props.outRangeRel, 1), 1), ...
+                          props.outRangeRel];
+    end
+    % duplicate each row
+    new_range = ...
+        [new_range; ...
+         props.outRangeRel(row_num, :); ...
+         [ (props.outRangeRel(row_num, 1) + num_steps ) props.outRangeRel(row_num, 2:3)]];
+  end
+  props.outRangeRel = new_range;
+  new_range
 end
 
 % do fit on new object
