@@ -1,9 +1,9 @@
-function a_md = fit(a_md, title_str, props)
+function [a_md a_doc] = fit(a_md, title_str, props)
 
 % fit - Fit model to combined voltage clamp for data_vc and pre_data_vc.
 %
 % Usage:
-% a_md = fit(a_md, title_str, props)
+% [a_md a_doc] = fit(a_md, title_str, props)
 %
 % Parameters:
 %   a_md: A model_data_vcs object.
@@ -15,11 +15,9 @@ function a_md = fit(a_md, title_str, props)
 % 
 % Returns:
 %   a_md: Updated object.
+%   a_doc: A doc_plot object containing the annotated figure.
 %
 % Description:
-%   WARNING: fitRangeRel, outRangeRel, and fitRange parameters need to be
-% re-interpreted because this object will concat the two data files and
-% call the super fit function.
 %
 % Example:
 % >> a_md = fit(model_data_vcs(model, data_vc))
@@ -52,35 +50,10 @@ else
   Kall_vc = updateSteps(Kall_vc);
 end
 
-% do not allow fitRange and fitRangeRel
-if isfield(props, 'fitRangeRel') || isfield(props, 'fitRange')
-  error([ 'fitRange and fitRangeRel not allowed for model_data_vcs_Kprepulse ' ...
-          'because two voltage protocols are concatenated and must be ' ...
-          'simulated one after another.' ]);
-end
-
-% re-interpret fitRangeRel params
-if isfield(props, 'outRangeRel')
-  num_steps = length(Kall_vc.time_steps);
-  new_range = [];
-  for row_num = 1:size(props.outRangeRel, 1)
-    if size(props.outRangeRel, 2) == 2
-      props.outRangeRel = [ones(size(props.outRangeRel, 1), 1), ...
-                          props.outRangeRel];
-    end
-    % duplicate each row
-    new_range = ...
-        [new_range; ...
-         props.outRangeRel(row_num, :); ...
-         [ (props.outRangeRel(row_num, 1) + num_steps ) props.outRangeRel(row_num, 2:3)]];
-  end
-  props.outRangeRel = new_range;
-  new_range
-end
-
 % do fit on new object
-a_new_md = fit(model_data_vcs(a_md.model_data_vcs.model_f, Kall_vc), ...
-               title_str, mergeStructs(props, struct('plotMd', a_md)));
+[a_new_md a_doc] = ...
+    fit(model_data_vcs(a_md.model_data_vcs.model_f, Kall_vc), ...
+        title_str, mergeStructs(props, struct('plotMd', a_md)));
    
 % update model from new object
 a_md.model_data_vcs = ...
