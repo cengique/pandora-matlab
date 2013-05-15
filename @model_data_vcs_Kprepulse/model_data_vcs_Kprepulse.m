@@ -75,7 +75,7 @@ else
     
   a_md = struct;
   a_md.md_pre = ...
-      model_data_vcs(model_f, pre_data_vc, [ id 'w/ inact prepulse'], props);
+      model_data_vcs(model_f, pre_data_vc, [ id ' w/ inact prepulse'], props);
   a_md = class(a_md, 'model_data_vcs_Kprepulse', ...
-               model_data_vcs(model_f, data_vc, [ id 'w & w/o inact prepulse'], props));
+               model_data_vcs(model_f, data_vc, [ id ' w & w/o inact prepulse'], props));
 end
