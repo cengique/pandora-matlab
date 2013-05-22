@@ -15,6 +15,8 @@ function printTeXFile(a_doc, filename, props)
 %	a_doc: A tests_db object.
 %	filename: To write the TeX string.
 %	props: A structure with any optional properties.
+%	  docDir: Directory in which to create TeX file.
+%	  (passed to getTeXString)
 %		
 %   Returns:
 %	tex_string: A string that contains TeX commands, which upon writing to a file,
@@ -37,9 +39,7 @@ function printTeXFile(a_doc, filename, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if ~ exist('props', 'var')
-  props = struct([]);
-end
+props = mergeStructs(defaultValue('props', struct), get(a_doc, 'props'));
 
 found = findstr(filename, '.tex');
 if length(found) == 0
@@ -47,4 +47,5 @@ elseif length(found) == 1
   filename = filename(1:(found(1) - 1)); % strip the extension
 end
 
-string2File(getTeXString(a_doc, props), [ properTeXFilename(filename) '.tex']);
+string2File(getTeXString(a_doc, props), ...
+            [ getFieldDefault(props, 'docDir', '') properTeXFilename(filename) '.tex']);
