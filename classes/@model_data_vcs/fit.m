@@ -1,9 +1,9 @@
-function a_md = fit(a_md, title_str, props)
+function [a_md a_doc] = fit(a_md, title_str, props)
 
 % fit - Fit model to data.
 %
 % Usage:
-% a_md = fit(a_md, title_str, props)
+% [a_md a_doc] = fit(a_md, title_str, props)
 %
 % Parameters:
 %   a_md: A model_data_vcs object.
@@ -26,7 +26,7 @@ function a_md = fit(a_md, title_str, props)
 %     saveModelAutoNum: Use this as a base number and use saveModelFile as sprintf formatted
 %     		string that includes a number string (e.g., '%d') and increment it
 %     		until a non-existing file name is found.
-%     savePlotFile: If given, save the plot to this file every dispPlot iteration.
+%     savePlotFile: If given, save the plot to this file every dispPlot iteration as the model file.
 %     plotMd: model_data_vcs or subclass object to be used for
 %     		plots. This reuses the data in the md and only updates the model
 %     		parameters in the plot.
@@ -34,8 +34,15 @@ function a_md = fit(a_md, title_str, props)
 % 
 % Returns:
 %   a_md: Updated model_data_vcs object with fit.
+%   a_doc: A doc_plot object containing the annotated figure.
 %
 % Description:
+%   Caveat: what you see in the plots may be different that what the
+% algorithm is comparing for the fits if you provide fitRange or
+% fitRangeRel because the plots will simulate the whole range
+% anyway. Therefore the plots will always have a more correct output than
+% the fitting algorithm -- especially if you selected a too narrow
+% simlation range that doesn't let the model react to voltage levels.
 %
 % Example:
 % >> a_md = ...
@@ -44,7 +51,7 @@ function a_md = fit(a_md, title_str, props)
 %             'dispParams', 5, ...
 %             'optimset', struct('Display', 'iter')));
 %
-% See also: param_I_v, param_func
+% See also: param_I_v, param_func, doc_plot
 %
 % $Id$
 %
@@ -53,7 +60,8 @@ function a_md = fit(a_md, title_str, props)
 % TODO: 
 % - remove title_str parameter
 % - process 2nd step and write a 2nd data file for prepulse step
-% - prepare a doc_multi from this. Find a way to label figures but print later.
+% - prepare a doc_multi from this. Find a way to label figures but print
+% later. Or print later to overwrite file?
 % - also plot IClCa m_infty curve?
 % - have option to show no plots, to create database of params
 % - extract fitting to a separate function that returns the optimized _f
@@ -193,7 +201,7 @@ end
     fig_props = struct;
   end
   
-  function dispPlot(a_model)
+  function a_plot = dispPlot(a_model)
   % is plotting disabled?
     if isfield(props, 'dispPlot') && props.dispPlot == 0
       return;
@@ -212,32 +220,24 @@ end
           properTeXLabel([ num_iter_label extra_text title_str ]);
     end
 
-    % TODO: fix problem of compatibility with model_data_vcs_Kprepulse
-    % this should all be in a_md/plot_abstract
-      fig_handle = ...
-          plotFigure(plot_abstract(updateModel(props.plotMd, a_model), ...
-                                   all_title, ...
-                                   mergeStructs(props, struct(... %'levels', use_levels, ...
-                                          'axisLimits', ...
-                                          plot_zoom))), ...
-                     '', fig_props);
+    % use generic model_data_vcs/plot_abtract method
+    a_plot = ...
+        plot_abstract(updateModel(props.plotMd, a_model), ...
+                      all_title, ...
+                      mergeStructs(props, ...
+                                   struct(... %'levels', use_levels, ...
+                                     'axisLimits', plot_zoom)));
 
-% $$$       fig_handle = ...
-% $$$           plotFigure(...
-% $$$             plotDataCompare(b_md, all_title, ...
-% $$$                             struct('levels', use_levels, ...
-% $$$                                    'show', 'sub', ...
-% $$$                                    'axisLimits', ...
-% $$$                                    [range_maxima.start_time ...
-% $$$                           * dt, range_maxima.end_time * dt NaN NaN], ...
-% $$$                                    'fixedSize', [4 3], 'noTitle', 1)), '', ...
-% $$$             fig_props);
+    % create or update figure
+    fig_handle = ...
+          plotFigure(a_plot, '', fig_props);
 
-      fig_props = mergeStructs(struct('figureHandle', fig_handle), ...
-                               fig_props);
-      if isfield(props, 'savePlotFile')
-        print(fig_handle, '-depsc2', props.savePlotFile);
-      end
+    fig_props = mergeStructs(struct('figureHandle', fig_handle), ...
+                             fig_props);
+    
+    if isfield(props, 'savePlotFile')
+      print(fig_handle, '-depsc2', props.savePlotFile);
+    end
   end
 
   params = getParamsStruct(f_model);
@@ -268,8 +268,21 @@ if ~ isempty(use_levels)
 
   % nicely plot current and voltage trace in separate axes only for
   % part fitted
-  dispPlot(f_model);
+  a_plot = dispPlot(f_model);
 
+  if nargout > 1
+    % strip directory name from output file
+    [pathstr,namenoext,ext] = ...
+        fileparts(getFieldDefault(props, 'savePlotFile', ...
+                                         [ get(a_md, 'id') ]));
+    a_doc = doc_plot(a_plot, [ get(a_md, 'id') ' ' all_title], ...
+                     namenoext, ...
+                     struct, [ get(a_md, 'id') ], ...
+                     struct('docDir', [pathstr filesep], ...
+                            'plotRelDir', ''));
+  end
+
+  
 end
 
 end
