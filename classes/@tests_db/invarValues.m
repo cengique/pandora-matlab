@@ -120,7 +120,7 @@ else
 
     data = repmat(NaN, [max_page_rows, (length(cols) + 1), num_rows]);
 
-    if exist('unique_main_vals','var')
+    if exist('unique_main_vals','var') && ~isempty(unique_main_vals)
       unique_main_vals_exist = true;
     else
       unique_main_vals_exist = false;

@@ -1,23 +1,32 @@
-function a_3D_db = invarParam(db, param)
+function a_3D_db = invarParam(db, param, props)
 
 % invarParam - Generates a 3D database of invariant values of a parameter and all test columns. 
 %
 % Usage:
-% a_3D_db = invarParam(db, param)
+% a_3D_db = invarParam(db, param, props)
 %
-% Description:
-%   Finds all combinations when the rest of the parameters are fixed,
-% and saves the variation of the selected parameter and all tests in
-% a new database.
-%
-%   Parameters:
-%	db: A tests_db object.
-%	param: A parameter name/column number
+% Parameters:
+%   db: A tests_db object.
+%   param: A parameter name/column number. It can be empty [], meaning to
+%   	find all unique combinations of parameters.
+%   props: A structure with any optional properties.
+%     removeRedun: If 1 (default), clean database by removing redundant
+%     	sets of parameters.
+%     removeCol: If removeRedun == 1, name of parameter column to remove 
+%	if found. Default: 'trial'.
 %		
+% Description:
+%   Finds all values of selected parameter for the background when the rest
+% of the parameters are fixed. Returns the selected parameter and all
+% tests. Removes the parameter column named 'trial' before this operation
+% since it will be unique for each row. It will also remove redundant
+% parameter sets to have one of each unique combination. You may need to
+% average rows before running this. See meanDuplicateRows.
+%
 %   Returns:
 %	a_3D_db: A tests_3D_db object of organized values.
 %
-% See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair
+% See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair, meanDuplicateRows
 %
 % $Id$
 %
@@ -31,22 +40,25 @@ function a_3D_db = invarParam(db, param)
 
 data = get(db, 'data');
 num_params = get(db, 'num_params');
-
-% Remove trial column from parameters that define character of data
+props = defaultValue('props', struct);
 col_name_cell = fieldnames(get(db, 'col_idx'));
-trial_col = strmatch('trial', col_name_cell);
 
-% Remove the trial parameter before the redundancy check
-no_trial_cols = false(1, dbsize(db, 2));
-no_trial_cols(1:num_params) = true(1);
-no_trial_cols(trial_col) = false(1);
+if getFieldDefault(props, 'removeRedun', 1) == 1
+  % Remove trial column from parameters that define character of data
+  trial_col = strmatch(getFieldDefault(props, 'removeCol', 'trial'), col_name_cell);
+  
+  % Remove the trial parameter before the redundancy check
+  no_trial_cols = false(1, dbsize(db, 2));
+  no_trial_cols(1:num_params) = true(1);
+  no_trial_cols(trial_col) = false(1);
 
-% before everything, make sure database has no redundant parameter sets
-[unique_rows unique_idx] = ...
-    uniqueValues(data(:, no_trial_cols));
-if size(unique_rows, 1) < size(data, 1)
+  % before everything, make sure database has no redundant parameter sets
+  [unique_rows unique_idx] = ...
+      uniqueValues(data(:, no_trial_cols));
+  if size(unique_rows, 1) < size(data, 1)
     warning(['Removing redundant parameter sets from the DB.']);
     db = set(db, 'data', data(unique_idx, :));
+  end
 end
 
 col = tests2cols(db, param);
