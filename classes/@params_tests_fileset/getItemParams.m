@@ -27,55 +27,60 @@ function params_row = getItemParams(dataset, index, a_profile)
 % http://opensource.org/licenses/afl-3.0.php.
 
 props = get(dataset, 'props');
+params_row = [];
 
-filename = getItem(dataset, index);
-fullname = fullfile(dataset.path, filename);
+% if props.num_params ~= 0 then parse file names
+if ~ isfield(props, 'num_params') || props.num_params ~= 0
+  filename = getItem(fileset, item);
+  fullname = fullfile(fileset.path, filename);
+  
+  names_vals = parseGenesisFilename(fullname);
 
-names_vals = parseGenesisFilename(fullname);
+  if isfield(props, 'num_params')
+    num_params = props.num_params;
+  else
+    num_params = size(names_vals, 1);
+  end
 
-if isfield(props, 'num_params')
-  num_params = props.num_params;
-else
-  num_params = size(names_vals, 1);
+  params_row = [ names_vals{1:num_params, 2} ];
 end
 
 if isfield(props, 'param_rows')
   % Take parameter values from the specified parameter file,
   % in addition to the ones specified on data filenames.
-
   if ~ isfield(props, 'param_trial_name')
     props.param_trial_name = 'trial';
   end
-  str_index = strmatch(props.param_trial_name, {names_vals{1:num_params, 1}});
-
-  if length(str_index) < 1
-    error(['Parameter lookup from rows is requested, but cannot find ' ...
-	   'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
-  end
-  
-  trial_num = names_vals{str_index, 2};
 
   % Skip the "trial" value from the rows file
   str_index = strmatch(props.param_trial_name, props.param_names);
-
+    
   trues = true(1, length(props.param_names));
-
+    
   if ~ isempty(str_index)
     % If found, ignore the parameter "trial" from the list of parameters 
     % coming from the param rows file
     trues(str_index) = false;
   end
 
-  if trial_num > size(props.param_rows, 1)
-    error([ 'Trial number ' num2str(trial_num) ' is larger than trials available in the ' ...
-	   'specified param_rows (' num2str(size(props.param_rows, 1)) ').'] );
+  % look up trial numbers if there is more than one row
+  if size(props.param_rows, 1) > 1
+    str_index = strmatch(props.param_trial_name, {names_vals{1:num_params, 1}});
+    
+    if length(str_index) < 1
+      error(['Parameter lookup from rows is requested, but cannot find ' ...
+             'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
+    end
+    
+    trial_num = names_vals{str_index, 2};
+    
+    if trial_num > size(props.param_rows, 1)
+      error([ 'Trial number ' num2str(trial_num) ' is larger than trials available in the ' ...
+              'specified param_rows (' num2str(size(props.param_rows, 1)) ').'] );
+    end
+    params_row = [props.param_rows(trial_num, trues) params_row];
+  else
+    % if only one row, just use it
+    params_row = [props.param_rows(1, trues) params_row];
   end
-
-  add_param_vals = props.param_rows(trial_num, trues);
-else
-  add_param_vals = [];
 end
-
-% Convert params to row vector
-params_row = [ add_param_vals, names_vals{1:num_params, 2} ];
-

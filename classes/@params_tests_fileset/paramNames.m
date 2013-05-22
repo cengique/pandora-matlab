@@ -32,24 +32,26 @@ if ~ exist('item', 'var')
 end
 
 props = get(fileset, 'props');
+param_names = {};
 
-filename = getItem(fileset, item);
-fullname = fullfile(fileset.path, filename);
+% if props.num_params ~= 0 then parse file names
+if ~ isfield(props, 'num_params') || props.num_params ~= 0
+  filename = getItem(fileset, item);
+  fullname = fullfile(fileset.path, filename);
+  
+  names_vals = parseGenesisFilename(fullname);
 
-names_vals = parseGenesisFilename(fullname);
-
-if isfield(props, 'num_params')
-  num_params = props.num_params;
-else
-  num_params = size(names_vals, 1);
+  if isfield(props, 'num_params')
+    num_params = props.num_params;
+  else
+    num_params = size(names_vals, 1);
+  end
+  
+  param_names = { names_vals{1:num_params, 1} };
 end
 
+% parameter names in addition to the ones specified in data filenames
 if isfield(props, 'param_names')
-
-
-  % Take parameter values from the specified parameter file,
-  % in addition to the ones specified on data filenames.
-
   str_index = strmatch('trial', props.param_names);
   trues = true(1, length(props.param_names));
 
@@ -59,10 +61,8 @@ if isfield(props, 'param_names')
     trues(str_index) = false;
   end
 
-  add_param_names = { props.param_names{trues} };
-else
-  add_param_names = { };
+  % Convert param names to cell array
+  param_names = { props.param_names{trues}, param_names{:} };
 end
 
-% Convert param names to cell array
-param_names = { add_param_names{:}, names_vals{1:num_params, 1} };
+

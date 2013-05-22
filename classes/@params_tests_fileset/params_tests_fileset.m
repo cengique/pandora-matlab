@@ -26,6 +26,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %		param_trial_name: Use this name on the filename as the 'trial' parameter.
 %		param_row_filename: If given, the 'trial' parameter will be used
 %			to address rows from this file and acquire parameters.
+%		param_rows: Instead of a file, just give parameters in this matrix.
 %		param_desc_filename: Contains the parameter range descriptions one per 
 %			each row. The parameter names are acquired from this file.
 %		param_names: Cell array of parameter names corresponding to the 
