@@ -1,3 +1,17 @@
+Name:
+- MatHHfit? This is also a general purpose ode sover :)
+- MatODEfit?
+
+Before release:
+- contents.m file
+- examples/ dir and at least one example
+- convert test.m to a tutorial file
+- make more tutorials, especially for simulating and fitting
+- doc/ dir for content posted at MathWorks File Exchange and INCF
++ clean lint/cruft: @deriv@, fit_example
+
 Update people who are interested:
 Rob Butera
 Daniele Marinazzo daniele.marinazzo@parisdescartes.fr
+Mario Rosasco mrosasco@uw.edu - graduate student in the department of Pharmacology at the University of Washington
+Michael Long mlong@nyumc.org - junior faculty at NYU

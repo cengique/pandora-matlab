@@ -10,7 +10,7 @@ function a_pf = ...
 % Parameters:
 %   param_vals: Values for p, q, gmax [uS] and E [mV].
 %   a_param_act, a_param_inact: param_act objects for m and h, resp.,
-%   	obtained using the param_act_int_v function.
+%   	obtained using the param_act_deriv_v function.
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
