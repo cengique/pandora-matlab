@@ -1,6 +1,6 @@
 function sub_vc = minus(left_vc, right_vc, props)
 
-% minus - Subtract voltage clamp object right_vc from left_vc.
+% minus - Subtract current traces of voltage clamp object right_vc from left_vc.
 %
 % Usage:
 % sub_vc = minus(left_vc, right_vc, props)

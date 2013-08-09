@@ -1,4 +1,4 @@
-% DJLAB General Purpose Matlab Classes
+% PANDORA Toolbox Classes
 %
 % The following classes are designed as generic templates that can be 
 % subclassed to take specific tasks. They should not be modified for
