@@ -3,7 +3,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 % getResultsPassiveReCeElec - Estimates passive cell params based on Re Ce electrode model.
 %
 % Usage:
-% results = getResultsPassiveReCeElec(pas, props)
+% [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %
 % Parameters:
 %   pas: A data_L1_passive object.
@@ -24,14 +24,15 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     passiveV: limit below which traces are only passive (default=-55mV)
 %
 % Returns:
-%   Re: Series resistance [MOhm].
-%   Cm: Cell capacitance [nF].
+%   results: A structure with all fitted passive parameters.
+%   a_doc: (Optional) A doc_plot object that contains the plot for the fit.
 %
 % Description:
 %   Integrates current response and divides by voltage difference to get
-% capacitance. Membrane charge time constant is series resistance times
-% capacitance. I=Cm*dV/dt+(V-EL)*gL. Run it after 'warning on verbose' to get
-% detailed information.
+% initial estimate for capacitance. Membrane charge time constant is series
+% resistance times capacitance. I=Cm*dV/dt+(V-EL)*gL. Then runs several
+% optimization steps to fits output.  Run it after 'warning on verbose' to
+% get detailed information.
 %
 % See also: 
 %
@@ -39,7 +40,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/01/06
 
-% Copyright (c) 2011 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2011-2013 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
