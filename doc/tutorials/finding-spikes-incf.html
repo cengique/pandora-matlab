@@ -1,0 +1,42 @@
+<h1>Tutorial: Finding Spike Times</h1>
+<p>This tutorial assumes you already loaded an intracellular voltage trace and found it spikes in the previous tutorial on <a href="load-trace">Loading Data</a>.</p>
+<p>Once you have the <code>trace</code> object ready and a <code>spike_finder</code> method selected, finding spikes is easy:</p>
+<pre><code>a_spikes = spikes(a_trace)
+</code></pre>
+<p>And should result in this:</p>
+<pre><code>spikes, id=my test trace
+
+ans =
+
+      times: [1x187 double]
+num_samples: 50000
+         dt: 1.0000e-04
+         id: 'my test trace'
+</code></pre>
+<p>The <code>a_spikes.times</code> element contains the spike times, in this case there are 187 of them. If you fail to find any spikes in your data, you can troubleshoot the situation by repeating the operation in verbose mode:</p>
+<pre><code>a_spikes = spikes(a_trace, [], 1)
+</code></pre>
+<p>Which should produce a graph with the filtered version of the data with a blue line showing the automatically selected threshold and red circles on spikes that pass this threshold:</p>
+<p><img alt="Spikes found in filtered data" src="screenshot-trace-spikes-filtered.png"></p>
+<p>The results from the filtered data is then translated to the real data in another figure:</p>
+<p><img alt="Spikes found in real data" src="screenshot-trace-spikes-real.png"></p>
+<p>If the calculated threshold did not work for you, you can change it as in the alternate <code>spike_finder</code> method example above by passing a <code>struct('threshold', X)</code> value to <code>trace</code>. This is the convention to set optional properties (or <code>props</code>) in Pandora.</p>
+<p>Another parameter that controls finding spike times is the down threshold: how much the spike needs to go down after the peak in the <em>filtered</em> data. This is controlled by the optional property <code>downThreshold</code> in <code>trace</code> and it has a default value of <code>-2</code>. </p>
+<h1>What to do with the <code>spikes</code> object?</h1>
+<p>Once you find the spike times, you can already calculate several things and make plots. To see all possible options, you can run <code>methods spikes</code>, which will show all methods of the <code>spikes</code> object.</p>
+<p>You can visualize the spike times with:</p>
+<pre><code>&gt;&gt; plot(a_spikes)
+</code></pre>
+<p>which should give a simple <code>stem</code> plot:</p>
+<p><img alt="Simple view of spikes" src="screenshot-spikes-plot.png"></p>
+<p>But you can also plot the instantaneous firing rate with:</p>
+<pre><code>&gt;&gt; plotFigure(plotFreqVsTime(a_spikes))
+</code></pre>
+<p>that gives:</p>
+<p><img alt="Simple view of spikes" src="screenshot-spikes-plotFreqVsTime.png"></p>
+<p>The instantaneous frequency is calculated from the inverse of interspike intervals (ISIs), which can also be plotted by:</p>
+<pre><code>&gt;&gt; plotFigure(plotISIs(a_spikes))
+</code></pre>
+<p>that gives:</p>
+<p><img alt="Simple view of spikes" src="screenshot-spikes-plotISIs.png"></p>
+<p>Now you can continue onto the next tutorial on <a href="extracting-spike-info">Extracting Firing Characteristics</a>.</p>
