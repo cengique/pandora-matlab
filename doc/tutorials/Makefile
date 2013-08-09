@@ -1,4 +1,4 @@
-FILES=finding-spikes-incf.markdown
+FILES=finding-spikes-incf.markdown extracting-spike-info.markdown load-trace.markdown
 HTMLS=$(FILES:%.markdown=$(TARGET)%.html)
 DEPS=
 TARGET=./
