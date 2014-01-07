@@ -6,13 +6,14 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 % obj = tests_db(test_results, col_names, row_names, id, props)
 %
 % Parameters:
-%   test_results: Either a CSV file name or a matrix that contains
+%   test_results: Either a text file (e.g., CSV) name or a matrix that contains
 %   		measurement columns and separate observations as rows.
 %   col_names: Cell array of column names of test_results.
 %   row_names: Cell array of row names of test_results.
 %   id: An identifying string.
 %   props: A structure with any optional properties.
-%     csvArgs: Cell array of arguments passed to csvread function (e.g.,
+%     textDelim: If not CSV (','), delimiter in text file to be used by dlmread.
+%     csvArgs: Cell array of arguments passed to dlmread function (e.g.,
 %     	{R, C, [r1 c1 r2 c2]}).
 %     csvReadColNames: If 1, first row of the file is used to read column
 %     	names.
@@ -23,7 +24,10 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %   id, props.
 %
 % Description:
-%   This is the base database class. 
+%   This is the base database class. Note for loading text files:
+% Matlab's dlmread and csvread commands are unable to handle files that
+% have any non-numeric data (except skipped rows). Therefore, those files
+% are best filtered with outside tools before importing into Pandora.
 %
 % General operations on tests_db objects:
 %   tests_db		- Construct a new tests_db object.
@@ -66,7 +70,7 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 % Additional methods:
 %	See methods('tests_db')
 %
-% See also: params_tests_db, params_db, test_variable_db (N/I)
+% See also: params_tests_db, params_db, test_variable_db (N/I), dlmread, csvread
 %
 % $Id$
 %
@@ -93,31 +97,47 @@ if nargin == 0 % Called with no params
      props = struct([]);
    end
 
-   % Is CSV file name?
+   % Is it a file name?
    if ischar(test_results) 
      [path, filename, ext] = fileparts(test_results);
      % assert file has correct extension? [not necessary]
      %strcmpi(ext, '.csv')
      csv_args = getFieldDefault(props, 'csvArgs', {});
      
+     % CSV?
+     delim = getFieldDefault(props, 'textDelim', ',');
+     
      % read column names from 1st row
      if isfield(props, 'csvReadColNames')
-       fid = fopen(test_results);
+       [fid, msg] = fopen(test_results);
+       if fid < 0
+         error(['Can''t find file "' test_results '" to open: ' msg]);
+       end
        oneline = fgetl(fid);
-       col_names = textscan(oneline, '"%[^"]"', 'Delimiter', ',');
-       if isempty(col_names)
-         col_names = textscan(oneline, '%s', 'Delimiter', ',');
+       col_names = textscan(oneline, '"%[^"]"', 'Delimiter', delim);
+       if isempty(col_names{1})
+         col_names = textscan(oneline, '%s', 'Delimiter', delim);
        end
        fclose(fid);
        col_names = properAlphaNum(col_names{1}');
        
+       % skip 1st row
        if length(csv_args) == 0 
-         csv_args{1} = 1; % skip 1st row
+         csv_args = {1 0};
+       elseif length(csv_args{1}) == 1
+         csv_args{1} = max(1, csv_args{1});
+       else
+         rc = csv_args{1};
+         rc(1) = max(1, rc(1));
+         csv_args{1} = rc;
        end
+       
+       % remove from props not to clutter the tests_db object
+       props = rmfield(props, 'csvReadColNames');
      end
      
      test_results = ...
-         csvread(test_results, csv_args{:});
+         dlmread(test_results, delim, csv_args{:});
    end     
 
    % Only allow numeric arrays as test_results
