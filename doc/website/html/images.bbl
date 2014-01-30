@@ -1,0 +1,21 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ettrich et~al.(2003)]{lyx-03}
+Matthias Ettrich et~al.
+\newblock {LyX}.
+\newblock A document preparation system that allows the author to concentrate
+  on content, rather than typesetting., 2003.
+\newblock URL \url{http://www.lyx.org}.
+
+\bibitem[Lamport(1994)]{lamport-94}
+Leslie Lamport.
+\newblock \emph{{\LaTeX}: {A} document preparation system}.
+\newblock Addison-Wesley, Reading, Massachusetts, second edition, 1994.
+\newblock ISBN 0-201-52983-1.
+
+\end{thebibliography}

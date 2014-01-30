@@ -1,0 +1,521 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.70)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Contents</TITLE>
+<META NAME="description" CONTENT="Contents">
+<META NAME="keywords" CONTENT="prog-manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="prog-manual.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="prog-manual.html">
+<LINK REL="up" HREF="prog-manual.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1682"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1678"
+  HREF="prog-manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1672"
+  HREF="prog-manual.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>  
+<A NAME="tex2html1680"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1683"
+  HREF="node2.html">1 Software Architecture</A>
+<B> Up:</B> <A NAME="tex2html1679"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+<B> Previous:</B> <A NAME="tex2html1673"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+ &nbsp; <B>  <A NAME="tex2html1681"
+  HREF="node6.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><UL>
+<LI><A NAME="tex2html1684"
+  HREF="node1.html#SECTION01010000000000000000">1 Introduction</A>
+<UL>
+<LI><A NAME="tex2html1685"
+  HREF="node1.html#SECTION01011000000000000000">1.1 What is the PANDORA Toolbox?</A>
+<LI><A NAME="tex2html1686"
+  HREF="node1.html#SECTION01012000000000000000">1.2 Why did you make it?</A>
+<LI><A NAME="tex2html1687"
+  HREF="node1.html#SECTION01013000000000000000">1.3 How is it implemented?</A>
+<LI><A NAME="tex2html1688"
+  HREF="node1.html#SECTION01014000000000000000">1.4 How can I use it?</A>
+<LI><A NAME="tex2html1689"
+  HREF="node1.html#SECTION01015000000000000000">1.5 Who is it made for?</A>
+<LI><A NAME="tex2html1690"
+  HREF="node1.html#SECTION01016000000000000000">1.6 Finding your way around</A>
+<LI><A NAME="tex2html1691"
+  HREF="node1.html#SECTION01017000000000000000">1.7 Overview of this document</A>
+</UL>
+<LI><A NAME="tex2html1692"
+  HREF="node1.html#SECTION01020000000000000000">2 Installation</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+<BR>
+
+<H2><A NAME="SECTION01000000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html1693"
+  HREF="node1.html#SECTION01010000000000000000">1 Introduction</A>
+<UL>
+<LI><A NAME="tex2html1694"
+  HREF="node1.html#SECTION01011000000000000000">1.1 What is the PANDORA Toolbox?</A>
+<LI><A NAME="tex2html1695"
+  HREF="node1.html#SECTION01012000000000000000">1.2 Why did you make it?</A>
+<LI><A NAME="tex2html1696"
+  HREF="node1.html#SECTION01013000000000000000">1.3 How is it implemented?</A>
+<LI><A NAME="tex2html1697"
+  HREF="node1.html#SECTION01014000000000000000">1.4 How can I use it?</A>
+<LI><A NAME="tex2html1698"
+  HREF="node1.html#SECTION01015000000000000000">1.5 Who is it made for?</A>
+<LI><A NAME="tex2html1699"
+  HREF="node1.html#SECTION01016000000000000000">1.6 Finding your way around</A>
+<LI><A NAME="tex2html1700"
+  HREF="node1.html#SECTION01017000000000000000">1.7 Overview of this document</A>
+</UL>
+<LI><A NAME="tex2html1701"
+  HREF="node1.html#SECTION01020000000000000000">2 Installation</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1702"
+  HREF="node2.html">1 Software Architecture</A>
+<UL>
+<LI><A NAME="tex2html1703"
+  HREF="node2.html#SECTION02010000000000000000">3 Toolbox Components</A>
+<UL>
+<LI><A NAME="tex2html1704"
+  HREF="node2.html#SECTION02011000000000000000">3.1 Databases hold all the information</A>
+<LI><A NAME="tex2html1705"
+  HREF="node2.html#SECTION02012000000000000000">3.2 Datasets create the databases</A>
+<LI><A NAME="tex2html1706"
+  HREF="node2.html#SECTION02013000000000000000">3.3 Bundling the database and dataset together</A>
+<LI><A NAME="tex2html1707"
+  HREF="node2.html#SECTION02014000000000000000">3.4 Wrapper classes hold raw data</A>
+<LI><A NAME="tex2html1708"
+  HREF="node2.html#SECTION02015000000000000000">3.5 Profiles hold results of measurements</A>
+<LI><A NAME="tex2html1709"
+  HREF="node2.html#SECTION02016000000000000000">3.6 Integrated plotting for easy visualization</A>
+<LI><A NAME="tex2html1710"
+  HREF="node2.html#SECTION02017000000000000000">3.7 Miscellaneous classes</A>
+</UL>
+<LI><A NAME="tex2html1711"
+  HREF="node2.html#SECTION02020000000000000000">4 Programming Conventions</A>
+<UL>
+<LI><A NAME="tex2html1712"
+  HREF="node2.html#SECTION02021000000000000000">4.1 Using property structures for passing optional arguments to methods</A>
+<LI><A NAME="tex2html1713"
+  HREF="node2.html#SECTION02022000000000000000">4.2 Overloaded operators for transparent access to object contents</A>
+<LI><A NAME="tex2html1714"
+  HREF="node2.html#SECTION02023000000000000000">4.3 Troubleshooting errors</A>
+<LI><A NAME="tex2html1715"
+  HREF="node2.html#SECTION02024000000000000000">4.4 Creating a new class</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1716"
+  HREF="node3.html">2 User's Manual</A>
+<UL>
+<LI><A NAME="tex2html1717"
+  HREF="node3.html#SECTION03010000000000000000">5 Recipes for Common Tasks</A>
+<UL>
+<LI><A NAME="tex2html1718"
+  HREF="node3.html#SECTION03011000000000000000">5.1 Loading a database</A>
+<LI><A NAME="tex2html1719"
+  HREF="node3.html#SECTION03012000000000000000">5.2 Finding constrained subsets in a database</A>
+<LI><A NAME="tex2html1720"
+  HREF="node3.html#SECTION03013000000000000000">5.3 Sorting the database according to a measure</A>
+<LI><A NAME="tex2html1721"
+  HREF="node3.html#SECTION03014000000000000000">5.4 Preprocessing a raw (physiology) database by elimination and averaging
+</A>
+<LI><A NAME="tex2html1722"
+  HREF="node3.html#SECTION03015000000000000000">5.5 Making a database by merging multiple rows from another database</A>
+</UL>
+<LI><A NAME="tex2html1723"
+  HREF="node3.html#SECTION03020000000000000000">6 Visualization</A>
+<UL>
+<LI><A NAME="tex2html1724"
+  HREF="node3.html#SECTION03021000000000000000">6.1 Visualizing traces</A>
+<LI><A NAME="tex2html1725"
+  HREF="node3.html#SECTION03022000000000000000">6.2 Displaying database contents</A>
+<LI><A NAME="tex2html1726"
+  HREF="node3.html#SECTION03023000000000000000">6.3 Plotting all measure histograms</A>
+<LI><A NAME="tex2html1727"
+  HREF="node3.html#SECTION03024000000000000000">6.4 Plotting all parameter histograms</A>
+<LI><A NAME="tex2html1728"
+  HREF="node3.html#SECTION03025000000000000000">6.5 Plotting database statistics</A>
+<LI><A NAME="tex2html1729"
+  HREF="node3.html#SECTION03026000000000000000">6.6 Plotting parameter-measure variations</A>
+<LI><A NAME="tex2html1730"
+  HREF="node3.html#SECTION03027000000000000000">6.7 Insets</A>
+<LI><A NAME="tex2html1731"
+  HREF="node3.html#SECTION03028000000000000000">6.8 Generating a report comparing two databases</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1732"
+  HREF="node4.html">Bibliography</A>
+<UL>
+<LI><A NAME="tex2html1733"
+  HREF="node5.html">1 Function Reference</A>
+<UL>
+<LI><A NAME="tex2html1734"
+  HREF="node5.html#SECTION05011000000000000000">1.1 Class chans_db</A>
+<LI><A NAME="tex2html1735"
+  HREF="node5.html#SECTION05012000000000000000">1.2 Class cip_trace</A>
+<LI><A NAME="tex2html1736"
+  HREF="node5.html#SECTION05013000000000000000">1.3 Class cip_trace_allspikes_profile</A>
+<LI><A NAME="tex2html1737"
+  HREF="node5.html#SECTION05014000000000000000">1.4 Class cip_trace_profile</A>
+<LI><A NAME="tex2html1738"
+  HREF="node5.html#SECTION05015000000000000000">1.5 Class cip_traces_dataset</A>
+<LI><A NAME="tex2html1739"
+  HREF="node5.html#SECTION05016000000000000000">1.6 Class cip_traceset</A>
+<LI><A NAME="tex2html1740"
+  HREF="node5.html#SECTION05017000000000000000">1.7 Class cip_traceset_dataset</A>
+<LI><A NAME="tex2html1741"
+  HREF="node5.html#SECTION05018000000000000000">1.8 Class cluster_db</A>
+<LI><A NAME="tex2html1742"
+  HREF="node5.html#SECTION05019000000000000000">1.9 Class corrcoefs_db</A>
+<LI><A NAME="tex2html1743"
+  HREF="node5.html#SECTION050110000000000000000">1.10 Class dataset_db_bundle</A>
+<LI><A NAME="tex2html1744"
+  HREF="node5.html#SECTION050111000000000000000">1.11 Class doc_generate</A>
+<LI><A NAME="tex2html1745"
+  HREF="node5.html#SECTION050112000000000000000">1.12 Class doc_multi</A>
+<LI><A NAME="tex2html1746"
+  HREF="node5.html#SECTION050113000000000000000">1.13 Class doc_plot</A>
+<LI><A NAME="tex2html1747"
+  HREF="node5.html#SECTION050114000000000000000">1.14 Class histogram_db</A>
+<LI><A NAME="tex2html1748"
+  HREF="node5.html#SECTION050115000000000000000">1.15 Class model_ct_bundle</A>
+<LI><A NAME="tex2html1749"
+  HREF="node5.html#SECTION050116000000000000000">1.16 Class model_ranked_to_physiol_bundle</A>
+<LI><A NAME="tex2html1750"
+  HREF="node5.html#SECTION050117000000000000000">1.17 Class params_cip_trace_fileset</A>
+<LI><A NAME="tex2html1751"
+  HREF="node5.html#SECTION050118000000000000000">1.18 Class params_tests_dataset</A>
+<LI><A NAME="tex2html1752"
+  HREF="node5.html#SECTION050119000000000000000">1.19 Class params_tests_db</A>
+<LI><A NAME="tex2html1753"
+  HREF="node5.html#SECTION050120000000000000000">1.20 Class params_tests_fileset</A>
+<LI><A NAME="tex2html1754"
+  HREF="node5.html#SECTION050121000000000000000">1.21 Class params_tests_profile</A>
+<LI><A NAME="tex2html1755"
+  HREF="node5.html#SECTION050122000000000000000">1.22 Class period</A>
+<LI><A NAME="tex2html1756"
+  HREF="node5.html#SECTION050123000000000000000">1.23 Class physiol_bundle</A>
+<LI><A NAME="tex2html1757"
+  HREF="node5.html#SECTION050124000000000000000">1.24 Class physiol_cip_traceset</A>
+<LI><A NAME="tex2html1758"
+  HREF="node5.html#SECTION050125000000000000000">1.25 Class physiol_cip_traceset_fileset</A>
+<LI><A NAME="tex2html1759"
+  HREF="node5.html#SECTION050126000000000000000">1.26 Class plot_abstract</A>
+<LI><A NAME="tex2html1760"
+  HREF="node5.html#SECTION050127000000000000000">1.27 Class plot_bars</A>
+<LI><A NAME="tex2html1761"
+  HREF="node5.html#SECTION050128000000000000000">1.28 Class plot_errorbar</A>
+<LI><A NAME="tex2html1762"
+  HREF="node5.html#SECTION050129000000000000000">1.29 Class plot_errorbars</A>
+<LI><A NAME="tex2html1763"
+  HREF="node5.html#SECTION050130000000000000000">1.30 Class plot_image</A>
+<LI><A NAME="tex2html1764"
+  HREF="node5.html#SECTION050131000000000000000">1.31 Class plot_inset</A>
+<LI><A NAME="tex2html1765"
+  HREF="node5.html#SECTION050132000000000000000">1.32 Class plot_simple</A>
+<LI><A NAME="tex2html1766"
+  HREF="node5.html#SECTION050133000000000000000">1.33 Class plot_stack</A>
+<LI><A NAME="tex2html1767"
+  HREF="node5.html#SECTION050134000000000000000">1.34 Class plot_superpose</A>
+<LI><A NAME="tex2html1768"
+  HREF="node5.html#SECTION050135000000000000000">1.35 Class ranked_db</A>
+<LI><A NAME="tex2html1769"
+  HREF="node5.html#SECTION050136000000000000000">1.36 Class results_profile</A>
+<LI><A NAME="tex2html1770"
+  HREF="node5.html#SECTION050137000000000000000">1.37 Class script_array</A>
+<LI><A NAME="tex2html1771"
+  HREF="node5.html#SECTION050138000000000000000">1.38 Class script_array_for_cluster</A>
+<LI><A NAME="tex2html1772"
+  HREF="node5.html#SECTION050139000000000000000">1.39 Class script_factory</A>
+<LI><A NAME="tex2html1773"
+  HREF="node5.html#SECTION050140000000000000000">1.40 Class spike_shape</A>
+<LI><A NAME="tex2html1774"
+  HREF="node5.html#SECTION050141000000000000000">1.41 Class spike_shape_profile</A>
+<LI><A NAME="tex2html1775"
+  HREF="node5.html#SECTION050142000000000000000">1.42 Class spikes</A>
+<LI><A NAME="tex2html1776"
+  HREF="node5.html#SECTION050143000000000000000">1.43 Class spikes_db</A>
+<LI><A NAME="tex2html1777"
+  HREF="node5.html#SECTION050144000000000000000">1.44 Class sql_portal</A>
+<LI><A NAME="tex2html1778"
+  HREF="node5.html#SECTION050145000000000000000">1.45 Class stats_db</A>
+<LI><A NAME="tex2html1779"
+  HREF="node5.html#SECTION050146000000000000000">1.46 Class tests_3D_db</A>
+<LI><A NAME="tex2html1780"
+  HREF="node5.html#SECTION050147000000000000000">1.47 Class tests_db</A>
+<LI><A NAME="tex2html1781"
+  HREF="node5.html#SECTION050148000000000000000">1.48 Class trace</A>
+<LI><A NAME="tex2html1782"
+  HREF="node5.html#SECTION050149000000000000000">1.49 Class trace_profile</A>
+<LI><A NAME="tex2html1783"
+  HREF="node5.html#SECTION050150000000000000000">1.50 Utility functions</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1784"
+  HREF="node6.html">Index</A>
+</UL>
+<!--End of Table of Contents-->
+
+<P>
+
+
+<P>
+
+<H1><A NAME="SECTION01010000000000000000">
+1 Introduction</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION01011000000000000000">
+1.1 What is the PANDORA Toolbox?</A>
+</H2>
+
+<P>
+The PANDORA Toolbox is a software package which consists of a collection
+of M<SMALL>ATLAB</SMALL> object-oriented classes and script functions for
+creating, analyzing and visualizing databases based on data from electrophysiological
+neuron simulations and recordings.
+
+<P>
+
+<H2><A NAME="SECTION01012000000000000000">
+1.2 Why did you make it?</A>
+</H2>
+
+<P>
+Motivations to create this software were:
+
+<P>
+
+<UL>
+<LI>Analyze data generated by brute-force and other parameter search methods.
+</LI>
+<LI>Analyze subsets of parameter spaces and special cases.
+</LI>
+<LI>Evaluate robustness of model neurons.
+</LI>
+<LI>Find functional roles of specific conductances.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION01013000000000000000">
+1.3 How is it implemented?</A>
+</H2>
+
+<P>
+A custom database management system (DBMS) is written from scratch
+in the M<SMALL>ATLAB</SMALL> language. The toolbox design follows object-oriented
+programming principles. It uses functions from the statistics and
+signal processing toolboxes of M<SMALL>ATLAB</SMALL>, but they are not strictly
+necessary. It does not use M<SMALL>ATLAB</SMALL>'s database (DB) toolbox.<A NAME="tex2html1"
+  HREF="footnode.html#foot68"><SUP>1</SUP></A>
+<P>
+
+<H2><A NAME="SECTION01014000000000000000">
+1.4 How can I use it?</A>
+</H2>
+
+<P>
+The PANDORA Toolbox uses an object-oriented approach to provide maximal
+flexibility for interactive use on the M<SMALL>ATLAB </SMALL>command-line.<A NAME="tex2html2"
+  HREF="footnode.html#foot72"><SUP>2</SUP></A> Objects can be created, modified, analyzed, and visualized interactively
+in few steps. It is straightforward to save and load binary representations
+of these objects into files. Scripts can be made to programmatically
+repeat these procedures. Existing object classes are designed with
+the prospect of future extension, to accommodate new types of data
+and analyses.
+
+<P>
+
+<H2><A NAME="SECTION01015000000000000000">
+1.5 Who is it made for?</A>
+</H2>
+
+<P>
+PANDORA Toolbox is customized for neuroscientific research. However, the
+concepts of a complex dataset, extraction of multiple observations
+from each item of the dataset, and analysis of multi-dimensional parameter
+spaces are universal. In its current form the database and dataset
+classes can be used for data other than electrophysiologic sources.
+As this toolbox is designed for flexible extensibility, one can add
+extensions that deal with different types of data and analyses.
+
+<P>
+
+<H2><A NAME="SECTION01016000000000000000"></A><A NAME="sub:Finding-your-way-around"></A>
+<BR>
+1.6 Finding your way around
+</H2>
+
+<P>
+The source code uses M<SMALL>ATLAB</SMALL>'s documentation system, therefore
+all methods and classes are documented. To get help about all classes,
+issue the 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;help&nbsp;djlab</div>at the M<SMALL>ATLAB</SMALL> prompt. This should give you an overview of available
+classes. Then, to learn about a specific class, ask for the documentation
+for the constructor method. For instance, for the <TT>trace</TT> class,
+issuing
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;help&nbsp;trace</div>gives you the documentation for the constructor together with an overview
+for the class. Sometimes, if there are multiple methods with the same
+name under different classes, you may get the wrong documentation.
+In that case, you can specify the class from which to take the method
+by prepending the class name to the method, such as in
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;help&nbsp;trace/spikes</div>In order to learn all methods available for a class, you can use M<SMALL>ATLAB</SMALL>'s
+<TT>methods</TT> command. For the <TT>trace</TT> class, do
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;methods(trace)</div>However, some documentation may be outdated or simply wrong. Please
+report these to the author via e-mail to <TT>cgunay@emory.edu</TT>.
+
+<P>
+
+<H2><A NAME="SECTION01017000000000000000">
+1.7 Overview of this document</A>
+</H2>
+
+<P>
+Next, Section <A HREF="#sec:Installation">2</A> guides the reader through the
+installation of the package and other dependencies. You can skip this
+section if you already have a running software environment. Section
+<A HREF="node2.html#sec:Class-hierarchies">3</A> introduces the essential components of
+the software and talks about their design decisions. You can also
+skip this part if you're not interested in the guts of the system
+and you are in favor of a quick start. The recipes in Section <A HREF="node3.html#sec:Recipes">5</A>
+provide a tutorial for some common tasks. It may be easier for some
+readers to follow these recipes to jump-start using the software.
+However, it is recommended that you familiarize yourself with the
+basic organization of the classes before proceeding into more complex
+tasks. Section <A HREF="node3.html#sec:Visualization">6</A> takes the tutorial approach
+to describe common visualization tasks. Finally, Section <A HREF="node5.html#sec:Function-Reference">A</A>
+points to the list of individual methods provided by the software.
+These methods are documented in detail using the M<SMALL>ATLAB</SMALL> online
+help system.
+
+<P>
+
+<H1><A NAME="SECTION01020000000000000000"></A><A NAME="sec:Installation"></A>
+<BR>
+2 Installation
+</H1>
+
+<P>
+Download the latest package file from: 
+
+<P>
+<TT><A NAME="tex2html3"
+  HREF="http://userwww.service.emory.edu/~cgunay/pandora">http://userwww.service.emory.edu/~cgunay/pandora</A></TT>. 
+
+<P>
+Unpack the archive anywhere in your system, using
+
+<P>
+<div style="font-family: monospace">$&nbsp;tar&nbsp;xzf&nbsp;pandora-xyz.tar.gz</div>and follow the instructions in the README file. 
+
+<P>
+Basically it involves pointing your M<SMALL>ATLAB</SMALL> installation to
+look at the <TT>pandora/</TT> subdirectory for loading the PANDORA
+files. This can be achieved by adding this directory to your M<SMALL>ATLAB</SMALL> search path using the
+<TT>addpath</TT> Matlab command. To avoid its repeated application
+for each new session, you can have a startup script, <TT>startup.m</TT>,
+in the directory that you run M<SMALL>ATLAB</SMALL> with the following commands:
+
+<P>
+<div style="font-family: monospace">%--&nbsp;startup.m&nbsp;for&nbsp;matlab
+
+<P>
+addpath&nbsp;/my/download/directory/pandora-1.0b/pandora
+
+<P>
+%--&nbsp;end&nbsp;startup.m</div>This will be loaded everytime you run M<SMALL>ATLAB</SMALL> from this directory.
+in UN*X systems, this can be improved further by placing the command
+in the file <TT>$HOME/matlab/startup.m, which</TT> is executed no
+matter from where M<SMALL>ATLAB</SMALL> is called, especially if you are running
+Matlab from different or unknown places each time. In Windows, place
+the file under <TT>My Documents/MATLAB</TT>, or add the directory
+to the search path using the <I>File-&gt;Set Path</I> menu option.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1682"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1678"
+  HREF="prog-manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1672"
+  HREF="prog-manual.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>  
+<A NAME="tex2html1680"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1683"
+  HREF="node2.html">1 Software Architecture</A>
+<B> Up:</B> <A NAME="tex2html1679"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+<B> Previous:</B> <A NAME="tex2html1673"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+ &nbsp; <B>  <A NAME="tex2html1681"
+  HREF="node6.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Cengiz Gunay
+2008-10-13
+</ADDRESS>
+</BODY>
+</HTML>

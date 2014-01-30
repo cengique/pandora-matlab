@@ -1,0 +1,146 @@
+
+See ChangeLog or "svn log" for details of evolution.
+
+Version history:
+--------------------
+
+v1_3b: Cengiz Gunay, 2012/09/24. Public beta release.
+	- More stable support for reading ABF and reading/writing
+	Neuron binary and text files. 
+	- Lots of new utility functions. 
+	- Many bugfixes thanks to new users (e.g., Vladislav Sekulic,
+	Anca Doloc-Mihu), so more options and stable operation for
+	recordings from different organisms and systems. 
+	- Took Readgenbin out as an independent tool (see it on
+	github). 
+	- Support for voltage and current-clamp data as paired
+	traces and related tools. VC data is used for Hodgkin-Huxley
+	type channel data fitting.
+	- Better unit support for data fitting and plots.
+	- Better handling of NaNs in database operations.
+	- New data measurements like "time to 1st spike".
+	- Improved KL divergence calculation.
+	- Optimized DB indexing and addressing operations, sped up 50x.
+	- uniqueValues now preserves row order.
+	- Improved use of NNet and SVM classifiers
+
+v1_2b: Cengiz Gunay, 2008/10/31. Public beta "Halloween" release with
+	bugfixes and support for NeuroShare-compatible files.
+	- NeuroShare support to load many acquisition formats in Windows
+	(see http://neuroshare.org). Included DLLs and utility functions.
+	- Regular expression support in querying and indexing databases.
+	- Added convenience 'group by' functionality similar to that of SQL's
+	- Added citation reminder in license document
+	- Included missing files for the filtering-based spike finder
+	- Plot improvements: 
+		- histogram bar plots
+		- Blank plot objet are properly handled.
+		- Workaround for compatibility with compiz-fusion.
+		- Made CGMPLOT an optionally separate package (see website).
+		- New stacked 3D image plot.
+		- Proper handling of line colors in superposed plots.
+	- Joins better handle NaNs and accept multiple pages.
+	- Defaults changed for balancing classifier input probabilities.
+	- website update, created example files for Neuroinformatics manuscript
+	- Major bugfix to invarValues for asymmetric databases.
+	- Improved HDF5 handling by Li Su and CG. Several changes and additions.
+	- Can now merge old (PCDX) and new (HDF5) recorded bundles
+
+v1_1b: Cengiz Gunay, 2008/02/11. Public beta bugfix and feature release. 
+	Warning: old physiol_cip_traceset_fileset objects will be incompatible and will have to be re-created.
+	- Added SQL import/export functions using Matlab Database Toolbox.
+	- improved HDF5 acquisition data and metadata import with ns_load_traces.
+	- simplified database + dataset bundle generation from raw physiology data.
+	- Tom Sangrey added customized Butterworth filters for traces 
+	  sampled at rates other than 10KHz.
+	- Li Su provided bugfix to his improved findspikes routine.
+	- Added examples to manual.
+	- Added missing functions such as gettracelist2
+	- improved plotting:
+		- Improved chan_db plots.
+		- Improved doc_plot, can reference using labels now.
+		- histogram plots can normalize.
+		- plot_stack can now find maximal ranges.
+		- can display database values with boxplots.
+		- Other miscellaneous plot enhancements.
+	- Major bugfix for NaNs in compareRows, joinRows, princomp, and plotScatter
+	- added several new overloaded operators to tests_db, such as unique, sqrt, uminus
+	- Documentation update.
+	- can make a database from matlab structure.
+	- added spike width calculation at a fixed voltage.
+	- changed the way joinRows uses parameters.
+	- added tests_db/approxMappingNNet function that uses the Neural Network Toolbox.
+		- added option to balance input probabilities of classes to map.
+
+v1_0b: Cengiz Gunay, 2007/10/10. First public beta release
+	- moved to subversion control from CVS
+	- organized files into subdirectories
+	- included all additional utilities
+	- made a installable package available for download
+	- added a Academic Free License and copyright statement
+	- supports NeuroSAGE HDF5 input files for recorded physiology data
+	- can load from subdirectories in params_tests_fileset
+	- misc improvements of plotting functions (margins, titles, etc.)
+	- added examples into manual
+	- allow using covariance matrix for calculating Mahalonobis distance in ranking
+	- new function to find a ll best matching neurons
+	- support inset plots at arbitrary axis locations
+	- extend querying to allow columns and pages. also better optimized.
+	- added support for plotting channel variables
+	- improved cluster job submission
+
+v0_10b: Cengiz Gunay, 2007/03/22. Beta version.
+	- automated function reference generation from Matlab source for PDF and HTML manuals
+	- revamped plot generation by making plot_abstract solely responsible for frame
+	- superposition of stacked plots now possible
+	- several improvements to plotting
+	- added algebraic operations to tests_db including transposition
+	- improved comparative analysis of 3D DBs
+	- started using arrays rather than cell arrays during analysis to simplify calls
+	- new layouts for plotting neurons, flexible selection of traces to display
+	- misc new database operations, such as enumerating unique values
+	- improved firing frequency plot
+	- generic 2D image plots
+	- added parameter to load parameter files with different trial numbers
+	- added a utils/ directory for external programs
+	- added support for loading binary Neuron files, compressed Genesis files.
+
+v0_9b: Cengiz Gunay, 2006/02/15. Beta version. 
+	- Improved plotting in many ways including with self-resizing plots. 
+	- Vectorized many functions to operate on multiple inputs. 
+	- Improved spike shape measurements based on results from new morphologies. 
+	- Optimized for memory usage in merging, joining and ranking databases.
+	- Compatibility issues with Matlab R14.3 fixed.
+	- Added the concept of a bundle of a dataset and DB.
+	- Allow comments in physiol cell files by Tom Sangrey.
+	- Moved props out of spike_shape, into base class trace.
+	- Added automated document generators that can hold plots or tables, etc.
+	- Organized and automated how ranking documents are generated and added more plots.
+	- Added specialized plot that can do  f-I curves and similar plots.
+	- Added script_array and subclasses to do automated analysis on the cluster.
+	- Added .genflac support.
+	- Allow adding files to existing filesets and loading DBs of added files only.
+	- Added presets for comparing a limited set of measures and specify weighting.
+	- Allow modifying DB contents with paren addressing rows and columns.
+
+v0_8b: Cengiz Gunay, 2005/10/19. Beta version that has improved analysis and 
+	plotting functionality, and documentation. Database object format
+	has changed, which makes this revision binary incompatible with
+	earlier created DB and dataset objects.
+
+v0_7b: Cengiz Gunay, 2005/05/04. Beta version that analyzes each spike individually
+	and uses improved threshold finding method.
+
+v0_6b: Cengiz Gunay & Jeremy Edgerton, 2005/03/14. Beta version that can 
+	load physiology filesets with pharmacology data.
+
+v0_5b: Cengiz Gunay, 2005/01/25. Beta version that can work with PCDX files.
+
+v0_4b: Cengiz Gunay, 2005/01/11. Beta version with pulse spike
+	characteristics and database matching tools.
+
+v0_2b: Cengiz Gunay, 2004/09/16. Beta version of fileset and db classes.
+
+v0_1b: Cengiz Gunay, Aug, 2004. Beta version of base classes trace, spikes,
+	spike_shape, period, and cip_trace.
+
