@@ -36,7 +36,9 @@ function makeGenesisParFile(a_db, filename, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% TODO: read paramRanges.txt to verify parameter sequence
+% TODO: 
+% - rename to makeParamFile
+% - read paramRanges.txt to verify parameter sequence
 
 if ~exist('props', 'var')
   props = struct;
@@ -62,7 +64,7 @@ end
 % Create a parameter description file for database generation
 if isfield(props, 'makeParamDesc')
   param_desc_filename = strrep(filename, '.par', '.txt');
-  param_names = [strvcat(getColNames(a_db)), repmat(sprintf('\n'), a_db.num_params, 1)];
+  param_names = [strvcat(getParamNames(a_db)), repmat(sprintf('\n'), a_db.num_params, 1)];
   string2File(reshape(param_names', 1, prod(size(param_names))), param_desc_filename);
 end
 
@@ -72,8 +74,7 @@ num_rows = dbsize(a_db, 1);
 first_row = [ num2str(num_rows) ' ' num2str(a_db.num_params) sprintf('\n') ];
 
 % Rest contains param values and zeros appended at the end of row
-data_rows = [num2str( [get(onlyRowsTests(a_db, ':', 1:a_db.num_params), 'data'), ...
-			   zeros(num_rows, 1) ]), ...
+data_rows = [num2str( [get(onlyRowsTests(a_db, ':', 1:a_db.num_params), 'data') ]), ...
 	     repmat(sprintf('\n'), num_rows, 1) ];
 
 data_str = reshape(data_rows', 1, prod(size(data_rows)));
