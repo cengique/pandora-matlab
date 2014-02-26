@@ -15,8 +15,8 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %     textDelim: If not CSV (','), delimiter in text file to be used by dlmread.
 %     csvArgs: Cell array of arguments passed to dlmread function (e.g.,
 %     	{R, C, [r1 c1 r2 c2]}).
-%     csvReadColNames: If 1, first row of the file is used to read column
-%     	names.
+%     csvReadColNames: If 1, first row of the file is used to read column names.
+%     paramDescFile: Load parameter names from file (one line per name).
 %		
 % Returns a structure object with the following fields:
 %   data: The data matrix.
@@ -144,6 +144,17 @@ if nargin == 0 % Called with no params
    % TODO: add cell arrays?
    if ~ isnumeric(test_results) 
      error('Only numeric arrays allowed as test_results.');
+   end
+   
+   % if given, load param names from file
+   if isfield(props, 'paramDescFile')
+     [fid msg] = fopen(props.paramDescFile);
+     if fid < 0
+       error(['Can''t find file "' props.paramDescFile '" to open: ' msg]);
+     end
+     col_names = textscan(fid, '%s');
+     col_names = col_names{1};
+     fclose(fid);
    end
 
    if size(test_results, 1) > 0 && ~ isempty(col_names) && ...
