@@ -46,6 +46,12 @@ function [dt, data, y_units, dy, cell_name] = loadABF(filename, props)
   dy = 1e-3;
 
   if isempty(chan)
+    chan = strmatch('V', info.recChUnits);
+    y_units = 'V';
+    dy = 1;
+  end
+
+  if isempty(chan)
     % try current units nA and pA
     chan = strmatch('nA', info.recChUnits);
     dy = 1e-9;
@@ -58,7 +64,7 @@ function [dt, data, y_units, dy, cell_name] = loadABF(filename, props)
         dy = 1;
         chan = 1;
         info.recChUnits
-        warning(['Cannot parse channel units above. Tried mV, nA and pA.']);
+        warning(['Cannot parse channel units above. Tried mV, V, nA and pA.']);
       end
     end
   end
