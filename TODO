@@ -1,5 +1,7 @@
 TODO
 --------------------
+- make latest SVN/GIT version available from somewhere!
+- make function to save text file from trace!
 - website options:
   - keep INCF and add more wikis. pros: professional place. cons: wiki files not in repo.
   - switch to github: wikis are in different repo, but versioned, nice
@@ -14,7 +16,7 @@ TODO
 - modify license to include attribution in scientific publications
 - add test suite?
 - add more examples to lyx documentation. [doing wikis on incf instead]
-- replace exist functions with a 'var' 2nd param [what?]
+- replace exist functions with a 'var' 2nd param [what? No!]
 - add pclamp import function abf_atf_import from Matlab file exchange
   in the utils/ folder. [abf2load works now?]
 	- make trace accept atf, abf and Spike2 formats 
