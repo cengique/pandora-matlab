@@ -1,4 +1,4 @@
-function names_vals = parseFilenameNamesVals(raw_filename, props)
+function [names_vals, pre_name] = parseFilenameNamesVals(raw_filename, props)
 
 % parseFilenameNamesVals - Parses filename to extract names and values of parameters.
 % 
@@ -15,6 +15,7 @@ function names_vals = parseFilenameNamesVals(raw_filename, props)
 %		
 % Returns:
 %   names_vals: A two-column cell array with names and values.
+%   pre_name: (Optional) Skipped prefix words in the filename.
 %
 % Description:
 %   Parses the given string (e.g., filename) that has names and
@@ -32,7 +33,8 @@ function names_vals = parseFilenameNamesVals(raw_filename, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/03/10
 % Modified: CG <cengique@users.sf.net>, 2014/03/17
-% 		Added optional properties.
+% 		Added optional properties for order of name-val
+% 		pairs, number of words to skip, and return prefix words.
 
 % Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
@@ -63,6 +65,8 @@ else
   % otherwise point to next
   word_num = skip_num + 1;
 end
+
+pre_name = filename(1:max(1, sep_indices(word_num) - 1));
 
 for param_num=1:floor((length(sep_indices) - word_num + 1) / 2)
   % Get the value from here to the first separator
