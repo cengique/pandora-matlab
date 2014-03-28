@@ -6,40 +6,43 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %
 % Description:
-%   This is a subclass of params_tests_dataset. This class is used to generate 
-% params_tests_db objects and keep 
-% a connection to the raw data files. This class only keeps names of
-% files and loads raw data files whenever it's requested. A database
-% object can easily be generated using the convertion methods.
-% Most methods defined here can 
-% be used as-is, however some should be overloaded in subclasses. 
+%   This is a subclass of params_tests_dataset. This class is used to
+% generate params_tests_db objects and keep a connection to the raw
+% data files. This class only keeps names of files and loads raw data
+% files whenever it's requested. A database object can easily be
+% generated using the convertion methods.  Most methods defined here
+% can be used as-is, however some should be overloaded in subclasses.
 % The specific methods are loadItemProfile.
 %
-%   Parameters:
-%	file_pattern: File pattern, or cell array of patterns, matching all 
-%			files to be loaded.
-%	dt: Time resolution [s]
-%	dy: y-axis resolution [ISI (V, A, etc.)]
-%	id: An identification string
-%	props: A structure with any optional properties.
-%		num_params: Number of parameters that appear in filenames.
-%		param_trial_name: Use this name on the filename as the 'trial' parameter.
-%		param_row_filename: If given, the 'trial' parameter will be used
-%			to address rows from this file and acquire parameters.
-%		param_rows: Instead of a file, just give parameters in this matrix.
-%		param_desc_filename: Contains the parameter range descriptions one per 
-%			each row. The parameter names are acquired from this file.
-%		param_names: Cell array of parameter names corresponding to the 
-%			param_row_filename columns can be specified as an alternative to
-%			specifying param_desc_filename. These names are not for the 
-%			parameters present in the data filename.
-%		profile_method_name: It can be one of the profile-creating methods in this
-%			class. E.g., 'trace_profile', 'srp_trace_profile', etc.
-%		(See parent classes and cip_trace object for more props)
+% Parameters:
+%   file_pattern: File pattern, or cell array of patterns, matching all 
+%		files to be loaded.
+%   dt: Time resolution [s]
+%   dy: y-axis resolution [ISI (V, A, etc.)]
+%   id: An identification string
+%   props: A structure with any optional properties.
+%     num_params: Number of parameters that appear in filenames
+%     		(auto-detected by default; see props for
+%     		parseFilenameNamesVals).
+%     param_trial_name: Use this name on the filename as the 'trial' parameter.
+%     param_row_filename: If given, the 'trial' parameter will be used
+%		to address rows from this file and acquire parameters.
+%     param_rows: Instead of a file, just give parameters in this matrix.
+%     param_desc_filename: Contains the parameter range descriptions one per 
+%		each row. The parameter names are acquired from this file.
+%     param_names: Cell array of parameter names corresponding to the 
+%		param_row_filename columns can be specified as an alternative to
+%		specifying param_desc_filename. These names are not for the 
+%		parameters present in the data filename.
+%     profile_method_name: It can be one of the profile-creating methods in this
+%		class. E.g., 'trace_profile', 'srp_trace_profile',
+%		etc. OBSOLOTE: see loadItemProfileFunc prop in
+%		params_tests_dataset.
+%     (Others passed to params_tests_dataset and parseFilenameNamesVals)
 %		
-%   Returns a structure object with the following fields:
-%	params_tests_dataset,
-%	path: The pathname to files.
+% Returns a structure object with the following fields:
+%   params_tests_dataset,
+%   path: The pathname to files.
 %
 % General operations on params_tests_fileset objects:
 %   params_tests_fileset - Construct a new object.
@@ -60,7 +63,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % Additional methods:
 %	See methods('params_tests_fileset')
 %
-% See also: params_tests_db, tests_db, test_variable_db (N/I)
+% See also: params_tests_db, tests_db, params_tests_dataset
 %
 % $Id$
 %

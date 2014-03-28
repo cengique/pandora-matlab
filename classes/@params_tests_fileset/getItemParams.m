@@ -1,15 +1,15 @@
-function params_row = getItemParams(dataset, index, a_profile)
+function params_row = getItemParams(fileset, index)
 
-% getItemParams - Get the parameter values of a dataset item.
+% getItemParams - Get the parameter values of a fileset item.
 %
 % Usage:
-% params_row = getItemParams(dataset, index)
+% params_row = getItemParams(fileset, index)
 %
 % Description:
 %
 %   Parameters:
-%	dataset: A params_tests_dataset.
-%	index: Index of item in dataset.
+%	fileset: A params_tests_fileset.
+%	index: Index of item in fileset.
 %		
 %   Returns:
 %	params_row: Parameter values in the same order of paramNames
@@ -26,15 +26,15 @@ function params_row = getItemParams(dataset, index, a_profile)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-props = get(dataset, 'props');
+props = get(fileset, 'props');
 params_row = [];
 
 % if props.num_params ~= 0 then parse file names
 if ~ isfield(props, 'num_params') || props.num_params ~= 0
-  filename = getItem(fileset, item);
+  filename = getItem(fileset, index);
   fullname = fullfile(fileset.path, filename);
   
-  names_vals = parseGenesisFilename(fullname);
+  names_vals = parseFilenameNamesVals(fullname, props);
 
   if isfield(props, 'num_params')
     num_params = props.num_params;
@@ -68,6 +68,8 @@ if isfield(props, 'param_rows')
     str_index = strmatch(props.param_trial_name, {names_vals{1:num_params, 1}});
     
     if length(str_index) < 1
+      disp('Names found:');
+      names_vals
       error(['Parameter lookup from rows is requested, but cannot find ' ...
              'the "' props.param_trial_name '" parameter in the data filename ' fullname ]);
     end

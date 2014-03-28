@@ -15,13 +15,13 @@ function param_names = paramNames(fileset, item)
 %   Returns:
 %	params_names: Cell array with ordered parameter names.
 %
-% See also: params_tests_fileset, paramNames, testNames
+% See also: params_tests_fileset, testNames, parseFilenameNamesVals
 %
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2004-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -39,7 +39,7 @@ if ~ isfield(props, 'num_params') || props.num_params ~= 0
   filename = getItem(fileset, item);
   fullname = fullfile(fileset.path, filename);
   
-  names_vals = parseGenesisFilename(fullname);
+  names_vals = parseFilenameNamesVals(fullname, props);
 
   if isfield(props, 'num_params')
     num_params = props.num_params;

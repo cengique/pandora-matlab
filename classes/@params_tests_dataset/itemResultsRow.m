@@ -33,24 +33,25 @@ function [params_row, tests_row, a_doc] = itemResultsRow(dataset, index)
 
 a_doc = [];
 
+% get params from file (if any)
+params_row = getItemParams(dataset, index);
+
 % look if custom function defined
 prof_func = ...
     getFieldDefault(get(dataset, 'props'), 'loadItemProfileFunc', ...
                                   @loadItemProfile);
 
 % Load any profile object
-a_profile = feval(prof_func, dataset, index);
+a_profile = feval(prof_func, dataset, index, params_row);
 
 % there can be a doc hidden in there
 if iscell(a_profile)
   [a_profile a_doc] = deal(a_profile{:});
 end
 
-% Get params row vector
+% If found in profile, update params row vector
 if isa(a_profile, 'params_results_profile')
   params_row = cell2mat(struct2cell(a_profile.params)');
-else
-  params_row = getItemParams(dataset, index, a_profile);
 end
 
 % Convert results to row vector
