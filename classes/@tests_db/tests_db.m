@@ -12,7 +12,8 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %   row_names: Cell array of row names of test_results.
 %   id: An identifying string.
 %   props: A structure with any optional properties.
-%     textDelim: If not CSV (','), delimiter in text file to be used by dlmread.
+%     textDelim: Delimiter in text file to be used by dlmread (Default:
+%     		',' for CSV). Use '' for all whitespace.
 %     csvArgs: Cell array of arguments passed to dlmread function (e.g.,
 %     	{R, C, [r1 c1 r2 c2]}).
 %     csvReadColNames: If 1, first row of the file is used to read column names.
@@ -25,9 +26,9 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %
 % Description:
 %   This is the base database class. Note for loading text files:
-% Matlab's dlmread and csvread commands are unable to handle files that
+% Matlab's dlmread commands is used, and it is unable to handle files that
 % have any non-numeric data (except skipped rows). Therefore, those files
-% are best filtered with outside tools before importing into Pandora.
+% are best filtered with outside tools before importing.
 %
 % General operations on tests_db objects:
 %   tests_db		- Construct a new tests_db object.
@@ -70,7 +71,7 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 % Additional methods:
 %	See methods('tests_db')
 %
-% See also: params_tests_db, params_db, test_variable_db (N/I), dlmread, csvread
+% See also: params_tests_db, params_db, test_variable_db (N/I), dlmread
 %
 % $Id$
 %
