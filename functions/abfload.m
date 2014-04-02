@@ -32,7 +32,14 @@ function [d,si,h]=abfload(fn,varargin)
 % channels    cell array         names of channels to be read, like 
 %              or char, 'a'       {'IN 0','IN 8'} (make sure spelling is
 %                                 100% correct, including blanks). If set 
-%                                 to 'a', all channels will be read.
+%                                 to 'a', all channels will be read. 
+%                                 *****************************************
+%                                 NOTE: channel order in output variable d
+%                                 ignores the order in 'channels', and
+%                                 instead always matches the order inherent
+%                                 to the abf file, to be retrieved in
+%                                 output variable h!
+%                                 *****************************************
 % chunk       scalar, 0.05       only gap-free-data: the elementary chunk  
 %                                 size (megabytes) to be used for the 
 %                                 'discontinuous' mode of reading data 
@@ -53,7 +60,7 @@ function [d,si,h]=abfload(fn,varargin)
 %                    Examples of access:
 %                    d(:,2)       data from channel 2 at full length
 %                    d(1:100,:)   first 100 data points from all channels
-%   2. EPISODIC FIXED-LENGTH/WAVEFORM FIXED-LENGTH:
+%   2. EPISODIC FIXED-LENGTH/WAVEFORM FIXED-LENGTH/HIGH-SPEED OSCILLOSCOPE:
 %   3d array        3d array of size 
 %                    <data pts per sweep> by <number of chans> by <number 
 %                    of sweeps>.
@@ -75,12 +82,39 @@ function [d,si,h]=abfload(fn,varargin)
 % si    scalar           the sampling interval in us
 % h     struct           information on file (selected header parameters)
 % 
-% 
 % CONTRIBUTORS
 %   Original version by Harald Hentschke (harald.hentschke@uni-tuebingen.de)
 %   Extended to abf version 2.0 by Forrest Collman (fcollman@Princeton.edu)
 %   pvpmod.m by Ulrich Egert (egert@bccn.uni-freiburg.de)
-%   Date of this version: May 20, 2009
+%   Date of this version: Aug 1, 2012
+
+% PROBLEM CASE REPORTS
+% + June 2011:
+% In one specific case, a user recorded data with a recording protocol that
+% may have been set up originally with pClamp 9.x. In this protocol,
+% amplification of the signal via a Cyberamp (the meanwhile out-of-date
+% analog programmable signal conditioner of Axon Instruments) had been set
+% to 200. Internally, this registers as a value of 200 of parameter
+% h.fSignalGain. However, over the years, the setup changed, the Cyberamp
+% went, pClamp10 came, and the protocol was in all likelihood just adapted,
+% leaving h.fSignalGain at 200 (and the data values produced by abfload too
+% small by that factor) although the thing wasn't hooked up anymore.
+% However, when openend in clampex, the data are properly scaled. So,
+% either the axon programs ignore the values of h.fSignalGain (and
+% h.fSignalOffset) or - more likely - there is a flag somewhere in the
+% header structure that informs us about whether the gain shall apply
+% (because the signal conditioner is connected) or not. At any rate,
+% whenever you change hardware and/or software, better create the protocols
+% from scratch.
+%
+% BUG FIXES
+% + Aug 2012:
+% The order of channels in input variable 'channel' is now ignored by
+% abfload; instead, data is always put out according to the order inherent
+% to the abf file (to be retrieved in header parameter h). In the previous
+% version of abfload, specifying an order different from the inherent
+% channel order could result in wrong scaling of the data (if the scaling
+% differed between channels).
 
 % -------------------------------------------------------------------------
 %                       PART 1: check of input vars
@@ -104,11 +138,11 @@ verbose=1;
 % request is to obtain information on the file (header parameters), so set
 % flag accordingly
 if nargin==2 && ischar(varargin{1}) && strcmp('info',varargin{1})
- doLoadData=false;
+  doLoadData=false;
 else
- doLoadData=true;
- % assign values of optional input parameters if any were given
- pvpmod(varargin);
+  doLoadData=true;
+  % assign values of optional input parameters if any were given
+  pvpmod(varargin);
 end
 
 % some constants
@@ -118,22 +152,22 @@ d=[];
 si=[];
 h=[];
 if ischar(stop)
- if ~strcmpi(stop,'e')
-   error('input parameter ''stop'' must be specified as ''e'' (=end of recording) or as a scalar');
- end
+  if ~strcmpi(stop,'e')
+    error('input parameter ''stop'' must be specified as ''e'' (=end of recording) or as a scalar');
+  end
 end
 % check existence of file
-if ~exist(fn,'file'), 
- error(['could not find file ' fn]); 
+if ~exist(fn,'file'),
+  error(['could not find file ' fn]);
 end
 
 % -------------------------------------------------------------------------
 %                       PART 2a: determine abf version
 % -------------------------------------------------------------------------
-disp(['opening ' fn '..']); 
-[fid,messg]=fopen(fn,'r',machineF); 
+disp(['opening ' fn '..']);
+[fid,messg]=fopen(fn,'r',machineF);
 if fid == -1,
- error(messg);
+  error(messg);
 end
 % on the occasion, determine absolute file size
 fseek(fid,0,'eof');
@@ -144,36 +178,50 @@ fseek(fid,0,'bof');
 sz=4;
 [fFileSignature,n]=fread(fid,sz,'uchar=>char');
 if n~=sz,
- fclose(fid);
- error('something went wrong reading value(s) for fFileSignature');
+  fclose(fid);
+  error('something went wrong reading value(s) for fFileSignature');
 end
 % rewind
 fseek(fid,0,'bof');
 % transpose
 fFileSignature=fFileSignature';
 
+% one of the first checks must be whether file signature is valid
+switch fFileSignature
+  case 'ABF ' % ** note the blank
+    % ************************
+    %     abf version < 2.0
+    % ************************
+  case 'ABF2'
+    % ************************
+    %     abf version >= 2.0
+    % ************************
+  otherwise
+    error('unknown or incompatible file signature');
+end
+
 % -------------------------------------------------------------------------
-%    PART 2b: define file information ('header') parameters of interest
+%    PART 2b: define file information ('header' parameters) of interest
 % -------------------------------------------------------------------------
 % The list of header parameters created below (variable 'headPar') is
-% derived from the abf version 1.8 header section. It is by no means 
+% derived from the abf version 1.8 header section. It is by no means
 % exhaustive (i.e. there are many more parameters in abf files) but
 % sufficient for proper upload, scaling and arrangement of data acquired
 % under many conditons. Further below, these parameters will be made fields
 % of struct h. h, which is also an output variable, is then used in PART 3,
 % which does the actual job of uploading, scaling and rearranging the data.
 % That part of the code relies on h having a certain set of fields
-% irrespective of ABF version. 
+% irrespective of ABF version.
 % Unfortunately, in the transition to ABF version 2.0 many of the header
 % parameters were moved to different places within the abf file and/or
 % given other names or completely restructured. In order for the code to
 % work with pre- and post-2.0 data files, all parameters missing in the
-% header must be gotten into h. This is accomplished in lines ~262 and
+% header must be gotten into h. This is accomplished in lines ~288 and
 % following:
 %     if h.fFileVersionNumber>=2
 %       ...
 % Furthermore,
-% - h as an output from an ABF version < 2.0 file will not contain new 
+% - h as an output from an ABF version < 2.0 file will not contain new
 %   parameters introduced into the header like 'nCRCEnable'
 % - h will in any case contain a few 'home-made' fields that have
 %   proven to be useful. Some of them depend on the recording mode. Among
@@ -185,176 +233,175 @@ fFileSignature=fFileSignature';
 % -- recTime              recording start and stop time in seconds from
 %                         midnight (millisecond resolution)
 % -- sweepLengthInPts     sample points per sweep (one channel)
-% -- sweepStartInPts      the start times of sweeps in sample points 
+% -- sweepStartInPts      the start times of sweeps in sample points
 %                         (from beginning of recording)
 
 
-% call local function for header proper
+% define header proper depending on ABF version by call to local function 
 headPar=define_header(fFileSignature);
-  TagInfo=define_TagInfo;
-switch fFileSignature
- case 'ABF ' % ** note the blank
-   % ************************
-   %     abf version < 2.0
-   % ************************
-   % do nothing, header already defined above
+% define all sections that there are
+Sections=define_Sections;
+% define a few of these (currently, only the TagInfo section is used for
+% all versions of ABF, but that may change in the future)
+ProtocolInfo=define_ProtocolInfo;
+ADCInfo=define_ADCInfo;
+TagInfo=define_TagInfo;
 
- case 'ABF2'
-   % ************************
-   %     abf version >= 2.0
-   % ************************
-   Sections=define_Sections;
-   ProtocolInfo=define_ProtocolInfo;
-   ADCInfo=define_ADCInfo;
-   
- otherwise
-   error('unknown or incompatible file signature');
-end
-
+% -------------------------------------------------------------------------
+%    PART 2c: read parameters of interest
+% -------------------------------------------------------------------------
 % convert headPar to struct
 s=cell2struct(headPar,{'name','offs','numType','value'},2);
 numOfParams=size(s,1);
 clear tmp headPar;
 
-% -------------------------------------------------------------------------
-%    PART 2c: read parameters of interest
-% -------------------------------------------------------------------------
 % convert names in structure to variables and read value from header
 for g=1:numOfParams
- if fseek(fid, s(g).offs,'bof')~=0, 
-   fclose(fid);
-   error(['something went wrong locating ' s(g).name]); 
- end
- sz=length(s(g).value);
- % use dynamic field names 
- [h.(s(g).name),n]=fread(fid,sz,s(g).numType);
- if n~=sz, 
-   fclose(fid);    
-   error(['something went wrong reading value(s) for ' s(g).name]); 
- end
+  if fseek(fid, s(g).offs,'bof')~=0,
+    fclose(fid);
+    error(['something went wrong locating ' s(g).name]);
+  end
+  sz=length(s(g).value);
+  % use dynamic field names
+  [h.(s(g).name),n]=fread(fid,sz,s(g).numType);
+  if n~=sz,
+    fclose(fid);
+    error(['something went wrong reading value(s) for ' s(g).name]);
+  end
 end
-% transpose
+% file signature needs to be transposed
 h.fFileSignature=h.fFileSignature';
 % several header parameters need a fix or version-specific refinement:
 if strcmp(h.fFileSignature,'ABF2')
- % h.fFileVersionNumber needs to be converted from an array of integers to
- % a float
- h.fFileVersionNumber=h.fFileVersionNumber(4)+h.fFileVersionNumber(3)*.1...
-   +h.fFileVersionNumber(2)*.001+h.fFileVersionNumber(1)*.0001;
- % convert ms to s
- h.lFileStartTime=h.uFileStartTimeMS*.001;
+  % h.fFileVersionNumber needs to be converted from an array of integers to
+  % a float
+  h.fFileVersionNumber=h.fFileVersionNumber(4)+h.fFileVersionNumber(3)*.1...
+    +h.fFileVersionNumber(2)*.001+h.fFileVersionNumber(1)*.0001;
+  % convert ms to s
+  h.lFileStartTime=h.uFileStartTimeMS*.001;
 else
- % h.fFileVersionNumber is a float32 the value of which is sometimes a
- % little less than what it should be (e.g. 1.6499999 instead of 1.65)
- h.fFileVersionNumber=.001*round(h.fFileVersionNumber*1000);
- % in abf < 2.0 two parameters are needed to obtain the file start time
- % with millisecond precision - let's integrate both into parameter
- % lFileStartTime (unit: s) so that nFileStartMillisecs will not be needed
- h.lFileStartTime=h.lFileStartTime+h.nFileStartMillisecs*.001;  
+  % h.fFileVersionNumber is a float32 the value of which is sometimes a
+  % little less than what it should be (e.g. 1.6499999 instead of 1.65)
+  h.fFileVersionNumber=.001*round(h.fFileVersionNumber*1000);
+  % in abf < 2.0 two parameters are needed to obtain the file start time
+  % with millisecond precision - let's integrate both into parameter
+  % lFileStartTime (unit: s) so that nFileStartMillisecs will not be needed
+  h.lFileStartTime=h.lFileStartTime+h.nFileStartMillisecs*.001;
 end
 
-% *** read file information that has gone elsewhere in ABF version >= 2.0
-% and assign values ***
 if h.fFileVersionNumber>=2
- % --- read in the Sections
- Sects=cell2struct(Sections,{'name'},2);
- numOfSections=length(Sections);
- offset=76;
- for i=1:numOfSections
-   eval([Sects(i).name '=ReadSectionInfo(fid,offset);']);
-   offset=offset+4+4+8;
- end
- % --- read in the Strings
- fseek(fid,StringsSection.uBlockIndex*BLOCKSIZE,'bof');
- BigString=fread(fid,StringsSection.uBytes,'char');
- % this is a hack
- goodstart=strfind(lower(char(BigString)'),'clampex');
- %this extends the hack to deal with axoscope files 
- if isempty(goodstart)
-      goodstart=strfind(lower(char(BigString)'),'axoscope');
- end
- %this extends the hack to deal with clampfit files 
- if isempty(goodstart)
-      goodstart=strfind(lower(char(BigString)'),'clampfit');
+  % -----------------------------------------------------------------------
+  % *** read file information that has moved from the header section to
+  % other sections in ABF version >= 2.0 and assign selected values to
+  % fields of 'generic' header variable h ***
+  % -----------------------------------------------------------------------
+  % --- read in the Sections
+  Sects=cell2struct(Sections,{'name'},2);
+  numOfSections=length(Sections);
+  offset=76;
+  % this creates all sections (ADCSection, ProtocolSection, etc.)
+  for i=1:numOfSections
+    eval([Sects(i).name '=ReadSectionInfo(fid,offset);']);
+    offset=offset+4+4+8;
   end
+  % --- read in the StringsSection and use some fields (to retrieve
+  % information on the names of recorded channels and the units)
+  fseek(fid,StringsSection.uBlockIndex*BLOCKSIZE,'bof');
+  BigString=fread(fid,StringsSection.uBytes,'char');
+  % this is a hack: determine where either of strings 'clampex',
+  % 'clampfit', 'axoscope' or patchxpress' begin
+  progString={'clampex','clampfit','axoscope','patchxpress'};
+  goodstart=[];
+  for i=1:numel(progString)
+    goodstart=cat(1,goodstart,strfind(lower(char(BigString)'),progString{i}));
+  end
+  % if either none or more than one were found, we're likely in trouble
+  if numel(goodstart)~=1
+    warning('problems in StringsSection');
+  end
+  BigString=BigString(goodstart(1):end)';
+  stringends=find(BigString==0);
+  stringends=[0 stringends];
+  for i=1:length(stringends)-1
+    Strings{i}=char(BigString(stringends(i)+1:stringends(i+1)-1));
+  end
+  h.recChNames=[];
+  h.recChUnits=[];
   
- BigString=BigString(goodstart(1):end)';
- stringends=find(BigString==0);
- stringends=[0 stringends];
- for i=1:length(stringends)-1
-   Strings{i}=char(BigString(stringends(i)+1:stringends(i+1)-1));
- end
- h.recChNames=[];
- h.recChUnits=[];
-
- % --- read in the ADCSection
- for i=1:ADCSection.llNumEntries
-   ADCsec(i)=ReadSection(fid,ADCSection.uBlockIndex*BLOCKSIZE+ADCSection.uBytes*(i-1),ADCInfo);
-   ii=ADCsec(i).nADCNum+1;
-   h.nADCSamplingSeq(i)=ADCsec(i).nADCNum;
-   h.recChNames=strvcat(h.recChNames, Strings{ADCsec(i).lADCChannelNameIndex});
-   h.recChUnits=strvcat(h.recChUnits, Strings{ADCsec(i).lADCUnitsIndex});
-   h.nTelegraphEnable(ii)=ADCsec(i).nTelegraphEnable;
-   h.fTelegraphAdditGain(ii)=ADCsec(i).fTelegraphAdditGain;
-   h.fInstrumentScaleFactor(ii)=ADCsec(i).fInstrumentScaleFactor;
-   h.fSignalGain(ii)=ADCsec(i).fSignalGain;
-   h.fADCProgrammableGain(ii)=ADCsec(i).fADCProgrammableGain;
-   h.fInstrumentOffset(ii)=ADCsec(i).fInstrumentOffset;
-   h.fSignalOffset(ii)=ADCsec(i).fSignalOffset;
- end
- % --- read in the protocol section
- ProtocolSec=ReadSection(fid,ProtocolSection.uBlockIndex*BLOCKSIZE,ProtocolInfo);
- % --- 
- h.nOperationMode=ProtocolSec.nOperationMode;
- h.fSynchTimeUnit=ProtocolSec.fSynchTimeUnit;
- h.nADCNumChannels=ADCSection.llNumEntries;
- h.lActualAcqLength=DataSection.llNumEntries;
- h.lDataSectionPtr=DataSection.uBlockIndex;
- h.nNumPointsIgnored=0;
- % in ABF version < 2.0 h.fADCSampleInterval is the sampling interval
- % defined as 
- %     1/(sampling freq*number_of_channels)
- % so divide ProtocolSec.fADCSequenceInterval by the number of
- % channels
- h.fADCSampleInterval=ProtocolSec.fADCSequenceInterval/h.nADCNumChannels;
- h.fADCRange=ProtocolSec.fADCRange;
- h.lADCResolution=ProtocolSec.lADCResolution;
- h.lSynchArrayPtr=SynchArraySection.uBlockIndex;
- h.lSynchArraySize=SynchArraySection.llNumEntries;
+  % --- read in the ADCSection & copy some values to header h
+  for i=1:ADCSection.llNumEntries
+    ADCsec(i)=ReadSection(fid,ADCSection.uBlockIndex*BLOCKSIZE+ADCSection.uBytes*(i-1),ADCInfo);
+    ii=ADCsec(i).nADCNum+1;
+    h.nADCSamplingSeq(i)=ADCsec(i).nADCNum;
+    h.recChNames=strvcat(h.recChNames, Strings{ADCsec(i).lADCChannelNameIndex});
+    unitsIndex=ADCsec(i).lADCUnitsIndex;
+    if unitsIndex>0
+        h.recChUnits=strvcat(h.recChUnits, Strings{ADCsec(i).lADCUnitsIndex});
+    else
+        h.recChUnits=strvcat(h.recChUnits,'');
+    end
+    h.nTelegraphEnable(ii)=ADCsec(i).nTelegraphEnable;
+    h.fTelegraphAdditGain(ii)=ADCsec(i).fTelegraphAdditGain;
+    h.fInstrumentScaleFactor(ii)=ADCsec(i).fInstrumentScaleFactor;
+    h.fSignalGain(ii)=ADCsec(i).fSignalGain;
+    h.fADCProgrammableGain(ii)=ADCsec(i).fADCProgrammableGain;
+    h.fInstrumentOffset(ii)=ADCsec(i).fInstrumentOffset;
+    h.fSignalOffset(ii)=ADCsec(i).fSignalOffset;
+  end
+  % --- read in the protocol section & copy some values to header h
+  ProtocolSec=ReadSection(fid,ProtocolSection.uBlockIndex*BLOCKSIZE,ProtocolInfo);
+  h.nOperationMode=ProtocolSec.nOperationMode;
+  h.fSynchTimeUnit=ProtocolSec.fSynchTimeUnit;
+  
+  h.nADCNumChannels=ADCSection.llNumEntries;
+  h.lActualAcqLength=DataSection.llNumEntries;
+  h.lDataSectionPtr=DataSection.uBlockIndex;
+  h.nNumPointsIgnored=0;
+  % in ABF version < 2.0 h.fADCSampleInterval is the sampling interval
+  % defined as
+  %     1/(sampling freq*number_of_channels)
+  % so divide ProtocolSec.fADCSequenceInterval by the number of
+  % channels
+  h.fADCSampleInterval=ProtocolSec.fADCSequenceInterval/h.nADCNumChannels;
+  h.fADCRange=ProtocolSec.fADCRange;
+  h.lADCResolution=ProtocolSec.lADCResolution;
+  % --- in contrast to procedures with all other sections do not read the 
+  % sync array section but rather copy the values of its fields to the
+  % corresponding fields of h
+  h.lSynchArrayPtr=SynchArraySection.uBlockIndex;
+  h.lSynchArraySize=SynchArraySection.llNumEntries;
 else
-   TagSection.llNumEntries=h.lNumTagEntries;
-    TagSection.uBlockIndex=h.lTagSectionPtr;
-    TagSection.uBytes=64;
+  % -------------------------------------------------------------------------
+  % *** here, do the inverse: in ABF version<2 files extract information
+  % from header variable h and place it in corresponding new section
+  % variable(s)
+  % -------------------------------------------------------------------------
+  TagSection.llNumEntries=h.lNumTagEntries;
+  TagSection.uBlockIndex=h.lTagSectionPtr;
+  TagSection.uBytes=64;
 end
-Tagsec=[];
-for i=1:TagSection.llNumEntries
-        Tagsec(i)=ReadSection(fid,TagSection.uBlockIndex*BLOCKSIZE+TagSection.uBytes*(i-1),TagInfo);
-        Tagsec(i).sComment=char(Tagsec(i).sComment)';
-end
-h.Tags=Tagsec;
-
 
 % -------------------------------------------------------------------------
 %    PART 2d: groom parameters & perform some plausibility checks
 % -------------------------------------------------------------------------
-if h.lActualAcqLength<h.nADCNumChannels, 
- fclose(fid);
- error('less data points than sampled channels in file'); 
+if h.lActualAcqLength<h.nADCNumChannels,
+  fclose(fid);
+  error('less data points than sampled channels in file');
 end
 % the numerical value of all recorded channels (numbers 0..15)
 recChIdx=h.nADCSamplingSeq(1:h.nADCNumChannels);
 % the corresponding indices into loaded data d
 recChInd=1:length(recChIdx);
 if h.fFileVersionNumber<2
- % the channel names, e.g. 'IN 8' (for ABF version 2.0 these have been
- % extracted above at this point)
- h.recChNames=(reshape(char(h.sADCChannelName),10,16))';
- h.recChNames=h.recChNames(recChIdx+1,:);
- % same with signal units
- h.recChUnits=(reshape(char(h.sADCUnits),8,16))';
- h.recChUnits=h.recChUnits(recChIdx+1,:);
+  % the channel names, e.g. 'IN 8' (for ABF version 2.0 these have been
+  % extracted above at this point)
+  h.recChNames=(reshape(char(h.sADCChannelName),10,16))';
+  h.recChNames=h.recChNames(recChIdx+1,:);
+  % same with signal units
+  h.recChUnits=(reshape(char(h.sADCUnits),8,16))';
+  h.recChUnits=h.recChUnits(recChIdx+1,:);
 end
-% convert to cell arrays 
+% convert to cell arrays
 h.recChNames=deblank(cellstr(h.recChNames));
 h.recChUnits=deblank(cellstr(h.recChUnits));
 
@@ -362,57 +409,58 @@ h.recChUnits=deblank(cellstr(h.recChUnits));
 chInd=[];
 eflag=0;
 if ischar(channels)
- if strcmp(channels,'a')
-   chInd=recChInd;
- else
-   fclose(fid);
-   error('input parameter ''channels'' must either be a cell array holding channel names or the single character ''a'' (=all channels)');
- end
+  if strcmp(channels,'a')
+    chInd=recChInd;
+  else
+    fclose(fid);
+    error('input parameter ''channels'' must either be a cell array holding channel names or the single character ''a'' (=all channels)');
+  end
 else
- for i=1:length(channels)
-   tmpChInd=strmatch(channels{i},h.recChNames,'exact');
-   if ~isempty(tmpChInd)
-     chInd=[chInd tmpChInd];
-   else
-     % set error flag to 1
-     eflag=1;
-   end
- end
+  [nil,chInd]=intersect(h.recChNames,channels);
+  % ** index chInd must be sorted because intersect sorts h.recChNames
+  % alphanumerically, which needs not necessarily correspond to the order
+  % inherent in the abf file (e.g. if channels are named 'Lynx1 ... Lynx10
+  % etc.)
+  chInd=sort(chInd);
+  if isempty(chInd)
+    % set error flag to 1
+    eflag=1;
+  end
 end
 if eflag
- fclose(fid);
- disp('**** available channels:');
- disp(h.recChNames);
- disp(' ');
- disp('**** requested channels:');
- disp(channels);
- error('at least one of the requested channels does not exist in data file (see above)');
+  fclose(fid);
+  disp('**** available channels:');
+  disp(h.recChNames);
+  disp(' ');
+  disp('**** requested channels:');
+  disp(channels);
+  error('at least one of the requested channels does not exist in data file (see above)');
 end
 % display available channels if in info mode
 if ~doLoadData
- disp('**** available channels:');
- disp(h.recChNames);
-end  
+  disp('**** available channels:');
+  disp(h.recChNames);
+end
 
 % gain of telegraphed instruments, if any
 if h.fFileVersionNumber>=1.65
- addGain=h.nTelegraphEnable.*h.fTelegraphAdditGain;
- addGain(addGain==0)=1;
+  addGain=h.nTelegraphEnable.*h.fTelegraphAdditGain;
+  addGain(addGain==0)=1;
 else
- addGain=ones(size(h.fTelegraphAdditGain));
+  addGain=ones(size(h.fTelegraphAdditGain));
 end
 
 % determine offset at which data start
 switch h.nDataFormat
- case 0
-   dataSz=2;  % bytes/point
-   precision='int16';
- case 1
-   dataSz=4;  % bytes/point
-   precision='float32';
- otherwise
-   fclose(fid);
-   error('invalid number format');
+  case 0
+    dataSz=2;  % bytes/point
+    precision='int16';
+  case 1
+    dataSz=4;  % bytes/point
+    precision='float32';
+  otherwise
+    fclose(fid);
+    error('invalid number format');
 end
 headOffset=h.lDataSectionPtr*BLOCKSIZE+h.nNumPointsIgnored*dataSz;
 % h.fADCSampleInterval is the TOTAL sampling interval
@@ -420,331 +468,352 @@ h.si=h.fADCSampleInterval*h.nADCNumChannels;
 % assign same value to si, which is an output variable
 si=h.si;
 if ischar(sweeps) && sweeps=='a'
- nSweeps=h.lActualEpisodes;
- sweeps=1:h.lActualEpisodes;
+  nSweeps=h.lActualEpisodes;
+  sweeps=1:h.lActualEpisodes;
 else
- nSweeps=length(sweeps);
-end  
+  nSweeps=length(sweeps);
+end
+
+% determine time unit in synch array section
+switch h.fSynchTimeUnit
+  case 0  
+    % time information in synch array section is in terms of ticks
+    h.synchArrTimeBase=1;
+  otherwise
+    % time information in synch array section is in terms of usec
+    h.synchArrTimeBase=h.fSynchTimeUnit;
+end
+
+% read in the TagSection, do a few computations & write to h.tags
+h.tags=[];
+for i=1:TagSection.llNumEntries
+  tmp=ReadSection(fid,TagSection.uBlockIndex*BLOCKSIZE+TagSection.uBytes*(i-1),TagInfo);
+  % time of tag entry from start of experiment in s (corresponding expisode
+  % number, if applicable, will be determined later)
+  h.tags(i).timeSinceRecStart=tmp.lTagTime*h.synchArrTimeBase/1e6;
+  h.tags(i).comment=char(tmp.sComment)';
+end
 
 % -------------------------------------------------------------------------
 %    PART 3: read data (note: from here on code is generic and abf version
 %    should not matter)
 % -------------------------------------------------------------------------
 switch h.nOperationMode
- case 1
-   disp('data were acquired in event-driven variable-length mode');
-   if h.fFileVersionNumber>=2.0
-     errordlg('abfload currently does not work with data acquired in event-driven variable-length mode and ABF version 2.0','ABF version issue');
-   else
-     if (h.lSynchArrayPtr<=0 || h.lSynchArraySize<=0),
-       fclose(fid);
-       error('internal variables ''lSynchArraynnn'' are zero or negative');
-     end
-     switch h.fSynchTimeUnit
-       case 0  % time information in synch array section is in terms of ticks
-         h.synchArrTimeBase=1;
-       otherwise % time information in synch array section is in terms of usec
-         h.synchArrTimeBase=h.fSynchTimeUnit;
-     end
-     % the byte offset at which the SynchArraySection starts
-     h.lSynchArrayPtrByte=BLOCKSIZE*h.lSynchArrayPtr;
-     % before reading Synch Arr parameters check if file is big enough to hold them
-     % 4 bytes/long, 2 values per episode (start and length)
-     if h.lSynchArrayPtrByte+2*4*h.lSynchArraySize<fileSz,
-       fclose(fid);
-       error('file seems not to contain complete Synch Array Section');
-     end
-     if fseek(fid,h.lSynchArrayPtrByte,'bof')~=0,
-       fclose(fid);
-       error('something went wrong positioning file pointer to Synch Array Section');
-     end
-     [synchArr,n]=fread(fid,h.lSynchArraySize*2,'int32');
-     if n~=h.lSynchArraySize*2,
-       fclose(fid);
-       error('something went wrong reading synch array section');
-     end
-     % make synchArr a h.lSynchArraySize x 2 matrix
-     synchArr=permute(reshape(synchArr',2,h.lSynchArraySize),[2 1]);
-     % the length of episodes in sample points
-     segLengthInPts=synchArr(:,2)/h.synchArrTimeBase;
-     % the starting ticks of episodes in sample points WITHIN THE DATA FILE
-     segStartInPts=cumsum([0 (segLengthInPts(1:end-1))']*dataSz)+headOffset;
-     % start time (synchArr(:,1)) has to be divided by h.nADCNumChannels to get true value
-     % go to data portion
-     if fseek(fid,headOffset,'bof')~=0,
-       fclose(fid);
-       error('something went wrong positioning file pointer (too few data points ?)');
-     end
-     % ** load data if requested
-     if doLoadData
-       for i=1:nSweeps,
-         % if selected sweeps are to be read, seek correct position
-         if ~isequal(nSweeps,h.lActualEpisodes),
-           fseek(fid,segStartInPts(sweeps(i)),'bof');
-         end
-         [tmpd,n]=fread(fid,segLengthInPts(sweeps(i)),precision);
-         if n~=segLengthInPts(sweeps(i)),
-           warning(['something went wrong reading episode ' int2str(sweeps(i)) ': ' segLengthInPts(sweeps(i)) ' points should have been read, ' int2str(n) ' points actually read']);
-         end
-         h.dataPtsPerChan=n/h.nADCNumChannels;
-         if rem(n,h.nADCNumChannels)>0,
-           fclose(fid);
-           error('number of data points in episode not OK');
-         end
-         % separate channels..
-         tmpd=reshape(tmpd,h.nADCNumChannels,h.dataPtsPerChan);
-         % retain only requested channels
-         tmpd=tmpd(chInd,:);
-         tmpd=tmpd';
-         % if data format is integer, scale appropriately; if it's float, tmpd is fine
-         if ~h.nDataFormat
-           for j=1:length(chInd),
-             ch=recChIdx(chInd(j))+1;
-             tmpd(:,j)=tmpd(:,j)/(h.fInstrumentScaleFactor(ch)*h.fSignalGain(ch)*h.fADCProgrammableGain(ch)*addGain(ch))...
-               *h.fADCRange/h.lADCResolution+h.fInstrumentOffset(ch)-h.fSignalOffset(ch);
-           end
-         end
-         % now place in cell array, an element consisting of one sweep with channels in columns
-         d{i}=tmpd;
-       end
-     end
-   end
-
- case {2,5}
-   if h.nOperationMode==2
-     disp('data were acquired in event-driven fixed-length mode');
-   else
-     disp('data were acquired in waveform fixed-length mode (clampex only)');
-   end
-   % extract timing information on sweeps
-   if (h.lSynchArrayPtr<=0 || h.lSynchArraySize<=0),
-     fclose(fid);
-     error('internal variables ''lSynchArraynnn'' are zero or negative');
-   end
-   switch h.fSynchTimeUnit
-     case 0  % time information in synch array section is in terms of ticks
-       h.synchArrTimeBase=1;
-     otherwise % time information in synch array section is in terms of usec
-       h.synchArrTimeBase=h.fSynchTimeUnit;
-   end
-   % the byte offset at which the SynchArraySection starts
-   h.lSynchArrayPtrByte=BLOCKSIZE*h.lSynchArrayPtr;
-   % before reading Synch Arr parameters check if file is big enough to hold them
-   % 4 bytes/long, 2 values per episode (start and length)
-   if h.lSynchArrayPtrByte+2*4*h.lSynchArraySize>fileSz,
-     fclose(fid);
-     error('file seems not to contain complete Synch Array Section');
-   end
-   if fseek(fid,h.lSynchArrayPtrByte,'bof')~=0,
-     fclose(fid);
-     error('something went wrong positioning file pointer to Synch Array Section');
-   end
-   [synchArr,n]=fread(fid,h.lSynchArraySize*2,'int32');
-   if n~=h.lSynchArraySize*2,
-     fclose(fid);
-     error('something went wrong reading synch array section');
-   end
-   % make synchArr a h.lSynchArraySize x 2 matrix
-   synchArr=permute(reshape(synchArr',2,h.lSynchArraySize),[2 1]);
-   if numel(unique(synchArr(:,2)))>1
-     fclose(fid);
-     error('sweeps of unequal length in file recorded in fixed-length mode');
-   end
-   % the length of sweeps in sample points (**note: parameter lLength of
-   % the ABF synch section is expressed in samples (ticks) whereas
-   % parameter lStart is given in synchArrTimeBase units)
-   h.sweepLengthInPts=synchArr(1,2)/h.nADCNumChannels;
-   % the starting ticks of episodes in sample points (t0=1=beginning of
-   % recording)
-   h.sweepStartInPts=synchArr(:,1)*(h.synchArrTimeBase/h.fADCSampleInterval/h.nADCNumChannels);
-   % recording start and stop times in seconds from midnight
-   h.recTime=h.lFileStartTime;
-   h.recTime=h.recTime+[0  (1e-6*(h.sweepStartInPts(end)+h.sweepLengthInPts))*h.fADCSampleInterval*h.nADCNumChannels];
-   % determine first point and number of points to be read 
-   startPt=0;
-   h.dataPts=h.lActualAcqLength;
-   h.dataPtsPerChan=h.dataPts/h.nADCNumChannels;
-   if rem(h.dataPts,h.nADCNumChannels)>0 || rem(h.dataPtsPerChan,h.lActualEpisodes)>0
-     fclose(fid);
-     error('number of data points not OK'); 
-   end
-   % temporary helper var
-   dataPtsPerSweep=h.sweepLengthInPts*h.nADCNumChannels;
-   if fseek(fid,startPt*dataSz+headOffset,'bof')~=0
-     fclose(fid);
-     error('something went wrong positioning file pointer (too few data points ?)'); 
-   end
-   d=zeros(h.sweepLengthInPts,length(chInd),nSweeps);
-   % the starting ticks of episodes in sample points WITHIN THE DATA FILE
-   selectedSegStartInPts=((sweeps-1)*dataPtsPerSweep)*dataSz+headOffset;
-   % ** load data if requested
-   if doLoadData
-     for i=1:nSweeps,
-       fseek(fid,selectedSegStartInPts(i),'bof');
-       [tmpd,n]=fread(fid,dataPtsPerSweep,precision);
-       if n~=dataPtsPerSweep,
-         fclose(fid);
-         error(['something went wrong reading episode ' int2str(sweeps(i)) ': ' dataPtsPerSweep ' points should have been read, ' int2str(n) ' points actually read']);
-       end
-       h.dataPtsPerChan=n/h.nADCNumChannels;
-       if rem(n,h.nADCNumChannels)>0
-         fclose(fid);
-         error('number of data points in episode not OK');
-       end
-       % separate channels..
-       tmpd=reshape(tmpd,h.nADCNumChannels,h.dataPtsPerChan);
-       % retain only requested channels
-       tmpd=tmpd(chInd,:);
-       tmpd=tmpd';
-       % if data format is integer, scale appropriately; if it's float, d is fine
-       if ~h.nDataFormat
-         for j=1:length(chInd),
-           ch=recChIdx(chInd(j))+1;
-           tmpd(:,j)=tmpd(:,j)/(h.fInstrumentScaleFactor(ch)*h.fSignalGain(ch)*h.fADCProgrammableGain(ch)*addGain(ch))...
-             *h.fADCRange/h.lADCResolution+h.fInstrumentOffset(ch)-h.fSignalOffset(ch);
-         end
-       end
-       % now fill 3d array
-       d(:,:,i)=tmpd;
-     end
-   end
-
- case 3
-   disp('data were acquired in gap-free mode');
-   % from start, stop, headOffset and h.fADCSampleInterval calculate first point to be read 
-   %  and - unless stop is given as 'e' - number of points
-   startPt=floor(1e6*start*(1/h.fADCSampleInterval));
-   % this corrects undesired shifts in the reading frame due to rounding errors in the previous calculation
-   startPt=floor(startPt/h.nADCNumChannels)*h.nADCNumChannels;
-   % if stop is a char array, it can only be 'e' at this point (other values would have 
-   % been caught above)
-   if ischar(stop),
-     h.dataPtsPerChan=h.lActualAcqLength/h.nADCNumChannels-floor(1e6*start/h.si);
-     h.dataPts=h.dataPtsPerChan*h.nADCNumChannels;
-   else
-     h.dataPtsPerChan=floor(1e6*(stop-start)*(1/h.si));
-     h.dataPts=h.dataPtsPerChan*h.nADCNumChannels;
-     if h.dataPts<=0 
-       fclose(fid);
-       error('start is larger than or equal to stop'); 
-     end
-   end
-   if rem(h.dataPts,h.nADCNumChannels)>0
-     fclose(fid);
-     error('number of data points not OK'); 
-   end
-   tmp=1e-6*h.lActualAcqLength*h.fADCSampleInterval;
-   if verbose
-     disp(['total length of recording: ' num2str(tmp,'%5.1f') ' s ~ ' num2str(tmp/60,'%3.0f') ' min']);
-     % 8 bytes per data point expressed in Mb
-     disp(['memory requirement for complete upload in matlab: '...
-       num2str(round(8*h.lActualAcqLength/2^20)) ' MB']);
-   end
-   % recording start and stop times in seconds from midnight
-   h.recTime=h.lFileStartTime;
-   h.recTime=[h.recTime h.recTime+tmp];
-   if fseek(fid,startPt*dataSz+headOffset,'bof')~=0, 
-     fclose(fid);
-     error('something went wrong positioning file pointer (too few data points ?)');
-   end
-   if doLoadData
-     % *** decide on the most efficient way to read data:
-     % (i) all (of one or several) channels requested: read, done
-     % (ii) one (of several) channels requested: use the 'skip' feature of
-     % fread
-     % (iii) more than one but not all (of several) channels requested:
-     % 'discontinuous' mode of reading data. Read a reasonable chunk of data
-     % (all channels), separate channels, discard non-requested ones (if
-     % any), place data in preallocated array, repeat until done. This is
-     % faster than reading the data in one big lump, separating channels and
-     % discarding the ones not requested
-     if length(chInd)==1 && h.nADCNumChannels>1
-       % --- situation (ii)
-       % jump to proper reading frame position in file
-       if fseek(fid,(chInd-1)*dataSz,'cof')~=0
-         fclose(fid);
-         error('something went wrong positioning file pointer (too few data points ?)');
-       end
-       % read, skipping h.nADCNumChannels-1 data points after each read
-       [d,n]=fread(fid,h.dataPtsPerChan,precision,dataSz*(h.nADCNumChannels-1));
-       if n~=h.dataPtsPerChan,
-         fclose(fid);
-         error(['something went wrong reading file (' int2str(h.dataPtsPerChan) ' points should have been read, ' int2str(n) ' points actually read']);
-       end
-     elseif length(chInd)/h.nADCNumChannels<1
-       % --- situation (iii)
-       % prepare chunkwise upload:
-       % preallocate d
-       d=repmat(nan,h.dataPtsPerChan,length(chInd));
-       % the number of data points corresponding to the maximal chunk size,
-       % rounded off such that from each channel the same number of points is
-       % read (do not forget that each data point will by default be made a
-       % double of 8 bytes, no matter what the original data format is)
-       chunkPtsPerChan=floor(chunk*2^20/8/h.nADCNumChannels);
-       chunkPts=chunkPtsPerChan*h.nADCNumChannels;
-       % the number of those chunks..
-       nChunk=floor(h.dataPts/chunkPts);
-       % ..and the remainder
-       restPts=h.dataPts-nChunk*chunkPts;
-       restPtsPerChan=restPts/h.nADCNumChannels;
-       % chunkwise row indices into d
-       dix=(1:chunkPtsPerChan:h.dataPtsPerChan)';
-       dix(:,2)=dix(:,1)+chunkPtsPerChan-1;
-       dix(end,2)=h.dataPtsPerChan;
-       if verbose && nChunk
-         disp(['reading file in ' int2str(nChunk) ' chunks of ~' num2str(chunk) ' Mb']);
-       end
-       % do it
-       for ci=1:size(dix,1)-1
-         [tmpd,n]=fread(fid,chunkPts,precision);
-         if n~=chunkPts
-           fclose(fid);
-           error(['something went wrong reading chunk #' int2str(ci) ' (' ...
-             int2str(chunkPts) ' points should have been read, ' int2str(n) ' points actually read']);
-         end
-         % separate channels..
-         tmpd=reshape(tmpd,h.nADCNumChannels,chunkPtsPerChan);
-         d(dix(ci,1):dix(ci,2),:)=tmpd(chInd,:)';
-       end
-       % collect the rest, if any
-       if restPts
-         [tmpd,n]=fread(fid,restPts,precision);
-         if n~=restPts
-           fclose(fid);
-           error(['something went wrong reading last chunk (' ...
-             int2str(restPts) ' points should have been read, ' int2str(n) ' points actually read']);
-         end
-         % separate channels..
-         tmpd=reshape(tmpd,h.nADCNumChannels,restPtsPerChan);
-         d(dix(end,1):dix(end,2),:)=tmpd(chInd,:)';
-       end
-     else
-       % --- situation (i)
-       [d,n]=fread(fid,h.dataPts,precision);
-       if n~=h.dataPts,
-         fclose(fid);
-         error(['something went wrong reading file (' int2str(h.dataPts) ' points should have been read, ' int2str(n) ' points actually read']);
-       end
-       % separate channels..
-       d=reshape(d,h.nADCNumChannels,h.dataPtsPerChan);
-       d=d';
-     end
-     % if data format is integer, scale appropriately; if it's float, d is fine
-     if ~h.nDataFormat
-       for j=1:length(chInd),
-         ch=recChIdx(chInd(j))+1;
-         d(:,j)=d(:,j)/(h.fInstrumentScaleFactor(ch)*h.fSignalGain(ch)*h.fADCProgrammableGain(ch)*addGain(ch))...
-           *h.fADCRange/h.lADCResolution+h.fInstrumentOffset(ch)-h.fSignalOffset(ch);
-       end
-     end
-   end
- otherwise
-   disp('recording mode is ''high-speed oscilloscope'' which is not implemented -- returning empty matrix');
-   d=[];
-   h.si=[];
+  case 1
+    disp('data were acquired in event-driven variable-length mode');
+    if h.fFileVersionNumber>=2.0
+      errordlg('abfload currently does not work with data acquired in event-driven variable-length mode and ABF version 2.0','ABF version issue');
+    else
+      if (h.lSynchArrayPtr<=0 || h.lSynchArraySize<=0),
+        fclose(fid);
+        error('internal variables ''lSynchArraynnn'' are zero or negative');
+      end
+      % the byte offset at which the SynchArraySection starts
+      h.lSynchArrayPtrByte=BLOCKSIZE*h.lSynchArrayPtr;
+      % before reading Synch Arr parameters check if file is big enough to hold them
+      % 4 bytes/long, 2 values per episode (start and length)
+      if h.lSynchArrayPtrByte+2*4*h.lSynchArraySize<fileSz,
+        fclose(fid);
+        error('file seems not to contain complete Synch Array Section');
+      end
+      if fseek(fid,h.lSynchArrayPtrByte,'bof')~=0,
+        fclose(fid);
+        error('something went wrong positioning file pointer to Synch Array Section');
+      end
+      [synchArr,n]=fread(fid,h.lSynchArraySize*2,'int32');
+      if n~=h.lSynchArraySize*2,
+        fclose(fid);
+        error('something went wrong reading synch array section');
+      end
+      % make synchArr a h.lSynchArraySize x 2 matrix
+      synchArr=permute(reshape(synchArr',2,h.lSynchArraySize),[2 1]);
+      % the length of episodes in sample points
+      segLengthInPts=synchArr(:,2)/h.synchArrTimeBase;
+      % the starting ticks of episodes in sample points WITHIN THE DATA FILE
+      segStartInPts=cumsum([0 (segLengthInPts(1:end-1))']*dataSz)+headOffset;
+      % start time (synchArr(:,1)) has to be divided by h.nADCNumChannels to get true value
+      % go to data portion
+      if fseek(fid,headOffset,'bof')~=0,
+        fclose(fid);
+        error('something went wrong positioning file pointer (too few data points ?)');
+      end
+      % ** load data if requested
+      if doLoadData
+        for i=1:nSweeps,
+          % if selected sweeps are to be read, seek correct position
+          if ~isequal(nSweeps,h.lActualEpisodes),
+            fseek(fid,segStartInPts(sweeps(i)),'bof');
+          end
+          [tmpd,n]=fread(fid,segLengthInPts(sweeps(i)),precision);
+          if n~=segLengthInPts(sweeps(i)),
+            warning(['something went wrong reading episode ' int2str(sweeps(i)) ': ' segLengthInPts(sweeps(i)) ' points should have been read, ' int2str(n) ' points actually read']);
+          end
+          h.dataPtsPerChan=n/h.nADCNumChannels;
+          if rem(n,h.nADCNumChannels)>0,
+            fclose(fid);
+            error('number of data points in episode not OK');
+          end
+          % separate channels..
+          tmpd=reshape(tmpd,h.nADCNumChannels,h.dataPtsPerChan);
+          % retain only requested channels
+          tmpd=tmpd(chInd,:);
+          tmpd=tmpd';
+          % if data format is integer, scale appropriately; if it's float, tmpd is fine
+          if ~h.nDataFormat
+            for j=1:length(chInd),
+              ch=recChIdx(chInd(j))+1;
+              tmpd(:,j)=tmpd(:,j)/(h.fInstrumentScaleFactor(ch)*h.fSignalGain(ch)*h.fADCProgrammableGain(ch)*addGain(ch))...
+                *h.fADCRange/h.lADCResolution+h.fInstrumentOffset(ch)-h.fSignalOffset(ch);
+            end
+          end
+          % now place in cell array, an element consisting of one sweep with channels in columns
+          d{i}=tmpd;
+        end
+      end
+    end
+    
+  case {2,4,5}
+    if h.nOperationMode==2
+      disp('data were acquired in event-driven fixed-length mode');
+    elseif h.nOperationMode==4
+      disp('data were acquired in high-speed oscilloscope mode');
+    else
+      disp('data were acquired in waveform fixed-length mode');
+    end
+    % extract timing information on sweeps
+    if (h.lSynchArrayPtr<=0 || h.lSynchArraySize<=0),
+      fclose(fid);
+      error('internal variables ''lSynchArraynnn'' are zero or negative');
+    end
+    % the byte offset at which the SynchArraySection starts
+    h.lSynchArrayPtrByte=BLOCKSIZE*h.lSynchArrayPtr;
+    % before reading Synch Arr parameters check if file is big enough to hold them
+    % 4 bytes/long, 2 values per episode (start and length)
+    if h.lSynchArrayPtrByte+2*4*h.lSynchArraySize>fileSz,
+      fclose(fid);
+      error('file seems not to contain complete Synch Array Section');
+    end
+    if fseek(fid,h.lSynchArrayPtrByte,'bof')~=0,
+      fclose(fid);
+      error('something went wrong positioning file pointer to Synch Array Section');
+    end
+    [synchArr,n]=fread(fid,h.lSynchArraySize*2,'int32');
+    if n~=h.lSynchArraySize*2,
+      fclose(fid);
+      error('something went wrong reading synch array section');
+    end
+    % make synchArr a h.lSynchArraySize x 2 matrix
+    synchArr=permute(reshape(synchArr',2,h.lSynchArraySize),[2 1]);
+    if numel(unique(synchArr(:,2)))>1
+      fclose(fid);
+      error('sweeps of unequal length in file recorded in fixed-length mode');
+    end
+    % the length of sweeps in sample points (**note: parameter lLength of
+    % the ABF synch section is expressed in samples (ticks) whereas
+    % parameter lStart is given in synchArrTimeBase units)
+    h.sweepLengthInPts=synchArr(1,2)/h.nADCNumChannels;
+    % the starting ticks of episodes in sample points (t0=1=beginning of
+    % recording)
+    h.sweepStartInPts=synchArr(:,1)*(h.synchArrTimeBase/h.fADCSampleInterval/h.nADCNumChannels);
+    % recording start and stop times in seconds from midnight
+    h.recTime=h.lFileStartTime;
+    h.recTime=h.recTime+[0  (1e-6*(h.sweepStartInPts(end)+h.sweepLengthInPts))*h.fADCSampleInterval*h.nADCNumChannels];
+    % determine first point and number of points to be read
+    startPt=0;
+    h.dataPts=h.lActualAcqLength;
+    h.dataPtsPerChan=h.dataPts/h.nADCNumChannels;
+    if rem(h.dataPts,h.nADCNumChannels)>0 || rem(h.dataPtsPerChan,h.lActualEpisodes)>0
+      fclose(fid);
+      error('number of data points not OK');
+    end
+    % temporary helper var
+    dataPtsPerSweep=h.sweepLengthInPts*h.nADCNumChannels;
+    if fseek(fid,startPt*dataSz+headOffset,'bof')~=0
+      fclose(fid);
+      error('something went wrong positioning file pointer (too few data points ?)');
+    end
+    d=zeros(h.sweepLengthInPts,length(chInd),nSweeps);
+    % the starting ticks of episodes in sample points WITHIN THE DATA FILE
+    selectedSegStartInPts=((sweeps-1)*dataPtsPerSweep)*dataSz+headOffset;
+    % ** load data if requested
+    if doLoadData
+      for i=1:nSweeps,
+        fseek(fid,selectedSegStartInPts(i),'bof');
+        [tmpd,n]=fread(fid,dataPtsPerSweep,precision);
+        if n~=dataPtsPerSweep,
+          fclose(fid);
+          error(['something went wrong reading episode ' int2str(sweeps(i)) ': ' dataPtsPerSweep ' points should have been read, ' int2str(n) ' points actually read']);
+        end
+        h.dataPtsPerChan=n/h.nADCNumChannels;
+        if rem(n,h.nADCNumChannels)>0
+          fclose(fid);
+          error('number of data points in episode not OK');
+        end
+        % separate channels..
+        tmpd=reshape(tmpd,h.nADCNumChannels,h.dataPtsPerChan);
+        % retain only requested channels
+        tmpd=tmpd(chInd,:);
+        tmpd=tmpd';
+        % if data format is integer, scale appropriately; if it's float, d is fine
+        if ~h.nDataFormat
+          for j=1:length(chInd),
+            ch=recChIdx(chInd(j))+1;
+            tmpd(:,j)=tmpd(:,j)/(h.fInstrumentScaleFactor(ch)*h.fSignalGain(ch)*h.fADCProgrammableGain(ch)*addGain(ch))...
+              *h.fADCRange/h.lADCResolution+h.fInstrumentOffset(ch)-h.fSignalOffset(ch);
+          end
+        end
+        % now fill 3d array
+        d(:,:,i)=tmpd;
+      end
+    end
+    
+  case 3
+    disp('data were acquired in gap-free mode');
+    % from start, stop, headOffset and h.fADCSampleInterval calculate first point to be read
+    %  and - unless stop is given as 'e' - number of points
+    startPt=floor(1e6*start*(1/h.fADCSampleInterval));
+    % this corrects undesired shifts in the reading frame due to rounding errors in the previous calculation
+    startPt=floor(startPt/h.nADCNumChannels)*h.nADCNumChannels;
+    % if stop is a char array, it can only be 'e' at this point (other values would have
+    % been caught above)
+    if ischar(stop),
+      h.dataPtsPerChan=h.lActualAcqLength/h.nADCNumChannels-floor(1e6*start/h.si);
+      h.dataPts=h.dataPtsPerChan*h.nADCNumChannels;
+    else
+      h.dataPtsPerChan=floor(1e6*(stop-start)*(1/h.si));
+      h.dataPts=h.dataPtsPerChan*h.nADCNumChannels;
+      if h.dataPts<=0
+        fclose(fid);
+        error('start is larger than or equal to stop');
+      end
+    end
+    if rem(h.dataPts,h.nADCNumChannels)>0
+      fclose(fid);
+      error('number of data points not OK');
+    end
+    tmp=1e-6*h.lActualAcqLength*h.fADCSampleInterval;
+    if verbose
+      disp(['total length of recording: ' num2str(tmp,'%5.1f') ' s ~ ' num2str(tmp/60,'%3.0f') ' min']);
+      disp(['sampling interval: ' num2str(h.si,'%5.0f') ' µs']);
+      % 8 bytes per data point expressed in Mb
+      disp(['memory requirement for complete upload in matlab: '...
+        num2str(round(8*h.lActualAcqLength/2^20)) ' MB']);
+    end
+    % recording start and stop times in seconds from midnight
+    h.recTime=h.lFileStartTime;
+    h.recTime=[h.recTime h.recTime+tmp];
+    if fseek(fid,startPt*dataSz+headOffset,'bof')~=0,
+      fclose(fid);
+      error('something went wrong positioning file pointer (too few data points ?)');
+    end
+    if doLoadData
+      % *** decide on the most efficient way to read data:
+      % (i) all (of one or several) channels requested: read, done
+      % (ii) one (of several) channels requested: use the 'skip' feature of
+      % fread
+      % (iii) more than one but not all (of several) channels requested:
+      % 'discontinuous' mode of reading data. Read a reasonable chunk of data
+      % (all channels), separate channels, discard non-requested ones (if
+      % any), place data in preallocated array, repeat until done. This is
+      % faster than reading the data in one big lump, separating channels and
+      % discarding the ones not requested
+      if length(chInd)==1 && h.nADCNumChannels>1
+        % --- situation (ii)
+        % jump to proper reading frame position in file
+        if fseek(fid,(chInd-1)*dataSz,'cof')~=0
+          fclose(fid);
+          error('something went wrong positioning file pointer (too few data points ?)');
+        end
+        % read, skipping h.nADCNumChannels-1 data points after each read
+        [d,n]=fread(fid,h.dataPtsPerChan,precision,dataSz*(h.nADCNumChannels-1));
+        if n~=h.dataPtsPerChan,
+          fclose(fid);
+          error(['something went wrong reading file (' int2str(h.dataPtsPerChan) ' points should have been read, ' int2str(n) ' points actually read']);
+        end
+      elseif length(chInd)/h.nADCNumChannels<1
+        % --- situation (iii)
+        % prepare chunkwise upload:
+        % preallocate d
+        d=repmat(nan,h.dataPtsPerChan,length(chInd));
+        % the number of data points corresponding to the maximal chunk size,
+        % rounded off such that from each channel the same number of points is
+        % read (do not forget that each data point will by default be made a
+        % double of 8 bytes, no matter what the original data format is)
+        chunkPtsPerChan=floor(chunk*2^20/8/h.nADCNumChannels);
+        chunkPts=chunkPtsPerChan*h.nADCNumChannels;
+        % the number of those chunks..
+        nChunk=floor(h.dataPts/chunkPts);
+        % ..and the remainder
+        restPts=h.dataPts-nChunk*chunkPts;
+        restPtsPerChan=restPts/h.nADCNumChannels;
+        % chunkwise row indices into d
+        dix=(1:chunkPtsPerChan:h.dataPtsPerChan)';
+        dix(:,2)=dix(:,1)+chunkPtsPerChan-1;
+        dix(end,2)=h.dataPtsPerChan;
+        if verbose && nChunk
+          disp(['reading file in ' int2str(nChunk) ' chunks of ~' num2str(chunk) ' Mb']);
+        end
+        % do it: if no remainder exists loop through all rows of dix,
+        % otherwise spare last row for the lines below (starting with
+        % 'if restPts')
+        for ci=1:size(dix,1)-(restPts>0)
+          [tmpd,n]=fread(fid,chunkPts,precision);
+          if n~=chunkPts
+            fclose(fid);
+            error(['something went wrong reading chunk #' int2str(ci) ' (' ...
+              int2str(chunkPts) ' points should have been read, ' int2str(n) ' points actually read']);
+          end
+          % separate channels..
+          tmpd=reshape(tmpd,h.nADCNumChannels,chunkPtsPerChan);
+          d(dix(ci,1):dix(ci,2),:)=tmpd(chInd,:)';
+        end
+        % collect the rest, if any
+        if restPts
+          [tmpd,n]=fread(fid,restPts,precision);
+          if n~=restPts
+            fclose(fid);
+            error(['something went wrong reading last chunk (' ...
+              int2str(restPts) ' points should have been read, ' int2str(n) ' points actually read']);
+          end
+          % separate channels..
+          tmpd=reshape(tmpd,h.nADCNumChannels,restPtsPerChan);
+          d(dix(end,1):dix(end,2),:)=tmpd(chInd,:)';
+        end
+      else
+        % --- situation (i)
+        [d,n]=fread(fid,h.dataPts,precision);
+        if n~=h.dataPts,
+          fclose(fid);
+          error(['something went wrong reading file (' int2str(h.dataPts) ' points should have been read, ' int2str(n) ' points actually read']);
+        end
+        % separate channels..
+        d=reshape(d,h.nADCNumChannels,h.dataPtsPerChan);
+        d=d';
+      end
+      % if data format is integer, scale appropriately; if it's float, d is fine
+      if ~h.nDataFormat
+        for j=1:length(chInd),
+          ch=recChIdx(chInd(j))+1;
+          d(:,j)=d(:,j)/(h.fInstrumentScaleFactor(ch)*h.fSignalGain(ch)*h.fADCProgrammableGain(ch)*addGain(ch))...
+            *h.fADCRange/h.lADCResolution+h.fInstrumentOffset(ch)-h.fSignalOffset(ch);
+        end
+      end
+    end
+  otherwise
+    disp('unknown recording mode -- returning empty matrix');
+    d=[];
+    h.si=[];
 end
 fclose(fid);
-% h=orderfields(h);
+
+% finally, possibly add information on episode number to tags
+if ~isempty(h.tags) && isfield(h,'sweepStartInPts')
+  for i=1:numel(h.tags)
+    tmp=find(h.tags(i).timeSinceRecStart>=h.sweepStartInPts/1e6*h.si);
+    h.tags(i).episodeIndex=tmp(end);
+  end
+end
+
 
 % ########################################################################
 %                         LOCAL FUNCTIONS
@@ -759,10 +828,11 @@ switch fileSig
    %
    % temporary initializing var
    tmp=repmat(-1,1,16);
-   % define vital header parameters and initialize them with -1: set up a cell
-   % array (and convert it to a struct below, which is more convenient)
+   % define vital header parameters and initialize them with -1: set up a
+   % cell array (and convert it to a struct later on, which is more
+   % convenient)
    % column order is
-   %        name, position in header in bytes, type, value)
+   %    name, position in header in bytes, type, value)
    headPar={
      'fFileSignature',0,'*char',[-1 -1 -1 -1];
      'fFileVersionNumber',4,'float32',-1;
@@ -947,8 +1017,8 @@ ADCInfo={
  'nPostProcessLowpassFilterType','char',1;
  'bEnabledDuringPN','bit1',1;
  'nStatsChannelPolarity','int16',1;
- 'lADCChannelNameIndex','uint32',1;
- 'lADCUnitsIndex','uint32',1;
+ 'lADCChannelNameIndex','int32',1;
+ 'lADCUnitsIndex','int32',1;
  };
 
 function TagInfo=define_TagInfo
