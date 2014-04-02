@@ -12,7 +12,7 @@ function a_s = script_array_loaddb(num_runs, a_dataset, id, props)
 %     such as '-p -100 -q all.q <abs_path_to>/sge_matlab.sh'.
 %   id: Identification string.
 %   props: A structure with any optional properties.
-%     items: If specified, only load the dataset items in this list.
+%     items: If specified, only load items in this horizontal vector.
 %     (others passed to script_array)
 %
 % Description:
