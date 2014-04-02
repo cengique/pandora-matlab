@@ -16,7 +16,7 @@ function job_results = runFirst(a_script_array)
 % finally calls runLast.
 %
 % Example:
-% >> runFirst(script_array(10, 'this one does nothing for 10 times'));
+% >> results = runFirst(script_array(10, 'this one does nothing for 10 times'));
 %
 % See also: runLast, runJob
 %
@@ -30,9 +30,19 @@ function job_results = runFirst(a_script_array)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = get(a_script_array, 'props');
+
 job_results = cell(a_script_array.num_runs, 1);
-for vector_index=1:a_script_array.num_runs
-  job_results{vector_index} = runJob(a_script_array, vector_index);
+parallel = getFieldDefault(props, 'parallel', 0);
+
+if parallel
+  parfor vector_index=1:a_script_array.num_runs
+    job_results{vector_index} = runJob(a_script_array, vector_index);
+  end
+else
+  for vector_index=1:a_script_array.num_runs
+    job_results{vector_index} = runJob(a_script_array, vector_index);
+  end
 end
 
 job_results = runLast(a_script_array, job_results);

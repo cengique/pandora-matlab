@@ -6,14 +6,17 @@ function obj = script_array(num_runs, id, props)
 % obj = script_array(num_runs, id, props)
 %
 % Parameters:
-%	num_runs: The number of times the runJob script should be evoked.
-%	id: Identification string.
-%	props: A structure with any optional properties.
-%	  runJobFunc: A function name or handle to be used instead of default runJob.
+%   num_runs: The number of times the runJob script should be evoked.
+%   id: Identification string.
+%   props: A structure with any optional properties.
+%     runJobFunc: A function name or handle to be used instead of default
+%     		runJob.
+%     parallel: If 1, run jobs in parallel using parfor.
 %
 % Description:
 %   This is the base class for all script_array classes. Runs the runJob method as 
-% num_runs many times.
+% num_runs many times. Run initiated by calling runFirst, but the final
+% result will be returned by runLast.
 %
 % Returns a structure object with the following fields:
 %	num_runs, id, props.
@@ -35,7 +38,7 @@ function obj = script_array(num_runs, id, props)
 % Additional methods:
 %   See methods('script_array')
 %
-% See also: runFirst, runLast, runJob
+% See also: runFirst, runLast, runJob, parfor
 %
 % $Id$
 %
