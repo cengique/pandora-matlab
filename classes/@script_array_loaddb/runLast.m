@@ -18,7 +18,7 @@ function a_db = runLast(a_script_array, job_results)
 %
 % See also: script_array_loaddb, runJob, runFirst
 %
-% $Id: runLast.m 1335 2012-04-19 18:04:32Z cengique $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2014/04/02
 
