@@ -6,10 +6,12 @@ function obj = allocateRows(obj, num_rows)
 % obj = allocateRows(obj, num_rows)
 %
 % Description:
-%   Allocates the desired number of rows to speed up filling up the data matrix 
-%   using assignRowsTests. Using addRow after this operation is still expensive.
-%   The method of allocating a matrix, filling it up, and then providing it to 
-%   the tests_db constructor is the preferred method of creating tests_db objects.
+%   Overwrites the database by allocating a new matrix of the desired number
+% of rows to speed up filling up the data matrix using
+% assignRowsTests. Using addRow after this operation is still expensive.
+% The method of allocating a matrix, filling it up, and then providing it to
+% the tests_db constructor is the preferred method of creating tests_db
+% objects.
 %
 %   Parameters:
 %	obj: A tests_db object.
