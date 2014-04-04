@@ -1,9 +1,22 @@
-function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
+function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols, props)
 
 % invarValues - Finds all sets in which given columns vary while the rest are invariant.
 %
 % Usage:
-% a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
+% a_tests_3D_db = invarValues(db, cols, in_page_unique_cols, props)
+%
+% Parameters:
+%   db: A tests_db object.
+%   cols: Vector of column numbers to find values when others are
+% 	invariant. Include result columns here.
+%   in_page_unique_cols: Vector of columns that have the same unique values in each page 
+% 	(Optional; used only if database is not symmetric, to ignore 
+%	missing values of in_page_unique_cols)
+%   props: A structure with any optional properties.
+%     sortPages: If 1, page-sorts even symmetric databases (default=1).
+%		
+%   Returns:
+%	a_tests_3D_db: A tests_3D_db object of organized values.
 %
 % Description:
 %   Useful when trying to find relationships between some columns
@@ -16,28 +29,18 @@ function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 % tests_3D_db, instead a RowIndex is kept pointing to the db in which they
 % can be found. See joinRows for joining the results back with the invariant
 % columns.
-%   In databases that contain all unique combinations of certain parameters,
-% the resulting 3D database becomes symmetric. This function row-sorts the
+%   If in_page_unique_cols is given, this function by default row-sorts the
 % database to ensure that each page has the same parameter values in the
 % same rows. This is important because when the rows and pages of database
 % is swapped (see tests_3D_db/swapRowsPages) each page has the same value of
 % the in_page_unique_cols variables. Other functions such as
 % tests_3D_db/mergePages also depend on this property.
-%   However, for databases with missing combinations, in_page_unique_cols
-% specifies which columns is used to guide which rows of the page to place
-% values found. This function will fail if you do not have such a column.
-% Note: the trial column will be ignored before finding invariant values.
-%
-%   Parameters:
-%	db: A tests_db object.
-%	cols: Vector of column numbers to find values when others are
-%		invariant. Include result columns here.
-%	in_page_unique_cols: Vector of columns that have the same unique values in each page 
-% 		(Optional; used only if database is not symmetric, to ignore 
-%		missing values of in_page_unique_cols)
-%		
-%   Returns:
-%	a_tests_3D_db: A tests_3D_db object of organized values.
+%   In databases that contain all unique combinations of certain parameters,
+% the resulting 3D database becomes symmetric. However, for databases with
+% missing combinations, in_page_unique_cols specifies which columns is used
+% to guide which rows of the page to place values found. This function will
+% fail if you do not have such a column.  Note: the trial column will be
+% ignored before finding invariant values.
 %
 % Example:
 % >> a_db = tests_db([ ... ], {'par1', 'par2', 'measure1', 'measure2'})
@@ -55,7 +58,7 @@ function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/30
 % Modifications: Li Su, bugfix for non-symmetric dbs 2008/03.
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -63,6 +66,8 @@ function a_tests_3D_db = invarValues(db, cols, in_page_unique_cols)
 
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
+
+props = defaultValue('props', struct);
 
 cols = tests2cols(db, cols);
 
@@ -95,12 +100,15 @@ else
     num_total_rows = dbsize(db, 1);
 
     % If not symmetric
-    if any(diff(diff([unique_idx; num_total_rows+1])))
+    if any(diff(diff([unique_idx; num_total_rows+1]))) || ...
+        (exist('in_page_unique_cols','var') && ...
+         getFieldDefault(props, 'sortPages', 1) == 1)
       if verbose
-        disp('Warning: non-symmetric database.');
+        disp('Warning: non-symmetric database or sorting requested.');
       end
       if ~ exist('in_page_unique_cols','var')
-        error('Database does not contain equal rows of each unique combination and in_page_unique_cols is not specified. Cannot fold.');
+        error(['Database does not contain equal rows of each unique ' ...
+               'combination and in_page_unique_cols is not specified. Cannot fold.']);
       end
 
       in_page_unique_cols = tests2cols(db, in_page_unique_cols);
@@ -114,7 +122,7 @@ else
         num_rows
       end
       max_page_rows = num_uniques;
-    else
+    else % if symmetric
       max_page_rows = floor(num_total_rows / num_rows);
     end
 

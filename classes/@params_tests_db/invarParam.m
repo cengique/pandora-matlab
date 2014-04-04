@@ -14,19 +14,24 @@ function a_3D_db = invarParam(db, param, props)
 %     	sets of parameters.
 %     removeCol: If removeRedun == 1, name of parameter column to remove 
 %	if found. Default: 'trial'.
+%     (others passed to tests_db/invarValues)
 %		
 % Description:
-%   Finds all values of selected parameter for the background when the rest
-% of the parameters are fixed. Returns the selected parameter and all
-% tests. Removes the parameter column named 'trial' before this operation
-% since it will be unique for each row. It will also remove redundant
-% parameter sets to have one of each unique combination. You may need to
-% average rows before running this. See meanDuplicateRows.
+
+%   Finds partitions (pages) of the database with varying values of selected
+% parameter while the rest of the "background" parameters are constant
+% (invariant). Different unique backgrounds will be placed in separate
+% partitions; i.e., pages of the returned tests_3D_db. It will include the
+% selected parameter and all tests. Removes the parameter column named
+% 'trial' before this operation since it will be unique for each row. It
+% will also remove redundant parameter sets to have one of each unique
+% combination. You may need to average rows before running this. See
+% meanDuplicateRows.
 %
 %   Returns:
 %	a_3D_db: A tests_3D_db object of organized values.
 %
-% See also: invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair, meanDuplicateRows
+% See also: tests_db/invarValues, tests_3D_db, corrCoefs, tests_3D_db/plotPair, meanDuplicateRows
 %
 % $Id$
 %
@@ -67,9 +72,9 @@ col = tests2cols(db, param);
 cols = [col, (db.num_params + 1):dbsize(db, 2) ];
 
 % Add invar test name
-props = get(db, 'props');
-props(1).invarName = [ col_name_cell{col} ];
-db = set(db, 'props', props);
+db_props = get(db, 'props');
+db_props(1).invarName = [ col_name_cell{col} ];
+db = set(db, 'props', db_props);
 
 % Get invarValues for these
-a_3D_db = invarValues(db, cols, col);
+a_3D_db = invarValues(db, cols, col, props);
