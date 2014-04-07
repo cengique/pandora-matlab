@@ -1,23 +1,24 @@
-function [params_row, tests_row, a_doc] = itemResultsRow(dataset, index)
+function [params_row, tests_row, a_doc] = itemResultsRow(dataset, index, props)
 
-% itemResultsRow - Processes a raw data file from the dataset and return
-%		its parameter and test values.
+% itemResultsRow - Analyze data from the dataset and return its parameter and test values.
 %
 % Usage:
 % [params_row, tests_row] = itemResultsRow(dataset, index)
+%
+% Parameters:
+%   dataset: A params_tests_dataset.
+%   index: Index of file in dataset.
+%   props: A structure with any optional properties.
+%     (passed to loadItemProfileFunc)
+%		
+% Returns:
+%   params_row: Parameter values in the same order of paramNames
+%   tests_row: Test values in the same order with testNames
 %
 % Description:
 %   This method is designed to be reused from subclasses as long as the
 % loadItemProfile method is properly overloaded. Adds an Index
 % column to the DB to keep track of raw data items after shuffling.
-%
-%   Parameters:
-%	dataset: A params_tests_dataset.
-%	index: Index of file in dataset.
-%		
-%   Returns:
-%	params_row: Parameter values in the same order of paramNames
-%	tests_row: Test values in the same order with testNames
 %
 % See also: loadItemProfile, params_tests_dataset, paramNames, testNames
 %
@@ -31,6 +32,8 @@ function [params_row, tests_row, a_doc] = itemResultsRow(dataset, index)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = mergeStructs(defaultValue('props', struct), get(dataset, 'props'));
+
 a_doc = [];
 
 % get params from file (if any)
@@ -42,7 +45,7 @@ prof_func = ...
                                   @loadItemProfile);
 
 % Load any profile object
-a_profile = feval(prof_func, dataset, index, params_row);
+a_profile = feval(prof_func, dataset, index, params_row, props);
 
 % there can be a doc hidden in there
 if iscell(a_profile)
