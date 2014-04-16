@@ -27,6 +27,10 @@ function handles = plot(a_plot, layout_axis)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO: 
+% - add new prop for affecting deep plot_stack props?
+% - correct missing space at bottom
+
 % Get generic verbose switch setting
 vs = warning('query', 'verbose');
 verbose = strcmp(vs.state, 'on');
@@ -197,7 +201,7 @@ for plot_num=1:num_plots
   end
 
   % Warning: one_plot's props are superceded by the plot_stack props
-  % done for getting the correct label behaviro, etc. (experimental)
+  % done for getting the correct label behavior, etc. (experimental)
   %its_props = mergeStructs(a_plot_props, get(one_plot, 'props'));
   its_props = get(one_plot, 'props');
 
@@ -206,7 +210,11 @@ for plot_num=1:num_plots
     if ((plot_num > 1 && strcmp(a_plot_props.yTicksPos, 'left') && ...
 	 strcmp(a_plot.orient, 'x')) || ...
 	strcmp(a_plot_props.yTicksPos, 'none'))
-      its_props(1).YTickLabel = {};
+      if isa(one_plot, 'plot_stack')
+        its_props(1).yTicksPos = 'none';
+      else
+        its_props(1).YTickLabel = {};
+      end
     else
       % Then, allocate space only for this first plot.
       left_space = tickwidth;
@@ -220,7 +228,11 @@ for plot_num=1:num_plots
     if ((plot_num > 1 && strcmp(a_plot_props.yLabelsPos, 'left') && ...
 	 strcmp(a_plot.orient, 'x')) || ...
 	strcmp(a_plot_props.yLabelsPos, 'none')) 
-      its_props(1).noYLabel = 1;
+      if isa(one_plot, 'plot_stack')
+        its_props(1).yLabelsPos = 'none';
+      else
+        its_props(1).noYLabel = 1;
+      end
     else
       % Then, allocate space only for this first plot.
       left_space = left_space + labelwidth;
@@ -237,7 +249,11 @@ for plot_num=1:num_plots
 	((plot_num > 1 && strcmp(a_plot_props.xTicksPos, 'bottom') && ...
 	  strcmp(a_plot.orient, 'y')) || ...
 	 strcmp(a_plot_props.xTicksPos, 'none'))
-    its_props(1).XTickLabel = {};
+    if isa(one_plot, 'plot_stack')
+      its_props(1).xTicksPos = 'none';
+    else
+      its_props(1).XTickLabel = {};
+    end
   else
     bottom_space = tickheight;
     if verbose
@@ -249,7 +265,11 @@ for plot_num=1:num_plots
 	((plot_num > 1 && strcmp(a_plot_props.xLabelsPos, 'bottom') && ...
 	  strcmp(a_plot.orient, 'y')) || ...
 	 strcmp(a_plot_props.xLabelsPos, 'none'))
-    its_props(1).noXLabel = 1;
+    if isa(one_plot, 'plot_stack')
+      its_props(1).xLabelsPos = 'none';
+    else
+      its_props(1).noXLabel = 1;
+    end
   else
     % Signal to plot that it has space to put its labels
     bottom_space = bottom_space + labelheight;
@@ -264,12 +284,22 @@ for plot_num=1:num_plots
   if isfield(a_plot_props, 'titlesPos') 
     if 	(plot_num < num_plots && strcmp(a_plot_props.titlesPos, 'top') && ...
 	 strcmp(a_plot.orient, 'y'))
-      its_props(1).noTitle = 1;
+      if isa(one_plot, 'plot_stack')
+        its_props(1).titlesPos = 'none';
+        its_props(1).noTitle = 1;
+      else
+        its_props(1).noTitle = 1;
+      end
     else
       title_space = titleheight;
     end
     if strcmp(a_plot_props.titlesPos, 'none')
-      its_props(1).noTitle = 1;
+      if isa(one_plot, 'plot_stack')
+        its_props(1).titlesPos = 'none';
+        its_props(1).noTitle = 1;
+      else
+        its_props(1).noTitle = 1;
+      end
     end
   end
 
