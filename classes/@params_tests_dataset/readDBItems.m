@@ -93,9 +93,19 @@ try
       end
     else
       line_buffer = [line_buffer num2str(item_index) ', ' ];
+      % print if line filled
       if length(line_buffer) > 70
+        % add percentage done, using doc counter
+        done_ratio = doc_row_index/num_items;
+        est_remaining = (cputime - start_time)/done_ratio*(1-done_ratio);
+        line_buffer = [ '(' sprintf('%.2f', 100*done_ratio) '%, ETA ' ...
+                        sprintf('%d:%d', round(est_remaining/60), ...
+                                round(mod(est_remaining, 60))) ...
+                        's) ' ...
+                        line_buffer ];
 	disp(line_buffer);
 	line_buffer = '';
+        % TODO: calculate a printout ETA?
       end
     end
     [params_row, tests_row, a_doc] = itemResultsRow(obj, item_index);
@@ -140,5 +150,8 @@ docs = doc_multi(docs, get(obj, 'id'));
 
 end_time = cputime;
 
-disp(sprintf('Elapsed time took %.2f seconds.', end_time - start_time));
+total_time = end_time - start_time;
+disp(sprintf('Elapsed time took %d:%ds.', ...
+             round(total_time/60), ...
+             round(mod(total_time, 60))));
 
