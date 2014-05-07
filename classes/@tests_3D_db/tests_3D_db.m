@@ -52,7 +52,11 @@ elseif isa(data, 'tests_3D_db') % copy constructor?
   a_3D_db = data;
 elseif isa(data, 'tests_db') % upgrade from tests_db
   a_3D_db.page_idx = struct;
-  a_3D_db = class(a_3D_db, 'tests_3D_db', data);
+  if isa(data, 'params_tests_db')
+    a_3D_db = class(a_3D_db, 'tests_3D_db', data.tests_db);
+  else
+    a_3D_db = class(a_3D_db, 'tests_3D_db', data);
+  end
 else
 
    if ~ exist('props', 'var')
