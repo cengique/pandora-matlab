@@ -7,7 +7,7 @@ function a_db = mergePages(db, page_tests, page_suffixes)
 %
 % Description:
 %   Keeps uniqueness by adding suffixes to test names.
-% If you're using invarParams, do swapRowsPages, then join with original db to get
+% If you're using invarParams, do swapRowsPages, then use joinRows with original db to get
 % the parameter values.
 %
 %   Parameters:
@@ -18,7 +18,7 @@ function a_db = mergePages(db, page_tests, page_suffixes)
 %   Returns:
 %	a_db: A tests_db object.
 %
-% See also: tests_db, tests_3D_db
+% See also: tests_db, tests_3D_db, tests_db/joinRows
 %
 % $Id$
 %
@@ -35,7 +35,10 @@ num_pages = length(page_tests);
 
 %dbs = repmat(tests_3D_db, num_pages, 1);
 
-row_index_col = tests2cols(db, 'RowIndex');
+row_index_col = [];
+if isfield(get(db, 'col_idx'), 'RowIndex')
+  row_index_col = tests2cols(db, 'RowIndex');
+end
 
 % Get desired tests from each page
 num_tests = 0;
@@ -45,7 +48,7 @@ for page_num=1:num_pages
 
   % Add the RowIndex column even if it's not specified
   % (only for suffixes that hasn't been used yet)
-  if length(find(row_index_col == tests)) == 0 && ...
+  if ~isempty(row_index_col) && length(find(row_index_col == tests)) == 0 && ...
 	length(find(strmatch(page_suffixes{page_num}, {page_suffixes{1:page_num}}))) == 1
     tests = [tests, row_index_col];
   end
