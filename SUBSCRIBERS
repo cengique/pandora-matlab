@@ -14,3 +14,8 @@ Repositories:
   https://senselab.med.yale.edu/simtooldb/ShowTool.asp?Tool=112112
 
 * Matlab Central File Exchange [to be submitted]
+
+Related projects:
+
+* PyPet python parameter exploration toolkit for data storage and simulation management
+  http://pypet.readthedocs.org/en/latest/
