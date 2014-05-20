@@ -32,4 +32,15 @@ function [a_db, varargout] = max(a_db, dim)
   % Go down rows by default
   dim = defaultValue('dim', 1);
 
-  [a_db, varargout] = processDimNonNaNInf(a_db, dim, @(x,y)(max(x, [], y)), 'Max');
+  varargout = {};
+  
+  [a_db, n, i] = ...
+      processDimNonNaNInf(a_db, dim, @(x,y)(max(x, [], y)), 'Max');
+
+  nout = max(nargout,1) - 1;
+  if nout > 0
+    varargout{1} = n;
+    if nout > 1
+      varargout{2} = i;
+    end
+  end

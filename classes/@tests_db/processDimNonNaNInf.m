@@ -3,7 +3,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 % processDimNonNaNInf - Recursively process the specified dimension with the desired function after removing NaNs and Infs.
 %
 % Usage:
-% [a_db, n] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
+% [a_db, n, i] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 %
 % Parameters:
 %   a_db: A tests_db object.
@@ -17,6 +17,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 %   a_db: The DB with one row of max values, with selected dimension
 %	replaced by the output of the given function.
 %   n: (Optional) Numbers of used values in each call of a_func.
+%   i: (Optional) Indices returned by a_func.
 %
 % Description:
 %   Does a recursive operation over other dimensions in order to remove
@@ -71,8 +72,8 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
   s = repmat(NaN, [1 db_size(2:end)]);
   
   % Do a loop over EACH other dimension (!)
-  [s, n] = processRecurseRowsNonNaNInf(data, length(db_size), ...
-                                       a_func);
+  [s, n, i] = processRecurseRowsNonNaNInf(data, length(db_size), ...
+                                          a_func);
   
   if dim ~= 1
     s = ipermute(s, order);
@@ -86,4 +87,8 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
   % put optional output argument
   if nout > 0
     varargout{1} = n;
+    if nout > 1
+      varargout{2} = i;
+    end
+
   end
