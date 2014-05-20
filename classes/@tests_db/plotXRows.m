@@ -49,6 +49,7 @@ if isfield(props, 'RowName')
 else
     new_col_name = 'RowNumber';
 end
-col_added_db = addColumns(a_db, {new_col_name}, (1:dbsize(a_db, 1))');
+col_added_db = addColumns(a_db, {new_col_name}, ...
+                          repmat((1:dbsize(a_db, 1))', [1 1 dbsize(a_db, 3)]));
 
 a_p = plotScatter(col_added_db, new_col_name, test_y, title_str, short_title, props);
