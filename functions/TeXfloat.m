@@ -1,37 +1,46 @@
-function tex_string = TeXtable(contents, caption, props)
+function tex_string = TeXfloat(contents, caption, props)
 
-% TeXtable - Creates the LaTeX string for a floating table containing given contents.
+% TeXfloat - Places LaTeX content into a float (e.g., table, figure).
 %
 % Usage:
-% tex_string = TeXtable(contents, caption, props)
+% tex_string = TeXfloat(contents, caption, props)
+%
+% Parameters:
+%   contents: Table contents in LaTeX.
+%   caption: Table caption.
+%   props: A structure with any optional properties.
+%     rotate: Degrees to rotate.
+%     width: Resize to this width.
+%     height: Resize to this height
+%     center: Align to center.
+%     shortCaption: Short version of caption to appear at list of tables.
+%     floatType: LaTeX float to use (default='table').
+%     label: Used for internal LaTeX references.
+%		
+% Returns:
+%   tex_string: LaTeX string for float.
 %
 % Description:
+%   Tabular contents can be created from cell arrays using
+% cell2TeX. displayRowsTeX calls this function to make the float directly
+% from database contents.
 %
-%   Parameters:
-% 	contents: Table contents in LaTeX.
-%	caption: Table caption.
-%	props: A structure with any optional properties.
-%	  rotate: Degrees to rotate.
-%	  width: Resize to this width.
-%	  height: Resize to this height
-%	  center: Align to center.
-%	  shortCaption: Short version of caption to appear at list of tables.
-%	  floatType: LaTeX float to use (default='table').
-%	  label: Used for internal LaTeX references.
-%		
-%   Returns:
-%	tex_string: LaTeX string for table float.
+% Example:
+% >> string2File(TeXfloat(cell2TeX({'a', 1; 'b', 2}), 'a basic table', ...
+%     		 struct('rotate', 90, 'label', 'simple-table')))
 %
-% See also: 
+% See also: cell2TeX, tests_db/displayRowsTeX
 %
 % $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/13
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
+
+% TODO: should be renamed to TeXfloat
 
 if ~ exist('props', 'var')
   props = struct([]);
