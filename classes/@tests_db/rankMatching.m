@@ -7,15 +7,15 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 %
 % Description:
 %   crit_db can be created with the matchingRow method. TestWeights modify the importance 
-% of each measure.
+% of each measure. Rows containing NaNs can be removed before calling rankMatching.
 %
 %   Parameters:
 %	db: A tests_db to rank.
 %	crit_db: A tests_db object holding the match criterion tests and stds.
 %	props: A structure with any optional properties.
-%	  limitSTD: limit any measure to this many STDs max.
-%	  tolerateNaNs: If 0, rows with any NaN values are skipped
-%	  	, if 1, NaN values are given a fixed 3xSTD penalty (default=1).
+%	  limitSTD: Truncate error values at this many STDs.
+%	  tolerateNaNs: If 0, NaN values are counted as 0 error, 
+%			if 1, NaN values are given a fixed 3xSTD penalty (default=1).
 %	  testWeights: Structure array associating tests and multiplicative weights.
 %	  restoreWeights: Reverse the testWeights application after
 %	  		calculating distances.
@@ -32,7 +32,7 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/08
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -125,9 +125,8 @@ end
 
 if isfield(props, 'limitSTD') 
   % limit any measure to this many STDs max
-  % TODO: shouldn't this be looking at abs values?
-  exceedingSTDs = wghd_data > props.limitSTD;
-  wghd_data(exceedingSTDs) = props.limitSTD;
+  exceedingSTDs = abs(wghd_data) > props.limitSTD;
+  wghd_data(exceedingSTDs) = sign(wghd_data(exceedingSTDs)) * props.limitSTD;
 end
 
 % Sum of absolute error: distance measure
