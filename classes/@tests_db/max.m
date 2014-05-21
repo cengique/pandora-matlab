@@ -3,15 +3,17 @@ function [a_db, varargout] = max(a_db, dim)
 % max - Returns the max of the data matrix of a_db. Ignores NaN and Inf values.
 %
 % Usage:
-% [a_db, n] = max(a_db, dim)
+% [a_db, n, i] = max(a_db, dim)
 %
 % Parameters:
-%	a_db: A tests_db object.
-%	dim: Work down dimension.
+%   a_db: A tests_db object.
+%   dim: Work down dimension.
 %		
 % Returns:
-%	a_db: The DB with one row of max values.
-%	n: (Optional) Numbers of non-NaN rows included in calculating each column.
+%   a_db: The DB with one row of max values.
+%   n: (Optional) Numbers of non-NaN rows included in calculating
+%	each column.
+%   i: Indices where the value was found.
 %
 % Description:
 %   Does a recursive operation over dimensions in order to remove NaN and
@@ -23,7 +25,7 @@ function [a_db, varargout] = max(a_db, dim)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
