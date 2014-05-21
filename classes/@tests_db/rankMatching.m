@@ -5,28 +5,37 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % Usage:
 % a_ranked_db = rankMatching(db, crit_db, props)
 %
-% Description:
-%   crit_db can be created with the matchingRow method. TestWeights modify the importance 
-% of each measure. Rows containing NaNs can be removed before calling rankMatching.
-%
-%   Parameters:
-%	db: A tests_db to rank.
-%	crit_db: A tests_db object holding the match criterion tests and stds.
-%	props: A structure with any optional properties.
-%	  limitSTD: Truncate error values at this many STDs.
-%	  tolerateNaNs: If 0, NaN values are counted as 0 error, 
-%			if 1, NaN values are given a fixed 3xSTD penalty (default=1).
-%	  testWeights: Structure array associating tests and multiplicative weights.
-%	  restoreWeights: Reverse the testWeights application after
-%	  		calculating distances.
-%	  topRows: If given, only return this many of the top rows.
-%	  useMahal: Use the Mahalonobis distance from the covariance
-%	  	    matrix in crit_db.
+% Parameters:
+%   db: A tests_db to rank.
+%   crit_db: A tests_db object holding the match criterion tests and stds.
+%   props: A structure with any optional properties.
+%     limitSTD: Truncate error values at this many STDs.
+%     tolerateNaNs: If 0, NaN values are counted as 0 error, 
+%		if 1, NaN values are given a fixed 3xSTD penalty (default=1).
+%     testWeights: Structure array associating tests and multiplicative weights.
+%     restoreWeights: Reverse the testWeights application after
+%  		calculating distances.
+%     topRows: If given, only return this many of the top rows.
+%     useMahal: Use the Mahalonobis distance from the covariance
+%  	    	matrix in crit_db.
 %		
-%   Returns:
-%	a_ranked_db: A ranked_db object.
+% Returns:
+%   a_ranked_db: A ranked_db object.
 %
-% See also: matchingRow, tests_db
+% Example:
+% Select a target row from mesured distribution (e.g., experimental data):
+% >> a_crit_db = matchingRow(exp_db, 12);
+% Rank another database by comparing to selected row:
+% >> a_ranked_db = rankMatching(orig_db, a_crit_db);
+% Look at top ranked rows:
+% >> displayRows(a_ranked_db(1:5, :))
+%
+% Description:
+%   The crit_db parameter can be created with the matchingRow
+% method. TestWeights modify the importance of each measure. Rows containing
+% NaNs can be removed using noNaNRows before calling rankMatching.
+%
+% See also: matchingRow, tests_db, noNaNRows
 %
 % $Id$
 %
