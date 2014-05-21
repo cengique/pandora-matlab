@@ -18,7 +18,7 @@ function [results profs] = getResults(a_cc, props)
 %
 % See also: cip_trace, trace, spike_shape
 %
-% $Id: getResults.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/02/22
 

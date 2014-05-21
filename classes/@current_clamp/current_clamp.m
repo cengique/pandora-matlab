@@ -38,7 +38,7 @@ function a_cc = current_clamp(data_i, data_v, dt, di, dv, id, props)
 %
 % See also: trace, period
 %
-% $Id: current_clamp.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/02/05
 

@@ -25,7 +25,7 @@ function [a_db profs] = params_tests_db(a_cc, props)
 %
 % See also: getResults, cip_trace, trace, spike_shape
 %
-% $Id: params_tests_db.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/02/23
 

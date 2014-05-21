@@ -15,7 +15,7 @@ function a_db = abs(left_obj)
 %
 % See also: abs, uop
 %
-% $Id: abs.m 1334 2012-04-19 18:02:13Z cengique $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/16
 

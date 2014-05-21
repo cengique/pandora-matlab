@@ -17,7 +17,7 @@ function a_db = flattenPages(a_db)
 %
 % See also: tests_db/invarValues, params_tests_db/invarParams, tests_db/joinRows
 %
-% $Id: flattenPages.m 1335 2012-04-19 18:04:32Z cengique $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2014/05/07
 

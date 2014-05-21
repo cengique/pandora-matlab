@@ -25,7 +25,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %
 % See also: tests_db/plotScatter
 %
-% $Id: plotScatter.m 1335 2012-04-19 18:04:32Z cengique $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/29
 

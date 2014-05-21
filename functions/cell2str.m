@@ -16,7 +16,7 @@ function a_str = cell2str(a_cell, props)
 %
 % See also: 
 %
-% $Id: cell2str.m 1334 2012-04-19 18:02:13Z cengique $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/09
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

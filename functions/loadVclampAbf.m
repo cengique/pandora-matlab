@@ -31,7 +31,7 @@ function [time, dt, data_i, data_v, cell_name] = loadVclampAbf(filename, props)
 %
 % See also: abf2load, plotVclampAbf, plotVclampStack
 %
-% $Id: loadVclampAbf.m 794 2014-01-15 16:40:57Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/12/17
 %
