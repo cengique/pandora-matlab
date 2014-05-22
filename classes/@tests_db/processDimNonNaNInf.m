@@ -41,7 +41,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
-
+  
   if ~ exist('dim', 'var')
     dim = 1; % Go down rows by default
   end
@@ -81,6 +81,18 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 
   a_db = set(a_db, 'id', [ a_func_name ' of ' get(a_db, 'id') ]);
   a_db = set(a_db, 'data', s);
+  
+  % update db structures
+  switch dim
+    case 1
+      a_db = set(a_db, 'row_idx', struct(a_func_name, 1));
+    case 2
+      a_db = set(a_db, 'col_idx', struct(a_func_name, 1));
+    case 3
+      if isa(a_db, 'tests_3D_db')
+        a_db = set(a_db, 'page_idx', struct(a_func_name, 1));
+      end
+  end
 
   nout = max(nargout,1) - 1;
 
