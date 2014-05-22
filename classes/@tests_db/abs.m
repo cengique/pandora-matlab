@@ -25,4 +25,4 @@ function a_db = abs(left_obj)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-a_db = uop(left_obj, @abs, '-');
+a_db = uop(left_obj, @abs, 'absolute value of');
