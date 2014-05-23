@@ -17,6 +17,7 @@ function a_plot = plotRowErrors(a_ranked_db, rows, title_str, props)
 %	  RowName: Label to show on X-axis (default='Ranks')
 %	  rowSteps: Steps to jump in labeling rows on the x-axis.
 % 	  superposeDistances: Superpose a white-colored distance line plot.
+%	  colorbar: Put a colorbar on the figure.
 %	  (rest passed to plot_abstract)
 %		
 %   Returns:
@@ -107,7 +108,7 @@ else
   row_name = 'Ranks';
 end
 
-a_plot = plot_abstract({distmatx, num_std_colors}, {row_name, 'Measures'}, ...
+a_plot = plot_abstract({distmatx, num_std_colors, props}, {row_name, 'Measures'}, ...
 		       the_title, {}, @plot_image, mergeStructs(props, ...
                                                   plot_props));
 
@@ -121,7 +122,7 @@ if isfield(props, 'superposeDistances')
                                       'noXLabel', 1, 'numXTicks', 0, ...
                                       'noTitle', 1, ...
                                       'axisProps', ...
-                                      struct('Color', 'none', 'YAxisLocation', 'right'), ...
+                                      struct('Color', [1 1 1], 'YAxisLocation', 'right'), ...
                                       'plotProps', struct('Color', [1 1 1], 'LineWidth', 3)))}, ...
                     [0 0 0.95 1; 0 0 1 1], title_str, mergeStructs(struct('noTitle', 1), ...
                                                     props));
@@ -130,10 +131,15 @@ end
 end
 
 % Small function for creating matrix plot
-function h = plot_image(distmatx, num_std_colors)
+function h = plot_image(distmatx, num_std_colors, props)
   h = image(distmatx);
   % Show up to some number of STDs
   colormap(jet(3 * num_std_colors)); 
+  if isfield(props, 'colorbar')
+    h_bar = colorbar;
+    set(h_bar, 'YTick', [num_std_colors 2*num_std_colors, 3*num_std_colors], ...
+               'YTickLabel', {'1x STD', '2x STD', '3x STD'});
+  end
   % scale font to fit measure names on y-axis
   num_rows = size(distmatx, 1);
   if num_rows > 30
