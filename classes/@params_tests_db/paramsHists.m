@@ -1,20 +1,23 @@
-function p_hists = paramsHists(a_db)
+function p_hists = paramsHists(a_db, props)
 
 % paramsHists - Calculates histograms for all parameters and returns in a 
 %		cell array.
 %
 % Usage:
-% p_hists = paramsHists(a_db)
+% p_hists = paramsHists(a_db, props)
+%
+% Parameters:
+%   a_db: A tests_db object.
+%   props: A structure with any optional properties.
+%     paramVals: Array of histogram bins to use as parameter values.
+%		
+% Returns:
+%   p_hists: An array of histograms for each parameter in a_db.
 %
 % Description:
-%   Skips the 'ItemIndex' test. Useful for looking at subset databases and
-% find out what parameter values are used most.
-%
-%   Parameters:
-%	a_db: A tests_db object.
-%		
-%   Returns:
-%	p_hists: An array of histograms for each parameter in a_db.
+%   Useful for looking at subset databases and find out what parameter
+% values are used most. Skips the 'ItemIndex' column(s). Finds unique values
+% of each parameter to make histograms.
 %
 % See also: params_tests_profile
 %
@@ -22,12 +25,15 @@ function p_hists = paramsHists(a_db)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/20
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = defaultValue('props', struct);
+
+% TODO: use regexp column matching here
 colnames = fieldnames(get(a_db, 'col_idx'));
 
 itemsFound = strfind(colnames, 'Index');
@@ -38,8 +44,6 @@ for i=1:length(itemsFound)
     itemIndices(i) = true(1);
   end
 end
-
-colnames{find(itemIndices)}
 
 % Strip out the NeuronId columns from parameters 
 colnames = setdiff(colnames(1:a_db.num_params), {'NeuronId', colnames{find(itemIndices)}});
@@ -54,8 +58,10 @@ num_params = reduced_db.num_params;
 [p_hists(1:num_params)] = deal(histogram_db);
 for param_num=1:num_params
   % First find all unique values of the parameter
-  param_col = sortrows(get(onlyRowsTests(reduced_db, ':', param_num), 'data'));
-  param_vals = sortedUniqueValues(param_col);
+  param_cols = sortrows(get(onlyRowsTests(reduced_db, ':', param_num), 'data'));
+  param_vals = ...
+      getFieldDefault(props, 'paramVals', ...
+                             sortedUniqueValues(param_cols));
   % Give the param_vals as bin centers
   if length(param_vals) == 1
     param_vals = 1; % A single histogram bin
