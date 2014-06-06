@@ -8,6 +8,14 @@ function obj = addColumns(obj, test_names, test_columns)
 % Usage 2:
 % obj = addColumns(obj, b_obj)
 %
+% Parameters:
+%   obj, b_obj: A tests_db object.
+%   test_names: A single string or a cell array of test names to be added.
+%   test_columns: Data matrix of columns to be added.
+%		
+% Returns:
+%   obj: The tests_db object that includes the new columns.
+%
 % Description:
 %   Adds new test columns to the database and returns the new DB.
 % Usage 2 concatanates two DBs columnwise. This operation is 
@@ -16,14 +24,6 @@ function obj = addColumns(obj, test_names, test_columns)
 % a matrix, filling it up, and then providing it to the tests_db 
 % constructor is the preferred method of creating tests_db objects. 
 % This method may be used for measures obtained by operating on raw measures.
-%
-%   Parameters:
-%	obj, b_obj: A tests_db object.
-%	test_names: A cell array of test names to be added.
-%	test_columns: Data matrix of columns to be added.
-%		
-%   Returns:
-%	obj: The tests_db object that includes the new columns.
 %
 % See also: allocateRows, tests_db
 %
@@ -41,6 +41,9 @@ if isa(test_names, 'tests_db')
   to_db = test_names;
   test_names = fieldnames(get(to_db, 'col_idx'));
   test_columns = get(to_db, 'data');
+elseif ischar(test_names)
+  % if it's a string, just encapsulate in cell array
+  test_names = { test_names };
 end
 
 if (dbsize(obj, 1) > 0 && size(test_columns, 1) ~= dbsize(obj, 1))
