@@ -10,6 +10,7 @@ function a_db = joinOriginal(a_ranked_db, rows, props)
 %   rows: Join only the given rows.
 %   props: A structure with any optional properties.
 %     includeIndices: Also joins ItemIndex columns from the original db.
+%     origCols: Also join these columns from the original DB.
 %		
 % Returns:
 %   a_db: A params_tests_db object (same type as a_ranked_db.orig_db) containing 
@@ -58,7 +59,18 @@ crit_cols = intersect(crit_cols, getColNames(a_ranked_db));
 
 orig_cols = getParamNames(a_ranked_db.orig_db);
 if isfield(props, 'includeIndices')
-  orig_cols = [ orig_cols, {'/ItemIndex/'} ];
+  orig_cols = [ orig_cols, {'/ItemIndex/'}, ...
+                {getFieldDefault(props, 'origCols', [])} ];
+end
+
+if isfield(props, 'origCols')
+  if iscell(props.origCols)
+    orig_cols = [ orig_cols, props.origCols ];
+  elseif ischar(props.origCols)
+    orig_cols = [ orig_cols, {props.origCols} ];
+  else
+    error('props.origCols must be a single string or a cell array.');
+  end
 end
 
 a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
