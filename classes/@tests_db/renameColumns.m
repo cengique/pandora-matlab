@@ -1,28 +1,38 @@
 function a_db = renameColumns(a_db, test_names, new_names)
 
-% renameColumns - Rename an existing column or columns.
+% renameColumns - Rename one or more existing columns.
 %
 % Usage:
 % a_db = renameColumns(a_db, test_names, new_names)
 %
-% Description:
-%   This is a cheap operation than modifies meta-data kept in object.
-%
 % Parameters:
-%	a_db: A tests_db object.
-%	test_names: A cell array of existing test names.
-%	new_names: New names to replace existing ones.
+%   a_db: A tests_db object.
+%   test_names: A cell array of existing test names OR a regular
+%   		expression denoted between slashes (e.g., '/(.*)/').
+%   new_names: New names to replace existing ones OR regular expression
+%   		replace string (no slashes, e.g, '$1_test'). See regexprep command.
 %		
 % Returns:
-%	a_db: The tests_db object that includes the new columns.
+%   a_db: The tests_db object that includes the new columns.
 %
 % Example:
 % % Renaming a single column:
 % >> new_db = renameColumns(a_db, 'PulseIni100msSpikeRateISI_D40pA', 'Firing_rate');
+% % Renaming using regular expressions: add suffix to all columns
+% >> new_db = renameColumns(a_db, '/(.*)/', '$1_old');
 % % Renaming multiple columns:
 % >> new_db = renameColumns(a_db, {'a', 'b'}, {'c', 'd'});
 %
-% See also: allocateRows, tests_db
+% Description:
+
+%   This is a cheap operation than modifies meta-data kept in object. For
+% the regular expression renaming, the test_names and new_names
+% parameters are passed to the regexprep command after removing the
+% delimiting slashes (//). At least one grouping construct ('()') must be
+% used in the search pattern such that it can be used in the replacement
+% pattern (e.g., '$1'). See example above.
+%
+% See also: regexprep, allocateRows, tests_db
 %
 % $Id$
 %
@@ -50,6 +60,19 @@ elseif iscell(test_names)
 elseif ~ischar(test_names)
   error(['Inputs for test_names and new_names must be single strings or ' ...
          'multiple strings in a cell array.']);
+end
+
+% Regular expressions?
+if test_names(1) == '/' && test_names(end) == '/'
+  % remove the slashes
+  test_names = test_names(2:(end-1));
+  % apply to all column names
+  all_names = getColNames(a_db);  
+  all_new_names = regexprep(all_names, test_names, new_names);
+  % recurse to use the new names as replacement (not changed columns
+  % would be skipped
+  a_db = renameColumns(a_db, all_names, all_new_names);
+  return
 end
 
 % Single column mode
