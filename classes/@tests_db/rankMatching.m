@@ -33,9 +33,11 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % Description:
 %   The crit_db parameter can be created with the matchingRow
 % method. TestWeights modify the importance of each measure. Rows containing
-% NaNs can be removed using noNaNRows before calling rankMatching.
+% NaNs can be removed using noNaNRows before calling rankMatching. 
+% Warning: existing RowIndex column in db will be replaced with the
+% ranking RowIndex used for joinOriginal.
 %
-% See also: matchingRow, tests_db, noNaNRows
+% See also: matchingRow, joinOriginal, tests_db, noNaNRows
 %
 % $Id$
 %
@@ -51,13 +53,16 @@ if ~ exist('props', 'var')
   props = struct([]);
 end
 
-% If not exists, add RowIndex column
+% Initialize row indices and delete existing RowIndex column
 if isfield(db.col_idx, 'RowIndex')
-  row_db = onlyRowsTests(db, ':', 'RowIndex');
-  row_index = row_db.data;
-else
-  row_index = (1:dbsize(db, 1))';
+  db = delColumns(db, 'RowIndex');
+  % Using the existing RowIndex causes bug with all subsequent
+  % joinOriginal calls
+  %row_db = onlyRowsTests(db, ':', 'RowIndex');
+  %row_index = row_db.data;
 end
+
+row_index = (1:dbsize(db, 1))';
 
 crit_tests = fieldnames(crit_db.col_idx);
 if isa(crit_db, 'params_tests_db')
