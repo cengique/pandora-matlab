@@ -39,6 +39,11 @@ if (dbsize(obj, 1) > 0 && size(param_columns, 1) ~= dbsize(obj, 1))
 	 'does not match rows in DB (' num2str(dbsize(obj, 1)) ').']);
 end
 
+if ischar(param_names)
+  % if it's a string, just encapsulate in cell array
+  param_names = { param_names };
+end
+
 if length(param_names) ~= size(param_columns, 2)
   error(['Number of parameter names (' num2str(length(param_names)) ') ', ...
 	 'does not match columns in matrix (' num2str(size(param_columns, 2)) ').']);
