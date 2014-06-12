@@ -1,6 +1,6 @@
 function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_levels, props)
 
-% scanParamAllRows - Scans given parameter range for each row in DB.
+% scanParamAllRows - OBSOLETE (use instead varyParams) - Scans given parameter range for each row in DB.
 %
 % Usage:
 % a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_levels, props)
@@ -35,7 +35,7 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/02/16
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
