@@ -200,7 +200,7 @@ else
        if isfield(props, 'channel')
          channel = props.channel;
        end
-       data = readgenesis16bit(data_src);
+       data = readgenflac(data_src);
        data = data(:, channel);
 
      elseif strcmpi(props.file_type, 'neuron')
