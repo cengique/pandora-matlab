@@ -1,6 +1,6 @@
 function writeParFile(a_db, filename, props)
 
-% writeParFile - Creates a text file with all the parameter values in a_db.
+% writeParFile - Creates or appends to text file all the parameter values in a_db.
 %
 % Usage:
 % writeParFile(a_db, filename, props)
@@ -23,9 +23,10 @@ function writeParFile(a_db, filename, props)
 % Description:
 %   Creates a text file that has a set of parameter values for each row. The
 % first line is a header that contains number of parameters and total
-% rows. Optionally, a parameter description file can be made that contains
-% the parameter names. These files can be processed with various utilities
-% to control simulations.
+% rows. If the file exists, the data is appended, but the header is NOT
+% updated for efficiency considerations. Optionally, a parameter description
+% file can be created that contains one parameter name per row. These files
+% can be processed with various utilities to control simulations.
 %
 % See also: scanParamAllRows, scaleParamsOneRow, https://github.com/cengique/param-search-neuro
 %
@@ -41,7 +42,6 @@ function writeParFile(a_db, filename, props)
 
 % TODO: 
 % - read paramRanges.txt to verify parameter sequence
-% - don't overwrite file unless forced
 
 if ~exist('props', 'var')
   props = struct;
@@ -73,13 +73,21 @@ end
 
 num_rows = dbsize(a_db, 1);
 
-% First row of par file contains info
-first_row = [ num2str(num_rows) ' ' num2str(a_db.num_params) sprintf('\n') ];
-
 % Rest contains param values and zeros appended at the end of row
 data_rows = [num2str( [get(onlyRowsTests(a_db, ':', 1:a_db.num_params), 'data') ]), ...
 	     repmat(sprintf('\n'), num_rows, 1) ];
 
 data_str = reshape(data_rows', 1, prod(size(data_rows)));
 
-string2File([first_row, data_str], filename);
+if exist(filename, 'file')
+  % append if exists
+  fid = fopen(filename, 'a');
+  fprintf(fid, '%s', data_str);
+  fclose(fid);
+else
+  % First row of par file contains info
+  first_row = [ num2str(num_rows) ' ' num2str(a_db.num_params) sprintf('\n') ];
+
+  % create file from scratch
+  string2File([first_row, data_str], filename);
+end
