@@ -12,10 +12,10 @@ logic_error 37,1184
 
 test_suite/tests_db/joinRowsUT.m,76
 function failed 1,0
-order 23,373
-b_db 24,392
-j_db 26,453
-failed 28,483
+order 23,371
+b_db 24,390
+j_db 26,451
+failed 28,481
 
 classes/@plot_superpose/set.m,125
 function b 1,0
@@ -362,15 +362,18 @@ function a_dom 1,0
 
 classes/@params_tests_db/addParams.m,92
 function obj 1,0
-num_params 47,1733
-a_param_db 50,1808
-a_test_db 54,1942
-  obj 59,2163
+num_params 52,1845
+a_param_db 55,1920
+a_test_db 59,2054
+  obj 64,2275
 
-classes/@params_tests_db/plotParamsHists.m,59
+classes/@params_tests_db/plotParamsHists.m,130
 function a_ps 1,0
-    barAxisProps 44,1223
-a_ps 51,1402
+    barAxisProps 46,1373
+axis_limits 53,1552
+% with tight_limits,61,1788
+y_ticks_pos 62,1843
+a_ps 67,1914
 
 classes/@params_tests_db/crossProd.m,261
 function cross_db 1,0
@@ -385,15 +388,36 @@ a_db.tests_db tests_db44,1461
 a_db.num_params num_params45,1493
   cross_db 49,1623
 
-classes/@params_tests_db/paramsHists.m,155
+classes/@params_tests_db/paramsHists.m,175
 function p_hists 1,0
-itemsFound 33,917
-itemIndices 35,959
-colnames 45,1181
-cols 48,1307
-reduced_db 51,1375
-num_params 52,1420
-  param_vals 58,1660
+colnames 37,1153
+itemsFound 39,1199
+itemIndices 41,1241
+colnames 49,1434
+cols 52,1560
+reduced_db 55,1628
+num_params 56,1673
+  param_vals 62,1914
+
+classes/@params_tests_db/varyParams.m,528
+function a_params_db 1,0
+% with each value in levels. Thus,25,830
+% pruned. Then,27,972
+% See also: makeGenesisParFile,30,1091
+% See also: makeGenesisParFile, ranked_db/blockedDistances,blockedDistances30,1091
+% v. 3.0. To view a copy of this license,38,1412
+props 42,1575
+levels=49,1682
+a_params_db 52,1722
+new_params 55,1794
+  index 59,1975
+  new_params 61,2095
+a_params_db 64,2145
+param_names 67,2245
+% expand db using fake column(71,2378
+a_params_expand_db 77,2687
+a_params_db 80,2775
+a_params_db 85,2942
 
 classes/@params_tests_db/matchingRow.m,102
 function crit_db 1,0
@@ -505,17 +529,17 @@ num_tests 31,886
 p_coefs 33,959
   p_coefs{p_coefs38,1169
 
-classes/@params_tests_db/scanParamAllRows.m,438
+classes/@params_tests_db/scanParamAllRows.m,467
 function a_params_db 1,0
-% See also: makeGenesisParFile,32,1384
-% See also: makeGenesisParFile, scaleParamsOneRow,32,1384
-% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances,blockedDistances32,1384
-% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices,32,1384
-% Copyright 38,1615
-  levels 52,2080
-a_params_db 58,2269
-a_params_db 62,2421
-a_params_db 65,2508
+% See also: makeGenesisParFile,32,1420
+% See also: makeGenesisParFile, scaleParamsOneRow,32,1420
+% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances,blockedDistances32,1420
+% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices,32,1420
+% v. 3.0. To view a copy of this license,40,1777
+  levels 52,2119
+a_params_db 58,2308
+a_params_db 62,2460
+a_params_db 65,2547
 
 classes/@params_tests_db/plotVarBoxMatrix.m,298
 function a_plot_stack 1,0
@@ -558,17 +582,6 @@ pp_coefs 35,1148
   j2_db 49,1772
     pp_coefs{pp_coefs54,2018
 
-classes/@params_tests_db/scaleParamsOneRow.m,322
-function a_params_db 1,0
-% See also: scanParamAllRows,25,938
-% See also: scanParamAllRows, makeGenesisParFile,25,938
-% See also: scanParamAllRows, makeGenesisParFile, ranked_db/blockedDistances,blockedDistances25,938
-% Copyright 31,1158
-levels=44,1557
-a_params_db 47,1598
-a_params_db 48,1644
-a_params_db 51,1760
-
 classes/@params_tests_db/params_tests_db.m,327
 function obj 1,0
   obj 58,2016
@@ -605,62 +618,62 @@ cip_fold_db 112,4166
 
 classes/@params_tests_db/displayRankingsTeX.m,1347
 function tex_string 1,0
-tex_string 46,1645
-ranked_db 48,1663
-joined_db 49,1704
-ranked_num_rows 50,1741
-a_db_id 53,1812
-crit_db_id 54,1865
-    num_best 61,2062
-  top_ranks 63,2087
-  short_caption 64,2171
-  caption 65,2235
-  tex_string 67,2330
-  num_best 72,2528
-  top_ranks 73,2545
-  all_param_cols 74,2629
-  p_hists 76,2745
-  filename 83,3063
-  filename 85,3186
-  filename 86,3227
-  filename 87,3268
-  short_caption 92,3461
-  caption 93,3552
-  tex_string 96,3674
-    crit_trace_d100 112,4378
-    crit_trace_h100 116,4556
-    crit_trace_id 120,4735
-    num_plots 122,4806
-    trace_d100_plots 123,4825
-    trace_h100_plots 124,4868
-      trial_num 128,4983
-	crit_traces 131,5119
-	sup_props 133,5148
-	crit_traces 134,5169
-      plot_matching_d100 136,5199
-      trace_d100_plots{trace_d100_plots138,5301
-			 'plot', sup_props)142,5499
-      plot_matching_h100 143,5523
-      trace_h100_plots{trace_h100_plots145,5626
-			 'plot', sup_props)148,5766
-    best_filename 156,6065
-    best_filename 161,6290
-    orient tall;162,6343
-    horiz_props 164,6405
-    d100_row_plot 165,6495
-    h100_row_plot 167,6669
-    filename 174,6997
-    filename 179,7203
-    short_caption 183,7333
-    caption 185,7430
-    tex_string 187,7538
-    short_caption 197,7927
-    caption 199,8034
-    tex_string 203,8255
+tex_string 46,1643
+ranked_db 48,1661
+joined_db 49,1702
+ranked_num_rows 50,1739
+a_db_id 53,1810
+crit_db_id 54,1863
+    num_best 61,2060
+  top_ranks 63,2085
+  short_caption 64,2169
+  caption 65,2233
+  tex_string 67,2328
+  num_best 72,2526
+  top_ranks 73,2543
+  all_param_cols 74,2627
+  p_hists 76,2743
+  filename 83,3061
+  filename 85,3184
+  filename 86,3225
+  filename 87,3266
+  short_caption 92,3459
+  caption 93,3550
+  tex_string 96,3672
+    crit_trace_d100 112,4376
+    crit_trace_h100 116,4554
+    crit_trace_id 120,4733
+    num_plots 122,4804
+    trace_d100_plots 123,4823
+    trace_h100_plots 124,4866
+      trial_num 128,4981
+	crit_traces 131,5117
+	sup_props 133,5146
+	crit_traces 134,5167
+      plot_matching_d100 136,5197
+      trace_d100_plots{trace_d100_plots138,5299
+			 'plot', sup_props)142,5497
+      plot_matching_h100 143,5521
+      trace_h100_plots{trace_h100_plots145,5624
+			 'plot', sup_props)148,5764
+    best_filename 156,6063
+    best_filename 161,6288
+    orient tall;162,6341
+    horiz_props 164,6403
+    d100_row_plot 165,6493
+    h100_row_plot 167,6667
+    filename 174,6995
+    filename 179,7201
+    short_caption 183,7331
+    caption 185,7428
+    tex_string 187,7536
+    short_caption 197,7925
+    caption 199,8032
+    tex_string 203,8253
 
 classes/@params_tests_db/meanDuplicateParams.m,59
 function a_params_tests_db 1,0
-a_params_tests_db 34,1143
+a_params_tests_db 34,1141
 
 classes/@params_tests_db/testsHists.m,231
 function t_hists 1,0
@@ -686,27 +699,27 @@ row_indices 35,1021
 
 classes/@params_tests_db/unionCat.m,133
 function a_db=1,0
-  with_db = unionCat(varargin{1}, varargin{varargin26,841
-elseif isempty(27,893
-  with_db 31,946
-a_db 34,976
+  with_db = unionCat(varargin{1}, varargin{varargin26,839
+elseif isempty(27,891
+  with_db 31,944
+a_db 34,974
 
 classes/@params_tests_db/fillMissingParams.m,36
 function db 1,0
-dif_names 34,1069
+dif_names 34,1067
 
 classes/@params_tests_db/makeGenesisParFile.m,301
 %   For each a_db row,9,219
 % See also: scanParamAllRows,27,821
 % Copyright 33,991
-  trial_col 50,1531
-    a_db = addParams(a_db, {'trial'}, trial_col)52,1604
-    lerr 54,1662
-    % If column already exists,55,1684
-  param_names 67,2049
-first_row 74,2299
-data_rows 77,2444
-data_str 80,2577
+  trial_col 52,1602
+    a_db = addParams(a_db, {'trial'}, trial_col)54,1675
+    lerr 56,1733
+    % If column already exists,57,1755
+  param_names 69,2120
+first_row 76,2370
+data_rows 79,2515
+data_str 82,2648
 
 classes/@params_tests_db/getDualCIPdb.m,75
 function a_db 1,0
@@ -715,25 +728,25 @@ function a_db 1,0
 
 classes/@params_tests_db/unionCatTwo.m,483
 function a_db=1,0
-with_params 35,1118
-with_names 36,1156
-params 37,1213
-names 38,1241
-combined_params 41,1331
-combined_cols 42,1377
-with_db 45,1446
-db 46,1504
-with_db 48,1553
-db 49,1612
-  with_db 58,1984
-props=70,2353
-with_props=71,2376
-commonfield=72,2409
-        props.(field{field75,2536
-        props.(field{1})=mergeStructs(props.(field{1}),with_props.(field{field75,2536
-    elseif iscell(props.(field{1})) || isnumeric(76,2615
-props=80,2762
-a_db 82,2828
+with_params 35,1116
+with_names 36,1154
+params 37,1211
+names 38,1239
+combined_params 41,1329
+combined_cols 42,1375
+with_db 45,1444
+db 46,1502
+with_db 48,1551
+db 49,1610
+  with_db 58,1982
+props=70,2351
+with_props=71,2374
+commonfield=72,2407
+        props.(field{field75,2534
+        props.(field{1})=mergeStructs(props.(field{1}),with_props.(field{field75,2534
+    elseif iscell(props.(field{1})) || isnumeric(76,2613
+props=80,2760
+a_db 82,2826
 
 classes/@params_tests_db/reIndexNeurons.m,231
 function a_db 1,0
@@ -848,16 +861,16 @@ function handles 1,0
 
 classes/@dataset_db_bundle/dataset_db_bundle.m,315
 function a_bundle 1,0
-  a_bundle.db db50,2061
-  a_bundle.joined_db joined_db51,2087
-  a_bundle.props props52,2120
-  a_bundle 53,2151
-  a_bundle 55,2265
-  a_bundle.dataset dataset61,2354
-  a_bundle.db db62,2386
-  a_bundle.joined_db joined_db63,2408
-  a_bundle.props props64,2444
-  a_bundle 66,2471
+  a_bundle.db db50,2034
+  a_bundle.joined_db joined_db51,2060
+  a_bundle.props props52,2093
+  a_bundle 53,2124
+  a_bundle 55,2238
+  a_bundle.dataset dataset61,2327
+  a_bundle.db db62,2359
+  a_bundle.joined_db joined_db63,2381
+  a_bundle.props props64,2417
+  a_bundle 66,2444
 
 classes/@dataset_db_bundle/matchingRow.m,39
 function crit_db 1,0
@@ -966,6 +979,14 @@ function a_row_index 1,0
 classes/@dataset_db_bundle/get.m,16
 function b 1,0
 
+classes/@dataset_db_bundle/profileFromRows.m,109
+function a_prof 1,0
+fs_db 34,1051
+col_names 35,1080
+index_col 36,1111
+  indices 45,1435
+a_prof 51,1569
+
 classes/@dataset_db_bundle/constrainedMeasuresPreset.m,1919
 function 1,0
 p1_test_names 38,1074
@@ -1014,63 +1035,67 @@ function a 1,0
   a 18,590
       a 31,895
 
+classes/@dataset_db_bundle/simNewParams.m,28
+function 1,0
+fs_db 33,993
+
 classes/@dataset_db_bundle/rankingReportTeX.m,1372
 function tex_string 1,0
-tex_string 44,1697
-a_ranked_db 46,1715
-joined_db 47,1772
-ranked_num_rows 48,1811
-a_db_id 51,1884
-crit_db_id 52,1951
-  crit_trace_h100 63,2335
-  crit_trace_id 69,2553
-  num_plots 71,2622
-  trace_d100_plots 72,2639
-  trace_h100_plots 73,2680
-    trial_num 77,2789
-      crit_traces 80,2926
-      sup_props 82,2958
-      crit_traces 83,2984
-    trace_d100_plots{trace_d100_plots85,3017
-		       'plot', sup_props)89,3242
-    trace_h100_plots{trace_h100_plots90,3271
-		       'plot', sup_props)93,3434
-  best_filename 101,3728
-  orient tall;102,3820
-  horiz_props 104,3881
-  d100_row_plot 105,3969
-  h100_row_plot 107,4141
-  filename 114,4461
-  short_caption 118,4632
-  caption 120,4727
-  tex_string 122,4831
-  short_caption 131,5168
-  caption 133,5271
-  tex_string 137,5484
-    num_best 150,5890
-  top_ranks 152,5915
-  short_caption 153,6001
-  caption 154,6065
-  tex_string 156,6160
-  num_best 161,6346
-  filename 165,6466
-  orient tall;167,6601
-  short_caption 171,6743
-  caption 173,6899
-  tex_string 177,7115
-  filename 188,7503
-  orient tall;190,7645
-  short_caption 194,7787
-  caption 196,7950
-  tex_string 200,8211
-  num_best 208,8498
-  top_ranks 209,8515
-  all_param_cols 210,8599
-  p_hists 212,8715
-  filename 219,9033
-  short_caption 225,9277
-  caption 226,9368
-  tex_string 229,9490
+tex_string 44,1695
+a_ranked_db 46,1713
+joined_db 47,1770
+ranked_num_rows 48,1809
+a_db_id 51,1882
+crit_db_id 52,1949
+  crit_trace_h100 63,2333
+  crit_trace_id 69,2551
+  num_plots 71,2620
+  trace_d100_plots 72,2637
+  trace_h100_plots 73,2678
+    trial_num 77,2787
+      crit_traces 80,2924
+      sup_props 82,2956
+      crit_traces 83,2982
+    trace_d100_plots{trace_d100_plots85,3015
+		       'plot', sup_props)89,3240
+    trace_h100_plots{trace_h100_plots90,3269
+		       'plot', sup_props)93,3432
+  best_filename 101,3726
+  orient tall;102,3818
+  horiz_props 104,3879
+  d100_row_plot 105,3967
+  h100_row_plot 107,4139
+  filename 114,4459
+  short_caption 118,4630
+  caption 120,4725
+  tex_string 122,4829
+  short_caption 131,5166
+  caption 133,5269
+  tex_string 137,5482
+    num_best 150,5888
+  top_ranks 152,5913
+  short_caption 153,5999
+  caption 154,6063
+  tex_string 156,6158
+  num_best 161,6344
+  filename 165,6464
+  orient tall;167,6599
+  short_caption 171,6741
+  caption 173,6897
+  tex_string 177,7113
+  filename 188,7501
+  orient tall;190,7643
+  short_caption 194,7785
+  caption 196,7948
+  tex_string 200,8209
+  num_best 208,8496
+  top_ranks 209,8513
+  all_param_cols 210,8597
+  p_hists 212,8713
+  filename 219,9031
+  short_caption 225,9275
+  caption 226,9366
+  tex_string 229,9488
 
 classes/@voltage_clamp/periodWhole.m,27
 function whole_period 1,0
@@ -1529,41 +1554,41 @@ function 1,0
 
 classes/@trace/private/trace_loadns.m,1199
 function 1,0
-verbose 36,1237
-  file_ext 45,1516
-    case '.smr' % PC spike2,50,1654
-      DLLName 51,1716
-    case '.son' % Mac spike2,52,1748
-      DLLName 53,1811
-      DLLName 55,1878
-      %         DLLName 58,2011
-    case '.nex' % Nex Technologies 59,2050
-      DLLName 68,2437
-  sep 76,2733
-  DLLName 78,2800
-  % Open data file85,2964
-  % Gives you EntityCount,95,3208
-  SegmentList 105,3499
-  cSegment 106,3551
-  AnalogList 110,3678
-  cAnalog 111,3729
-          props.nsType nsType122,4019
-      props.channel channel129,4213
-      props.traces traces135,4385
-  EntityInfo 139,4473
-          ChannelList 144,4658
-          ChannelList 147,4804
-      ChannelIDs 154,5047
-  trace_id 158,5132
-          % Load the waveform data and do the analysis170,5534
-          % Load the requested traces on the selected channel174,5757
-          trace_dt 178,5962
-          clear nsSegmentInfo nsSegmentSourceInfo sampleCount UnitIDs;180,6014
-          % Load the waveform data and do the analysis183,6106
-          % Load all traces on the selected channel198,6832
-          trace_dt 202,7001
-          clear nsAnalogInfo contCount;204,7052
-clear mexprog;211,7202
+verbose 36,1235
+  file_ext 45,1514
+    case '.smr' % PC spike2,50,1652
+      DLLName 51,1714
+    case '.son' % Mac spike2,52,1746
+      DLLName 53,1809
+      DLLName 55,1876
+      %         DLLName 58,2009
+    case '.nex' % Nex Technologies 59,2048
+      DLLName 68,2435
+  sep 76,2731
+  DLLName 78,2798
+  % Open data file85,2962
+  % Gives you EntityCount,95,3206
+  SegmentList 105,3497
+  cSegment 106,3549
+  AnalogList 110,3676
+  cAnalog 111,3727
+          props.nsType nsType122,4017
+      props.channel channel129,4211
+      props.traces traces135,4383
+  EntityInfo 139,4471
+          ChannelList 144,4656
+          ChannelList 147,4802
+      ChannelIDs 154,5045
+  trace_id 158,5130
+          % Load the waveform data and do the analysis170,5532
+          % Load the requested traces on the selected channel174,5755
+          trace_dt 178,5960
+          clear nsSegmentInfo nsSegmentSourceInfo sampleCount UnitIDs;180,6012
+          % Load the waveform data and do the analysis183,6104
+          % Load all traces on the selected channel198,6830
+          trace_dt 202,6999
+          clear nsAnalogInfo contCount;204,7050
+clear mexprog;211,7200
 
 classes/@trace/private/ns_GetEntityInfo.m,14
 function 1,0
@@ -1619,8 +1644,8 @@ ind 57,2235
 
 classes/@trace/lowpassfilt.m,39
 function t 1,0
-data 34,885
-t 40,997
+data 34,883
+t 40,995
 
 classes/@trace/calcMax.m,47
 function 1,0
@@ -1644,13 +1669,13 @@ elseif nargin 29,761
 
 classes/@trace/binary_op.m,149
 function result_tr 1,0
-end31,794
-result_tr 36,907
-result_tr 37,977
-function 41,1063
-  name 45,1190
-elseif isnumeric(46,1214
-    name 51,1307
+end31,792
+result_tr 36,905
+result_tr 37,975
+function 41,1061
+  name 45,1188
+elseif isnumeric(46,1212
+    name 51,1305
 
 classes/@trace/getDy.m,28
 function dy 1,0
@@ -1659,7 +1684,7 @@ dy 32,659
 classes/@trace/plus.m,62
 function sub_tr 1,0
 % See also: trace,24,482
-sub_tr 34,666
+sub_tr 34,664
 
 classes/@trace/plot.m,63
 function h 1,0
@@ -1688,7 +1713,7 @@ a_plot 39,1106
 classes/@trace/mtimes.m,62
 function res_tr 1,0
 % See also: trace,24,465
-res_tr 34,653
+res_tr 34,651
 
 classes/@trace/spike_shape.m,161
 function obj 1,0
@@ -1702,8 +1727,8 @@ right 56,1499
 
 classes/@trace/getRateResults.m,93
 function results 1,0
-results.SpikeRateISI SpikeRateISI34,982
-results.ISICV ISICV38,1070
+results.SpikeRateISI SpikeRateISI34,980
+results.ISICV ISICV38,1068
 
 classes/@trace/rdivide.m,62
 function res_tr 1,0
@@ -1721,8 +1746,8 @@ res_tr 34,568
 
 classes/@trace/runAvg.m,47
 function avg_t 1,0
-data 29,711
-avg_t 30,734
+data 29,709
+avg_t 30,732
 
 classes/@trace/subsasgn.m,77
 function a 1,0
@@ -1744,7 +1769,7 @@ obj 105,3044
 classes/@trace/times.m,62
 function res_tr 1,0
 % See also: trace,24,462
-res_tr 34,648
+res_tr 34,646
 
 classes/@trace/findFilteredSpikes.m,869
 function 1,0
@@ -1790,9 +1815,9 @@ n 202,6626
 
 classes/@trace/getProfileAllSpikes.m,90
 function profile_obj 1,0
-whole_period 35,1148
-results_obj 40,1351
-profile_obj 44,1480
+whole_period 35,1146
+results_obj 40,1349
+profile_obj 44,1478
 
 classes/@trace/getResults.m,22
 function results 1,0
@@ -1806,14 +1831,14 @@ function obj 1,0
 
 classes/@trace/getPotResults.m,111
 function results 1,0
-  results.avg avg42,1167
-  results.max max43,1188
-% convert all to ms/mV(mV47,1224
+  results.avg avg42,1165
+  results.max max43,1186
+% convert all to ms/mV(mV47,1222
 
 classes/@trace/minus.m,62
 function sub_tr 1,0
 % See also: trace,24,486
-sub_tr 34,672
+sub_tr 34,670
 
 classes/@trace/trace.m,1330
 function obj 1,0
@@ -1833,48 +1858,48 @@ verbose 127,6526
            data 193,8570
        channel 199,8764
        data 203,8878
-       data 204,8920
-       channel 212,9237
-       data 216,9353
-       dt 220,9496
-       data 221,9575
-       id 222,9601
-       data 227,9752
-       s 231,9921
-       fields 232,9948
-       data 233,9979
-       props.file_type file_type239,10203
-       s1 240,10236
-          data 245,10423
-       % abf2load260,11247
-       props.unit_y unit_y263,11343
-     elseif strcmpi(ext, '.txt') || strcmpi(267,11453
-       data 278,11952
-   elseif isnumeric(286,12153
-       id 294,12437
-     data 308,12867
-         data 321,13388
-     data 337,13868
-       hpf 345,14099
-       lpf 350,14205
-     butterWorth.highPass highPass358,14539
-     butterWorth.lowPass lowPass360,14630
-     props.butterWorth butterWorth361,14681
-   obj.data data363,14726
-   obj.dt dt364,14746
-   obj.dy dy365,14762
-   obj.id id366,14778
-   obj.props props367,14794
-   obj 368,14816
+       data 204,8915
+       channel 212,9232
+       data 216,9348
+       dt 220,9491
+       data 221,9570
+       id 222,9596
+       data 227,9747
+       s 231,9916
+       fields 232,9943
+       data 233,9974
+       props.file_type file_type239,10198
+       s1 240,10231
+          data 245,10418
+       % abf2load260,11242
+       props.unit_y unit_y263,11338
+     elseif strcmpi(ext, '.txt') || strcmpi(267,11448
+       data 278,11947
+   elseif isnumeric(286,12148
+       id 294,12432
+     data 308,12862
+         data 321,13383
+     data 337,13863
+       hpf 345,14094
+       lpf 350,14200
+     butterWorth.highPass highPass358,14534
+     butterWorth.lowPass lowPass360,14625
+     props.butterWorth butterWorth361,14676
+   obj.data data363,14721
+   obj.dt dt364,14741
+   obj.dy dy365,14757
+   obj.id id366,14773
+   obj.props props367,14789
+   obj 368,14811
 
-classes/@ranked_db/joinOriginal.m,159
+classes/@ranked_db/joinOriginal.m,173
 function a_db 1,0
-crit_cols 35,992
-% Remove the RowIndex and ItemIndex columns,36,1053
-crit_cols 50,1628
-crit_cols 53,1695
-db_cols 55,1756
-a_db 56,1815
+crit_cols 40,1236
+% Remove the RowIndex and ItemIndex columns,41,1297
+crit_cols 55,1872
+crit_cols 58,1939
+orig_cols 60,2000
+  elseif ischar(69,2302
 
 classes/@ranked_db/subsref.m,60
 function b 1,0
@@ -1961,21 +1986,21 @@ a_db 102,3167
 
 classes/@ranked_db/plotRowErrors.m,358
 function a_plot 1,0
-joined_db 50,1500
-joined_data 51,1545
-crit_cols 54,1595
-num_std_colors 66,2121
-only_ranked_rows_db 75,2326
-distmatx 76,2401
-  distmatx 83,2640
-  common_cols 84,2678
-  row_steps 90,2789
-plot_props 92,2810
-plot_props.YTickLabel YTickLabel93,2918
-  the_title 100,3110
-  row_name 107,3289
-a_plot 110,3316
-  num_rows 138,4592
+joined_db 51,1542
+joined_data 52,1587
+crit_cols 55,1637
+num_std_colors 67,2163
+only_ranked_rows_db 76,2368
+distmatx 77,2443
+  distmatx 84,2682
+  common_cols 85,2720
+  row_steps 91,2831
+plot_props 93,2852
+plot_props.YTickLabel YTickLabel94,2960
+  the_title 101,3152
+  row_name 108,3331
+a_plot 111,3358
+  num_rows 144,4854
 
 classes/@ranked_db/displayRows.m,406
 function s 1,0
@@ -2093,7 +2118,7 @@ function a_3D_db 1,0
 
 classes/@tests_3D_db/plotScatter.m,31
 function a_p 1,0
-a_p 47,1670
+a_p 47,1668
 
 classes/@tests_3D_db/corrCoefs.m,353
 function a_coefs_db 1,0
@@ -2205,26 +2230,26 @@ a_plot 99,2749
 classes/@plot_image/plot_image.m,812
 function a_plot 1,0
 % See also: plot_abstract,47,1859
-% Copyright 53,2021
-  a_plot 65,2556
-    num_colors 74,2714
-    a_colormap 80,2814
-    max_val 87,2914
-    min_val 93,3031
-  image_data 96,3079
-  is_symmetric 97,3154
-    num_grads 102,3269
-  image_props 105,3297
-  image_props.colorbarLabel colorbarLabel106,3321
-  image_props.maxValue maxValue107,3367
-    image_props.colorbarProps colorbarProps118,3710
-    image_props.colorbarProps.YTick YTick119,3750
-      image_props.colorbarProps.YTickLabel YTickLabel126,4036
-    image_props.colorbarProps colorbarProps134,4252
-    image_props.colorbarProps.YTick YTick135,4292
-    image_props.colorbarProps.YTickLabel YTickLabel137,4379
-  a_plot 141,4521
-                          axis_labels, title_str, {}, @plotImage, props)146,4728
+% Copyright 53,2019
+  a_plot 65,2554
+    num_colors 74,2712
+    a_colormap 80,2812
+    max_val 87,2912
+    min_val 93,3029
+  image_data 96,3077
+  is_symmetric 97,3152
+    num_grads 102,3267
+  image_props 105,3295
+  image_props.colorbarLabel colorbarLabel106,3319
+  image_props.maxValue maxValue107,3365
+    image_props.colorbarProps colorbarProps118,3708
+    image_props.colorbarProps.YTick YTick119,3748
+      image_props.colorbarProps.YTickLabel YTickLabel126,4034
+    image_props.colorbarProps colorbarProps134,4250
+    image_props.colorbarProps.YTick YTick135,4290
+    image_props.colorbarProps.YTickLabel YTickLabel137,4377
+  a_plot 141,4519
+                          axis_labels, title_str, {}, @plotImage, props)146,4726
 
 classes/@plot_image/get.m,45
 function b 1,0
@@ -2233,7 +2258,7 @@ function b 1,0
 
 classes/@plot_image/axis.m,36
 function ranges 1,0
-ranges 30,822
+ranges 30,820
 
 classes/@trace_profile/get.m,33
 function b 1,0
@@ -2770,13 +2795,13 @@ function b 1,0
 
 classes/@current_clamp/current_clamp.m,131
 function a_cc 1,0
-  a_cc 55,1797
-  a_cc 57,1907
-  a_cc 59,1982
-  a_cc 60,1999
-  a_cc 61,2046
-  a_cc 63,2101
-  a_cc 64,2118
+  a_cc 55,1798
+  a_cc 57,1908
+  a_cc 59,1983
+  a_cc 60,2000
+  a_cc 61,2047
+  a_cc 63,2102
+  a_cc 64,2119
 
 classes/@current_clamp/get.m,45
 function b 1,0
@@ -2786,18 +2811,18 @@ function b 1,0
 classes/@current_clamp/params_tests_db.m,380
 function 1,0
 %   profs:profs21,788
-a_db 43,1541
-  param_names 47,1629
-  num_params 48,1677
-  a_db 50,1740
-                                    num_rows, 1), param_names, {}, ''), a_db)51,1824
-  num_params 53,1908
-  num_params 58,2009
-  all_vals 60,2082
-  param_vals 62,2146
-  a_db 66,2271
-                             param_names, {}, ''), a_db)67,2329
-a_db 71,2420
+a_db 43,1542
+  param_names 47,1630
+  num_params 48,1678
+  a_db 50,1741
+                                    num_rows, 1), param_names, {}, ''), a_db)51,1825
+  num_params 53,1909
+  num_params 58,2010
+  all_vals 60,2083
+  param_vals 62,2147
+  a_db 66,2272
+                             param_names, {}, ''), a_db)67,2330
+a_db 71,2421
 
 classes/@current_clamp/cip_trace.m,113
 function 1,0
@@ -2809,14 +2834,14 @@ cip_level_pA 54,1627
 
 classes/@current_clamp/getResults.m,186
 function 1,0
-step_num 35,1043
-a_vc 38,1144
-num_isteps 45,1319
-profs 46,1355
-  % make current step a parameter49,1437
-  profs{profs53,1551
-  a_results 54,1599
-  results 57,1701
+step_num 35,1044
+a_vc 38,1145
+num_isteps 45,1320
+profs 46,1356
+  % make current step a parameter49,1438
+  profs{profs53,1552
+  a_results 54,1600
+  results 57,1702
 
 classes/@tests_db/end.m,16
 function s 1,0
@@ -2896,9 +2921,9 @@ num_dbs 64,1850
 
 classes/@tests_db/uop.m,59
 function a_db 1,0
-a_db 35,981
-a_db 36,998
-a_db 37,1029
+a_db 35,979
+a_db 36,996
+a_db 37,1027
 
 classes/@tests_db/plotYTests.m,253
 function a_p 1,0
@@ -2937,30 +2962,33 @@ function a 1,0
 
 classes/@tests_db/unique.m,32
 function a_db 1,0
-a_db 33,781
+a_db 33,779
+
+classes/@tests_db/abs.m,19
+function a_db 1,0
 
 classes/@tests_db/approxMappingNNet.m,462
 function 1,0
-orig_inputs 90,3120
-orig_outputs 91,3149
-% first,93,3181
-num_samples 94,3232
-train_logic 95,3270
-  num_test 98,3420
-  a_perm 104,3613
-  a_nnet_inputs 106,3694
-  a_nnet_outputs 107,3743
-  orig_outputs 110,3864
-% balance inputs,113,3917
-    num_passes 128,4387
-  goal_mse 130,4414
-  cell_ins 131,4433
-  cell_outs 132,4474
-  last_conditions 133,4515
-    nn_mse 137,4684
-      break;141,4834
-new_data 147,4920
-an_approx_db 153,5170
+orig_inputs 90,3118
+orig_outputs 91,3147
+% first,93,3179
+num_samples 94,3230
+train_logic 95,3268
+  num_test 98,3418
+  a_perm 104,3611
+  a_nnet_inputs 106,3692
+  a_nnet_outputs 107,3741
+  orig_outputs 110,3862
+% balance inputs,113,3915
+    num_passes 128,4385
+  goal_mse 130,4412
+  cell_ins 131,4431
+  cell_outs 132,4472
+  last_conditions 133,4513
+    nn_mse 137,4682
+      break;141,4832
+new_data 147,4918
+an_approx_db 153,5168
 
 classes/@tests_db/display.m,69
 function s 1,0
@@ -2987,49 +3015,51 @@ function a_pbundle 1,0
 %       	others), default is an empty array,25,1179
 % 	biasLimit: Limit in pA,26,1251
 % 		eliminated. (default=27,1315
-  verbose 47,2098
-  bias_limit 61,2396
-phys_db 63,2419
-    weed_cols 73,2757
-  phys_db 75,2839
-    phys_db 86,3174
-  CIPList 112,4090
-    phys_db 124,4442
-    pulse_spike_tests 168,6054
-    recov_spike_tests 203,7380
-    ini_spont_tests 238,8706
-    pulse_rate_tests 244,8862
-    pulse_hyper_pot_tests 260,9408
-    recov_rate_tests 267,9588
-merge_args 287,10210
-phys_2_join_db 297,10755
-% get the main values 302,10952
-    phys_joined_added_db 305,11127
-    phys_joined_control_db 306,11170
-    phys_joined_db 308,11220
-    phys_joined_std_db 312,11337
-    num_params 323,11883
-      phys_joined_added_db1 330,12166
-    phys_joined_added_db 359,13410
-      drug_cols 366,13638
-    phys_joined_control_db 368,13723
-    phys_joined_control_db 378,14052
-phys_db 383,14242
-a_pbundle 386,14337
-    physiol_bundle({phys_dataset, phys_db, phys_joined_added_db}, struct('controlDB', phys_joined_control_db)387,14353
+  verbose 47,2096
+  bias_limit 61,2394
+phys_db 63,2417
+    weed_cols 73,2755
+  phys_db 75,2837
+    phys_db 86,3172
+  CIPList 112,4088
+    phys_db 124,4440
+    pulse_spike_tests 168,6052
+    recov_spike_tests 203,7378
+    ini_spont_tests 238,8704
+    pulse_rate_tests 244,8860
+    pulse_hyper_pot_tests 260,9406
+    recov_rate_tests 267,9586
+merge_args 287,10208
+phys_2_join_db 297,10753
+% get the main values 302,10950
+    phys_joined_added_db 305,11125
+    phys_joined_control_db 306,11168
+    phys_joined_db 308,11218
+    phys_joined_std_db 312,11335
+    num_params 323,11881
+      phys_joined_added_db1 330,12164
+    phys_joined_added_db 359,13408
+      drug_cols 366,13636
+    phys_joined_control_db 368,13721
+    phys_joined_control_db 378,14050
+phys_db 383,14240
+a_pbundle 386,14335
+    physiol_bundle({phys_dataset, phys_db, phys_joined_added_db}, struct('controlDB', phys_joined_control_db)387,14351
 
-classes/@tests_db/renameColumns.m,338
+classes/@tests_db/renameColumns.m,389
 function a_db 1,0
-% >> new_db 23,642
-% See also: allocateRows,25,703
-% Copyright 31,857
-    a_db = renameColumns(a_db, test_names{col_num}, new_names{new_names44,1407
-  test_names = test_names{1}; new_names 49,1545
-elseif ~ischar(50,1601
-col_idx 60,1874
-col_idx.(new_names)61,1898
-col_idx 62,1942
-a_db.col_idx col_idx66,2052
+% >> new_db 22,763
+% >> new_db 24,849
+% the regular expression renaming,29,1000
+    a_db = renameColumns(a_db, test_names{col_num}, new_names{new_names54,2037
+  test_names = test_names{1}; new_names 59,2175
+  all_names 70,2553
+  all_new_names 71,2588
+col_idx 83,2926
+col_idx.(new_names)84,2950
+col_idx 85,2994
+% Reorder 87,3035
+a_db.col_idx col_idx89,3104
 
 classes/@tests_db/histogram.m,440
 function a_histogram_db 1,0
@@ -3095,8 +3125,8 @@ function rows 1,0
 
 classes/@tests_db/private/findRegExpIdx.m,52
 function idx 1,0
-    idx 33,1022
-    idx 36,1129
+    idx 33,1020
+    idx 36,1127
 
 classes/@tests_db/private/processRecurseRowsNonNaNInf.m,153
 function 1,0
@@ -3144,43 +3174,44 @@ idx 61,1834
 
 classes/@tests_db/displayRowsTeX.m,59
 function tex_string 1,0
-def_props 45,1363
-props 53,1606
+def_props 45,1361
+props 53,1604
 
 classes/@tests_db/anyRows.m,119
 function 1,0
-num_db_rows 52,1511
-ones_matx 53,1543
-idx 54,1577
-rows_idx 55,1606
-db_data 57,1647
-    idx 76,2325
+num_db_rows 52,1509
+ones_matx 53,1541
+idx 54,1575
+rows_idx 55,1604
+db_data 57,1645
+    idx 76,2323
 
-classes/@tests_db/rankMatching.m,584
+classes/@tests_db/rankMatching.m,621
 function a_ranked_db 1,0
-% If not exists,45,1549
-  row_index 48,1668
-  row_index 50,1700
-itemIndices 59,1940
-% Strip out the NeuronId,61,1990
-% Strip out the NeuronId, RowIndex,61,1990
-crit_tests 62,2066
-crit_row_db 65,2205
-nonnans 66,2258
-crit_tests 67,2295
-first_row 73,2413
-second_row 76,2505
-second_row_data 77,2557
-elseif isfield(81,2663
-    weights_tests 90,2976
-ss_data 134,4600
-  ss_data 139,4745
-clear second_row_matx;143,4872
-ss_data 157,5375
-row_index 158,5401
-wghd_data 159,5431
-a_ranked_db 171,5824
-			 lower(get(crit_db, 'id')) ], props)174,5968
+% >> a_ranked_db 29,1122
+  %row_db row_db61,2311
+  %row_index row_index62,2359
+row_index 65,2392
+itemIndices 73,2626
+% Strip out the NeuronId,75,2676
+% Strip out the NeuronId, RowIndex,75,2676
+crit_tests 76,2752
+crit_row_db 79,2891
+nonnans 80,2944
+crit_tests 81,2981
+first_row 87,3099
+second_row 90,3191
+second_row_data 91,3243
+elseif isfield(95,3349
+    weights_tests 104,3662
+ss_data 147,5273
+  ss_data 152,5418
+clear second_row_matx;156,5545
+ss_data 170,6048
+row_index 171,6074
+wghd_data 172,6104
+a_ranked_db 184,6497
+			 lower(get(crit_db, 'id')) ], props)187,6641
 
 classes/@tests_db/onlyRowsTests.m,109
 function obj 1,0
@@ -3192,39 +3223,39 @@ row_names 62,1639
 
 classes/@tests_db/plotUniquesStatsStacked3D.m,664
 function a_stacked_plot 1,0
-a_db 41,1287
-sorted_unique_vals1 45,1436
-sorted_unique_vals2 48,1603
-sorted_unique_vals3 51,1770
-num_stack_uniques 55,1938
-stack_var_name 57,1988
-stack_var_name 58,2058
-  stats_func 64,2202
-  stats_row 71,2325
-default_image_props 74,2352
-default_image_props.uniqueVals1 uniqueVals175,2381
-default_image_props.uniqueVals2 uniqueVals276,2436
-      default_image_props.popDev popDev86,2863
-    elseif strcmp(88,2974
-s_plots 106,3462
-  image_props 112,3631
-  an_image_plot 118,3828
-  axis_labels 122,4027
-  s_plots 123,4078
-  all_title 135,4438
-  props.relativeSizes relativeSizes143,4718
-a_stacked_plot 147,4799
+a_db 41,1285
+sorted_unique_vals1 45,1434
+sorted_unique_vals2 48,1601
+sorted_unique_vals3 51,1768
+num_stack_uniques 55,1936
+stack_var_name 57,1986
+stack_var_name 58,2056
+  stats_func 64,2200
+  stats_row 71,2323
+default_image_props 74,2350
+default_image_props.uniqueVals1 uniqueVals175,2379
+default_image_props.uniqueVals2 uniqueVals276,2434
+      default_image_props.popDev popDev86,2861
+    elseif strcmp(88,2972
+s_plots 106,3460
+  image_props 112,3629
+  an_image_plot 118,3826
+  axis_labels 122,4025
+  s_plots 123,4076
+  all_title 135,4436
+  props.relativeSizes relativeSizes143,4716
+a_stacked_plot 147,4797
 
 classes/@tests_db/plotBox.m,210
 function a_plot 1,0
 % See also: plot_abstract,21,573
 % See also: plot_abstract, plotFigure,21,573
-% Copyright 27,734
-   notch 44,1180
-  whis 58,1336
-col_name 65,1462
-  all_title 70,1572
-a_plot 74,1682
+% Copyright 27,732
+   notch 44,1178
+  whis 58,1334
+col_name 65,1460
+  all_title 70,1570
+a_plot 74,1680
 
 classes/@tests_db/get.m,16
 function b 1,0
@@ -3263,21 +3294,21 @@ nout 60,1487
 
 classes/@tests_db/corrcoef.m,211
 function a_coefs_db 1,0
-  skipCoefs 40,1098
-% Obsolete,43,1120
-  excludeNaNs 47,1232
-  alpha 53,1311
-col_names 67,1602
-a_coefs_db 74,1760
-                  properTeXLabel(get(db, 'id')) ], props)78,1939
+  skipCoefs 40,1096
+% Obsolete,43,1118
+  excludeNaNs 47,1230
+  alpha 53,1309
+col_names 67,1600
+a_coefs_db 74,1758
+                  properTeXLabel(get(db, 'id')) ], props)78,1937
 
 classes/@tests_db/groupBy.m,122
 function a_tests_3D_db 1,0
-verbose 41,1403
-col_ids 43,1438
-all_col_names 44,1470
-col_names 45,1503
-all_cols 48,1572
+verbose 41,1401
+col_ids 43,1436
+all_col_names 44,1468
+col_names 45,1501
+all_cols 48,1570
 
 classes/@tests_db/rows2Struct.m,44
 function s 1,0
@@ -3300,8 +3331,8 @@ sorted_db 84,2012
 
 classes/@tests_db/max.m,51
 function 1,0
-  varargout 35,1018
-  nout 40,1129
+  varargout 37,1076
+  nout 42,1187
 
 classes/@tests_db/plus.m,19
 function a_db 1,0
@@ -3325,40 +3356,41 @@ a_pm 44,1256
 classes/@tests_db/mtimes.m,19
 function a_db 1,0
 
-classes/@tests_db/processDimNonNaNInf.m,176
+classes/@tests_db/processDimNonNaNInf.m,196
 function 1,0
 % >> b_db 28,1035
-    elseif ischar(52,1897
-    data 65,2190
-    data 67,2235
-  db_size 71,2291
-  s 72,2315
-  a_db 82,2573
-  a_db 83,2639
-  nout 85,2671
+    elseif ischar(52,1899
+    data 65,2192
+    data 67,2237
+  db_size 71,2293
+  s 72,2317
+  a_db 82,2575
+  a_db 83,2641
+      a_db 90,2794
+  nout 97,2977
 
 classes/@tests_db/plotScatter3D.m,403
 function a_p 1,0
-col1 43,1282
-col2 44,1314
-col3 45,1346
-col1_db 47,1379
-col2_db 48,1421
-col3_db 49,1463
-non_nans_rows 52,1528
-col1_db 53,1580
-col2_db 54,1634
-col3_db 55,1688
-test_names 57,1743
-  all_title 68,2114
-  line_style 75,2215
-  props.LineStyleOrder LineStyleOrder76,2234
-  all_title 86,2559
-col_labels 89,2633
-a_p 90,2696
-		    props)93,2879
-  y_lims 97,2990
-  a_p 99,3082
+col1 43,1280
+col2 44,1312
+col3 45,1344
+col1_db 47,1377
+col2_db 48,1419
+col3_db 49,1461
+non_nans_rows 52,1526
+col1_db 53,1578
+col2_db 54,1632
+col3_db 55,1686
+test_names 57,1741
+  all_title 68,2112
+  line_style 75,2213
+  props.LineStyleOrder LineStyleOrder76,2232
+  all_title 86,2557
+col_labels 89,2631
+a_p 90,2694
+		    props)93,2877
+  y_lims 97,2988
+  a_p 99,3080
 
 classes/@tests_db/isnanrows.m,33
 function rows 1,0
@@ -3384,22 +3416,27 @@ function obj 1,0
 
 classes/@tests_db/addColumns.m,164
 function obj 1,0
-  test_names 42,1433
-  test_columns 43,1483
-existing_cols 56,1942
-new_col_id 63,2160
-obj.data data64,2193
-new_col_idx 67,2260
-obj 75,2454
+  test_names 42,1454
+  test_columns 43,1504
+existing_cols 59,2073
+new_col_id 66,2291
+obj.data data67,2324
+new_col_idx 70,2391
+obj 78,2585
 
 classes/@tests_db/diff.m,46
 function a_db 1,0
 a_db 38,945
 a_db 39,1000
 
+classes/@tests_db/min.m,51
+function 1,0
+  varargout 37,1081
+  nout 42,1192
+
 classes/@tests_db/fillMissingColumns.m,36
 function db 1,0
-dif_names 34,1057
+dif_names 34,1055
 
 classes/@tests_db/rdivide.m,19
 function a_db 1,0
@@ -3431,40 +3468,40 @@ a_stats_db 49,1305
 
 classes/@tests_db/sqrt.m,32
 function a_db 1,0
-a_db 30,704
+a_db 30,702
 
 classes/@tests_db/plotUniquesStats2D.m,983
 function an_image_plot 1,0
-a_db 55,1917
-  sorted_unique_vals1 61,2110
-  sorted_unique_vals2 69,2369
-  stats_func 78,2638
-  stats_row 85,2761
-      pop_dev 96,3133
-    elseif strcmp(98,3225
-  pop_dev 117,3708
-num_left_uniques 122,3811
-num_right_uniques 123,3859
-stats_matx 125,3909
-left_var_name 149,4607
-left_var_name 150,4656
-right_var_name 151,4690
-right_var_name 152,4740
-  all_title 158,4858
-num_colors 163,4958
-plot_props.XTick XTick166,4997
-plot_props.XTickLabel XTickLabel167,5037
-plot_props.YTick YTick168,5082
-plot_props.YTickLabel YTickLabel169,5121
-plot_props.minValue minValue170,5166
-plot_props.maxValue maxValue171,5198
-% $$$ plot_props.colorbarProps colorbarProps172,5240
-% $$$ plot_props.colorbarProps.YTickLabel YTickLabel173,5281
-plot_props.truncateDecDigits truncateDecDigits175,5376
-image_props 178,5428
-image_props.colorbarProps colorbarProps179,5450
-image_props.colorbarProps.YTick YTick180,5486
-an_image_plot 183,5564
+a_db 55,1915
+  sorted_unique_vals1 61,2108
+  sorted_unique_vals2 69,2367
+  stats_func 78,2636
+  stats_row 85,2759
+      pop_dev 96,3131
+    elseif strcmp(98,3223
+  pop_dev 117,3706
+num_left_uniques 122,3809
+num_right_uniques 123,3857
+stats_matx 125,3907
+left_var_name 149,4605
+left_var_name 150,4654
+right_var_name 151,4688
+right_var_name 152,4738
+  all_title 158,4856
+num_colors 163,4956
+plot_props.XTick XTick166,4995
+plot_props.XTickLabel XTickLabel167,5035
+plot_props.YTick YTick168,5080
+plot_props.YTickLabel YTickLabel169,5119
+plot_props.minValue minValue170,5164
+plot_props.maxValue maxValue171,5196
+% $$$ plot_props.colorbarProps colorbarProps172,5238
+% $$$ plot_props.colorbarProps.YTickLabel YTickLabel173,5279
+plot_props.truncateDecDigits truncateDecDigits175,5374
+image_props 178,5426
+image_props.colorbarProps colorbarProps179,5448
+image_props.colorbarProps.YTick YTick180,5484
+an_image_plot 183,5562
 
 classes/@tests_db/plotScatter.m,406
 function a_p 1,0
@@ -3639,29 +3676,29 @@ row_nums 52,1298
 classes/@tests_db/approxMappingLIBSVM.m,744
 function 1,0
 %     		of svm-train for options; default=28,1235
-orig_inputs 79,2810
-orig_outputs 80,2839
-% first,82,2871
-num_samples 83,2922
-train_logic 84,2960
-  num_test 87,3110
-  a_perm 93,3303
-  an_svm_inputs 95,3384
-  an_svm_outputs 96,3433
-  orig_outputs 99,3554
-% balance inputs,102,3607
-an_svm.model model129,4391
-% calculate predictions131,4465
-% accuracy contains: accuracy,134,4608
-% accuracy contains: accuracy, mean squared error,134,4608
-an_svm.accuracy accuracy135,4692
-an_svm.mse mse136,4723
-an_svm.scc scc137,4749
-an_svm.prob_estimates prob_estimates138,4775
-  an_svm.cross_accuracy cross_accuracy143,5002
-col_names 157,5461
-an_approx_db 158,5492
-             struct('classifier', an_svm)163,5723
+orig_inputs 79,2808
+orig_outputs 80,2837
+% first,82,2869
+num_samples 83,2920
+train_logic 84,2958
+  num_test 87,3108
+  a_perm 93,3301
+  an_svm_inputs 95,3382
+  an_svm_outputs 96,3431
+  orig_outputs 99,3552
+% balance inputs,102,3605
+an_svm.model model129,4389
+% calculate predictions131,4463
+% accuracy contains: accuracy,134,4606
+% accuracy contains: accuracy, mean squared error,134,4606
+an_svm.accuracy accuracy135,4690
+an_svm.mse mse136,4721
+an_svm.scc scc137,4747
+an_svm.prob_estimates prob_estimates138,4773
+  an_svm.cross_accuracy cross_accuracy143,5000
+col_names 157,5459
+an_approx_db 158,5490
+             struct('classifier', an_svm)163,5721
 
 classes/@tests_db/cov.m,41
 function a_cov_db 1,0
@@ -3675,22 +3712,22 @@ rows 37,828
 
 classes/@tests_db/approxMappingSVM.m,396
 function 1,0
-% normalize inputs75,2463
-  C 83,2711
-  kernel=84,2721
-  kerneloption=85,2739
-  verbose=86,2757
-  qpsize=87,2770
-  span 88,2784
-  an_svm 89,2824
-  an_svm.xsup xsup93,2998
-  an_svm.w w94,3020
-  an_svm.w0 w095,3036
-  an_svm.tps tps96,3054
-  an_svm.alpha alpha97,3074
-  an_svm.kernel kernel98,3098
-  an_svm.kerneloption kerneloption99,3124
-an_approx_db 107,3300
+% normalize inputs75,2461
+  C 83,2709
+  kernel=84,2719
+  kerneloption=85,2737
+  verbose=86,2755
+  qpsize=87,2768
+  span 88,2782
+  an_svm 89,2822
+  an_svm.xsup xsup93,2996
+  an_svm.w w94,3018
+  an_svm.w0 w095,3034
+  an_svm.tps tps96,3052
+  an_svm.alpha alpha97,3072
+  an_svm.kernel kernel98,3096
+  an_svm.kerneloption kerneloption99,3122
+an_approx_db 107,3298
 
 classes/@tests_db/princomp.m,99
 function a_pca_db 1,0
@@ -3715,16 +3752,16 @@ a_cluster_db 50,1563
 
 classes/@tests_db/plotUniquesStatsBars.m,244
 function a_bar_plot 1,0
-a_db 46,1607
-  stats_func 52,1758
-  stats_row 59,1881
-  sorted_unique_vals 66,2017
-  all_title 84,2549
-a_bar_plot 92,2707
-    pop_mean 102,3122
-  a_line_plot 106,3217
-  a_bar_plot 111,3459
-a_stats_db 130,4135
+a_db 46,1605
+  stats_func 52,1756
+  stats_row 59,1879
+  sorted_unique_vals 66,2015
+  all_title 84,2547
+a_bar_plot 92,2705
+    pop_mean 102,3120
+  a_line_plot 106,3215
+  a_bar_plot 111,3457
+a_stats_db 130,4133
 
 classes/@tests_db/vertcat.m,228
 function a_db 1,0
@@ -3845,23 +3882,23 @@ a_db 86,3035
 
 classes/@tests_db/plotImage.m,431
 function a_p 1,0
-verbose 36,1198
-a_db 47,1368
-col_names 50,1457
-par1_values 53,1504
-par2_values 54,1571
-image_data 60,1741
-data_label 62,1819
-  log_cov_data 66,1922
-  image_data 69,2071
-  data_label 70,2100
-all_title 79,2385
-axis_labels 81,2462
-plot_props 83,2513
-plot_props.XTickLabel XTickLabel85,2661
-plot_props.YTickLabel YTickLabel86,2698
-plot_props.truncateDecDigits truncateDecDigits87,2735
-a_p 93,2828
+verbose 36,1196
+a_db 47,1366
+col_names 50,1455
+par1_values 53,1502
+par2_values 54,1569
+image_data 60,1739
+data_label 62,1817
+  log_cov_data 66,1920
+  image_data 69,2069
+  data_label 70,2098
+all_title 79,2383
+axis_labels 81,2460
+plot_props 83,2511
+plot_props.XTickLabel XTickLabel85,2659
+plot_props.YTickLabel YTickLabel86,2696
+plot_props.truncateDecDigits truncateDecDigits87,2733
+a_p 93,2826
 
 classes/@plot_bars/set.m,119
 function b 1,0
@@ -3909,45 +3946,45 @@ doc_props 35,976
 
 classes/@doc_plot/plot_abstract.m,85
 function a_plot 1,0
-% If input is an array,40,1099
-a_plot 53,1508
-a_plot 61,1680
+% If input is an array,40,1097
+a_plot 53,1506
+a_plot 61,1678
 
 classes/@doc_plot/getTeXString.m,220
 function tex_string 1,0
-doc_dir 42,1434
-plot_dir 43,1482
-fig_num 48,1694
-filename 50,1718
-final_dir 53,1799
-a_doc.float_props.floatType floatType61,1971
-a_doc.float_props.label label62,2011
-tex_string 65,2096
+doc_dir 42,1432
+plot_dir 43,1480
+fig_num 48,1692
+filename 50,1716
+final_dir 53,1797
+a_doc.float_props.floatType floatType61,1969
+a_doc.float_props.label label62,2009
+tex_string 65,2094
 
 classes/@doc_plot/doc_plot.m,391
 function a_doc 1,0
 % See also: doc_generate,38,1442
-% Copyright 44,1591
-  a_doc.caption caption52,1946
-  a_doc.plot_filename plot_filename53,1968
-  a_doc.float_props float_props54,1996
-  a_doc 55,2030
-  a_doc 57,2131
-  a_doc.plot plot63,2214
-  a_doc.caption caption64,2237
-  a_doc.plot_filename plot_filename65,2264
-  a_doc.float_props float_props66,2303
-  a_doc 68,2339
+% Copyright 44,1589
+  a_doc.caption caption52,1944
+  a_doc.plot_filename plot_filename53,1966
+  a_doc.float_props float_props54,1994
+  a_doc 55,2028
+  a_doc 57,2129
+  a_doc.plot plot63,2212
+  a_doc.caption caption64,2235
+  a_doc.plot_filename plot_filename65,2262
+  a_doc.float_props float_props66,2301
+  a_doc 68,2337
 
 classes/@histogram_db/calcKLhist.m,179
 function kl_bits 1,0
-data 46,1557
-data2 47,1594
-% (PDF) and make zero bins small numbers 50,1703
-data2 52,1814
-kl_bits 55,1887
-      kl_bits 63,2073
-      kl_bits 65,2133
+data 46,1555
+data2 47,1592
+% (PDF) and make zero bins small numbers 50,1701
+data2 52,1812
+kl_bits 55,1885
+      kl_bits 63,2071
+      kl_bits 65,2131
 
 classes/@histogram_db/subsref.m,60
 function b 1,0
@@ -3960,12 +3997,12 @@ function 1,0
 
 classes/@histogram_db/calcKLmodel.m,132
 function 1,0
-data 40,1299
-bin_size 43,1381
-norm_data 47,1491
-%data_range data_range50,1548
-kl_bits 73,2217
-  a_plot 77,2339
+data 40,1297
+bin_size 43,1379
+norm_data 47,1489
+%data_range data_range50,1546
+kl_bits 73,2215
+  a_plot 77,2337
 
 classes/@histogram_db/plotPages.m,336
 function a_plot 1,0
@@ -4032,21 +4069,23 @@ function 1,0
 % Find heaviest bin31,847
 mode_val 35,927
 
-classes/@histogram_db/plotEqSpaced.m,371
+classes/@histogram_db/plotEqSpaced.m,410
 function a_plot 1,0
-% If input is an array,44,1239
-% First column is the variable,55,1526
-colnames 56,1582
-data 58,1633
-props(1).XTick XTick60,1665
-props(1).XTickLabel XTickLabel61,1706
-  hist_label 68,1924
-  y_label 74,2052
-  x_label 76,2082
-  y_label 77,2107
-  all_title 83,2255
-a_plot 87,2335
-		     properTeXLabel(colnames{1}), command, props)90,2484
+% If input is an array,46,1394
+% First column is the variable,57,1681
+colnames 58,1737
+data 60,1788
+all_vals 61,1819
+skip_x_num 63,1855
+props(1).XTick XTick70,2175
+props(1).XTickLabel XTickLabel71,2227
+  hist_label 78,2460
+  y_label 84,2588
+  x_label 86,2618
+  y_label 87,2643
+  all_title 93,2791
+a_plot 97,2871
+		     properTeXLabel(colnames{1}), command, props)100,3017
 
 classes/@model_ranked_to_physiol_bundle/plotfICurve.m,284
 function a_doc 1,0
@@ -4293,9 +4332,9 @@ function a_bundle 1,0
 
 classes/@model_ct_bundle/ctFromRows.m,105
 function a_cip_trace 1,0
-trial_num 39,1240
-props.neuronLabel neuronLabel40,1289
-a_cip_trace 42,1343
+trial_num 39,1245
+props.neuronLabel neuronLabel40,1294
+a_cip_trace 42,1348
 
 classes/@model_ct_bundle/addToDB.m,78
 function a_mbundle 1,0
@@ -4423,32 +4462,32 @@ function b 1,0
 
 classes/@sql_portal/tests_db.m,511
 function a_db 1,0
-verbose 37,1248
-conn 55,1573
-use_java_direct 56,1609
-  rs 67,2058
-  num_rows 74,2211
-  rsm 75,2236
-  num_cols 76,2261
-  max_read 89,2486
-  max_rows 90,2526
-  elseif strfind(102,2867
-    row_num 127,3444
-  col_names 130,3478
-  rsm 131,3496
-  % get the Java object directly,143,3704
-  %rs rs144,3761
-  new_data 151,3924
-% $$$     start_row 157,4091
-  % get names 165,4339
-  new_data 177,4746
-a_db 181,4821
-a_db = tests_db(new_data, col_names, {}, query_id, props)181,4821
+verbose 37,1246
+conn 55,1571
+use_java_direct 56,1607
+  rs 67,2056
+  num_rows 74,2209
+  rsm 75,2234
+  num_cols 76,2259
+  max_read 89,2484
+  max_rows 90,2524
+  elseif strfind(102,2865
+    row_num 127,3442
+  col_names 130,3476
+  rsm 131,3494
+  % get the Java object directly,143,3702
+  %rs rs144,3759
+  new_data 151,3922
+% $$$     start_row 157,4089
+  % get names 165,4337
+  new_data 177,4744
+a_db 181,4819
+a_db = tests_db(new_data, col_names, {}, query_id, props)181,4819
 
 classes/@sql_portal/sql_statement.m,62
 function response_str 1,0
-verbose 36,1237
-a_cursor 47,1396
+verbose 36,1235
+a_cursor 47,1394
 
 classes/@sql_portal/get.m,16
 function b 1,0
@@ -4456,26 +4495,26 @@ function b 1,0
 classes/@sql_portal/sql_table.m,277
 % See also: tests_db/tests_db,tests_db21,641
 % See also: tests_db/tests_db, database,21,641
-% Copyright 27,817
-verbose 37,1223
-col_names 44,1326
-query_string 47,1379
-comma_str 50,1439
-  query_string 54,1546
-  comma_str 56,1634
-query_string 59,1659
-a_cursor 67,1779
+% Copyright 27,815
+verbose 37,1221
+col_names 44,1324
+query_string 47,1377
+comma_str 50,1437
+  query_string 54,1544
+  comma_str 56,1632
+query_string 59,1657
+a_cursor 67,1777
 
 classes/@sql_portal/sql_portal.m,198
 function obj 1,0
-   obj.id id42,1308
-   obj.props props43,1324
-   obj 44,1351
-   obj 46,1441
-   obj.db_conn db_conn59,1648
-   obj.id id60,1674
-   obj.props props61,1690
-   obj 63,1713
+   obj.id id42,1306
+   obj.props props43,1322
+   obj 44,1349
+   obj 46,1439
+   obj.db_conn db_conn59,1646
+   obj.id id60,1672
+   obj.props props61,1688
+   obj 63,1711
 
 classes/@spike_shape/calcMaxVm.m,14
 function 1,0
@@ -5054,21 +5093,21 @@ a_plot 71,2231
 
 classes/@stats_db/plot_bars_ax.m,298
 function a_plot 1,0
-col_names 42,1215
-data 43,1285
-row_idx 44,1317
-num_cols 45,1355
-num_pages 46,1389
-mids 48,1425
-elseif isfield(52,1521
-  ns 74,2089
-plot_props.groupValues groupValues81,2189
-swaprowspages 84,2248
-mids 85,2273
-lows 86,2310
-highs 87,2347
-ns 88,2386
-a_plot 91,2452
+col_names 42,1213
+data 43,1283
+row_idx 44,1315
+num_cols 45,1353
+num_pages 46,1387
+mids 48,1423
+elseif isfield(52,1519
+  ns 74,2087
+plot_props.groupValues groupValues81,2187
+swaprowspages 84,2246
+mids 85,2271
+lows 86,2308
+highs 87,2345
+ns 88,2384
+a_plot 91,2450
 
 classes/@stats_db/stats_db.m,91
 function a_stats_db 1,0
@@ -5526,9 +5565,9 @@ param_names 34,901
 
 classes/@physiol_cip_traceset_fileset/neuronNameFromId.m,87
 function name_strs 1,0
-neuron_names 30,934
-% sort the ids32,982
-diffed_ids 36,1065
+neuron_names 30,932
+% sort the ids32,980
+diffed_ids 36,1063
 
 classes/@physiol_cip_traceset_fileset/set.m,70
 function a 1,0
@@ -5559,23 +5598,23 @@ rows 63,1976
 
 classes/@physiol_cip_traceset_fileset/physiol_bundle.m,43
 function a_pbundle 1,0
-a_pbundle 36,1060
+a_pbundle 36,1058
 
 classes/@physiol_cip_traceset_fileset/private/scanNeuronsTreats.m,268
 function 1,0
-  neuron_idx 29,865
-    neuron_id 33,969
-  all_treatments 35,994
-      neuron_idx.(a_ts{1}.neuron_id)neuron_id39,1155
-      neuron_id 40,1205
-    all_treatments 43,1271
-    all_treatments = mergeStructs(a_ts{1}.treatments, all_treatments)43,1271
+  neuron_idx 29,863
+    neuron_id 33,967
+  all_treatments 35,992
+      neuron_idx.(a_ts{1}.neuron_id)neuron_id39,1153
+      neuron_id 40,1203
+    all_treatments 43,1269
+    all_treatments = mergeStructs(a_ts{1}.treatments, all_treatments)43,1269
 
 classes/@physiol_cip_traceset_fileset/private/resetDefaultTreats.m,186
 function traceset_list 1,0
-  zero_treatments 26,857
-    traceset_list{ts_num}.treatments treatments29,1042
-                                 zero_treatments), all_treatments)31,1156
+  zero_treatments 26,855
+    traceset_list{ts_num}.treatments treatments29,1040
+                                 zero_treatments), all_treatments)31,1154
 
 classes/@physiol_cip_traceset_fileset/get.m,33
 function b 1,0
@@ -5636,23 +5675,23 @@ function a_cip_trace 1,0
 
 classes/@physiol_cip_traceset_fileset/mergeFilesets.m,325
 function 1,0
-list2 34,1120
-traceset_offset 37,1171
-a_fileset_neuronids 40,1224
-w_fileset_neuronids 41,1291
-w_fileset_neuronnames 42,1358
-neuron_id_offset 44,1417
-w_fileset.neuron_idx neuron_idx45,1493
-a_list 49,1648
-% find union of all treatments51,1683
-a_fileset 55,1845
-a_fileset.neuron_idx neuron_idx58,1945
+list2 34,1118
+traceset_offset 37,1169
+a_fileset_neuronids 40,1222
+w_fileset_neuronids 41,1289
+w_fileset_neuronnames 42,1356
+neuron_id_offset 44,1415
+w_fileset.neuron_idx neuron_idx45,1491
+a_list 49,1646
+% find union of all treatments51,1681
+a_fileset 55,1843
+a_fileset.neuron_idx neuron_idx58,1943
 
 classes/@physiol_cip_traceset_fileset/vertcat.m,79
 function obj 1,0
-list2 33,969
-obj 34,996
-obj.neuron_idx neuron_idx37,1065
+list2 33,967
+obj 34,994
+obj.neuron_idx neuron_idx37,1063
 
 classes/@physiol_cip_traceset_fileset/setProp.m,85
 function obj 1,0
@@ -6249,14 +6288,14 @@ num_tracesets 43,1429
 
 classes/@physiol_bundle/mergeBundles.m,193
 function p_bundle 1,0
-% - count tracesets,37,974
-% - count neuronids,38,1034
-p_bundle 45,1320
-p_bundle 51,1493
-p_bundle 54,1610
-p_bundle 57,1748
-  function a_db 63,1946
-  a_db 74,2303
+% - count tracesets,37,972
+% - count neuronids,38,1032
+p_bundle 45,1318
+p_bundle 51,1491
+p_bundle 54,1608
+p_bundle 57,1746
+  function a_db 63,1944
+  a_db 74,2301
 
 classes/@physiol_bundle/set.m,64
 function a 1,0
@@ -6273,43 +6312,43 @@ function a_bundle 1,0
 
 classes/@physiol_bundle/private/addPostDBColumns.m,998
 function an_addedcols_db 1,0
-  min_name 23,571
-  tau_name 24,599
-  spontavg_name 25,627
-  spontisi_name 26,663
-  cip_levels 27,705
-  sagdiv_name 28,743
-  inputres_name 29,780
-  inputcap_name 30,814
-  recfirstisi_name 31,846
-  inirec_isiratio_name 32,887
-  recini_rateratio_name 33,930
-  sfa_rateratio_name 34,980
-  pulse_inirate_name 35,1020
-  pulse_lastrate_name 36,1074
-  sag_name 38,1139
-  min_name 39,1174
-  tau_name 40,1209
-  spontavg_name 48,1414
-  spontisi_name 49,1467
-  cip_levels 50,1527
-  sagdiv_name 51,1576
-  inputres_name 52,1620
-  inputcap_name 53,1658
-  recfirstisi_name 54,1694
-  inirec_isiratio_name 55,1742
-  recini_rateratio_name 56,1792
-  recini_drateratio_name 57,1849
-  sfa_rateratio_name 58,1907
-  pulse_inirate_name 59,1954
-  pulse_lastrate_name 60,2013
-input_res 64,2109
-an_addedcols_db 66,2192
-% Maybe add this one,75,2627
-% Maybe add this one, too,75,2627
-  spont_amp_data 78,2811
-  spont_pot_data 79,2900
-  an_addedcols_db 80,2980
+  min_name 23,569
+  tau_name 24,597
+  spontavg_name 25,625
+  spontisi_name 26,661
+  cip_levels 27,703
+  sagdiv_name 28,741
+  inputres_name 29,778
+  inputcap_name 30,812
+  recfirstisi_name 31,844
+  inirec_isiratio_name 32,885
+  recini_rateratio_name 33,928
+  sfa_rateratio_name 34,978
+  pulse_inirate_name 35,1018
+  pulse_lastrate_name 36,1072
+  sag_name 38,1137
+  min_name 39,1172
+  tau_name 40,1207
+  spontavg_name 48,1412
+  spontisi_name 49,1465
+  cip_levels 50,1525
+  sagdiv_name 51,1574
+  inputres_name 52,1618
+  inputcap_name 53,1656
+  recfirstisi_name 54,1692
+  inirec_isiratio_name 55,1740
+  recini_rateratio_name 56,1790
+  recini_drateratio_name 57,1847
+  sfa_rateratio_name 58,1905
+  pulse_inirate_name 59,1952
+  pulse_lastrate_name 60,2011
+input_res 64,2107
+an_addedcols_db 66,2190
+% Maybe add this one,75,2625
+% Maybe add this one, too,75,2625
+  spont_amp_data 78,2809
+  spont_pot_data 79,2898
+  an_addedcols_db 80,2978
 
 classes/@physiol_bundle/private/item2TracesetIndex.m,80
 function traceset_index 1,0
@@ -6557,25 +6596,25 @@ function a_doc 1,0
   a_doc 60,1868
 
 functions/gettracelist2.m,301
-% gettracelist2 - Gets a list of the form: '1 3 7-10' and returns a column vector with the traces numbers,2,2
-	tidx 17,496
-	rgs 19,531
-	nrgs 21,564
-	traces 27,670
-	ntrs 29,705
-	ridx 35,805
-        	range 42,997
-	clear tidx ntrs ridx nrgs rgs range trls;48,1186
-ntrs 50,1236
-ntraces 51,1258
+% gettracelist2 - Gets a list of the form: '1 3 7-10' and returns a column vector with the traces numbers,2,1
+	tidx 17,480
+	rgs 19,513
+	nrgs 21,544
+	traces 27,644
+	ntrs 29,677
+	ridx 35,771
+        	range 42,956
+	clear tidx ntrs ridx nrgs rgs range trls;48,1139
+ntrs 50,1187
+ntraces 51,1208
 
 functions/diff2T.m,92
 function deriv2 1,0
-  x 36,1114
-x16 42,1160
-x30 43,1174
-deriv2 45,1189
-deriv2 50,1362
+  x 36,1112
+x16 42,1158
+x30 43,1172
+deriv2 45,1187
+deriv2 50,1360
 
 functions/readNeuronVecAscii.m,112
 function 1,0
@@ -6587,18 +6626,18 @@ function 1,0
 
 functions/balanceInputProbs.m,294
 function 1,0
-verbose 41,1654
-% find uniques in the output classifier47,1739
-num_in_class 55,1960
-num_classes 56,2030
-  num_samples 63,2314
-class_probs 67,2409
-base 68,2446
-count_in_class 83,2871
-new_inputs 84,2910
-new_outputs 85,2974
-  chosen_class 88,3114
-  sample_offset 89,3148
+verbose 41,1652
+% find uniques in the output classifier47,1737
+num_in_class 55,1958
+num_classes 56,2028
+  num_samples 63,2312
+class_probs 67,2407
+base 68,2444
+count_in_class 83,2869
+new_inputs 84,2908
+new_outputs 85,2972
+  chosen_class 88,3112
+  sample_offset 89,3146
 
 functions/readNeuronVecBin.m,123
     errmsg 22,721
@@ -6611,48 +6650,48 @@ functions/readNeuronVecBin.m,123
 
 functions/logLevels.m,91
 function levels 1,0
-  b 29,924
-a 31,937
-min_pow 33,968
-max_pow 34,996
-levels 36,1025
+  b 29,922
+a 31,935
+min_pow 33,966
+max_pow 34,994
+levels 36,1023
 
 functions/string2File.m,79
 %	  append: If 14,307
-% Copyright 23,505
-    write_mode 37,951
-  fp 39,979
+% Copyright 23,503
+    write_mode 37,949
+  fp 39,977
 
 functions/properTeXFilename.m,149
 function filename 1,0
-%filename filename31,957
-%filename filename32,997
-filename 33,1037
-filename 34,1076
-filename 35,1116
-filename 36,1155
+%filename filename31,955
+%filename filename32,995
+filename 33,1035
+filename 34,1074
+filename 35,1114
+filename 36,1153
 
 functions/abf2load.m,14
 function 1,0
 
 functions/maxima.m,66
 function x_idx 1,0
-dxflip 32,851
-%dx2 dx234,889
-x_idx 36,926
+dxflip 32,849
+%dx2 dx234,887
+x_idx 36,924
 
 functions/calcGraphNormPtsRatio.m,224
 function 1,0
-% Copyright 26,881
-      width 36,1286
-      height 37,1316
-      width 41,1410
-      height 42,1427
-old_units 49,1583
-axis_pos_pt 51,1659
-axis_width_pt 52,1703
-axis_height_pt 53,1735
-ratio_y 58,1874
+% Copyright 26,879
+      width 36,1284
+      height 37,1314
+      width 41,1408
+      height 42,1425
+old_units 49,1581
+axis_pos_pt 51,1657
+axis_width_pt 52,1701
+axis_height_pt 53,1733
+ratio_y 58,1872
 
 functions/sortedUniqueValues.m,109
 function 1,0
@@ -6664,15 +6703,15 @@ function 1,0
 
 functions/cell2TeX.m,256
 function tex_string 1,0
-% TODO: get column formatting in props,36,1045
-col_align = {'|c'};37,1122
-col_align 38,1142
-tex_string 39,1199
-	add_string 50,1526
-    elseif isempty(52,1601
-    row_string 66,2088
-  tex_string 71,2217
-tex_string 76,2392
+% TODO: get column formatting in props,36,1043
+col_align = {'|c'};37,1120
+col_align 38,1140
+tex_string 39,1197
+	add_string 50,1524
+    elseif isempty(52,1599
+    row_string 66,2086
+  tex_string 71,2215
+tex_string 76,2390
 
 functions/findspikes_old.m,72
     peaksv 22,880
@@ -6685,30 +6724,17 @@ function names_vals 1,0
 functions/trace2cc.m,269
 function a_cc 1,0
 % See also: plotXPPparamRanges,35,1458
-% Copyright 41,1618
-  num_vals 54,2124
-    num_vals 57,2240
-  cip_vals 59,2292
-num_traces 62,2341
-num_allpts 63,2372
-num_onepts 64,2405
-data 73,2653
-I_hold 75,2705
-current_steps 77,2761
-a_cc 82,2962
-
-functions/TeXtable.m,301
-function tex_string 1,0
-% See also: cell2TeX,32,1016
-% v. 3.0. To view a copy of this license,39,1300
-float_type 49,1556
-tex_string 54,1646
-  resize 64,1936
-elseif isfield(props, 'height') && ~ strcmp(65,1950
-  is_rotate 76,2267
-tex_string 80,2309
-short_caption 93,2491
-tex_string 105,2847
+% Copyright 41,1616
+  num_vals 54,2122
+    num_vals 57,2238
+  cip_vals 59,2290
+num_traces 62,2339
+num_allpts 63,2370
+num_onepts 64,2403
+data 73,2651
+I_hold 75,2703
+current_steps 77,2759
+a_cc 82,2960
 
 functions/chanTables2DB.m,388
 function a_chans_db 1,0
@@ -6730,15 +6756,15 @@ a_chans_db = chans_db(a_db, {}, channel_info, id, props)58,1595
 
 functions/cell2str.m,115
 function a_str 1,0
-a_str 32,817
-	add_string 43,1083
-    elseif isempty(45,1158
-  a_str 57,1496
-a_str 59,1546
+a_str 32,815
+	add_string 43,1081
+    elseif isempty(45,1156
+  a_str 57,1494
+a_str 59,1544
 
 functions/fillederrorbar.m,36
 function handles 1,0
-pairs 29,737
+pairs 29,735
 
 functions/defaultValue.m,92
 function value 1,0
@@ -6755,38 +6781,38 @@ functions/loadVclampAbf.m,486
 function 1,0
 % See also: abf2load,32,1106
 % See also: abf2load, plotVclampAbf,32,1106
-  props 42,1356
-  % extract cell name from file44,1400
-  fid 48,1506
-    curdir 54,1648
-    filename 63,1872
-    fid 66,1946
-  % extract cell name from file73,2037
-  % read ABF file76,2121
-  dt 81,2246
-  time 84,2288
-    v_scale 97,2693
-  chan_i 105,2881
-  i_scale 106,2925
-    i_scale 110,3010
-      data_i 123,3337
-      data_i = squeeze(data(:,2));      % as TTL pulse 123,3337
+  props 42,1357
+  % extract cell name from file44,1401
+  fid 48,1507
+    curdir 54,1649
+    filename 63,1873
+    fid 66,1947
+  % extract cell name from file73,2038
+  % read ABF file76,2122
+  dt 81,2247
+  time 84,2289
+    v_scale 97,2694
+  chan_i 105,2882
+  i_scale 106,2926
+    i_scale 110,3011
+      data_i 123,3338
+      data_i = squeeze(data(:,2));      % as TTL pulse 123,3338
 
 functions/diff3T_h4.m,78
 function deriv2 1,0
-  x 34,1038
-x2 39,1083
-deriv2 41,1096
-deriv2 46,1253
+  x 34,1036
+x2 39,1081
+deriv2 41,1094
+deriv2 46,1251
 
 functions/findVectorInMatrix.m,18
 function idx 1,0
 
 functions/struct2DB.m,106
 function a_tests_db 1,0
-field_names 39,1013
-cell_data 40,1049
-if size(cell_data{1}, 1) > size(41,1084
+field_names 39,1011
+cell_data 40,1047
+if size(cell_data{1}, 1) > size(41,1082
 
 functions/collectspikes.m,253
 function 1,0
@@ -7191,11 +7217,11 @@ end;1062,43108
 
 functions/diff3T.m,91
 function deriv3 1,0
-  x 36,1138
-x8 41,1183
-x13 42,1195
-deriv3 44,1210
-deriv3 50,1446
+  x 36,1136
+x8 41,1181
+x13 42,1193
+deriv3 44,1208
+deriv3 50,1444
 
 functions/readgenbin.m,427
 function 1,0
@@ -7302,26 +7328,38 @@ function value=1,0
 
 functions/setAxisNonNaN.m,45
 function new_axis 1,0
-  % Skip NaNs,32,886
+  % Skip NaNs,32,884
+
+functions/TeXfloat.m,301
+function tex_string 1,0
+% See also: cell2TeX,32,1016
+% v. 3.0. To view a copy of this license,39,1298
+float_type 49,1554
+tex_string 54,1644
+  resize 64,1934
+elseif isfield(props, 'height') && ~ strcmp(65,1948
+  is_rotate 76,2265
+tex_string 80,2307
+short_caption 93,2489
+tex_string 105,2845
 
 functions/properAlphaNum.m,39
 function a_label 1,0
 a_label 35,1009
 
-functions/makeIdx.m,78
+functions/makeIdx.m,18
 function idx 1,0
-  idx = setfield(idx, strrep(names{i}, '-', '_'), i)32,785
 
 functions/mergeStructsRecursive.m,299
 function results 1,0
-fieldcell 35,1198
-    fields 40,1269
-              mergeStructsRecursive(left_struct, getfield(varargin{k}, fieldcell{fieldcell48,1589
-    % find new fields on right-hand-side argument52,1714
-    fieldcell 55,1857
-    val 56,1904
-    valcell 57,1940
-  results 65,2076
+fieldcell 35,1196
+    fields 40,1267
+              mergeStructsRecursive(left_struct, getfield(varargin{k}, fieldcell{fieldcell48,1587
+    % find new fields on right-hand-side argument52,1712
+    fieldcell 55,1855
+    val 56,1902
+    valcell 57,1938
+  results 65,2074
 
 functions/colormapBlueCrossRed.m,171
 function colors 1,0
@@ -7336,16 +7374,16 @@ colors 53,1732
 
 functions/diff2T_h4.m,66
 function deriv2 1,0
-  x 34,1003
-deriv2 39,1048
-deriv2 44,1194
+  x 34,1001
+deriv2 39,1046
+deriv2 44,1192
 
 functions/interpValByIndex.m,73
 function val 1,0
 % ans 18,434
-ci 36,996
-  val 41,1064
-  val 43,1123
+ci 36,994
+  val 41,1062
+  val 43,1121
 
 functions/struct2str.m,68
 function a_str 1,0
@@ -7355,10 +7393,10 @@ names 29,869
 
 functions/diffT.m,75
 function deriv 1,0
-  x 36,1055
-x8 41,1100
-deriv 43,1113
-deriv 48,1255
+  x 36,1053
+x8 41,1098
+deriv 43,1111
+deriv 48,1253
 
 functions/meanSpikeFreq.m,38
 function meanFreq 1,0
@@ -7385,10 +7423,10 @@ function val 97,3178
 
 functions/subTextLabel.m,93
 function handle 1,0
-handle 34,900
-prop_names 36,932
-num_props 37,964
-  prop_val 43,1100
+handle 34,898
+prop_names 36,930
+num_props 37,962
+  prop_val 43,1098
 
 functions/ns_CIPlist.m,440
 function cipList 1,0
@@ -7412,53 +7450,53 @@ cipList=64,2104
 
 functions/ns_load_tracesets.m,1398
 function 1,0
-% Author: Li, Su; Cengiz Gunay <cgunay@emory.edu>; and Jeremy Edgerton,47,2116
-% Modified: Li,49,2201
-% Modified: Li, Su 3/25/08 add IncludeSeq,49,2201
-% Modified: Li, Su 3/25/08 add IncludeSeq, ExcludeSeq,49,2201
-% Modified: Li, Su 3/25/08 add IncludeSeq, ExcludeSeq, VGain,49,2201
-% Copyright 51,2271
-  verbose 61,2691
-  n 67,2784
-  a_tss 68,2843
-  h5_infos 69,2857
-        a_tss 81,3319
-        h5_infos 82,3352
-    filename 86,3428
-          ns_load_tracesets(data_src{k}, props)92,3598
-      a_tss 93,3647
-      h5_infos 94,3678
-    filename 99,3828
-  end103,3990
-  h5_infos{h5_infos106,4040
-  idx 126,4968
-      idx 128,5041
-  excl=134,5221
-  not_idx 135,5282
-      not_idx 137,5358
-      trials 147,5654
-      atts 153,5816
-              Vm_chan 161,6071
-              Vm_chan 162,6150
-        Vm_chan 165,6240
-        Vm_chan 167,6330
-      neuron_id 172,6515
-          Vm_dy 176,6671
-          Vm_dy 178,6713
-      Vm_dt 188,7103
-      Vm_dt = 1/first_trial.AcquisitionData{Vm_chan}.SamplingRate;SamplingRate188,7103
-            Im_chan 195,7335
-            Im_chan 196,7412
-        Im_chan 199,7500
-        Im_chan 201,7590
-        default_attr 212,7902
-        fields 222,8164
-      atts=250,9104
-      n=261,9518
-  function chan_num 278,10082
-  function treats 290,10557
-      found_name 293,10695
-        treats 299,10962
+% Author: Li, Su; Cengiz Gunay <cgunay@emory.edu>; and Jeremy Edgerton,47,2114
+% Modified: Li,49,2199
+% Modified: Li, Su 3/25/08 add IncludeSeq,49,2199
+% Modified: Li, Su 3/25/08 add IncludeSeq, ExcludeSeq,49,2199
+% Modified: Li, Su 3/25/08 add IncludeSeq, ExcludeSeq, VGain,49,2199
+% Copyright 51,2269
+  verbose 61,2689
+  n 67,2782
+  a_tss 68,2841
+  h5_infos 69,2855
+        a_tss 81,3317
+        h5_infos 82,3350
+    filename 86,3426
+          ns_load_tracesets(data_src{k}, props)92,3596
+      a_tss 93,3645
+      h5_infos 94,3676
+    filename 99,3826
+  end103,3988
+  h5_infos{h5_infos106,4038
+  idx 126,4966
+      idx 128,5039
+  excl=134,5219
+  not_idx 135,5280
+      not_idx 137,5356
+      trials 147,5652
+      atts 153,5814
+              Vm_chan 161,6069
+              Vm_chan 162,6148
+        Vm_chan 165,6238
+        Vm_chan 167,6328
+      neuron_id 172,6513
+          Vm_dy 176,6669
+          Vm_dy 178,6711
+      Vm_dt 188,7101
+      Vm_dt = 1/first_trial.AcquisitionData{Vm_chan}.SamplingRate;SamplingRate188,7101
+            Im_chan 195,7333
+            Im_chan 196,7410
+        Im_chan 199,7498
+        Im_chan 201,7588
+        default_attr 212,7900
+        fields 222,8162
+      atts=250,9102
+      n=261,9516
+  function chan_num 278,10080
+  function treats 290,10555
+      found_name 293,10693
+        treats 299,10960
 
 functions/boxutilp.m,503
 function outlier=1,0
@@ -7493,12 +7531,12 @@ if isfield(props, 'nooutliers'), xx = []; yy 83,1937
 
 functions/mergeStructs.m,140
 function results 1,0
-fieldcell 32,995
-    fields 37,1066
-    fieldcell 39,1157
-    val 40,1204
-    valcell 41,1240
-  results 49,1376
+fieldcell 32,993
+    fields 37,1064
+    fieldcell 39,1155
+    val 40,1202
+    valcell 41,1238
+  results 49,1374
 
 functions/prefixStruct.m,25
 function new_struct 1,0
@@ -7596,10 +7634,10 @@ thres=177,6226
 trace=178,6249
 
 examples/probe_load.m,92
-    a_spikes 7,250
-    a_trace 10,332
-    a_spikes 12,461
-end13,494
-  test_data38,1306
+    a_spikes 7,244
+    a_trace 10,323
+    a_spikes 12,450
+end13,482
+  test_data38,1269
 
 classes/Contents.m,0

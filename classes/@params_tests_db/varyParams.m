@@ -24,10 +24,10 @@ function a_params_db = varyParams(a_db, params, levels, props)
 %   Produces new rows by either multiplying or replacing the desired params
 % with each value in levels. Thus, the newly created parameter db will be
 % size of levels times bigger. Columns other than parameers will be
-% pruned. Then, makeGenesisParFile can be used to generate a parameter file
+% pruned. Then, writeParFile can be used to generate a parameter file
 % from this DB to drive new simulations.
 %
-% See also: makeGenesisParFile, ranked_db/blockedDistances, getParamRowIndices
+% See also: writeParFile, ranked_db/blockedDistances, getParamRowIndices
 %
 % $Id$
 %

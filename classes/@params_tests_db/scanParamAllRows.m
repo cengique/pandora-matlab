@@ -9,7 +9,7 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 %   Produces rows by replacing the desired parameter value, in all rows of DB, 
 % with num_levels values between the given boundaries, min_val and max_val. 
 % This results in a DB with num_levels times more rows than the original DB. 
-% Then, makeGenesisParFile can be used to generate a parameter file from 
+% Then, writeParFile can be used to generate a parameter file from 
 % this DB to drive new simulations.
 %
 %   Parameters:
@@ -29,7 +29,7 @@ function a_params_db = scanParamAllRows(a_db, param, min_val, max_val, num_level
 % Sets NaF to given range with 100 levels:
 % >> naf_rows_db = scanParamAllRows(a_db(desired_rows, :), 'NaF', 0, 1000, 100);
 %
-% See also: makeGenesisParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices, logLevels
+% See also: writeParFile, scaleParamsOneRow, ranked_db/blockedDistances, getParamRowIndices, logLevels
 %
 % $Id$
 %

@@ -1,44 +1,47 @@
-function makeGenesisParFile(a_db, filename, props)
+function writeParFile(a_db, filename, props)
 
-% makeGenesisParFile - Creates a Genesis parameter file with all the parameter values in a_db.
+% writeParFile - Creates a text file with all the parameter values in a_db.
 %
 % Usage:
-% makeGenesisParFile(a_db, filename, props)
+% writeParFile(a_db, filename, props)
 %
-% Description:
-%   For each a_db row, print the parameter names in a
-% file formatted for Genesis.
-%
-%   Parameters:
-%	a_db: A params_tests_db object.
-%	filename: Genesis parameter file to be created.
-%	props: A structure with any optional properties.
-%	  trialStart: If given, adds/replaces the trial parameter and counts forward.
-%	  makeParamDesc: If 1, put the parameter names in a parameter description file with
+% Parameters:
+%   a_db: A params_tests_db object.
+%   filename: Genesis parameter file to be created.
+%   props: A structure with any optional properties.
+%     trialStart: If given, adds/replaces the trial parameter and counts forward.
+%     makeParamDesc: If 1, put the parameter names in a parameter description file with
 %	  	 with a .txt extension.
 %
-%   Returns:
-%	nothing.
+% Returns:
+%   nothing.
 %
-%   Example:
+% Example:
 %>> naf_rows_db = scanParamAllRows(a_db(desired_rows, :), 'NaF', 0, 1000, 100);
-%>> makeGenesisParFile(naf_rows_db, 'naf.par')
+%>> writeParFile(naf_rows_db, 'naf.par')
 %
-% See also: scanParamAllRows, scaleParamsOneRow
+% Description:
+%   Creates a text file that has a set of parameter values for each row. The
+% first line is a header that contains number of parameters and total
+% rows. Optionally, a parameter description file can be made that contains
+% the parameter names. These files can be processed with various utilities
+% to control simulations.
+%
+% See also: scanParamAllRows, scaleParamsOneRow, https://github.com/cengique/param-search-neuro
 %
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/03/13
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
 % TODO: 
-% - rename to makeParamFile
 % - read paramRanges.txt to verify parameter sequence
+% - don't overwrite file unless forced
 
 if ~exist('props', 'var')
   props = struct;
