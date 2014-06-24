@@ -42,6 +42,7 @@ function writeParFile(a_db, filename, props)
 
 % TODO: 
 % - read paramRanges.txt to verify parameter sequence
+% - run par2db optionally
 
 if ~exist('props', 'var')
   props = struct;
