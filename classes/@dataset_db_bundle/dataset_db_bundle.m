@@ -5,11 +5,13 @@ function a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 % Usage:
 % a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 %
-%   Parameters:
-%	a_dataset: A params_tests_dataset object or a subclass.
-%	a_db: The raw tests_db object (or a subclass) created from the dataset.
-%	a_joined_db: The processed DB created from the raw DB.
-%	props: A structure with any optional properties.
+% Parameters:
+%   a_dataset: A params_tests_dataset object or a subclass.
+%   a_db: The raw tests_db object (or a subclass) created from the dataset.
+%   a_joined_db: The processed DB created from the raw DB.
+%   props: A structure with any optional properties.
+%     joinDBfunc: A function(a_db) to be called that can generate
+%     		a_joined_db from it.
 %		
 % Description:
 %   This class is made to enable operations that require seamless connection between 
