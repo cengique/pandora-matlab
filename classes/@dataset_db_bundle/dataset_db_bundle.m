@@ -14,11 +14,17 @@ function a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 %     		a_joined_db from it.
 %		
 % Description:
-%   This class is made to enable operations that require seamless connection between 
-% the high-level DB and the raw data. The raw DB is only required to bridge the gap 
-% between the high-level DB and the dataset. Therefore it only needs to contain 
-% columns necessary to make this connection. It is not required to include all 
-% raw DB columns, which is inefficient.
+%   This class is made to enable operations that require seamless connection
+% between the high-level (joined) DB and the raw data. The raw DB is only
+% required to make a connection to the dataset. Therefore it only needs to
+% contain columns necessary to make this connection (e.g., ItemIndex) and
+% other columns can be discarded to save space. The raw DB corresponds
+% row-to-row to the dataset. The joined DB is a higher-level database where
+% multiple rows from the raw DB is combined into single rows that represent
+% entities (trials, neurons, etc). This is achieved with a function like
+% mergePages or mergeMultipleCIPsInOne. There may be several steps for this
+% process, which can be specified as a function handle in the joinDBfunc
+% property.
 %
 % Returns a structure object with the following fields:
 %	dataset, db, joined_db, props.
