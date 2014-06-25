@@ -44,7 +44,7 @@ col_names = getColNames(a_param_row_db);
 % TODO: recurse for >1 rows
 assert(dbsize(a_param_row_db, 1) == 1, 'Only 1 row is supported.');
 
-new_trial = max(dataset_db(:, 'trial')).data + 1;
+new_trial = get(max(dataset_db(:, 'trial')), 'data') + 1;
 
 % add new params to param file
 writeParFile(a_param_row_db, a_dataset.props.param_row_filename, ...
@@ -62,18 +62,21 @@ end
 feval(props.simFunc, a_param_row_db);
 
 % find files with the new trial number
-files = dir([a_dataset.path filesep '*_' new_trial '_*' ]);
+files = dir([a_dataset.path filesep '*_' num2str(new_trial) '.*' ]);
 num_files = length(files);
+assert(num_files > 0, ...
+       'Simulation resulted in no new files with trial %d!', ...
+       new_trial);
 
 % add filenames and new params to dataset
 a_dataset.list = [ a_dataset.list {files.name} ];
 a_dataset.props.param_rows = ...
     [ a_dataset.props.param_rows; ...
-      a_param_row_db(1, 1:a_param_row_db.num_params) ];
+      get(a_param_row_db(1, 1:a_param_row_db.num_params), 'data') ];
 
 % each file is an item, get profiles and update bundle
-a_new_db = 
-    params_tests_db(a_dataset, length(a_dataset.list) + (1:num_files));
+a_new_db = ...
+    params_tests_db(a_dataset, length(a_dataset.list) - num_files + (1:num_files));
 a_new_joined_db = ...
     feval(a_bundle.props.joinDBfunc, a_new_db);
     
@@ -83,5 +86,3 @@ joined_db = [ joined_db; a_new_joined_db ];
 a_bundle.dataset = a_dataset;
 a_bundle.db = dataset_db;
 a_bundle.joined_db = joined_db;
-
-% TODO: how to update joined_db?
