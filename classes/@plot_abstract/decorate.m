@@ -1,17 +1,19 @@
-function handles = decorate(a_plot)
+function handles = decorate(a_plot, plot_handles)
 
 % decorate - Places decorations (titles, labels, ticks, etc.) on the plot.
 %
 % Usage:
-% handles = decorate(a_plot)
+% handles = decorate(a_plot, plot_handles)
+%
+% Parameters:
+%   a_plot: A plot_abstract object, or a subclass object.
+%   plot_handles: Handles of plots already drawn (structure returned by
+%   	plot_abstract/plot). 
+%		
+% Returns:
+%   handles: Structure with handles of all graphical objects drawn.
 %
 % Description:
-%
-%   Parameters:
-%	a_plot: A plot_abstract object, or a subclass object.
-%		
-%   Returns:
-%	handles: Handles of graphical objects drawn.
 %
 % See also: plot_abstract, plot_abstract/plot
 %
@@ -29,6 +31,8 @@ function handles = decorate(a_plot)
 th = [];
 xh = [];
 yh = [];
+
+plot_handles = defaultValue('plot_handles', []);
 
 % Do this first, since it affects axis limits
 if isfield(a_plot.props, 'axisLimits')
@@ -130,13 +134,12 @@ if (length(a_plot.legend) > 1 && ...
     (~isfield(a_plot.props, 'noLegends') || a_plot.props.noLegends == 0))
 
   % only keep children who has legend entries
-  child_handles = get(gca, 'Children');
   legend_handles = [];
   legend_opts = {};
-  for child_num = 1:length(child_handles)
+  for child_num = 1:length(plot_handles)
     if ~isempty(a_plot.legend{child_num})
       legend_opts = [ legend_opts {a_plot.legend{child_num}} ];
-      legend_handles = [ legend_handles, child_handles(child_num) ];
+      legend_handles = [ legend_handles, plot_handles(child_num).plot ];
     end
   end
   legend_opts = [ {legend_handles}, legend_opts ];
@@ -159,4 +162,5 @@ if isfield(a_plot.props, 'axisProps')
   set(gca, a_plot.props.axisProps);
 end
 
-handles = struct('title', th, 'axis_labels', [xh, yh], 'legend', lh);
+handles = struct('title', th, 'axis_labels', [xh, yh], 'legend', lh, ...
+                 'plot', plot_handles);

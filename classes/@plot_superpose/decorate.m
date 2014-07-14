@@ -1,17 +1,19 @@
-function handles = decorate(a_plot)
+function handles = decorate(a_plot, plot_handles)
 
 % decorate - Places decorations using the first plot of the superposed plots.
 %
 % Usage:
-% handles = decorate(a_plot)
+% handles = decorate(a_plot, plot_handles)
+%
+% Parameters:
+%   a_plot: A plot_abstract object, or a subclass object.
+%   plot_handles: Handles of plots already drawn (structure returned by
+%   	plot_superpose/plot). 
+%		
+% Returns:
+%   handles: Handles of graphical objects drawn.
 %
 % Description:
-%
-%   Parameters:
-%	a_plot: A plot_abstract object, or a subclass object.
-%		
-%   Returns:
-%	handles: Handles of graphical objects drawn.
 %
 % See also: plot_abstract, plot_abstract/plot
 %
@@ -29,4 +31,4 @@ function handles = decorate(a_plot)
 to_plot = set(a_plot, 'props', ...
 	      mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
 
-handles = decorate(to_plot.plot_abstract);
+handles = decorate(to_plot.plot_abstract, plot_handles);

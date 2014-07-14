@@ -1,9 +1,9 @@
-function handle = plotFigure(a_plot, title_str, props)
+function [handle, plot_handles] = plotFigure(a_plot, title_str, props)
 
 % plotFigure - Draws this plot alone in a new figure window.
 %
 % Usage:
-% handle = plotFigure(a_plot)
+% [handle, plot_handles] = plotFigure(a_plot)
 %
 % Description:
 %
@@ -13,8 +13,9 @@ function handle = plotFigure(a_plot, title_str, props)
 %   props: A structure with any optional properties.
 %     figureHandle: Use this figure instead of opening a new one.
 %		
-%   Returns:
-%	handle: Handle of new figure.
+% Returns:
+%   handle: Handle of new figure.
+%   plot_handles: Structure with all plotted data and decorations.
 %
 % See also: plot_abstract, plot_abstract/plot, plot_abstract/decorate
 %
@@ -22,7 +23,7 @@ function handle = plotFigure(a_plot, title_str, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -96,8 +97,8 @@ else
     set(handle, 'PaperPositionMode', 'auto');
   end
 
-  plot(a_plot);
-  decorate(a_plot);
+  plot_handles = plot(a_plot);
+  plot_handles = decorate(a_plot, plot_handles);
   
   % set the colormap for the figure
   if isfield(props, 'colormap')
