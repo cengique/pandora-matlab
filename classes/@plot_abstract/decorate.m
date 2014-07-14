@@ -128,7 +128,18 @@ end
 % Only put legend when there is more than one trace
 if (length(a_plot.legend) > 1 && ...
     (~isfield(a_plot.props, 'noLegends') || a_plot.props.noLegends == 0))
-  legend_opts = { a_plot.legend };
+
+  % only keep children who has legend entries
+  child_handles = get(gca, 'Children');
+  legend_handles = [];
+  legend_opts = {};
+  for child_num = 1:length(child_handles)
+    if ~isempty(a_plot.legend{child_num})
+      legend_opts = [ legend_opts {a_plot.legend{child_num}} ];
+      legend_handles = [ legend_handles, child_handles(child_num) ];
+    end
+  end
+  legend_opts = [ {legend_handles}, legend_opts ];
 
   if isfield(a_plot.props, 'legendLocation')
     legend_opts = {legend_opts{:}, 'Location', a_plot.props.legendLocation};
