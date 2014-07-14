@@ -13,10 +13,12 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 %   id: An identifying string.
 %   props: A structure with any optional properties.
 %     textDelim: Delimiter in text file to be used by dlmread (Default:
-%     		',' for CSV). Use '' for all whitespace.
+%  	',' for CSV). Use '' for all whitespace, '\t' for tabs.
 %     csvArgs: Cell array of arguments passed to dlmread function (e.g.,
-%     	{R, C, [r1 c1 r2 c2]}).
-%     csvReadColNames: If 1, first row of the file is used to read column names.
+%     	{R, C, [r1 c1 r2 c2]}) for (R)ow and (C)olumn offset/range to read.
+%     csvReadColNames: If 1, first row of the file or at the given offset
+%     	(see csvArgs) is used to read column names. Double quotes must be
+%     	used consistently.
 %     paramDescFile: Load parameter names from file (one line per name).
 %		
 % Returns a structure object with the following fields:
@@ -71,13 +73,13 @@ function obj = tests_db(test_results, col_names, row_names, id, props)
 % Additional methods:
 %	See methods('tests_db')
 %
-% See also: params_tests_db, params_db, test_variable_db (N/I), dlmread
+% See also: params_tests_db, dlmread
 %
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/01
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -114,6 +116,9 @@ if nargin == 0 % Called with no params
        if fid < 0
          error(['Can''t find file "' test_results '" to open: ' msg]);
        end
+       if length(csv_args) > 0 && csv_args{1} > 0
+         for skip_rows = 1:csv_args{1}, fgetl(fid); end
+       end
        oneline = fgetl(fid);
        col_names = textscan(oneline, '"%[^"]"', 'Delimiter', delim);
        if isempty(col_names{1})
@@ -126,14 +131,15 @@ if nargin == 0 % Called with no params
        if length(csv_args) == 0 
          csv_args = {1 0};
        elseif length(csv_args{1}) == 1
-         csv_args{1} = max(1, csv_args{1});
+         % add one more row if an offset is given
+         csv_args{1} = max(1, csv_args{1} + 1);
        else
          rc = csv_args{1};
          rc(1) = max(1, rc(1));
          csv_args{1} = rc;
        end
        
-       % remove from props not to clutter the tests_db object
+       % remove from props to not clutter the tests_db object
        props = rmfield(props, 'csvReadColNames');
      end
      
@@ -160,6 +166,7 @@ if nargin == 0 % Called with no params
 
    if size(test_results, 1) > 0 && ~ isempty(col_names) && ...
 	 size(test_results, 2) ~= length(col_names)
+     col_names
      error([ 'Number of columns in test_results (' ...
              num2str(size(test_results, 2)) ') and items in col_names (' ...
              num2str(length(col_names)) ') must match.']);
