@@ -42,6 +42,9 @@ function a_pm = ...
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/01/27
 
+% TODO: 
+% - there is a bug with this function. See modeldb_export.
+
 if nargin == 0 % Called with no params
   a_pm = struct;
   a_pm = class(a_pm, 'param_HH_chan_int_v', param_mult);

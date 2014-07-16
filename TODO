@@ -1,9 +1,14 @@
 Name:
 - MatHHfit? This is also a general purpose ode sover :)
 - MatODEfit?
+- VCfit? all functions are functions of voltage/time
 
 Before release:
+- there is a major bug with param_HH_chan_int_v. Instead, param_I_2tauh_int_v works.
+- move voltage_clamp, model_data_vcs into here. otherwise there is no fitting! (except param_func/optimize.)
+- make this a submodule or subtree of pandora?
 - contents.m file
+  - add more param_cap_leak* files
 - examples/ dir and at least one example
 - convert test.m to a tutorial file
 - make more tutorials, especially for simulating and fitting
