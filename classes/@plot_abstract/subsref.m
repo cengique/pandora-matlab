@@ -21,7 +21,10 @@ else
   switch index.type
     case '()'
       % Accept b = a(1), croak for everything else
-      if length(index.subs) == 1 && index.subs{1} == 1
+      if (index.subs{1} == 1 || strcmp(index.subs{1}, ':')) && ...
+              length(index.subs) > 1 && ...
+              (index.subs{2} == 1 || strcmp(index.subs{2}, ':')) && ...
+              length(index.subs) <= 2
 	b = a;
       else
 	error('indexing operator not defined.');
