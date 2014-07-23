@@ -15,6 +15,7 @@ function a_p = plotCircular(a_db, theta_col, title_str, short_title, props)
 %     radius: The radius at which angles are plotted (default=1).
 %     angles1: If 1, angles are in the range of 0-1, and they will be
 %     	converted to radians.
+%     jitter: Add this much random jitter to radius while plotting.
 %     quiet: If 1, don't include database name on title.
 %		
 % Returns:
@@ -78,8 +79,15 @@ else
   all_title = title_str;
 end
 
+jitter = getFieldDefault(props, 'jitter', 0);
+rdata = get(onlyRowsTests(col_db, ':', 2), 'data');
+
+if jitter ~= 0
+  rdata = rdata + jitter * rand(size(rdata));
+end
+
 a_p = plot_abstract({get(onlyRowsTests(col_db, ':', 1), 'data'), ...
-                    get(onlyRowsTests(col_db, ':', 2), 'data')}, ...
+                    rdata}, ...
                 {}, all_title, { short_title }, 'polar', ...
                 mergeStructsRecursive(...
                   props, ...
