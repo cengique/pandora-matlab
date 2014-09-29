@@ -50,7 +50,7 @@ if max(s) > 1
   end
   handle = plotFigure(plot_stack(num2cell(a_plot), [], orientation, title_str));
 else
-  if isfield(props, 'figureHandle')
+  if isfield(props, 'figureHandle') && ~ isempty(props.figureHandle)
     handle = props.figureHandle;
     % Use same figure, but wipe clean first
     figure(handle); clf;
