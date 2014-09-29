@@ -4,7 +4,7 @@ function [a_bundle, a_new_db, a_new_joined_db] = ...
 % simNewParams - Simulates new parameter set and adds it to dataset and DB.
 %
 % Usage:
-% a_prof = simNewParams(a_bundle, a_param_row_db, props)
+% [a_bundle, a_new_db, a_new_joined_db] = simNewParams(a_bundle, a_param_row_db, props)
 %
 % Parameters:
 %   a_bundle: A dataset_db_bundle object.
@@ -12,6 +12,9 @@ function [a_bundle, a_new_db, a_new_joined_db] = ...
 %   props: A structure with any optional properties.
 %     simFunc: Handle to function to call for simulating the parameter
 %     		row db (e.g., @(row_db)).
+%     trial: Trial number for new parameter set. It also indicates
+%     		parallel mode, which does not alter existing files, but instead
+%     		creates new files with this trial number suffix.
 %
 % Returns:
 %   a_bundle: The bundle with updated parameters and measures.
@@ -44,10 +47,19 @@ col_names = getColNames(a_param_row_db);
 % TODO: recurse for >1 rows
 assert(dbsize(a_param_row_db, 1) == 1, 'Only 1 row is supported.');
 
-new_trial = get(max(dataset_db(:, 'trial')), 'data') + 1;
+if isfield(props, 'trial')
+  new_trial = props.trial;
+  ind_mode = true;
+  trial_suffix = num2str(new_trial);
+  trial_dir = [ a_bundle.dataset.path filesep 'trial_' new_trial filesep ];
+else
+  new_trial = get(max(dataset_db(:, 'trial')), 'data') + 1;
+  trial_suffix = '';
+  trial_dir = '';
+end
 
 % add new params to param file
-writeParFile(a_param_row_db, a_dataset.props.param_row_filename, ...
+writeParFile(a_param_row_db, [ trial_dir a_dataset.props.param_row_filename ], ...
              struct('trialStart', new_trial));
 
 % overwrite trial
@@ -58,7 +70,7 @@ else
       addColumns(a_param_row_db, 'trial', new_trial);
 end
 
-% run sim
+% run sim, files are written under data/ [must be corrected!!!]
 feval(props.simFunc, a_param_row_db);
 
 % find files with the new trial number
