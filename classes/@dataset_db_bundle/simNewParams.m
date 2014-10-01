@@ -47,19 +47,20 @@ col_names = getColNames(a_param_row_db);
 % TODO: recurse for >1 rows
 assert(dbsize(a_param_row_db, 1) == 1, 'Only 1 row is supported.');
 
+ind_mode = false;
 if isfield(props, 'trial')
   new_trial = props.trial;
   ind_mode = true;
-  trial_suffix = num2str(new_trial);
-  trial_dir = [ a_bundle.dataset.path filesep 'trial_' new_trial filesep ];
+  trial_name = [ a_dataset.path filesep 'trial_' num2str(new_trial) '_' ];
+  %trial_dir = [ a_bundle.dataset.path filesep 'trial_' new_trial filesep ];
 else
   new_trial = get(max(dataset_db(:, 'trial')), 'data') + 1;
-  trial_suffix = '';
-  trial_dir = '';
+  trial_name = '';
+  %trial_dir = '';
 end
 
 % add new params to param file
-writeParFile(a_param_row_db, [ trial_dir a_dataset.props.param_row_filename ], ...
+writeParFile(a_param_row_db, [ trial_name a_dataset.props.param_row_filename ], ...
              struct('trialStart', new_trial));
 
 % overwrite trial
@@ -70,31 +71,47 @@ else
       addColumns(a_param_row_db, 'trial', new_trial);
 end
 
-% run sim, files are written under data/ [must be corrected!!!]
+% run sim, files are written under directory in .g file, hopefully that's
+% the same as what's in the dataset
 feval(props.simFunc, a_param_row_db);
 
-% find files with the new trial number
-files = dir([a_dataset.path filesep '*_' num2str(new_trial) '.*' ]);
+% find files with the new trial number (use 6 digits to match with
+% Genesis)
+file_pattern = [a_dataset.path filesep '*_' num2str(new_trial, 6) '.*' ];
+files = dir(file_pattern);
 num_files = length(files);
 assert(num_files > 0, ...
-       'Simulation resulted in no new files with trial %d!', ...
-       new_trial);
+       [ 'Simulation resulted in no new files matching "' ...
+         file_pattern '"! Aborting.' ]);
 
-% add filenames and new params to dataset
-a_dataset.list = [ a_dataset.list {files.name} ];
-a_dataset.props.param_rows = ...
-    [ a_dataset.props.param_rows; ...
-      get(a_param_row_db(1, 1:a_param_row_db.num_params), 'data') ];
+if ind_mode
+  % only output the new trial data, erase previous items
+  a_dataset.list = [ {files.name} ];
+  a_dataset.props.param_rows = ...
+    [ get(a_param_row_db(1, 1:a_param_row_db.num_params), 'data') ];
 
-% each file is an item, get profiles and update bundle
-a_new_db = ...
-    params_tests_db(a_dataset, length(a_dataset.list) - num_files + (1:num_files));
-a_new_joined_db = ...
-    feval(a_bundle.props.joinDBfunc, a_new_db);
+  dataset_db = ...
+      params_tests_db(a_dataset, 1:num_files);
+  joined_db = ...
+      feval(a_bundle.props.joinDBfunc, dataset_db);
+
+else
+  % add filenames and new params to dataset and update the bundle
+  a_dataset.list = [ a_dataset.list {files.name} ];
+  a_dataset.props.param_rows = ...
+      [ a_dataset.props.param_rows; ...
+        get(a_param_row_db(1, 1:a_param_row_db.num_params), 'data') ];
+  
+  % each file is an item, get profiles and update bundle
+  a_new_db = ...
+      params_tests_db(a_dataset, length(a_dataset.list) - num_files + (1:num_files));
+  a_new_joined_db = ...
+      feval(a_bundle.props.joinDBfunc, a_new_db);
     
-dataset_db = [ dataset_db; a_new_db ];
-joined_db = [ joined_db; a_new_joined_db ];
-
+  dataset_db = [ dataset_db; a_new_db ];
+  joined_db = [ joined_db; a_new_joined_db ];
+end
+  
 a_bundle.dataset = a_dataset;
 a_bundle.db = dataset_db;
 a_bundle.joined_db = joined_db;
