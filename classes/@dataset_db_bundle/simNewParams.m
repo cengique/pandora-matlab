@@ -115,3 +115,8 @@ end
 a_bundle.dataset = a_dataset;
 a_bundle.db = dataset_db;
 a_bundle.joined_db = joined_db;
+
+% save bundle now if in independent mode
+if ind_mode
+  save([ trial_name 'bundle.mat' ], 'a_bundle');
+end
