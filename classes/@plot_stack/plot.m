@@ -321,7 +321,7 @@ for plot_num=1:num_plots
   position = [x_offset, y_offset, ...
   	      this_width + left_space, ...
   	      this_height + bottom_space + title_space ];
-  plot(one_plot, position);
+  one_handle = plot(one_plot, position);
   % Set its axis limits if requested
   current_axis = axis;
   if ~ isempty(a_plot.axis_limits)
@@ -343,7 +343,7 @@ for plot_num=1:num_plots
   end
   axis(current_axis);
   % Place other decorations
-  decorate(one_plot);
+  one_handle = decorate(one_plot, one_handle);
 end
 
 % not used here
