@@ -32,6 +32,10 @@ function [params, param_names, tests, test_names, docs] = readDBItems(obj, items
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% Get generic verbose switch setting
+vs = warning('query', 'verbose');
+verbose = strcmp(vs.state, 'on');
+
 if ~ exist('items', 'var')
   items = 1:length(obj.list);
 end
@@ -71,7 +75,9 @@ docs = cell(num_items, 1);
 % Batch process all items
 start_time = cputime;
 
-disp('Reading: ');
+if num_items > 1 && verbose
+  disp('Reading: ');
+end
 line_buffer = '';
 
 try 
@@ -79,35 +85,39 @@ try
   doc_row_index = 1;
   for item_index=items
     %disp(sprintf('File number: %d\r', item_index));
-    
-    % doesn't work on the cluster
-    if false && usejava('jvm')
-      if checkError(java.lang.System.out)
-	disp('error in System.out stream!');
+
+    % display progress for multiple items only
+    if num_items > 1 && verbose
+      % doesn't work on the cluster
+      if false && usejava('jvm')
+        if checkError(java.lang.System.out)
+          disp('error in System.out stream!');
+        else
+          flush(java.lang.System.out);
+          print(java.lang.System.out, [ num2str(item_index) ', ' ]);	
+        end
+        if mod(row_index, 20) == 0
+          disp(' ');
+        end
       else
-	flush(java.lang.System.out);
-	print(java.lang.System.out, [ num2str(item_index) ', ' ]);	
+        line_buffer = [line_buffer num2str(item_index) ', ' ];
+        % print if line filled
+        if length(line_buffer) > 70
+          % add percentage done, using doc counter
+          done_ratio = doc_row_index/num_items;
+          est_remaining = (cputime - start_time)/done_ratio*(1-done_ratio);
+          line_buffer = [ '(' sprintf('%.2f', 100*done_ratio) '%, ETA ' ...
+                          sprintf('%d:%d', round(est_remaining/60), ...
+                                  round(mod(est_remaining, 60))) ...
+                          's) ' ...
+                          line_buffer ];
+          disp(line_buffer);
+          line_buffer = '';
+          % TODO: calculate a printout ETA?
+        end
       end
-      if mod(row_index, 20) == 0
-	disp(' ');
-      end
-    else
-      line_buffer = [line_buffer num2str(item_index) ', ' ];
-      % print if line filled
-      if length(line_buffer) > 70
-        % add percentage done, using doc counter
-        done_ratio = doc_row_index/num_items;
-        est_remaining = (cputime - start_time)/done_ratio*(1-done_ratio);
-        line_buffer = [ '(' sprintf('%.2f', 100*done_ratio) '%, ETA ' ...
-                        sprintf('%d:%d', round(est_remaining/60), ...
-                                round(mod(est_remaining, 60))) ...
-                        's) ' ...
-                        line_buffer ];
-	disp(line_buffer);
-	line_buffer = '';
-        % TODO: calculate a printout ETA?
-      end
-    end
+    end % num_items
+    
     [params_row, tests_row, a_doc] = itemResultsRow(obj, item_index);
 
     % allow multiple rows returned by one item
@@ -148,10 +158,12 @@ end
 % put the docs together
 docs = doc_multi(docs, get(obj, 'id'));
 
-end_time = cputime;
+if num_items > 1 && verbose
+  end_time = cputime;
 
-total_time = end_time - start_time;
-disp(sprintf('Elapsed time took %d:%ds.', ...
-             round(total_time/60), ...
-             round(mod(total_time, 60))));
+  total_time = end_time - start_time;
+  disp(sprintf('Elapsed time took %dm:%ds.', ...
+               round(total_time/60), ...
+               round(mod(total_time, 60))));
+end
 
