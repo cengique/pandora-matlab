@@ -2,7 +2,7 @@ function ps = ...
       param_func(var_names, param_init_vals, param_names, func_handle, ...
                  id, props)
   
-% param_func - Holds parameters of a function, y = f(x).
+% param_func - A parameterized function, y = f(p, x), with variable, x.
 %
 % Usage:
 %   ps = param_func(var_names, param_init_vals, param_names, func_handle, id, props)
@@ -11,22 +11,24 @@ function ps = ...
 %   var_names: Cell array of names for input and output variables, resp.
 %   param_init_vals: Initial values of function parameters or struct of
 %     names and initial values.
-%   param_names: Cell array of parameter names (empty array if previous
-%     arg is a struct).
+%   param_names: Cell array of parameter names (empty array if
+%   		param_init_vals is a struct).
 %   func_handle: Function name or handle that takes params and variable
-%   		 to produce output.
+%   		to produce output.
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 %     xMin, xMax: Minimal and maximal values for input variable, x.
 %     paramRanges: 2xn matrix of min (row 1) and max values of each parameter.
 %		If a non-NaN range is specified for a parameter
 %		its parameters automatically become a ratio between [0,1]
-%		that point inside this range.
+%		that point inside this range (also see 'direct' below).
 %     rangeFunc: Function that translates range ratios into parameter
 %     		values. Options are 'satlin' for saturated linear and
 %     		'logsig' for logistic sigmoid (default='satlin'). 
-%     direct: If 1, set parameters directly as relative range ratios (default=1).
-%     selectParams: Cell of param names that can be selected by g/setParams.
+%     direct: If 1, keep parameters as raw values. If 0, they are
+%     		normalized to represent the given range (default=1). 
+%     selectParams: Cell of limited param names to be varied and can be
+%     		accessed by g/setParams, with the onlySelect prop.
 %     isIntable: If 1, this function can be integrated and will be added
 %     		to a integrator solver_int when requested by initSolver.
 %     label: Short label string used for plots and exporting.
@@ -40,8 +42,8 @@ function ps = ...
 %   Base class for a minimal set of parameters that stand for a single
 % function of a single variable, y = f(p, x), where p is a structure that
 % holds the function parameters. This is intended for describing
-% functions like m_inf and tau_inf curves. Uses tests_db to store
-% parameter name and values.
+% functions like m_inf and tau_inf curves that are dependent on the
+% voltage variable, x. Uses tests_db to store parameter name and values.
 %   If props.direct = 0 and paramRanges are given, saves parameters as value
 % between [0, 1] that correspond to the range given. This helps bounding the
 % parameter values during optimization when the optimizer does not allow

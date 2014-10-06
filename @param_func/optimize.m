@@ -1,6 +1,6 @@
 function a_ps = optimize(a_ps, inp_data, out_data, props)
 
-% optimize - Gets the parameters of function.
+% optimize - Optimize function parameters to fit output.
 %
 % Usage:
 %   a_ps = optimize(a_ps, inp_data, out_data, props)
@@ -17,14 +17,16 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 %     optimmethod: Matlab optimizer to use: 'lsqcurvefit' (default),
 %     		   'ktrlink' (requires external libraries), 'fmincon'
 %     		   (requires Optimization Toolbox).
-%     fitOutRange: Two-element vector denoting the data range to optimize
-%     		for[dt]. Multiple rows indicate different ranges to combine.
+%     fitOutRange: Two-element vector denoting the data range [in dt] to
+%     		optimize. Multiple rows indicate different ranges to combine.
 %
 % Returns:
 %   a_ps: param_func object with optimized parameters.
 %
 % Description:
-%   Default optimizer is lsqcurvefit.
+%   Minimizes function parameters such that input data results in best fit
+% to given output data in the sense of least squares. Default optimizer is
+% lsqcurvefit.
 %
 % Example:
 %
@@ -34,7 +36,7 @@ function a_ps = optimize(a_ps, inp_data, out_data, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/03/04
 
-% Copyright (c) 2009-2010 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2009-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
