@@ -16,8 +16,8 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %
 % Parameters:
 %   mid_vals: Middle points of error bars.
-%   lo_vals: Low points of error bars.
-%   hi_vals: High points of error bars.
+%   lo_vals: Low points of error bars as difference from mid_vals.
+%   hi_vals: High points of error bars as difference from mid_vals.
 %   n_vals: Number of samples used for the statistic (Optional).
 %   x_labels, y_labels: Axis labels for each bar group. Must match with data columns.
 %   title_str: Plot description.
