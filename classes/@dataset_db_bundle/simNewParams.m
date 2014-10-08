@@ -39,6 +39,8 @@ props = ...
     mergeStructs(defaultValue('props', struct), ...
                  get(a_bundle, 'props'));
 
+precision = getFieldDefault(props, 'precision', 6);
+
 a_dataset = get(a_bundle, 'dataset');
 dataset_db = get(a_bundle, 'db');
 joined_db = get(a_bundle, 'joined_db');
@@ -51,7 +53,7 @@ ind_mode = false;
 if isfield(props, 'trial')
   new_trial = props.trial;
   ind_mode = true;
-  trial_name = [ a_dataset.path filesep 'trial_' num2str(new_trial) '_' ];
+  trial_name = [ a_dataset.path filesep 'trial_' num2str(new_trial, precision) '_' ];
   %trial_dir = [ a_bundle.dataset.path filesep 'trial_' new_trial filesep ];
 else
   new_trial = get(max(dataset_db(:, 'trial')), 'data') + 1;
@@ -77,7 +79,7 @@ feval(props.simFunc, a_param_row_db);
 
 % find files with the new trial number (use 6 digits to match with
 % Genesis)
-file_pattern = [a_dataset.path filesep '*_' num2str(new_trial, 6) '.*' ];
+file_pattern = [a_dataset.path filesep '*_' num2str(new_trial, precision) '.genflac' ];
 files = dir(file_pattern);
 num_files = length(files);
 assert(num_files > 0, ...
