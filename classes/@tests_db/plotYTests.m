@@ -6,23 +6,24 @@ function a_p = plotYTests(a_db, x_vals, tests, axis_labels, title_str, short_tit
 % Usage:
 % a_p = plotYTests(a_db, x_vals, tests, axis_labels, title_str, short_title, command, props)
 %
-% Description:
-%
 % Parameters:
-%	a_db: A params_tests_db object.
-%	x_vals: A vector of X-axis values.
-%	tests: A vector or cell array of columns to correspond to each value from x_vals.
-%	title_str: (Optional) A string to be concatanated to the title.
-%	short_title: (Optional) Few words that may appear in legends of multiplot.
-%	command: (Optional) Command to do the plotting with (default: 'plot')
-%	props: A structure with any optional properties.
-%		LineStyle: Plot line style to use. (default: 'd-')
-%		ShowErrorbars: If 1, errorbars are added to each point.
-%		StatsDB: If given, use this stats_db for the errorbar (default=statsMeanStd(a_db)).
-%		quiet: If 1, don't include database name on title.
+%   a_db: A params_tests_db object.
+%   x_vals: A vector of X-axis values.
+%   tests: A vector or cell array of columns to correspond to each value from x_vals.
+%   axis_labels: Cell array of X & Y axis labels.
+%   title_str: (Optional) A string to be concatanated to the title.
+%   short_title: (Optional) Few words that may appear in legends of multiplot.
+%   command: (Optional) Command to do the plotting with (default: 'plot')
+%   props: A structure with any optional properties.
+%     LineStyle: Plot line style to use. (default: 'd-')
+%     ShowErrorbars: If 1, errorbars are added to each point.
+%     StatsDB: If given, use this stats_db for the errorbar (default=statsMeanStd(a_db)).
+%     quiet: If 1, don't include database name on title.
 %		
 % Returns:
-%	a_p: A plot_abstract.
+%   a_p: A plot_abstract.
+%
+% Description:
 %
 % Example:
 % >> a_p = plotYTests(a_db_row, [0 40 100 200], ...
