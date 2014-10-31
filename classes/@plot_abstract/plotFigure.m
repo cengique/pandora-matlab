@@ -3,7 +3,7 @@ function [handle, plot_handles] = plotFigure(a_plot, title_str, props)
 % plotFigure - Draws this plot alone in a new figure window.
 %
 % Usage:
-% [handle, plot_handles] = plotFigure(a_plot)
+% [handle, plot_handles] = plotFigure(a_plot, title_str, props)
 %
 % Description:
 %
@@ -12,6 +12,8 @@ function [handle, plot_handles] = plotFigure(a_plot, title_str, props)
 %   title_str: (Optional) String to append to plot title.
 %   props: A structure with any optional properties.
 %     figureHandle: Use this figure instead of opening a new one.
+%     delayOpen: Wait this many seconds for figure to materialize 
+%   		(0.5s is good workaround for Compiz-fusion bug)
 %		
 % Returns:
 %   handle: Handle of new figure.
@@ -61,11 +63,11 @@ else
   title = [ get(a_plot, 'title') title_str ];
   set(handle, 'Name', title);
 
-  % wait a second for figure to materialize (workaround for
-  % Compiz-fusion)
-  % this was printing out a '1' on the console!
-  a_timer = timer('StartDelay', .5, 'TimerFcn', '1;'); 
-  start(a_timer); wait(a_timer);
+  if isfield(props, 'delayOpen')
+    % wait in seconds
+    a_timer = timer('StartDelay', props.delayOpen, 'TimerFcn', '1;'); 
+    start(a_timer); wait(a_timer);
+  end
 
   if isfield(props, 'fixedSize')
     props.PaperPosition = [0 0 props.fixedSize];
