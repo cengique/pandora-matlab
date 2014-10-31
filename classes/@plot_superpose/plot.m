@@ -28,7 +28,6 @@ function handles = plot(a_plot, layout_axis)
 
 % TODO: 
 % - save the axis handle!
-% - there should be a plotFigure function here that also copies props!
 
 if ~ exist('layout_axis', 'var')
   layout_axis = [];
