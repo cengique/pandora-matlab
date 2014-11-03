@@ -27,8 +27,13 @@ function ranges = axis(a_plot)
 
 switch a_plot.command
   case 'errorbar'
+    if length(a_plot.data) > 3
+      up_data = a_plot.data{4};
+    else
+      up_data = a_plot.data{3};
+    end
     ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
-	      min(a_plot.data{2} - a_plot.data{3}) max(a_plot.data{2} + a_plot.data{4})];
+	      min(a_plot.data{2} - a_plot.data{3}) max(a_plot.data{2} + up_data)];
   otherwise
     if (length(a_plot.data) > 1)
       ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
