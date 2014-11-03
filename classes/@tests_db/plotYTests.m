@@ -78,11 +78,18 @@ else
 end
 
 c_data = get(cols_db, 'data')';
+
 if isfield(props, 'ShowErrorbars')
-  % not implemented yet
-  % TODO: read the std from the second page of DB, if exists
+  % read the std from the second page of DB, if exists
+  stats_db = getFieldDefault(props, 'StatsDB', statsMeanStd(cols_db));
+  stats_db = onlyRowsTests(stats_db, ':', tests);
+  a_p = ...
+      plot_abstract({x_vals, c_data', get(onlyRowsTests(stats_db, 2, tests), 'data'), ...
+                     line_style{:}}, ... % '+'
+                    axis_labels, all_title, {short_title}, 'errorbar', props);
+  % BUG: command is overridden in this case
 else
   % Draw a regular line plot
-  a_p = plot_abstract({x_vals, [get(cols_db, 'data')'], line_style{:}}, ...
-		      axis_labels, all_title, {short_title}, command, props);
+  a_p = plot_abstract({x_vals, c_data, line_style{:}}, ...
+                      axis_labels, all_title, {short_title}, command, props);
 end
