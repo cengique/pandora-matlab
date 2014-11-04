@@ -18,6 +18,7 @@ function a_p = plotYTests(a_db, x_vals, tests, axis_labels, title_str, short_tit
 %     LineStyle: Plot line style to use. (default: 'd-')
 %     ShowErrorbars: If 1, errorbars are added to each point.
 %     StatsDB: If given, use this stats_db for the errorbar (default=statsMeanStd(a_db)).
+%     jitterX: Randomly jitter x-axis locations by this magnitude.
 %     quiet: If 1, don't include database name on title.
 %		
 % Returns:
@@ -64,6 +65,8 @@ cols_db = onlyRowsTests(a_db, ':', tests);
 
 test_names = fieldnames(get(a_db, 'col_idx'));
 
+jitter_x = getFieldDefault(props, 'jitterX', 0);
+
 if ~ isfield(props, 'quiet')
   all_title = [ strrep(get(a_db, 'id'), '_', '\_') title_str ];
 else
@@ -84,12 +87,13 @@ if isfield(props, 'ShowErrorbars')
   stats_db = getFieldDefault(props, 'StatsDB', statsMeanStd(cols_db));
   stats_db = onlyRowsTests(stats_db, ':', tests);
   a_p = ...
-      plot_abstract({x_vals, c_data', get(onlyRowsTests(stats_db, 2, tests), 'data'), ...
+      plot_abstract({x_vals + rand(1, 2) .* jitter_x, ...
+                     c_data', get(onlyRowsTests(stats_db, 2, tests), 'data'), ...
                      line_style{:}}, ... % '+'
                     axis_labels, all_title, {short_title}, 'errorbar', props);
   % BUG: command is overridden in this case
 else
   % Draw a regular line plot
-  a_p = plot_abstract({x_vals, c_data, line_style{:}}, ...
+  a_p = plot_abstract({x_vals + rand(1, 2) .* jitter_x, c_data, line_style{:}}, ...
                       axis_labels, all_title, {short_title}, command, props);
 end
