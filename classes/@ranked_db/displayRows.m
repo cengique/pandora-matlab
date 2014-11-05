@@ -26,6 +26,8 @@ function s = displayRows(db, rows)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% test SVN
+
 if ~ exist('rows', 'var')
   rows = ':';
 end
