@@ -35,8 +35,6 @@ function a_plot = plotRowErrors(a_ranked_db, rows, title_str, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% test SVN
-
 if ~ exist('rows', 'var')
   rows = ':';
 end
@@ -92,7 +90,7 @@ if isfield(props, 'rowSteps')
 else
   row_steps = 1;
 end
-plot_props = struct('XTick', 1:row_steps:num_rows, 'YTick', 1:length(common_cols), 'border', [0.07 0 0 0]);
+plot_props = struct('XTick', [1 row_steps:row_steps:num_rows], 'YTick', 1:length(common_cols), 'border', [0.07 0 0 0]);
 plot_props.YTickLabel = properTeXLabel(common_cols);
 
 if isfield(props, 'quiet') || isfield(get(a_ranked_db, 'props'), 'quiet')
@@ -124,8 +122,8 @@ if isfield(props, 'superposeDistances')
                                       'noXLabel', 1, 'numXTicks', 0, ...
                                       'noTitle', 1, ...
                                       'axisProps', ...
-                                      struct('Color', [1 1 1], 'YAxisLocation', 'right'), ...
-                                      'plotProps', struct('Color', [1 1 1], 'LineWidth', 3)))}, ...
+                                      struct('Color', 'none', 'YAxisLocation', 'right'), ...
+                                      'plotProps', struct('Color', [.9 .9 .9], 'LineWidth', 3)))}, ...
                     [0 0 0.95 1; 0 0 1 1], title_str, mergeStructs(struct('noTitle', 1), ...
                                                     props));
 end
