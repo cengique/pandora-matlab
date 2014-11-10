@@ -33,7 +33,7 @@ props = defaultValue('props', struct);
 
 fs_db = get(a_bundle, 'db');
 col_names = getColNames(a_db);
-index_col = getFieldDefault(props, 'indexName', 'ItemIndex')
+index_col = getFieldDefault(props, 'indexName', 'ItemIndex');
 
 % look for a trial column
 if any(ismember(col_names, 'trial'))
