@@ -41,6 +41,9 @@ props = ...
 
 precision = getFieldDefault(props, 'precision', 6);
 
+% save precision in dataset
+a_bundle.dataset.props.precision = precision;
+
 a_dataset = get(a_bundle, 'dataset');
 dataset_db = get(a_bundle, 'db');
 joined_db = get(a_bundle, 'joined_db');
