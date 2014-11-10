@@ -25,6 +25,8 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %     		(auto-detected by default; see props for
 %     		parseFilenameNamesVals).
 %     param_trial_name: Use this name on the filename as the 'trial' parameter.
+%     trial_hash: Structure to get integer indices from non-integer trial numbers as key.
+%     trialHashFunc: Produces structure key from trial number and precision (see num2str).
 %     param_row_filename: If given, the 'trial' parameter will be used
 %		to address rows from this file and acquire parameters.
 %     param_rows: Instead of a file, just give parameters in this matrix.

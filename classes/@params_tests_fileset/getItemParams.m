@@ -75,10 +75,18 @@ if isfield(props, 'param_rows')
     end
     
     trial_num = names_vals{str_index, 2};
-    
-    if trial_num > size(props.param_rows, 1)
-      error([ 'Trial number ' num2str(trial_num) ' is larger than trials available in the ' ...
-              'specified param_rows (' num2str(size(props.param_rows, 1)) ').'] );
+
+    % if the trials are not integers, there must be a hashtable
+    if isfield(props, 'trial_hash')
+      % replace with integer index
+      trial_num = ...
+          props.trial_hash.(feval(props.trialHashFunc, trial_num, ...
+                                          getFieldDefault(props, 'precision', 6)));
+    else
+      if trial_num > size(props.param_rows, 1)
+        error([ 'Trial number ' num2str(trial_num) ' is larger than trials available in the ' ...
+                'specified param_rows (' num2str(size(props.param_rows, 1)) ').'] );
+      end
     end
     params_row = [props.param_rows(trial_num, trues) params_row];
   else
