@@ -12,6 +12,7 @@ function writeParFile(a_db, filename, props)
 %     trialStart: If given, adds/replaces the trial parameter and counts forward.
 %     makeParamDesc: If 1, put the parameter names in a parameter description file with
 %	  	 with a .txt extension.
+%     noAppend: If given, do not append to file even if it exists
 %
 % Returns:
 %   nothing.
@@ -80,7 +81,7 @@ data_rows = [num2str( [get(onlyRowsTests(a_db, ':', 1:a_db.num_params), 'data') 
 
 data_str = reshape(data_rows', 1, prod(size(data_rows)));
 
-if exist(filename, 'file')
+if exist(filename, 'file') && ~ isfield(props, 'noAppend')
   % append if exists
   fid = fopen(filename, 'a');
   fprintf(fid, '%s', data_str);
