@@ -93,7 +93,9 @@ else
   set(handle, 'UserData', a_plot);
 
   if ~isfield(props, 'resizeControl') || props.resizeControl == 1
-    set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot); decorate(a_plot);']);
+    set(handle, 'ResizeFcn', ...
+                ['clf; a_plot = get(gcf, ''UserData''); a_hn = plot(a_plot); ' ...
+                 'decorate(a_plot, a_hn);']);
   else
     % print figure at the size seen on screen
     set(handle, 'PaperPositionMode', 'auto');
