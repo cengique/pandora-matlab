@@ -35,14 +35,14 @@ fs_db = get(a_bundle, 'db');
 col_names = getColNames(a_db);
 index_col = getFieldDefault(props, 'indexName', 'ItemIndex');
 
-% look for a trial column
-if any(ismember(col_names, 'trial'))
+if any(ismember(col_names, index_col))
+  % otherwise use ItemIndex directly
+  indices = get(a_db(:, index_col), 'data');
+elseif any(ismember(col_names, 'trial'))
+  % look for a trial column
   indices = ...
       get(fs_db(anyRows(fs_db(:, 'trial'), a_db(:, 'trial')), ...
                 index_col), 'data');
-elseif any(ismember(col_names, index_col))
-  % otherwise use ItemIndex directly
-  indices = get(a_db(:, index_col), 'data');
 else
   col_names
   error(['Cannot find either trial or ItemIndex column in a_db']);
