@@ -111,6 +111,6 @@ if isfield(props, 'avgVector')
 
   % display the calculated size
   hypothenus = sqrt(sum(cart_mean .* cart_mean));
-  uv = [atan(cart_mean(2)/cart_mean(1))*180/pi, hypothenus];
+  uv = [atan2(cart_mean(2), cart_mean(1))*180/pi, hypothenus];
   disp([ 'Mean vector (angle, radius) for ' short_title ': ' num2str(uv)])
 end
