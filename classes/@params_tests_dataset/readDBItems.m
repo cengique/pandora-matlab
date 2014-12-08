@@ -51,10 +51,11 @@ try
   num_items = length(items);
 catch
   err = lasterror;
-  warning(['Error caught during database creation, before starting to ' ...
-	   'read items: "' err.message '". Returning empty database.']);
+  disp(['Error caught during database creation, before starting to ' ...
+        'read items. Returning empty database.' sprintf('\n') ...
+        'Causing error message: "' err.message '". ']);
   if isfield(err, 'stack')
-    disp('Stack trace:');
+    disp('Causing error stack trace:');
     for stack_item = 1:length(err.stack)
       disp([ '  ' err.stack(stack_item).file ' at ' num2str(err.stack(stack_item).line) ...
 	    ' (' err.stack(stack_item).name ').' ]);
