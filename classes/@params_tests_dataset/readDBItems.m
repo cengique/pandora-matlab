@@ -55,7 +55,7 @@ catch
         'read items. Returning empty database.' sprintf('\n') ...
         'Causing error message: "' err.message '". ']);
   if isfield(err, 'stack')
-    disp('Causing error stack trace:');
+    disp('Causing error''s stack trace:');
     for stack_item = 1:length(err.stack)
       disp([ '  ' err.stack(stack_item).file ' at ' num2str(err.stack(stack_item).line) ...
 	    ' (' err.stack(stack_item).name ').' ]);
@@ -141,12 +141,13 @@ try
 catch
   err = lasterror;
   % Matlab R2006b has debug file information in err
-  warning(['Error caught during database creation at item index ' ...
-	   num2str(item_index) ': ' err.message '. Truncating database.']);
+  disp(['Error caught during database creation at item index ' ...
+        num2str(item_index) 'Truncating database.' sprintf('\n') ...
+        'Causing error message: "' err.message '".']);
   disp([ 'Item in question is:']);
   disp(getItem(obj, item_index));
   if isfield(err, 'stack')
-    disp('Stack trace:');
+    disp('Causing error''s stack trace:');
     for stack_item = 1:length(err.stack)
       disp([ '  ' err.stack(stack_item).file ' at ' num2str(err.stack(stack_item).line) ...
 	    ' (' err.stack(stack_item).name ').' ]);
