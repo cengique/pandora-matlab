@@ -52,7 +52,7 @@ try
 catch
   err = lasterror;
   warning(['Error caught during database creation, before starting to ' ...
-	   'read items: ' err.message '. Returning empty database.']);
+	   'read items: "' err.message '". Returning empty database.']);
   if isfield(err, 'stack')
     disp('Stack trace:');
     for stack_item = 1:length(err.stack)
