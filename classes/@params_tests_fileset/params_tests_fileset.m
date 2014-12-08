@@ -137,7 +137,7 @@ else
   end
 
   if total_entries == 0
-    warning([ '*** Fatal: No files in dataset!!! ***' ]);
+    warning([ '*** Warning: No files in dataset!!! ***' ]);
   end
 
 
