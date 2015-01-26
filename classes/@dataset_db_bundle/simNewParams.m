@@ -64,6 +64,12 @@ else
   %trial_dir = '';
 end
 
+% make sure the dataset path exists before writing
+if ~ exist(a_dataset.path, 'dir')
+  [s, msg, msg_id] = mkdir(a_dataset.path);
+  assert(s, [ 'Failed to create dataset path: ' msg ]);
+end
+
 % add new params to param file
 writeParFile(a_param_row_db, [ trial_name a_dataset.props.param_row_filename ], ...
              struct('trialStart', new_trial));
