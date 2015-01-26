@@ -61,10 +61,11 @@ catch
 	    ' (' err.stack(stack_item).name ').' ]);
     end
   end
-  test_names = [];
-  param_names = [];
+  test_names = {};
+  param_names = {};
   params = [];
   tests = [];
+  docs = [];
   return
 end
 
