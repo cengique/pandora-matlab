@@ -1,6 +1,7 @@
 TODO
 --------------------
 - make latest SVN/GIT version available from somewhere!
+- cleanup old files in GIT history (there are some abf files somewhere!)
 - make function to save text file from trace!
 - website options:
   - keep INCF and add more wikis. pros: professional place. cons: wiki files not in repo.
