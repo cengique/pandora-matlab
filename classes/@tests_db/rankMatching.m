@@ -10,8 +10,10 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 %   crit_db: A tests_db object holding the match criterion tests and stds.
 %   props: A structure with any optional properties.
 %     limitSTD: Truncate error values at this many STDs.
-%     tolerateNaNs: If 0, NaN values are counted as 0 error, 
-%		if 1, NaN values are given a fixed 3xSTD penalty (default=1).
+%     tolerateNaNs: Multiplied by 3xSTD to replace NaN values. 0 means
+%     		to skip NaNs in the distance calculation, scaling sum of
+%     		errors by number of non-NaN entries. Negative values
+%     		accepted; -1 means -3xSTDs error (default=+1).
 %     testWeights: Structure array associating tests and multiplicative weights.
 %     restoreWeights: Reverse the testWeights application after
 %  		calculating distances.
@@ -118,15 +120,11 @@ second_row_matx = ones(dbsize(db, 1), 1) * second_row_data;
 
 % Look for NaN & Inf values
 nans = isnan(wghd_data) | isinf(wghd_data);
-% default is to penalize for NaNs
-if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
-  % penalize NaNs by replacing NaNs with 3 for 3 STDs difference 
-  wghd_data(nans) = 3 * second_row_matx(nans); 
-else
-  % ignore NaNs by skipping them and count the non-NaN values to normalize the SS
-  wghd_data(nans) = 0; % Replace NaNs with 0s
-end
 
+% penalize NaNs by replacing them with 3 (meaning 3 STDs difference).
+wghd_data(nans) = getFieldDefault(props, 'tolerateNaNs', 1) * 3 * second_row_matx(nans); 
+% if NaNs were ignored by skipping, count the non-NaN values to normalize
+% the SS below.
 
 if isfield(props, 'useMahal')
   % Use Mahalonobis distance that factors in the covariations between measures
@@ -146,7 +144,7 @@ end
 % Sum of absolute error: distance measure
 ss_data = abs(wghd_data);
 
-if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
+if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs ~= 0
   ss_data = sum(ss_data, 2) ./ size(ss_data, 2); 
 else
   ss_data = sum(ss_data, 2) ./ sum(~nans, 2); % Sum distances and take average of non-NaNs
