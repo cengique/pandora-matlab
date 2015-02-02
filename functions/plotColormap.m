@@ -87,11 +87,14 @@ if isfield(props, 'colorbar')
     for prop_field = fieldnames(props.colorbarProps)'
       prop_field = prop_field{1};
       if strcmp(prop_field, 'YTickLabel')
-        % round values for display as rquested
+        % round values for display as requested
         props.colorbarProps.(prop_field) = ...
             round(props.colorbarProps.(prop_field) .* mult_factor) ./ mult_factor;
       end
       set(hc, prop_field, props.colorbarProps.(prop_field));
+    end
+    if isempty(get(hc, 'YTick'))
+      set(hc, 'YTick', [0 1]);
     end
   end
   

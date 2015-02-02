@@ -5,18 +5,22 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 % Usage:
 % a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %
-%   Parameters:
-%	a_db: A tests_db object.
-%	test1, test2: X & Y variables.
-%	title_str: (Optional) A string to be concatanated to the title.
-%	short_title: (Optional) Few words that may appear in legends of multiplot.
-%	props: A structure with any optional properties.
-%	  LineStyle: Plot line style to use. (default: 'x')
-%	  Regress: If exists, use these props for plotting the linear regression.
-%	  quiet: If 1, don't include database name on title.
+% Parameters:
+%   a_db: A tests_db object.
+%   test1, test2: X & Y variables.
+%   title_str: (Optional) A string to be concatanated to the title.
+%   short_title: (Optional) Few words that may appear in legends of multiplot.
+%   props: A structure with any optional properties.
+%     LineStyle: Plot line style to use. (default: 'x')
+%     Regress: If exists, use these props for plotting the linear regression.
+%     colorTest: Use this column as index into colormap.
+%     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
+%     numColors: Number of colors desired in colormap (default: 50).
+%     quiet: If 1, don't include database name on title.
+%     (Others passed to plotColormap and plot_abstract).
 %		
-%   Returns:
-%	a_p: A plot_abstract.
+% Returns:
+%   a_p: A plot_abstract.
 %
 % Description:
 %   If 'warning on verbose' is issued before this, it will display
@@ -90,10 +94,44 @@ if isfield(props, 'Regress')
   all_title = [ all_title, 'regress p=' sprintf('%.4f', stats(3)) ];
 end
 
+% diplay points with colors?
+% TODO: modularize these color calculations and share among plotImage, etc.
+if isfield(props, 'colorTest')
+  color_test_db = a_db(:, props.colorTest);
+  color_test_name = getColNames(color_test_db);
+  color_test = get(color_test_db, 'data');
+  num_colors = getFieldDefault(props, 'numColors', 50);
+  a_colormap = getFieldDefault(props, 'colormap', @parula);
+  if isa(a_colormap, 'function_handle') || ischar(a_colormap)
+    a_colormap = feval(a_colormap, num_colors);
+  end
+  nan_color = [0 0 0]; % add black for nans at end
+  a_colormap = [a_colormap; nan_color];
+  val_extrema = [min(color_test), max(color_test)];
+  color_idx = round((color_test - val_extrema(1)) .* num_colors ...
+                    ./ diff(val_extrema)) + 1;
+  color_idx(isnan(color_idx)) = num_colors + 1;
+  color = a_colormap(color_idx, :);
+  colormap_props = ...
+      mergeStructsRecursive(struct('colorbar', 1, 'colorbarLabel', color_test_name{1}, ...
+                                   'colorbarProps', ...
+                                   struct('YTickLabel', val_extrema)), ...
+                            props);
+
+else
+  color = [0 0 1];
+  a_colormap = color;
+  num_colors = 1;
+  colormap_props = props;
+end
+
+area = 36; % default
 col_labels = strrep({test_names{[col1 col2]}}, '_', ' ');
-a_p = plot_abstract({get(col1_db, 'data'), get(col2_db, 'data'), line_style{:}}, ...
+a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), area, color, line_style{:}}, ...
+                    a_colormap, num_colors, ...
+                    mergeStructs(struct('command', 'scatter'), colormap_props)}, ...
 		    { col_labels{:} }, ...
-		    all_title, { short_title }, 'plot', ...
+		    all_title, { short_title }, @plotColormap, ...
 		    props); 
 
 if isfield(props, 'Regress')
