@@ -105,12 +105,16 @@ if isfield(props, 'colorTest')
   if isa(a_colormap, 'function_handle') || ischar(a_colormap)
     a_colormap = feval(a_colormap, num_colors);
   end
-  nan_color = [0 0 0]; % add black for nans at end
-  a_colormap = [a_colormap; nan_color];
   val_extrema = [min(color_test), max(color_test)];
-  color_idx = round((color_test - val_extrema(1)) .* num_colors ...
+  color_idx = round((color_test - val_extrema(1)) .* (num_colors - 1) ...
                     ./ diff(val_extrema)) + 1;
-  color_idx(isnan(color_idx)) = num_colors + 1;
+  if any(isnan(color_test))
+    nan_color = [0 0 0]; % add black for nans at end
+    color_idx(isnan(color_idx)) = num_colors + 1;
+  else
+    nan_color = [];
+  end
+  a_colormap = [a_colormap; nan_color];
   color = a_colormap(color_idx, :);
   colormap_props = ...
       mergeStructsRecursive(struct('colorbar', 1, 'colorbarLabel', color_test_name{1}, ...
