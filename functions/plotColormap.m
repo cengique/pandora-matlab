@@ -50,6 +50,8 @@ function h = plotColormap(data, a_colormap, num_colors, props)
 
 if ~ isfield(props, 'reverseYaxis')
   set(gca, 'yDir', 'normal');
+else
+  set(gca, 'yDir', 'reverse');
 end
 
 % Show up to num_colors
