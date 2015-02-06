@@ -11,13 +11,17 @@ function a_db = joinOriginal(a_ranked_db, rows, props)
 %   props: A structure with any optional properties.
 %     includeIndices: Also joins ItemIndex columns from the original db.
 %     origCols: Also join these columns from the original DB.
+%     keepScores: Keep tests (metrics) from a_ranked_db instead of original db.
 %		
 % Returns:
 %   a_db: A params_tests_db object (same type as a_ranked_db.orig_db) containing 
 %	the desired rows in ascending order of distance.
 %
 % Description:
-%   Takes the parameter columns from orig_db and all tests from crit_db.
+%   Takes the parameter columns from orig_db and all tests from
+% crit_db. Therefore z-score values in a_ranked_db are replaced with
+% original metric magnitudes. Alternatively, the scores can be preserved in
+% the output by specifying the keepScores prop.
 %
 % See also: tests_db
 %
@@ -73,8 +77,16 @@ if isfield(props, 'origCols')
   end
 end
 
-a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
-                              {orig_cols{:}, ...
-                    crit_cols{:}}), ...
-		onlyRowsTests(a_ranked_db, rows, {'Distance', 'RowIndex'}));
-
+if isfield(props, 'keepScores')
+  % join only params from orig_db, keep everything else from a_ranked_db
+  a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
+                                {orig_cols{:}}), ... 
+                  onlyRowsTests(a_ranked_db, rows, ...
+                                union(crit_cols, {'Distance', 'RowIndex'})));
+else
+  % join only params and tests from orig_db, only keep distance from a_ranked_db
+  a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
+                                {orig_cols{:}, ...
+                      crit_cols{:}}), ...
+                  onlyRowsTests(a_ranked_db, rows, {'Distance', 'RowIndex'}));
+end
