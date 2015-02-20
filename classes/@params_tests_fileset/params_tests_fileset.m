@@ -24,6 +24,10 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 %     num_params: Number of parameters that appear in filenames
 %     		(auto-detected by default; see props for
 %     		parseFilenameNamesVals).
+%     fileParamsRegexp: Regular expression to find parameter names and
+%     		values instead of the default function
+%     		parseFilenameNamesVals. It will look for named capture
+%     		variables 'name' and 'val'. See the 'names' option to regexp.
 %     param_trial_name: Use this name on the filename as the 'trial' parameter.
 %     trial_hash: Structure to get integer indices from non-integer trial numbers as key.
 %     trialHashFunc: Produces structure key from trial number and precision (see num2str).
@@ -65,7 +69,7 @@ function obj = params_tests_fileset(file_pattern, dt, dy, id, props)
 % Additional methods:
 %	See methods('params_tests_fileset')
 %
-% See also: params_tests_db, tests_db, params_tests_dataset
+% See also: params_tests_db, tests_db, params_tests_dataset, regexp
 %
 % $Id$
 %
