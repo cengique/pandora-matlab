@@ -21,7 +21,7 @@ function obj = params_tests_dataset(list, dt, dy, id, props)
 %   props: A structure with any optional properties.
 %     type: type of file (default = '')
 %     loadItemProfileFunc: Function name or handle to be called as with
-%     		(dataset, index, param_row) to load a dataset item during database
+%     		(dataset, index, param_row, props) to load a dataset item during database
 %     		creation and return a results_profile. Changing this property allows creating
 %     		different databases from same dataset. It also
 %     		allows loading a novel dataset through this generic class.

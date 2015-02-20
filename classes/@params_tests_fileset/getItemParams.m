@@ -29,28 +29,32 @@ function params_row = getItemParams(fileset, index)
 props = get(fileset, 'props');
 params_row = [];
 
+filename = getItem(fileset, index);
+fullname = fullfile(fileset.path, filename);
+
 % if given, use the regular expression to parse parameters
 if isfield(props, 'fileParamsRegexp')
   try 
     param_regexp = regexp(fullname, props.fileParamsRegexp, 'names');
   
-    num_params = length(names_vals);
+    num_params = length(param_regexp);
+    
     % convert the regexp sturcture into cell array
     for param_num = 1:num_params
       names_vals{param_num, 1} = param_regexp(param_num).name;
-      names_vals{param_num, 2} = param_regexp(param_num).val;
+      names_vals{param_num, 2} = str2num(param_regexp(param_num).val);
     end
+    
+    params_row = [ names_vals{1:num_params, 2} ];
   catch me
-    throw error('pandora:fileset:regexpError', ...
-                [me.message ': props.fileParamsRegexp must be a regular expression ' ...
-                 'with named captures for variables "name" and "val". See ' ...
-                 '"names" option to regexp.'];
+    error('pandora:fileset:regexpError', ...
+        [me.message ': props.fileParamsRegexp must be a regular expression ' ...
+         'with named captures for variables "name" and "val". See ' ...
+         '"names" option to regexp.']);
   end
   
 % if props.num_params ~= 0 then parse file names
 elseif ~ isfield(props, 'num_params') || props.num_params ~= 0
-  filename = getItem(fileset, index);
-  fullname = fullfile(fileset.path, filename);
   
   names_vals = parseFilenameNamesVals(fullname, props);
 
