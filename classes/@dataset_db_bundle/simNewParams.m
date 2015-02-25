@@ -52,11 +52,17 @@ col_names = getColNames(a_param_row_db);
 % TODO: recurse for >1 rows
 assert(dbsize(a_param_row_db, 1) == 1, 'Only 1 row is supported.');
 
+if ~ isempty(a_dataset.path)
+  dataset_path = [ a_dataset.path ];
+else
+  dataset_path = '.';
+end
+
 ind_mode = false;
 if isfield(props, 'trial')
   new_trial = props.trial;
   ind_mode = true;
-  trial_name = [ a_dataset.path filesep 'trial_' num2str(new_trial, precision) '_' ];
+  trial_name = [ dataset_path filesep 'trial_' num2str(new_trial, precision) '_' ];
   %trial_dir = [ a_bundle.dataset.path filesep 'trial_' new_trial filesep ];
 else
   new_trial = get(max(dataset_db(:, 'trial')), 'data') + 1;
@@ -70,8 +76,17 @@ if ~ exist(a_dataset.path, 'dir')
   assert(s, [ 'Failed to create dataset path: ' msg ]);
 end
 
+% check if param_row_filename already has path. Otherwise path is
+% repeated.
+[path, name, ext] = fileparts(a_dataset.props.param_row_filename);
+if exist(path, 'dir')
+  param_file = a_dataset.props.param_row_filename;
+else
+  param_file = [ trial_name a_dataset.props.param_row_filename ];
+end
+
 % add new params to param file
-writeParFile(a_param_row_db, [ trial_name a_dataset.props.param_row_filename ], ...
+writeParFile(a_param_row_db, param_file, ...
              struct('trialStart', new_trial));
 
 % overwrite trial
@@ -88,7 +103,7 @@ feval(props.simFunc, a_param_row_db);
 
 % find files with the new trial number (use 6 digits to match with
 % Genesis)
-file_pattern = [a_dataset.path filesep '*_' num2str(new_trial, precision) '.genflac' ];
+file_pattern = [dataset_path filesep '*_' num2str(new_trial, precision) '.genflac' ];
 files = dir(file_pattern);
 num_files = length(files);
 assert(num_files > 0, ...
