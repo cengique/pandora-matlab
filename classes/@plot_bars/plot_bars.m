@@ -36,6 +36,8 @@ function a_plot = plot_bars(mid_vals, lo_vals, hi_vals, n_vals, x_labels, y_labe
 %     		      or errorbars. By default locations are set arbitrarily as 1:n.
 %     truncateDecDigits: Truncate labels to this many decimal digits.
 %     barAxisProps: props passed to plot_abstract objects with bar commands
+%     barWidth: Controls spacing between bars (see width argument for the
+%     		bar command; default=0.8).
 %		
 % Returns a structure object with the following fields:
 %   plot_abstract
@@ -128,8 +130,9 @@ if nargin == 0 % Called with no params
      if ~isfield(props, 'dispBarsLines') || ...
          strcmp(props.dispBarsLines, 'bars')
        plot_mid_vals = permute(mid_vals(:, plot_num, :), [1, 3, 2]);
+       bar_width = getFieldDefault(props, 'barWidth', 0.8);
        plot_components = ...
-           {plot_abstract({group_locs, plot_mid_vals}, ...
+           {plot_abstract({group_locs, plot_mid_vals, bar_width}, ...
                           {x_labels{plot_num}, y_labels{plot_num}}, '', ...
                           {title_str}, 'bar', ...
                           bar_axis_props)};
