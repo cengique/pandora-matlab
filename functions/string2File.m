@@ -37,6 +37,9 @@ if exist('filename', 'var') && ~ isempty(filename)
     write_mode = 'w';
   end
   fp = fopen(filename, write_mode);
+  if fp < 0 
+    error(['Cannot open file "' filename '" for writing.']);
+  end
   fprintf(fp, '%s', string);
   fclose(fp);
 end
