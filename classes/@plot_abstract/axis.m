@@ -34,6 +34,9 @@ switch a_plot.command
     end
     ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
 	      min(a_plot.data{2} - a_plot.data{3}) max(a_plot.data{2} + up_data)];
+  case 'bar'
+    ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
+               min(min(a_plot.data{2})) max(max(a_plot.data{2}))];
   otherwise
     if (length(a_plot.data) > 1)
       ranges = [ min(a_plot.data{1}) max(a_plot.data{1}) ...
