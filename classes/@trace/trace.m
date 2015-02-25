@@ -179,8 +179,9 @@ else
            data = readgenesis_BE(data_src, channel);
          else
            % otherwise use native Matlab reader
-           data = readgenbin(data_src, NaN, NaN, props.file_endian);
+           [data times] = readgenbin(data_src, NaN, NaN, props.file_endian);
            data = data(:, channel);
+           dt = diff(times(1:2)) * 1e-3;
          end
        else
          % check if readgenesis.mex* file available
@@ -189,8 +190,9 @@ else
            data = readgenesis(data_src, channel);
          else
            % otherwise use native Matlab reader
-           data = readgenbin(data_src, NaN, NaN, props.file_endian);
+           [data times] = readgenbin(data_src, NaN, NaN, props.file_endian);
            data = data(:, channel);
+           dt = diff(times(1:2)) * 1e-3;
          end           
        end
 
