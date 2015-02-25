@@ -11,6 +11,7 @@ function a_db = joinOriginal(a_ranked_db, rows, props)
 %   props: A structure with any optional properties.
 %     includeIndices: Also joins ItemIndex columns from the original db.
 %     origCols: Also join these columns from the original DB.
+%     rankedCols: Also join these columns from a_ranked_db.
 %     keepScores: Keep tests (metrics) from a_ranked_db instead of original db.
 %		
 % Returns:
@@ -77,16 +78,24 @@ if isfield(props, 'origCols')
   end
 end
 
+% columns to include from a_ranked_db
+ranked_cols = getFieldDefault(props, 'rankedCols', []);
+if ~ iscell(ranked_cols) 
+  ranked_cols = {ranked_cols};
+end
+ranked_cols = [ {'Distance', 'RowIndex'}, ...
+                ranked_cols ];
+
 if isfield(props, 'keepScores')
   % join only params from orig_db, keep everything else from a_ranked_db
   a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
                                 {orig_cols{:}}), ... 
                   onlyRowsTests(a_ranked_db, rows, ...
-                                union(crit_cols, {'Distance', 'RowIndex'})));
+                                union(crit_cols, ranked_cols)));
 else
   % join only params and tests from orig_db, only keep distance from a_ranked_db
   a_db = joinRows(onlyRowsTests(a_ranked_db.orig_db, ':', ...
                                 {orig_cols{:}, ...
                       crit_cols{:}}), ...
-                  onlyRowsTests(a_ranked_db, rows, {'Distance', 'RowIndex'}));
+                  onlyRowsTests(a_ranked_db, rows, ranked_cols));
 end
