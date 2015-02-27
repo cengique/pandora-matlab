@@ -14,7 +14,6 @@ displayRows(a_ns_stats_db)
 
 % plot errorbars
 plotFigure(plot_abstract(a_ns_stats_db, 'Non stimulated'))
-% => weird!!!! broken!
 
 plotFigure(plot_bars(a_ns_stats_db, 'Non stimulated'))
 
