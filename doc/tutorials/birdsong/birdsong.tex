@@ -1,0 +1,112 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.1 (25/3/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{courier}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+\usepackage{wasysym}
+\usepackage{hyperref}
+
+\setlength{\marginparwidth}{1.2in}
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft #1]%
+{\raggedright #1}}    
+
+\newenvironment{checklist}{%
+  \begin{list}{}{}% whatever you want the list to be
+  \let\olditem\item
+  \renewcommand\item{\olditem -- \marginpar{$\Box$} }
+  \newcommand\checkeditem{\olditem -- \marginpar{$\CheckedBox$} }
+}{%
+  \end{list}
+}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Objective}
+
+This tutorial will help familiarize you with some of the capabilities of the Pandora toolbox. In it, I will be creating a database of birdsong syllables, then running some basic operations on it.
+
+\subsection{Get Pandora}
+
+\begin{checklist}
+	\item		If you don't already have it, download Pandora from \url{software.incf.org/software/pandora/download} Under "Downloads \& Documentation," click on "PANDORA Toolbox v1.3b" (ZIP)". Save this file somewhere relevant.
+	\item		Make sure the Pandora folders "classes" and "functions" are in your MATLAB path. Only include those directories; don't include anything inside of them.
+\end{checklist}
+
+\subsection{Before Getting Started}
+
+\begin{checklist}
+	\item		Get some data that you are interested in looking at. For this tutorial, the data will be birdsong syllables. The data can be any set of stuff that has something you're interested in looking at.
+	\item		Think about the kinds of attributes that you want to look at in the data. For this example, we'll be looking at spectral entropy for each syllable.
+\end{checklist}
+
+\section{Creating a Database}
+
+First, we'll load all the files into a database. In this case, the files I'm using are ".mat" files with the attribute "sonogram" attached. Before loading the files in, I'd like to find the spectral entropy of the sonogram, then store each file, along with its identifying attributes, in the database.\\
+
+Creating a database requires two steps. First, we need to create a "dataset" object. A dataset is an abstract base class for keeping information about what is in the database separate from the actual database. Items can be added to or removed from the dataset without adding or removing elements of the database.\\
+
+There can be different implementations of datasets. For this tutorial, we're going to use the "fileset" object, which keeps track of what files we want to add to the database.\\
+
+\textbf{Note} Methods in Pandora use the structure \texttt{method\_name(param1, param2, ..., params)}, where \texttt{params1, params2, ...} are the necessary arguments for the method, and \texttt{params} is a structure containing keyword arguments, similar to Python. For example, to call the method \texttt{params\_tests\_fileset}, I might do \texttt{params\_tests\_fileset('*.mat', 1/32000, 1, struct('key', 'value'))}. In this case, the argument \texttt{params} is the structure \texttt{struct('key', 'value')}. This passes the argument \texttt{value} to the variable \texttt{key}. If nothing is specified, it uses the default value for that parameter.
+
+\subsection{Creating a Dataset from a Group of Files}
+
+A fileset object finds all the files whose names match a particular pattern and loads them in. The constructor method for creating a fileset is \texttt{params\_tests\_fileset(file\_pattern, dt, dy, params)}. The parameters are as follows:\\
+
+Not sure what to put for this part.
+
+\begin{checklist}
+	\item		\texttt{file\_pattern} The pattern for which files to load. For example, if you want to load all the \texttt{.mat} files in a directory, this argument could be \texttt{'*.mat'}.
+	\item		\texttt{dt} The time resolution of the data. For example, the song data I am using is sampled at 32000 Hz, so I would use the value \texttt{1/32000}.
+	\item		\texttt{dy} The y-axis resolution of the data. For this example, I am just going to put \texttt{1}.
+	\item		\texttt{params} Extra arguments. Run \texttt{help params\_tests\_fileset} for a complete list.
+\end{checklist}
+
+In this tutorial, the way files are loaded is important. There are two optional parameters that we need to pass:
+
+\begin{checklist}
+	\item		\texttt{fileParamsRegexp} The pattern for extracting information from the filename. We need to get two groups: \texttt{name} and \texttt{val}. For example, my filenames use the pattern \texttt{parameter-value}, so I would pass \texttt{(?<name>onset)-(?<val>\d+)}.
+	\item		\texttt{loadItemProfileFunc} If you want to change how files are loaded into the dataset, pass a custom function handle. This function needs to accept the parameters \texttt{dataset, index, param\_row} and \texttt{props}. The function should add the file to the dataset.
+\end{checklist}
+
+\subsection{Creating a Database from a Dataset}
+
+Once the dataset has been specified, it is very simple to create a database. This can be done using the command \texttt{params\_tests\_db(my\_data\_set)}.
+
+\end{document}
