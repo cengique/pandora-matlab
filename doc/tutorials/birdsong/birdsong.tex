@@ -83,19 +83,21 @@ Creating a database requires two steps. First, we need to create a "dataset" obj
 
 There can be different implementations of datasets. For this tutorial, we're going to use the "fileset" object, which keeps track of what files we want to add to the database.\\
 
-\textbf{Note} Methods in Pandora use the structure \texttt{method\_name(param1, param2, ..., params)}, where \texttt{params1, params2, ...} are the necessary arguments for the method, and \texttt{params} is a structure containing keyword arguments, similar to Python. For example, to call the method \texttt{params\_tests\_fileset}, I might do \texttt{params\_tests\_fileset('*.mat', 1/32000, 1, struct('key', 'value'))}. In this case, the argument \texttt{params} is the structure \texttt{struct('key', 'value')}. This passes the argument \texttt{value} to the variable \texttt{key}. If nothing is specified, it uses the default value for that parameter.
+\textbf{Note} Methods in Pandora use the structure \texttt{method\_name(param1, param2, ..., props)}, where \texttt{params1, params2, ...} are the necessary arguments for the method, and \texttt{props} is a structure containing keyword arguments, similar to Python. For example, to call the method \texttt{params\_tests\_fileset}, I might do \texttt{params\_tests\_fileset('*.mat', 1/32000, 1, struct('key', 'value'))}. In this case, the argument \texttt{params} is the structure \texttt{struct('key', 'value')}. This passes the argument \texttt{value} to the variable \texttt{key}. If nothing is specified, it uses the default value for that parameter.
 
 \subsection{Creating a Dataset from a Group of Files}
 
-A fileset object finds all the files whose names match a particular pattern and loads them in. The constructor method for creating a fileset is \texttt{params\_tests\_fileset(file\_pattern, dt, dy, params)}. The parameters are as follows:\\
+A fileset object finds all the files whose names match a particular pattern and loads them in. The constructor method for creating a fileset is\\
 
-Not sure what to put for this part.
+\texttt{my\_dataset = params\_tests\_fileset(file\_pattern, dt, dy, props)}\\
+
+The parameters are as follows:\\
 
 \begin{checklist}
 	\item		\texttt{file\_pattern} The pattern for which files to load. For example, if you want to load all the \texttt{.mat} files in a directory, this argument could be \texttt{'*.mat'}.
 	\item		\texttt{dt} The time resolution of the data. For example, the song data I am using is sampled at 32000 Hz, so I would use the value \texttt{1/32000}.
-	\item		\texttt{dy} The y-axis resolution of the data. For this example, I am just going to put \texttt{1}.
-	\item		\texttt{params} Extra arguments. Run \texttt{help params\_tests\_fileset} for a complete list.
+	\item		\texttt{dy} The y-axis resolution of the data. Usually, if you're doing spike currents, this would be the units you're recording in. For example, if you're recording in milliamps, you would use \texttt{1e-3}. For this example, I am just going to put \texttt{1}, since most of my data has been normalized to a particular amplitude.
+	\item		\texttt{props} Extra arguments. Run \texttt{help params\_tests\_fileset} for a complete list.
 \end{checklist}
 
 In this tutorial, the way files are loaded is important. There are two optional parameters that we need to pass:
@@ -107,6 +109,12 @@ In this tutorial, the way files are loaded is important. There are two optional 
 
 \subsection{Creating a Database from a Dataset}
 
-Once the dataset has been specified, it is very simple to create a database. This can be done using the command \texttt{params\_tests\_db(my\_data\_set)}.
+Once the dataset has been specified, it is very simple to create a database. This can be done using the command\\
+
+\texttt{my\_db = params\_tests\_db(my\_data\_set)}
+
+\section{Manipulating the Database}
+
+
 
 \end{document}
