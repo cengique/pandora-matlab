@@ -22,3 +22,9 @@ non_sim_db_neg = -non_sim_db;
 non_sim_db_neg_stats = statsMeanStd(non_sim_db_neg, 'peri_freq_Hz_HE8');
 displayRows(non_sim_db_neg_stats);
 plotFigure(plot_bars(non_sim_db_neg_stats))
+
+% print this as EPS file
+print -depsc2 birdsong_bars_non_sim_db.eps
+
+%% manipulations?
+
