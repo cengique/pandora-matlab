@@ -16,7 +16,8 @@ function h = plotColormap(data, a_colormap, num_colors, props)
 %     colorbarProps: Set colorbar axis properties.
 %     colorbarLabel: Set colorbar y-axis label.
 %     truncateDecDigits: Truncate labels to this many decimal digits.
-%     maxValue: Maximal value at num_colors to annotate the colorbar.
+%     minValue,maxValue: Minimal and maximal values represented by
+%     		1, num_colors to annotate the colorbar, resp.
 %     reverseYaxis: If 1, display y-axis values in reverse (default=0).
 %		
 % Returns:
@@ -73,18 +74,13 @@ end
 if isfield(props, 'colorbar')
   hc = colorbar;
   
-  if isfield(props, 'maxValue')
-      max_val = props.maxValue;
-  else
-      max_val = num_colors;             % Default normalized display
-  end
+  % Default normalized display
+  min_val = getFieldDefault(props, 'minValue', 0);
+  max_val = getFieldDefault(props, 'maxValue', 1);
+
   set(hc, 'YTickMode', 'manual');
   set(hc, 'YTickLabelMode', 'manual');
-  if ~ isfield(props, 'colorbarProps') || ~isfield(props.colorbarProps, 'YTickLabel')
-    yticks = get(hc, 'YTick');
-    set(hc, 'YTickLabel', round(yticks .* max_val .* mult_factor ./ ...
-                                num_colors) ./ mult_factor);
-  elseif isfield(props, 'colorbarProps')
+  if isfield(props, 'colorbarProps')
     % set all passed props
     for prop_field = fieldnames(props.colorbarProps)'
       prop_field = prop_field{1};
@@ -98,6 +94,12 @@ if isfield(props, 'colorbar')
     if isempty(get(hc, 'YTick'))
       set(hc, 'YTick', [0 1]);
     end
+  end
+  if ~ isfield(props, 'colorbarProps') || ~isfield(props.colorbarProps, 'YTickLabel')
+    yticks = get(hc, 'YTick')
+    % Units are normalized by default
+    set(hc, 'YTickLabel', ...
+            round((min_val + yticks .* (max_val - min_val)) .* mult_factor ) ./ mult_factor);
   end
   
   if isfield(props, 'colorbarLabel')

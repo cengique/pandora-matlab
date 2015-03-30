@@ -41,7 +41,7 @@ for k=1:nargin
     % find common fields and look for structures
     [commonfields common_idx] = intersect(fieldcell, fields);
     if ~isempty(common_idx)
-      for common_id = common_idx
+      for common_id = common_idx(:)'
         left_struct = valcell{common_id};
         if isstruct(left_struct)
           valcell{common_id} = ...
