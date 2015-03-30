@@ -22,3 +22,22 @@ non_sim_db_neg = -non_sim_db;
 non_sim_db_neg_stats = statsMeanStd(non_sim_db_neg, 'peri_freq_Hz_HE8');
 displayRows(non_sim_db_neg_stats);
 plotFigure(plot_bars(non_sim_db_neg_stats))
+
+%% create the database
+
+my_data_set = params_tests_fileset('/Users/judgingmoloch/Documents/School/Pandora/tutorials/birdsong_dataset/01_21_15_data_simple/*.mat', 1/32000, 1, 'gr79pu85_1_20_15', ...
+    struct('fileParamsRegexp', '(?<name>onset)-(?<val>[\d\.]+)', 'loadItemProfileFunc', @birdsong_mat_profile));
+my_db = params_tests_db(my_data_set); % This step could take a while
+
+%% for tutorial
+
+stims = my_db(my_db(:, 'stim') == true, :);
+catches = my_db(my_db(:, 'stim') == false, :);
+
+% plot
+
+stim_ns_stats_db = statsBounds(catches, 'entropy');
+catch_ns_stats_db = statsBounds(stims, 'entropy');
+
+plotFigure(plot_bars(stim_ns_stats_db, 'Stimulated'));
+plotFigure(plot_bars(catch_ns_stats_db, 'Unstimulated'));
