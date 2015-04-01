@@ -36,14 +36,14 @@ end
 
 h = figure;
 
-a(1) = subplot(3,1,1);
+a(1) = subplot(2,1,1);
 
 plot((1:numel(t.data))*t.dt, t.data*t.dy);
 title(title_one);
 xlabel('Time');
 ylabel('Amplitude');
 
-a(2) = subplot(3,1,2);
+a(2) = subplot(2,1,2);
 
 imagesc(t.sgram.timerange, t.sgram.freqrange, log(abs(t.sgram.data) + 3));
 set(gca, 'YDir', 'normal');
