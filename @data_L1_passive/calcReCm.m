@@ -18,6 +18,7 @@ function [Re Cm peak_mag] = calcReCm(pas, props)
 %     		two-element vector, use it as series resistance as in [Cm_pF Re_MO].
 %     ifPlot: If 1, create a plot for debugging that shows the current
 %      	      integral, time constant point (red star) and the leak (dashed line).
+%     maxStepDur: Maximal step duration (default: 50ms).
 %
 % Returns:
 %   Re: Series resistance [MOhm].
@@ -117,8 +118,14 @@ end
 % look at peak capacitive artifact and its half-width as an estimate
 % for until when to integrate
 peak_vc = calcCurPeaks(pas.data_vc, step_num + 1, ...
-                       struct('pulseStartRel', max(0, delay), ...
-                              'pulseEndRel', [(step_num + 2) min((end_dt - pas.data_vc.time_steps(step_num))*dt, 50)]));
+                       struct('pulseStartRel', max(0, delay)));
+
+% no need for this if we're taking until next step:
+% $$$ 'pulseEndRel', [(step_num + 2) 
+% $$$                 min((end_dt - pas.data_vc.time_steps(step_num))*dt, ...
+% $$$                                                   getFieldDefault(props, ...
+% $$$                                                   'maxStepDur', 50)) ]
+
 peak_mag = peak_vc.props.iPeaks(trace_num);
 peak_halfmag = peak_mag / 3;
 if peak_halfmag < 0
