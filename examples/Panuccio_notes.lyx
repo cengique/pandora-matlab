@@ -25,7 +25,17 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
-\use_hyperref false
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
 \use_geometry false
 \use_package amsmath 1
@@ -95,8 +105,80 @@ General info about recordings
 \end_layout
 
 \begin_layout Standard
-Working with Gabriella Panuccio, postdoc with PI Michele Giugliano at the
- Department of Biomedical Sciences of the University of Antwerp (Belgium).
+Working with 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{https://www.linkedin.com/pub/gabriella-panuccio/9/934/150}{
+\end_layout
+
+\end_inset
+
+Gabriella Panuccio
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, postdoc with PI 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{http://www.giugliano.info/pro/}{
+\end_layout
+
+\end_inset
+
+Michele Giugliano
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ (
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{http://www.tnb.ua.ac.be/aboutus/directory/view.php?UID=UID021}{
+\end_layout
+
+\end_inset
+
+lab contact
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+) at the Department of Biomedical Sciences of the University of Antwerp
+ (Belgium).
  Recording in giant L5 pyramidal cells of the primary somatosensory cortex
  and L5 medial prefrontal cortex pyramidal neurons from rodent brain slices.
  The Na channels are standard as explained in Catterall's papers
