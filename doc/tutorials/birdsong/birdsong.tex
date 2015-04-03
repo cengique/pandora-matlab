@@ -51,7 +51,29 @@
   \end{list}
 }
 
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
 \begin{document}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 1
@@ -83,38 +105,53 @@ Creating a database requires two steps. First, we need to create a "dataset" obj
 
 There can be different implementations of datasets. For this tutorial, we're going to use the "fileset" object, which keeps track of what files we want to add to the database.\\
 
-\textbf{Note} Methods in Pandora use the structure \texttt{method\_name(param1, param2, ..., props)}, where \texttt{params1, params2, ...} are the necessary arguments for the method, and \texttt{props} is a structure containing keyword arguments, similar to Python. For example, to call the method \texttt{params\_tests\_fileset}, I might do \texttt{params\_tests\_fileset('*.mat', 1/32000, 1, struct('key', 'value'))}. In this case, the argument \texttt{params} is the structure \texttt{struct('key', 'value')}. This passes the argument \texttt{value} to the variable \texttt{key}. If nothing is specified, it uses the default value for that parameter.
+\textbf{Note} Methods in Pandora use the structure \texttt{method\_name(param1, param2, ..., params)}, where \texttt{params1, params2, ...} are the necessary arguments for the method, and \texttt{params} is a structure containing keyword arguments, similar to Python. For example, to call the method \texttt{params\_tests\_fileset}, I might do \texttt{params\_tests\_fileset('*.mat', 1/32000, 1, struct('key', 'value'))}. In this case, the argument \texttt{params} is the structure \texttt{struct('key', 'value')}. This passes the argument \texttt{value} to the variable \texttt{key}. If nothing is specified, it uses the default value for that parameter.
 
 \subsection{Creating a Dataset from a Group of Files}
 
-A fileset object finds all the files whose names match a particular pattern and loads them in. The constructor method for creating a fileset is\\
-
-\texttt{my\_dataset = params\_tests\_fileset(file\_pattern, dt, dy, props)}\\
-
-The parameters are as follows:\\
+A fileset object finds all the files whose names match a particular pattern and loads them in. The constructor method for creating a fileset is \texttt{params\_tests\_fileset(file\_pattern, dt, dy, id, params)}. The parameters are as follows:\\
 
 \begin{checklist}
 	\item		\texttt{file\_pattern} The pattern for which files to load. For example, if you want to load all the \texttt{.mat} files in a directory, this argument could be \texttt{'*.mat'}.
 	\item		\texttt{dt} The time resolution of the data. For example, the song data I am using is sampled at 32000 Hz, so I would use the value \texttt{1/32000}.
-	\item		\texttt{dy} The y-axis resolution of the data. Usually, if you're doing spike currents, this would be the units you're recording in. For example, if you're recording in milliamps, you would use \texttt{1e-3}. For this example, I am just going to put \texttt{1}, since most of my data has been normalized to a particular amplitude.
-	\item		\texttt{props} Extra arguments. Run \texttt{help params\_tests\_fileset} for a complete list.
+	\item		\texttt{dy} The y-axis resolution of the data. For this example, I am just going to put \texttt{1}.
+	\item		\texttt{id} Some identifier for the fileset.
+	\item		\texttt{params} Extra arguments. Run \texttt{help params\_tests\_fileset} for a complete list.
 \end{checklist}
 
 In this tutorial, the way files are loaded is important. There are two optional parameters that we need to pass:
 
 \begin{checklist}
 	\item		\texttt{fileParamsRegexp} The pattern for extracting information from the filename. We need to get two groups: \texttt{name} and \texttt{val}. For example, my filenames use the pattern \texttt{parameter-value}, so I would pass \texttt{(?<name>onset)-(?<val>\d+)}.
-	\item		\texttt{loadItemProfileFunc} If you want to change how files are loaded into the dataset, pass a custom function handle. This function needs to accept the parameters \texttt{dataset, index, param\_row} and \texttt{props}. The function should add the file to the dataset.
+	\item		\texttt{loadItemProfileFunc} If you want to change how files are loaded into the dataset, pass a custom function handle. This function needs to accept the parameters \texttt{dataset, index, param\_row} and \texttt{props}. The function should return a \texttt{results\_profile} object. A sample function is below.
 \end{checklist}
+
+Sample function passed to \texttt{loadItemProfileFunc}:
+
+\lstinputlisting{functions/birdsong_mat_profile.m}
 
 \subsection{Creating a Database from a Dataset}
 
-Once the dataset has been specified, it is very simple to create a database. This can be done using the command\\
+Once the dataset has been specified, it is very simple to create a database. This can be done using the command \texttt{params\_tests\_db(my\_data\_set)}. This creates our database, which we can manipulate with Pandora.\\
 
-\texttt{my\_db = params\_tests\_db(my\_data\_set)}
+Here is the sample code for this tutorial.
 
-\section{Manipulating the Database}
+\lstinputlisting{functions/setupptf.m}
 
+\section{Visualizing Data}
 
+Now that all of the data is in a database, we need to use it for something.
+
+\subsection{Selecting Data}
+
+In the database, each datapoint has three attributes: \texttt{onset}, \texttt{entropy} and \texttt{ItemIndex}. The first two attributes were defined by the user, and the third is a unique index. Each attribute is a column in the database, and each row is a datapoint. Selecting data is done using MatLab's matrix notation.\\
+
+To select the first 10 data points in the database:
+
+\lstinputlisting{functions/selectingdata2.m}
+
+To select particular attributes, both the attribute's name as a string or the attribute's value relative to the other attributes can be used:
+
+\lstinputlisting{functions/selectingdata.m}
 
 \end{document}

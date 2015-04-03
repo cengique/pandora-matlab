@@ -17,6 +17,8 @@ if nargin == 1
     diff = round((datasize-N)/nsamples);    % Difference required to get "nsamples" samples
     sigma = 10;                             % Sigma value used for gaussian window function
     window = gausswin(N, sigma);            % Gaussian window function
+    overlap = N - diff;
+    nfft = N;
 end
 
 [sgram, freqs, times] = spectrogram(s.data, window, overlap, nfft, 1 / s.dt);

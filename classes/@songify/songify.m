@@ -18,7 +18,7 @@ function obj = songify(data, dy, dt, id, props)
 %
 % General methods of spikes objects:
 %   songify		- Construct a new songify object.
-%   plot		- Graph the spikes.
+%   plot      - Graph the spikes.
 %   display		- Returns and displays the identification string.
 %
 % Additional methods:
@@ -32,29 +32,39 @@ function obj = songify(data, dy, dt, id, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-if nargin == 0 % Called with no params
-    obj.data = [];
-    obj.dy = 1;
-    obj.dt = 1;
-    obj.id = '';
-    sgram.data = [];
-    sgram.freqrange = [0, 0];
-    sgram.timerange = [0, 0];
-    obj.sgram = sgram;
-    obj.props = struct;
-    obj = class(obj, 'songify');
+if nargin == 0 % Empty constructor
+  % obj.data = [];
+  obj.dy = 1;
+  obj.dt = 1;
+  obj.id = '';
+  sgram.data = [];
+  sgram.freqrange = [0, 0];
+  sgram.timerange = [0, 0];
+  obj.sgram = sgram;
+  obj.features = struct;
+  obj = class(obj, 'songify');
 elseif isa(data,'songify') % copy constructor
-    obj = data;
+  obj = data;
 else
-    obj.data = data;
-    obj.dy = dy;
-    obj.dt = dt;
-    obj.id = id;
-    sgram.data = [];
-    sgram.freqrange = [0, 0];
-    sgram.timerange = [0, 0];
-    obj.sgram = sgram;
-    obj.features = struct;
-    obj = class(obj, 'songify');
+  % These properties carry over from the trace object
+  % obj.data = data;
+  obj.dy = dy;
+  obj.dt = dt;
+  obj.id = id;
+  
+  % Add spectrogram
+  sgram.data = [];
+  sgram.freqrange = [0, 0];
+  sgram.timerange = [0, 0];
+  obj.sgram = sgram;
+  
+  % Get features from the data
+  obj.features = struct;
+  
+  % Create the final object
+  obj = class(obj, 'songify');
+  
+  obj.features = getFeatures(obj, data);
 end
 
+% Put start and end times in arrays in this class

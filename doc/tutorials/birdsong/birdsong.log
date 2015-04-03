@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  27 FEB 2015 13:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  29 MAR 2015 15:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -613,37 +613,70 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip76
 )
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count162
+\lst@gtempboxa=\box50
+\lst@token=\toks25
+\lst@length=\count163
+\lst@currlwidth=\dimen165
+\lst@column=\count164
+\lst@pos=\count165
+\lst@lostspace=\dimen166
+\lst@width=\dimen167
+\lst@newlines=\count166
+\lst@lineno=\count167
+\lst@maxwidth=\dimen168
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
+\c@lstnumber=\count168
+\lst@skipnumbers=\count169
+\lst@framebox=\box51
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/03/04 1.5c listings configuration
+))
+Package: listings 2014/03/04 1.5c (Carsten Heinz)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 137.
+)
 (./birdsong.aux)
 \openout1 = `birdsong.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
 
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count162
-\scratchdimen=\dimen165
-\scratchbox=\box50
-\nofMPsegments=\count163
-\nofMParguments=\count164
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count165
-\MPscratchDim=\dimen166
-\MPnumerator=\count166
-\makeMPintoPDFobject=\count167
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count170
+\scratchdimen=\dimen169
+\scratchbox=\box52
+\nofMPsegments=\count171
+\nofMParguments=\count172
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count173
+\MPscratchDim=\dimen170
+\MPnumerator=\count174
+\makeMPintoPDFobject=\count175
+\everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -667,64 +700,75 @@ Dictionary: translator-basic-dictionary, Language: English
 ons.cfg
 File: siunitx-abbreviations.cfg 2013/07/31 v2.5s siunitx: Abbreviated units
 )
-\AtBeginShipoutBox=\box51
-Package hyperref Info: Link coloring OFF on input line 54.
+\AtBeginShipoutBox=\box53
+Package hyperref Info: Link coloring OFF on input line 59.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count168
+\c@section@level=\count176
 )
-LaTeX Info: Redefining \ref on input line 54.
-LaTeX Info: Redefining \pageref on input line 54.
-LaTeX Info: Redefining \nameref on input line 54.
+LaTeX Info: Redefining \ref on input line 59.
+LaTeX Info: Redefining \pageref on input line 59.
+LaTeX Info: Redefining \nameref on input line 59.
 
 (./birdsong.out) (./birdsong.out)
 \@outlinefile=\write3
 \openout3 = `birdsong.out'.
 
-\c__siunitx_mathsf_int=\count169
-LaTeX Font Info:    Try loading font information for U+wasy on input line 54.
+\c@lstlisting=\count177
+\c__siunitx_mathsf_int=\count178
+LaTeX Font Info:    Try loading font information for U+wasy on input line 59.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 )
-\c__siunitx_mathtt_int=\count170
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 67.
+\c__siunitx_mathtt_int=\count179
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/03/04 1.5c listings language file
+)
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 89.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
 
-Overfull \hbox (4.75986pt too wide) in paragraph at lines 86--87
+Overfull \hbox (4.75986pt too wide) in paragraph at lines 108--109
 []\OT1/cmr/bx/n/10 Note \OT1/cmr/m/n/10 Meth-ods in Pan-dora use the struc-ture
  \OT1/pcr/m/n/10 method[]name(param1, param2,
  []
 
 
-Overfull \hbox (20.47787pt too wide) in paragraph at lines 86--87
-\OT1/cmr/m/n/10 might do \OT1/pcr/m/n/10 params[]tests[]fileset('*.mat', 1/3200
-0, 1, struct('key',
+Overfull \hbox (23.49683pt too wide) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 ments, sim-i-lar to Python. For ex-am-ple, to call the method \
+OT1/pcr/m/n/10 params[]tests[]fileset\OT1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (11.49098pt too wide) in paragraph at lines 86--87
+Overfull \hbox (26.3101pt too wide) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 I might do \OT1/pcr/m/n/10 params[]tests[]fileset('*.mat', 1/32
+000, 1, struct('key',
+ []
+
+
+Overfull \hbox (11.49098pt too wide) in paragraph at lines 108--109
 \OT1/pcr/m/n/10 'value'))\OT1/cmr/m/n/10 . In this case, the ar-gu-ment \OT1/pc
 r/m/n/10 params \OT1/cmr/m/n/10 is the struc-ture \OT1/pcr/m/n/10 struct('key',
 
@@ -733,24 +777,9 @@ r/m/n/10 params \OT1/cmr/m/n/10 is the struc-ture \OT1/pcr/m/n/10 struct('key',
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 90--91
-
- []
-
-
-Overfull \hbox (17.40002pt too wide) in paragraph at lines 92--93
-[]\OT1/pcr/m/n/10 my[]dataset = params[]tests[]fileset(file[]pattern, dt, dy, p
-rops) 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 94--95
-
+Overfull \hbox (117.31897pt too wide) in paragraph at lines 112--113
+\OT1/cmr/m/n/10 loads them in. The con-struc-tor method for cre-at-ing a file-s
+et is \OT1/pcr/m/n/10 params[]tests[]fileset(file[]pattern,
  []
 
 
@@ -758,41 +787,66 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 120.
-[2] [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 120.
- (./birdsong.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 120.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 120.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 130.
+(./functions/birdsong_mat_profile.m [2])
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
+ []
 
-Package rerunfilecheck Warning: File `birdsong.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+(./functions/setupptf.m
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1.
 
-Package rerunfilecheck Info: Checksums for `birdsong.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  F556737328A43DCBE25771BA1A0FA8B9;461.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 120.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 1.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
+
+ []
+
+(./functions/selectingdata2.m) (./functions/selectingdata.m)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 156.
+ [3]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 156.
+
+(./birdsong.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 156.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 156.
+Package rerunfilecheck Info: File `birdsong.out' has not changed.
+(rerunfilecheck)             Checksum: 18DE9F2EF786FC2BBB6B01CE7C213D95;515.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 156.
  ) 
 Here is how much of TeX's memory you used:
- 14437 strings out of 493117
- 283902 string characters out of 6135433
- 334980 words of memory out of 5000000
- 17776 multiletter control sequences out of 15000+600000
+ 16409 strings out of 493117
+ 311295 string characters out of 6135433
+ 420610 words of memory out of 5000000
+ 19688 multiletter control sequences out of 15000+600000
  8177 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,4n,35p,10411b,713s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,6n,40p,10411b,2583s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/
-texmf-dist/fonts/type1/public/wasy/wasy10.pfb>
-Output written on birdsong.pdf (3 pages, 64088 bytes).
+live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texl
+ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
+e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2
+014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
+14/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf
+-dist/fonts/type1/public/wasy/wasy10.pfb>
+Output written on birdsong.pdf (3 pages, 93969 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 117 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 
