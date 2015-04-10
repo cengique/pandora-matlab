@@ -1,4 +1,4 @@
-function [results a_doc] = getResultsPassiveReCeElec(pas, props)
+function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 
 % getResultsPassiveReCeElec - Estimates passive cell params based on Re Ce electrode model.
 %
@@ -15,7 +15,7 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %     EL: Leak reversal (default=calculated).
 %     minResnorm: Lowest resnorm to accept (default=0.004).
 %     minRe: Lowest Re value accepted (default=50MO).
-%     compCap: Emulate compensation of this much capacitance [pF]. If
+%     compCap: Add back subtracted capacitance transients [pF]. If
 %     	       there is a second index, it is series resistence [MO].
 %     initCe: Initial value for Ce [pF].
 %     unitCap: Units of capacitance, such as 'nF' and 'pF' (default).
@@ -25,14 +25,22 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 %
 % Returns:
 %   results: A structure with all fitted passive parameters.
+%   pas_md: The model_data_vcs object that contains the model and
+%   		the final fit.
 %   a_doc: (Optional) A doc_plot object that contains the plot for the fit.
 %
 % Description:
-%   Integrates current response and divides by voltage difference to get
-% initial estimate for capacitance. Membrane charge time constant is series
-% resistance times capacitance. I=Cm*dV/dt+(V-EL)*gL. Then runs several
-% optimization steps to fits output.  Run it after 'warning on verbose' to
-% get detailed information.
+%   Integrates current response and divides by voltage difference to
+% get initial estimate for capacitance using the largest passive
+% voltage command step. Membrane charge time constant is series
+% resistance times capacitance. I=Cm*dV/dt+(V-EL)*gL. Initial
+% estimates are prefixed with "int_" in the results. Then runs several
+% least-squares optimization steps to fit output to desired voltage
+% step response. Multiple stages of optimization will be run focusing
+% at different regions in the current and adjusting select
+% parameters. The final fine-tuned estimates are prefixed with "fit_"
+% in the results. Run it after 'warning on verbose' to get detailed
+% information.
 %
 % See also: 
 %
@@ -46,6 +54,14 @@ function [results a_doc] = getResultsPassiveReCeElec(pas, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+% TODO:
+% - rename to w/o L1
+% - place under pandora, and then move to pan_vc
+% - why does int est look at largest voltage step?
+% - return fitted models in doc.props?
+% - break down to multiple functions. compcap should be done
+% separately since it's just adding back the current.
+  
   vs = warning('query', 'verbose');
   verbose = strcmp(vs.state, 'on');
   
@@ -106,32 +122,7 @@ end
 delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
 
 if isfield(props, 'compCap')
-  if length(props.compCap) > 1 % with Re
-    capleak_f = ...
-        param_Re_Ce_cap_leak_act_int_t(struct('gL', 0, 'EL', 0, 'Ce', 1e-10, ...
-                                              'Re', props.compCap(2), ...
-                                              'Cm', props.compCap(1)*1e-3, ...
-                                              'delay', delay, 'offset', 0), ...
-                                       'amplifier Re-cap comp', ...
-                                       struct);
-    capleak_f.Vm = setProp(capleak_f.Vm, 'selectParams', {}); %'delay', 'Ce'
-  else
-    mod_param_props = struct;
-    mod_param_props.selectParams = {'delay'};
-    capleak_f = ...
-        param_cap_leak_int_t(struct('gL', 0, 'EL', 0, 'Cm', props.compCap*1e-3, ...
-                                    'delay', delay, 'offset', 0), ...
-                             'amplifier cap comp', ...
-                             mod_param_props);
-  end
-  props.compCap = capleak_f;
-  % simulate model
-  cap_md = ...
-      model_data_vcs(capleak_f, pas.data_vc, ...
-                     [ pas.data_vc.id ': cap comp']);
-  % add to I
-  orig_i = pas.data_vc.i;
-  pas.data_vc.i = pas.data_vc.i + cap_md.model_vc.i;
+  pas = addCapTrans(pas, props.compCap, struct('delay', delay));
   
   % remove compCap
   props = rmfield(props, 'compCap');
@@ -151,7 +142,8 @@ if verbose
 end
 
 if Re < min_Re
-    warning(['Re=' num2str(Re) ' MOhm too small, setting to minimum 50 MOhm.']);
+    warning(['Re=' num2str(Re) ' MOhm too small, setting to minimum ' ...
+             num2str(Re) ' MOhm.']);
     Re = max(Re, min_Re); % limit
 end
 
@@ -184,7 +176,7 @@ if ~strcmp(unit_cond, 'nS') && ~strcmp(unit_cond, 'uS')
          'props.unitCond not recognized.']);
 end
 
-% save passive properties in results structure
+% save initial passive parameter estimates in results structure
 switch (unit_res)
   case 'MO'
     results.int_Re_MO = Re;
@@ -209,6 +201,7 @@ results.int_EL_mV = pas_res.EL;
 results.int_offset_pA = pas_res.offset * 1e3;
 results.est_delay_ms = delay;
 
+% make model for least-squares optimization
 capleakReCe_f = ...
     param_Re_Ce_cap_leak_act_int_t(...
       struct('Re', Re, 'Ce', getFieldDefault(props, 'initCe', 1.2)*1e-3, 'gL', pas_res.gL, ...
@@ -216,6 +209,7 @@ capleakReCe_f = ...
       ['cap, leak, Re and Ce (int)'], ...
       struct('parfor', 1));
 
+% Removed because we're simply adding the compCap into the current above
 % $$$ if isfield(props, 'compCap')
 % $$$   capleakReCe_f = capleakReCe_f - capleak_f;
 % $$$ end
@@ -232,27 +226,19 @@ plotFigure(plotDataCompare(a_md, ' - analytic estimate', ...
                     * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm], ...
                     y_lims])));
 
-% fit to make a better Re estimate
-if isfield(props, 'compCap') && false
-  a_md.model_f.left.Vm = setProp(a_md.model_f.left.Vm, 'selectParams', ...
-                                               {'Re', 'Ce', 'Cm', 'delay'});
-else
-  a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-                                          {'Re', 'Ce', 'Cm', 'delay'});
-end
+% select parameters to fit
+a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+                                        {'Re', 'Ce', 'Cm', 'delay'});
 
+% fit once to make a better Re estimate
 narrowToWide();
 
+% if fit not good, then fit more
 if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
-    if isfield(props, 'compCap') && false
-      a_md.model_f.left.Vm = setProp(a_md.model_f.left.Vm, 'selectParams', ...
-                                              {'Re', 'Ce', 'Cm', 'delay'});
-    else
-      a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
-                                              {'Re', 'Ce', 'Cm', 'delay'});
-    end
+    a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+                                            {'Re', 'Ce', 'Cm', 'delay'});
     runFit([step_num -.1 3*Re*Cm], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
@@ -300,6 +286,8 @@ end
 renameFields('(fit_delay)', '$1_ms');
 renameFields('(fit_offset)', '$1_pA');
 results.fit_offset_pA = results.fit_offset_pA * 1e3;
+
+pas_md = a_md;
 
 function narrowToWide()
 % new try:
@@ -368,7 +356,7 @@ function renameFields(re_from, re_to)
 end
 
 function runFit(fitrange, str)
-  disp([ pas.data_vc.id ': ' str ])
+  disp([ pas.data_vc.id ', fitting range ' num2str(fitrange) ': ' str ])
   if isempty(fig_handle)
     fig_handle = figure;
   end
