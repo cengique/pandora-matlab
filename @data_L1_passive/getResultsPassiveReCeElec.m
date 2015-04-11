@@ -119,7 +119,10 @@ if (pas_res.gL) > 0.025
                       'errors for gL and offset parameters.']);
 end
 
-delay = calcDelay(pas, struct('traceNum', pas_vsteps_idx(largest_step_idx)));
+delay = ...
+    getFieldDefault(props, 'delay', ...
+                           calcDelay(pas, struct('traceNum', ...
+                                                 pas_vsteps_idx(largest_step_idx))));
 
 if isfield(props, 'compCap')
   pas = addCapTrans(pas, props.compCap, struct('delay', delay));
