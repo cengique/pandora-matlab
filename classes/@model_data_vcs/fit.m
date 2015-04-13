@@ -204,6 +204,7 @@ end
   function a_plot = dispPlot(a_model)
   % is plotting disabled?
     if isfield(props, 'dispPlot') && props.dispPlot == 0
+        a_plot = [];
       return;
     end
     
