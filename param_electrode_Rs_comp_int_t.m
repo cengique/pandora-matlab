@@ -179,12 +179,6 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
       var_int = integrate(s, Vc_delay, mergeStructs(get(fs.this, 'props'), props));
       Vm = squeeze(var_int(:, 1, :));
       Vi = squeeze(var_int(:, 2, :));
-      if isfield(s.vars, 'm')
-        m = squeeze(var_int(:, 3, :));
-      end
-      if isfield(s.vars, 'h')
-        h = squeeze(var_int(:, 4, :));
-      end
     end
         
     % after integrating Vi, return total input current
@@ -196,13 +190,13 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
     
     if nargout > 1
       outs = ...
-          cell2struct(mat2cell(cat(3, I_Ce((fixed_delay + 1):end, :), ...
+          cell2struct(mat2cell(cat(3, I_prep((fixed_delay + 1):end, :), ...
                                    permute(var_int((fixed_delay + 1):end, :, :), ...
                                            [1 3 2])), ...
                                size(var_int((fixed_delay + 1):end, :), 1), ...
                                size(var_int, 3), ...
                                ones(1, size(var_int, 2) + 1)), ...
-                      [ 'ICe'; fieldnames(s.vars)], 3);
+                      [ 'I_prep'; 'Vm'; fieldnames(s.vars)], 3);
       
     end
   end
