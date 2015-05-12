@@ -53,7 +53,8 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_defaults = struct('Re', 0.05, 'Ce', 1e-3, 'gL', 1, 'EL', -80, ...
+  param_defaults = struct('Rcur', 100, 'Re', 0.05, 'Ccomp', 1e-3, 'Ce', 5e-3, ...
+                          'gL', 1, 'EL', -80, ...
                           'Cm', 10e-3, 'delay', 0, 'offset', 0);
   if ~ isstruct(param_init_vals)
     param_init_vals = ...
@@ -71,8 +72,8 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
   
   % physiologic parameter ranges
   param_ranges = ...
-      [ eps eps eps -120 eps 0  -.2;...
-        1e3 1e3 1e4 30 1e3  10  .2];
+      [ 100 eps eps eps eps -120 eps 0  -.2;...
+        100 1e3 1   1   1e4 30 1e3  10  .2];
   
   Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
   
@@ -88,48 +89,34 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
     funcs.Re = props.ReFunc
   end  
   
-  % make a sub param_func for membrane voltage (Vm)
-  mem_pf = ...
+  % make a sub param_func that outputs to derivatives: membrane
+  % voltage (Vm) and amplifier input voltage (Vi)
+  VmVi_pf = ...
       param_mult(...
         {'time [ms]', 'voltage [mV]'}, ...
         param_init_vals, {}, ...
         funcs, ...
-        @mem_deriv, ...
+        @amp_deriv, ...
         'Membrane derivative with Re', ...
         mergeStructs(props, ...
-                     struct('isIntable', 1, 'name', Vm_name, ...
-                            'paramRanges', param_ranges)));
-
-  % make a sub param_func for input voltage (Vi)
-  % TODO: correct input params/ranges
-  input_pf = ...
-      param_mult(...
-        {'time [ms]', 'voltage [mV]'}, ...
-        param_init_vals, {}, ...
-        [], ...
-        @Vi_deriv, ...
-        'Input voltage derivative', ...
-        mergeStructs(props, ...
-                     struct('isIntable', 1, 'name', Vm_name, ...
+                     struct('isIntable', 1, 'name', 'Vm_Vi', ...
+                            'numVals', 2, ...
                             'paramRanges', param_ranges)));
 
   a_pf = ...
       param_mult(...
         {'time [ms]', 'I_{cap+leak+electrode} [nA]'}, ...
         [], [], ...
-        struct('Vm', mem_pf, 'Vi', input_pf), ...        
-        @cap_leak_int, id, ...
+        struct('Vm_Vi', VmVi_pf), ...        
+        @amp_int, id, ...
         mergeStructs(props, struct));
 
-  % closure local variables
-  last_dVidt = 0;
-  
-  function dVidt = Vi_deriv(fs, p, x)
-    Vm = getVal(x.s, Vm_name);
-    Vi = getVal(x.s, 'Vi');
+  % returns [ dVm/dt; dVi/dt ]
+  function dVdt = amp_deriv(fs, p, x)
+    Vm_Vi = getVal(x.s, 'Vm_Vi');
     
     % voltage over Re
-    V_Re = (Vi  - Vm); %x.v(round(x.t/x.dt) + 1, :)'
+    V_Re = (Vm_Vi(2)  - Vm_Vi(1)); %x.v(round(x.t/x.dt) + 1, :)'
 
     if Re_is_func
       Re = f(fs.Re, abs(V_Re));
@@ -137,42 +124,29 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
       Re = p.Re;
     end
     
+    I_Re = V_Re / Re;
+    
+    % this is still weird for me. shouldn't it be (x.v - Vi)?
+    I_cur = x.v / p.Rcur; 
+    
     dVmdt = ...
-        (- (Vm - p.EL) * p.gL ...
-         - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ...
-         + V_Re / Re ) / p.Cm;
-  end
+        (- (Vm_Vi(1) - p.EL) * p.gL ...
+         - f(fs.I, struct('t', x.t, 'v', Vm_Vi(1), 'dt', x.dt, 's', x.s)) ...
+         + I_Re ) / p.Cm;
   
-  function dVmdt = mem_deriv(fs, p, x)
-  % get a handle with fixed parameters first
-  %f_I_h = fHandle(fs.I);
-    
-    Vm = getVal(x.s, Vm_name);
-    Vi = getVal(x.s, 'Vi');
-    
-    % voltage over Re
-    V_Re = (Vi  - Vm); %x.v(round(x.t/x.dt) + 1, :)'
-
-    if Re_is_func
-      Re = f(fs.Re, abs(V_Re));
-    else
-      Re = p.Re;
-    end
-    
-    dVmdt = ...
-        (- (Vm - p.EL) * p.gL ...
-         - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ...
-         + V_Re / Re ) / p.Cm;
+    % put all cap compensation together: p.Ccomp * (p.Gc * p.Pcc - 1) + p.Cshunt
+    dVidt = (Icur - I_Re) / (p.Ce - p.Ccomp);
+        
+    dVdt = [ dVmdt; dVidt ];
   end
 
-  function [Im outs] = cap_leak_int(fs, p, x)
+  function [I_prep outs] = amp_int(fs, p, x)
     Vc = x.v;
     dt = x.dt;
     s = getFieldDefault(x, 's', []);
     t = getFieldDefault(x, 't', 0);
 
     Vm_p = getParamsStruct(fs.Vm);
-    Vi_p = getParamsStruct(fs.Vi);
 
     if Vm_p.delay < 0 
       warning(['Delay=' num2str(Vm_p.delay) ' ms, but should not be negative! ' ...
@@ -202,41 +176,23 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
       %s = setVals(
       s = initSolver(fs.this, s, struct('initV', Vc_delay(1))); % , [-70 0 .85]); 
       % check initial conditions set based on V only
-% $$$       Vm = getVal(s, 'Vm')
-% $$$       m = getVal(s, 'm')
-% $$$       h = getVal(s, 'h')
       var_int = integrate(s, Vc_delay, mergeStructs(get(fs.this, 'props'), props));
       Vm = squeeze(var_int(:, 1, :));
+      Vi = squeeze(var_int(:, 2, :));
       if isfield(s.vars, 'm')
-        m = squeeze(var_int(:, 2, :));
+        m = squeeze(var_int(:, 3, :));
       end
       if isfield(s.vars, 'h')
-        h = squeeze(var_int(:, 3, :));
+        h = squeeze(var_int(:, 4, :));
       end
     end
-
-    % voltage over Re
-    V_Re = (Vc_delay - Vm);
-
-    % TODO: this won't work if solver is initialized outside and we don't
-    % have access to the "real" fs anymore
-    if Re_is_func
-      Re = f(fs.Vm.f.Re, abs(V_Re));
-    else
-      Re = Vm_p.Re;
-    end
-
-% $$$     disp(['V_Re min= ' num2str(min(min(abs(V_Re)))) ', max=' ...
-% $$$           num2str(max(max(abs(V_Re)))) ])
         
-    I_Ce = ...
-        Vm_p.Ce * [repmat(Vc_delay(1, :), 1, 1); diff(Vc_delay)] / dt;
-    
-    % after solving Vm, return total input current
-    Im = Vm_p.offset + I_Ce + V_Re ./ Re;
-    
+    % after integrating Vi, return total input current
+    I_prep = ...
+        Vm_p.offset + (Vm_p.Ce - Vm_p.Ccomp) * diff(Vi) + Vc_delay / Vm_p.Rcur;
+        
     % crop the prepended fixed_delay
-    Im = Im((fixed_delay + 1):end, :);
+    I_prep = I_prep((fixed_delay + 1):end, :);
     
     if nargout > 1
       outs = ...
