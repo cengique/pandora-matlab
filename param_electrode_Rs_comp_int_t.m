@@ -25,8 +25,9 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
 %   Implements the Preyer & Butera (2009) 10.1109/TNSRE.2009.2015205
 % amplifier circuit for series resistance (bridge balance) and
 % capacitance compensation, together with membrane and electrode
-% passive properties. Defines a function f(a_pf, struct) where v is an
-% array of voltage values [mV] changing with dt time steps [ms].
+% passive properties. Defines a function f(a_pf, struct) where v is
+% the amplifier command voltage [mV] vector changing with dt time
+% steps [ms].  
 %
 % See also: param_Re_Ce_cap_leak_int_t
 %
@@ -41,6 +42,8 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2015/05/05
   
 % TODO:
+% - improve initSolver to accept deriv functions that return
+% multiple variables at once  
   
   if ~ exist('props', 'var')
     props = struct;
@@ -83,9 +86,7 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
   if isfield(props, 'ReFunc')
     Re_is_func = true;
     funcs.Re = props.ReFunc
-  end
-
-  
+  end  
   
   % make a sub param_func for membrane voltage (Vm)
   mem_pf = ...
@@ -100,8 +101,8 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
                             'paramRanges', param_ranges)));
 
   % make a sub param_func for input voltage (Vi)
-  % TODO: corrent input params/ranges
-  mem_pf = ...
+  % TODO: correct input params/ranges
+  input_pf = ...
       param_mult(...
         {'time [ms]', 'voltage [mV]'}, ...
         param_init_vals, {}, ...
@@ -116,18 +117,19 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
       param_mult(...
         {'time [ms]', 'I_{cap+leak+electrode} [nA]'}, ...
         [], [], ...
-        struct('Vm', mem_pf), ...        
+        struct('Vm', mem_pf, 'Vi', input_pf), ...        
         @cap_leak_int, id, ...
         mergeStructs(props, struct));
 
-  function dVmdt = mem_deriv(fs, p, x)
-  % get a handle with fixed parameters first
-  %f_I_h = fHandle(fs.I);
-    
+  % closure local variables
+  last_dVidt = 0;
+  
+  function dVidt = Vi_deriv(fs, p, x)
     Vm = getVal(x.s, Vm_name);
+    Vi = getVal(x.s, 'Vi');
     
     % voltage over Re
-    V_Re = (x.v  - Vm); %x.v(round(x.t/x.dt) + 1, :)'
+    V_Re = (Vi  - Vm); %x.v(round(x.t/x.dt) + 1, :)'
 
     if Re_is_func
       Re = f(fs.Re, abs(V_Re));
@@ -136,8 +138,31 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
     end
     
     dVmdt = ...
-        (- (Vm - p.EL) * p.gL - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) + ...
-         V_Re / Re ) / p.Cm;
+        (- (Vm - p.EL) * p.gL ...
+         - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ...
+         + V_Re / Re ) / p.Cm;
+  end
+  
+  function dVmdt = mem_deriv(fs, p, x)
+  % get a handle with fixed parameters first
+  %f_I_h = fHandle(fs.I);
+    
+    Vm = getVal(x.s, Vm_name);
+    Vi = getVal(x.s, 'Vi');
+    
+    % voltage over Re
+    V_Re = (Vi  - Vm); %x.v(round(x.t/x.dt) + 1, :)'
+
+    if Re_is_func
+      Re = f(fs.Re, abs(V_Re));
+    else
+      Re = p.Re;
+    end
+    
+    dVmdt = ...
+        (- (Vm - p.EL) * p.gL ...
+         - f(fs.I, struct('t', x.t, 'v', Vm, 'dt', x.dt, 's', x.s)) ...
+         + V_Re / Re ) / p.Cm;
   end
 
   function [Im outs] = cap_leak_int(fs, p, x)
@@ -147,6 +172,7 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
     t = getFieldDefault(x, 't', 0);
 
     Vm_p = getParamsStruct(fs.Vm);
+    Vi_p = getParamsStruct(fs.Vi);
 
     if Vm_p.delay < 0 
       warning(['Delay=' num2str(Vm_p.delay) ' ms, but should not be negative! ' ...
@@ -187,14 +213,6 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
       if isfield(s.vars, 'h')
         h = squeeze(var_int(:, 3, :));
       end
-      %v_val = Vm;
-    else
-      % otherwise this is part of a bigger integration, just return
-      % values for this time step
-      % TODO: this is not going to work as is. Need to address into Vc using t.
-      %m = getVal(s, 'm');
-      %h = getVal(s, 'h');
-      %v_val = v(round(t/dt)+1, :);
     end
 
     % voltage over Re
