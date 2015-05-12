@@ -135,7 +135,7 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
          + I_Re ) / p.Cm;
   
     % put all cap compensation together: p.Ccomp * (p.Gc * p.Pcc - 1) + p.Cshunt
-    dVidt = (Icur - I_Re) / (p.Ce - p.Ccomp);
+    dVidt = (I_cur - I_Re) / (p.Ce - p.Ccomp);
         
     dVdt = [ dVmdt; dVidt ];
   end
@@ -146,7 +146,7 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
     s = getFieldDefault(x, 's', []);
     t = getFieldDefault(x, 't', 0);
 
-    Vm_p = getParamsStruct(fs.Vm);
+    Vm_p = getParamsStruct(fs.Vm_Vi);
 
     if Vm_p.delay < 0 
       warning(['Delay=' num2str(Vm_p.delay) ' ms, but should not be negative! ' ...
@@ -174,7 +174,7 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
       s = solver_int({}, dt, [ 'solver for ' id ] );
       % add variables and initialize. add  [0 1] for m & h
       %s = setVals(
-      s = initSolver(fs.this, s, struct('initV', Vc_delay(1))); % , [-70 0 .85]); 
+      s = initSolver(fs.this, s, struct('initV', [Vc_delay(1); Vc_delay(1)])); % , [-70 0 .85]); 
       % check initial conditions set based on V only
       var_int = integrate(s, Vc_delay, mergeStructs(get(fs.this, 'props'), props));
       Vm = squeeze(var_int(:, 1, :));
@@ -183,7 +183,9 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
         
     % after integrating Vi, return total input current
     I_prep = ...
-        Vm_p.offset + (Vm_p.Ce - Vm_p.Ccomp) * diff(Vi) + Vc_delay / Vm_p.Rcur;
+        Vm_p.offset ...
+        + (Vm_p.Ce - Vm_p.Ccomp) * [repmat(Vi(1, :), 1, 1); diff(Vi)] ...
+        + Vc_delay / Vm_p.Rcur;
         
     % crop the prepended fixed_delay
     I_prep = I_prep((fixed_delay + 1):end, :);
