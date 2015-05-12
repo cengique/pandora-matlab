@@ -47,12 +47,17 @@ num_vars = length(var_names);
 dfdt_init = repmat(NaN, num_vars, 1);
 dfdtHs = struct2cell(a_sol.dfdtHs);
 
+num_vals = 0;
+for var_num = 1:num_vars
+  num_vals = num_vals + size(a_sol.vars.(var_names{var_num}), 1);
+end
+
 % by default integrate for all values in x
 time = getFieldDefault(props, 'time', (0:(size(x, 1) - 1))*a_sol.dt);
 
 % integrate each column separately
 num_columns = size(x, 2);
-res = repmat(NaN, [length(time), num_vars, num_columns]);
+res = repmat(NaN, [length(time), num_vals, num_columns]);
 for column_num = 1:num_columns
   [t_tmp, result] = ...
       odefun(@deriv_all, ...
@@ -62,8 +67,7 @@ end
 
 function dfdt = deriv_all(t, vars)
   a_sol_tmp = setVals(a_sol, vars);
-  %dfdt = dfdt_init;
-  dfdt = repmat(NaN, num_vars, 1);
+  dfdt = repmat(NaN, length(vars), 1);
   v_ind = x(round(t/a_sol.dt) + 1, column_num);
   val_count = 1;
   old_val_count = 1;

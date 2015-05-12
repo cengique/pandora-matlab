@@ -31,4 +31,16 @@ function a_sol = setVals(a_sol, vals)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-a_sol.vars = cell2struct(num2cell(vals(:)), fieldnames(a_sol.vars), 1);
+% Following won't work if some variables have multiple values
+%a_sol.vars = cell2struct(num2cell(vals(:)), fieldnames(a_sol.vars), 1);
+
+var_names = fieldnames(a_sol.vars);
+num_vars = length(var_names);
+
+val_count = 1;
+old_val_count = 1;
+for var_num = 1:num_vars
+  val_count = val_count + size(a_sol.vars.(var_names{var_num}), 1);
+  a_sol.vars.(var_names{var_num}) = vals(old_val_count:(val_count-1));
+  old_val_count = val_count;
+end
