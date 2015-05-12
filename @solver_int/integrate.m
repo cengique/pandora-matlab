@@ -42,7 +42,8 @@ if isfield(props, 'parfor') && props.parfor == 1
   return;
 end
 
-num_vars = length(fieldnames(a_sol.vars));
+var_names = fieldnames(a_sol.vars);
+num_vars = length(var_names);
 dfdt_init = repmat(NaN, num_vars, 1);
 dfdtHs = struct2cell(a_sol.dfdtHs);
 
@@ -64,10 +65,14 @@ function dfdt = deriv_all(t, vars)
   %dfdt = dfdt_init;
   dfdt = repmat(NaN, num_vars, 1);
   v_ind = x(round(t/a_sol.dt) + 1, column_num);
+  val_count = 1;
+  old_val_count = 1;
   for var_num = 1:num_vars
-    dfdt(var_num) = ...
+    val_count = val_count + size(a_sol.vars.(var_names{var_num}), 1);
+    dfdt(old_val_count:(val_count-1)) = ...
         feval(dfdtHs{var_num}, ...
               struct('t', t, 's', a_sol_tmp, 'v', v_ind, 'dt', a_sol.dt));
+    old_val_count = val_count;
   end
 end
 

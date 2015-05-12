@@ -31,6 +31,8 @@ function ps = ...
 %     		accessed by g/setParams, with the onlySelect prop.
 %     isIntable: If 1, this function can be integrated and will be added
 %     		to a integrator solver_int when requested by initSolver.
+%     numVals: Indicate if this function returns multiple values as
+%     		a column vector (default=1).
 %     label: Short label string used for plots and exporting.
 %     trans2XPP: Use this function to translate the parameters into the
 %               XPP format (e.g., '@(a_fs) getParams(a_fs)'. 

@@ -42,7 +42,8 @@ if isfield(a_sol.vars, name)
   error(['Variable ''' name ''' not unique! Already exists in solver.']);
 end
 
-a_sol.vars.(name) = 0;
+% initialize as column vector based on given size
+a_sol.vars.(name) = zeros(getFieldDefault(props, 'numVals', 1));
 
 % reinforce the name using whatever was passed to initSolver
 a_sol.dfdtHs.(name) = fHandle(setProp(a_deriv_func, 'name', name), a_sol);
