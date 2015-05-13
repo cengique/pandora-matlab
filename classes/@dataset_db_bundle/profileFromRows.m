@@ -1,13 +1,13 @@
-function a_prof = profileFromRows(a_bundle, a_db, props)
+function a_prof = profileFromRows(a_bundle, indices, props)
 
 % profileFromRows - Loads a cip_trace object from a raw data file in the a_bundle.
 %
 % Usage:
-% a_prof = profileFromRows(a_bundle, a_db, props)
+% a_prof = profileFromRows(a_bundle, indices, props)
 %
 % Parameters:
 %   a_bundle: A dataset_db_bundle object.
-%   a_db: Contains rows that contain trial/ItemIndex numbers.
+%   indices: Array of trial/ItemIndex numbers, or a db that contains rows of them.
 %   props: A structure with any optional properties.
 %	indexName: Column to take the ItemIndex from.
 %  	(passed to params_tests_dataset/loadItemProfile)
@@ -32,20 +32,24 @@ function a_prof = profileFromRows(a_bundle, a_db, props)
 props = defaultValue('props', struct);
 
 fs_db = get(a_bundle, 'db');
-col_names = getColNames(a_db);
-index_col = getFieldDefault(props, 'indexName', 'ItemIndex');
 
-if any(ismember(col_names, index_col))
-  % otherwise use ItemIndex directly
-  indices = get(a_db(:, index_col), 'data');
-elseif any(ismember(col_names, 'trial'))
-  % look for a trial column
-  indices = ...
-      get(fs_db(anyRows(fs_db(:, 'trial'), a_db(:, 'trial')), ...
-                index_col), 'data');
-else
-  col_names
-  error(['Cannot find either trial or ItemIndex column in a_db']);
+if isa(indices, 'tests_db')
+  a_db = indices;
+  col_names = getColNames(a_db);
+  index_col = getFieldDefault(props, 'indexName', 'ItemIndex');
+
+  if any(ismember(col_names, index_col))
+    % otherwise use ItemIndex directly
+    indices = get(a_db(:, index_col), 'data');
+  elseif any(ismember(col_names, 'trial'))
+    % look for a trial column
+    indices = ...
+        get(fs_db(anyRows(fs_db(:, 'trial'), a_db(:, 'trial')), ...
+                  index_col), 'data');
+  else
+    col_names
+    error(['Cannot find either trial or ItemIndex column in a_db']);
+  end
 end
 
 a_prof = loadItemProfile(get(a_bundle, 'dataset'), ...

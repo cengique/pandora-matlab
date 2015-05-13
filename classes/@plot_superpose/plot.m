@@ -36,7 +36,7 @@ end
 
 num_plots = length(a_plot.plots);
 
-all_handles = [];
+all_handles = struct('plot', [], 'axis', []);
 for plot_num = 1:num_plots
   if plot_num > 1
     % only allow the first plot to open the axis
@@ -48,8 +48,9 @@ for plot_num = 1:num_plots
     to_plot = set(a_plot.plots{1}, 'props', ...
                   mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
   end
-  handles = plot(to_plot, layout_axis); 
-  all_handles = [all_handles, handles];
+  handles = plot(to_plot, layout_axis);
+  all_handles.plot = [all_handles.plot, handles.plot];
+  all_handles.axis = [all_handles.axis, handles.axis];
 end
 hold off;
 

@@ -77,6 +77,7 @@ if isfield(props, 'origCols')
     error('props.origCols must be a single string or a cell array.');
   end
 end
+orig_cols = getColNames(a_ranked_db.orig_db(:, orig_cols));
 
 % columns to include from a_ranked_db
 ranked_cols = getFieldDefault(props, 'rankedCols', []);
@@ -85,6 +86,7 @@ if ~ iscell(ranked_cols)
 end
 ranked_cols = [ {'Distance', 'RowIndex'}, ...
                 ranked_cols ];
+ranked_cols = getColNames(onlyRowsTests(a_ranked_db, ':', ranked_cols));
 
 if isfield(props, 'keepScores')
   % join only params from orig_db, keep everything else from a_ranked_db
