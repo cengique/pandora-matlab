@@ -186,10 +186,7 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
         Vm_p.offset ...
         + (Vm_p.Ce - Vm_p.Ccomp) * [repmat(Vi(1, :), 1, 1); diff(Vi)] ...
         + Vc_delay / Vm_p.Rcur;
-        
-    % crop the prepended fixed_delay
-    I_prep = I_prep((fixed_delay + 1):end, :);
-    
+            
     if nargout > 1
       outs = ...
           cell2struct(mat2cell(cat(3, I_prep((fixed_delay + 1):end, :), ...
@@ -201,6 +198,10 @@ function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
                       [ 'I_prep'; 'Vm'; fieldnames(s.vars)], 3);
       
     end
+    
+    % crop the prepended fixed_delay
+    I_prep = I_prep((fixed_delay + 1):end, :);
+
   end
 
 end
