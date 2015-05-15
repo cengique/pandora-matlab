@@ -23,11 +23,12 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
 %
 % Description:
 %   Implements the Preyer & Butera (2009) 10.1109/TNSRE.2009.2015205
-% amplifier circuit for series resistance (bridge balance) and
-% capacitance compensation, together with membrane and electrode
-% passive properties. Defines a function f(a_pf, struct) where v is
-% the amplifier command voltage [mV] vector changing with dt time
-% steps [ms].  
+% amplifier current clamp circuit for series resistance (bridge
+% balance) and capacitance compensation, together with membrane and
+% electrode passive properties. Note that the input signal x.v is
+% interpreted as a current command. Defines a function f(a_pf, struct)
+% where v is the amplifier command voltage [mV] vector changing with
+% dt time steps [ms].
 %
 % See also: param_Re_Ce_cap_leak_int_t
 %
