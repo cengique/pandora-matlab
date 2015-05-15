@@ -1,9 +1,9 @@
-function a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props) 
+function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props) 
   
-% param_electrode_Rs_comp_int_t - Simulates membrane, electrode and amplifier properties.
+% param_cc_Rs_comp_int_t - Simulated current clamp amplifier with series resistance compensation attached to an electrode and membrane.
 %
 % Usage:
-%   a_pf = param_electrode_Rs_comp_int_t(param_init_vals, id, props)
+%   a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
 %
 % Parameters:
 %   param_init_vals: Array or structure with initial values for electrode
