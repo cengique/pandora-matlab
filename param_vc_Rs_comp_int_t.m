@@ -22,13 +22,13 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
 %	a_pf: a param_mult object.
 %
 % Description:
-%   Implements the Preyer & Butera (2009) 10.1109/TNSRE.2009.2015205
-% amplifier current clamp circuit for series resistance (bridge
-% balance) and capacitance compensation, together with membrane and
-% electrode passive properties. Note that the input signal x.v is
-% interpreted as a current command. Defines a function f(a_pf, struct)
-% where v is the amplifier command voltage [mV] vector changing with
-% dt time steps [ms].
+%   Approximates a standard whole cell series resistance compensation
+% circuit like that found in the Axon Instruments recording amplifier
+% MultiClamp 700B. The circuit is connected to a model of neuronal
+% membrane and electrode passive properties. Active channels can be
+% attached to the membrane by specifying v_dep_I_f in props. Defines a
+% function f(a_pf, struct) where v is the amplifier command voltage
+% [mV] vector changing with dt time steps [ms].
 %
 % See also: param_Re_Ce_cap_leak_int_t
 %
