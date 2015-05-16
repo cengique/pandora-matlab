@@ -1,6 +1,6 @@
-function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props) 
+function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props) 
   
-% param_cc_Rs_comp_int_t - Simulated current clamp amplifier with series resistance compensation attached to an electrode and membrane.
+% param_cc_Rs_comp_int_t - Simulated voltage clamp amplifier with series resistance compensation attached to an electrode and membrane.
 %
 % Usage:
 %   a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
