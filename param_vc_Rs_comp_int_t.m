@@ -87,8 +87,8 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
   end  
   
   % make a sub param_func that outputs to derivatives: membrane
-  % voltage (Vm) and amplifier input voltage (Vi)
-  VmVi_pf = ...
+  % voltage (Vm) and whole cell compensation voltage (Vw)
+  VmVw_pf = ...
       param_mult(...
         {'time [ms]', 'voltage [mV]'}, ...
         param_init_vals, {}, ...
@@ -96,7 +96,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
         @amp_deriv, ...
         'Membrane derivative with Re', ...
         mergeStructs(props, ...
-                     struct('isIntable', 1, 'name', 'Vm_Vi', ...
+                     struct('isIntable', 1, 'name', 'Vm_Vw', ...
                             'numVals', 2, ...
                             'paramRanges', param_ranges)));
 
@@ -104,16 +104,27 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
       param_mult(...
         {'time [ms]', 'I_{cap+leak+electrode} [nA]'}, ...
         [], [], ...
-        struct('Vm_Vi', VmVi_pf), ...        
+        struct('Vm_Vw', VmVw_pf), ...        
         @amp_int, id, ...
         mergeStructs(props, struct));
 
-  % returns [ dVm/dt; dVi/dt ]
+  % returns [ dVm/dt; dVw/dt ]
   function dVdt = amp_deriv(fs, p, x)
-    Vm_Vi = getVal(x.s, 'Vm_Vi');
+    Vm_Vw = getVal(x.s, 'Vm_Vw');
+ 
+    I_w = (x.v - Vm_Vw(2)) / p.Rscomp;
+    
+    % TODO: Add "prediction" over command voltage coming from x.v
+    Vp = x.v + I_w * p.Rscomp * p.pred;
+    
+    % estimate ionic currents later
+    I_ion = (Vp - Vm_Vw(1)) / p.Re - I_w;
+    
+    % Add "correction" over Vp now
+    Vp = Vp + I_ion * p.Rscomp * p.corr;
     
     % voltage over Re
-    V_Re = (Vm_Vi(2)  - Vm_Vi(1)); %x.v(round(x.t/x.dt) + 1, :)'
+    V_Re = (Vp  - Vm_Vw(1)); %x.v(round(x.t/x.dt) + 1, :)'
 
     if Re_is_func
       Re = f(fs.Re, abs(V_Re));
@@ -122,19 +133,16 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     end
     
     I_Re = V_Re / Re;
-    
-    % this is still weird for me. shouldn't it be (x.v - Vi)?
-    I_cur = x.v / p.Rcur; 
-    
+        
     dVmdt = ...
-        (- (Vm_Vi(1) - p.EL) * p.gL ...
-         - f(fs.I, struct('t', x.t, 'v', Vm_Vi(1), 'dt', x.dt, 's', x.s)) ...
+        (- (Vm_Vw(1) - p.EL) * p.gL ...
+         - f(fs.I, struct('t', x.t, 'v', Vm_Vw(1), 'dt', x.dt, 's', x.s)) ...
          + I_Re ) / p.Cm;
   
-    % put all cap compensation together: p.Ccomp * (p.Gc * p.Pcc - 1) + p.Cshunt
-    dVidt = (I_cur - I_Re) / (p.Ce - p.Ccomp);
-        
-    dVdt = [ dVmdt; dVidt ];
+    % whole cell circuit (faster with prediction applied)
+    dVwdt = (Vp / (p.Rscomp * (1 - p.pred))) / p.Ccomp;
+ 
+    dVdt = [ dVmdt; dVwdt ];
   end
 
   function [I_prep outs] = amp_int(fs, p, x)
@@ -143,7 +151,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     s = getFieldDefault(x, 's', []);
     t = getFieldDefault(x, 't', 0);
 
-    Vm_p = getParamsStruct(fs.Vm_Vi);
+    Vm_p = getParamsStruct(fs.Vm_Vw);
 
     if Vm_p.delay < 0 
       warning(['Delay=' num2str(Vm_p.delay) ' ms, but should not be negative! ' ...
