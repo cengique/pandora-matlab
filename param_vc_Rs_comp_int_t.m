@@ -1,19 +1,24 @@
 function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props) 
   
-% param_cc_Rs_comp_int_t - Simulated voltage clamp amplifier with series resistance compensation attached to an electrode and membrane.
+% param_vc_Rs_comp_int_t - Simulated voltage clamp amplifier with series resistance compensation attached to an electrode and membrane.
 %
 % Usage:
-%   a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
+%   a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
 %
 % Parameters:
-%   param_init_vals: Array or structure with initial values for electrode
-%     resistance, 'Re' [MOhm], and capacitance, 'Ce' [nF]; leak conductance, 'gL'
-%     [uS]; leak reversal, 'EL' [mV]; cell capacitance, 'Cm' [nF], a 'delay'
-%     [ms], and a current "offset" [nA].
+%   param_init_vals: Array or structure with initial values for
+%     amplifier estimates for series resistance, 'Rscomp' [Mohm];
+%     whole cell capacitance, 'Ccomp' [mV]; capacitive current
+%     compensation "prediction" percentage, 'pred'; ion current
+%     "correction" compensation percentage, 'pred'; actual 
+%     electrode resistance, 'Re' [MOhm], and capacitance, 'Ce'
+%     [nF]; leak conductance, 'gL' [uS]; leak reversal, 'EL' [mV];
+%     cell capacitance, 'Cm' [nF], a 'delay' [ms], and a current
+%     "offset" [nA]. 
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
 %     v_dep_I_f: A voltage-dependent current that is simulated with
-%     		Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
+%     	Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
 %     ReFunc: A param_func of voltage difference on Re.
 %     name: Use this to make labels unique.
 %     (Rest passed to param_mult)
@@ -23,24 +28,26 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
 %
 % Description:
 %   Approximates a standard whole cell series resistance compensation
-% circuit like that found in the Axon Instruments recording amplifier
-% MultiClamp 700B. The circuit is connected to a model of neuronal
-% membrane and electrode passive properties. Active channels can be
-% attached to the membrane by specifying v_dep_I_f in props. Defines a
+% circuit like that found in the Axon Instruments MultiClamp 700B
+% recording amplifier. The circuit is connected to a model of neuronal
+% membrane and electrode. Active channels can be attached to the
+% membrane by specifying v_dep_I_f in props. Model series resistance
+% (Re) can be a function voltage (see ReFunc in props). Defines a
 % function f(a_pf, struct) where v is the amplifier command voltage
 % [mV] vector changing with dt time steps [ms].
 %
-% See also: param_Re_Ce_cap_leak_int_t
+% See also: param_Re_Ce_cap_leak_int_t, param_cc_Rs_comp_int_t
 %
 % Example:
-% >> f_capleak = ...
-%    param_Re_Ce_cap_leak_int_t(struct('Re', 100, 'Ce', 1, 'gL', 3, 'EL', ...
-%                                      -80, 'Cm', 1e-2, delay, .1), ...
-%                        ['cap, leak, Re, Ce']);
+% >> a_f = ...
+%    param_vc_Rs_comp_int_t(struct('Rscomp', 10, 'Ccomp', 30e-3, ...
+%		'pred', 80, 'corr', 70, 'Re', 100, 'Ce', 1e-3, 'gL', 3e-3, ...
+%		'EL', -80, 'Cm', 1e-2, delay, .1), ...
+%                        ['VC Rs comp']);
 %
 % $Id: param_Re_Ce_cap_leak_int_t.m 131 2010-06-12 04:02:36Z cengiz $
 %
-% Author: Cengiz Gunay <cgunay@emory.edu>, 2015/05/05
+% Author: Cengiz Gunay <cgunay@emory.edu>, 2015/05/16
     
   if ~ exist('props', 'var')
     props = struct;
@@ -50,9 +57,10 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_defaults = struct('Rcur', 100, 'Re', 0.05, 'Ccomp', 1e-3, 'Ce', 5e-3, ...
-                          'gL', 1, 'EL', -80, ...
-                          'Cm', 10e-3, 'delay', 0, 'offset', 0);
+  param_defaults = ...
+      struct('Rscomp', 10, 'Ccomp', 50e-3, 'pred', 80, 'corr', 50, ...
+             'Re', 0.05, 'Ce', 5e-3, 'gL', 1, 'EL', -80, ...
+             'Cm', 10e-3, 'delay', 0, 'offset', 0);
   if ~ isstruct(param_init_vals)
     param_init_vals = ...
         cell2struct(num2cell(param_init_vals(:)'), ...
@@ -67,10 +75,10 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
   end
 
   
-  % physiologic parameter ranges
+  % physiologic parameter ranges (in the order of param_defaults)
   param_ranges = ...
-      [ 100 eps eps eps eps -120 eps 0  -.2;...
-        100 1e3 1   1   1e4 30 1e3  10  .2];
+      [ eps eps 0  0  eps eps eps -120 eps  0  -.2;...
+        1e3 1   99 99 1e3 1   1e4   30 1e3  1  .2];
   
   Vm_name = [ getFieldDefault(props, 'name', '') 'Vm' ];
   
@@ -115,7 +123,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     I_w = (x.v - Vm_Vw(2)) / p.Rscomp;
     
     % TODO: Add "prediction" over command voltage coming from x.v
-    Vp = x.v + I_w * p.Rscomp * p.pred;
+    Vp = x.v + I_w * p.Rscomp * p.pred / 100;
     
     % estimate ionic currents later
     I_ion = (Vp - Vm_Vw(1)) / p.Re - I_w;
@@ -124,7 +132,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     Vp = Vp + I_ion * p.Rscomp * p.corr;
     
     % voltage over Re
-    V_Re = (Vp  - Vm_Vw(1)); %x.v(round(x.t/x.dt) + 1, :)'
+    V_Re = (Vp  - Vm_Vw(1));
 
     if Re_is_func
       Re = f(fs.Re, abs(V_Re));
@@ -140,7 +148,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
          + I_Re ) / p.Cm;
   
     % whole cell circuit (faster with prediction applied)
-    dVwdt = (Vp / (p.Rscomp * (1 - p.pred))) / p.Ccomp;
+    dVwdt = (Vp / (p.Rscomp * (1 - p.pred/100))) / p.Ccomp;
  
     dVdt = [ dVmdt; dVwdt ];
   end
