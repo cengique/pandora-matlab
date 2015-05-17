@@ -120,12 +120,12 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
   % returns [ dVm/dt; dVw/dt ]
   function dVdt = amp_deriv(fs, p, x)
     Vm_Vw = getVal(x.s, 'Vm_Vw');
- 
-    I_w = (x.v - Vm_Vw(2)) / p.Rscomp;
-    
+     
     % TODO: Add "prediction" over command voltage coming from x.v
     Vp = x.v + (x.v - Vm_Vw(2)) * p.pred / 100 / (1 - p.pred / 100);
-    
+
+    I_w = (Vp - Vm_Vw(2)) / p.Rscomp;
+
     % estimate ionic currents later
     I_ion = (Vp - Vm_Vw(1)) / p.Re - I_w;
     
@@ -195,13 +195,15 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
       Vw = squeeze(var_int(:, 2, :));
     end
 
-    I_w = (Vc_delay - Vw) / Vm_p.Rscomp;
+    
+    V_pred = (Vc_delay - Vw) * Vm_p.pred / 100 ...
+             / (1 - Vm_p.pred / 100);
     
     % TODO: Add "prediction" over command voltage coming from x.v
-    Vp = Vc_delay + ...
-         (Vc_delay - Vw) * Vm_p.pred / 100 ...
-         / (1 - Vm_p.pred / 100); % I_w * Vm_p.Rscomp * Vm_p.pred / 100;
-    
+    Vp = Vc_delay + V_pred; % I_w * Vm_p.Rscomp * Vm_p.pred / 100;
+
+    I_w = (Vp - Vw) / Vm_p.Rscomp;
+
     % estimate ionic currents later
     I_ion = (Vp - Vm) / Vm_p.Re - I_w;
     
@@ -222,7 +224,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     % calculate total input current 
     I_prep = ...
         Vm_p.offset ...
-        + Vm_p.Ce * [repmat(Vc_delay(1, :), 1, 1); diff(Vc_delay)] / dt ...
+        + Vm_p.Ce * [repmat(Vp(1, :), 1, 1); diff(Vp)] / dt ...
         + V_Re / Re;
 
     % by default remove whole cell capacitance compensation
