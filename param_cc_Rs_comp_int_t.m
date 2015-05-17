@@ -6,7 +6,9 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
 %   a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
 %
 % Parameters:
-%   param_init_vals: Array or structure with initial values for electrode
+%   param_init_vals: Array or structure with initial values for
+%     amplifier current resistance, 'Rcur' [Mohm]; electrode
+%     capacitance compensation, 'Ccomp' [mV]; electrode
 %     resistance, 'Re' [MOhm], and capacitance, 'Ce' [nF]; leak conductance, 'gL'
 %     [uS]; leak reversal, 'EL' [mV]; cell capacitance, 'Cm' [nF], a 'delay'
 %     [ms], and a current "offset" [nA].
@@ -26,17 +28,18 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
 % amplifier current clamp circuit for series resistance (bridge
 % balance) and capacitance compensation, together with membrane and
 % electrode passive properties. Note that the input signal x.v is
-% interpreted as a current command. Defines a function f(a_pf, struct)
-% where v is the amplifier command voltage [mV] vector changing with
-% dt time steps [ms].
+% interpreted as a current command when divided by Rcur. Defines a
+% function f(a_pf, struct) where v is the amplifier command voltage
+% [mV] vector changing with dt time steps [ms].
 %
-% See also: param_Re_Ce_cap_leak_int_t
+% See also: param_Re_Ce_cap_leak_int_t, param_vc_Rs_comp_int_t
 %
 % Example:
-% >> f_capleak = ...
-%    param_Re_Ce_cap_leak_int_t(struct('Re', 100, 'Ce', 1, 'gL', 3, 'EL', ...
-%                                      -80, 'Cm', 1e-2, delay, .1), ...
-%                        ['cap, leak, Re, Ce']);
+% >> a_f = ...
+%    param_cc_Rs_comp_int_t(struct('Rcur', 100, 'Ccomp', 1e-3, ...
+%		'Re', 100, 'Ce', 1e-3, 'gL', 3e-3, ...
+%		'EL', -80, 'Cm', 1e-2, delay, .1), ...
+%                        ['CC Rs comp']);
 %
 % $Id: param_Re_Ce_cap_leak_int_t.m 131 2010-06-12 04:02:36Z cengiz $
 %
@@ -50,7 +53,7 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
     id = '';
   end
 
-  param_defaults = struct('Rcur', 100, 'Re', 0.05, 'Ccomp', 1e-3, 'Ce', 5e-3, ...
+  param_defaults = struct('Rcur', 100, 'Ccomp', 1e-3, 'Re', 0.05, 'Ce', 5e-3, ...
                           'gL', 1, 'EL', -80, ...
                           'Cm', 10e-3, 'delay', 0, 'offset', 0);
   if ~ isstruct(param_init_vals)
@@ -123,7 +126,7 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
     
     I_Re = V_Re / Re;
     
-    % this is still weird for me. shouldn't it be (x.v - Vi)?
+    % Convert voltage signal into injected current
     I_cur = x.v / p.Rcur; 
     
     dVmdt = ...
