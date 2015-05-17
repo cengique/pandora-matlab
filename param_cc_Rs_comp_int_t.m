@@ -44,7 +44,11 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
 % $Id: param_Re_Ce_cap_leak_int_t.m 131 2010-06-12 04:02:36Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2015/05/05
-    
+
+% TODO:
+% - Rcur should not be a parameter, just provide conversion units
+% to take input as current.
+  
   if ~ exist('props', 'var')
     props = struct;
   end
@@ -184,7 +188,7 @@ function a_pf = param_cc_Rs_comp_int_t(param_init_vals, id, props)
     % after integrating Vi, return total input current
     I_prep = ...
         Vm_p.offset ...
-        + (Vm_p.Ce - Vm_p.Ccomp) * [repmat(Vi(1, :), 1, 1); diff(Vi)] ...
+        + (Vm_p.Ce - Vm_p.Ccomp) * [repmat(Vi(1, :), 1, 1); diff(Vi)] / dt ...
         + Vc_delay / Vm_p.Rcur;
             
     if nargout > 1
