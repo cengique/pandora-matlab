@@ -1,9 +1,9 @@
-function param_electrode_Rs_comp_int_t_test(ifplot)
+function param_cc_Rs_comp_int_t_test(ifplot)
   
-% param_electrode_Rs_comp_int_t_test - Unit test.
+% param_cc_Rs_comp_int_t_test - Unit test.
 %
 % Usage:
-%   param_electrode_Rs_comp_int_t_test(ifplot)
+%   param_cc_Rs_comp_int_t_test(ifplot)
 %
 % Parameters:
 %   ifplot: If 1, produce plots.
@@ -30,7 +30,7 @@ capleakReCe_f = ...
       ['cap, leak, Re and Ce']);
 
 ampReCe_f = ...
-    param_electrode_Rs_comp_int_t(...
+    param_cc_Rs_comp_int_t(...
       struct('Re', 28, 'Ce', 2e-4, 'Ccomp', 1e-4, 'gL', 3.2e-3, ... % Ce=2e-4 OR 4e-3
              'EL', -88, 'Cm', .018, 'delay', 0, 'offset', 0), ... % EL=-70
       ['amp']);
