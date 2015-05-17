@@ -17,6 +17,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
 %     "offset" [nA]. 
 %   id: An identifying string for this function.
 %   props: A structure with any optional properties.
+%     wholeCell: If 1, turn on whole cell compensation (default=1).
 %     v_dep_I_f: A voltage-dependent current that is simulated with
 %     	Vm. That is, A param_func with struct('v', V [mV], 'dt', dt [ms]) -> I [nA].
 %     ReFunc: A param_func of voltage difference on Re.
@@ -123,13 +124,13 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     I_w = (x.v - Vm_Vw(2)) / p.Rscomp;
     
     % TODO: Add "prediction" over command voltage coming from x.v
-    Vp = x.v + I_w * p.Rscomp * p.pred / 100;
+    Vp = x.v + (x.v - Vm_Vw(2)) * p.pred / 100 / (1 - p.pred / 100);
     
     % estimate ionic currents later
     I_ion = (Vp - Vm_Vw(1)) / p.Re - I_w;
     
     % Add "correction" over Vp now
-    Vp = Vp + I_ion * p.Rscomp * p.corr;
+    Vp = Vp + I_ion * p.Rscomp * p.corr / 100;
     
     % voltage over Re
     V_Re = (Vp  - Vm_Vw(1));
@@ -148,7 +149,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
          + I_Re ) / p.Cm;
   
     % whole cell circuit (faster with prediction applied)
-    dVwdt = (Vp / (p.Rscomp * (1 - p.pred/100))) / p.Ccomp;
+    dVwdt = (x.v - Vm_Vw(2)) / (p.Rscomp * (1 - p.pred/100)) / p.Ccomp;
  
     dVdt = [ dVmdt; dVwdt ];
   end
@@ -187,29 +188,60 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
       s = solver_int({}, dt, [ 'solver for ' id ] );
       % add variables and initialize. add  [0 1] for m & h
       %s = setVals(
-      s = initSolver(fs.this, s, struct('initV', [Vc_delay(1); Vc_delay(1)])); % , [-70 0 .85]); 
+      s = initSolver(fs.this, s, struct('initV', [Vc_delay(1); Vc_delay(1)])); 
       % check initial conditions set based on V only
       var_int = integrate(s, Vc_delay, mergeStructs(get(fs.this, 'props'), props));
       Vm = squeeze(var_int(:, 1, :));
-      Vi = squeeze(var_int(:, 2, :));
+      Vw = squeeze(var_int(:, 2, :));
     end
-        
-    % after integrating Vi, return total input current
+
+    I_w = (Vc_delay - Vw) / Vm_p.Rscomp;
+    
+    % TODO: Add "prediction" over command voltage coming from x.v
+    Vp = Vc_delay + ...
+         (Vc_delay - Vw) * Vm_p.pred / 100 ...
+         / (1 - Vm_p.pred / 100); % I_w * Vm_p.Rscomp * Vm_p.pred / 100;
+    
+    % estimate ionic currents later
+    I_ion = (Vp - Vm) / Vm_p.Re - I_w;
+    
+    % Add "correction" over Vp now
+    Vp = Vp + I_ion * Vm_p.Rscomp * Vm_p.corr / 100;
+    
+    % voltage over Re
+    V_Re = (Vp  - Vm);
+
+    % TODO: this won't work if solver is initialized outside and we don't
+    % have access to the "real" fs anymore
+    if Re_is_func
+      Re = f(fs.Vm_Vw.f.Re, abs(V_Re));
+    else
+      Re = Vm_p.Re;
+    end
+
+    % calculate total input current 
     I_prep = ...
         Vm_p.offset ...
-        + (Vm_p.Ce - Vm_p.Ccomp) * [repmat(Vi(1, :), 1, 1); diff(Vi)] ...
-        + Vc_delay / Vm_p.Rcur;
-            
+        + Vm_p.Ce * [repmat(Vc_delay(1, :), 1, 1); diff(Vc_delay)] / dt ...
+        + V_Re / Re;
+
+    % by default remove whole cell capacitance compensation
+    if getFieldDefault(props, 'wholeCell', 1)
+      I_prep = I_prep  - I_w;
+    end
+    
     if nargout > 1
       outs = ...
-          cell2struct(mat2cell(cat(3, I_prep((fixed_delay + 1):end, :), ...
+          cell2struct(mat2cell(cat(3, ...
+                                   I_prep((fixed_delay + 1):end, :), ...
+                                   I_w((fixed_delay + 1):end, :), ...
+                                   Vp((fixed_delay + 1):end, :), ...
                                    permute(var_int((fixed_delay + 1):end, :, :), ...
                                            [1 3 2])), ...
                                size(var_int((fixed_delay + 1):end, :), 1), ...
                                size(var_int, 3), ...
-                               ones(1, size(var_int, 2) + 1)), ...
-                      [ 'I_prep'; 'Vm'; fieldnames(s.vars)], 3);
-      
+                               ones(1, size(var_int, 2) + 3)), ...
+                      [ 'I_prep'; 'I_w'; 'Vp'; 'Vm'; fieldnames(s.vars)], 3);
     end
     
     % crop the prepended fixed_delay
