@@ -117,23 +117,26 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
         @amp_int, id, ...
         mergeStructs(props, struct));
 
-  % returns [ dVm/dt; dVw/dt ]
-  function dVdt = amp_deriv(fs, p, x)
-    Vm_Vw = getVal(x.s, 'Vm_Vw');
-     
-    % Add "prediction" over command voltage coming from x.v
-    Vp = x.v + (x.v - Vm_Vw(2)) * p.pred / 100 / (1 - p.pred / 100);
+  % calculates all intermediate values
+  function [I_w I_ion I_Re V_pred V_corr Vp V_Re] = ...
+        calcAll(Vc, Vm, Vw, p, fs)
 
-    I_w = (Vp - Vm_Vw(2)) / p.Rscomp;
+    V_pred = (Vc - Vw) * p.pred/100 / (1 - p.pred/100);
+    
+    % "correction" voltage
+    V_corr = p.corr/100 * (Vw - Vm) / (1 - p.pred/100);
 
-    % estimate ionic currents later
-    I_ion = (Vp - Vm_Vw(1)) / p.Re - I_w;
+    % total clamp potential
+    Vp = Vc + V_pred + V_corr;
     
-    % Add "correction" over Vp now
-    Vp = Vp + I_ion * p.Rscomp * p.corr / 100;
-    
+    % only capacitive currents
+    I_w = (Vp - Vw) / p.Rscomp;
+
+    % used to estimate ionic currents 
+    I_ion = (Vp - Vm) / p.Rscomp - I_w;
+
     % voltage over Re
-    V_Re = (Vp  - Vm_Vw(1));
+    V_Re = (Vp  - Vm);
 
     if Re_is_func
       Re = f(fs.Re, abs(V_Re));
@@ -142,6 +145,15 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
     end
     
     I_Re = V_Re / Re;
+
+  end
+  
+  % returns [ dVm/dt; dVw/dt ]
+  function dVdt = amp_deriv(fs, p, x)
+    Vm_Vw = getVal(x.s, 'Vm_Vw');
+     
+    [I_w I_ion I_Re V_pred V_corr Vp V_Re] = ...
+        calcAll(x.v, Vm_Vw(1), Vm_Vw(2), p, fs);
         
     dVmdt = ...
         (- (Vm_Vw(1) - p.EL) * p.gL ...
@@ -149,7 +161,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
          + I_Re ) / p.Cm;
   
     % whole cell circuit 
-    dVwdt = I_w / p.Ccomp; % * (1 - p.pred/100)
+    dVwdt = I_w / p.Ccomp; 
  
     dVdt = [ dVmdt; dVwdt ];
   end
@@ -195,37 +207,14 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
       Vw = squeeze(var_int(:, 2, :));
     end
 
+    [I_w I_ion I_Re V_pred V_corr Vp V_Re] = ...
+        calcAll(Vc_delay, Vm, Vw, Vm_p, fs.Vm_Vw.f);
     
-    V_pred = (Vc_delay - Vw) * Vm_p.pred / 100 ...
-             / (1 - Vm_p.pred / 100);
-    
-    % TODO: Add "prediction" over command voltage coming from x.v
-    Vp = Vc_delay + V_pred; % I_w * Vm_p.Rscomp * Vm_p.pred / 100;
-
-    I_w = (Vp - Vw) / Vm_p.Rscomp;
-
-    % estimate ionic currents later
-    I_ion = (Vp - Vm) / Vm_p.Re - I_w;
-    
-    % Add "correction" over Vp now
-    Vp = Vp + I_ion * Vm_p.Rscomp * Vm_p.corr / 100;
-    
-    % voltage over Re
-    V_Re = (Vp  - Vm);
-
-    % TODO: this won't work if solver is initialized outside and we don't
-    % have access to the "real" fs anymore
-    if Re_is_func
-      Re = f(fs.Vm_Vw.f.Re, abs(V_Re));
-    else
-      Re = Vm_p.Re;
-    end
-
     % calculate total input current 
     I_prep = ...
         Vm_p.offset ...
         + Vm_p.Ce * [repmat(Vp(1, :), 1, 1); diff(Vp)] / dt ...
-        + V_Re / Re;
+        + I_Re;
 
     % by default remove whole cell capacitance compensation
     if getFieldDefault(props, 'wholeCell', 1)
