@@ -121,7 +121,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
   function dVdt = amp_deriv(fs, p, x)
     Vm_Vw = getVal(x.s, 'Vm_Vw');
      
-    % TODO: Add "prediction" over command voltage coming from x.v
+    % Add "prediction" over command voltage coming from x.v
     Vp = x.v + (x.v - Vm_Vw(2)) * p.pred / 100 / (1 - p.pred / 100);
 
     I_w = (Vp - Vm_Vw(2)) / p.Rscomp;
@@ -148,8 +148,8 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
          - f(fs.I, struct('t', x.t, 'v', Vm_Vw(1), 'dt', x.dt, 's', x.s)) ...
          + I_Re ) / p.Cm;
   
-    % whole cell circuit (faster with prediction applied)
-    dVwdt = (x.v - Vm_Vw(2)) / (p.Rscomp * (1 - p.pred/100)) / p.Ccomp;
+    % whole cell circuit 
+    dVwdt = I_w / p.Ccomp; % * (1 - p.pred/100)
  
     dVdt = [ dVmdt; dVwdt ];
   end
