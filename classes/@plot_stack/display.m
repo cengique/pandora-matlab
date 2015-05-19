@@ -16,8 +16,9 @@ if max(num) > 1
   disp(s);
   struct(t(1))
 else
-  s = '';
+  s = sprintf('%s, %s', class(t), get(t, 'title'));
+  disp(s);  
   struct(t)
 
-  display(t.plot_abstract);
+  s = display(t.plot_abstract);
 end
