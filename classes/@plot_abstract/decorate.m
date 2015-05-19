@@ -137,7 +137,12 @@ if (length(a_plot.legend) > 1 && ...
   legend_handles = [];
   legend_opts = {};
   for child_num = 1:length(plot_handles.plot)
-    if ~isempty(a_plot.legend{child_num})
+    if ~isempty(a_plot.legend{child_num}) 
+      if child_num > length(a_plot.legend) 
+        warning(['More plot entries than legends. Try using the noCombine ' ...
+                 'prop in plot_superpose.']);
+        break; % out of for
+      end          
       legend_opts = [ legend_opts {a_plot.legend{child_num}} ];
       legend_handles = [ legend_handles, plot_handles.plot(child_num) ];
     end
