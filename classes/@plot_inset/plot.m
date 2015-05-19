@@ -33,7 +33,7 @@ end
 
 num_plots = length(a_plot.plots);
 
-all_handles = [];
+all_handles = struct('plot', [], 'axis', []);
 this_layout_axis = layout_axis;
 
 a_plot_props = get(a_plot, 'props');
@@ -61,7 +61,8 @@ for plot_num = 1:num_plots
 
   % plot it
   handles = plot(a_plot.plots{plot_num}, this_layout_axis); 
-  all_handles = [all_handles, handles];
+  all_handles.plot = [all_handles.plot, handles.plot];
+  all_handles.axis = [all_handles.axis, handles.axis];
 
   % apply each plot's decoration separately
   decorate(a_plot.plots{plot_num});

@@ -346,7 +346,7 @@ for plot_num=1:num_plots
   one_handle = decorate(one_plot, one_handle);
 end
 
-% not used here
-handles = [];
+% not used here (TODO: could return at least list of axes)
+handles = struct('plot', [], 'axis', []);
 
 hold off;
