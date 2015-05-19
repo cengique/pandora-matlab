@@ -15,6 +15,7 @@ function [a_bundle, a_new_db, a_new_joined_db] = ...
 %     trial: Trial number for new parameter set. It also indicates
 %     		parallel mode, which does not alter existing files, but instead
 %     		creates new files with this trial number suffix.
+%     writePar: If 1, create a new par file (default=0).
 %
 % Returns:
 %   a_bundle: The bundle with updated parameters and measures.
@@ -76,18 +77,20 @@ if ~ exist(a_dataset.path, 'dir')
   assert(s, [ 'Failed to create dataset path: ' msg ]);
 end
 
-% check if param_row_filename already has path. Otherwise path is
-% repeated.
-[path, name, ext] = fileparts(a_dataset.props.param_row_filename);
-if exist(path, 'dir')
-  param_file = a_dataset.props.param_row_filename;
-else
-  param_file = [ trial_name a_dataset.props.param_row_filename ];
-end
-
 % add new params to param file
-writeParFile(a_param_row_db, param_file, ...
-             struct('trialStart', new_trial));
+if isfield(props, 'writePar') && props.writePar == 1
+
+  % check if param_row_filename already has path. Otherwise path is
+  % repeated.
+  [path, name, ext] = fileparts(a_dataset.props.param_row_filename);
+  if exist(path, 'dir')
+    param_file = a_dataset.props.param_row_filename;
+  else
+    param_file = [ trial_name a_dataset.props.param_row_filename ];
+  end
+  writeParFile(a_param_row_db, param_file, ...
+               struct('trialStart', new_trial));
+end
 
 % overwrite trial
 if any(ismember(col_names, 'trial'))
@@ -113,6 +116,8 @@ assert(num_files > 0, ...
 if ind_mode
   % only output the new trial data, erase previous items
   a_dataset.list = [ {files.name} ];
+  a_dataset.props.param_names = ...
+      getColNames(a_param_row_db);
   a_dataset.props.param_rows = ...
     [ get(a_param_row_db(1, 1:a_param_row_db.num_params), 'data') ];
 
