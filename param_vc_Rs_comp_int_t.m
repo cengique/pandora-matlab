@@ -117,6 +117,9 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
         @amp_int, id, ...
         mergeStructs(props, struct));
 
+  % for getResultsPassiveReCeElec to find the main object
+  a_pf = setVmName(a_pf, 'Vm_Vw');
+  
   % calculates all intermediate values
   function [I_w I_ion I_Re V_pred V_corr Vp V_Re] = ...
         calcAll(Vc, Vm, Vw, p, fs)
