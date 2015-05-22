@@ -106,7 +106,8 @@ function a_pf = param_Re_Ce_cap_leak_act_int_t(param_init_vals, id, props)
         @cap_leak_int, id, ...
         mergeStructs(props, struct));
 
-  % switch to using the _str version
+  % switch to using the _str version, improved speed only slightly
+  % (unittest ran in 0.96 sec vs 0.97 sec)
   function dVmdt = mem_deriv(fs, p, x)
   % get a handle with fixed parameters first
   %f_I_h = fHandle(fs.I);
@@ -127,6 +128,8 @@ function a_pf = param_Re_Ce_cap_leak_act_int_t(param_init_vals, id, props)
          V_Re / Re ) / p.Cm;
   end
 
+  % not efficient; calls getVal twice. Would be faster if we can
+  % embed parameter values into string.
   function dVmdt_str = mem_deriv_str(fs, s)
 
     props = get(fs.this, 'props');
