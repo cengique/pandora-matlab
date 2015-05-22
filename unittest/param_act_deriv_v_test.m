@@ -1,4 +1,4 @@
-function param_act_deriv_v_test
+function param_act_deriv_v_test(ifplot)
   
 % param_act_deriv_v_test - Unit test for @param_act_deriv_v.
 %
@@ -18,8 +18,10 @@ function param_act_deriv_v_test
 % $Id: param_act_deriv_v_test.m 168 2010-10-04 19:02:23Z cengiz $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/29
-  
-% make an object
+
+  ifplot = defaultValue('ifplot', 0);
+
+  % make an object
   m_inf = param_act([-80 6]);
   m_tau = param_tau_v([10 20 50 5]);
 
@@ -48,10 +50,13 @@ function param_act_deriv_v_test
   % test whole solution
   assert(max(abs(m_int(:, 1) - m_ideal)) < 1e-1);
 
-    % vector tests are not adequate for euclidian distance?
+  % vector tests are not adequate for euclidian distance?
   %assertVectorsAlmostEqual(, 'absolute', );
-% $$$   plot(m_inf);
-% $$$   plot(m_tau);
-% $$$ 
-% $$$   figure; plot([m_int, m_ideal])
 
+  if ifplot
+    plot(m_inf);
+    plot(m_tau);
+
+    % only display the first one
+    figure; plot([m_int(:, 1), m_ideal])
+  end
