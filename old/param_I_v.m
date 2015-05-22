@@ -1,7 +1,7 @@
 function a_pf = ...
       param_I_v(param_vals, a_param_act, a_param_inact, id, props)
   
-% param_I_v - An (non)inactivating current integrated over a changing V.
+% param_I_v - (OBSOLETE: for open form solutions?) An (non)inactivating current integrated over a changing V.
 %
 % Usage:
 %   a_pf = 

@@ -2,8 +2,10 @@ Name:
 - MatHHfit? This is also a general purpose ode sover :)
 - MatODEfit?
 - VCfit? all functions are functions of voltage/time
+- pan_fit: As a Pandora module
 
 Before release:
+- update integratepar with same numVals changes to integrate
 - there is a major bug with param_HH_chan_int_v. Instead, param_I_2tauh_int_v works.
 - move voltage_clamp, model_data_vcs into here. otherwise there is no
    fitting! (except param_func/optimize.) [wrong, there is an optimize

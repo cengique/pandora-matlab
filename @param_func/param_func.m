@@ -31,6 +31,9 @@ function ps = ...
 %     		accessed by g/setParams, with the onlySelect prop.
 %     isIntable: If 1, this function can be integrated and will be added
 %     		to a integrator solver_int when requested by initSolver.
+%     fHandle: Handle to function which returns a string that
+%     		evaluates to a function. If used, speeds up
+%     		integration.
 %     name: Name of integrated variable used in solver_int if isIntable is set.
 %     VmName: Name of main membrane voltage signal in the
 %     		integrator (Also see setVmName).

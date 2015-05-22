@@ -43,7 +43,9 @@ function a_pm = ...
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/01/27
 
 % TODO: 
-% - there is a bug with this function. See modeldb_export.
+% - there is a bug with this function. See
+% voltage_clamp/currents_common_defs.m. param_I_2tauh_int_v works
+% better. This one is better organized, so debug it with a unit test.
 
 if nargin == 0 % Called with no params
   a_pm = struct;

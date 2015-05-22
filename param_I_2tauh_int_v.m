@@ -20,6 +20,8 @@ function a_pf = ...
 %	a_pf: Holds the voltage->current function.
 %
 % Description:
+%   Supposed to be REDUNDANT with param_HH_chan_int_v, but that one
+% is buggy and this one is still reliable. -CG 2015/05/21
 %   Defines a function f(a_pf, struct('v', V [mV], 'dt', dt [ms])) where v is an array of voltage
 % values [mV] changing with dt time steps [ms]. Initial values for the
 % activation and inactivation variables are calculated from the first voltage

@@ -3,7 +3,7 @@ function ps = param_func_compiled(func_handle, id, props)
 % param_func_compiled - Holds a function, y = f(x), without any parameters.
 %
 % Usage:
-%   ps = param_func_compiled(var_names, param_init_vals, param_names, func_handle, id, props)
+%   ps = param_func_compiled(func_handle, id, props)
 %
 % Parameters:
 %   func_handle: Function handle that takes a variable to produce output.
@@ -14,14 +14,16 @@ function ps = param_func_compiled(func_handle, id, props)
 %	func, id.
 %
 % Description:  
-%   Obtained using param_func/fHandle for faster running functions
-% without gatehering parameter values.
+%   func_handle can be obtained using param_func/fHandle. Its
+% purpose is to speed up running functions by not gathering
+% parameter values as long as they remain constant. 
 %
 % Additional methods:
 %	See methods('param_func_compiled')
 %
 % Example:
-%   f_INaP = ...
+%   f_INaP_constPar = ...
+%     param_func_compiled(...
 %      fHandle(param_func(...
 %        {'voltage [mV]', 'current [nA]'}, ...
 %        [-40 -4.5, 1], ...
@@ -29,7 +31,7 @@ function ps = param_func_compiled(func_handle, id, props)
 %        @(p,x) ((p.gmax ./ (1 + exp((x(1, :) - p.V_half) ./ p.k))) ...
 %                       .* (x - ENa)), ...
 %        'steady-state I_{NaP}(V_{step})', ...
-%        struct('xMin', -90, 'xMax', 30)));
+%        struct('xMin', -90, 'xMax', 30))));
 %
 % See also: param_func/fHandle, param_func
 %

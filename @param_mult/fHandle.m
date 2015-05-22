@@ -1,6 +1,6 @@
 function f_handle = fHandle(a_ps, s)
 
-% fHandle - Return a handle to function with fixed parameters.
+% fHandle - Returns a handle to function with current set of parameters embedded.
 %
 % Usage:
 %   f_handle = fHandle(a_ps, s)
