@@ -15,6 +15,7 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 %     EL: Leak reversal (default=calculated).
 %     minResnorm: Lowest resnorm to accept (default=0.004).
 %     minRe: Lowest Re value accepted (default=50MO).
+%     noReCmEst: If 1, don't use the Re and Ce estimates as seed.
 %     compCap: Add back subtracted capacitance transients [pF]. If
 %     	       there is a second index, it is series resistence [MO].
 %     initCe: Initial value for Ce [pF].
@@ -22,6 +23,11 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 %     unitCond: Units of conductance, such as 'uS' and 'nS' (default).
 %     unitRes: Units of resistance, such as 'kO' and 'MO' (default).
 %     passiveV: limit below which traces are only passive (default=-55mV)
+%     model_f: Passive membrane and amplifier model to use for fits
+%     		(Default=param_Re_Ce_cap_leak_act_int_t).
+%     subname: Name of subfunction in model_f to get/set parameters from.
+%     debug: If 1, print detailed information. Also enabled if
+%     		'warning on verbose' is issued.
 %
 % Returns:
 %   results: A structure with all fitted passive parameters.
@@ -42,7 +48,7 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 % in the results. Run it after 'warning on verbose' to get detailed
 % information.
 %
-% See also: 
+% See also: param_Re_Ce_cap_leak_act_int_t, param_vc_Rs_comp_int_t_test
 %
 % $Id: getResultsPassiveReCeElec.m 896 2007-12-17 18:48:55Z cengiz $
 %
@@ -60,16 +66,20 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 % - why does int est look at largest voltage step?
 % - return fitted models in doc.props?
 % - break down to multiple functions. compcap should be done
-% separately since it's just adding back the current.
-  
+% separately since it's just adding back the current. Also need to
+% separate ReCe and amp models
+% - add a debug prop; verbose warning is too general
+
+  props = defaultValue('props', struct);
+
   vs = warning('query', 'verbose');
-  verbose = strcmp(vs.state, 'on');
+  verbose = getFieldDefault(props, 'debug', strcmp(vs.state, 'on'));
   
-props = defaultValue('props', struct);
 min_resnorm = getFieldDefault(props, 'minResnorm', 0.004);
 min_Re = getFieldDefault(props, 'minRe', 50);
 trace_num = getFieldDefault(props, 'traceNum', 1);
 step_num = getFieldDefault(props, 'stepNum', 1);
+subname = getFieldDefault(props, 'subname', 'Vm');
 
 nA_scale = pas.data_vc.i.dy / 1e-9;
 
@@ -205,12 +215,31 @@ results.int_offset_pA = pas_res.offset * 1e3;
 results.est_delay_ms = delay;
 
 % make model for least-squares optimization
-capleakReCe_f = ...
-    param_Re_Ce_cap_leak_act_int_t(...
-      struct('Re', Re, 'Ce', getFieldDefault(props, 'initCe', 1.2)*1e-3, 'gL', pas_res.gL, ...
-             'EL', pas_res.EL, 'Cm', Cm, 'delay', delay, 'offset', pas_res.offset), ...
-      ['cap, leak, Re and Ce (int)'], ...
-      struct('parfor', 1));
+if isfield(props, 'model_f')
+  capleakReCe_f = props.model_f;
+  % overwrite some parameters from initial estimates
+  % TODO: make a new function param_func/setParamsStruct
+  par_prefix = 'Vm_Vw_';
+  if ~ isfield(props, 'noReCmEst')
+      capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'Re'], Re);
+      capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'Cm'], Cm);
+  end
+  capleakReCe_f = ...
+      setParam(capleakReCe_f, [ par_prefix 'Ce'], ...
+                             getFieldDefault(props, 'initCe', 1.2)*1e-3);
+  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'gL'], pas_res.gL);
+  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'EL'], pas_res.EL);
+  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'delay'], delay);
+  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'offset'], pas_res.offset);
+else
+  capleakReCe_f = ...
+      param_Re_Ce_cap_leak_act_int_t(...
+          struct('Re', Re, 'Ce', getFieldDefault(props, 'initCe', 1.2)*1e-3, ...
+                 'gL', pas_res.gL, 'EL', pas_res.EL, 'Cm', Cm, ...
+                 'delay', delay, 'offset', pas_res.offset), ...
+          ['cap, leak, Re and Ce (int)'], ...
+          struct('parfor', 1));
+end
 
 % Removed because we're simply adding the compCap into the current above
 % $$$ if isfield(props, 'compCap')
@@ -230,7 +259,7 @@ plotFigure(plotDataCompare(a_md, ' - analytic estimate', ...
                     y_lims])));
 
 % select parameters to fit
-a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
                                         {'Re', 'Ce', 'Cm', 'delay'});
 
 % fit once to make a better Re estimate
@@ -240,7 +269,7 @@ narrowToWide();
 if results.resnorm > min_resnorm
     warning(['fit failed, resnorm too large: ' num2str(results.resnorm) '. Doing a narrow fit...' ]);
     % fit very narrow range after step
-    a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+    a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
                                             {'Re', 'Ce', 'Cm', 'delay'});
     runFit([step_num -.1 3*Re*Cm], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
@@ -256,7 +285,7 @@ if results.resnorm > min_resnorm
 end
 
 % rename all Vm_ columns
-renameFields('Vm_', 'fit_');
+renameFields([ subname '_' ], 'fit_');
 
 % add units to names
 switch (unit_cap)
@@ -303,19 +332,19 @@ function narrowToWide()
   % do another fit with more params relaxed.
   % this also recalculates gL and EL based on the Re estimate.
   if isfield(props, 'compCap') && false
-    a_md.model_f.left.Vm = ...
-        setProp(a_md.model_f.left.Vm, 'selectParams', ...
+    a_md.model_f.left.(subname) = ...
+        setProp(a_md.model_f.left.(subname), 'selectParams', ...
                               {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
   else
-    a_md.model_f.Vm = ...
-        setProp(a_md.model_f.Vm, 'selectParams', ...
+    a_md.model_f.(subname) = ...
+        setProp(a_md.model_f.(subname), 'selectParams', ...
                               {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
   end
   runFit([step_num -1 40], 'fit w/ relaxed gL,EL and offset');
 
   % remove El, gL before narrow fit (added 2012/02/29)
-  a_md.model_f.Vm = ...
-      setProp(a_md.model_f.Vm, 'selectParams', ...
+  a_md.model_f.(subname) = ...
+      setProp(a_md.model_f.(subname), 'selectParams', ...
                             {'Re', 'Ce', 'Cm', 'offset'});
   
   % last do narrower range
@@ -334,18 +363,18 @@ function oneFitsAll()
 % do another fit with more params relaxed.
 % this also recalculates gL and EL based on the Re estimate.
 if isfield(props, 'compCap') && false
-  a_md.model_f.left.Vm = ...
-      setProp(a_md.model_f.left.Vm, 'selectParams', ...
+  a_md.model_f.left.(subname) = ...
+      setProp(a_md.model_f.left.(subname), 'selectParams', ...
                             {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
 else
-  a_md.model_f.Vm = ...
-      setProp(a_md.model_f.Vm, 'selectParams', ...
+  a_md.model_f.(subname) = ...
+      setProp(a_md.model_f.(subname), 'selectParams', ...
                             {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
 end
 runFit([step_num -1 30], 'fit w/ relaxed gL,EL and offset');
 
 % repeat regular fit
-% $$$ a_md.model_f.Vm = setProp(a_md.model_f.Vm, 'selectParams', ...
+% $$$ a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
 % $$$                                         {'Re', 'Ce', 'Cm', 'delay'});
 
 runFit([step_num -1 10], 'fit 1-10ms');
