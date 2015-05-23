@@ -39,7 +39,11 @@ params = getParamsStruct(a_ps);
 if isfield(props, 'fHandle')
   % function returns function handle
   f_handle = props.fHandle(params, s);
-  f_handle = @(x) feval(eval(f_handle), params, x);
+  if ischar(f_handle)
+    % if a string, evaluate in this scope
+    f_handle = eval(f_handle);
+  end
+  f_handle = @(x) feval(f_handle, params, x);
 else
   % return as new handle
   f_handle = @(x) func(params, x);

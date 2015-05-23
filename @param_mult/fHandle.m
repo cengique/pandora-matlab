@@ -54,8 +54,12 @@ end
 if isfield(props, 'fHandle')
   % function returns function handle
   f_handle = props.fHandle(a_struct, s);
-  fs = a_struct;
-  f_handle = @(x) feval(eval(f_handle), params, x);
+  if ischar(f_handle)
+    % if a string, evaluate in this scope using fs below
+    fs = a_struct;
+    f_handle = eval(f_handle);
+  end
+  f_handle = @(x) feval(f_handle, params, x);
 else
   % return as new handle
   f_handle = @(x) func(a_struct, params, x);
