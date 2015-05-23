@@ -44,20 +44,21 @@ end
 
 var_names = fieldnames(a_sol.vars);
 num_vars = length(var_names);
-dfdt_init = repmat(NaN, num_vars, 1);
 dfdtHs = struct2cell(a_sol.dfdtHs);
+num_funcs = length(dfdtHs);
 
-num_vals = 0;
-for var_num = 1:num_vars
-  num_vals = num_vals + size(a_sol.vars.(var_names{var_num}), 1);
-end
+% each returned value should have a name
+% $$$ num_vals = 0;
+% $$$ for var_num = 1:num_vars
+% $$$   num_vals = num_vals + size(a_sol.vars.(var_names{var_num}), 1);
+% $$$ end
 
 % by default integrate for all values in x
 time = getFieldDefault(props, 'time', (0:(size(x, 1) - 1))*a_sol.dt);
 
 % integrate each column separately
 num_columns = size(x, 2);
-res = repmat(NaN, [length(time), num_vals, num_columns]);
+res = repmat(NaN, [length(time), num_vars, num_columns]);
 for column_num = 1:num_columns
   [t_tmp, result] = ...
       odefun(@deriv_all, ...
@@ -71,10 +72,11 @@ function dfdt = deriv_all(t, vars)
   v_ind = x(round(t/a_sol.dt) + 1, column_num);
   val_count = 1;
   old_val_count = 1;
-  for var_num = 1:num_vars
-    val_count = val_count + size(a_sol.vars.(var_names{var_num}), 1);
+  for func_num = 1:num_funcs
+    % 2nd element is the return size
+    val_count = val_count + dfdtHs{func_num}{2}; 
     dfdt(old_val_count:(val_count-1)) = ...
-        feval(dfdtHs{var_num}, ...
+        feval(dfdtHs{func_num}{1}, ...
               struct('t', t, 's', a_sol_tmp, 'v', v_ind, 'dt', a_sol.dt));
     old_val_count = val_count;
   end

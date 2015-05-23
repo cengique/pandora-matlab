@@ -137,7 +137,7 @@ function [dm_dt alpha beta] = deriv_Vm_func(p, Vm, m)
   alpha = p.a0 * exp(   - p.delta  * Vm / p.k);
   beta  = p.b0 * exp((1 - p.delta) * Vm / p.k);
 
-  dm_dt = (alpha + beta) * (1 / (1 + beta / alpha) - m);
+  dm_dt = (alpha + beta) .* (1 / (1 + beta ./ alpha) - m);
 end
 
 function dfunc_handle = deriv_func(p, s)

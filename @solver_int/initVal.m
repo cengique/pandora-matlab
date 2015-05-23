@@ -30,4 +30,11 @@ function a_sol = initVal(a_sol, var_id, val)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-a_sol.vars.(var_id) = val;
+num_vals = length(val);
+if num_vals > 1
+  for val_num = 1:num_vals
+    a_sol.vars.(var_id{val_num}) = val(val_num);
+  end
+else
+  a_sol.vars.(var_id) = val;
+end

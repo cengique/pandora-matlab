@@ -48,7 +48,7 @@ end
 % add this function first
 if isfield(props, 'isIntable') && props.isIntable == 1
   %disp(['Adding intable ' name ])
-  a_sol = add(a_sol, a_pm, struct('name', name));
+  a_sol = add(a_sol, a_pm, struct('name', {name}));
   % initialize variable with given V value if given
   if isfield(props, 'initV')
     a_sol = ...
@@ -67,6 +67,11 @@ child_cells = struct2cell(a_pm.f)';
 for f_num = 1:num_childs
   a_f = child_cells{f_num};
   %disp(['Adding ' child_names{f_num} ', (' class(a_f) ')'])
-  a_sol = initSolver(a_f, a_sol, mergeStructs(struct('name', child_names{f_num}), ...
-                                              child_props));
+  child_name = getFieldDefault(get(a_f, 'props'), ...
+                               'name', child_names{f_num});
+  % wrap for struct
+  if iscell(child_name), child_name = {child_name}; end
+  a_sol = initSolver(a_f, a_sol, ...
+                     mergeStructs(struct('name', child_name), ...
+                                  child_props));
 end

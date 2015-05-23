@@ -34,7 +34,26 @@ function a_sol = add(a_sol, a_deriv_func, props)
 props = mergeStructs(defaultValue('props', struct), get(a_deriv_func, 'props'));
 
 name = getFieldDefault(props, 'name', get(a_deriv_func, 'id'));
+num_names = 1;
 
+if iscell(name) 
+  names = name;
+  num_names = length(name);
+  for name = names
+    add_name(name{1});
+  end
+  % use the 1st for storing function
+  name = names{1};
+else
+  add_name(name);
+end
+
+% reinforce the name using whatever was passed to initSolver
+% 2nd element is the number of return values
+a_sol.dfdtHs.(name) = ...
+    { fHandle(setProp(a_deriv_func, 'name', name), a_sol) num_names };
+
+function add_name(name)
 % remove offending characters
 name = regexprep(name, '[{}]', '');
 
@@ -43,9 +62,7 @@ if isfield(a_sol.vars, name)
 end
 
 % initialize as column vector based on given size
-a_sol.vars.(name) = zeros(getFieldDefault(props, 'numVals', 1), 1);
+a_sol.vars.(name) = 0; %zeros(getFieldDefault(props, 'numVals', 1), 1)
+end
 
-% reinforce the name using whatever was passed to initSolver
-a_sol.dfdtHs.(name) = fHandle(setProp(a_deriv_func, 'name', name), a_sol);
-
-
+end

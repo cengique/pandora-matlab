@@ -67,7 +67,8 @@ function a_sol = solver_int(deriv_funcs, dt, id, props)
     a_sol.vars = struct;
     a_sol.dfdtHs = struct;
     
-    % TODO: loop over variables and add them
+    % Loop over variables and add them
+    % TODO: isn't this redundant with add()?
     for var_num = 1:num_vars
       var_id = get(deriv_funcs{var_num}, 'id');
       a_sol.vars.(var_id) = 0;
