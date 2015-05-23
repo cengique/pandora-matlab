@@ -33,7 +33,8 @@ function a_ps = param_tau_skewbell_v(param_init_vals, id, props)
   if ~ exist('props', 'var')
     props = struct;
   end
-
+  id = defaultValue('id', '');
+  
   sig_param_ranges = ...
       [0 1e3; 0 1; -200 200; -1e3 1e3]';
   props = mergeStructs(props, ...
