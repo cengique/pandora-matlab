@@ -1,12 +1,12 @@
 function a_ps = param_tau_skewbell_v(param_init_vals, id, props)
   
-% param_tau_skewbell_v - V-dep time constant product skewed bell shaped function, y = tau0 * exp(del*(x-V_half)/k) / (1+exp((x-V_half)/k)).
+% param_tau_skewbell_v - V-dep time constant product skewed bell shaped function, y = tau0 * exp(delta*(x-V_half)/k) / (1+exp((x-V_half)/k)).
 %
 % Usage:
 %   a_ps = param_tau_skewbell_v(param_init_vals, id, props)
 %
 % Parameters:
-%   param_init_vals: Initial values of function parameters, p = [tau0 del V_half k].
+%   param_init_vals: Initial values of function parameters, p = [tau0 delta V_half k].
 %   id: A string identifying this function.
 %   props: A structure with any optional properties.
 % 	   (Rest passed to param_func)
@@ -27,8 +27,8 @@ function a_ps = param_tau_skewbell_v(param_init_vals, id, props)
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/12/16
 
   var_names = {'voltage [mV]', 'time constant [ms]'};
-  param_names = {'tau0', 'del', 'V_half', 'k'};
-  func_handle = @(p,x) (p.tau0 * exp(p.del .* (x-p.V_half) ./ p.k)) ./ (1 + exp((x-p.V_half) ./ p.k)) ;
+  param_names = {'tau0', 'delta', 'V_half', 'k'};
+  func_handle = @(p,x) (p.tau0 * exp(p.delta .* (x-p.V_half) ./ p.k)) ./ (1 + exp((x-p.V_half) ./ p.k)) ;
 
   if ~ exist('props', 'var')
     props = struct;
