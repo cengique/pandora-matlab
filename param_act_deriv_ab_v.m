@@ -55,8 +55,31 @@ function a_pf = param_act_deriv_ab_v(param_init_vals, id, props)
   % for inner function
   props.name = getFieldDefault(props, 'name', id);
 
+  % calc some defaults
+  s = 4;  
+  Vh = -40;
+  a0 = 1e-5; % arbitrary
+  b0 = a0 / exp(Vh)^(1/s);
   param_defaults = ...
-      struct('a0', 1, 'b0', 1, 'delta', 0.5, 's', -1);
+      struct('a0', a0, 'b0', b0, 'delta', 0.5, 's', s);
+
+  if ~ isstruct(param_init_vals)
+    param_init_vals = ...
+        cell2struct(num2cell(param_init_vals(:)'), ...
+                    fieldnames(param_defaults), 2);
+  else
+    % use defaults for non-specified parameters
+    param_init_vals = ...
+        mergeStructs(param_init_vals, param_defaults);
+    % make sure they're ordered consistently to match the range description
+    param_init_vals = ...
+        orderfields(param_init_vals, param_defaults);
+  end
+  
+  % physiologic parameter ranges
+  param_ranges = ...
+      [ 0   0   0 -1e3;...
+        1e3 1e3 1  1e3];
 
   % put a default name, but can be overwritten if object is added to
   % solver by a param_mult object. Then, variable name inside param_mult
@@ -66,7 +89,7 @@ function a_pf = param_act_deriv_ab_v(param_init_vals, id, props)
   a_pf = ...
       param_func(...
         {'time [ms]', 'activation'}, ...
-        param_defaults, [], ...
+        param_init_vals, [], ...
         @(p, x) feval(deriv_func(p, getFieldDefault(x, 's', [])), p, x), id, ...
         mergeStructs(props, struct('isIntable', 1, ...
                                    'fHandle', @deriv_func, ...
@@ -88,7 +111,7 @@ function [dm_dt alpha beta] = deriv_Vm_func(p, Vm, m)
   alpha = p.a0 * exp(   - p.delta  * Vm / p.s);
   beta  = p.b0 * exp((1 - p.delta) * Vm / p.s);
 
-  dm_dt = (alpha + beta * (1 - m)) / (1 + beta / alpha);
+  dm_dt = (alpha + beta) * (1 / (1 + beta / alpha) - m);
 end
 
 function dfunc_handle = deriv_func(p, s)
