@@ -34,11 +34,12 @@ function ps = ...
 %     fHandle: Handle to function which returns a string that
 %     		evaluates to a function. If used, speeds up
 %     		integration.
-%     name: Name of integrated variable used in solver_int if isIntable is set.
+%     name: Name of integrated variable used in solver_int if
+%     		isIntable is set. If multiple variables are
+%     		returned by function, a cell array of matching
+%     		number of names must be provided.
 %     VmName: Name of main membrane voltage signal in the
 %     		integrator (Also see setVmName).
-%     numVals: Indicate to solver_int that this function returns
-%     		multiple values as a column vector (default=1).
 %     label: Short label string used for plots and exporting.
 %     trans2XPP: Use this function to translate the parameters into the
 %               XPP format (e.g., '@(a_fs) getParams(a_fs)'. 

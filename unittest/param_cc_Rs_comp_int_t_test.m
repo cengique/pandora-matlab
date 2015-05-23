@@ -20,6 +20,8 @@ function param_cc_Rs_comp_int_t_test(ifplot)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2015/05/12
 
+% TODO: these tests are disfunctional, fix them
+
 ifplot = defaultValue('ifplot', 0);
 
 % compare ReCe and Rs comp

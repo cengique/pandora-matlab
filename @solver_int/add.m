@@ -62,7 +62,7 @@ if isfield(a_sol.vars, name)
 end
 
 % initialize as column vector based on given size
-a_sol.vars.(name) = 0; %zeros(getFieldDefault(props, 'numVals', 1), 1)
+a_sol.vars.(name) = zeros(num_names, 1)
 end
 
 end
