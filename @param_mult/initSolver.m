@@ -38,9 +38,12 @@ props = mergeStructs(defaultValue('props', struct), get(a_pm, 'props'));
 
 % get name
 name = getFieldDefault(props, 'name', get(a_pm, 'id'));
+num_names = 1;
+if iscell(name) 
+  num_names = length(name);
+end
 
 child_props = struct;
-
 if isfield(props, 'initV')
   child_props.initV = props.initV;
 end
@@ -53,7 +56,8 @@ if isfield(props, 'isIntable') && props.isIntable == 1
   if isfield(props, 'initV')
     a_sol = ...
         initVal(a_sol, name, ...
-                feval(getFieldDefault(props, 'init_val_func', @(a, x) x ), ...
+                feval(getFieldDefault(props, 'init_val_func', ...
+                                             @(a, x) repmat(x, num_names, 1)), ...
                       a_pm.f, props.initV));
   end
 end

@@ -36,6 +36,10 @@ function a_sol = initSolver(a_pf, a_sol, props)
 props = mergeStructs(defaultValue('props', struct), get(a_pf, 'props'));
 
 name = getFieldDefault(props, 'name', get(a_pf, 'id'));
+num_names = 1;
+if iscell(name) 
+  num_names = length(name);
+end
 
 if isfield(props, 'isIntable') && props.isIntable == 1
   %disp(['Adding intable ' name ])
@@ -43,7 +47,8 @@ if isfield(props, 'isIntable') && props.isIntable == 1
   if isfield(props, 'initV')
     a_sol = ...
         initVal(a_sol, name, ...
-                feval(getFieldDefault(props, 'init_val_func', @(a, x) x ), ...
+                feval(getFieldDefault(props, 'init_val_func', ...
+                                             @(a, x) repmat(x, num_names, 1)), ...
                       struct, props.initV));
   end
 end
