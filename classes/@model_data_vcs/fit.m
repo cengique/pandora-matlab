@@ -12,7 +12,8 @@ function [a_md a_doc] = fit(a_md, title_str, props)
 %     		optimization. Note that simulated range must include prior
 %     		stimulation steps to set state of diff. eqs.
 %     fitRangeRel: Like fitRange, but relative to first voltage step
-%     		[ms]. Specify any other voltage step as the first element.
+%     		[ms]. Specify any other voltage step as the first
+%     		element. See getTimeRelStep.
 %     outRangeRel: Only use this range of the simulated data for
 %     		fitting. Defined same as fitRangeRel. Multiple rows can contain
 %     		separate ranges are patched together.
@@ -51,7 +52,7 @@ function [a_md a_doc] = fit(a_md, title_str, props)
 %             'dispParams', 5, ...
 %             'optimset', struct('Display', 'iter')));
 %
-% See also: param_I_v, param_func, doc_plot
+% See also: param_I_v, param_func, doc_plot, voltage_clamp/getTimeRelStep
 %
 % $Id$
 %
@@ -83,7 +84,7 @@ if ~ isempty(range_rel)
     step_num = range_rel(1);
     range_rel = range_rel(2:end);
   else
-    step_num = 1;
+    step_num = 2; % For after first voltage change
   end
   % if relative, calc from step times
   range_maxima = ...
@@ -102,6 +103,9 @@ range_cap_resp = round(range_maxima.start_time):round(range_maxima.end_time);
 
 % TODO: temporary fix!
 if isfield(props, 'outRangeRel')
+  if ~ isfield(props, 'skipStep')
+    props.skipStep = props.outRangeRel(1, 1) - 2; % take as default
+  end
   % adjust relative to simulated part
   plot_zoom = [];
   for range_num = 1:size(props.outRangeRel, 1)

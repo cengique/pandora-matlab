@@ -47,7 +47,7 @@ assert(step_num > 1);
 rel_start = getFieldDefault(props, 'pulseStartRel', [+.3]); % [ms]
 
 if length(rel_start) > 1
-  start_step_num = rel_start(1);
+  start_step_num = rel_start(1) - 1;
   rel_start = rel_start(2);
 else
   start_step_num = step_num - 1;
@@ -56,7 +56,7 @@ end
 rel_end = getFieldDefault(props, 'pulseEndRel', [-3]); % [ms]
 
 if length(rel_end) > 1
-  end_step_num = rel_end(1);
+  end_step_num = rel_end(1) - 1;
   rel_end = rel_end(2);
 else
   end_step_num = step_num;

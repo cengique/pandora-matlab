@@ -57,10 +57,10 @@ end
 % zoom to act/inact portions of data
 if isfield(props, 'zoom')
   if strcmp(props.zoom, 'act')
-    axis_limits = [getTimeRelStep(a_md.data_vc, 1 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
+    axis_limits = [getTimeRelStep(a_md.data_vc, 2 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
     label_zoom = ' - zoom act';
   elseif strcmp(props.zoom, 'inact')
-    axis_limits = [getTimeRelStep(a_md.data_vc, 2 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
+    axis_limits = [getTimeRelStep(a_md.data_vc, 3 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
     label_zoom = ' - zoom inact';
   else
     error([ 'props.zoom = ''' props.zoom ''' not recognized. Use ''act'' ' ...

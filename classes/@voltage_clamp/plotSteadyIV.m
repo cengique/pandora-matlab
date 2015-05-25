@@ -80,17 +80,20 @@ if isfield(props, 'plotPeaks')
   i_steps = vc_props.iPeaks;
 elseif isfield(props, 'stepRange')
   if length(props.stepRange) > 2
-    cur_step_num = props.stepRange(1);
+    cur_step_num = props.stepRange(1) - 1;
     props.stepRange = props.stepRange(2:3);
   else
-    cur_step_num = step_num;
+    cur_step_num = step_num - 1;
   end
-  props.stepRange = a_vc.time_steps(cur_step_num) + ...
-      round(props.stepRange / dt);
+  props.stepRange = round(props.stepRange / dt);
+  if cur_step_num > 0
+    props.stepRange = ...
+        props.stepRange + a_vc.time_steps(cur_step_num);
+  end
   i_steps = ...
       mean(a_vc.i.data(props.stepRange(1):props.stepRange(2), :));
 else
-  i_steps = a_vc.i_steps(step_num, :);
+  i_steps = a_vc.i_steps(step_num - 1, :);
 end
 
 a_p = ...
