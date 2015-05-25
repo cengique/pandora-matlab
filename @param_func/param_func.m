@@ -28,7 +28,9 @@ function ps = ...
 %     direct: If 1, keep parameters as raw values. If 0, they are
 %     		normalized to represent the given range (default=1). 
 %     selectParams: Cell of limited param names to be varied and can be
-%     		accessed by g/setParams, with the onlySelect prop.
+%     		accessed by g/setParams, with the onlySelect
+%     		prop. All addressing methods in tests_db/tests2cols can be
+%     		used, including regular expressions.
 %     isIntable: If 1, this function can be integrated and will be added
 %     		to a integrator solver_int when requested by initSolver.
 %     fHandle: Handle to function which returns a string that
@@ -40,6 +42,7 @@ function ps = ...
 %     		number of names must be provided.
 %     VmName: Name of main membrane voltage signal in the
 %     		integrator (Also see setVmName).
+%     parfor: If 1, uses parallel execution during solver_int/integrate
 %     label: Short label string used for plots and exporting.
 %     trans2XPP: Use this function to translate the parameters into the
 %               XPP format (e.g., '@(a_fs) getParams(a_fs)'. 
@@ -79,7 +82,7 @@ function ps = ...
 %        'steady-state I_{NaP}(V_{step})', ...
 %        struct('xMin', -90, 'xMax', 30));
 %
-% See also: param_act, tests_db, plot_abstract
+% See also: param_act, tests_db, plot_abstract, tests_db/tests2cols
 %
 % $Id$
 %
