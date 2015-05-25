@@ -1,4 +1,4 @@
-function f_handle = fHandle(a_ps, s)
+function [f_handle unf_handle] = fHandle(a_ps, s)
 
 % fHandle - Returns a handle to function with current set of parameters embedded.
 %
@@ -51,6 +51,7 @@ for f_num = 1:num_funcs
   a_struct.(f_names{f_num}) = param_func_compiled(fHandle(a_f, s), get(a_f, 'id'));
 end
 
+unf_handle = [];
 if isfield(props, 'fHandle')
   % function returns function handle
   f_handle = props.fHandle(a_struct, s);
