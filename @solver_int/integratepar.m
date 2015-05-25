@@ -1,4 +1,4 @@
-function res = integrate(a_sol, x, props)
+function res = integratepar(a_sol, x, props)
 
 % integrate - Integrate all variables of a system and return a matrix of [time, vars, columns].
 %
@@ -42,6 +42,7 @@ odefun = getFieldDefault(props, 'odefun', @ode15s);
 num_vars = length(fieldnames(a_sol.vars));
 dfdt_init = repmat(NaN, num_vars, 1);
 dfdtHs = struct2cell(a_sol.dfdtHs);
+num_funcs = length(dfdtHs);
 
 % by default integrate for all values in x
 time = getFieldDefault(props, 'time', (0:(size(x, 1) - 1))*a_sol.dt);
@@ -63,10 +64,15 @@ function dfdt = deriv_all(t, vars, column_num)
   a_sol_tmp = setVals(a_sol, vars);
   dfdt = dfdt_init;
   v_ind = x(round(t/a_sol.dt) + 1, column_num);
-  for var_num = 1:num_vars
-    dfdt(var_num) = ...
-        feval(dfdtHs{var_num}, ...
+  val_count = 1;
+  old_val_count = 1;
+  for func_num = 1:num_funcs
+    % 2nd element is the return size
+    val_count = val_count + dfdtHs{func_num}{2}; 
+    dfdt(old_val_count:(val_count-1)) = ...
+        feval(dfdtHs{func_num}{1}, ...
               struct('t', t, 's', a_sol_tmp, 'v', v_ind, 'dt', a_sol.dt)); 
+    old_val_count = val_count;
   end
 end
 
