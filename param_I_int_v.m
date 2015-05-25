@@ -73,7 +73,10 @@ function a_pf = ...
       else
         h = 1;
       end
-      v_val = v; %(round(t/dt)+1, :); % it already gets only this v value??
+      fs_props = get(a_pf, 'props');
+      if isfield(fs_props, 'VmName')
+        v = getVal(x.s, fs_props.VmName);
+      end
     end
     I = p.gmax * ...
         m .^ p.p .* ...

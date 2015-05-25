@@ -147,7 +147,10 @@ function I = I_int_2h (fs, p, x)
       m = getVal(s, 'm');
       h1 = getVal(s, 'h');
       h2 = getVal(s, 'h2');
-      v_val = v; %(round(t/dt)+1, :); % it already gets only this v value??
+      fs_props = get(a_pm, 'props');
+      if isfield(fs_props, 'VmName')
+        v = getVal(x.s, fs_props.VmName);
+      end
     end
     I = p.gmax * ...
         m .^ p.p .* ...
