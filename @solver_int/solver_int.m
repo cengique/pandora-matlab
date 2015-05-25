@@ -53,6 +53,7 @@ function a_sol = solver_int(deriv_funcs, dt, id, props)
     a_sol.dfdtHs = struct;
     a_sol.dt = '';
     a_sol.id = '';
+    a_sol.props = struct;
     a_sol = class(a_sol, 'solver_int');
   elseif isa(deriv_funcs, 'solver_int') % copy constructor?
     a_sol = deriv_funcs;
@@ -77,5 +78,6 @@ function a_sol = solver_int(deriv_funcs, dt, id, props)
     
     a_sol.dt = dt;
     a_sol.id = id;
+    a_sol.props = props;
     a_sol = class(a_sol, 'solver_int');
   end
