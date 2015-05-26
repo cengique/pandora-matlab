@@ -127,7 +127,10 @@ tic;
       residual = NaN;
   end
 
-toc
+total_time = toc;
+disp([ num2str(total_time) ' seconds total. ' ...
+       num2str(total_time / output.funcCount ), ...
+       ' seconds per function evaluation.' ])
 disp([ 'Exit flag: ' num2str(exitflag) ])
 
 disp('Output:')
