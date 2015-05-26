@@ -50,9 +50,8 @@ end
 
 % reinforce the name using whatever was passed to initSolver
 % 2nd element is the number of return values
-[f_handle obj] = fHandle(setProp(a_deriv_func, 'name', name), a_sol);
 a_sol.dfdtHs.(name) = ...
-    { f_handle num_names obj};
+    { fHandle(setProp(a_deriv_func, 'name', name), a_sol) num_names};
 
 function add_name(name)
 % remove offending characters

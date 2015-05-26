@@ -128,7 +128,8 @@ function a_pf = param_act_deriv_ab_v(param_init_vals, id, props)
                             'fHandle', @deriv_func, ...
                             'init_val_func', @(s, v) m_inf(v), ...
                             'inf_func', @getInf, ...
-                            'tau_func', @getTau)));
+                            'tau_func', @getTau, ...
+                            'deriv_Vm_func', @deriv_Vm_func)));
   
   function p_inf = getInf(a_pf)
   % returns an param_act function
@@ -166,7 +167,9 @@ function [dm_dt alpha beta] = deriv_Vm_func(p, Vm, m)
 end
 
 function dfunc_handle = deriv_func(p, s)
-% separated to extract Vm name only once
+% separated to extract Vm name and other props only once
+% returns a string such that solver_int can access this function in
+% parallel workers.
   fs_props = get(a_pf, 'props');
   if isfield(fs_props, 'VmName')
     % this can be made faster if getVal is not used
@@ -180,7 +183,10 @@ function dfunc_handle = deriv_func(p, s)
     dfunc_handle = @(p, x) squeeze(integrate(a_pf, x, props));
   else
     % return derivative without logic above
-    dfunc_handle = @(p, x) deriv_Vm_func(p, eval(v_str), getVal(x.s, props.name));
+    %dfunc_handle = @(p, x) deriv_Vm_func(p, eval(v_str), getVal(x.s, props.name));
+    dfunc_handle = ...
+        [ '@(p, x) feval(props.deriv_Vm_func, p, ' v_str ...
+          ', getVal(x.s, ''' props.name '''))' ];
   end
 end
 end

@@ -1,4 +1,4 @@
-function [f_handle unf_handle] = fHandle(a_ps, s)
+function f_handle = fHandle(a_ps, s)
 
 % fHandle - Returns a handle to function with current set of parameters embedded.
 %
@@ -36,19 +36,15 @@ props = get(a_ps, 'props');
 func = get(a_ps, 'func');
 params = getParamsStruct(a_ps);
 
-unf_handle = [];
 if isfield(props, 'fHandle')
   % function returns function handle
-  unf_handle = props.fHandle(params, s);
-  %a_ps = setProp(a_ps, 'fHandle_x', f_handle);
-  if ischar(unf_handle)
-    % if a string, evaluate in this scope
-    unf_handle = eval(unf_handle);
+  f_handle = props.fHandle(params, s);
+  if ischar(f_handle)
+    % if a string, evaluate in this scope. We do this so that
+    % parallel workers can "transparently" see this function
+    f_handle = eval(f_handle);
   end
-  % TODO: major speed problem: parfor doesn't work when putting
-  % f_handle here. This won't work with string inputs
-  f_handle = @(x) feval(props.fHandle(params, s), params, x); %f_handle
-  %f_handle = params;
+  f_handle = @(x) feval(f_handle, params, x); %f_handle
 else
   % return as new handle
   f_handle = @(x) func(params, x);
