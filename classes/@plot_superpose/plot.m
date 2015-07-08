@@ -49,7 +49,7 @@ for plot_num = 1:num_plots
                   mergeStructs(get(a_plot, 'props'), get(a_plot.plots{1}, 'props')));
   end
   handles = plot(to_plot, layout_axis);
-  all_handles.plot = [all_handles.plot, handles.plot];
+  all_handles.plot = [all_handles.plot(:); handles.plot(:)];
   all_handles.axis = [all_handles.axis, handles.axis];
 end
 hold off;
