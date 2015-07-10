@@ -62,10 +62,14 @@ if ~ exist('command', 'var') || isempty(command)
 end
 
 cols_db = onlyRowsTests(a_db, ':', tests);
-
-test_names = fieldnames(get(a_db, 'col_idx'));
-
 jitter_x = getFieldDefault(props, 'jitterX', 0);
+
+% set names on x-axis
+test_names = getColNames(cols_db);
+props.axisProps = ...
+    mergeStructsRecursive(getFieldDefault(props, 'axisProps', struct), ...
+                          struct('XTick', x_vals, ...
+                                 'XTickLabel', {test_names}));
 
 if ~ isfield(props, 'quiet')
   all_title = [ strrep(get(a_db, 'id'), '_', '\_') title_str ];
