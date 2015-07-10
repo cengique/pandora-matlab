@@ -26,6 +26,14 @@ function ranges = axis(a_plot)
 % http://opensource.org/licenses/afl-3.0.php.
 
 switch a_plot.command
+  case 'boxplotp'
+    if length(a_plot.data) > 3
+      up_data = a_plot.data{4};
+    else
+      up_data = a_plot.data{3};
+    end
+    ranges = [ 0.5 size(a_plot.data{1}, 2)+0.5 ...
+	      min(min(a_plot.data{1})) max(max(a_plot.data{1}))];
   case 'errorbar'
     if length(a_plot.data) > 3
       up_data = a_plot.data{4};
