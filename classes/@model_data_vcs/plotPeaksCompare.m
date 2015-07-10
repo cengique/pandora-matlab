@@ -50,6 +50,12 @@ step_dur = ...
 % calculate 1/3 of step range for steady
 steady_time = step_dur / 3;
 
+% cheat, replace model voltage trace with data for sake of
+% calculating steps
+model_vc = a_md.model_vc;
+a_md.model_vc = a_md.data_vc;
+a_md.model_vc.i = model_vc.i;
+
 % plot comparison of data and model peaks 
 a_p = ...
     plot_superpose({...

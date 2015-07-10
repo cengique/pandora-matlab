@@ -52,13 +52,24 @@ switch (cur_unit)
             ''' not recognized. Use only nA or pA.']);
 end
 
-% assume 2nd step is the main pulse
-v_steps = a_vc.v_steps(getFieldDefault(props, 'vStep', 2), :);
+try
+  % assume 2nd step is the main pulse
+  v_steps = a_vc.v_steps(getFieldDefault(props, 'vStep', 2), :);
 
-v_legend = ...
-    cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
-            num2cell(v_steps'), ...
-            'UniformOutput', false);
+  v_legend = ...
+      cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
+              num2cell(v_steps'), ...
+              'UniformOutput', false);
+
+  vcolor_func = getFieldDefault(props, 'vColorsFunc', @lines);
+
+  % use consistent colors
+  line_colors = feval(vcolor_func, length(v_steps));
+catch
+  warning('Cannot find voltage steps. Ignoring.');
+  v_legend = {};
+  line_colors = lines(6);
+end
 
 if isfield(props, 'label')
   plot_label = props.label;
@@ -69,6 +80,8 @@ else
   cur_label = [ 'I [' cur_unit ']' ];
   cur_legends = v_legend;
 end
+
+
 
 dt = get(a_vc, 'dt') * 1e3;             % convert to ms
 
@@ -84,10 +97,6 @@ else
       properTeXLabel([ cell_name title_str ]);
 end
 
-vcolor_func = getFieldDefault(props, 'vColorsFunc', @lines);
-
-% use consistent colors
-line_colors = feval(vcolor_func, length(v_steps));
 
 % common x-axis limits
 axis_limits = ...
