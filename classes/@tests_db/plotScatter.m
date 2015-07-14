@@ -17,6 +17,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
 %     numColors: Number of colors desired in colormap (default: 50).
 %     quiet: If 1, don't include database name on title.
+%     markerArea: Passed as the 'area' argument to scatter (default=36).
 %     (Others passed to plotColormap and plot_abstract).
 %		
 % Returns:
@@ -129,7 +130,7 @@ else
   colormap_props = props;
 end
 
-area = 36; % default
+area = getFieldDefault(props, 'markerArea', 36); % default
 col_labels = strrep({test_names{[col1 col2]}}, '_', ' ');
 a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), area, color, line_style{:}}, ...
                     a_colormap, num_colors, ...
