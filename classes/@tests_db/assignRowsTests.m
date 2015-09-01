@@ -45,7 +45,9 @@ end
 
 % Accept val as tests_db
 if isa(val, 'tests_db')
-  val = val.data;
+  % Make sure ordering of columns are matched on both sides
+  val = get(onlyRowsTests(val, ':', ...
+                          getColNames(onlyRowsTests(obj, ':', tests))), 'data');
 end
 
 % Check dimensions
