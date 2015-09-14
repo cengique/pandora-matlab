@@ -68,3 +68,4 @@ else
 end
 
 % Put start and end times in arrays in this class
+% Wiener entropy / spectral flatness

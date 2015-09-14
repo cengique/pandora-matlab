@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  29 MAR 2015 15:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  5 APR 2015 14:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -788,9 +788,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
  []
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 130.
+nput line 131.
 (./functions/birdsong_mat_profile.m [2])
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
@@ -810,30 +810,30 @@ File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 1.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
 
  []
 
 (./functions/selectingdata2.m) (./functions/selectingdata.m)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 156.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 157.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 156.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
 
 (./birdsong.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 156.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 156.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 157.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
 Package rerunfilecheck Info: File `birdsong.out' has not changed.
 (rerunfilecheck)             Checksum: 18DE9F2EF786FC2BBB6B01CE7C213D95;515.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 156.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 157.
  ) 
 Here is how much of TeX's memory you used:
  16409 strings out of 493117
  311295 string characters out of 6135433
- 420610 words of memory out of 5000000
+ 422610 words of memory out of 5000000
  19688 multiletter control sequences out of 15000+600000
  8177 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,6n,40p,10411b,2583s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,5n,40p,10411b,2583s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/tex
@@ -843,7 +843,7 @@ e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2
 014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
 14/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf
 -dist/fonts/type1/public/wasy/wasy10.pfb>
-Output written on birdsong.pdf (3 pages, 93969 bytes).
+Output written on birdsong.pdf (3 pages, 94008 bytes).
 PDF statistics:
  117 PDF objects out of 1000 (max. 8388607)
  102 compressed objects within 2 object streams
