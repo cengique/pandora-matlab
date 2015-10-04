@@ -54,8 +54,16 @@ nA_scale = pas.data_vc.i.dy / 1e-9;
 res = struct;
 
 % calculate gL from initial and after pulse steady levels
-res.gL = diff(pas.data_vc.i_steps(step_num:(step_num+1), trace_num)) * nA_scale / ...
-         diff(pas.data_vc.v_steps(step_num:(step_num+1), trace_num));
+if step_num < size(pas.data_vc.i_steps, 1)
+  step1 = step_num;
+  step2 = step_num + 1;
+else
+  step1 = step_num - 1;
+  step2 = step_num;
+end
+  
+res.gL = diff(pas.data_vc.i_steps(step1:step2, trace_num)) * nA_scale / ...
+         diff(pas.data_vc.v_steps(step1:step2, trace_num));
 
 % effective EL
 res.EL = pas.data_vc.v_steps(step_num, trace_num) - ...
