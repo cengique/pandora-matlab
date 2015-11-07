@@ -30,6 +30,7 @@ function a_plot = plot_image(image_data, axis_labels, ...
 %	  Otherwise, its min and max is used.
 %     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
 %     numColors: Number of colors in colormap.
+%     NaNcolor: Color to be used for NaN entries (default: [1 1 1])
 %     (Rest passed to plotImage.)
 %		
 %   Returns a structure object with the following fields:
@@ -112,7 +113,8 @@ else
     image_data = image_data + num_colors;
     % first color for indicates blank for NaN values
     if isempty(a_colormap)
-      a_colormap = [1 1 1; colormapBlueCrossRed(num_colors)];
+      a_colormap = [getFieldDefault(props, 'NaNcolor', [1 1 1]); ...
+                    colormapBlueCrossRed(num_colors)];
     end
 
     image_props.colorbarProps = struct;
