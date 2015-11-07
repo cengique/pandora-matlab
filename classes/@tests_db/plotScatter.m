@@ -12,7 +12,8 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %   short_title: (Optional) Few words that may appear in legends of multiplot.
 %   props: A structure with any optional properties.
 %     LineStyle: Plot line style to use. (default: 'x')
-%     Regress: If exists, use these props for plotting the linear regression.
+%     Regress: If exists, use these as props for plotting linear
+%     		regression and displays statistics: R^2, F, p, and the error variance. 
 %     colorTest: Use this column as index into colormap.
 %     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
 %     numColors: Number of colors desired in colormap (default: 50).
@@ -24,8 +25,6 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %   a_p: A plot_abstract.
 %
 % Description:
-%   If 'warning on verbose' is issued before this, it will display
-% regression statistics: R^2, F, p, and the error variance.
 %
 % See also: plotScatter3D, plotImage
 %
@@ -88,7 +87,7 @@ if isfield(props, 'Regress')
       regress(get(onlyRowsTests(nonnan_db, ':', 2), 'data'), ...
               [ones(dbsize(nonnan_db, 1), 1), ...
                get(onlyRowsTests(nonnan_db, ':', 1), 'data')]);
-  if verbose, disp(['regress stats=' num2str(stats)]), end
+  disp(['regress stats=' num2str(stats)])
   if ~isempty(all_title)
     all_title = [ all_title, '; '];
   end
