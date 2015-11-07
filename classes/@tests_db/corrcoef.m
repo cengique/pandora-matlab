@@ -63,6 +63,9 @@ if skipCoefs
   rup(insignificant) = NaN;
 end
 
+% save the p values
+props.p = p;
+
 % Create the coefficient database
 col_names = getColNames(db);
 
