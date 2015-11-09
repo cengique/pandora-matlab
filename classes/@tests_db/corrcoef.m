@@ -12,15 +12,16 @@ function a_coefs_db = corrcoef(db, props)
 %	  skipCoefs: If 1, coefficients of less confidence than %95 
 %			will be skipped. (default=1)
 %	  alpha: Skip coefs with p values lower than this (default=0.05).
+%	  partial: Calculate partial correlations instead.
+%	  bonfer: Bonferroni correction to alpha value.
 %		
 % Returns:
-%	a_coefs_db: A tests_3D_db of the coefficients.
+%	a_coefs_db: A tests_3D_db of the coefficient matrix, and their
+%		upper/lower limits on different pages.
 %
 % Description:
 %
-% See also: tests_db, corrcoefs_db
-%
-% $Id$
+% See also: tests_db, corrcoefs_db, corrcoef, partialcorr
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/25
 
@@ -31,7 +32,7 @@ function a_coefs_db = corrcoef(db, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props', 'var')
-  props = struct([]);
+  props = struct;
 end
 
 if isfield(props, 'skipCoefs')
@@ -53,8 +54,19 @@ else
   alpha = 0.05; % for 95%
 end
 
-% ignore NaNs
-[coef_data, p, rlo, rup] = corrcoef(get(db, 'data'), 'rows', 'complete');
+if isfield(props, 'bonfer')
+  alpha = alpha / prod(dbsize(db));
+end
+
+if ~ isfield(props, 'partial')
+  % ignore NaNs
+  [coef_data, p, rlo, rup] = ...
+      corrcoef(get(db, 'data'), 'rows', 'complete');
+else
+  [coef_data, p] = partialcorr(get(db, 'data'));
+  rlo = repmat(NaN, size(coef_data));
+  rup = repmat(NaN, size(coef_data));
+end
 
 if skipCoefs
   insignificant = p > alpha;

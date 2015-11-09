@@ -87,7 +87,8 @@ if isfield(props, 'Regress')
       regress(get(onlyRowsTests(nonnan_db, ':', 2), 'data'), ...
               [ones(dbsize(nonnan_db, 1), 1), ...
                get(onlyRowsTests(nonnan_db, ':', 1), 'data')]);
-  disp(['regress stats=' num2str(stats)])
+  disp(['regress R^2=' num2str(stats(1)) ', F=' num2str(stats(2)) ...
+       ', p=' num2str(stats(3)) ', var=' num2str(stats(4))])
   if ~isempty(all_title)
     all_title = [ all_title, '; '];
   end
