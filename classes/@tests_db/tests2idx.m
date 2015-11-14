@@ -66,7 +66,7 @@ elseif islogical(tests)
 elseif isnumeric(tests) 
   idx = tests;
 elseif ischar(tests)
-  ind_struct = db.([ dim_name '_idx']);
+  ind_struct = get(db, [ dim_name '_idx']);
   % check if regexp first
   if tests(1) == '/'
     idx = findRegExpIdx(tests, fieldnames(ind_struct)');
