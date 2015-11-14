@@ -75,9 +75,6 @@ if skipCoefs
   rup(insignificant) = NaN;
 end
 
-% save the p values
-props.p = p;
-
 % Create the coefficient database
 col_names = getColNames(db);
 
@@ -87,8 +84,8 @@ if all(all(isnan(coef_data)))
 end
 
 a_coefs_db = ...
-    tests_3D_db(cat(3, coef_data, rlo, rup), ...
-                col_names, col_names, {'corr_coefs', 'rlo', 'rup'}, ...
+    tests_3D_db(cat(3, coef_data, rlo, rup, p), ...
+                col_names, col_names, {'corr_coefs', 'rlo', 'rup', 'p'}, ...
                 [ 'Correlations in ' ...
                   properTeXLabel(get(db, 'id')) ], props);
 
