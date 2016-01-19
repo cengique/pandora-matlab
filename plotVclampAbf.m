@@ -34,19 +34,20 @@ function plot_handle = plotVclampAbf(filename, props)
 
   % load data from ABF file
   [time, dt, data_i, data_v, cell_name] = ...
-      loadVclampAbf(filename, props);
+      loadVclampAbf(filename, ...
+                    mergeStructs(props, struct('ichan', ':')));
 
   % if there are multiple current traces, assume they share the same
   % voltage trace
   num_cols = size(data_i, 2);
-  if num_cols > 1
-    for col_num=1:num_cols
-      plot_handle = ...
-          plotVclampStack(time, squeeze(data_i(:, col_num, :)), data_v, cell_name, ...
-                          mergeStructs(props, ...
-                                       struct('fixedSize', [8 6])));
-    end
-  else
+% $$$   if num_cols > 1
+% $$$     for col_num=1:num_cols
+% $$$       plot_handle = ...
+% $$$           plotVclampStack(time, squeeze(data_i(:, col_num, :)), data_v, cell_name, ...
+% $$$                           mergeStructs(props, ...
+% $$$                                        struct('fixedSize', [8 6])));
+% $$$     end
+% $$$   else
     % plot it
     % TODO: not make it fixed size?
     % only take set of first current traces
@@ -54,4 +55,4 @@ function plot_handle = plotVclampAbf(filename, props)
         plotVclampStack(time, data_i(:, :, 1), data_v, cell_name, ...
                         mergeStructs(props, ...
                                      struct('fixedSize', [8 6])));
-  end
+    %  end
