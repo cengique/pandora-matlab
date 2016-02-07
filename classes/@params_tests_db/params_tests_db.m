@@ -76,7 +76,8 @@ else
 
   % Only allow numeric arrays as params & a_test_results
   % TODO: add cell arrays?
-  if ~ isnumeric(a_test_results) || ~ isnumeric(params)
+  if (~isempty(a_test_results) &&  ~isnumeric(a_test_results)) || ...
+      (~isempty(params) && ~isnumeric(params))
     error('Only numeric arrays allowed as params or a_test_results.');
   end
 
