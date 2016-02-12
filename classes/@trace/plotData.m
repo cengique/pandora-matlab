@@ -86,7 +86,7 @@ switch (unit_y)
     ylabel = [ 'current [' curunit ']' ];
   case 'V'
     % heuristic to detect non-millivolt range data
-    if t.dy > 1e-3 && max(t.data*t.dy) > 1
+    if t.dy > 1e-3 && ~isempty(t.data) && max(t.data*t.dy) > 1
       scale_y = 1;
       ylabel = 'voltage [V]';
     else
