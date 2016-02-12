@@ -1,0 +1,210 @@
+
+load_proc("nrnmainmenu")
+
+// create a single compartment
+create soma
+
+// some fake values, make sure these correspond to others later
+soma {
+	nseg = 1
+	//diam = 1.59e3 // [um], adjusted to make area 1 cm^2
+	//L = 1e4 // [um] = 1 cm
+        // 1cm^2 too large!!! Ra becomes big!
+	diam = 10 // [um], adjusted to make area 314 um^2
+	L = 10 // [um] 
+}
+soma insert pas 
+//soma.cm = 18e-6 // [uF/cm^2]
+//soma.g_pas = 3.2e-9 // S/cm^2
+soma.cm = 5.72 // [uF/cm^2]
+soma.g_pas = 1e-3 // [S/cm^2]
+soma.e_pas = -88
+
+// create the passive electrode 
+
+
+// apply voltage clamp
+objectvar stim
+stim = new VClamp(0.5)
+stim {
+	amp0 = -70
+	dur0 = 10
+	amp1 = -90
+	dur1 = 100
+	amp2 = -70
+	dur2 = 10
+}
+
+// load the electrode model
+//load_file("VC-electrode.ses")
+
+
+{load_file("nrngui.hoc")}
+objectvar save_window_, rvp_
+objectvar scene_vector_[8]
+objectvar ocbox_, ocbox_list_, scene_, scene_list_
+{ocbox_list_ = new List()  scene_list_ = new List()}
+{pwman_place(0,0,0)}
+
+//Begin LinearCircuit[0]
+{
+load_file("lincir.hoc", "LinearCircuit")
+}
+{
+ocbox_ = new LinearCircuit(1)
+}
+{object_push(ocbox_)}
+{version(2)}
+{mkelm(1, 150, 110, 2, 0)}
+28
+{mklabel(0, "Re", 0.077, 23.642)}
+{mkelm(2, 130, 85, 2.5, -1.5708)}
+0.0001
+{mklabel(0, "Ce", 28.452, 1.7385)}
+{mklabel(2, "", 15, 15)}
+{mkelm(6, 130, 40, 2, 0)}
+{mkelm(8, 230, 90, 2, 0)}
+{mklabel(0, "soma(0.5)", 0.483, -19.1752)}
+{sel.extra_info.set("soma", 0.5) sel.extra_info.name(sel)}
+{mkelm(0, 200, 110, 3, 0)}
+{mkelm(4, 110, 110, 2, 0)}
+{mklabel(0, "VC", 0.711, 26.155)}
+{sel.extra_info.restore()}
+3
+10 -70
+100 -90
+10 -70
+{mkelm(6, 90, 90, 2, 0)}
+{parasitic_ = 0  noconsist_ = 0}
+{graphlist.append(new LincirGraph(this, 1))}
+1
+VC I (nA)
+1 1 0.8 0.9 2
+0 120 -1 1 // graph size
+119 517 308.16 261.12 // box size
+// end info
+{g.exec_menu("Simulate")  tool(2)}
+{sel = nil}
+{object_pop()}
+{
+{
+save_window_=ocbox_.g
+save_window_.size(0,300,0,200)
+scene_vector_[2] = save_window_
+ocbox_.g = save_window_
+save_window_.save_name("ocbox_.g")
+save_window_.label(150.077, 133.642, "Re", 1, 1, 0.5, 0.5, 1)
+save_window_.label(158.452, 86.7385, "Ce", 1, 1, 0.5, 0.5, 1)
+save_window_.label(145, 75, "", 1, 1, 0.5, 0.5, 1)
+save_window_.label(230.483, 70.8248, "soma(0.5)", 1, 1, 0.5, 0.5, 1)
+save_window_.label(110.711, 136.155, "VC", 1, 1, 0.5, 0.5, 1)
+}
+ocbox_.map("LinearCircuit[0]", 337, 414, 744, 405.12)
+}
+objref ocbox_
+//End LinearCircuit[0]
+
+{
+xpanel("RunControl", 0)
+v_init = -70
+xvalue("Init","v_init", 1,"stdinit()", 1, 1 )
+xbutton("Init & Run","run()")
+xbutton("Stop","stoprun=1")
+runStopAt = 5
+xvalue("Continue til","runStopAt", 1,"{continuerun(runStopAt) stoprun=1}", 1, 1 )
+runStopIn = 1
+xvalue("Continue for","runStopIn", 1,"{continuerun(t + runStopIn) stoprun=1}", 1, 1 )
+xbutton("Single Step","steprun()")
+t = 120
+xvalue("t","t", 2 )
+tstop = 120
+xvalue("Tstop","tstop", 1,"tstop_changed()", 0, 1 )
+dt = 0.025
+xvalue("dt","dt", 1,"setdt()", 0, 1 )
+steps_per_ms = 40
+xvalue("Points plotted/ms","steps_per_ms", 1,"setdt()", 0, 1 )
+screen_update_invl = 0.05
+xvalue("Scrn update invl","screen_update_invl", 1,"", 0, 1 )
+realtime = 0.05
+xvalue("Real Time","realtime", 0,"", 0, 1 )
+xpanel(1279,584)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(4.0175,12.8925,-0.0278442,0.0259142)
+scene_vector_[4] = save_window_
+{save_window_.view(4.0175, -0.0278442, 8.875, 0.0537583, 517, 221, 300.48, 200.32)}
+graphList[2].append(save_window_)
+save_window_.save_name("graphList[2].")
+save_window_.addvar("soma.i_cap( 0.5 )", 1, 1, 0.637061, 0.986262, 2)
+save_window_.addvar("soma.i_pas( 0.5 )", 2, 1, 0.630671, 0.967093, 2)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(6.04,17.54,-0.0429,0.0841)
+scene_vector_[5] = save_window_
+{save_window_.view(6.04, -0.0429, 11.5, 0.127, 193, 223, 300.48, 200.32)}
+graphList[2].append(save_window_)
+save_window_.save_name("graphList[2].")
+save_window_.addexpr("LinearCircuit[0].VC_I", 1, 1, 0.528434, 0.971885, 2)
+save_window_.addexpr("soma.i_pas( 0.5 ) * area(0.5) * 1e-2", 2, 1, 0.307987, 0.947923, 2)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(0,130,-90,-70)
+scene_vector_[7] = save_window_
+{save_window_.view(0, -90, 130, 20, 842, 221, 300.48, 200.32)}
+graphList[2].append(save_window_)
+save_window_.save_name("graphList[2].")
+save_window_.addvar("soma.v( 0.5 )", 1, 1, 0.8, 0.9, 2)
+}
+
+objref xvec, yvec, xline[10], yline[10], savefile
+xvec=new Vector()
+yvec = new Vector()
+
+proc readGraph() { local graphindex, i, j
+graphindex = $1
+// copied from example
+// TODO make this one read the graph name and then save the whole
+// thing as a binary file to be read by trace
+j =0
+for (i=-1; (i = Graph[graphindex].getline(i, xvec, yvec)) != -1 ; j+=1 ) {
+        // xvec and yvec contain the line with Graph internal index i.
+        // and can be associated with the sequential index j.
+        print j, i, yvec.label
+        xline[j] = xvec.c
+        yline[j] = yvec.cl // clone label as well
+}
+
+}
+
+proc saveCurrent() { local graphindex, i, j, n
+graphindex = $1
+strdef filename
+i = Graph[graphindex].getline(-1, xvec, yvec)
+print "Size: ", xvec.size()
+// Build the filename with some more info like dt and dy
+sprint(filename, "%s_dt_%fms_dy_1e-9nA_vclamp_-70_to_%d_mV.bin", $s2, xvec.x[1], LinearCircuit[0].VC_amp1)
+savefile=new File(filename)
+savefile.wopen()
+n = yvec.vwrite(savefile)
+print "Wrote ", n, " bytes to ", filename, ".\n"
+savefile.close()
+
+}
+
+
+objectvar scene_vector_[1]
+{doNotify()}
+
+
+// simulate & save current into file
+run()
+saveCurrent(1, "Ic")
+
+LinearCircuit[0].VC_amp1 = -50
+run()
+saveCurrent(1, "Ic")
+
+// TODO: make a for loop and save all 4 steps
