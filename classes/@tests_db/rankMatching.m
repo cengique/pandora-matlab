@@ -5,34 +5,47 @@ function a_ranked_db = rankMatching(db, crit_db, props)
 % Usage:
 % a_ranked_db = rankMatching(db, crit_db, props)
 %
-% Description:
-%   crit_db can be created with the matchingRow method. TestWeights modify the importance 
-% of each measure.
-%
-%   Parameters:
-%	db: A tests_db to rank.
-%	crit_db: A tests_db object holding the match criterion tests and stds.
-%	props: A structure with any optional properties.
-%	  limitSTD: limit any measure to this many STDs max.
-%	  tolerateNaNs: If 0, rows with any NaN values are skipped
-%	  	, if 1, NaN values are given a fixed 3xSTD penalty (default=1).
-%	  testWeights: Structure array associating tests and multiplicative weights.
-%	  restoreWeights: Reverse the testWeights application after
-%	  		calculating distances.
-%	  topRows: If given, only return this many of the top rows.
-%	  useMahal: Use the Mahalonobis distance from the covariance
-%	  	    matrix in crit_db.
+% Parameters:
+%   db: A tests_db to rank.
+%   crit_db: A tests_db object holding the match criterion tests and stds.
+%   props: A structure with any optional properties.
+%     limitSTD: Truncate error values at this many STDs.
+%     tolerateNaNs: Multiplied by 3xSTD to replace NaN values. 0 means
+%     		to skip NaNs in the distance calculation, scaling sum of
+%     		errors by number of non-NaN entries. Negative values
+%     		accepted; -1 means -3xSTDs error (default=+1).
+%     testWeights: Structure array associating tests and multiplicative weights.
+%     restoreWeights: Reverse the testWeights application after
+%  		calculating distances.
+%     topRows: If given, only return this many of the top rows.
+%     useMahal: Use the Mahalonobis distance from the covariance
+%  	    	matrix in crit_db.
 %		
-%   Returns:
-%	a_ranked_db: A ranked_db object.
+% Returns:
+%   a_ranked_db: A ranked_db object.
 %
-% See also: matchingRow, tests_db
+% Example:
+% Select a target row from mesured distribution (e.g., experimental data):
+% >> a_crit_db = matchingRow(exp_db, 12);
+% Rank another database by comparing to selected row:
+% >> a_ranked_db = rankMatching(orig_db, a_crit_db);
+% Look at top ranked rows:
+% >> displayRows(a_ranked_db(1:5, :))
+%
+% Description:
+%   The crit_db parameter can be created with the matchingRow
+% method. TestWeights modify the importance of each measure. Rows containing
+% NaNs can be removed using noNaNRows before calling rankMatching. 
+% Warning: existing RowIndex column in db will be replaced with the
+% ranking RowIndex used for joinOriginal.
+%
+% See also: matchingRow, joinOriginal, tests_db, noNaNRows
 %
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/08
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -42,13 +55,16 @@ if ~ exist('props', 'var')
   props = struct([]);
 end
 
-% If not exists, add RowIndex column
+% Initialize row indices and delete existing RowIndex column
 if isfield(db.col_idx, 'RowIndex')
-  row_db = onlyRowsTests(db, ':', 'RowIndex');
-  row_index = row_db.data;
-else
-  row_index = (1:dbsize(db, 1))';
+  db = delColumns(db, 'RowIndex');
+  % Using the existing RowIndex causes bug with all subsequent
+  % joinOriginal calls
+  %row_db = onlyRowsTests(db, ':', 'RowIndex');
+  %row_index = row_db.data;
 end
+
+row_index = (1:dbsize(db, 1))';
 
 crit_tests = fieldnames(crit_db.col_idx);
 if isa(crit_db, 'params_tests_db')
@@ -104,15 +120,11 @@ second_row_matx = ones(dbsize(db, 1), 1) * second_row_data;
 
 % Look for NaN & Inf values
 nans = isnan(wghd_data) | isinf(wghd_data);
-% default is to penalize for NaNs
-if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
-  % penalize NaNs by replacing NaNs with 3 for 3 STDs difference 
-  wghd_data(nans) = 3 * second_row_matx(nans); 
-else
-  % ignore NaNs by skipping them and count the non-NaN values to normalize the SS
-  wghd_data(nans) = 0; % Replace NaNs with 0s
-end
 
+% penalize NaNs by replacing them with 3 (meaning 3 STDs difference).
+wghd_data(nans) = getFieldDefault(props, 'tolerateNaNs', 1) * 3 * second_row_matx(nans); 
+% if NaNs were ignored by skipping, count the non-NaN values to normalize
+% the SS below.
 
 if isfield(props, 'useMahal')
   % Use Mahalonobis distance that factors in the covariations between measures
@@ -125,14 +137,14 @@ end
 
 if isfield(props, 'limitSTD') 
   % limit any measure to this many STDs max
-  exceedingSTDs = wghd_data > props.limitSTD;
-  wghd_data(exceedingSTDs) = props.limitSTD;
+  exceedingSTDs = abs(wghd_data) > props.limitSTD;
+  wghd_data(exceedingSTDs) = sign(wghd_data(exceedingSTDs)) * props.limitSTD;
 end
 
 % Sum of absolute error: distance measure
 ss_data = abs(wghd_data);
 
-if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs == 1
+if ~ isfield(props, 'tolerateNaNs') || props.tolerateNaNs ~= 0
   ss_data = sum(ss_data, 2) ./ size(ss_data, 2); 
 else
   ss_data = sum(ss_data, 2) ./ sum(~nans, 2); % Sum distances and take average of non-NaNs

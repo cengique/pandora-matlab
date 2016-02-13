@@ -74,6 +74,9 @@ switch (unit_y)
         curunit = 'nA';
       case 1e-12
         curunit = 'pA';
+      case 1e-15
+        curunit = 'pA';
+        scale_y = 1e12;
       case 1e-6
         curunit = '\mu{}A'; 
       otherwise
@@ -82,13 +85,18 @@ switch (unit_y)
     end
     ylabel = [ 'current [' curunit ']' ];
   case 'V'
-    scale_y = 1e3;
-    ylabel = 'voltage [mV]';
+    % heuristic to detect non-millivolt range data
+    if t.dy > 1e-3 && ~isempty(t.data) && max(t.data*t.dy) > 1
+      scale_y = 1;
+      ylabel = 'voltage [V]';
+    else
+      scale_y = 1e3;
+      ylabel = 'voltage [mV]';
+    end
   otherwise
     error([ 'Unit name ''' t.props.unit_y ''' not recognized. Must be ' ...
             'one of ''A'' or ''V''.' ]);
 end
-
 
 % overwrite if given 
 if isfield(t.props, 'y_label')

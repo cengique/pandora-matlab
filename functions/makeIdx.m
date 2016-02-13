@@ -29,5 +29,10 @@ function idx = makeIdx(names)
 idx = struct;
 for i=1:length(names)
   % replace '-' characters
-  idx = setfield(idx, strrep(names{i}, '-', '_'), i);
+  clean_name = strrep(names{i}, '-', '_');
+  if ~ isfield(idx, clean_name)
+    idx = setfield(idx, clean_name, i);
+  else
+    error(['Duplicate field name: "' clean_name '".']);
+  end
 end

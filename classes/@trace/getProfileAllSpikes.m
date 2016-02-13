@@ -18,7 +18,7 @@ function profile_obj = getProfileAllSpikes(a_trace)
 % 
 % See also: trace, trace_allspikes_profile
 %
-% $Id: getProfileAllSpikes.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/26
 

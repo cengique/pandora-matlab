@@ -15,13 +15,13 @@ function param_names = paramNames(fileset, item)
 %   Returns:
 %	params_names: Cell array with ordered parameter names.
 %
-% See also: params_tests_fileset, paramNames, testNames
+% See also: params_tests_fileset, testNames, parseFilenameNamesVals
 %
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/10
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2004-14 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -32,24 +32,43 @@ if ~ exist('item', 'var')
 end
 
 props = get(fileset, 'props');
+param_names = {};
 
 filename = getItem(fileset, item);
 fullname = fullfile(fileset.path, filename);
 
-names_vals = parseGenesisFilename(fullname);
+% if given, use the regular expression to parse parameters
+if isfield(props, 'fileParamsRegexp')
+  try 
+    param_regexp = regexp(fullname, props.fileParamsRegexp, 'names');
+  
+    num_params = length(param_regexp);
+    
+    % convert the regexp sturcture into cell array
+    for param_num = 1:num_params
+        param_names{param_num} = param_regexp(param_num).name;
+    end
+  catch me
+    error('pandora:fileset:regexpError', ...
+        [me.message ': props.fileParamsRegexp must be a regular expression ' ...
+         'with named captures for variables "name" and "val". See ' ...
+         '"names" option to regexp.']);
+  end
+% if props.num_params ~= 0 then parse file names
+elseif ~ isfield(props, 'num_params') || props.num_params ~= 0  
+  names_vals = parseFilenameNamesVals(fullname, props);
 
-if isfield(props, 'num_params')
-  num_params = props.num_params;
-else
-  num_params = size(names_vals, 1);
+  if isfield(props, 'num_params')
+    num_params = props.num_params;
+  else
+    num_params = size(names_vals, 1);
+  end
+  
+  param_names = { names_vals{1:num_params, 1} };
 end
 
+% parameter names in addition to the ones specified in data filenames
 if isfield(props, 'param_names')
-
-
-  % Take parameter values from the specified parameter file,
-  % in addition to the ones specified on data filenames.
-
   str_index = strmatch('trial', props.param_names);
   trues = true(1, length(props.param_names));
 
@@ -59,10 +78,8 @@ if isfield(props, 'param_names')
     trues(str_index) = false;
   end
 
-  add_param_names = { props.param_names{trues} };
-else
-  add_param_names = { };
+  % Convert param names to cell array
+  param_names = { props.param_names{trues}, param_names{:} };
 end
 
-% Convert param names to cell array
-param_names = { add_param_names{:}, names_vals{1:num_params, 1} };
+

@@ -20,7 +20,7 @@ function a_md = convertTauFromSpline(a_md, props)
 %
 % See also: model_data_vcs, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: convertTauFromSpline.m 276 2010-11-09 23:30:35Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/05/31
 

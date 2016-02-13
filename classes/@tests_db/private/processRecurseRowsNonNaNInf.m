@@ -1,9 +1,9 @@
-function [s, n] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
+function [s, n, i] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
 
 % processRecurseRowsNonNaNInf - Recursively process from dim_num down to row dimension and call function after removing NaN and Infs.
 %
 % Usage:
-% [s, n] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
+% [s, n, i] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
 %
 % Parameters:
 %   a_db: A tests_db object.
@@ -14,6 +14,7 @@ function [s, n] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
 % Returns:
 %   s: Resulting data matrix, with selected dimension removed.
 %   n: Numbers of used values in each call of a_func.
+%   i: indices returned by a_func.
 %
 % Description:
 %   Does a recursive operation over other dimensions in order to remove
@@ -25,7 +26,7 @@ function [s, n] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
 %
 % See also: processDimNonNaNInf, max, mean, feval, tests_db
 %
-% $Id: mean.m 909 2008-01-10 05:08:34Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 
@@ -43,14 +44,14 @@ function [s, n] = processRecurseRowsNonNaNInf(data, dim_num, a_func)
       % give it NaN value instead of an empty matrix.
       s = NaN;
     else
-      s = feval(a_func, sdata, 1);
+      [s,i] = feval(a_func, sdata, 1);
     end
   else
     for num=1:size(data, dim_num)
       % Otherwise recurse
       [dims{1:(dim_num-1)}] = deal(':');
       dims{dim_num} = num;
-      [s(dims{:}) n(dims{:})] = ...
+      [s(dims{:}) n(dims{:}) i(dims{:})] = ...
           processRecurseRowsNonNaNInf(data(dims{:}), dim_num - 1, a_func);
     end
   end

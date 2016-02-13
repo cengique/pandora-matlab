@@ -19,7 +19,7 @@ function p_bundle = mergeBundles(p_bundle, w_bundle, props)
 %
 % See also: rankMatching, tests_db/mergeBundles
 %
-% $Id: mergeBundles.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/18
 

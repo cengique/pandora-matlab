@@ -19,7 +19,7 @@ function results = mergeStructs(varargin)
 % mergeStructs( struct('hello', 1), struct('bye', 2) );
 %  => struct('hello', 1, 'bye', 2)
 %
-% $Id: mergeStructs.m,v 1.4 2006/08/11 16:53:26 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

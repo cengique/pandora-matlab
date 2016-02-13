@@ -4,7 +4,7 @@ function a_db = joinPages(db, with_db)
 % 	column.
 %
 % Usage:
-% a_db = joinPages(db, tests, with_db, w_tests)
+% a_db = joinPages(db, with_db)
 %
 % Description:
 %   Replicates the desired columns in the with_db with rows having a 

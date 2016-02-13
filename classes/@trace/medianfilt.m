@@ -16,7 +16,7 @@ function t = medianfilt(t, window_size)
 %
 % See also: trace, medianfilt1
 %
-% $Id: medianfilt.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/04/05
 

@@ -20,7 +20,7 @@ function a_plot = plotBox(a_tests_db, title_str, props)
 %
 % See also: plot_abstract, plotFigure, boxplotp
 %
-% $Id: plotBox.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/16
 
@@ -58,11 +58,22 @@ else
   whis = 1.5;
 end
 
-if dbsize(a_tests_db, 2) > 1 
-  error('Plotting multiple columns at the same time not implemented!');
-end
+% $$$ if dbsize(a_tests_db, 2) > 1 
+% $$$   error('Plotting multiple columns at the same time not implemented!');
+% $$$ end
 
-col_name = getColNames(a_tests_db);
+% set names on x-axis
+col_names = getColNames(a_tests_db);
+num_cols = length(col_names);
+props.axisProps = ...
+    mergeStructsRecursive(getFieldDefault(props, 'axisProps', struct), ...
+                          struct('XTick', 1:num_cols, ...
+                                 'XTickLabel', {col_names}));
+if num_cols == 1
+  x_label = properTeXLabel(col_names{1});
+else
+  x_label = '';
+end
 
 if isfield(props, 'quiet')
   all_title = properTeXLabel(title_str);
@@ -74,5 +85,5 @@ end
 a_plot = ...
     plot_abstract({get(a_tests_db, 'data'), ...
                    notch, sym, vert, whis, struct('nooutliers', 1)}, ...
-                  {'', properTeXLabel(col_name)}, ...
+                  {'', x_label}, ...
                   all_title, {}, 'boxplotp', props); % mergeStructs(, struct)('tightLimits', 1)

@@ -5,17 +5,19 @@ function a_plot = plotEqSpaced(a_hist_db, title_str, props)
 % Usage:
 % a_plot = plotEqSpaced(a_hist_db, title_str, props)
 %
+% Parameters:
+%   a_hist_db: A histogram_db object.
+%   title_str: Optional title string.
+%   props: Optional properties passed to plot_abstract.
+%     quiet: If 1, don't include database name on title.
+%     skipXnum: Skip every this many values to fit labels on X-axis (default=1).
+%     totalXnum: Skip to fit this number of total X-axis tick labels.
+%		
+% Returns:
+%   a_plot: A object of plot_abstract or one of its subclasses.
+%
 % Description:
 %   Generates a plot_simple object from this histogram.
-%
-%   Parameters:
-%	a_hist_db: A histogram_db object.
-%	title_str: Optional title string.
-%	props: Optional properties passed to plot_abstract.
-%	  quiet: If 1, don't include database name on title.
-%		
-%   Returns:
-%	a_plot: A object of plot_abstract or one of its subclasses.
 %
 % See also: plot_abstract, plot_simple
 %
@@ -56,9 +58,17 @@ end
 colnames = fieldnames(get(a_hist_db, 'col_idx'));
 
 data = get(a_hist_db, 'data');
+all_vals = 1:dbsize(a_hist_db, 1);
 
-props(1).XTick = 1:dbsize(a_hist_db, 1);
-props(1).XTickLabel = data(:, 1);
+skip_x_num = ...
+    getFieldDefault(props, 'skipXnum', ...
+                           (dbsize(a_hist_db, 1) - 1) / ...
+                           max(1, getFieldDefault(props, ...
+                                           'totalXnum', ...
+                                           (dbsize(a_hist_db, 1) - 1)) - 1));
+
+props(1).XTick = 1:skip_x_num:dbsize(a_hist_db, 1);
+props(1).XTickLabel = data(1:skip_x_num:end, 1);
 
 % Call it frequency if it's normalized
 a_hist_props = get(a_hist_db, 'props');
@@ -84,7 +94,7 @@ else
 end
 
 % Make a simple plot object drawing vertical bars
-a_plot = plot_simple(props.XTick, data(:, 2), ...
+a_plot = plot_simple(all_vals, data(:, 2), ...
 		     properTeXLabel(all_title), ...
 		     properTeXLabel(x_label), properTeXLabel(y_label), ...
 		     properTeXLabel(colnames{1}), command, props);

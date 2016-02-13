@@ -17,7 +17,7 @@ function string2File(string, filename, props)
 %
 % See also: cell2TeX
 %
-% $Id: string2File.m,v 1.1 2004/12/13 21:38:23 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/10
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
@@ -37,6 +37,9 @@ if exist('filename', 'var') && ~ isempty(filename)
     write_mode = 'w';
   end
   fp = fopen(filename, write_mode);
+  if fp < 0 
+    error(['Cannot open file "' filename '" for writing.']);
+  end
   fprintf(fp, '%s', string);
   fclose(fp);
 end

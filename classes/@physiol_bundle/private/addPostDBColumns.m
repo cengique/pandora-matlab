@@ -13,7 +13,7 @@ function an_addedcols_db = addPostDBColumns(a_db)
 %
 % See also: tests_db/addColumn
 %
-% $Id: addPostDBColumns.m,v 1.6 2007/01/24 17:18:51 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/10/04
 
 test_names = fieldnames(get(a_db, 'col_idx'));

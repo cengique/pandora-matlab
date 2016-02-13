@@ -22,7 +22,7 @@ function result_tr = unary_op(a_tr, op_func, op_id, props)
 %
 % See also: trace, binary_op, uminus, sqrt
 %
-% $Id: unary_op.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/11/09
 

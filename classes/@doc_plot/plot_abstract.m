@@ -19,7 +19,7 @@ function a_plot = plot_abstract(a_doc, title_str, props)
 %
 % See also: doc_plot/plot, plot_abstract
 %
-% $Id: plot_abstract.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/17
 

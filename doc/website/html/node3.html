@@ -1,0 +1,2195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.70)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2 User's Manual</TITLE>
+<META NAME="description" CONTENT="2 User's Manual">
+<META NAME="keywords" CONTENT="prog-manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="prog-manual.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="prog-manual.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1824"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1818"
+  HREF="prog-manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1812"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1820"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1822"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1825"
+  HREF="node4.html">Bibliography</A>
+<B> Up:</B> <A NAME="tex2html1819"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+<B> Previous:</B> <A NAME="tex2html1813"
+  HREF="node2.html">1 Software Architecture</A>
+ &nbsp; <B>  <A NAME="tex2html1821"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1823"
+  HREF="node6.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><UL>
+<LI><A NAME="tex2html1826"
+  HREF="node3.html#SECTION03010000000000000000">5 Recipes for Common Tasks</A>
+<UL>
+<LI><A NAME="tex2html1827"
+  HREF="node3.html#SECTION03011000000000000000">5.1 Loading a database</A>
+<UL>
+<LI><A NAME="tex2html1828"
+  HREF="node3.html#SECTION03011100000000000000">5.1.1 Creating a dataset for physiology data</A>
+<LI><A NAME="tex2html1829"
+  HREF="node3.html#SECTION03011200000000000000">5.1.2 Creating a dataset for simulation data</A>
+</UL>
+<LI><A NAME="tex2html1830"
+  HREF="node3.html#SECTION03012000000000000000">5.2 Finding constrained subsets in a database</A>
+<UL>
+<LI><A NAME="tex2html1831"
+  HREF="node3.html#SECTION03012100000000000000">5.2.1 Complex Queries</A>
+</UL>
+<LI><A NAME="tex2html1832"
+  HREF="node3.html#SECTION03013000000000000000">5.3 Sorting the database according to a measure</A>
+<LI><A NAME="tex2html1833"
+  HREF="node3.html#SECTION03014000000000000000">5.4 Preprocessing a raw (physiology) database</A>
+<UL>
+<LI><A NAME="tex2html1834"
+  HREF="node3.html#SECTION03014100000000000000">5.4.1 Limiting range of bias currents</A>
+<LI><A NAME="tex2html1835"
+  HREF="node3.html#SECTION03014200000000000000">5.4.2 Choosing few current levels</A>
+<LI><A NAME="tex2html1836"
+  HREF="node3.html#SECTION03014300000000000000">5.4.3 Adding new columns calculated from existing measures</A>
+<LI><A NAME="tex2html1837"
+  HREF="node3.html#SECTION03014400000000000000">5.4.4 Averaging multiple traces of same neuron</A>
+</UL>
+<LI><A NAME="tex2html1838"
+  HREF="node3.html#SECTION03015000000000000000">5.5 Making a database by merging multiple rows from another database</A>
+<UL>
+<LI><A NAME="tex2html1839"
+  HREF="node3.html#SECTION03015100000000000000">5.5.1 Making a one-row-per-neuron DB from multiple CIP-level rows</A>
+<LI><A NAME="tex2html1840"
+  HREF="node3.html#SECTION03015200000000000000">5.5.2 Making a one-row-per-neuron DB from dual CIP-level rows</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html1841"
+  HREF="node3.html#SECTION03020000000000000000">6 Visualization</A>
+<UL>
+<LI><A NAME="tex2html1842"
+  HREF="node3.html#SECTION03021000000000000000">6.1 Visualizing traces</A>
+<LI><A NAME="tex2html1843"
+  HREF="node3.html#SECTION03022000000000000000">6.2 Displaying database contents</A>
+<LI><A NAME="tex2html1844"
+  HREF="node3.html#SECTION03023000000000000000">6.3 Plotting all measure histograms</A>
+<LI><A NAME="tex2html1845"
+  HREF="node3.html#SECTION03024000000000000000">6.4 Plotting all parameter histograms</A>
+<LI><A NAME="tex2html1846"
+  HREF="node3.html#SECTION03025000000000000000">6.5 Plotting database statistics</A>
+<LI><A NAME="tex2html1847"
+  HREF="node3.html#SECTION03026000000000000000">6.6 Plotting parameter-measure variations</A>
+<LI><A NAME="tex2html1848"
+  HREF="node3.html#SECTION03027000000000000000">6.7 Insets</A>
+<LI><A NAME="tex2html1849"
+  HREF="node3.html#SECTION03028000000000000000">6.8 Generating a report comparing two databases</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION03000000000000000000">
+2 User's Manual</A>
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION03010000000000000000"></A><A NAME="sec:Recipes"></A>
+<BR>
+5 Recipes for Common Tasks
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION03011000000000000000">
+5.1 Loading a database</A>
+</H2>
+
+<P>
+A database can be created directly from a data matrix, or indirectly
+by loading a dataset. For the latter, first a dataset object must
+be created that point to the data sources. There are different dataset
+classes that allow using different data sources. For instance, physiology
+and simulation data require different operations. In physiology data,
+one can record information about the treatments and other conditions,
+whereas in simulations one can keep track of changing parameters. 
+
+<P>
+Once the dataset object is obtained, the database object can be created
+with 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;mydb&nbsp;=&nbsp;params_tests_db(dataset)</div>which initiates the loading of files. This operation is the same no
+matter what type of dataset or fileset object is used. The following
+commands reduce the verbosity of output during this long process:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;warning&nbsp;off&nbsp;verbose
+
+<P>
+&gt;&gt;&nbsp;warning&nbsp;off&nbsp;backtrace
+
+<P>
+&gt;&gt;&nbsp;warning&nbsp;off&nbsp;calcInitVm:info</div>
+<P>
+
+<H3><A NAME="SECTION03011100000000000000"></A><A NAME="sub:loading-phys"></A>
+<BR>
+5.1.1 Creating a dataset for physiology data
+</H3>
+
+<P>
+Physiology data can be obtained from multiple sources. 
+
+<P>
+
+<H4><A NAME="SECTION03011110000000000000">
+5.1.1.1 Loading data by specifying tracesets in a text file</A>
+</H4>
+
+<P>
+The preferred way to load physiology traces is to first create a text
+file where each line specifies traces to load from a single data source
+(e.g., a PCDX file). The format of this text file is explained in
+the help of the <TT>physiol_cip_traceset_fileset</TT> class. The
+physiology fileset can be created from the text file with a command
+such as follows:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_fileset&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;physiol_cip_traceset_fileset('cell_traces.txt',&nbsp;1e-4,&nbsp;1e-3,
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct('profile_class_name',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'getProfileAllSpikes',
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'offset_y',&nbsp;-9,
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'cip_list',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-200&nbsp;-100:20:100&nbsp;200&nbsp;300]))</div>This command reads the <TT>cell_traces.txt</TT> file and records
+the tracesets to read from each file. The structure passed indicates
+to use the <TT>getProfileAllSpikes</TT> method to calculate the measurements
+on the traces.
+
+<P>
+The fileset can then be used to generate the database, as shown above,
+using its <TT>params_tests_db</TT> method. The fileset object holds
+within, a separate <TT>physiol_cip_traceset</TT> object for each
+line in the text file. 
+
+<P>
+The <TT>cip_list</TT> optional parameter must be used with caution.
+To determine actual CIP-levels, the current channel of the trace is
+analyzed. <TT>cip_list</TT> entries are used to discretize the noisy
+current channel. Current levels will coerce to the nearest entry from
+<TT>cip_list</TT>. In the above example, all current levels below
+<IMG
+ WIDTH="41" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$ -200$">&nbsp;pA will be assumed to be <IMG
+ WIDTH="41" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$ -200$">&nbsp;pA. The default <TT>cip_list</TT>
+resides in the <TT>physiol_cip_traceset/CIPform</TT> method.
+
+<P>
+
+<H4><A NAME="SECTION03011120000000000000">
+5.1.1.2 Loading data from existing <TT>cip_traces</TT> objects</A>
+</H4>
+
+<P>
+The now obsolete <TT>cip_traces</TT> Matlab objects have been used
+to hold some earlier physiological data. Each object holds a set of
+traces with varying CIP levels applied to the cell. The following
+command creates a dataset object from a cell array <TT>ct_list</TT>
+of <TT>cip_traces</TT> objects by choosing only the traces with <IMG
+ WIDTH="28" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$ 100$">&nbsp;pA
+and <IMG
+ WIDTH="41" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$ -100$">&nbsp;pA CIP levels
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_dataset&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;cip_traceset_dataset(ct_list,&nbsp;[100,&nbsp;-100],&nbsp;1e-3,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'dataset&nbsp;gpd&nbsp;0411-21',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct('offsetPotential',&nbsp;-9)</div>
+<P>
+
+<H3><A NAME="SECTION03011200000000000000">
+5.1.2 Creating a dataset for simulation data</A>
+</H3>
+
+<P>
+First a dataset or a fileset must be created. An example to load G<SMALL>ENESIS</SMALL>
+<TT>.bin</TT> files would be
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;fileset&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;params_cip_trace_fileset('/home/cengiz/data/*.bin',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1e-4,&nbsp;1e-3,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20001,&nbsp;10000,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'sim&nbsp;dataset&nbsp;gpsc0501',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct('trace_time_start',&nbsp;10001,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type',&nbsp;'sim',&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'scale_y',&nbsp;1e3))</div>The explanation of arguments can be obtained by issuing a 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;help&nbsp;params_cip_trace_fileset</div>in M<SMALL>ATLAB</SMALL>. In this example, all G<SMALL>ENESIS</SMALL> files were
+created with the same characteristics: <!-- MATH
+ $\mathrm{d}t=10^{-4}$
+ -->
+<IMG
+ WIDTH="69" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$ \mathrm{d}t=10^{-4}$">, <!-- MATH
+ $\mathrm{d}V=10^{-3}$
+ -->
+<IMG
+ WIDTH="75" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.png"
+ ALT="$ \mathrm{d}V=10^{-3}$">,
+pulse during samples <!-- MATH
+ $[20001,30000]$
+ -->
+<IMG
+ WIDTH="99" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$ [20001,30000]$">. Optional properties (the last
+argument) indicates that the first <IMG
+ WIDTH="44" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.png"
+ ALT="$ 10000$"> samples should be discarded
+and that the data should be prescaled to yield the <!-- MATH
+ $\mathrm{d}V$
+ -->
+<IMG
+ WIDTH="23" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img16.png"
+ ALT="$ \mathrm{d}V$">
+indicated. Note that, using an absolute path to refer to data files
+ensures that they can be reached from different directories after
+the fileset object is saved. 
+
+<P>
+
+<H4><A NAME="SECTION03011210000000000000">
+5.1.2.1 Loading heterogeneous set of simulation files</A>
+</H4>
+
+<P>
+Sometimes not all data files in a simulation set would have the same
+length, or CIP start time. The brute-force simulation set is such
+an example, where the spontaneous trace and different CIP level traces
+are in different files. I have a special superclass that contains
+multiple fileset objects to automatically handle this kind of data.
+It resides not in the general distribution directory, but in my personal
+directory <TT>/djlab/shared/matlab/classes/cengiz</TT>. This class
+is an example of how to create composite fileset objects. An instance
+of this class can be created with:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;m_filesetall&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multi_fileset_gpsim_cns2005('.../data',&nbsp;'.../paramRanges.txt',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.../all_0.par',&nbsp;'sim&nbsp;db&nbsp;gpsc0502')</div>which will find all the files in the given directory and put them
+in separate pre-defined fileset objects according to their <TT>_pAcip_</TT>
+suffixes. Parameter range definition and value files are used to read
+parameter values for each simulation. A single database object can
+be loaded using the <TT>params_tests_db</TT> method on the <TT>m_filesetall</TT>
+object above. The help on this method explains how to load only certain
+filesets at a time. This helps to load different filesets in parallel,
+since databases can be concatanated easily afterwards.
+
+<P>
+
+<H2><A NAME="SECTION03012000000000000000">
+5.2 Finding constrained subsets in a database</A>
+</H2>
+
+<P>
+Once a database with more-than-sufficient number of measures is available,
+subsets of this database can be extracted easily for other tasks.
+New databases can be formed by filtering rows, columns or pages of
+an existing database. For choosing any of these dimensions, the user
+can specify an array of indices, or a logical array. For instance, 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(1:10,&nbsp;:);</div>creates a database object <TT>db2</TT> by the first ten rows of <TT>db1</TT>
+and all its columns. For three-dimensional databases, a third parameter
+can be specified, as in 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(1:10,&nbsp;:,&nbsp;[1&nbsp;3]);</div>which will take only the first and third page from <TT>db1</TT>.
+
+<P>
+For measures, columns can also be specified as a single string value,
+or a cell array of strings, as in 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(1:10,&nbsp;'pAcip');</div>which chooses only the <TT>pAcip</TT> column of the first 10 rows
+of <TT>db1</TT> or 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(1:10,&nbsp;{'pAcip',&nbsp;'IniSpontSpikeRate'});</div>which chooses two columns. Finally, composite queries can be formed
+when cell arrays are used for addressing:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(1:10,&nbsp;{1:10,&nbsp;'IniSpontSpikeRate',&nbsp;234});</div>which will select the first ten measures, the spontaneous spike rate,
+and the measure number 234.
+
+<P>
+Rows of the database signify neurons or simulation runs. Therefore
+it is important to find subset of neurons that match a certain criteria.
+This can be done specifying a list of rows that is the result of a
+logical operation. A logical operation finds rows that satisfy constraints
+on a single parameter or measure of a database. For instance, 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;rows&nbsp;=&nbsp;db1(:,&nbsp;'IniSpontSpikeRate')&nbsp;&gt;&nbsp;10;</div>gives a logical array that contains a <TT>true</TT> value for all
+rows in <TT>db1</TT> that has spontaneous firing faster than 10 Hz.
+If this is used as the row specifier in a subset operation, a new
+database with only these neurons can be obtained by 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(rows,&nbsp;:);</div>If we want more constrains it is straightforward to use any logical
+operation such as AND (<TT>&amp;</TT>), OR (<TT>|</TT>) and NOT(<TT>~</TT>)
+on these logical arrays such as 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1((rows&nbsp;|&nbsp;rows2)&nbsp;&amp;&nbsp;rows3,&nbsp;:);</div>which says choose all rows from <TT>db1</TT> where either the tests
+<TT>rows</TT> and <TT>rows2</TT> are satisfied and while <TT>rows3</TT>
+is always satisfied. All these operations can be specified in-place
+such as in 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db2&nbsp;=&nbsp;db1(db1(:,&nbsp;'IniSpontSpikeRate')&nbsp;&gt;&nbsp;10&nbsp;&amp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db1(:,&nbsp;'IniSpontSpikeRate')&nbsp;&lt;=&nbsp;20,&nbsp;:);</div>which will create a database of neurons that spontaneously fire between
+10-20 Hz.
+
+<P>
+
+<H3><A NAME="SECTION03012100000000000000">
+5.2.1 Complex Queries</A>
+</H3>
+
+<P>
+Complex queries can be constructed using results of queries in nested
+fashion. The following example shows an example of finding all neurons
+that match any of the neurons in another database and then find the
+ones that match certain criteria:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;sub_phys_es2&nbsp;=&nbsp;phys_joined_db(phys_joined_db(:,&nbsp;'NeuronId')&nbsp;==&nbsp;es2(:,&nbsp;'NeuronId'),&nbsp;:);&nbsp;
+
+<P>
+&gt;&gt;&nbsp;displayRows(sub_phys_es2(sub_phys_es2(:,&nbsp;'Apamin')&nbsp;&gt;&nbsp;0,&nbsp;'NeuronId'))</div>Here, the first query returns all rows that match the <TT>NeuronId</TT>s
+from the <TT>es3</TT> database. The inner term in the second query
+finds among these neurons the ones for which apamin blocker data is
+present. The final enclosing block uses these rows to get a subset
+of the <TT>phys_joined_db</TT> with only the <TT>NeuronId</TT> column.
+This type query has equivalent computational power to using nested
+SELECT statements in the SQL language.
+
+<P>
+
+<H2><A NAME="SECTION03013000000000000000"></A><A NAME="sub:Sorting-the-database"></A>
+<BR>
+5.3 Sorting the database according to a measure
+</H2>
+
+<P>
+First, all rows where the desired measure value is <TT>NaN</TT> should
+be eliminated:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;ampDecayTau_nonNaN_db&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dball(~isnan(dball(:,&nbsp;'PulseSpikeAmpDecayTau')),&nbsp;:)</div>This finds all rows in <TT>dball</TT> that the <TT>PulseSpikeAmpDecayTau</TT>
+measure is not <TT>NaN</TT> and creates a new DB object <TT>ampDecayTau_nonNaN_db</TT>,
+which includes these rows with all measures from <TT>dball</TT>. Notice
+that the newly created DB contains less rows than the original DB.
+The number of rows in the new DB can be obtained by just typing the
+name of the DB and pressing enter at the M<SMALL>ATLAB</SMALL> prompt.
+
+<P>
+Then, one can sort the new database using:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;ampDecayTau_sorted_db&nbsp;=&nbsp;sortrows(ampDecayTau_nonNaN_db,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayTau')&nbsp;</div>This will create DB which is sorted with increasing values of the
+<TT>PulseSpikeAmpDecayTau</TT> measure. Displaying the first few rows
+gives lowest values:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;displayRows(ampDecayTau_sorted_db,&nbsp;1:3)
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'NaF'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'NaP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2.5000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv3'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv2'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv4f'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'KCNQ'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.1000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'SK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;8.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8.5000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'CaHVA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'HCN'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.3000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'pAcip'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.9448e-04]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0051]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0452]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontPotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;-64.9161]&nbsp;&nbsp;&nbsp;&nbsp;[-52.6859]&nbsp;&nbsp;&nbsp;&nbsp;[-41.5876]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;14.0014]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;18.0018]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;81.0081]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.0226]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0366]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.0541]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0814]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x27&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;28.8953]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;88.9086]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x27&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;26.6785]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;86.7052]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x22&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x25&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;29.4118]&nbsp;&nbsp;&nbsp;&nbsp;[166.6667]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;96.0512]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;-61.0044]&nbsp;&nbsp;&nbsp;&nbsp;[-32.7775]&nbsp;&nbsp;&nbsp;&nbsp;[-34.1518]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotMin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotSag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSFA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;1.1254]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;1.3571]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayDelta'[&nbsp;&nbsp;&nbsp;&nbsp;4.2764]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;9.2041]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;17.8389]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayTau'&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.2000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.2000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.3000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;28.0028]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2.0002]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;89.0089]
+
+<P>
+...</div>Displaying the last few rows gives the highest values:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;displayRows(ampDecayTau_sorted_db,&nbsp;13879:13881)
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'NaF'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'NaP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;2.5000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv3'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv2'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv4f'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'KCNQ'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.0100]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'SK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'CaHVA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'HCN'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'pAcip'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;-100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;-100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0027]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0027]&nbsp;&nbsp;&nbsp;&nbsp;[9.1376e-04]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontPotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-28.5685]&nbsp;&nbsp;&nbsp;&nbsp;[-28.5687]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;-67.7567]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;69.0069]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;69.0069]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;14.0014]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0046]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0046]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.0091]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0080]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0080]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x27&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;71.1269]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;71.1269]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;24.4499]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x27&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;71.1427]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;71.1427]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;26.6785]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x22&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1x25&nbsp;char]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;70.6357]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;70.6357]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;25.4453]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-30.1705]&nbsp;&nbsp;&nbsp;&nbsp;[-30.1718]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;-65.2721]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotMin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotSag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaN]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSFA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.9792]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.9792]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;1.0407]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayDelta'[&nbsp;-1.2791]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;-1.2868]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;1.2201]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayTau'&nbsp;&nbsp;[999.6000]&nbsp;&nbsp;&nbsp;&nbsp;[999.6000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;72.0072]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;72.0072]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;25.0025]
+
+<P>
+...</div>
+<P>
+
+<H2><A NAME="SECTION03014000000000000000">
+5.4 Preprocessing a raw (physiology) database by elimination and averaging
+</A>
+</H2>
+
+<P>
+Mostly, raw physiology databases are subject to redundancies and unwanted
+recordings. We usually apply the following steps before we start analyzing
+a raw physiology database. Similar steps may be employed for simulation
+databases, too.
+
+<P>
+
+<H3><A NAME="SECTION03014100000000000000">
+5.4.1 Limiting range of bias currents</A>
+</H3>
+
+<P>
+Recordings with high bias current are undesirable. We commonly filter-out
+high bias currents with:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;db_bias_small&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball(phys_dball(:,&nbsp;'pAbias')&nbsp;&gt;&nbsp;-30&nbsp;&amp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball(:,&nbsp;'pAbias')&nbsp;&lt;&nbsp;30,&nbsp;:)</div>which will limit the bias current, <IMG
+ WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.png"
+ ALT="$ i_{b}$">, to <!-- MATH
+ $-30\,\mathrm{pA}<i_{b}<30\,\mathrm{pA}$
+ -->
+<IMG
+ WIDTH="141" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="$ -30\,\mathrm{pA}&lt;i_{b}&lt;30\,\mathrm{pA}$">. 
+
+<P>
+
+<H3><A NAME="SECTION03014200000000000000">
+5.4.2 Choosing few current levels</A>
+</H3>
+
+<P>
+To get a profile for a neuron, usually both hyperpolarizing and depolarizing
+CIP-levels need to be included. Moreover, to capture the spiking frequency
+vs. current response of the neuron, multiple depolarizing CIP-level
+information may need to be included. 
+
+<P>
+There are two counterparts to selecting which CIP-levels to include
+in a DB. First, one can select what CIP-levels are available in the
+raw data and what discretization levels should be used while loading
+the database. This is done with the <TT>cip_list</TT> optional parameter
+described in Section <A HREF="#sub:loading-phys">5.1.1</A>. GP recordings prior
+to mid-2005 have current channel data which are too noisy to be quantized
+to levels of 10 pA. Instead, at least a step size of 20 pA needs to
+be used. Later recordings have both better recordings, and feature
+20 pA steps in the experimental protocol anyway. 
+
+<P>
+Second, after the database is loaded, one can filter-out unwanted
+CIP-level traces:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_dball_limitedcip&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball_big(phys_dball_big(:,&nbsp;'pAcip')&nbsp;==&nbsp;-100&nbsp;|&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball_big(:,&nbsp;'pAcip')&nbsp;==&nbsp;0&nbsp;|&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball_big(:,&nbsp;'pAcip')&nbsp;==&nbsp;50&nbsp;|&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball_big(:,&nbsp;'pAcip')&nbsp;==&nbsp;100&nbsp;|&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball_big(:,&nbsp;'pAcip')&nbsp;==&nbsp;200,&nbsp;:)</div>This operation can be simplified to take advantage of complex query
+form:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_dball_limitedcip&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_dball_big(phys_dball_big(:,&nbsp;'pAcip')&nbsp;==&nbsp;[-100;&nbsp;0;&nbsp;50;&nbsp;100;&nbsp;200])&nbsp;</div>which will choose rows with current levels matching any of the given
+values.
+
+<P>
+
+<H3><A NAME="SECTION03014300000000000000">
+5.4.3 Adding new columns calculated from existing measures</A>
+</H3>
+
+<P>
+Some measures can be deduced from measures collected from raw data.
+These do not need to be calculated at time of loading the raw data,
+but rather can be added to the database later. Some measures must
+be added later because they may be composed of measurements from multiple
+traces or averages. Here is an example for adding a new measure:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_db_limitedcip_addedcols&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addColumn(phys_db_limitedcip,&nbsp;'PulsePotSagDivMin',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_db_limitedcip(:,&nbsp;'PulsePotSag').data&nbsp;./&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phys_db_limitedcip(:,&nbsp;'PulsePotMin').data)</div>
+<P>
+
+<H3><A NAME="SECTION03014400000000000000">
+5.4.4 Averaging multiple traces of same neuron with same CIP-level and
+(pharmacological) parameters </A>
+</H3>
+
+<P>
+In making a one-row-per-CIP-level database, it is essential to include
+all available information from the raw database. Especially in physiology
+datasets, there may be multiple traces of a neuron where the same
+CIP-level and the same pharmacological conditions were applied. These
+rows can be averaged to obtain a single row for each CIP-level of
+a neuron.
+
+<P>
+Before doing this, the parameters of the raw database should only
+include parameters that uniquely distinguish neurons. The averaging
+operation tries to find each distinct set of parameters and then averages
+all rows that has this combination. For example, the <TT>NeuronId</TT>
+and <TT>pAcip</TT> parameters need to be distinct. However, the <TT>pAbias</TT>
+parameter does not need to be distinct for each neuron. The non-unique
+parameters need to be filtered-out before the averaging process. The
+following shows all the parameters of a raw physiology database:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_db
+
+<P>
+params_tests_db,&nbsp;tracesets&nbsp;from&nbsp;.../cip_traces_all_axoclamp.txt
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;num_params:&nbsp;16
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props:&nbsp;[0x0&nbsp;struct]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests_db:&nbsp;[1x1&nbsp;tests_db]
+
+<P>
+Optional&nbsp;properties&nbsp;of&nbsp;params_tests_db:
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+0x0&nbsp;struct&nbsp;array&nbsp;with&nbsp;no&nbsp;fields.
+
+<P>
+tests_db,&nbsp;tracesets&nbsp;from&nbsp;.../cip_traces_all_axoclamp.txt
+
+<P>
+1527&nbsp;rows&nbsp;in&nbsp;database&nbsp;with&nbsp;182&nbsp;columns,&nbsp;and&nbsp;1&nbsp;pages.
+
+<P>
+Column&nbsp;names:
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;1]&nbsp;&nbsp;&nbsp;&nbsp;'pulseOn'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2]&nbsp;&nbsp;&nbsp;&nbsp;'pulseOff'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;'traceEnd'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;4]&nbsp;&nbsp;&nbsp;&nbsp;'pAcip'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;'pAbias'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;6]&nbsp;&nbsp;&nbsp;&nbsp;'Cadmium'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;7]&nbsp;&nbsp;&nbsp;&nbsp;'PicroTx'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8]&nbsp;&nbsp;&nbsp;&nbsp;'Apamin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;9]&nbsp;&nbsp;&nbsp;&nbsp;'Glycine'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;'KynAcid'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;11]&nbsp;&nbsp;&nbsp;&nbsp;'TTX'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;12]&nbsp;&nbsp;&nbsp;&nbsp;'XE991'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;13]&nbsp;&nbsp;&nbsp;&nbsp;'drug_4AP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;14]&nbsp;&nbsp;&nbsp;&nbsp;'EBIO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;'NeuronId'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;16]&nbsp;&nbsp;&nbsp;&nbsp;'TracesetIndex'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+...</div>One can choose which parameters need to be distinct for each row by
+specifying as the second argument in the call to the <TT>meanDuplicateRows</TT>
+method, whereas the third argument specifies the measures to be averaged:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_mean_db&nbsp;=&nbsp;meanDuplicateRows(phys_db,&nbsp;[4&nbsp;6:15],&nbsp;[17:161])
+
+<P>
+params_tests_db,&nbsp;averaged&nbsp;tracesets&nbsp;from&nbsp;.../cip_traces_all.txt
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;num_params:&nbsp;13
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props:&nbsp;[0x0&nbsp;struct]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests_db:&nbsp;[1x1&nbsp;tests_db]
+
+<P>
+Optional&nbsp;properties&nbsp;of&nbsp;params_tests_db:
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+0x0&nbsp;struct&nbsp;array&nbsp;with&nbsp;no&nbsp;fields.
+
+<P>
+tests_db,&nbsp;averaged&nbsp;tracesets&nbsp;from&nbsp;.../cip_traces_all.txt
+
+<P>
+690&nbsp;rows&nbsp;in&nbsp;database&nbsp;with&nbsp;158&nbsp;columns,&nbsp;and&nbsp;1&nbsp;pages.
+
+<P>
+Column&nbsp;names:
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;1]&nbsp;&nbsp;&nbsp;&nbsp;'pAcip'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2]&nbsp;&nbsp;&nbsp;&nbsp;'Cadmium'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;'PicroTx'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;4]&nbsp;&nbsp;&nbsp;&nbsp;'Apamin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;'Glycine'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;6]&nbsp;&nbsp;&nbsp;&nbsp;'KynAcid'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;7]&nbsp;&nbsp;&nbsp;&nbsp;'TTX'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8]&nbsp;&nbsp;&nbsp;&nbsp;'XE991'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;9]&nbsp;&nbsp;&nbsp;&nbsp;'drug_4AP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;'EBIO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;11]&nbsp;&nbsp;&nbsp;&nbsp;'NeuronId'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;12]&nbsp;&nbsp;&nbsp;&nbsp;'NumDuplicates'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;13]&nbsp;&nbsp;&nbsp;&nbsp;'RowIndex'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;14]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+...</div>This command ignores the pulse time information and the bias current,
+but includes all the pharmacological parameters, in distinguising
+the unique traces. It also eliminates some measures, such as the <TT>ItemIndex</TT>,
+from averaging.
+
+<P>
+
+<H2><A NAME="SECTION03015000000000000000">
+5.5 Making a database by merging multiple rows from another database</A>
+</H2>
+
+<P>
+A simple example for making a new database out of multiple rows in
+an existing database is combining multiple traces from the same neuron
+with different current pulse injection (CIP) levels. The initial database
+contains a row for each CIP level with redundant information, such
+as spontaneous period measurements. 
+
+<P>
+
+<H3><A NAME="SECTION03015100000000000000">
+5.5.1 Making a one-row-per-neuron DB from multiple CIP-level rows</A>
+</H3>
+
+<P>
+Measures of same cell obtained with multiple CIP-levels can be merged
+to make a single row. Note that, different pharmacological conditions
+applied to one cell must be kept in a different rows. The following
+command selects measures from each of the <!-- MATH
+ $\{-100,0,40,100,200\}$
+ -->
+<IMG
+ WIDTH="153" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img19.png"
+ ALT="$ \{-100,0,40,100,200\}$">
+CIP levels to be included in the merged database:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;phys_joined_db&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mergeMultipleCIPsInOne(phys_mean_db(:,&nbsp;[1:13&nbsp;16:180]),&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'_H100pA',&nbsp;13&nbsp;+&nbsp;[5:14&nbsp;19:24&nbsp;(119&nbsp;+&nbsp;spike_tests)&nbsp;165],
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'_0pA',&nbsp;13&nbsp;+&nbsp;[1:4&nbsp;(27&nbsp;+&nbsp;spike_tests)],&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'_D40pA',&nbsp;13&nbsp;+&nbsp;[5:11&nbsp;19:24&nbsp;(73&nbsp;+&nbsp;spike_tests)&nbsp;165],
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'_D100pA',&nbsp;13&nbsp;+&nbsp;[5:11&nbsp;14:16&nbsp;19:24&nbsp;(73&nbsp;+&nbsp;spike_tests)&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(119&nbsp;+&nbsp;spike_tests)&nbsp;165],&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'_D200pA',&nbsp;13&nbsp;+&nbsp;[5:11&nbsp;19:24&nbsp;(73&nbsp;+&nbsp;spike_tests)&nbsp;165]},
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'RowIndex_D200pA')</div>This command operates on the previously averaged database, <TT>phys_mean_db</TT>,
+where each CIP level only occurs once for each distinct pharmacological
+setting for each neuron. Note that, we filter-out columns 14 and 15
+from the averaged DB while supplying the first argument to <TT>mergeMultipleCIPsInOne</TT>,
+which are artifacts of the averaging process and need not be included
+in the merged database. The second argument is a cell array of pairs
+of a suffix string and a corresponding list of measures for each of
+the CIP levels in <TT>phys_mean_db</TT>, in increasing order. The
+merged <TT>phys_joined_db</TT> looks like this:
+
+<P>
+<div style="font-family: monospace">params_tests_db,&nbsp;averaged&nbsp;tracesets&nbsp;from&nbsp;.../cip_traces_all_axoclamp.txt&nbsp;mult&nbsp;CIP
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;num_params:&nbsp;12
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests_db:&nbsp;[1x1&nbsp;tests_db]
+
+<P>
+tests_db,&nbsp;averaged&nbsp;tracesets&nbsp;from&nbsp;.../cip_traces_all_axoclamp.txt&nbsp;mult&nbsp;CIP
+
+<P>
+179&nbsp;rows&nbsp;in&nbsp;database&nbsp;with&nbsp;258&nbsp;columns,&nbsp;and&nbsp;1&nbsp;pages.
+
+<P>
+Column&nbsp;names:
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;1]&nbsp;&nbsp;&nbsp;&nbsp;'Cadmium'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2]&nbsp;&nbsp;&nbsp;&nbsp;'PicroTx'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;'Apamin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;4]&nbsp;&nbsp;&nbsp;&nbsp;'Glycine'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;'KynAcid'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;6]&nbsp;&nbsp;&nbsp;&nbsp;'TTX'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;7]&nbsp;&nbsp;&nbsp;&nbsp;'XE991'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8]&nbsp;&nbsp;&nbsp;&nbsp;'drug_4AP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;9]&nbsp;&nbsp;&nbsp;&nbsp;'EBIO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;'Gabazine'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;11]&nbsp;&nbsp;&nbsp;&nbsp;'NeuronId'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;12]&nbsp;&nbsp;&nbsp;&nbsp;'TracesetIndex'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;13]&nbsp;&nbsp;&nbsp;&nbsp;'PulseISICV_H100pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;14]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msISICV_H100pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msRest1SpikeRate_H100pA'
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;16]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msRest2SpikeRate_H100pA'
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;17]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRate_H100pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;18]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRateISI_H100pA'&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;...
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[255]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRiseTimeMean_D200pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[256]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRiseTimeMode_D200pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[257]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRiseTimeSTD_D200pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[258]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpontAmpRatio_D200pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>Note how each measure suffix indicate the CIP-level it belongs.
+
+<P>
+
+<H3><A NAME="SECTION03015200000000000000">
+5.5.2 Making a one-row-per-neuron DB from dual CIP-level rows</A>
+</H3>
+
+<P>
+The following statement uses the <TT>params_tests_db/getDualCIPdb</TT>
+method to merge rows of depolarizing and hyperpolarizing CIP-levels:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;sdball&nbsp;=&nbsp;getDualCIPdb(dball,&nbsp;depol_tests,&nbsp;hyper_tests,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'',&nbsp;'Hyp100pA')</div>Here, the cell array variables <TT>depol_tests</TT> and <TT>hyper_tests</TT>
+hold the names of measures to be selected from depolarizing CIP and
+hyperpolarizing CIP, respectively. The last two arguments define the
+suffixes to be applied to distinguish the measures from each CIP.
+The original DB is 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;dball
+
+<P>
+dball
+
+<P>
+params_tests_db,&nbsp;sim&nbsp;dataset&nbsp;gpsc0501
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;num_params:&nbsp;10
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props:&nbsp;[0x0&nbsp;struct]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests_db:&nbsp;[1x1&nbsp;tests_db]
+
+<P>
+Optional&nbsp;properties&nbsp;of&nbsp;params_tests_db:
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+0x0&nbsp;struct&nbsp;array&nbsp;with&nbsp;no&nbsp;fields.
+
+<P>
+tests_db,&nbsp;sim&nbsp;dataset&nbsp;gpsc0501
+
+<P>
+39366&nbsp;rows&nbsp;in&nbsp;database&nbsp;with&nbsp;62&nbsp;columns,&nbsp;and&nbsp;1&nbsp;pages.
+
+<P>
+Column&nbsp;names:
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;1]&nbsp;&nbsp;&nbsp;&nbsp;'NaF'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;2]&nbsp;&nbsp;&nbsp;&nbsp;'NaP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;'Kv3'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;4]&nbsp;&nbsp;&nbsp;&nbsp;'Kv2'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;'Kv4f'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;6]&nbsp;&nbsp;&nbsp;&nbsp;'KCNQ'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;7]&nbsp;&nbsp;&nbsp;&nbsp;'SK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;8]&nbsp;&nbsp;&nbsp;&nbsp;'CaHVA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;9]&nbsp;&nbsp;&nbsp;&nbsp;'HCN'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[10]&nbsp;&nbsp;&nbsp;&nbsp;'pAcip'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[11]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[12]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontPotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[13]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[14]&nbsp;&nbsp;&nbsp;&nbsp;'PulseISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[15]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[16]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msRest1SpikeRate'
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[17]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msRest2SpikeRate'
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[18]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[19]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRateISI'&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[20]&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[21]&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotMin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[22]&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotSag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[23]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSFA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[24]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayDelta'&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[25]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayTau'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[26]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[27]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeRateISI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[28]&nbsp;&nbsp;&nbsp;&nbsp;'RecIniSpontPotRatio'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[29]&nbsp;&nbsp;&nbsp;&nbsp;'RecIniSpontRateRatio'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[30]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpont1SpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[31]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpont2SpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[32]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[33]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontPotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[34]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[35]&nbsp;&nbsp;&nbsp;&nbsp;'SpontAmplitude'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[36]&nbsp;&nbsp;&nbsp;&nbsp;'SpontBaseWidth'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[37]&nbsp;&nbsp;&nbsp;&nbsp;'SpontDAHPMag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[38]&nbsp;&nbsp;&nbsp;&nbsp;'SpontFallTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[39]&nbsp;&nbsp;&nbsp;&nbsp;'SpontHalfVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[40]&nbsp;&nbsp;&nbsp;&nbsp;'SpontHalfWidth'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[41]&nbsp;&nbsp;&nbsp;&nbsp;'SpontInitTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[42]&nbsp;&nbsp;&nbsp;&nbsp;'SpontInitVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[43]&nbsp;&nbsp;&nbsp;&nbsp;'SpontMaxAHP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[44]&nbsp;&nbsp;&nbsp;&nbsp;'SpontMinTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[45]&nbsp;&nbsp;&nbsp;&nbsp;'SpontMinVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[46]&nbsp;&nbsp;&nbsp;&nbsp;'SpontPeakVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[47]&nbsp;&nbsp;&nbsp;&nbsp;'SpontRiseTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[48]&nbsp;&nbsp;&nbsp;&nbsp;'PulseAmplitude'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[49]&nbsp;&nbsp;&nbsp;&nbsp;'PulseBaseWidth'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[50]&nbsp;&nbsp;&nbsp;&nbsp;'PulseDAHPMag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[51]&nbsp;&nbsp;&nbsp;&nbsp;'PulseFallTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[52]&nbsp;&nbsp;&nbsp;&nbsp;'PulseHalfVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[53]&nbsp;&nbsp;&nbsp;&nbsp;'PulseHalfWidth'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[54]&nbsp;&nbsp;&nbsp;&nbsp;'PulseInitTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[55]&nbsp;&nbsp;&nbsp;&nbsp;'PulseInitVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[56]&nbsp;&nbsp;&nbsp;&nbsp;'PulseMaxAHP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[57]&nbsp;&nbsp;&nbsp;&nbsp;'PulseMinTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[58]&nbsp;&nbsp;&nbsp;&nbsp;'PulseMinVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[59]&nbsp;&nbsp;&nbsp;&nbsp;'PulsePeakVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[60]&nbsp;&nbsp;&nbsp;&nbsp;'PulseRiseTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[61]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpontAmpRatio'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[62]&nbsp;&nbsp;&nbsp;&nbsp;'ItemIndex'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+Optional&nbsp;properties&nbsp;of&nbsp;tests_db:
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+0x0&nbsp;struct&nbsp;array&nbsp;with&nbsp;no&nbsp;fields.</div>After merging, it becomes 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;sdball
+
+<P>
+sdball
+
+<P>
+params_tests_db,&nbsp;sim&nbsp;dataset&nbsp;gpsc0501&nbsp;dual&nbsp;cip
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;num_params:&nbsp;9
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props:&nbsp;[0x0&nbsp;struct]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests_db:&nbsp;[1x1&nbsp;tests_db]
+
+<P>
+Optional&nbsp;properties&nbsp;of&nbsp;params_tests_db:
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+0x0&nbsp;struct&nbsp;array&nbsp;with&nbsp;no&nbsp;fields.
+
+<P>
+tests_db,&nbsp;sim&nbsp;dataset&nbsp;gpsc0501&nbsp;dual&nbsp;cip
+
+<P>
+19683&nbsp;rows&nbsp;in&nbsp;database&nbsp;with&nbsp;50&nbsp;columns,&nbsp;and&nbsp;1&nbsp;pages.
+
+<P>
+Column&nbsp;names:
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;1]&nbsp;&nbsp;&nbsp;&nbsp;'NaF'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;2]&nbsp;&nbsp;&nbsp;&nbsp;'NaP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;'Kv3'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;4]&nbsp;&nbsp;&nbsp;&nbsp;'Kv2'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;'Kv4f'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;6]&nbsp;&nbsp;&nbsp;&nbsp;'KCNQ'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;7]&nbsp;&nbsp;&nbsp;&nbsp;'SK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;8]&nbsp;&nbsp;&nbsp;&nbsp;'CaHVA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;9]&nbsp;&nbsp;&nbsp;&nbsp;'HCN'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[10]&nbsp;&nbsp;&nbsp;&nbsp;'RecIniSpontPotRatioHyp100pA'&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[11]&nbsp;&nbsp;&nbsp;&nbsp;'RecIniSpontRateRatioHyp100pA'
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[12]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpont1SpikeRateHyp100pA'&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[13]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpont2SpikeRateHyp100pA'&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[14]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontISICVHyp100pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[15]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontPotAvgHyp100pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[16]&nbsp;&nbsp;&nbsp;&nbsp;'ItemIndexHyp100pA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[17]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[18]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[19]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRateISI'&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[20]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[21]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msRest1SpikeRate'&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[22]&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msRest2SpikeRate'&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[23]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpont1SpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[24]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpont2SpikeRate'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[25]&nbsp;&nbsp;&nbsp;&nbsp;'RecIniSpontRateRatio'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[26]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[27]&nbsp;&nbsp;&nbsp;&nbsp;'PulseISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[28]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[29]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSFA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[30]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayTau'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[31]&nbsp;&nbsp;&nbsp;&nbsp;'PulseSpikeAmpDecayDelta'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[32]&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontPotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[33]&nbsp;&nbsp;&nbsp;&nbsp;'PulsePotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[34]&nbsp;&nbsp;&nbsp;&nbsp;'RecSpontPotAvg'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[35]&nbsp;&nbsp;&nbsp;&nbsp;'RecIniSpontPotRatio'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[36]&nbsp;&nbsp;&nbsp;&nbsp;'SpontInitVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[37]&nbsp;&nbsp;&nbsp;&nbsp;'SpontAmplitude'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[38]&nbsp;&nbsp;&nbsp;&nbsp;'SpontMaxAHP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[39]&nbsp;&nbsp;&nbsp;&nbsp;'SpontDAHPMag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[40]&nbsp;&nbsp;&nbsp;&nbsp;'SpontRiseTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[41]&nbsp;&nbsp;&nbsp;&nbsp;'SpontFallTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[42]&nbsp;&nbsp;&nbsp;&nbsp;'SpontHalfWidth'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[43]&nbsp;&nbsp;&nbsp;&nbsp;'PulseInitVm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[44]&nbsp;&nbsp;&nbsp;&nbsp;'PulseAmplitude'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[45]&nbsp;&nbsp;&nbsp;&nbsp;'PulseMaxAHP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[46]&nbsp;&nbsp;&nbsp;&nbsp;'PulseDAHPMag'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[47]&nbsp;&nbsp;&nbsp;&nbsp;'PulseRiseTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[48]&nbsp;&nbsp;&nbsp;&nbsp;'PulseFallTime'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[49]&nbsp;&nbsp;&nbsp;&nbsp;'PulseHalfWidth'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;[50]&nbsp;&nbsp;&nbsp;&nbsp;'ItemIndex'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<P>
+Optional&nbsp;properties&nbsp;of&nbsp;tests_db:
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+0x0&nbsp;struct&nbsp;array&nbsp;with&nbsp;no&nbsp;fields.</div>
+<P>
+
+<H1><A NAME="SECTION03020000000000000000"></A><A NAME="sec:Visualization"></A>
+<BR>
+6 Visualization
+</H1>
+
+<P>
+By default, M<SMALL>ATLAB</SMALL> prints figures in portrait orientation with
+a 8x6 aspect ratio, ignoring their size on the screen. The command; 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;orient&nbsp;tall</div>changes that behavior to print a full page in portrait orientation.
+The command;
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;orient&nbsp;landscape</div>does the same but rotates the figure to landscape orientation. If
+you want the printed figure to reflect its current screen size, issue
+the command;
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;set(figurenum,&nbsp;'PaperPositionMode',&nbsp;'auto')</div>Figures generated by the plotting system of the PANDORA Toolbox has a
+special resizing capability. Everytime the figure is resized, it will
+be drawn from scratch after calculating proper spacing between subplots
+according to font size. However, in some conditions this may cause
+other problems, such as crashing M<SMALL>ATLAB</SMALL> in figure editing mode
+or causing loss of manual changes to the figure. To disable the auto-resize
+function, issue the following command after creating the figure;
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;set(figurenum,&nbsp;'ResizeFcn',&nbsp;'')</div>Finally, to print the figure, consult your Matlab manual or issue
+a command such as;
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;print&nbsp;-depsc2&nbsp;figurename.eps</div>See below for specific types of figures you can create.
+
+<P>
+
+<H2><A NAME="SECTION03021000000000000000">
+6.1 Visualizing traces</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:cip_trace"></A><A NAME="1229"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
+Example trace plot.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+The <TT>trace,</TT> and its subclasses such as <TT>cip_trace</TT>,
+has the plot command overloaded to draw the raw trace in Figure <A HREF="#figcap:cip_trace">8</A>:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;a_ct&nbsp;=&nbsp;ctFromRows(mbundle,&nbsp;9842,&nbsp;100);
+
+<P>
+&gt;&gt;&nbsp;plot(a_ct)</div>Note that the plot in the figure has been created with a more precise
+control:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plotFigure(plotData(a_ct,&nbsp;'',&nbsp;struct('PaperPosition',&nbsp;[0&nbsp;0&nbsp;3&nbsp;2])))</div>
+<P>
+
+<H2><A NAME="SECTION03022000000000000000">
+6.2 Displaying database contents</A>
+</H2>
+
+<P>
+The <TT>displayRows</TT> method of <TT>tests_db</TT> can be used
+to display rows of a database:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;displayRows(sdball,&nbsp;1:3)
+
+<P>
+ans&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'NaF'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'NaP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;2.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;2.5000]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv3'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv2'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'Kv4f'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'KCNQ'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.1000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;0.0100]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'SK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;8.5000]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'CaHVA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'HCN'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'pAcip'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;-100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;-100]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100]
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;'IniSpontISICV'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0027]&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;0.0027]&nbsp;&nbsp;&nbsp;&nbsp;[9.1376e-04]
+
+<P>
+...</div>Note that, in the output, database rows appear as columns, and database
+columns appear as rows. See in above Section <A HREF="#sub:Sorting-the-database">5.3</A>
+for more example outputs from <TT>displayRows</TT>.
+
+<P>
+<TT>displayRows</TT> returns a cell array of column names justapoxed
+to a matrix of values. This cell array is intended for display on
+the screen and for generating reports. The <TT>displayRowsTeX</TT>
+method uses output from <TT>displayRows</TT> to generate a L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X
+table that can be printed or converted to PDF:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;tex_string&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayRowsTeX(a_db(:,&nbsp;rows),&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Selected&nbsp;rows&nbsp;indicating&nbsp;fast&nbsp;spiking&nbsp;neurons',
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct('height',&nbsp;'!'));
+
+<P>
+&gt;&gt;&nbsp;string2File(tex_string,&nbsp;'fast_spiking.tex');</div>With this the L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X code to generate a table with the given caption
+is saved in a text file called <TT>fast_spiking.tex</TT>. This file
+can then be included from a regular L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X document to generate
+PDF output. See a L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X manual on how to do that.
+
+<P>
+An alternative to <TT>displayRows</TT> is using the <TT>tests_db/rows2Struct</TT>
+method:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;s&nbsp;=&nbsp;rows2Struct(dball_full,&nbsp;54023)
+
+<P>
+s&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaF:&nbsp;500
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaP:&nbsp;2
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kv2:&nbsp;1
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kv3:&nbsp;10
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kv4f:&nbsp;40
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KCNQ:&nbsp;2
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SK:&nbsp;4
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CaHVA:&nbsp;0.0300
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HCN:&nbsp;1
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trial:&nbsp;7739
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pAcip:&nbsp;100
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IniSpontISICV:&nbsp;NaN
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IniSpontPotAvg:&nbsp;NaN
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IniSpontSpikeRate:&nbsp;0
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IniSpontSpikeRateISI:&nbsp;0
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulseISICV:&nbsp;0.0265
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulseIni100msISICV:&nbsp;0.0584
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;PulseIni100msRest1SpikeRate:&nbsp;40.0089
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;PulseIni100msRest2SpikeRate:&nbsp;40.0178
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulseIni100msSpikeRate:&nbsp;50
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulseIni100msSpikeRateISI:&nbsp;43.5256
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulsePotAvg:&nbsp;-57.3737
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulsePotMin:&nbsp;NaN
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulsePotSag:&nbsp;NaN
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PulseSFA:&nbsp;1.1698
+
+<P>
+...</div>This method returns the database contents as a structure array. It
+is more natural for programming interfaces to use the database contents
+in a structure array than a cell array. The database columns become
+field names in the the structure. If multiple rows are requested,
+the displayed output would not contain the values. The desired row
+can be reached via indexing (e.g., <TT>s(1)</TT>). For instance, analysis
+in <TT>cip_trace/getProfileAllSpikes</TT> method is done using this
+method for getting statistics from the <TT>spikes_db</TT> databases.
+
+<P>
+
+<H2><A NAME="SECTION03023000000000000000">
+6.3 Plotting all measure histograms</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:tests_hists"></A><A NAME="1230"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
+Example measure distribution plot.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+For plotting all measure histograms in a DB, the following method
+of <TT>tests_db</TT> creates the horizontal stack plot in Figure
+<A HREF="#figcap:tests_hists">9</A>:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;mp&nbsp;=&nbsp;plotTestsHistsMatrix(renamed_model_db(:,&nbsp;2:end),&nbsp;'',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct('orient',&nbsp;'x',&nbsp;'quiet',&nbsp;1,&nbsp;'border',&nbsp;[0&nbsp;0.05&nbsp;0&nbsp;0])))
+
+<P>
+&gt;&gt;&nbsp;plotFigure(mp);</div>
+<P>
+
+<H2><A NAME="SECTION03024000000000000000">
+6.4 Plotting all parameter histograms</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:params_hists"></A><A NAME="1231"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
+Example parameter distribution plot.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+For plotting all parameter histograms in a DB, the following method
+of <TT>params_tests_db</TT> creates the horizontal stack plot in
+Figure <A HREF="#figcap:params_hists">10</A>:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plotFigure(plotParamsHists(sdball));</div>
+<P>
+
+<H2><A NAME="SECTION03025000000000000000">
+6.5 Plotting database statistics</A>
+</H2>
+
+<P>
+The <TT>stats_db</TT> object allows keeping statistical information
+obtained from a database. Statistics are calculated using one of the
+<TT>tests_db</TT> converter methods, such as <TT>statsAll</TT>, <TT>statsMeanStd</TT>,
+etc.: 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;my_stats&nbsp;=&nbsp;statsMeanStd(my_db(:,&nbsp;{'IniSpontSpikeRate',&nbsp;'PulseSpikeRate'}));</div>
+<DIV ALIGN="CENTER"><A NAME="figcap:Statistics-plots"></A><A NAME="1236"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
+Plotting statistics for two selected
+measures.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+[Default visualization for <TT>stats_db</TT>.]
+[Optional <TT>plot_bars</TT> visualization for <TT>stats_db</TT>.]
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+<DIV ALIGN="CENTER">
+[Comparing multiple <TT>stats_db</TT>s with <TT>plot_bars</TT>.]
+[Plotting parameter-measure variation with <TT>plotVar</TT>.]
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+Then, the statistics can be plotted with diamonds indicating the mean
+and symmetric errorbars indicating upper and lower extensions (SE
+or Std):
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plot(my_stats);</div>which is equivalent to:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plotFigure(plot_abstract(my_stats));</div>An alternative plotting form is using filled bars with extending errorbars:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plotFigure(plot_bars(my_stats));</div>which are both seen in Figure <A HREF="#figcap:Statistics-plots">11</A> (a) and
+(b). The <TT>plot_bars</TT> method is better suited for comparing
+statistics from multiple <TT>stats_db</TT>s coming from different
+sources. In this case, we take the first 1000 rows from the DB as
+a subset, and compare it with the statistics from the second 1000
+rows:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;compared_two_subset_stats&nbsp;=&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compareStats(statsAll(mbundle.joined_db(1:1000,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'IniSpontSpikeRateISI_0pA',
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRateISI_D100pA'})),&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statsAll(mbundle.joined_db(1001:2000,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'IniSpontSpikeRateISI_0pA',
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'PulseIni100msSpikeRateISI_D100pA'})))));</div>The combined statistics object can then be fed into <TT>plot_bars</TT>
+as seen in Figure <A HREF="#figcap:Statistics-plots">11</A> (c):
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plotFigure(plot_bars(compared_two_subset_stats));</div>
+<P>
+
+<H2><A NAME="SECTION03026000000000000000">
+6.6 Plotting parameter-measure variations</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="cap:plot-varboxmatrix"></A><A NAME="1237"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
+Example parameter-measure variation
+statistics plot.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+To plot the variation of a measure with a parameter the <TT>plotVar</TT>
+method of <TT>stats_db</TT> can be used to achieve Figure <A HREF="#figcap:Statistics-plots">11</A>
+(d):
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;plotFigure(plotVar(a_stats_db,&nbsp;'CaHVA',&nbsp;'AHP_depth',&nbsp;'AHP&nbsp;change&nbsp;with&nbsp;change&nbsp;in&nbsp;CaHVA',&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct('quiet',&nbsp;1,&nbsp;'PaperPosition',&nbsp;[0&nbsp;0&nbsp;3&nbsp;3])))</div>To plot all parameter-measure variations, the <TT>plotVarMatrix</TT>
+method of <TT>stats_db</TT> can be used (see Figure <A HREF="#cap:plot-varboxmatrix">12</A>).
+<TT>plotVarMatrix</TT> requires the a <TT>p_stats</TT> array of <TT>stats_db</TT>
+objects that hold the mean and standard error information (or possibly
+other statistics) for each of the possible parameter-measure combinations.
+The <TT>p_stats</TT> array can be created using the <TT>paramsTestsHistsStats</TT>
+method, which in turn requires the <TT>p_t3ds</TT> array of 3-dimensional
+databases each of which contain effects of a parameter invariant of
+other parameters. The <TT>p_t3ds</TT> array can be created using
+the <TT>params_tests_db/invarParams</TT> method. The sequence of
+commands<A NAME="tex2html17"
+  HREF="footnode.html#foot1238"><SUP>4</SUP></A> is then becomes:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;p_t3ds&nbsp;=&nbsp;invarParams(noNaNRows(sdball))
+
+<P>
+&gt;&gt;&nbsp;[pt_hists,&nbsp;p_stats]&nbsp;=&nbsp;paramsTestsHistsStats(p_t3ds)
+
+<P>
+&gt;&gt;&nbsp;ap&nbsp;=&nbsp;plotVarMatrix(p_stats)
+
+<P>
+&gt;&gt;&nbsp;plotFigure(ap)</div>This will create a matrix plot with as many columns as parameters
+and as many rows as measures in the <TT>sdball</TT> object. It may
+be difficult to read if <TT>sdball</TT> contains large number of measures.
+One can divide the measures into two plots with the following sequence
+of commands
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;sdb1&nbsp;=&nbsp;sdball(:,&nbsp;[1:9,&nbsp;10:35])
+
+<P>
+&gt;&gt;&nbsp;sdb2&nbsp;=&nbsp;sdball(:,&nbsp;[1:9,&nbsp;36:49])</div>by choosing all parameters in both DBs, but only some measures for
+each. Then, the plots can be created for each DB by issuing
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;p1_t3ds&nbsp;=&nbsp;invarParams(sdb1)
+
+<P>
+&gt;&gt;&nbsp;p2_t3ds&nbsp;=&nbsp;invarParams(sdb2)
+
+<P>
+&gt;&gt;&nbsp;[pt1_hists,&nbsp;p1_stats]&nbsp;=&nbsp;paramsTestsHistsStats(p1_t3ds)
+
+<P>
+&gt;&gt;&nbsp;[pt2_hists,&nbsp;p2_stats]&nbsp;=&nbsp;paramsTestsHistsStats(p2_t3ds)
+
+<P>
+&gt;&gt;&nbsp;ap1&nbsp;=&nbsp;plotVarMatrix(p1_stats)
+
+<P>
+&gt;&gt;&nbsp;plotFigure(ap1)
+
+<P>
+&gt;&gt;&nbsp;ap2&nbsp;=&nbsp;plotVarMatrix(p2_stats)
+
+<P>
+&gt;&gt;&nbsp;plotFigure(ap2)</div>
+<P>
+
+<H2><A NAME="SECTION03027000000000000000">
+6.7 Insets</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:insets"></A><A NAME="1239"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
+Creating insets in figures.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+See Figure <A HREF="#fig:insets">13</A> which was created with the following
+set of commands.
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;im_p&nbsp;=&nbsp;plot_abstract({50&nbsp;*&nbsp;rand(5)},&nbsp;{},&nbsp;'',&nbsp;{},&nbsp;'image');
+
+<P>
+&gt;&gt;&nbsp;plotFigure(plot_absolute([im_p,&nbsp;im_p],&nbsp;[0&nbsp;0&nbsp;1&nbsp;1;&nbsp;0.5&nbsp;0.5&nbsp;0.3&nbsp;0.3]))&nbsp;</div>
+<P>
+
+<H2><A NAME="SECTION03028000000000000000">
+6.8 Generating a report comparing two databases</A>
+</H2>
+
+<P>
+Most commonly a database of physiology neurons need to be compared
+to a database of a large body of simulation neurons and find best
+matches. One may need to see the match quality for a number of best
+matching candidates for each of the physiology neurons. Assuming multiple
+plots and tables are required to do a fair job of comparing a neuron
+to a thousands of simulation neurons, it becomes a difficult job to
+do this manually. An automatic report generation system has been built
+into the system for this purpose. 
+
+<P>
+Currently a L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X document is created that needs to be included
+in either a proper L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X document, or included in a LYX document.<A NAME="tex2html19"
+  HREF="footnode.html#foot1240"><SUP>5</SUP></A> The including document should provide the context in which the included
+part becomes meaningful. The report contains a set of tables and figures
+with proper captions. The table of contents, list of figures and list
+of tables facilities of L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X becomes useful to make the automatically
+generated document eaisly readable. 
+
+<P>
+The report can be created with the command
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;tex_string&nbsp;=&nbsp;rankVsAllDB(sdb,&nbsp;phys_sdb,&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileset,&nbsp;phys_fileset);</div>where the simulation database <TT>sdb</TT> is searched for best matches
+to each row of physiology database <TT>phys_sdb</TT>. The dataset
+for each is provided for the report to contain raw data associated
+with best matches. The obtained report contained in <TT>tex_string</TT>
+can be saved as a ASCII L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X file with
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;string2File(tex_string,&nbsp;'myreport.tex');</div>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1824"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1818"
+  HREF="prog-manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1812"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1820"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1822"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1825"
+  HREF="node4.html">Bibliography</A>
+<B> Up:</B> <A NAME="tex2html1819"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+<B> Previous:</B> <A NAME="tex2html1813"
+  HREF="node2.html">1 Software Architecture</A>
+ &nbsp; <B>  <A NAME="tex2html1821"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1823"
+  HREF="node6.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Cengiz Gunay
+2008-10-13
+</ADDRESS>
+</BODY>
+</HTML>

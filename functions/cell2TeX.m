@@ -20,7 +20,7 @@ function tex_string = cell2TeX(a_cell, props)
 %
 % See also: 
 %
-% $Id: cell2TeX.m,v 1.5 2005/08/10 20:27:21 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/09
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

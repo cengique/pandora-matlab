@@ -14,7 +14,7 @@ function tex_string = getTeXString(a_doc, props)
 %	  docDir: Base directory for files.
 %         plotRelDir: Subdirectory for plot files. \input commands will
 %         	   include this directory.
-%	       (passed to TeXtable)
+%	       (passed to TeXfloat)
 %		
 %   Returns:
 %	tex_string: A string that contains TeX commands, which upon writing to a file,
@@ -62,5 +62,5 @@ a_doc.float_props.floatType = 'figure';
 a_doc.float_props.label = [ 'fig:' get(a_doc, 'id') ];
 
 % TeX points to relative dir
-tex_string = TeXtable([ '\includegraphics{' plot_dir filename '}' ], a_doc.caption, ...
+tex_string = TeXfloat([ '\includegraphics{' plot_dir filename '}' ], a_doc.caption, ...
                       mergeStructs(props, a_doc.float_props));

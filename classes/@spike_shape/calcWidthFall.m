@@ -71,7 +71,8 @@ end_depol = end_depol + max_idx - 1;
 % give +5mV tolerance for repolarization sanity check, or repolarization
 % fails before trace end
 if s.trace.data(floor(end_depol)) > (init_val + 5) || floor(end_depol) == length(s.trace.data)
-  warning('spike_shape:no_repolarize', 'Spike failed to repolarize.');
+  warning('spike_shape:no_repolarize', ...
+          [ 'Spike failed to repolarize: ' get(s, 'id')]);
   base_width = NaN;
   half_width = NaN;
   half_Vm = NaN;

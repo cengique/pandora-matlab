@@ -62,7 +62,7 @@ num_pages = dbsize(a_stats_db, 3);
 [page_names{1:num_cols}] = deal(page_names{ones(1, num_cols)});
 
 if isfield(row_idx, 'min')
-  lows = data(row_idx.min,:, :) - data(1,:, :);
+  lows = data(1,:, :) - data(row_idx.min,:, :);
 elseif isfield(row_idx, 'STD')
   lows = zeros(1, num_cols, num_pages);  
   highs = data(row_idx.STD,:,:);
@@ -76,7 +76,7 @@ if (isfield(row_idx, 'STD') || isfield(row_idx, 'SE'))
   % if no bars are drawn, make low ends go down
   if isfield(props, 'dispBarsLines') && ...
       strcmp(props.dispBarsLines, 'lines')
-    lows = -highs;
+    lows = highs;
   else
     % If there are negative elements, put STD and SE on the lows
     neg_data = sign(data(1,:, :)) < 0;

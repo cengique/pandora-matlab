@@ -23,7 +23,7 @@ function res_tr = rdivide(left_tr, right_tr, props)
 %
 % See also: trace, rdivide
 %
-% $Id: rdivide.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/11/09
 

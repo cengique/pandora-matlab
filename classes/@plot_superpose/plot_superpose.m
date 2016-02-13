@@ -129,6 +129,11 @@ else
      return;
    end
 
+   % plot_stack not allowed if not superposable
+   if isa(plots{1}, 'plot_stack')
+     error('Stacking using noCombine is not implemented with plot_stack.');
+   end
+   
   obj.plots = plots;
 
   legend = {};

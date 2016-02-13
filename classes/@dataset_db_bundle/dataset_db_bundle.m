@@ -5,26 +5,34 @@ function a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 % Usage:
 % a_bundle = dataset_db_bundle(a_dataset, a_db, a_joined_db, props)
 %
-%   Parameters:
-%	a_dataset: A params_tests_dataset object or a subclass.
-%	a_db: The raw tests_db object (or a subclass) created from the dataset.
-%	a_joined_db: The processed DB created from the raw DB.
-%	props: A structure with any optional properties.
+% Parameters:
+%   a_dataset: A params_tests_dataset object or a subclass.
+%   a_db: The raw tests_db object (or a subclass) created from the dataset.
+%   a_joined_db: The processed DB created from the raw DB.
+%   props: A structure with any optional properties.
+%     joinDBfunc: A function(a_db) to be called that can generate
+%     		a_joined_db from it.
 %		
 % Description:
-%   This class is made to enable operations that require seamless connection between 
-% the high-level DB and the raw data. The raw DB is only required to bridge the gap 
-% between the high-level DB and the dataset. Therefore it only needs to contain 
-% columns necessary to make this connection. It is not required to include all 
-% raw DB columns, which is inefficient.
+%   This class is made to enable operations that require seamless connection
+% between the high-level (joined) DB and the raw data. The raw DB is only
+% required to make a connection to the dataset. Therefore it only needs to
+% contain columns necessary to make this connection (e.g., ItemIndex) and
+% other columns can be discarded to save space. The raw DB corresponds
+% row-to-row to the dataset. The joined DB is a higher-level database where
+% multiple rows from the raw DB is combined into single rows that represent
+% entities (trials, neurons, etc). This is achieved with a function like
+% mergePages or mergeMultipleCIPsInOne. There may be several steps for this
+% process, which can be specified as a function handle in the joinDBfunc
+% property.
 %
 % Returns a structure object with the following fields:
 %	dataset, db, joined_db, props.
 %
 % General operations on dataset_db_bundle objects:
 %   dataset_db_bundle 	- Construct a new dataset_db_bundle object.
-%   ctFromRows		- Given an index and CIP level, returns a cip_trace of neuron.
-%   getNeuronLabel	- Given an index, returns neuron label.
+%   profileFromRows	- Given a database row, returns the profile
+%   			object by loading it using the dataset.
 %   getNeuronRowIndex	- Given an index, returns row index in joined_db.
 %   display		- Returns and displays the identification string.
 %   get			- Gets attributes of this object and parents.

@@ -18,7 +18,7 @@ function obj = setProp(obj, varargin)
 %
 % See also: 
 %
-% $Id: setProp.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/11/22
 

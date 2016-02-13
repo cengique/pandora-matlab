@@ -39,6 +39,11 @@ if (dbsize(obj, 1) > 0 && size(param_columns, 1) ~= dbsize(obj, 1))
 	 'does not match rows in DB (' num2str(dbsize(obj, 1)) ').']);
 end
 
+if ischar(param_names)
+  % if it's a string, just encapsulate in cell array
+  param_names = { param_names };
+end
+
 if length(param_names) ~= size(param_columns, 2)
   error(['Number of parameter names (' num2str(length(param_names)) ') ', ...
 	 'does not match columns in matrix (' num2str(size(param_columns, 2)) ').']);
@@ -52,8 +57,12 @@ a_param_db = addColumns(onlyRowsTests(obj, ':', 1:num_params), ...
 
 % Concat the rest of original DB 
 a_test_db = onlyRowsTests(obj, ':', (num_params + 1):dbsize(obj, 2));
-obj = addColumns(a_param_db, fieldnames(get(a_test_db, 'col_idx')), ...
-		 get(a_test_db, 'data'));
+if dbsize(a_test_db, 2) > 0
+  obj = addColumns(a_param_db, fieldnames(get(a_test_db, 'col_idx')), ...
+                   get(a_test_db, 'data'));
+else
+  obj = a_param_db;
+end
 
 % Adjust number of params
 obj.num_params = num_params + length(param_names);

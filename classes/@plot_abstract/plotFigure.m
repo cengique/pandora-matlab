@@ -1,9 +1,9 @@
-function handle = plotFigure(a_plot, title_str, props)
+function [handle, plot_handles] = plotFigure(a_plot, title_str, props)
 
 % plotFigure - Draws this plot alone in a new figure window.
 %
 % Usage:
-% handle = plotFigure(a_plot)
+% [handle, plot_handles] = plotFigure(a_plot, title_str, props)
 %
 % Description:
 %
@@ -12,9 +12,12 @@ function handle = plotFigure(a_plot, title_str, props)
 %   title_str: (Optional) String to append to plot title.
 %   props: A structure with any optional properties.
 %     figureHandle: Use this figure instead of opening a new one.
+%     delayOpen: Wait this many seconds for figure to materialize 
+%   		(0.5s is good workaround for Compiz-fusion bug)
 %		
-%   Returns:
-%	handle: Handle of new figure.
+% Returns:
+%   handle: Handle of new figure.
+%   plot_handles: Structure with all plotted data and decorations.
 %
 % See also: plot_abstract, plot_abstract/plot, plot_abstract/decorate
 %
@@ -22,7 +25,7 @@ function handle = plotFigure(a_plot, title_str, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/22
 
-% Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2007-2014 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -49,7 +52,7 @@ if max(s) > 1
   end
   handle = plotFigure(plot_stack(num2cell(a_plot), [], orientation, title_str));
 else
-  if isfield(props, 'figureHandle')
+  if isfield(props, 'figureHandle') && ~ isempty(props.figureHandle)
     handle = props.figureHandle;
     % Use same figure, but wipe clean first
     figure(handle); clf;
@@ -60,11 +63,11 @@ else
   title = [ get(a_plot, 'title') title_str ];
   set(handle, 'Name', title);
 
-  % wait a second for figure to materialize (workaround for
-  % Compiz-fusion)
-  % this was printing out a '1' on the console!
-  a_timer = timer('StartDelay', .5, 'TimerFcn', '1;'); 
-  start(a_timer); wait(a_timer);
+  if isfield(props, 'delayOpen')
+    % wait in seconds
+    a_timer = timer('StartDelay', props.delayOpen, 'TimerFcn', '1;'); 
+    start(a_timer); wait(a_timer);
+  end
 
   if isfield(props, 'fixedSize')
     props.PaperPosition = [0 0 props.fixedSize];
@@ -90,14 +93,16 @@ else
   set(handle, 'UserData', a_plot);
 
   if ~isfield(props, 'resizeControl') || props.resizeControl == 1
-    set(handle, 'ResizeFcn', ['clf; a_plot = get(gcf, ''UserData''); plot(a_plot); decorate(a_plot);']);
+    set(handle, 'ResizeFcn', ...
+                ['clf; a_plot = get(gcf, ''UserData''); a_hn = plot(a_plot); ' ...
+                 'decorate(a_plot, a_hn);']);
   else
     % print figure at the size seen on screen
     set(handle, 'PaperPositionMode', 'auto');
   end
 
-  plot(a_plot);
-  decorate(a_plot);
+  plot_handles = plot(a_plot);
+  plot_handles = decorate(a_plot, plot_handles);
   
   % set the colormap for the figure
   if isfield(props, 'colormap')

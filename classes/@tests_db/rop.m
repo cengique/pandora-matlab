@@ -24,7 +24,7 @@ function a_db = rop(left_obj, right_obj, op_func, op_id)
 %
 % See also: tests_db/plus, tests_db/minus, tests_db/mtimes, tests_db/rdivide
 %
-% $Id: rop.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/13
 
@@ -46,16 +46,29 @@ if isa(left_obj, 'tests_db') && isa(right_obj, 'tests_db')
   right_data = get(onlyRowsTests(right_obj, ':', left_names), 'data');  
   a_db = left_obj;
   an_id = [ get(left_obj, 'id') ' ' op_id ' ' get(right_obj, 'id') ];
-elseif isa(left_obj, 'tests_db')
-  left_data = get(left_obj, 'data');
-  right_data = right_obj;
-  a_db = left_obj;
-  if isscalar(right_data)
-    right_label = num2str(right_data);
+elseif isa(left_obj, 'tests_db') || isa(right_obj, 'tests_db')
+  if isa(left_obj, 'tests_db')
+    a_db = left_obj;
+    left_data = get(left_obj, 'data');
+    left_label = get(left_obj, 'id');
+    right_data = right_obj;
+    if isscalar(right_data)
+      right_label = num2str(right_data);
+    else
+      right_label = 'numeric matrix';
+    end
   else
-    right_label = 'numeric matrix';
-  end
-  an_id = [ get(left_obj, 'id') ' ' op_id ' ' right_label ];
+    a_db = right_obj;
+    left_data = left_obj;
+    if isscalar(left_data)
+      left_label = num2str(left_data);
+    else
+      left_label = 'numeric matrix';
+    end
+    right_data = get(right_obj, 'data');
+    right_label = get(right_obj, 'id');
+  end    
+  an_id = [ left_label ' ' op_id ' ' right_label ];
 else
   if ~isnumeric(left_obj)
     error(['Array division is defined only between tests_db objects and scalars. ' ...

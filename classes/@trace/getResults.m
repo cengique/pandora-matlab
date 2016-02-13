@@ -4,18 +4,19 @@ function results = getResults(a_trace, a_spikes)
 %		structure.
 %
 % Usage:
-% results = getResults(a_trace)
+% results = getResults(a_trace, a_spikes)
 %
 % Description:
 %
 %   Parameters:
-%	t: A trace object.
+%	a_trace: A trace object.
+%	a_spikes: spikes object obtained from the trace object.
 %
 %   Returns:
 %	results: A structure associating test names to values 
 %		in ms and mV (or mA).
 %
-% See also: spike_shape
+% See also: spike_shape, spikes
 %
 % $Id$
 %

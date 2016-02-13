@@ -20,7 +20,7 @@ function a_db = vertcat(db, varargin)
 %
 % See also: vertcat, tests_db
 %
-% $Id$
+% $Id: vertcat.m 1335 2012-04-19 18:04:32Z cengique $
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/01/25
 
@@ -29,6 +29,9 @@ function a_db = vertcat(db, varargin)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
+
+% TODO: change this function to loop over all inputs and preallocate a
+% big matrix to speed up inserting rows
 
 % if input is already a row of DBs, allow building a DB matrix
 if length(db) > 1

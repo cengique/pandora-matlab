@@ -32,12 +32,17 @@ if ~ exist('item', 'var')
   item = 1;
 end
 
+props = get(dataset, 'props');
+
+% get params from file (if any)
+params_row = getItemParams(dataset, item);
+
 prof_func = ...
-    getFieldDefault(get(dataset, 'props'), 'loadItemProfileFunc', ...
+    getFieldDefault(props, 'loadItemProfileFunc', ...
                                   @loadItemProfile);
 
 % Load any profile object
-a_prof = feval(prof_func, dataset, item);
+a_prof = feval(prof_func, dataset, item, params_row, props);
 
 % Load the first file and
 % convert test names to cell array

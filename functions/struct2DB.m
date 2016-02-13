@@ -18,7 +18,7 @@ function a_tests_db = struct2DB(a_struct, id, props)
 %
 % See also: 
 %
-% $Id: struct2DB.m,v 1.5 2006/01/18 22:10:28 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/11
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

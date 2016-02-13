@@ -11,7 +11,7 @@ function outlier=boxutilp(x,notch,lb,lf,sym,vert,whis,whissw,props)
 %   Made outlier display optional.
 
 %   Copyright 1993-2002 The MathWorks, Inc. 
-% $Revision: 1.1 $  $Date: 2004/11/15 18:23:55 $
+% $Revision$  $Date$
 
 if ~ exist('props', 'var')
   props = struct([]);

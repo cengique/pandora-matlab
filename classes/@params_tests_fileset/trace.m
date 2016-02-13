@@ -34,7 +34,7 @@ if isfield(props, 'param_rows')
   % Take parameter values from the specified parameter file,
   % in addition to the ones specified on data filenames.
 
-  names_vals = parseGenesisFilename(fullname);
+  names_vals = parseFilenameNamesVals(fullname, props);
   if isfield(props, 'num_params')
     num_params = props.num_params;
   else

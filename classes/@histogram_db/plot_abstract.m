@@ -5,23 +5,25 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 % Usage:
 % a_plot = plot_abstract(a_hist_db, title_str, props)
 %
-% Description:
-%   Generates a plot_simple object from this histogram.
-%
-%   Parameters:
-%	a_hist_db: A histogram_db object.
-%	title_str: Optional title string.
-%	props: Optional properties passed to plot_abstract.
-%	  command: Plot command (Optional, default='bar')
-%	  endZeros: Prefix and suffix bins with zero values to make a
+% Parameters:
+%   a_hist_db: A histogram_db object.
+%   title_str: Optional title string.
+%   props: Optional properties passed to plot_abstract.
+%     command: Plot command (Optional, default='bar')
+%     endZeros: Prefix and suffix bins with zero values to make a
 %	  	smooth plot.
-%	  lineSpec: Line specification passed to bar command.
-%	  logScale: If 1, use logarithmic y-scale.
-%	  shading: 'faceted' (default) or 'flat'.
-%	  quiet: If 1, don't include database name on title.
+%     lineSpec: Line specification passed to bar command.
+%     logScale: If 1, use logarithmic y-scale.
+%     shading: 'faceted' (default) or 'flat'.
+%     barWidth: Controls spacing between bars (see width argument for the
+%     		bar command; default=0.8).
+%     quiet: If 1, don't include database name on title.
 %		
 %   Returns:
 %	a_plot: A object of plot_abstract or one of its subclasses.
+%
+% Description:
+%   Generates a plot_simple object from this histogram.
 %
 % See also: plot_abstract, plot_simple
 %
@@ -118,7 +120,9 @@ if isfield(props, 'endZeros')
            [ 0; data(:, 2); 0] ];
 end
 
+bar_width = getFieldDefault(props, 'barWidth', 0.8);
+
 % Make a simple plot object drawing vertical bars
-a_plot = plot_abstract({data(:, 1), data(:, 2), line_spec{:}}, ...
+a_plot = plot_abstract({data(:, 1), data(:, 2), bar_width, line_spec{:}}, ...
 		     {x_label, y_label}, all_title, ...
 		     {properTeXLabel(colnames{1})}, command, props);

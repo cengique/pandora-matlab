@@ -1,0 +1,816 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.70)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>1 Software Architecture</TITLE>
+<META NAME="description" CONTENT="1 Software Architecture">
+<META NAME="keywords" CONTENT="prog-manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="prog-manual.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="prog-manual.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1797"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1791"
+  HREF="prog-manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1785"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1793"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1795"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1798"
+  HREF="node3.html">2 User's Manual</A>
+<B> Up:</B> <A NAME="tex2html1792"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+<B> Previous:</B> <A NAME="tex2html1786"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html1794"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1796"
+  HREF="node6.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><UL>
+<LI><A NAME="tex2html1799"
+  HREF="node2.html#SECTION02010000000000000000">3 Toolbox Components</A>
+<UL>
+<LI><A NAME="tex2html1800"
+  HREF="node2.html#SECTION02011000000000000000">3.1 Databases hold all the information</A>
+<LI><A NAME="tex2html1801"
+  HREF="node2.html#SECTION02012000000000000000">3.2 Datasets create the databases</A>
+<LI><A NAME="tex2html1802"
+  HREF="node2.html#SECTION02013000000000000000">3.3 Bundling the database and dataset together</A>
+<LI><A NAME="tex2html1803"
+  HREF="node2.html#SECTION02014000000000000000">3.4 Wrapper classes hold raw data</A>
+<LI><A NAME="tex2html1804"
+  HREF="node2.html#SECTION02015000000000000000">3.5 Profiles hold results of measurements</A>
+<LI><A NAME="tex2html1805"
+  HREF="node2.html#SECTION02016000000000000000">3.6 Integrated plotting for easy visualization</A>
+<LI><A NAME="tex2html1806"
+  HREF="node2.html#SECTION02017000000000000000">3.7 Miscellaneous classes</A>
+</UL>
+<LI><A NAME="tex2html1807"
+  HREF="node2.html#SECTION02020000000000000000">4 Programming Conventions</A>
+<UL>
+<LI><A NAME="tex2html1808"
+  HREF="node2.html#SECTION02021000000000000000">4.1 Using property structures for passing optional arguments to methods</A>
+<LI><A NAME="tex2html1809"
+  HREF="node2.html#SECTION02022000000000000000">4.2 Overloaded operators for transparent access to object contents</A>
+<LI><A NAME="tex2html1810"
+  HREF="node2.html#SECTION02023000000000000000">4.3 Troubleshooting errors</A>
+<LI><A NAME="tex2html1811"
+  HREF="node2.html#SECTION02024000000000000000">4.4 Creating a new class</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION02000000000000000000">
+1 Software Architecture</A>
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION02010000000000000000"></A><A NAME="sec:Class-hierarchies"></A>
+<BR>
+3 Toolbox Components
+</H1>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Database-overview"></A><A NAME="1182"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Schematic overview of the database
+software.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+An overview of the toolbox functionality is shown in Figure <A HREF="#figcap:Database-overview">1</A>.
+In the figure, boxes represent objects that can be created with the
+toolbox. Flow starts from the dataset object on the top left which
+represents the collection of raw data files. The raw data is loaded
+using information in the dataset to create intermediate objects that,
+for instance, contain data traces. These objects define electrophysiological
+measurements to be entered into the data matrix of the database object
+on the top right. The database object allows filtering and querying
+to refine its contents. From the database object, one can always go
+back to the dataset and find the raw data that results from a query.
+The arrows going to bottom objects and corresponding plots show the
+types of possible analyses that can be done on a database object.
+These analyses are typically for displaying statistical information.
+The red arrow is a speacial analysis for searching and matching rows
+between different databases. The match is done by taking a row from
+a database created with data from real neurons and finding best matching
+model neurons from a simulation database. 
+
+<P>
+The objects in the figure are instances of classes that define their
+properties in the object-oriented framework. Each class comes with
+a hierarchy of of subclasses that specialize to specific functions.
+Subsequent sections describe each of these class hierarchies that
+make up the main components of the toolbox.
+
+<P>
+
+<H2><A NAME="SECTION02011000000000000000">
+3.1 Databases hold all the information</A>
+</H2>
+
+<P>
+The database object is at the center of this toolbox (see Figure <A HREF="#figcap:Database-overview">1</A>).
+It holds a data matrix with rows as observations and columns as attributes.
+The rows would normally correspond to results from individual data
+traces, or simply neurons. The columns hold values of separate measurements,
+statistical data, or parameter values. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Database-class-hierarchy"></A><A NAME="1184"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Database class hierarchy.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+A database object can be created from any of the classes in the hierarchy
+of Figure <A HREF="#figcap:Database-class-hierarchy">2</A>. The top-level database
+class is <TT>tests_db</TT> which contains a two-dimensional data
+matrix of real numbers and some metadata. The metadata consists of
+column labels (e.g., measure names), a dataset label, and data properties
+(e.g., time resolution). The subclasses are specialized for different
+tasks. 
+
+<P>
+If the database object is created using a dataset object, this maintains
+a connection from the elements of the database (e.g., neurons) to
+the raw data. This allows raw data associated with database contents
+to be visualized during analysis. However, a database can be created
+from any data matrix given in the proper format.
+
+<P>
+Some specialized subclasses of <TT>tests_db</TT> are as follows:
+
+<P>
+<DL>
+<DT><STRONG><TT>params_tests_db</TT></STRONG></DT>
+<DD>The first <TT>num_params</TT> columns
+are reserved for parameters that were changed between different rows.
+It contains methods that treat these columns specially. Parameters
+can be simulation parameters, or pharmacological applications to experiments.
+</DD>
+<DT><STRONG><TT>tests_3D_db</TT></STRONG></DT>
+<DD>Contains a three-dimensional data matrix
+that has additional dimension for pages of information. This is mainly
+used to look at change in measurements with a parameter using the
+<TT>invarParam</TT> method of <TT>params_tests_db</TT>. Three dimensional
+databases can be useful for other purposes as well.
+</DD>
+<DT><STRONG><TT>stats_db</TT></STRONG></DT>
+<DD>Contains few rows that describe the statistics
+obtained possibly from another database. It can contain the mean and
+standard deviation or error, or in some cases, the minimal and maximal
+values of columns in a database. It contains special plotting functions.
+There are methods that use the statistics collected by this class.
+</DD>
+<DT><STRONG><TT>ranked_db</TT></STRONG></DT>
+<DD>Contains distances that resulted from a comparison
+of a database with a criterion. Its rows are ranked and sorted according
+to this distance value. Each row would point to a row in dex into
+the original database. Contains methods to generate reports from information
+about matching neurons.
+</DD>
+<DT><STRONG><TT>spikes_db</TT></STRONG></DT>
+<DD>Contains results from individual spike shapes
+of a <TT>trace</TT> object. It can be obtained using the <TT>trace/analyzeSpikesInPeriod</TT>
+method.
+</DD>
+<DT><STRONG><TT>histogram_db</TT></STRONG></DT>
+<DD>Each row corresponds to a histogram bin.
+Contains plotting methods.
+</DD>
+<DT><STRONG><TT>corrcoefs_db</TT></STRONG></DT>
+<DD>Each row corresponds to a correlation
+coefficient. Contains plotting methods.
+</DD>
+<DT><STRONG><TT>cluster_db</TT></STRONG></DT>
+<DD>Each row corresponds to a cluster centroid.
+Contains plotting methods.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION02012000000000000000">
+3.2 Datasets create the databases</A>
+</H2>
+
+<P>
+The dataset object is responsible for creating the database objects
+(see Figure <A HREF="#figcap:Database-overview">1</A>). It defines where the
+raw data is stored and what parameters are used to load and analyze
+it. It knows that raw data has parameters associated which individual
+raw data traces and how and which measures will be generated. This
+information is used to automatically generate a database from the
+dataset. It also allows reaching back the raw data from rows of an
+analyzed database. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Dataset-class-hierarchy"></A><A NAME="1194"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Dataset class hierarchy.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+Figure <A HREF="#figcap:Dataset-class-hierarchy">3</A> shows the hierarchy for
+the dataset classes. The top-level dataset class is <TT>params_tests_dataset</TT>
+which is an incomplete class. That is, this class defines general
+utilities that can work for a variety of dataset subclasses, but one
+cannot make a object from the <TT>params_tests_dataset</TT> class
+directly. Instead, one of its subclasses must be chosen and used.
+Some of these specialized subclasses are as follows:
+
+<P>
+<DL>
+<DT><STRONG><TT>params_tests_fileset</TT></STRONG></DT>
+<DD>This class assumes each raw data
+item resides in a file and all of these files are in the same directory.
+The parameter names and values are obtained from each file name itself.
+This class is mostly useful for simulation filesets.
+</DD>
+<DT><STRONG><TT>params_cip_trace_fileset</TT></STRONG></DT>
+<DD>This is a subclass of <TT>params_tests_fileset</TT>,
+therefore it inherits the notion of one file per data item. The files
+must conform to the current-pulse injection experiments and have a
+starting time and duration for the pulses. The pulse magnitude is
+read from the <TT>pAcip</TT> parameter. This class is mostly useful
+for simulation filesets.
+</DD>
+<DT><STRONG><TT>physiol_cip_traceset</TT></STRONG></DT>
+<DD>This is a subclass of <TT>params_tests_dataset</TT>.
+It is designed to load a set of physiology traces from a single file
+generated by the PCDX stimulation and acquisition software. 
+</DD>
+<DT><STRONG><TT>physiol_cip_traceset_fileset</TT></STRONG></DT>
+<DD>This is a subclass of
+<TT>params_tests_dataset</TT>. It is designed to load traces from
+multiple PCDX data files. It uses the <TT>physiol_cip_traceset</TT>
+class for this purpose. 
+</DD>
+<DT><STRONG><TT>cip_traces_dataset,&nbsp;cip_traceset,&nbsp;cip_traceset_dataset</TT></STRONG></DT>
+<DD>These
+are obsolete classes that allow loading physiology traces from older
+M<SMALL>ATLAB</SMALL> formatted objects.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION02013000000000000000">
+3.3 Bundling the database and dataset together</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Bundle-class-hierarchy"></A><A NAME="1200"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
+Bundle class hierarchy.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+Since dataset and database objects are related and work together for
+some operations, it is convenient to have another object that bundles
+them together. There are several analysis routines that start from
+the database, retrieve raw data traces and other related information
+from the dataset and create a result. For instance, matching neurons
+from one database to another requires first comparing the measurements
+to find match candidates, and then comparing raw traces to visually
+represent the match quality. 
+
+<P>
+The top-level <TT>dataset_db_bundle</TT> class in Figure <A HREF="#figcap:Bundle-class-hierarchy">4</A>
+fulfills this purpose by bundling a <TT>dataset</TT> with the raw
+database, <TT>db</TT>, created from it, and with the reduced database,
+<TT>joined_db</TT>, that contains a one-row-per-neuron representation.
+Although being a virtual class that cannot be instantiated, it contains
+general methods and prototype methods that must be implemented in
+subclasses. This way, it provides guidelines for defining subclasses.
+Its two subclasses provide specialize methods for model and physiology
+databases, respectively.
+
+<P>
+<DL>
+<DT><STRONG><TT>model_ct_bundle</TT></STRONG></DT>
+<DD>Contains methods to name and visualize
+neurons in the model database. It has methods to compare real neurons
+to model neurons to find best matching candidates. 
+</DD>
+<DT><STRONG><TT>physiol_bundle</TT></STRONG></DT>
+<DD>Contains methods to name and visualize
+neurons in the physiology database. It contains a new attribute, <TT>joined_control_db</TT>,
+that holds only the neurons recorded without any pharmacological treatments.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION02014000000000000000">
+3.4 Wrapper classes hold raw data</A>
+</H2>
+
+<P>
+Wrapper classes are designed to hold data and provide simple methods
+that operate on them. They can either hold raw data, or intermediate
+processed forms of data being byproducts of analysis routines. In
+the overall schema of Figure <A HREF="#figcap:Database-overview">1</A>, the
+raw traces obtained from the dataset object are kept in data wrapper
+objects. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Datawrapper-class-hierarchy"></A><A NAME="1203"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Data wrapper class hierarchy.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+Figure <A HREF="#figcap:Datawrapper-class-hierarchy">5</A> shows the hierarchy
+for the data wrapper classes. The most basic data wrapper class in
+this toolbox is the <TT>trace</TT> class, which holds raw voltage
+or current traces. The <TT>spikes</TT> object contains the spike times
+obtained by analyzing a <TT>trace</TT> object.
+
+<P>
+A data wrapper class does more than just holding the data. It defines
+a set of operations in terms of method functions that can work on
+the data held by the class. As a rule of thumb, if one needs to add
+some new functionality into the toolbox, it should be added as a method
+into a class holding the data on which to operate.
+
+<P>
+Some of the data wrapper classes are as follows:
+
+<P>
+<DL>
+<DT><STRONG><TT>trace</TT></STRONG></DT>
+<DD>Generic object that holds a vector of data that
+changes over time. It has a time resolution and y-axis resolution.
+Contains simple analysis routines such as finding average values within
+different periods, or finding spikes given a threshold.
+</DD>
+<DT><STRONG><TT>cip_trace</TT></STRONG></DT>
+<DD>A subclass of <TT>trace</TT> class for current-injection
+recording protocols. It defines an initial spontaneous period, followed
+by a current-injection period, and final recovery period. It contains
+period-specific analyses that apply to the experimental protocol.
+</DD>
+<DT><STRONG><TT>spike_shape</TT></STRONG></DT>
+<DD>A subclass of <TT>trace</TT> that holds
+the shape of a single spike. It contains spike shape measurements.
+</DD>
+<DT><STRONG><TT>spikes</TT></STRONG></DT>
+<DD>A generic class to hold the event times for spikes.
+It contains methods for making measurements based on spike times,
+such as rate and ISI calculations.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION02015000000000000000">
+3.5 Profiles hold results of measurements</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Profile-class-hierarchy"></A><A NAME="1208"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Profile class hierarchy.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Profile classes are designed to hold results of analysis and measurements
+on the data wrapper or database objects. The data and results are
+separated into different classes for added flexibility of saving data
+and results separately. Yet, the profiles normally keep a copy of
+the data wrapper object from which they obtained the measurements.
+The intention is to save the measurement results for possible visualization
+or later inspection, without having to repeat the analyses.
+
+<P>
+In Figure <A HREF="#figcap:Profile-class-hierarchy">6</A>, the top-level <TT>results_profile</TT>
+class contains a simple M<SMALL>ATLAB</SMALL> structure variable, <TT>results</TT>,
+that holds a set of name-value pairs. These are names of measurements
+and their corresponding values. Most of the subclasses are simplistic,
+and they exist only for organizational reasons. Some of them may implement
+specialized plotting methods that make use of the saved measurements.
+These subclasses can be briefly described as follows:
+
+<P>
+<DL>
+<DT><STRONG><TT>trace_profile</TT></STRONG></DT>
+<DD>Holds measurements from a <TT>trace</TT>
+object. It contains the <TT>trace</TT> object and the <TT>spikes</TT>
+found in it, and averaged <TT>spike_shape</TT> object.
+</DD>
+<DT><STRONG><TT>cip_trace_profile</TT></STRONG></DT>
+<DD>Holds measurements from a <TT>cip_trace</TT>
+object with a current-injection period. It contains the original <TT>cip_trace</TT>
+object and the <TT>spikes</TT> found in it. In addition, it holds
+averaged <TT>spike_shape</TT> objects from the spontaneous and current-injection
+periods.
+</DD>
+<DT><STRONG><TT>cip_trace_allspikes_profile</TT></STRONG></DT>
+<DD>Extended version of <TT>cip_trace_profile</TT>.
+Instead of single averaged spike shapes, it contains spike databases
+from the spontaneous, current-injection and recovery periods. These
+databases only retain measurements made from individual spikes, but
+not their shapes.
+</DD>
+<DT><STRONG><TT>spike_shape_profile</TT></STRONG></DT>
+<DD>Holds measurements made from a
+<TT>spike_shape</TT> object.
+</DD>
+<DT><STRONG><TT>params_tests_profile</TT></STRONG></DT>
+<DD>Holds analysis results from a
+<TT>params_tests_db</TT> object.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION02016000000000000000">
+3.6 Integrated plotting for easy visualization</A>
+</H2>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="figcap:Plot-class-hierarchy"></A><A NAME="1214"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
+Plot classes hierarchy.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+To integrate visualization into each class, common M<SMALL>ATLAB</SMALL> plotting
+features are implemented in the supporting classes seen in Figure
+<A HREF="#figcap:Plot-class-hierarchy">7</A>. These bring an object-oriented
+approach to plot generation in M<SMALL>ATLAB</SMALL>. Plots can be generated
+as objects, saved, modified and included as subplots in larger plots. 
+
+<P>
+The main plotting classes are <TT>plot_abstract</TT>, <TT>plot_superpose</TT>,
+and <TT>plot_stack</TT>. The most general plotting template class,
+and the top-level class in the hierarchy, is <TT>plot_abstract</TT>,
+which plots an axis using a single M<SMALL>ATLAB</SMALL> command, like <TT>plot</TT>
+or <TT>bar</TT>. Multiple <TT>plot_abstract</TT> objects that use
+the same command can be superposed and still act as a single <TT>plot_abstract</TT>
+object. If they require different plotting commands (e.g., mixing
+<TT>plot</TT> and <TT>text</TT> labels), a <TT>plot_superpose</TT>
+object must be used that is composed of an array of <TT>plot_abstract</TT>
+objects. Multiple <TT>plot_abstract</TT> objects or any of the subclass
+objects can be composed together in a horizontal or vertical stack
+using the <TT>plot_stack</TT> class. Since <TT>plot_stack</TT> is
+itself a subclass of <TT>plot_abstract</TT>, it can be stacked as
+well. This allows creating virtually any complex structured figure
+using the three classes. Each of these classes have several properties
+that control the layout and details of placement and looks.
+
+<P>
+The rest of the classes in the hierarchy create typical types of plots
+for convenience:
+
+<P>
+<DL>
+<DT><STRONG><TT>plot_bars</TT></STRONG></DT>
+<DD>Multi-axis bar plot with extending errorbars
+using a combination of the <TT>bar</TT>, <TT>errorbar</TT>, and <TT>text</TT>
+commands.
+</DD>
+<DT><STRONG><TT>plot_errorbar</TT></STRONG></DT>
+<DD>Single-axis errorbar plot using the <TT>errorbar</TT>
+command.
+</DD>
+<DT><STRONG><TT>plot_errorbars</TT></STRONG></DT>
+<DD>Multi-axis errorbar plot using the <TT>errorbar</TT>
+command.
+</DD>
+<DT><STRONG><TT>plot_simple</TT></STRONG></DT>
+<DD>Simplified single-axis, single command
+plot.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION02017000000000000000">
+3.7 Miscellaneous classes</A>
+</H2>
+
+<P>
+These are miscellaneous classes that do not fit into any of the above
+categories:
+
+<P>
+<DL>
+<DT><STRONG><TT>period</TT></STRONG></DT>
+<DD>Defines a period composed of a start and end
+time for operations on traces, etc.
+</DD>
+<DT><STRONG><TT>script_array</TT></STRONG></DT>
+<DD>Defines a looping construct that can be
+extended. It defines an initialization routine, a job that needs to
+be repeated, and a finalization routine.
+</DD>
+<DT><STRONG><TT>script_array_for_cluster</TT></STRONG></DT>
+<DD>Subclass of <TT>script_array</TT>,
+it can submit the array job to run in parallel on a computing cluster
+that supports the Sun Grid Engine (SGE) commands.
+</DD>
+<DT><STRONG><TT>script_factory</TT></STRONG></DT>
+<DD>Factory class to generate an enumerated
+array of script files to be distributed on several machines and run
+in parallel. It also defines a final function to gather results. It
+is recommended to use <TT>script_array_for_cluster</TT> instead.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION02020000000000000000">
+4 Programming Conventions</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION02021000000000000000">
+4.1 Using property structures for passing optional arguments to methods</A>
+</H2>
+
+<P>
+For flexibility in passing optional arguments to methods, this toolbox
+adopted using property structures. A M<SMALL>ATLAB</SMALL> structure, mostly
+called <TT>props</TT>, is passed to a method as the last argument:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;props.optionalParam&nbsp;=&nbsp;1
+
+<P>
+&gt;&gt;&nbsp;myFunc('hello',&nbsp;props)</div>Each method defines a list of accepted arguments that can be defined
+as fields in the structure, but should be able to execute without
+them by substituting defaults. Using a property structure is advantageous
+over using the <TT>varargin</TT> keyword for variable number of arguments,
+because properties allow adding and deleting arguments in methods
+without causing changes to the contents of the method. Since arguments
+are addressed by names rather than positional arguments, missing arguments
+do not affect the other arguments.
+
+<P>
+Most objects keep a property structure that define custom attributes
+passed at time of construction. These classes define a <TT>setProp</TT>
+method to modify properties after being created.
+
+<P>
+
+<H2><A NAME="SECTION02022000000000000000">
+4.2 Overloaded operators for transparent access to object contents</A>
+</H2>
+
+<P>
+The simplistic implementation of object-oriented programming features
+in Matlab impose several strict limitations. M<SMALL>ATLAB</SMALL>'s powerful
+and flexible operator overloading feature helps overcome these limitations.
+
+<P>
+PANDORA Toolbox uses M<SMALL>ATLAB </SMALL>operator overloading to facilitate
+manipulation of local and parent object fields. In M<SMALL>ATLAB</SMALL>,
+object fields can only be accessed from the object's private methods.
+This means one cannot access the object fields using the dot operator.
+To give an example, the <TT>trace</TT> object has a <TT>dt</TT> field
+for time resolution. The following command fails:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;mytrace.dt&nbsp;=&nbsp;1e-4;
+
+<P>
+???&nbsp;Object&nbsp;fields&nbsp;can&nbsp;only&nbsp;be&nbsp;accessed&nbsp;within&nbsp;methods.</div>Everytime object contents need to be addressed, a method must be called.
+The recommended way to do this is by defining separate getter/setter
+methods for each field of the object. For instance, writing <TT>getDt</TT>
+and <TT>setDt</TT> methods for accessing the <TT>dt</TT> field. This
+creates a lot of burden for the programmer not just creating a class,
+but also maintaining it later. Although this probably was intended
+for strictness in building object-oriented constructs, it is highly
+inconvenient for command-line manipulations. Therefore our toolbox
+objects offer generic <TT>get</TT> and <TT>set</TT> methods that can
+read or write the value of any of its fields:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;mytrace&nbsp;=&nbsp;set(mytrace,&nbsp;'dt',&nbsp;1e-4)
+
+<P>
+&gt;&gt;&nbsp;get(mytrace,&nbsp;'dt')
+
+<P>
+ans&nbsp;=&nbsp;1e-04</div>These methods are almost identical across different classes. In addition
+to this, defining the special <TT>subsref</TT> method for objects
+allow overloading the dot (<TT>.</TT>), parenthesis (<TT>()</TT>),
+and curly brace (<TT>{}</TT>) operators. Most<A NAME="tex2html11"
+  HREF="footnode.html#foot331"><SUP>3</SUP></A> of the objects in the toolbox allows using the dot operator to read
+or write to fields. Overloading these operators also help with the
+limitation of accessing parent object fields, a problem not found
+in other object-oriented languages such as J<SMALL>AVA</SMALL>. For example
+without any overloading, from the subclass class <TT>cip_trace</TT>
+one needs to first address the parent class name, and then <TT>dt</TT>: 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;myciptrace.trace.dt
+
+<P>
+ans&nbsp;=&nbsp;1e-4</div>After defining the overloaded operator that call parent methods, one
+get reach <TT>dt</TT> directly:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;myciptrace.dt
+
+<P>
+ans&nbsp;=&nbsp;1e-4</div>Some classes overload indexing operators to allow accessing special
+functions. For instance the main database class, <TT>tests_db</TT>,
+overloads parenthesized indexing to access cells in the database matrix.
+Some classes define the special <TT>subsasgn</TT> method to overload
+the assignment operations when the object is on the left-hand-side
+of the operation. This allows the command: 
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;mytrace.dt&nbsp;=&nbsp;1e-4;</div>which would otherwise need to be done the following way:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;mytrace&nbsp;=&nbsp;set(mytrace,&nbsp;'dt',&nbsp;1e-4);</div>
+<P>
+
+<H2><A NAME="SECTION02023000000000000000">
+4.3 Troubleshooting errors</A>
+</H2>
+
+<P>
+For debugging problems with methods, one can turn on the verbosity
+of information display during execution with:
+
+<P>
+<div style="font-family: monospace">&gt;&gt;&nbsp;warning&nbsp;on&nbsp;verbose
+
+<P>
+&gt;&gt;&nbsp;warning&nbsp;on&nbsp;backtrace</div>
+<P>
+
+<H2><A NAME="SECTION02024000000000000000">
+4.4 Creating a new class</A>
+</H2>
+
+<P>
+To get the benefit of overloading, the top-level class must have the
+generic <TT>subsref</TT> and <TT>subsasgn</TT> methods. These methods
+can be copied from any of the other top-level classes. Any subclasses
+should have the generic <TT>get</TT> and <TT>set</TT> methods in place. 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1797"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1791"
+  HREF="prog-manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1785"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1793"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1795"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1798"
+  HREF="node3.html">2 User's Manual</A>
+<B> Up:</B> <A NAME="tex2html1792"
+  HREF="prog-manual.html">Plotting and Analysis for</A>
+<B> Previous:</B> <A NAME="tex2html1786"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html1794"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1796"
+  HREF="node6.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Cengiz Gunay
+2008-10-13
+</ADDRESS>
+</BODY>
+</HTML>

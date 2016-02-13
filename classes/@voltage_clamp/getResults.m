@@ -21,7 +21,7 @@ function a_prof = getResults(a_vc, props)
 %
 % See also: params_tests_dataset/loadItemProfile, params_tests_dataset
 %
-% $Id: getResults.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/07/08
 

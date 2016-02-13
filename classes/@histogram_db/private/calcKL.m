@@ -1,6 +1,6 @@
 function [kl_bits] = calcKL(left_data, right_data)
 
-% $Id: calcKLmodel.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/04/03
 

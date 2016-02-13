@@ -91,9 +91,9 @@ if(isfield(t.props, 'butterWorth'))
   a = butterWorth.lowPass.a;
   filtered=filtfilt(b,a,filtered);
 else
-  if t.dt ~= 1e-4
+  if abs(t.dt - 1e-4) > eps
     error(['Trace is not sampled at 10KHz, cannot use findFilteredSpikes! ' ...
-           'Choose another spike_finder method or supply a CustomFilter ' ...
+           'Choose another spike_finder method or supply a custom filter ' ...
            '(see trace)']);
   end
   filtered = filtfilt(fd.tf.num, fd.tf.den, data);
@@ -108,6 +108,11 @@ if ~ exist('minamp', 'var') || isempty(minamp)
   end
 else
   up_threshold = minamp;
+end
+
+if plotit ~= 0 & plotit ~= 2
+  disp(sprintf('min1 limit=%f, min2 limit=%f', ...
+               up_threshold, dn_threshold));
 end
 
 % ignore the added parts

@@ -18,7 +18,7 @@ function h = plot(a_obj, title_str, props)
 %
 % See also: plot_abstract, plotFigure
 %
-% $Id: plot.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/06
 

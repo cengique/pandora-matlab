@@ -16,7 +16,7 @@ function idx = findRegExpIdx(a_regexp, all_names)
 %
 % See also: tests_db/tests2idx
 %
-% $Id: findRegExpIdx.m 1059 2008-04-16 18:04:20Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/04/16
 

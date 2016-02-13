@@ -19,7 +19,7 @@ function a_cip_trace = ctFromRows(a_mbundle, a_db, cip_levels, props)
 %   Returns:
 %	a_cip_trace: One or more cip_trace objects that hold the raw data.
 %
-% See also: dataset_db_bundle/ctFromRows
+% See also: params_cip_trace_fileset/ctFromRows
 %
 % $Id$
 %

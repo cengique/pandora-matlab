@@ -1,9 +1,9 @@
-function a_plot = plotCovar(a_db, title_str, props)
+function [a_plot, shuffle_idx] = plotCovar(a_db, title_str, props)
 
 % plotCovar - Generates an image plot of the covariance-type values in a_db.
 %
 % Usage:
-% a_plot = plotCovar(a_db, title_str, props)
+% [a_plot, shuffle_idx] = plotCovar(a_db, title_str, props)
 %
 % Description:
 %
@@ -20,6 +20,7 @@ function a_plot = plotCovar(a_db, title_str, props)
 %		
 %   Returns:
 %	a_plot: A plot_abstract object or one of its subclasses.
+%       shuffle_idx: (Optional) Ordering of columns found by locality optimization.
 %
 % Example:
 % >> plotFigure(plotCovar(cov(get(constrainedMeasuresPreset(pbundle2, 6), 'joined_control_db'))));

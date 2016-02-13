@@ -6,23 +6,25 @@ function a_p = plotYTests(a_db, x_vals, tests, axis_labels, title_str, short_tit
 % Usage:
 % a_p = plotYTests(a_db, x_vals, tests, axis_labels, title_str, short_title, command, props)
 %
-% Description:
-%
 % Parameters:
-%	a_db: A params_tests_db object.
-%	x_vals: A vector of X-axis values.
-%	tests: A vector or cell array of columns to correspond to each value from x_vals.
-%	title_str: (Optional) A string to be concatanated to the title.
-%	short_title: (Optional) Few words that may appear in legends of multiplot.
-%	command: (Optional) Command to do the plotting with (default: 'plot')
-%	props: A structure with any optional properties.
-%		LineStyle: Plot line style to use. (default: 'd-')
-%		ShowErrorbars: If 1, errorbars are added to each point.
-%		StatsDB: If given, use this stats_db for the errorbar (default=statsMeanStd(a_db)).
-%		quiet: If 1, don't include database name on title.
+%   a_db: A params_tests_db object.
+%   x_vals: A vector of X-axis values.
+%   tests: A vector or cell array of columns to correspond to each value from x_vals.
+%   axis_labels: Cell array of X & Y axis labels.
+%   title_str: (Optional) A string to be concatanated to the title.
+%   short_title: (Optional) Few words that may appear in legends of multiplot.
+%   command: (Optional) Command to do the plotting with (default: 'plot')
+%   props: A structure with any optional properties.
+%     LineStyle: Plot line style to use. (default: 'd-')
+%     ShowErrorbars: If 1, errorbars are added to each point.
+%     StatsDB: If given, use this stats_db for the errorbar (default=statsMeanStd(a_db)).
+%     jitterX: Randomly jitter x-axis locations by this magnitude.
+%     quiet: If 1, don't include database name on title.
 %		
 % Returns:
-%	a_p: A plot_abstract.
+%   a_p: A plot_abstract.
+%
+% Description:
 %
 % Example:
 % >> a_p = plotYTests(a_db_row, [0 40 100 200], ...
@@ -60,8 +62,14 @@ if ~ exist('command', 'var') || isempty(command)
 end
 
 cols_db = onlyRowsTests(a_db, ':', tests);
+jitter_x = getFieldDefault(props, 'jitterX', 0);
 
-test_names = fieldnames(get(a_db, 'col_idx'));
+% set names on x-axis
+test_names = getColNames(cols_db);
+props.axisProps = ...
+    mergeStructsRecursive(getFieldDefault(props, 'axisProps', struct), ...
+                          struct('XTick', x_vals, ...
+                                 'XTickLabel', {test_names}));
 
 if ~ isfield(props, 'quiet')
   all_title = [ strrep(get(a_db, 'id'), '_', '\_') title_str ];
@@ -77,11 +85,19 @@ else
 end
 
 c_data = get(cols_db, 'data')';
+
 if isfield(props, 'ShowErrorbars')
-  % not implemented yet
-  % TODO: read the std from the second page of DB, if exists
+  % read the std from the second page of DB, if exists
+  stats_db = getFieldDefault(props, 'StatsDB', statsMeanStd(cols_db));
+  stats_db = onlyRowsTests(stats_db, ':', tests);
+  a_p = ...
+      plot_abstract({x_vals + rand(1, length(x_vals)) .* jitter_x - jitter_x/2, ...
+                     c_data', get(onlyRowsTests(stats_db, 2, tests), 'data'), ...
+                     line_style{:}}, ... % '+'
+                    axis_labels, all_title, {short_title}, 'errorbar', props);
+  % BUG: command is overridden in this case
 else
   % Draw a regular line plot
-  a_p = plot_abstract({x_vals, [get(cols_db, 'data')'], line_style{:}}, ...
-		      axis_labels, all_title, {short_title}, command, props);
+  a_p = plot_abstract({x_vals + rand(1, length(x_vals)) .* jitter_x - jitter_x/2, c_data, line_style{:}}, ...
+                      axis_labels, all_title, {short_title}, command, props);
 end

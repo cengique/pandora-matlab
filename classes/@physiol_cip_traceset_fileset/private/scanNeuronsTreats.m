@@ -18,7 +18,7 @@ function [neuron_idx, all_treatments] = scanNeuronsTreats(traceset_list, props)
 %
 % See also: physiol_cip_traceset_fileset
 %
-% $Id: scanNeuronsTreats.m 1006 2008-04-03 18:10:14Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/18
 

@@ -1,6 +1,6 @@
 function a_db = shufflerows(db, tests, grouped)
 
-% shufflerows - Returns a db with rows of given test columns are shuffled. 
+% shufflerows - Returns a db with shuffled rows of given columns. 
 %
 % Usage:
 % s = shufflerows(db, tests, grouped)
@@ -11,7 +11,7 @@ function a_db = shufflerows(db, tests, grouped)
 %
 %   Parameters:
 %	db: A tests_db object.
-%	tests: Tests to shuffle.
+%	tests: Columns to shuffle.
 %	grouped: If 1 then shuffle tests all together, 
 %		if 0 shuffle each test separately (default=0).
 %		

@@ -22,7 +22,7 @@ function a_db = tests_db(a_sql_portal, query_string, query_id, props)
 %
 % See also: tests_db, database
 %
-% $Id: tests_db.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/11/29
 

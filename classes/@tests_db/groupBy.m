@@ -14,7 +14,8 @@ function a_tests_3D_db = groupBy(db, cols)
 %	a_tests_3D_db: A tests_3D_db object of organized values.
 %
 % Description:
-%   Functionality similar to SQL's GROUP BY keyword. This function uses invarValues.
+%   Functionality similar to SQL's GROUP BY keyword. This function
+% uses invarValues, but resulting pages will not be sorted.
 %
 % Example:
 % >> a_db = tests_db([ ... ], {'par1', 'par2', 'measure1', 'measure2'})
@@ -27,7 +28,7 @@ function a_tests_3D_db = groupBy(db, cols)
 % See also: invarValues, tests_3D_db, tests_3D_db/corrCoefs, tests_3D_db/plotPair,
 % 	    joinRows, tests_3D_db/swapRowsPages, tests_3D_db/mergePages
 %
-% $Id: groupBy.m 1067 2008-04-23 18:27:09Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 
@@ -49,4 +50,4 @@ all_cols = true(1, length(all_col_names));
 all_cols(col_ids) = false;
 
 % delegate to invarValues
-a_tests_3D_db = invarValues(db, all_cols, cols);
+a_tests_3D_db = invarValues(db, all_cols, cols, struct('sortPages', 0));

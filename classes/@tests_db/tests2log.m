@@ -26,7 +26,7 @@ function a_log = tests2log(db, dim_num, tests)
 %
 % See also: tests_db, tests2cols, regexp
 %
-% $Id: tests2log.m 1070 2008-04-23 18:28:22Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 

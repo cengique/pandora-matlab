@@ -10,6 +10,7 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %   title_str: (Optional) Text to appear in the plot title.
 %   props: A structure with any optional properties.
 %     quiet: If 1, only use given title_str.
+%     vStep: Index of step with varying voltages (default=2).
 %     label: add this as a line label to be used in superposed plots.
 %     onlyPlot: 'i' for current and 'v' for voltage plot.
 %     curUnit: Display units for current trace (default='nA').
@@ -51,13 +52,24 @@ switch (cur_unit)
             ''' not recognized. Use only nA or pA.']);
 end
 
-% assume 2nd step is the main pulse
-v_steps = a_vc.v_steps(2, :);
+try
+  % assume 2nd step is the main pulse
+  v_steps = a_vc.v_steps(getFieldDefault(props, 'vStep', 2), :);
 
-v_legend = ...
-    cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
-            num2cell(v_steps'), ...
-            'UniformOutput', false);
+  v_legend = ...
+      cellfun(@(x)([ sprintf('%.0f', x) ' mV']), ...
+              num2cell(v_steps'), ...
+              'UniformOutput', false);
+
+  vcolor_func = getFieldDefault(props, 'vColorsFunc', @lines);
+
+  % use consistent colors
+  line_colors = feval(vcolor_func, length(v_steps));
+catch
+  warning('Cannot find voltage steps. Ignoring.');
+  v_legend = {};
+  line_colors = lines(6);
+end
 
 if isfield(props, 'label')
   plot_label = props.label;
@@ -68,6 +80,8 @@ else
   cur_label = [ 'I [' cur_unit ']' ];
   cur_legends = v_legend;
 end
+
+
 
 dt = get(a_vc, 'dt') * 1e3;             % convert to ms
 
@@ -83,10 +97,6 @@ else
       properTeXLabel([ cell_name title_str ]);
 end
 
-vcolor_func = getFieldDefault(props, 'vColorsFunc', @lines);
-
-% use consistent colors
-line_colors = feval(vcolor_func, length(v_steps)); 
 
 % common x-axis limits
 axis_limits = ...
@@ -102,21 +112,25 @@ if ~isfield(props, 'vColors') || props.vColors ~= 0
   plot_props = mergeStructs(plot_props, struct('ColorOrder', line_colors));
 end
 
+% $$$ plot_i = ...
+% $$$     plot_abstract({time, data_i}, {'time [ms]', cur_label}, ...
+% $$$                   all_title, cur_legends, 'plot', ...
+% $$$                   plot_props);
 plot_i = ...
-    plot_abstract({time, data_i}, {'time [ms]', cur_label}, ...
-                  all_title, cur_legends, 'plot', ...
-                  plot_props);
+    set(plot_abstract(a_vc.i, all_title, plot_props), 'legend', cur_legends);
 
+% $$$ plot_v = ...
+% $$$     plot_abstract({time, data_v}, ...
+% $$$                     {'time [ms]', 'V [mV]'}, ...
+% $$$                     all_title, {plot_label}, 'plot', ...
+% $$$                     plot_props);
 plot_v = ...
-    plot_abstract({time, data_v}, ...
-                    {'time [ms]', 'V [mV]'}, ...
-                    all_title, {plot_label}, 'plot', ...
-                    plot_props);
+    set(plot_abstract(a_vc.v, all_title, plot_props), 'legend', {plot_label});
 
 if ~ isfield(props, 'onlyPlot')
   % create a vertical stack plot
   a_p = ...
-      plot_stack({setProp(plot_i, 'noLegends', 1), plot_v}, ...
+      plot_stack({plot_i, plot_v}, ...
                  axis_limits, ...
                  'y', all_title, ...
                  mergeStructs(props, ...

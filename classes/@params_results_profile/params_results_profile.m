@@ -32,7 +32,7 @@ function obj = params_results_profile(params, results, id, props)
 %
 % See also: results_profile, params_tests_dataset
 %
-% $Id: params_results_profile.m 1174 2009-03-31 03:14:21Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/07/05
 

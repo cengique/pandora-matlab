@@ -20,7 +20,7 @@ function a_db = uop(left_obj, op_func, op_id)
 %
 % See also: tests_db/uminus, uminus
 %
-% $Id: uop.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/01/16
 

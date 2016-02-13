@@ -15,7 +15,7 @@ function an_array = array(period)
 %
 % See also: period, trace
 %
-% $Id: array.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cengique@users.sf.net>, 2010/03/29
 

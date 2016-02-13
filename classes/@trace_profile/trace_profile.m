@@ -76,7 +76,7 @@ elseif ~ isa(varargin{2}, 'spikes') % nargin < 4 && isnumeric(varargin{2})
   obj.spike_shape = spike_shape(obj.trace, obj.spikes);
 
   % Calculate all generic tests
-  trace_results = getResults(obj.trace);
+  trace_results = getResults(obj.trace, obj.spikes);
   rate_results = getResults(obj.spikes, obj.trace);
   shape_results = getResults(obj.spike_shape);
 

@@ -20,7 +20,7 @@ function deriv2 = diff3T_h4(x, dy)
 % Note: First and last two values of the deriv vector will contain boundary 
 %	artifacts.
 %
-% $Id: diff3T_h4.m,v 1.1 2005/05/08 00:13:40 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/18
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

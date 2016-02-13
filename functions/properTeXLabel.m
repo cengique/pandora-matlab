@@ -18,7 +18,7 @@ function a_label = properTeXLabel(a_label)
 % >> a_label = properTeXLabel('this_day')
 % ans = 'this\_day' 
 %
-% $Id: properTeXLabel.m,v 1.2 2006/08/11 16:53:45 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/01/17
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

@@ -21,7 +21,7 @@ function [avg_tr sd_tr] = avgTraces(traces, props)
 %
 % See also: trace
 %
-% $Id: avgTraces.m 1188 2010-04-09 19:56:27Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/11/09
 

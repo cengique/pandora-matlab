@@ -43,16 +43,32 @@ end
 % find the current (I) object
 if isfield(a_md.model_f.f, 'Vm')
   I = a_md.model_f.Vm.I;
+elseif isfield(a_md.model_f.f, 'Vm_Vw')
+  I = a_md.model_f.Vm_Vw.I;
 elseif isfield(a_md.model_f.f, 'I')
   I = a_md.model_f.I;
 else
   I = a_md.model_f;
 end
 
-a_p = { plot_abstract(I.m.tau, all_title) };
+if isfield(I.m.props, 'tau_func')
+  tau_m = I.m.props.tau_func(I.m);
+else
+  tau_m = I.m.tau;
+end
 
-if isfield(struct(I.f.h), 'f')
-  a_p = [ a_p, { plot_abstract(I.h.tau) }];
+if isfield(I.h.props, 'tau_func')
+  tau_h = I.h.props.tau_func(I.h);
+elseif isfield(struct(I.f.h), 'f')
+  tau_h = I.h.tau;
+else
+  tau_h = [];
+end
+
+a_p = { plot_abstract(tau_m, all_title) };
+
+if ~isempty(tau_h)
+  a_p = [ a_p, { plot_abstract(tau_h) }];
 end
 
 if isfield(I.f, 'h2')

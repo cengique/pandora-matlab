@@ -20,7 +20,7 @@ function val = interpValByIndex(idx, data)
 %
 % See also: spike_shape
 %
-% $Id: interpValByIndex.m,v 1.1 2005/10/24 19:42:15 cengiz Exp $
+% $Id$
 % Author: 
 %   Cengiz Gunay <cgunay@emory.edu>, 2004/08/02
 %   Based on @spike_trace/shapestats by Jeremy Edgerton.

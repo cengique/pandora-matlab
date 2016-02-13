@@ -19,7 +19,7 @@ function a_pbundle = physiol_bundle(fileset, props)
 %
 % See also: tests_db/physiol_bundle
 %
-% $Id: physiol_bundle.m 896 2007-12-17 18:48:55Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2007/12/21
 

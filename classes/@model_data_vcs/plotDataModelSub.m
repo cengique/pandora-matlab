@@ -30,7 +30,7 @@ function a_p = plotDataModelSub(a_md, title_str, props)
 %
 % See also: model_data_vcs, voltage_clamp, voltage_clamp/plot_abstract, plot_abstract, plotFigure
 %
-% $Id: plotDataModelSub.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/21
 
@@ -48,10 +48,10 @@ skip_step = getFieldDefault(props, 'skipStep', 0);
 label_zoom = '';
 if isfield(props, 'zoom')
   if strcmp(props.zoom, 'act')
-    axis_limits = [getTimeRelStep(a_md.data_vc, 1 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
+    axis_limits = [getTimeRelStep(a_md.data_vc, 2 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
     label_zoom = ' - zoom act';
   elseif strcmp(props.zoom, 'inact')
-    axis_limits = [getTimeRelStep(a_md.data_vc, 2 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
+    axis_limits = [getTimeRelStep(a_md.data_vc, 3 + skip_step, [-1 30])*a_md.data_vc.dt*1e3 NaN NaN];
     label_zoom = ' - zoom inact';
   else
     error([ 'props.zoom = ''' props.zoom ''' not recognized. Use ''act'' ' ...

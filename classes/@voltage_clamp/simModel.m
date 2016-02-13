@@ -52,6 +52,9 @@ data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
 time = (0:(size(data_v, 1)-1))*dt;
 
+% models produce current in nA
+nA_scale = a_vc.i.dy / 1e-9;
+
 % choose the range
 period_range = getFieldDefault(props, 'period', periodWhole(a_vc));
 % $$$ period((a_vc.time_steps(1) - round(10 / dt)), ...
@@ -86,7 +89,7 @@ else
 end
 
 % integrate current for selected voltage steps
-model_vc.i = set(model_vc.i, 'data', Im);
+model_vc.i = set(model_vc.i, 'data', Im / nA_scale);
 
 % set a name
 model_vc = set(model_vc, 'id', [ 'sim ' get(f_I_v, 'id') ]);

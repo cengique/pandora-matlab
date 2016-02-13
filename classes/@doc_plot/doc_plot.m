@@ -9,11 +9,11 @@ function a_doc = doc_plot(a_plot, caption, plot_filename, float_props, id, props
 %	a_plot: A plot_abstract ready to be visualized.
 %	caption: Long caption to appear under the figure.
 %	plot_filename:  Filename to be generated from the plot.
-%	float_props: Formatting instructions passed to TeXtable. 
+%	float_props: Formatting instructions passed to TeXfloat. 
 %	id: An identifying string.
 %	props: A structure with any optional properties.
 %	  orient: Passed to the orient command before printing to figure file.
-%	  (others passed to doc_plot/getTeXString and TeXtable)
+%	  (others passed to doc_plot/getTeXString and TeXfloat)
 %		
 % Description:
 %   The generated file may take an extension according to chosen format.
@@ -35,7 +35,7 @@ function a_doc = doc_plot(a_plot, caption, plot_filename, float_props, id, props
 %                       'trace1', struct, 'first doc');
 %   >> printTeXFile(a_doc, 'my_doc.tex'); % it will pop-up the figure now
 %
-% See also: doc_generate, TeXtable
+% See also: doc_generate, TeXfloat
 %
 % $Id$
 %

@@ -78,12 +78,12 @@ data = get(cols_db, 'data');
 row_idx = get(a_stats_db, 'row_idx');
 
 if isfield(row_idx, 'min')
-  lows = data(row_idx.min, :, :) - c_data;
+  lows = c_data - data(row_idx.min, :, :);
 elseif isfield(row_idx, 'STD')
-  lows = -data(row_idx.STD, :, :);  
+  lows = data(row_idx.STD, :, :);  
   highs = data(row_idx.STD, :, :);
 elseif isfield(row_idx, 'SE')
-  lows = -data(row_idx.SE, :, :);  
+  lows = data(row_idx.SE, :, :);  
   highs = data(row_idx.SE, :, :);
 end
 

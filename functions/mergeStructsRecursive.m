@@ -22,7 +22,7 @@ function results = mergeStructsRecursive(varargin)
 %			    struct('hello', struct('b', 2)) );
 %  => struct('hello', struct('a', 1, 'b', 2)
 %
-% $Id: mergeStructsRecursive.m,v 1.4 2006/08/11 16:53:26 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/09/13
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
@@ -41,7 +41,7 @@ for k=1:nargin
     % find common fields and look for structures
     [commonfields common_idx] = intersect(fieldcell, fields);
     if ~isempty(common_idx)
-      for common_id = common_idx
+      for common_id = common_idx(:)'
         left_struct = valcell{common_id};
         if isstruct(left_struct)
           valcell{common_id} = ...

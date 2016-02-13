@@ -56,12 +56,12 @@ else
 end
 
 if isfield(row_idx, 'min')
-  lows = data(row_idx.min, :, :) - mids;
+  lows = mids - data(row_idx.min, :, :);
 elseif isfield(row_idx, 'STD')
-  lows = -data(row_idx.STD,:, :);  
+  lows = data(row_idx.STD,:, :);  
   highs = data(row_idx.STD,:, :);
 elseif isfield(row_idx, 'SE')
-  lows = -data(row_idx.SE,:, :);  
+  lows = data(row_idx.SE,:, :);  
   highs = data(row_idx.SE,:, :);
 end
 

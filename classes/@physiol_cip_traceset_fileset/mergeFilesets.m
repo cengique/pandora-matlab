@@ -19,7 +19,7 @@ function [a_fileset, traceset_offset, neuron_id_offset] = mergeFilesets(a_filese
 %
 % See also: physiol_cip_traceset_fileset
 %
-% $Id: mergeFilesets.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/18
 

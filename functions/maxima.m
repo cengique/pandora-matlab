@@ -15,7 +15,7 @@ function x_idx = maxima(x)
 %   Finds derivative sign-flipping points where the second derivative is 
 % less than zero.
 %
-% $Id: maxima.m,v 1.1 2005/05/08 00:13:40 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/18
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

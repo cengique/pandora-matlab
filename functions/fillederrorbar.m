@@ -15,7 +15,7 @@ function handles = fillederrorbar(varargin)
 %
 % See also: 
 %
-% $Id: fillederrorbar.m,v 1.3 2005/06/16 19:01:22 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/13
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.70)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Plotting and Analysis for Neural Database-Oriented Research Applications
+(PANDORA) Toolbox -- User's and Programmer's Manual</TITLE>
+<META NAME="description" CONTENT="Plotting and Analysis for Neural Database-Oriented Research Applications
+(PANDORA) Toolbox -- User's and Programmer's Manual">
+<META NAME="keywords" CONTENT="prog-manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="prog-manual.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1575"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html1571"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1573"
+  HREF="node6.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1576"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html1572"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1574"
+  HREF="node6.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN=CENTER>Plotting and Analysis for Neural Database-Oriented Research Applications
+(PANDORA) Toolbox -- 
+<BR>
+User's and Programmer's Manual</H1>
+<P ALIGN=CENTER><STRONG>Cengiz G&#252;nay </STRONG></P>
+<BR><P ALIGN=CENTER><I>Date:</I> Document Revision , October 13, 2008</P>
+<P ALIGN=LEFT></P>
+
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html1577"
+  HREF="node1.html">Contents</A>
+<UL>
+<LI><A NAME="tex2html1578"
+  HREF="node1.html#SECTION01010000000000000000">1 Introduction</A>
+<UL>
+<LI><A NAME="tex2html1579"
+  HREF="node1.html#SECTION01011000000000000000">1.1 What is the PANDORA Toolbox?</A>
+<LI><A NAME="tex2html1580"
+  HREF="node1.html#SECTION01012000000000000000">1.2 Why did you make it?</A>
+<LI><A NAME="tex2html1581"
+  HREF="node1.html#SECTION01013000000000000000">1.3 How is it implemented?</A>
+<LI><A NAME="tex2html1582"
+  HREF="node1.html#SECTION01014000000000000000">1.4 How can I use it?</A>
+<LI><A NAME="tex2html1583"
+  HREF="node1.html#SECTION01015000000000000000">1.5 Who is it made for?</A>
+<LI><A NAME="tex2html1584"
+  HREF="node1.html#SECTION01016000000000000000">1.6 Finding your way around</A>
+<LI><A NAME="tex2html1585"
+  HREF="node1.html#SECTION01017000000000000000">1.7 Overview of this document</A>
+</UL>
+<LI><A NAME="tex2html1586"
+  HREF="node1.html#SECTION01020000000000000000">2 Installation</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1587"
+  HREF="node2.html">1 Software Architecture</A>
+<UL>
+<LI><A NAME="tex2html1588"
+  HREF="node2.html#SECTION02010000000000000000">3 Toolbox Components</A>
+<UL>
+<LI><A NAME="tex2html1589"
+  HREF="node2.html#SECTION02011000000000000000">3.1 Databases hold all the information</A>
+<LI><A NAME="tex2html1590"
+  HREF="node2.html#SECTION02012000000000000000">3.2 Datasets create the databases</A>
+<LI><A NAME="tex2html1591"
+  HREF="node2.html#SECTION02013000000000000000">3.3 Bundling the database and dataset together</A>
+<LI><A NAME="tex2html1592"
+  HREF="node2.html#SECTION02014000000000000000">3.4 Wrapper classes hold raw data</A>
+<LI><A NAME="tex2html1593"
+  HREF="node2.html#SECTION02015000000000000000">3.5 Profiles hold results of measurements</A>
+<LI><A NAME="tex2html1594"
+  HREF="node2.html#SECTION02016000000000000000">3.6 Integrated plotting for easy visualization</A>
+<LI><A NAME="tex2html1595"
+  HREF="node2.html#SECTION02017000000000000000">3.7 Miscellaneous classes</A>
+</UL>
+<LI><A NAME="tex2html1596"
+  HREF="node2.html#SECTION02020000000000000000">4 Programming Conventions</A>
+<UL>
+<LI><A NAME="tex2html1597"
+  HREF="node2.html#SECTION02021000000000000000">4.1 Using property structures for passing optional arguments to methods</A>
+<LI><A NAME="tex2html1598"
+  HREF="node2.html#SECTION02022000000000000000">4.2 Overloaded operators for transparent access to object contents</A>
+<LI><A NAME="tex2html1599"
+  HREF="node2.html#SECTION02023000000000000000">4.3 Troubleshooting errors</A>
+<LI><A NAME="tex2html1600"
+  HREF="node2.html#SECTION02024000000000000000">4.4 Creating a new class</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1601"
+  HREF="node3.html">2 User's Manual</A>
+<UL>
+<LI><A NAME="tex2html1602"
+  HREF="node3.html#SECTION03010000000000000000">5 Recipes for Common Tasks</A>
+<UL>
+<LI><A NAME="tex2html1603"
+  HREF="node3.html#SECTION03011000000000000000">5.1 Loading a database</A>
+<LI><A NAME="tex2html1604"
+  HREF="node3.html#SECTION03012000000000000000">5.2 Finding constrained subsets in a database</A>
+<LI><A NAME="tex2html1605"
+  HREF="node3.html#SECTION03013000000000000000">5.3 Sorting the database according to a measure</A>
+<LI><A NAME="tex2html1606"
+  HREF="node3.html#SECTION03014000000000000000">5.4 Preprocessing a raw (physiology) database</A>
+<LI><A NAME="tex2html1607"
+  HREF="node3.html#SECTION03015000000000000000">5.5 Making a database by merging multiple rows from another database</A>
+</UL>
+<LI><A NAME="tex2html1608"
+  HREF="node3.html#SECTION03020000000000000000">6 Visualization</A>
+<UL>
+<LI><A NAME="tex2html1609"
+  HREF="node3.html#SECTION03021000000000000000">6.1 Visualizing traces</A>
+<LI><A NAME="tex2html1610"
+  HREF="node3.html#SECTION03022000000000000000">6.2 Displaying database contents</A>
+<LI><A NAME="tex2html1611"
+  HREF="node3.html#SECTION03023000000000000000">6.3 Plotting all measure histograms</A>
+<LI><A NAME="tex2html1612"
+  HREF="node3.html#SECTION03024000000000000000">6.4 Plotting all parameter histograms</A>
+<LI><A NAME="tex2html1613"
+  HREF="node3.html#SECTION03025000000000000000">6.5 Plotting database statistics</A>
+<LI><A NAME="tex2html1614"
+  HREF="node3.html#SECTION03026000000000000000">6.6 Plotting parameter-measure variations</A>
+<LI><A NAME="tex2html1615"
+  HREF="node3.html#SECTION03027000000000000000">6.7 Insets</A>
+<LI><A NAME="tex2html1616"
+  HREF="node3.html#SECTION03028000000000000000">6.8 Generating a report comparing two databases</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1617"
+  HREF="node4.html">Bibliography</A>
+<LI><A NAME="tex2html1618"
+  HREF="node5.html">Appendices</A>
+<UL>
+<LI><A NAME="tex2html1619"
+  HREF="node5.html#SECTION05010000000000000000">1 Function Reference</A>
+<UL>
+<LI><A NAME="tex2html1620"
+  HREF="node5.html#SECTION05011000000000000000">1.1 Class <TT>chans_db</TT></A>
+<LI><A NAME="tex2html1621"
+  HREF="node5.html#SECTION05012000000000000000">1.2 Class <TT>cip_trace</TT></A>
+<LI><A NAME="tex2html1622"
+  HREF="node5.html#SECTION05013000000000000000">1.3 Class <TT>cip_trace_allspikes_profile</TT></A>
+<LI><A NAME="tex2html1623"
+  HREF="node5.html#SECTION05014000000000000000">1.4 Class <TT>cip_trace_profile</TT></A>
+<LI><A NAME="tex2html1624"
+  HREF="node5.html#SECTION05015000000000000000">1.5 Class <TT>cip_traces_dataset</TT></A>
+<LI><A NAME="tex2html1625"
+  HREF="node5.html#SECTION05016000000000000000">1.6 Class <TT>cip_traceset</TT></A>
+<LI><A NAME="tex2html1626"
+  HREF="node5.html#SECTION05017000000000000000">1.7 Class <TT>cip_traceset_dataset</TT></A>
+<LI><A NAME="tex2html1627"
+  HREF="node5.html#SECTION05018000000000000000">1.8 Class <TT>cluster_db</TT></A>
+<LI><A NAME="tex2html1628"
+  HREF="node5.html#SECTION05019000000000000000">1.9 Class <TT>corrcoefs_db</TT></A>
+<LI><A NAME="tex2html1629"
+  HREF="node5.html#SECTION050110000000000000000">1.10 Class <TT>dataset_db_bundle</TT></A>
+<LI><A NAME="tex2html1630"
+  HREF="node5.html#SECTION050111000000000000000">1.11 Class <TT>doc_generate</TT></A>
+<LI><A NAME="tex2html1631"
+  HREF="node5.html#SECTION050112000000000000000">1.12 Class <TT>doc_multi</TT></A>
+<LI><A NAME="tex2html1632"
+  HREF="node5.html#SECTION050113000000000000000">1.13 Class <TT>doc_plot</TT></A>
+<LI><A NAME="tex2html1633"
+  HREF="node5.html#SECTION050114000000000000000">1.14 Class <TT>histogram_db</TT></A>
+<LI><A NAME="tex2html1634"
+  HREF="node5.html#SECTION050115000000000000000">1.15 Class <TT>model_ct_bundle</TT></A>
+<LI><A NAME="tex2html1635"
+  HREF="node5.html#SECTION050116000000000000000">1.16 Class <TT>model_ranked_to_physiol_bundle</TT></A>
+<LI><A NAME="tex2html1636"
+  HREF="node5.html#SECTION050117000000000000000">1.17 Class <TT>params_cip_trace_fileset</TT></A>
+<LI><A NAME="tex2html1637"
+  HREF="node5.html#SECTION050118000000000000000">1.18 Class <TT>params_tests_dataset</TT></A>
+<LI><A NAME="tex2html1638"
+  HREF="node5.html#SECTION050119000000000000000">1.19 Class <TT>params_tests_db</TT></A>
+<LI><A NAME="tex2html1639"
+  HREF="node5.html#SECTION050120000000000000000">1.20 Class <TT>params_tests_fileset</TT></A>
+<LI><A NAME="tex2html1640"
+  HREF="node5.html#SECTION050121000000000000000">1.21 Class <TT>params_tests_profile</TT></A>
+<LI><A NAME="tex2html1641"
+  HREF="node5.html#SECTION050122000000000000000">1.22 Class <TT>period</TT></A>
+<LI><A NAME="tex2html1642"
+  HREF="node5.html#SECTION050123000000000000000">1.23 Class <TT>physiol_bundle</TT></A>
+<LI><A NAME="tex2html1643"
+  HREF="node5.html#SECTION050124000000000000000">1.24 Class <TT>physiol_cip_traceset</TT></A>
+<LI><A NAME="tex2html1644"
+  HREF="node5.html#SECTION050125000000000000000">1.25 Class <TT>physiol_cip_traceset_fileset</TT></A>
+<LI><A NAME="tex2html1645"
+  HREF="node5.html#SECTION050126000000000000000">1.26 Class <TT>plot_abstract</TT></A>
+<LI><A NAME="tex2html1646"
+  HREF="node5.html#SECTION050127000000000000000">1.27 Class <TT>plot_bars</TT></A>
+<LI><A NAME="tex2html1647"
+  HREF="node5.html#SECTION050128000000000000000">1.28 Class <TT>plot_errorbar</TT></A>
+<LI><A NAME="tex2html1648"
+  HREF="node5.html#SECTION050129000000000000000">1.29 Class <TT>plot_errorbars</TT></A>
+<LI><A NAME="tex2html1649"
+  HREF="node5.html#SECTION050130000000000000000">1.30 Class <TT>plot_image</TT></A>
+<LI><A NAME="tex2html1650"
+  HREF="node5.html#SECTION050131000000000000000">1.31 Class <TT>plot_inset</TT></A>
+<LI><A NAME="tex2html1651"
+  HREF="node5.html#SECTION050132000000000000000">1.32 Class <TT>plot_simple</TT></A>
+<LI><A NAME="tex2html1652"
+  HREF="node5.html#SECTION050133000000000000000">1.33 Class <TT>plot_stack</TT></A>
+<LI><A NAME="tex2html1653"
+  HREF="node5.html#SECTION050134000000000000000">1.34 Class <TT>plot_superpose</TT></A>
+<LI><A NAME="tex2html1654"
+  HREF="node5.html#SECTION050135000000000000000">1.35 Class <TT>ranked_db</TT></A>
+<LI><A NAME="tex2html1655"
+  HREF="node5.html#SECTION050136000000000000000">1.36 Class <TT>results_profile</TT></A>
+<LI><A NAME="tex2html1656"
+  HREF="node5.html#SECTION050137000000000000000">1.37 Class <TT>script_array</TT></A>
+<LI><A NAME="tex2html1657"
+  HREF="node5.html#SECTION050138000000000000000">1.38 Class <TT>script_array_for_cluster</TT></A>
+<LI><A NAME="tex2html1658"
+  HREF="node5.html#SECTION050139000000000000000">1.39 Class <TT>script_factory</TT></A>
+<LI><A NAME="tex2html1659"
+  HREF="node5.html#SECTION050140000000000000000">1.40 Class <TT>spike_shape</TT></A>
+<LI><A NAME="tex2html1660"
+  HREF="node5.html#SECTION050141000000000000000">1.41 Class <TT>spike_shape_profile</TT></A>
+<LI><A NAME="tex2html1661"
+  HREF="node5.html#SECTION050142000000000000000">1.42 Class <TT>spikes</TT></A>
+<LI><A NAME="tex2html1662"
+  HREF="node5.html#SECTION050143000000000000000">1.43 Class <TT>spikes_db</TT></A>
+<LI><A NAME="tex2html1663"
+  HREF="node5.html#SECTION050144000000000000000">1.44 Class <TT>sql_portal</TT></A>
+<LI><A NAME="tex2html1664"
+  HREF="node5.html#SECTION050145000000000000000">1.45 Class <TT>stats_db</TT></A>
+<LI><A NAME="tex2html1665"
+  HREF="node5.html#SECTION050146000000000000000">1.46 Class <TT>tests_3D_db</TT></A>
+<LI><A NAME="tex2html1666"
+  HREF="node5.html#SECTION050147000000000000000">1.47 Class <TT>tests_db</TT></A>
+<LI><A NAME="tex2html1667"
+  HREF="node5.html#SECTION050148000000000000000">1.48 Class <TT>trace</TT></A>
+<LI><A NAME="tex2html1668"
+  HREF="node5.html#SECTION050149000000000000000">1.49 Class <TT>trace_profile</TT></A>
+<LI><A NAME="tex2html1669"
+  HREF="node5.html#SECTION050150000000000000000">1.50 Utility functions</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1670"
+  HREF="node6.html">Index</A>
+<LI><A NAME="tex2html1671"
+  HREF="node7.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+Cengiz Gunay
+2008-10-13
+</ADDRESS>
+</BODY>
+</HTML>

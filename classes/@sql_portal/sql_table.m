@@ -20,7 +20,7 @@ function sql_table(a_sql_portal, a_tests_db, table_label, props)
 %
 % See also: tests_db/tests_db, database, sql_portal/tests_db
 %
-% $Id: sql_table.m 818 2007-08-28 20:28:51Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/12/17
 

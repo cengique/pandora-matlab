@@ -23,7 +23,9 @@ function a_db = joinRows(a_db, w_db, props)
 %	  keepNaNs: If 1, substitute NaN values for NaN indices. 
 %		    (default=1, for multi-page DBs; 0, otherwise).
 %	  multipleIndices: If 1, search for substitute RowIndex* columns for
-%	  	indices with NaN values. It will fail if all indices are NaNs. (default=0)
+%	  	indices with NaN values. It will fail if all indices are
+%	  	NaNs. (default=0)
+%	  keepIndex: If 1, don't delete the indexColName (default='RowIndex')
 %		
 %   Returns:
 %	a_db: A tests_db object.
@@ -59,8 +61,11 @@ else
   index_col_name = 'RowIndex';
 end
 
-% remove the index column from w_db
-wd_db = delColumns(w_db, index_col_name);
+wd_db = w_db;
+if ~isfield(props, 'keepIndex')
+  % remove the index column from w_db
+  wd_db = delColumns(w_db, index_col_name);
+end
 w_data = get(wd_db, 'data');
 
 cols_cell1 = getColNames(a_db);

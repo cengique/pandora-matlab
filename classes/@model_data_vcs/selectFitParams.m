@@ -21,7 +21,7 @@ function a_md = selectFitParams(a_md, select_what, fit_nofit, props)
 %
 % See also: model_data_vcs, model_data_vcs/fit, voltage_clamp, plot_abstract, plotFigure
 %
-% $Id: selectFitParams.m 234 2010-10-21 22:06:52Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2010/10/23
 

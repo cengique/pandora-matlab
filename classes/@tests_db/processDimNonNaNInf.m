@@ -3,7 +3,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 % processDimNonNaNInf - Recursively process the specified dimension with the desired function after removing NaNs and Infs.
 %
 % Usage:
-% [a_db, n] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
+% [a_db, n, i] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 %
 % Parameters:
 %   a_db: A tests_db object.
@@ -17,6 +17,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 %   a_db: The DB with one row of max values, with selected dimension
 %	replaced by the output of the given function.
 %   n: (Optional) Numbers of used values in each call of a_func.
+%   i: (Optional) Indices returned by a_func.
 %
 % Description:
 %   Does a recursive operation over other dimensions in order to remove
@@ -31,7 +32,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 %
 % See also: max, mean, feval, tests_db
 %
-% $Id: mean.m 909 2008-01-10 05:08:34Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2008/05/27
 
@@ -40,7 +41,7 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
-
+  
   if ~ exist('dim', 'var')
     dim = 1; % Go down rows by default
   end
@@ -71,8 +72,8 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
   s = repmat(NaN, [1 db_size(2:end)]);
   
   % Do a loop over EACH other dimension (!)
-  [s, n] = processRecurseRowsNonNaNInf(data, length(db_size), ...
-                                       a_func);
+  [s, n, i] = processRecurseRowsNonNaNInf(data, length(db_size), ...
+                                          a_func);
   
   if dim ~= 1
     s = ipermute(s, order);
@@ -80,10 +81,26 @@ function [a_db, varargout] = processDimNonNaNInf(a_db, dim, a_func, a_func_name)
 
   a_db = set(a_db, 'id', [ a_func_name ' of ' get(a_db, 'id') ]);
   a_db = set(a_db, 'data', s);
+  
+  % update db structures
+  switch dim
+    case 1
+      a_db = set(a_db, 'row_idx', struct(a_func_name, 1));
+    case 2
+      a_db = set(a_db, 'col_idx', struct(a_func_name, 1));
+    case 3
+      if isa(a_db, 'tests_3D_db')
+        a_db = set(a_db, 'page_idx', struct(a_func_name, 1));
+      end
+  end
 
   nout = max(nargout,1) - 1;
 
   % put optional output argument
   if nout > 0
     varargout{1} = n;
+    if nout > 1
+      varargout{2} = i;
+    end
+
   end

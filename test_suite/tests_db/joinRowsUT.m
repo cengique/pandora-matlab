@@ -14,7 +14,7 @@ function failed = joinRowsUT
 %
 % See also: 
 %
-% $Id: joinRows.m 989 2008-03-07 21:35:19Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/10/16
 

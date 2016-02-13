@@ -69,7 +69,9 @@ function [results, period_spikes, a_spikes_db, spikes_stats_db, spikes_hists_dbs
 	if strcmp(err.identifier, 'spike_shape:not_a_spike')
 	  % TODO: remove this spike from the a_spikes object
 	  % Leave as empty shape object
-	  warning('spike_shape:info', 'Not a spike: %s.', get(s, 'id'))
+	  warning('spike_shape:info', ...
+                  [ 'Deleting spike: %s because:' ...
+                    sprintf('\n') err.message ], get(s, 'id'));
 	else
 	  warning('trace:info', 'Rethrowing error in %s spikes:', prefix_str);
 	  rethrow(err);

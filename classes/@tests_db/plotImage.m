@@ -22,7 +22,7 @@ function a_p = plotImage(a_db, par1, par2, col, title_str, short_title, props)
 %
 % See also: plotScatter, plotScatter3D
 %
-% $Id: plotImage.m 1096 2008-05-27 20:24:25Z cengiz $
+% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2009/02/17
 

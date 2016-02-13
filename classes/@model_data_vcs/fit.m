@@ -1,9 +1,9 @@
-function a_md = fit(a_md, title_str, props)
+function [a_md a_doc] = fit(a_md, title_str, props)
 
 % fit - Fit model to data.
 %
 % Usage:
-% a_md = fit(a_md, title_str, props)
+% [a_md a_doc] = fit(a_md, title_str, props)
 %
 % Parameters:
 %   a_md: A model_data_vcs object.
@@ -12,7 +12,8 @@ function a_md = fit(a_md, title_str, props)
 %     		optimization. Note that simulated range must include prior
 %     		stimulation steps to set state of diff. eqs.
 %     fitRangeRel: Like fitRange, but relative to first voltage step
-%     		[ms]. Specify any other voltage step as the first element.
+%     		[ms]. Specify any other voltage step as the first
+%     		element. See getTimeRelStep.
 %     outRangeRel: Only use this range of the simulated data for
 %     		fitting. Defined same as fitRangeRel. Multiple rows can contain
 %     		separate ranges are patched together.
@@ -26,14 +27,23 @@ function a_md = fit(a_md, title_str, props)
 %     saveModelAutoNum: Use this as a base number and use saveModelFile as sprintf formatted
 %     		string that includes a number string (e.g., '%d') and increment it
 %     		until a non-existing file name is found.
-%     savePlotFile: If given, save the plot to this file every dispPlot iteration.
-%     plotMd: model_data_vcs or subclass object to be used for plots.
+%     savePlotFile: If given, save the plot to this file every dispPlot iteration as the model file.
+%     plotMd: model_data_vcs or subclass object to be used for
+%     		plots. This reuses the data in the md and only updates the model
+%     		parameters in the plot.
 %     quiet: If 1, do not include cell name on title.
 % 
 % Returns:
 %   a_md: Updated model_data_vcs object with fit.
+%   a_doc: A doc_plot object containing the annotated figure.
 %
 % Description:
+%   Caveat: what you see in the plots may be different that what the
+% algorithm is comparing for the fits if you provide fitRange or
+% fitRangeRel because the plots will simulate the whole range
+% anyway. Therefore the plots will always have a more correct output than
+% the fitting algorithm -- especially if you selected a too narrow
+% simlation range that doesn't let the model react to voltage levels.
 %
 % Example:
 % >> a_md = ...
@@ -42,7 +52,7 @@ function a_md = fit(a_md, title_str, props)
 %             'dispParams', 5, ...
 %             'optimset', struct('Display', 'iter')));
 %
-% See also: param_I_v, param_func
+% See also: param_I_v, param_func, doc_plot, voltage_clamp/getTimeRelStep
 %
 % $Id$
 %
@@ -51,7 +61,8 @@ function a_md = fit(a_md, title_str, props)
 % TODO: 
 % - remove title_str parameter
 % - process 2nd step and write a 2nd data file for prepulse step
-% - prepare a doc_multi from this. Find a way to label figures but print later.
+% - prepare a doc_multi from this. Find a way to label figures but print
+% later. Or print later to overwrite file?
 % - also plot IClCa m_infty curve?
 % - have option to show no plots, to create database of params
 % - extract fitting to a separate function that returns the optimized _f
@@ -73,7 +84,7 @@ if ~ isempty(range_rel)
     step_num = range_rel(1);
     range_rel = range_rel(2:end);
   else
-    step_num = 1;
+    step_num = 2; % For after first voltage change
   end
   % if relative, calc from step times
   range_maxima = ...
@@ -92,6 +103,9 @@ range_cap_resp = round(range_maxima.start_time):round(range_maxima.end_time);
 
 % TODO: temporary fix!
 if isfield(props, 'outRangeRel')
+  if ~ isfield(props, 'skipStep')
+    props.skipStep = props.outRangeRel(1, 1) - 2; % take as default
+  end
   % adjust relative to simulated part
   plot_zoom = [];
   for range_num = 1:size(props.outRangeRel, 1)
@@ -191,9 +205,10 @@ end
     fig_props = struct;
   end
   
-  function dispPlot(a_model)
+  function a_plot = dispPlot(a_model)
   % is plotting disabled?
     if isfield(props, 'dispPlot') && props.dispPlot == 0
+        a_plot = [];
       return;
     end
     
@@ -210,32 +225,24 @@ end
           properTeXLabel([ num_iter_label extra_text title_str ]);
     end
 
-    % TODO: fix problem of compatibility with model_data_vcs_Kprepulse
-    % this should all be in a_md/plot_abstract
-      fig_handle = ...
-          plotFigure(plot_abstract(updateModel(props.plotMd, a_model), ...
-                                   all_title, ...
-                                   mergeStructs(props, struct(... %'levels', use_levels, ...
-                                          'axisLimits', ...
-                                          plot_zoom))), ...
-                     '', fig_props);
+    % use generic model_data_vcs/plot_abtract method
+    a_plot = ...
+        plot_abstract(updateModel(props.plotMd, a_model), ...
+                      all_title, ...
+                      mergeStructs(props, ...
+                                   struct(... %'levels', use_levels, ...
+                                     'axisLimits', plot_zoom)));
 
-% $$$       fig_handle = ...
-% $$$           plotFigure(...
-% $$$             plotDataCompare(b_md, all_title, ...
-% $$$                             struct('levels', use_levels, ...
-% $$$                                    'show', 'sub', ...
-% $$$                                    'axisLimits', ...
-% $$$                                    [range_maxima.start_time ...
-% $$$                           * dt, range_maxima.end_time * dt NaN NaN], ...
-% $$$                                    'fixedSize', [4 3], 'noTitle', 1)), '', ...
-% $$$             fig_props);
+    % create or update figure
+    fig_handle = ...
+          plotFigure(a_plot, '', fig_props);
 
-      fig_props = mergeStructs(struct('figureHandle', fig_handle), ...
-                               fig_props);
-      if isfield(props, 'savePlotFile')
-        print(fig_handle, '-depsc2', props.savePlotFile);
-      end
+    fig_props = mergeStructs(struct('figureHandle', fig_handle), ...
+                             fig_props);
+    
+    if isfield(props, 'savePlotFile')
+      print(fig_handle, '-depsc2', props.savePlotFile);
+    end
   end
 
   params = getParamsStruct(f_model);
@@ -245,12 +252,17 @@ if ~ isempty(use_levels)
 
   % save before optimization
   f_model_orig = f_model;
-  
+
+  % TODO: models are unitless, but we should have units and use vc.dy here
+
+  % assume models produce current in nA
+  nA_scale = data_vc.i.dy / 1e-9;
+
   % optimize
   f_model = ...
       optimize(f_model, ...
                struct('v', data_vc.v.data(range_cap_resp, use_levels), 'dt', dt), ...
-               data_vc.i.data(range_cap_resp, use_levels), ...
+               data_vc.i.data(range_cap_resp, use_levels) * nA_scale, ...
                props);
 
   % show all parameters (only the ones optimized)
@@ -261,8 +273,21 @@ if ~ isempty(use_levels)
 
   % nicely plot current and voltage trace in separate axes only for
   % part fitted
-  dispPlot(f_model);
+  a_plot = dispPlot(f_model);
 
+  if nargout > 1
+    % strip directory name from output file
+    [pathstr,namenoext,ext] = ...
+        fileparts(getFieldDefault(props, 'savePlotFile', ...
+                                         [ get(a_md, 'id') ]));
+    a_doc = doc_plot(a_plot, [ get(a_md, 'id') ' ' all_title], ...
+                     namenoext, ...
+                     struct, [ get(a_md, 'id') ], ...
+                     struct('docDir', [pathstr filesep], ...
+                            'plotRelDir', ''));
+  end
+
+  
 end
 
 end

@@ -20,7 +20,7 @@ function [ratio_x, ratio_y] = calcGraphNormPtsRatio(grfx_handle)
 % To find the normalized distance for a 10pt character:
 % >> dx = 10 * calcGraphNormPtsRatio(my_figure_handle);
 %
-% $Id: calcGraphNormPtsRatio.m,v 1.2 2006/08/11 16:52:14 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2006/03/05
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

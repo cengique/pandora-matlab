@@ -18,7 +18,7 @@ function new_struct = prefixStruct(a_struct, prefix_str)
 % prefixStruct( struct('bye', 1), 'hello');
 %  => struct('hellobye', 1)
 %
-% $Id: prefixStruct.m,v 1.2 2005/05/08 00:03:02 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2004/12/22
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.

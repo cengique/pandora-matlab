@@ -28,7 +28,11 @@ function a_profile = cip_trace_profile(traceset, trace_index)
 
 traceset_props = get(traceset, 'props');
 
-if ~ isfield(traceset_props, 'profile_class_name')
+if isfield(traceset_props, 'profile_class_name')
+  error('Prop "profile_class_name" is superceded with "profile_method_name"');
+end
+
+if ~ isfield(traceset_props, 'profile_method_name')
   % First call CIPform and get necessary parameters
   [type, on, off, finish, bias, pulse] = CIPform(traceset, trace_index);
   pulse_time_start=on;
@@ -54,5 +58,5 @@ else
   % with the cip_trace parameter
   a_cip_trace = cip_trace(traceset, trace_index);
   a_profile = ...
-      feval(traceset_props.profile_class_name, a_cip_trace);
+      feval(traceset_props.profile_method_name, a_cip_trace);
 end

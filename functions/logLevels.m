@@ -14,7 +14,7 @@ function levels = logLevels(min_val, max_val, num_levels)
 %
 % Description:
 %
-% $Id: logLevels.m,v 1.1 2006/03/13 23:16:31 cengiz Exp $
+% $Id$
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/04/18
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
