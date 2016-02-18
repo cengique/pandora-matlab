@@ -14,6 +14,9 @@ Installation:
 Use the addpath Matlab command to add the classes/ and functions/
 subdirectories to the Matlab search path.
 
+Transition into v2.0:
+Also add the subdirectories found under `matlab/`
+
 Documentation:
 --------------------
 
