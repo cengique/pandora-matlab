@@ -91,6 +91,21 @@ elseif isfield(t.props, 'spike_finder') && ...
     [times, peaks, n] = ...
       findspikes_old(t.data(a_period.start_time:a_period.end_time) * mV_factor, ...
 		 t.props.threshold, plotit);
+elseif isfield(t.props, 'spike_finder') && ...
+        t.props.spike_finder == 4
+  % use the findpeaks method
+  findpeaks_args = getFieldDefault(t.props, 'findpeaksArgs', {});
+  findpeaks_sign = getFieldDefault(t.props, 'findpeaksSign', 1);
+  findpeaks_threshold = getFieldDefault(t.props, 'threshold', -Inf);
+  if plotit > 0
+    findpeaks_args = [findpeaks_args, {'Annotate', 'extents'} ];
+  end
+  [peaks, times, widths] = ...
+      findpeaks(findpeaks_sign * t.data(a_period.start_time:a_period.end_time), ...
+                1/t.dt, 'MinPeakHeight', findpeaks_threshold * findpeaks_sign, ...
+                findpeaks_args{:});
+  peaks = peaks * findpeaks_sign * t.dy;
+  times = times / t.dt;
 else 
   % Assume spike_finder == 1 for filtered method.
   % Pass t.props:
@@ -98,7 +113,17 @@ else
       findFilteredSpikes(t, a_period, plotit, minamp, t.props);
 end
 
-obj = spikes(times, length(t.data), t.dt, t.id);
+spikes_props = struct;
+
+if exist('peaks', 'var')
+  spikes_props.peaks = peaks;
+end
+
+if exist('widths', 'var')
+  spikes_props.widths = widths;
+end
+
+obj = spikes(times, length(t.data), t.dt, t.id, spikes_props);
 
 else
 

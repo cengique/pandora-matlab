@@ -7,7 +7,7 @@ function t = lowpassfilt(t, n, cutoff_freq)
 %
 % Parameters:
 %   t: A trace object.
-%   n: Order of the filter
+%   n: Order of the filter (e.g., 2)
 %   cutoff_freq: Cutoff frequency, max <= sampling rate/2 [Hz].
 %
 % Returns:
