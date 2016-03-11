@@ -16,6 +16,8 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %     		regression and displays statistics: R^2, F, p, and the error variance. 
 %     colorTest: Use this column as index into colormap.
 %     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
+%     command: Plot command to use (default: 'scatter'). If 'plot' is
+%     		selected, colormap cannot be used.
 %     numColors: Number of colors desired in colormap (default: 50).
 %     quiet: If 1, don't include database name on title.
 %     markerArea: Passed as the 'area' argument to scatter (default=36).
@@ -25,10 +27,12 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %   a_p: A plot_abstract.
 %
 % Description:
+%   Newer versions of Matlab (e.g. R2014b) won't allow line styles in
+% a scatter plot. To draw lines between points, one can switch to the
+% default 'plot' function using the 'command' prop (see above) - but at
+% the expense of losing the ability to use different colors for each point.
 %
 % See also: plotScatter3D, plotImage
-%
-% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/29
 
@@ -131,10 +135,16 @@ else
 end
 
 area = getFieldDefault(props, 'markerArea', 36); % default
+plot_command = getFieldDefault(colormap_props, 'command', 'scatter');
+if strcmp(plot_command, 'scatter')
+  plot_data = {area, color, line_style{:}};
+elseif strcmp(plot_command, 'plot')
+  plot_data = {line_style{:}};
+end
 col_labels = strrep({test_names{[col1 col2]}}, '_', ' ');
-a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), area, color, line_style{:}}, ...
+a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), plot_data{:}}, ...
                     a_colormap, num_colors, ...
-                    mergeStructs(struct('command', 'scatter'), colormap_props)}, ...
+                    mergeStructs(struct('command', plot_command), colormap_props)}, ...
 		    { col_labels{:} }, ...
 		    all_title, { short_title }, @plotColormap, ...
 		    props); 
