@@ -140,6 +140,9 @@ if strcmp(plot_command, 'scatter')
   plot_data = {area, color, line_style{:}};
 elseif strcmp(plot_command, 'plot')
   plot_data = {line_style{:}};
+else
+  error(['Commands allowed: scatter and plot. Cannot use command: ' ...
+         plot_command ]);
 end
 col_labels = strrep({test_names{[col1 col2]}}, '_', ' ');
 a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), plot_data{:}}, ...
