@@ -16,6 +16,8 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %     		regression and displays statistics: R^2, F, p, and the error variance. 
 %     colorTest: Use this column as index into colormap.
 %     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
+%     minValue, maxValue: Set boundaries for the displayed colors (see
+%     		plotColormap). Values outside of the boundaries will be truncated.
 %     command: Plot command to use (default: 'scatter'). If 'plot' is
 %     		selected, colormap cannot be used.
 %     numColors: Number of colors desired in colormap (default: 50).
@@ -110,9 +112,21 @@ if isfield(props, 'colorTest')
   if isa(a_colormap, 'function_handle') || ischar(a_colormap)
     a_colormap = feval(a_colormap, num_colors);
   end
-  val_extrema = [min(color_test), max(color_test)];
-  color_idx = round((color_test - val_extrema(1)) .* (num_colors - 1) ...
-                    ./ diff(val_extrema)) + 1;
+  num_colors = size(a_colormap, 1);     % update it
+  
+  if isfield(props, 'maxValue')
+    max_val = props.maxValue;
+  else
+    max_val = max(color_test);
+  end
+
+  if isfield(props, 'minValue')
+    min_val = props.minValue;
+  else
+    min_val = min(color_test);
+  end
+  color_idx = round((color_test - min_val) .* (num_colors - 1) ...
+                    ./ (max_val - min_val)) + 1;
   if any(isnan(color_test))
     nan_color = [0 0 0]; % add black for nans at end
     color_idx(isnan(color_idx)) = num_colors + 1;
@@ -120,11 +134,12 @@ if isfield(props, 'colorTest')
     nan_color = [];
   end
   a_colormap = [a_colormap; nan_color];
-  color = a_colormap(color_idx, :);
+  % choose colors, but truncated at given min and max values
+  color = a_colormap(max(min(color_idx, size(a_colormap, 1)), 1), :);
   colormap_props = ...
       mergeStructsRecursive(struct('colorbar', 1, 'colorbarLabel', color_test_name{1}, ...
-                                   'minValue', min(color_test), ...
-                                   'maxValue', max(color_test)), ...
+                                   'minValue', min_val, ...
+                                   'maxValue', max_val), ...
                             props);
 
 else
