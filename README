@@ -11,8 +11,12 @@ PANDORA is a Matlab Toolbox that:
 Installation:
 --------------------
 
-Use the addpath Matlab command to add the classes/ and functions/
-subdirectories to the Matlab search path.
+Select 'Set Path' option or use the addpath Matlab command to add the classes/ and functions/
+subdirectories to the Matlab search path. For example:
+    addpath <DOWNLOAD DIRECTORY>/classes
+    addpath <DOWNLOAD DIRECTORY>/functions
+    
+To test the installation try `help tests_db` and `help collectspikes`, which should give you their help text.
 
 Documentation:
 --------------------
