@@ -24,7 +24,7 @@ plotFigure(plot_abstract(a_vc, '', ...
                                 'noTitle', 1, 'xTicksPos', 'bottom', ...
                                 'axisLimits', [20 190 NaN NaN])))
 % manually zoom to voltage levels and print
-print -depsc2 traces_vc_full.eps
+%print -depsc2 traces_vc_full.eps
 
 % plot select
 plotFigure(plot_abstract(vc_select, '', ...
@@ -105,7 +105,7 @@ Na_md = ...
 % plot comparison of data vs model
 plot(Na_md)
 
-%% Start fitting active channel
+%% Start fitting active channel - needs to be Calcium
 
 % freeze passive model and only let Na chan params to change
 
