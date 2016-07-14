@@ -1,18 +1,20 @@
-function s = displayRows(db, rows)
+function s = displayRows(db, rows, props)
 
 % displayRows - Displays rows of rankings together with errors associated with each measure.
 %
 % Usage:
-% s = displayRows(db, rows)
+% s = displayRows(db, rows, props)
+%
+% Parameters:
+%   db: A tests_db object.
+%   rows: Indices of rows in db.
+%   props: Struct with optional properties.
+%     originalCols: Column pattern to limit result of joinOriginal.
+%		
+% Returns:
+%   s: A structure of column name and value pairs.
 %
 % Description:
-%
-%   Parameters:
-%	db: A tests_db object.
-%	rows: Indices of rows in db.
-%		
-%   Returns:
-%	s: A structure of column name and value pairs.
 %
 % See also: tests_db
 %
@@ -30,8 +32,12 @@ if ~ exist('rows', 'var')
   rows = ':';
 end
 
+props = defaultValue('props', struct);
+orig_cols = getFieldDefault(props, 'originalCols', ':');
+
 % Join with original here. Only joins the requested rows.
 joined_db = joinOriginal(db, rows);
+joined_db = joined_db(:, orig_cols);
 joined_data = joined_db.data;
 
 % Ignore NeuronId?

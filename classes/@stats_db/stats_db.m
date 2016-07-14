@@ -13,9 +13,10 @@ function a_stats_db = ...
 %   This is a subclass of tests_3D_db. Allows generating a plot, etc.
 %
 %   Parameters:
-%	test_results: The 3-d array of rows, columns, and pages.
+%	test_results: The 3-d array of rows, columns, and pages. Will*/
+%		also accept a tests_db object, but row_names must also be supplied.
 %	col_names: Test names in this db.
-%	row_names: Statistical test names for each row.
+%	row_names: Statistical test names for each row (e.g., mean, STD, SE, etc.)
 %	page_names: Meaning of each separate page of data 
 %		(e.g., a different invariant parameter).
 %	id: An identifying string.
@@ -52,6 +53,12 @@ if nargin == 0 % Called with no params
   a_stats_db = class(a_stats_db, 'stats_db', tests_3D_db);
 elseif isa(test_results, 'stats_db') % copy constructor?
   a_stats_db = test_results;
+elseif isa(test_results, 'tests_db') % copy from tests_db
+  a_stats_db = class(struct, 'stats_db', ...
+		     tests_3D_db(test_results));
+  
+  % make sure row names are specified
+  a_stats_db.tests_3D_db.tests_db.row_idx = makeIdx(row_names);
 else
   
   if ~ exist('props', 'var')

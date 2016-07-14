@@ -2,6 +2,7 @@ THE PANDORA TOOLBOX
 ====================
 
 PANDORA is a Matlab Toolbox that: 
+
 - Makes database management accessible from your electrophysiology project; 
 - Works offline within Matlab; 
 - Requires no external software; 
@@ -11,8 +12,16 @@ PANDORA is a Matlab Toolbox that:
 Installation:
 --------------------
 
-Use the addpath Matlab command to add the classes/ and functions/
-subdirectories to the Matlab search path.
+Use the 'Download ZIP' option to download the latest version from the
+Github page. Select 'Set Path' option or use the addpath Matlab
+command to add the `classes/` and `functions/` subdirectories to the
+Matlab search path. For example:
+
+    addpath <DOWNLOAD DIRECTORY>/classes
+    addpath <DOWNLOAD DIRECTORY>/functions
+    
+To test the installation try `help tests_db` and `help collectspikes`,
+which should give you their help text.
 
 Transition into v2.0:
 Also add the subdirectories found under `matlab/`
@@ -25,15 +34,12 @@ See the PDF and HTML manuals under the doc/ directory.
 Copyright:
 --------------------
 
-Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
+Copyright (c) 2007-16 Cengiz Gunay <cengique@users.sf.net>.
 This work is licensed under the Academic Free License ("AFL")
 v. 3.0. To view a copy of this license, please look at the COPYING
 file distributed with this software or visit
 http://opensource.org/licenses/afl-3.0.txt.
 
-For more information and to download the latest version visit:
+For more information and to download previous release versions visit:
 http://software.incf.org/software/pandora
 
-Cengiz Gunay 
-cengique@users.sf.net
-2007-08-08

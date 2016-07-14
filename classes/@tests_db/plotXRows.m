@@ -5,19 +5,19 @@ function a_p = plotXRows(a_db, test_y, title_str, short_title, props)
 % Usage:
 % a_p = plotXRows(a_db, test_y, title_str, short_title, props)
 %
-% Description:
-%
-%   Parameters:
-%	a_db: A params_tests_db object.
-%	test_y: Y variable.
-%	title_str: (Optional) A string to be concatanated to the title.
-%	short_title: (Optional) Few words that may appear in legends of multiplot.
-%	props: A structure with any optional properties passed to
-%		plotScatter.
-%	  RowName: Label to show on X-axis, becomes a db column (default='RowNumber')
+% Parameters:
+%   a_db: A params_tests_db object.
+%   test_y: Y variable.
+%   title_str: (Optional) A string to be concatanated to the title.
+%   short_title: (Optional) Few words that may appear in legends of multiplot.
+%   props: A structure with any optional properties passed to plotScatter.
+%     RowName: Label to show on X-axis, becomes a db column (default='RowNumber')
+%     Vertical: If provided, put the rows on the Y-axis instead.
 %		
-%   Returns:
-%	a_p: A plot_abstract.
+% Returns:
+%   a_p: A plot_abstract.
+%
+% Description:
 %
 % See also: 
 %
@@ -52,4 +52,8 @@ end
 col_added_db = addColumns(a_db, {new_col_name}, ...
                           repmat((1:dbsize(a_db, 1))', [1 1 dbsize(a_db, 3)]));
 
-a_p = plotScatter(col_added_db, new_col_name, test_y, title_str, short_title, props);
+if isfield(props, 'Vertical')
+  a_p = plotScatter(col_added_db, test_y, new_col_name, title_str, short_title, props);
+else
+  a_p = plotScatter(col_added_db, new_col_name, test_y, title_str, short_title, props);
+end

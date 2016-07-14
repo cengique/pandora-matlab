@@ -51,14 +51,18 @@ function obj = trace(data_src, dt, dy, id, props)
 %         traces: Trace numbers as a numeric array or as a string with
 %         	numeric ranges (e.g., '1 2 5-10 28') for PCDX files.
 %	  spike_finder: Method of finding spikes 
-%	                (1 for findFilteredSpikes, 2 for Li Su's
-%	                findspikes, and 3 for Alfonso Delgado Reyes's 
-%			findspikes_old). Methods 2 and 3 require a threshold.
+%	                (1 uses findFilteredSpikes.m, 2 for Li Su's
+%	                findspikes, 3 for Alfonso Delgado Reyes's 
+%			findspikes_old, and 4 for using Matlab's
+%			findpeaks method). Methods 2-4 require a
+%			threshold. For method 4, see additional findpeaks*
+%			props below.
 %	  threshold: Spike finding threshold. For the findspikes method,
 %	  	     it is either a scalar, or [thres1 thres2] to define
 %	  	     a range. For findFilteredSpikes it is used on the
 %	  	     filtered data and the default is 2/3 max amplitude
-%	  	     of band-passed data, but with a minimum of 15. 
+%	  	     of band-passed data, but with a minimum of
+%	  	     15. For findpeaks, it sets the MinPeakHeight parameter.
 %         downThreshold: (Only for findFilteredSpikes) Size of the trough
 %         	     after the spike peak in filtered data (Default=-2).
 %	  minInit2MaxAmp, minMin2MaxAmp: For spike_shape elimination,
@@ -79,6 +83,9 @@ function obj = trace(data_src, dt, dy, id, props)
 %                      hold the filter.
 %         lowPassFreq: If set, it sets a new low pass cutoff for custom filter. Default is 3000Hz
 %         highPassFreq: If set it sets a new high pass cutoff for custom filter. Default is 50 Hz
+%	  findpeaksArgs: Cell array of arguments to pass to findpeaks.
+%	  findpeaksSign: Choose -1 to flip the sign of data and look
+%	  		for negative peaks (default=1).
 %	  quiet: If 1, reduces the amount of textual description in plots
 %	  	and does not add information to id field.
 %		
@@ -109,7 +116,7 @@ function obj = trace(data_src, dt, dy, id, props)
 % Additional methods:
 %	See methods('trace')
 %
-% See also: spikes, spike_shape, cip_trace, period
+% See also: spikes, spike_shape, cip_trace, period, findpeaks, findFilteredSpikes, findspikes, findspikes_old
 %
 % $Id$
 %

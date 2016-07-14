@@ -33,6 +33,9 @@ function s = displayRows(db, rows, pages)
 
 if ~ exist('pages', 'var')
   pages = 1;
+else isstruct(pages)
+  % ignore because it's props intended for ranked_db/displayRows
+  pages = 1; 
 end
 
 if ~ exist('rows', 'var')
@@ -42,7 +45,7 @@ end
 % Make a cell array out of db contents
 col_names = fieldnames(db.col_idx);
 if ~ isempty(col_names)
-  s = cat(2, col_names, num2cell(db.data(rows, :, pages))');
+  s = cat(2, col_names, num2cell(get(onlyRowsTests(db, rows, ':', pages), 'data'))');
 else
   s = num2cell(db.data(rows, :, pages))';
 end

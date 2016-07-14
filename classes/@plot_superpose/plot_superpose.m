@@ -125,7 +125,7 @@ else
 
    % Leave the constructor and call superposePlots
    if superposable
-     obj = superposePlots(plot_array);
+     obj = superposePlots(plot_array, axis_labels, title_str, '', props);
      return;
    end
 
