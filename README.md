@@ -19,12 +19,20 @@ Matlab search path. For example:
 
     addpath <DOWNLOAD DIRECTORY>/classes
     addpath <DOWNLOAD DIRECTORY>/functions
-    
+
 To test the installation try `help tests_db` and `help collectspikes`,
 which should give you their help text.
 
-Transition into v2.0:
-Also add the subdirectories found under `matlab/`
+This 2.0 version candidate (2.0candy branch) is transitioning
+into a new directory organization that requires also adding these:
+
+    addpath <DOWNLOAD DIRECTORY>/matlab
+    addpath <DOWNLOAD DIRECTORY>/matlab/pandora
+    addpath <DOWNLOAD DIRECTORY>/matlab/pan_clamp
+    addpath <DOWNLOAD DIRECTORY>/matlab/pan_fit
+
+Type `help voltage_clamp` to test the `pan_clamp` module and `help
+param_func` to test the `pan_fit` module.
 
 Documentation:
 --------------------
