@@ -1,9 +1,9 @@
-function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
+function [a_p, b] = plotScatter(a_db, test1, test2, title_str, short_title, props)
 
 % plotScatter - Create a scatter plot of the given two tests.
 %
 % Usage:
-% a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
+% [a_p, b] = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %
 % Parameters:
 %   a_db: A tests_db object.
@@ -16,6 +16,10 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %     		regression and displays statistics: R^2, F, p, and the error variance. 
 %     colorTest: Use this column as index into colormap.
 %     colormap: Colormap vector, function name or handle to colormap (e.g., 'jet').
+%     minValue, maxValue: Set boundaries for the displayed colors (see
+%     		plotColormap). Values outside of the boundaries will be truncated.
+%     command: Plot command to use (default: 'scatter'). If 'plot' is
+%     		selected, colormap cannot be used.
 %     numColors: Number of colors desired in colormap (default: 50).
 %     quiet: If 1, don't include database name on title.
 %     markerArea: Passed as the 'area' argument to scatter (default=36).
@@ -23,12 +27,15 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %		
 % Returns:
 %   a_p: A plot_abstract.
+%   b: A double holding the regression coefficient (optional)
 %
 % Description:
+%   Newer versions of Matlab (e.g. R2014b) won't allow line styles in
+% a scatter plot. To draw lines between points, one can switch to the
+% default 'plot' function using the 'command' prop (see above) - but at
+% the expense of losing the ability to use different colors for each point.
 %
 % See also: plotScatter3D, plotImage
-%
-% $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2005/09/29
 
@@ -92,7 +99,7 @@ if isfield(props, 'Regress')
   if ~isempty(all_title)
     all_title = [ all_title, '; '];
   end
-  all_title = [ all_title, 'regress p=' sprintf('%.4f', stats(3)) ];
+  all_title = [ all_title, 'regress b=[' num2str(b(1)) ' ' num2str(b(2)) '], p=' sprintf('%.4f', stats(3)) ];
 end
 
 % diplay points with colors?
@@ -106,9 +113,21 @@ if isfield(props, 'colorTest')
   if isa(a_colormap, 'function_handle') || ischar(a_colormap)
     a_colormap = feval(a_colormap, num_colors);
   end
-  val_extrema = [min(color_test), max(color_test)];
-  color_idx = round((color_test - val_extrema(1)) .* (num_colors - 1) ...
-                    ./ diff(val_extrema)) + 1;
+  num_colors = size(a_colormap, 1);     % update it
+  
+  if isfield(props, 'maxValue')
+    max_val = props.maxValue;
+  else
+    max_val = max(color_test);
+  end
+
+  if isfield(props, 'minValue')
+    min_val = props.minValue;
+  else
+    min_val = min(color_test);
+  end
+  color_idx = round((color_test - min_val) .* (num_colors - 1) ...
+                    ./ (max_val - min_val)) + 1;
   if any(isnan(color_test))
     nan_color = [0 0 0]; % add black for nans at end
     color_idx(isnan(color_idx)) = num_colors + 1;
@@ -116,11 +135,12 @@ if isfield(props, 'colorTest')
     nan_color = [];
   end
   a_colormap = [a_colormap; nan_color];
-  color = a_colormap(color_idx, :);
+  % choose colors, but truncated at given min and max values
+  color = a_colormap(max(min(color_idx, size(a_colormap, 1)), 1), :);
   colormap_props = ...
       mergeStructsRecursive(struct('colorbar', 1, 'colorbarLabel', color_test_name{1}, ...
-                                   'minValue', min(color_test), ...
-                                   'maxValue', max(color_test)), ...
+                                   'minValue', min_val, ...
+                                   'maxValue', max_val), ...
                             props);
 
 else
@@ -131,10 +151,19 @@ else
 end
 
 area = getFieldDefault(props, 'markerArea', 36); % default
+plot_command = getFieldDefault(colormap_props, 'command', 'scatter');
+if strcmp(plot_command, 'scatter')
+  plot_data = {area, color, line_style{:}};
+elseif strcmp(plot_command, 'plot')
+  plot_data = {line_style{:}};
+else
+  error(['Commands allowed: scatter and plot. Cannot use command: ' ...
+         plot_command ]);
+end
 col_labels = strrep({test_names{[col1 col2]}}, '_', ' ');
-a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), area, color, line_style{:}}, ...
+a_p = plot_abstract({{get(col1_db, 'data'), get(col2_db, 'data'), plot_data{:}}, ...
                     a_colormap, num_colors, ...
-                    mergeStructs(struct('command', 'scatter'), colormap_props)}, ...
+                    mergeStructs(struct('command', plot_command), colormap_props)}, ...
 		    { col_labels{:} }, ...
 		    all_title, { short_title }, @plotColormap, ...
 		    props); 

@@ -52,7 +52,7 @@ if length(plots) > 1
         if strcmp(command, 'errorbar')
           plot_props.noCombine = 1;
         end
-	a_plot = plot_superpose(num2cell(plots), {}, '', ...
+	a_plot = plot_superpose(num2cell(plots), axis_labels, title_str, ...
                                 mergeStructsRecursive(props, plot_props));
 	return;
       end

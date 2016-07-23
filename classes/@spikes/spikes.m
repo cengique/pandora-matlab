@@ -1,4 +1,4 @@
-function obj = spikes(times, num_samples, dt, id)
+function obj = spikes(times, num_samples, dt, id, props)
 
 % spikes - Spike times from a trace.
 %
@@ -54,14 +54,17 @@ if nargin == 0 % Called with no params
    obj.num_samples = 0;
    obj.dt = 1;
    obj.id = '';
+   obj.props = struct;
    obj = class(obj, 'spikes');
  elseif isa(times,'spikes') % copy constructor?
    obj = times;
- else
+else
+    props = defaultValue('props', struct);
    obj.times = times;
    obj.num_samples = num_samples;
    obj.dt = dt;
    obj.id = id;
+   obj.props = props;
    obj = class(obj, 'spikes');
 end
 

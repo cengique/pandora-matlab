@@ -14,6 +14,7 @@ function tex_string = cell2TeX(a_cell, props)
 %     titleColWidth: If specified, makes title cells \parbox'es with
 %     		     the given width.
 %     hasTitleCol: The first column contains titles.
+%     numFormat: Specify a sprintf-style format for displaying numbers.
 %		
 % Returns:
 %   tex_string: LaTeX formatted table string.
@@ -30,7 +31,14 @@ function tex_string = cell2TeX(a_cell, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props', 'var')
-  props = struct([]);
+  props = struct;
+end
+
+numFormat = getFieldDefault(props, 'numFormat', []);
+if isempty(numFormat)
+  numFormat = {};
+else 
+  numFormat = { numFormat };
 end
 
 % TODO: get column formatting in props, count rlc's and divide size by that.
@@ -52,9 +60,9 @@ for row=1:size(a_cell, 1)
     elseif isempty(the_cell)
       add_string = '';
     elseif isnan(the_cell) || isinf(the_cell)
-      add_string = [ num2str(the_cell) ];
+      add_string = [ num2str(the_cell, numFormat{:}) ];
     else
-      add_string = [ '$' num2str(the_cell) '$' ];
+      add_string = [ '$' num2str(the_cell, numFormat{:}) '$' ];
     end
     if isfield(props, 'titleColWidth') && isfield(props, 'hasTitleRow') ...
         && row == 1
