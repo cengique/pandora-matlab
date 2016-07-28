@@ -81,14 +81,15 @@ else
   cur_legends = v_legend;
 end
 
-
-
-dt = get(a_vc, 'dt') * 1e3;             % convert to ms
+if isfield(props, 'timeScale') && props.timeScale == 's'
+  dt = get(a_vc, 'dt');
+else
+  dt = get(a_vc, 'dt') * 1e3;             % convert to ms
+end
 
 data_i = get(a_vc.i, 'data') * cur_scale;
 data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
-time = (0:(size(data_i, 1)-1))*dt;
 
 if isfield(props, 'quiet')
   all_title = properTeXLabel(title_str);
@@ -112,18 +113,9 @@ if ~isfield(props, 'vColors') || props.vColors ~= 0
   plot_props = mergeStructs(plot_props, struct('ColorOrder', line_colors));
 end
 
-% $$$ plot_i = ...
-% $$$     plot_abstract({time, data_i}, {'time [ms]', cur_label}, ...
-% $$$                   all_title, cur_legends, 'plot', ...
-% $$$                   plot_props);
 plot_i = ...
     set(plot_abstract(a_vc.i, all_title, plot_props), 'legend', cur_legends);
 
-% $$$ plot_v = ...
-% $$$     plot_abstract({time, data_v}, ...
-% $$$                     {'time [ms]', 'V [mV]'}, ...
-% $$$                     all_title, {plot_label}, 'plot', ...
-% $$$                     plot_props);
 plot_v = ...
     set(plot_abstract(a_vc.v, all_title, plot_props), 'legend', {plot_label});
 
