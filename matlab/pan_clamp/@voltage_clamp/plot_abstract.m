@@ -16,6 +16,12 @@ function a_p = plot_abstract(a_vc, title_str, props)
 %     curUnit: Display units for current trace (default='nA').
 %     vColors: If 1 (default), always use same colors for same voltage levels.
 %     vColorsFunc: Function to get voltage colors (default=@lines)
+%     zoom: If specified, zoom x-axis limits to from just before
+%     		the first step to just after the last one.
+%     axisLimits: Specify axis limits to stop automatic zoom to
+%     		first step (e.g. [NaN NaN NaN NaN]).
+%     yLimitsI, yLimitsV: Two element array for y-axis limits of
+%     		current and voltage panels, respectively.
 %     (rest passed to plot_stack and plot_abstract)
 %		
 % Returns:
@@ -98,26 +104,39 @@ else
       properTeXLabel([ cell_name title_str ]);
 end
 
+if isfield(props, 'zoom')
+  % common x-axis limits
+  axis_limits = ...
+      getFieldDefault(...
+          props, 'axisLimits', ...
+          [max(a_vc.time_steps(1) * dt - 10, 0), ...
+           min(a_vc.time_steps(end) * dt + 10, size(data_v, 1) * dt), ...
+           NaN NaN]);
+else
+  axis_limits = ...
+      getFieldDefault(props, 'axisLimits', [NaN NaN NaN NaN]);
+end
 
-% common x-axis limits
-axis_limits = ...
-    getFieldDefault(...
-      props, 'axisLimits', ...
-      [max(a_vc.time_steps(1) * dt - 10, 0), ...
-       min(a_vc.time_steps(end) * dt + 10, size(data_v, 1) * dt), ...
-       NaN NaN]);
-
-plot_props = mergeStructs(props, struct('axisLimits', axis_limits));
+plot_props = props;
 
 if ~isfield(props, 'vColors') || props.vColors ~= 0
   plot_props = mergeStructs(plot_props, struct('ColorOrder', line_colors));
 end
 
+y_limits_i = getFieldDefault(props, 'yLimitsI', [NaN NaN]);
+y_limits_v = getFieldDefault(props, 'yLimitsV', [NaN NaN]);
+
 plot_i = ...
-    set(plot_abstract(a_vc.i, all_title, plot_props), 'legend', cur_legends);
+    set(plot_abstract(a_vc.i, all_title, ...
+                      mergeStructs(struct('axisLimits', ...
+                                          [ axis_limits(1:2) ...
+                    y_limits_i ]), plot_props)), 'legend', cur_legends);
 
 plot_v = ...
-    set(plot_abstract(a_vc.v, all_title, plot_props), 'legend', {plot_label});
+    set(plot_abstract(a_vc.v, all_title, ...
+                      mergeStructs(struct('axisLimits', ...
+                                          [ axis_limits(1:2) ...
+                    y_limits_v ]), plot_props)), 'legend', {plot_label});
 
 if ~ isfield(props, 'onlyPlot')
   % create a vertical stack plot
