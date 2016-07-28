@@ -9,7 +9,7 @@ function a_vc = abf2voltage_clamp(filename, sup_id, props)
 %   filename: Full path to filename.
 %   sup_id: (Optional) Concatenated to cell filename as id of voltage_clamp object.
 %   props: A structure with any optional properties.
-%     ichan: Current channel number or ':' for all channels when
+%     ichan,vchan: Current & voltage channel number or ':' for all channels when
 %     	     there is more than one  to choose.
 %     actualProtocols: Means current trace is a TTL pulse and its
 %     		       magnitude is meaningless.
@@ -99,4 +99,13 @@ function a_vc = abf2voltage_clamp(filename, sup_id, props)
     end
   end
   
+  if size(data_v, 2) > 1
+    if isfield(props, 'vchan')
+      data_v = squeeze(data_v(:, props.vchan, :));
+    else
+      error([ 'Found ' num2str(size(data_v, 2)) ' voltage channels. Choose ' ...
+              'one with "props.vchan".']);
+    end
+  end
+
   a_vc = voltage_clamp(data_i, data_v, dt * 1e-3, 1e-9, 1e-3, [cell_name sup_id], props);

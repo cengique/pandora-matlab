@@ -11,6 +11,9 @@ function a_vc = voltage_clamp(data_i, data_v, dt, di, dv, id, props)
 %   di,dv: y-axis resolution for I and V [A and V, resp]
 %   id: Identification string.
 %   props: A structure with any optional properties, such as:
+%     timeBefore: Time to skip before step [ms] (default=2).
+%     timeAvg: Time to average [ms] (default=2).
+%     iSteps: If 1, assume current_clamp data.
 %     trace_time_start: Samples in the beginning to discard [dt]
 %     (see trace for more)
 %

@@ -30,6 +30,12 @@ function a_cc = current_clamp(data_i, data_v, dt, di, dv, id, props)
 % to store voltage clamp I, V data. Inherits the common methods defined
 % in voltage_clamp and trace.
 %
+% Example:
+% >> a27h_cc = ...
+%      current_clamp(abf2voltage_clamp(abf_file, '', struct('iSteps', 1)));
+% (iSteps must be passed to abf2voltage_clamp for analyzing current
+% steps)
+%
 % General methods of current_clamp objects:
 %   current_clamp		- Construct a new current_clamp object.
 %

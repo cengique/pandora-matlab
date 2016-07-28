@@ -56,7 +56,9 @@ num_mags = size(data_v, 2);
 step_delay = round(getFieldDefault(props, 'timeBefore', 2) / dt); 
 step_dur = round(getFieldDefault(props, 'timeAvg', 2) / dt); 
 
-thr = abs(max(max(data_t))/20);
+% Use standard deviation to set threshold (6 sigma)
+%thr = abs(max(max(data_t))/20);
+thr = 6*std(data_t(1:step_dur));
 
 % Start from beginning to find all voltage steps. Use 1st and 2nd
 % magnitudes if available because sometimes voltage steps can be missed if
@@ -98,7 +100,8 @@ v_steps(step_num + 1, :) = ...
 function time_steps = findTimes(mag_num, time_change)
   time_steps = [];
   while ~ isempty(time_change)
-    time_change = findChange(data_t(:, min(mag_num, num_mags)), time_change + step_delay, thr, dt); 
+    time_change = findChange(data_t(:, min(mag_num, num_mags)), ...
+                             time_change + step_delay, thr, dt); 
     time_steps = [ time_steps, time_change ];
   end
 end

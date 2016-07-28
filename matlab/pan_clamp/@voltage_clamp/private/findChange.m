@@ -1,4 +1,4 @@
-function t_change = findChange(data, idx_start, num_mV, dt)
+function t_change = findChange(data, idx_start, thr, dt)
 % find starting baseline
   idx_start = round(idx_start);
   first_ms = 2;
@@ -7,7 +7,7 @@ function t_change = findChange(data, idx_start, num_mV, dt)
   %v_start_sd = std(data(idx_start:round(idx_start + t_begin)));
   
   % find beginning of step (used to be: 5*v_start_sd)
-  t_change = find(abs(data(idx_start:end) - v_start) > num_mV); 
+  t_change = find(abs(data(idx_start:end) - v_start) > thr); 
   if ~ isempty(t_change)
     % one more -1 to get the previous step before threshold crossing
     t_change = idx_start - 1 + t_change(1) - 1;
