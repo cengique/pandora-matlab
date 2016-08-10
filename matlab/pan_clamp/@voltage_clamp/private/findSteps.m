@@ -14,6 +14,8 @@ function [time_steps, v_steps, i_steps] = ...
 %   props: A structure with any optional properties.
 %     timeBefore: Time to skip before step [ms] (default=2).
 %     timeAvg: Time to average [ms] (default=2).
+%     numStdsThr: Number of standard deviations to set step
+%     		threshold (default=6).
 %     iSteps: If 1, assume current-clamp data, find step times from
 %     	      current data.
 %		
@@ -58,7 +60,8 @@ step_dur = round(getFieldDefault(props, 'timeAvg', 2) / dt);
 
 % Use standard deviation to set threshold (6 sigma)
 %thr = abs(max(max(data_t))/20);
-thr = 6*std(data_t(1:step_dur));
+num_stds = getFieldDefault(props, 'numStdsThr', 6);
+thr = num_stds*std(data_t(1:step_dur));
 
 % Start from beginning to find all voltage steps. Use 1st and 2nd
 % magnitudes if available because sometimes voltage steps can be missed if
