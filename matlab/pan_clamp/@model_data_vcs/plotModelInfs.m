@@ -51,13 +51,18 @@ else
   m_inf = I.m.inf;
 end
 
-if isfield(I.h.props, 'inf_func')
-  h_inf = I.h.props.inf_func(I.h);
-elseif isfield(struct(I.f.h), 'f')
-  h_inf = I.h.inf;
-else
+try get(I, 'h') %ismember(getColNames(I), 'h')
+    if isfield(I.h.props, 'inf_func')
+      h_inf = I.h.props.inf_func(I.h);
+    elseif isfield(struct(I.f.h), 'f')
+      h_inf = I.h.inf;
+    else
+        h_inf = [];
+    end
+catch exception
   h_inf = [];
 end
+ 
 
 plot_props = ...
     mergeStructs(props, ...
