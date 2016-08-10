@@ -57,12 +57,16 @@ else
   tau_m = I.m.tau;
 end
 
-if isfield(I.h.props, 'tau_func')
-  tau_h = I.h.props.tau_func(I.h);
-elseif isfield(struct(I.f.h), 'f')
-  tau_h = I.h.tau;
-else
-  tau_h = [];
+try get(I, 'h') %ismember(getColNames(I), 'h')
+    if isfield(I.h.props, 'tau_func')
+      tau_h = I.h.props.tau_func(I.h);
+    elseif isfield(struct(I.f.h), 'f')
+      tau_h = I.h.tau;
+    else
+      tau_h = [];
+    end
+catch exception
+    tau_h = [];
 end
 
 a_p = { plot_abstract(tau_m, all_title) };
