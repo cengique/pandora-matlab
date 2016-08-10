@@ -1,4 +1,4 @@
-function [a_profile a_doc] = loadItemProfile(traceset, trace_index)
+function [a_profile a_doc] = loadItemProfile(traceset, trace_index, params_row, props)
 
 % loadItemProfile - Loads a cip_trace_profile object from a raw data file in the traceset.
 %
