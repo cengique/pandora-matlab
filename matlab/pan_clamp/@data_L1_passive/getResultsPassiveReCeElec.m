@@ -8,7 +8,7 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 % Parameters:
 %   pas: A data_L1_passive object.
 %   props: Structure with optional properties.
-%     stepNum: Voltage pulse to be considered (default=1).
+%     stepNum: Voltage pulse to be considered (default=2, so as not to start at the beginning of the trace; see getTimeRelStep).
 %     traceNum: Trace number to be analyzed (default=1).
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
@@ -78,7 +78,7 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 min_resnorm = getFieldDefault(props, 'minResnorm', 0.004);
 min_Re = getFieldDefault(props, 'minRe', 50);
 trace_num = getFieldDefault(props, 'traceNum', 1);
-step_num = getFieldDefault(props, 'stepNum', 1);
+step_num = getFieldDefault(props, 'stepNum', 2);
 subname = getFieldDefault(props, 'subname', 'Vm');
 
 nA_scale = pas.data_vc.i.dy / 1e-9;
