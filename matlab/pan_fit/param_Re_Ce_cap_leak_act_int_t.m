@@ -190,7 +190,7 @@ function a_pf = param_Re_Ce_cap_leak_act_int_t(param_init_vals, id, props)
           diff(Vc(1:end-delay_dt_int, :), [], 1) ];
     
     if isempty(s)
-      s = solver_int({}, dt, [ 'solver for ' id ] );
+      s = solver_int({}, dt, [ 'solver for ' id ] , struct('baseFuncs', fs) );
       % add variables and initialize. add  [0 1] for m & h
       %s = setVals(
       s = initSolver(fs.this, s, struct('initV', Vc_delay(1))); % , [-70 0 .85]); 
