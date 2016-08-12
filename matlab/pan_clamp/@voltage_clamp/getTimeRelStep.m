@@ -37,4 +37,7 @@ if step_num > 1
   rel_time = ...
       rel_time + a_vc.time_steps(step_num - 1);
 end
+
+% confine to bounds
+rel_time = max(1, min(size(a_vc.i.data, 1), rel_time));
   
