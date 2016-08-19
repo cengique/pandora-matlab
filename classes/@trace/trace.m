@@ -289,7 +289,7 @@ else
 
      % use the filename as id unless otherwise specified
      if ~ exist('id','var') || isempty(id)
-       id = name;
+       id = data_src;
      end
 
    elseif isnumeric(data_src)
