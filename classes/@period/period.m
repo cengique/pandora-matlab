@@ -1,13 +1,16 @@
-function obj = period(start_time, end_time)
+function obj = period(start_time, end_time, dt)
 
 % period - Start and end times of a period in terms of the dt of the trace to which belongs.
 %
 % Usage:
-% obj = period(start_time, end_time)
+% obj = period(start_time, end_time, dt)
 %
 % Parameters:
 %   start_time, end_time: Inclusive period [dt]. If end_time is missing
-%   	and start_time has two values, the second one is used as end_time.
+%   	and start_time has two values, the second one is used as
+%   	end_time. 
+%   dt: If provided, interpret start_time and end_time in seconds
+%   	and convert them using this dt.
 %		
 % Returns a structure object with the following fields:
 %   start_time, end_time.
@@ -35,9 +38,6 @@ function obj = period(start_time, end_time)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-% TODO:
-% - Maybe period should have its own dt?
-
 if nargin == 0 % Called with no params
    obj.start_time = 0;
    obj.end_time = 0;
@@ -46,10 +46,15 @@ if nargin == 0 % Called with no params
    obj = start_time;
 else
   if length(start_time) == 2 && ~ exist('end_time', 'var')
-  end_time = start_time(2);
-  start_time = start_time(1);
+    end_time = start_time(2);
+    start_time = start_time(1);
   end
-  obj.start_time = start_time;
-  obj.end_time = end_time;
+  if exist('dt', 'var')
+    obj.start_time = start_time / dt;
+    obj.end_time = end_time / dt;
+  else
+    obj.start_time = start_time;
+    obj.end_time = end_time;
+  end
   obj = class(obj,'period');
 end
