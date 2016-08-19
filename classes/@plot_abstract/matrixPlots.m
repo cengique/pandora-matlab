@@ -1,6 +1,6 @@
 function a_plot = matrixPlots(plots, axis_labels, title_str, props)
 
-% matrixPlots - Superpose multiple plots with common command onto a single axis.
+% matrixPlots - Organize multiple plots in a matrix formation.
 %
 % Usage:
 % a_plot = matrixPlots(plots, axis_labels, title_str, props)
