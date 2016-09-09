@@ -1,4 +1,4 @@
-function h = plot(t, title_str)
+function h = plot(t, title_str, props)
 
 % plot - Plots spikes.
 %
@@ -30,6 +30,8 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
+props = defaultValue('props', struct);
+
 s = size(t);
 if max(s) > 1
   % Column vector
@@ -39,7 +41,8 @@ if max(s) > 1
   else
     orientation = 'x';		% or horizontal
   end
-  plotFigure(plot_stack(num2cell(plotData(t)), [], orientation, title_str));
+  plotFigure(plot_stack(num2cell(plotData(t)), [], orientation, title_str, ...
+                        props));
 else
-  h = plotFigure(plotData(t, title_str));
+  h = plotFigure(plotData(t, title_str, props));
 end

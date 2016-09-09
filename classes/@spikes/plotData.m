@@ -1,4 +1,4 @@
-function a_plot = plotData(s, title_str)
+function a_plot = plotData(s, title_str, props)
 
 % plotData - Plots a spikes object.
 %
@@ -31,20 +31,35 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
+props = defaultValue('props', struct);
+
+time_scale = getFieldDefault(props, 'timeScale', 'ms');
+switch time_scale
+  case 's'
+    xlabel = 'time [s]';
+    time_mult = 1;
+  case 'ms'
+    xlabel = 'time [ms]';
+    time_mult = 1e3; 
+  otherwise
+    error(['Unknown props.timeScale: ''' time_scale ...
+           '''. Can be ''s'' or ''ms'' ']);
+end
+
 % If input is an array, then return array of plots
 num_dbs = length(s);
 if num_dbs > 1 
   % Create array of plots
   [a_plot(1:num_dbs)] = deal(plot_abstract);
   for plot_num = 1:num_dbs
-    a_plot(plot_num) = plotData(s(plot_num), title_str);
+    a_plot(plot_num) = plotData(s(plot_num), title_str, props);
   end
   return;
 end
 
 % Remove all '_' characters, because they interfere with TeX interpretation
 class_name = strrep(class(s), '_', ' ');
-a_plot = plot_abstract({s.times * s.dt * 1e3, ones(size(s.times))}, ...
-		       {'time [ms]', ''}, ...
+a_plot = plot_abstract({s.times * s.dt * time_mult, ones(size(s.times))}, ...
+		       {xlabel, ''}, ...
 		       [sprintf('%s: %s', class_name, s.id) title_str], ...
-		       {s.id}, 'stem', struct('YTickLabel', {[]}));
+		       {s.id}, 'stem', mergeStructs(props, struct('YTickLabel', {[]})));
