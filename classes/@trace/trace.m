@@ -363,7 +363,7 @@ else
        lpf = props.lowPassFreq;
      else
        % Limit to slightly smaller than Nyquist frequency
-       lpf = min(3000, 1/dt/2 * (1 - 1e5*eps))
+       lpf = min(3000, 1/dt/2 * (1 - 1e5*eps));
      end
      % make a new filter based on the given dt
      % multiply by 2 to find nyquist freq
