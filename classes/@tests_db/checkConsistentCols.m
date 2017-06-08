@@ -58,7 +58,8 @@ if dbsize(db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
                'columns.']);
     end
   else
-    error(['Need to have same columns with same names in db and ' ...
+    error('tests_db:column_mismatch', ...
+          ['Need to have same columns with same names in db and ' ...
            'with_db.']);
   end
 end

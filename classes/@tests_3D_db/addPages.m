@@ -1,6 +1,6 @@
 function obj = addPages(obj, page_names, page_data)
 
-% addPages - Inserts new pages (third dimension) to a tests_db object.
+% addPages - Inserts new pages (third dimension) to a tests_3D_db object.
 %
 % Usage 1:
 % obj = addPages(obj, page_names, page_data)
@@ -37,6 +37,8 @@ function obj = addPages(obj, page_names, page_data)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+new_page_id = dbsize(obj, 3) + 1;
+
 if isa(page_names, 'tests_3D_db')
   to_db = page_names;
   if dbsize(to_db, 1) == 0
@@ -52,6 +54,7 @@ if isa(page_names, 'tests_3D_db')
                             'UniformOutput', false )];
   end
   page_data = get(to_db, 'data');
+  obj.tests_db = addPages(obj.tests_db, to_db.tests_db);
 elseif isa(page_names, 'tests_db')
   to_db = page_names;
   if dbsize(to_db, 1) == 0
@@ -63,19 +66,13 @@ elseif isa(page_names, 'tests_db')
                         num2cell((dbsize(obj, 3) + 1):(dbsize(obj, 3) + dbsize(to_db, 3))), ...
                         'UniformOutput', false );
   page_data = get(to_db, 'data');
+  obj.tests_db = addPages(obj.tests_db, to_db);
 elseif ischar(page_names)
   % if it's a string, just encapsulate in cell array
   page_names = { page_names };
-end
-
-if (dbsize(obj, 1) > 0 && size(page_data, 1) ~= dbsize(obj, 1))
-  error(['Number of rows in column (' num2str(size(page_data, 1)) ') ', ...
-	 'does not match rows in DB (' num2str(dbsize(obj, 1)) ').']);
-end
-
-if (dbsize(obj, 2) > 0 && size(page_data, 2) ~= dbsize(obj, 2))
-  error(['Number of rows in column (' num2str(size(page_data, 1)) ') ', ...
-	 'does not match rows in DB (' num2str(dbsize(obj, 1)) ').']);
+  obj.tests_db = addPages(obj.tests_db, page_names, page_data);
+else
+  obj.tests_db = addPages(obj.tests_db, page_names, page_data);
 end
 
 if length(page_names) ~= size(page_data, 3)
@@ -83,15 +80,13 @@ if length(page_names) ~= size(page_data, 3)
 	 'does not match pages in matrix (' num2str(size(page_data, 3)) ').']);
 end
 
-existing_cols = ismember(page_names, fieldnames(get(obj, 'col_idx')));
-if any(existing_cols)
-  error('tests_db:col_exists', ...
-	['Column(s) ' page_names{existing_cols} ' already exist in DB.']);
+existing_pages = ismember(page_names, fieldnames(get(obj, 'page_idx')));
+if any(existing_pages)
+  error('tests_3D_db:page_exists', ...
+	['Page(s) ' page_names{existing_pages} ' already exist in DB.']);
 end
 
 % Add the page(s)
-new_page_id = dbsize(obj, 3) + 1;
-obj = set(obj, 'data', cat(3, get(obj, 'data'), page_data));
 
 % Update the meta-data
 new_page_idx = get(obj, 'page_idx');
