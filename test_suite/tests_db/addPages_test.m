@@ -36,7 +36,7 @@ function testPageless( testCase )
 
 function testNameless( testCase )
   
-    b_db = addPages(testCase.TestData.a_3_pageless_db, testCase.TestData.a_3_pageless_db)
+    b_db = addPages(testCase.TestData.a_3_pageless_db, testCase.TestData.a_3_pageless_db);
     assert(b_db.data(1, 1, 1) == 1);
     assert(b_db.data(1, 1, 2) == 1);
     assert(b_db.data(1, 3, 2) == 3);
