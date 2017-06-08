@@ -95,8 +95,17 @@ obj = set(obj, 'data', cat(3, get(obj, 'data'), page_data));
 
 % Update the meta-data
 new_page_idx = get(obj, 'page_idx');
-if isempty(new_page_idx)
+if isempty(new_page_idx) || isempty(fieldnames(new_page_idx))
   new_page_idx = struct;
+
+  % create default page names
+  def_page_names = ...
+      cellfun( @(x)['page' num2str(x) ], ...
+               num2cell(1:dbsize(obj, 3)), ...
+               'UniformOutput', false );
+  for page_num = 1:dbsize(obj, 3)
+    new_page_idx.(['page' num2str(page_num) ]) = page_num
+  end
 end
 for page_num = 1:length(page_names)
   new_page_idx.(page_names{page_num}) = new_page_id + page_num - 1;
