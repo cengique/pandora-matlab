@@ -84,6 +84,9 @@ function testNameless( testCase )
     assert(b_db(1, 2, 'page1') == 2); 
     assert(b_db(1, 2, 'page2') == 2); 
   
+function testSwapColsPages( testCase )
+  b_db = swapColsPages(addPages(testCase.TestData.a_3_db, testCase.TestData.a_3_db2));
   
-
-  
+  assert(b_db.data(1, 1, 1) == 1);
+  assert(b_db.data(1, 2, 1) == 4);
+  assert(b_db.data(1, 2, 3) == 6);
