@@ -16,6 +16,20 @@ b_db = renameColumns(testCase.TestData.a_db, 'a', 'aa');
 assert(b_db.col_idx.aa == 1);
 assert(length(fieldnames(b_db.col_idx)) == 3);
 
+function testDup( testCase )
+
+b_db = renameColumns(testCase.TestData.a_db, 'a', 'a');
+
+assert(b_db.col_idx.a == 1);
+assert(length(fieldnames(b_db.col_idx)) == 3);
+
+function testDupNum( testCase )
+
+b_db = renameColumns(testCase.TestData.a_db, 1, 'a');
+
+assert(b_db.col_idx.a == 1);
+assert(length(fieldnames(b_db.col_idx)) == 3);
+
 function testIdx( testCase )
 
 b_db = renameColumns(testCase.TestData.a_db, 1, 'aa');

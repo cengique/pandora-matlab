@@ -57,9 +57,14 @@ if ( iscell(old_names) || isnumeric(old_names) ) && num_tests > 1
     new_idx = renameIdx(new_idx, old_names(col_num), new_names(col_num));
   end
   return
-elseif iscell(old_names)
+elseif iscell(old_names) || iscell(new_names)
   % only one name, then
-  old_names = old_names{1}; new_names = new_names{1};
+  if iscell(old_names)
+    old_names = old_names{1}; 
+  end
+  if iscell(new_names)
+    new_names = new_names{1};
+  end
 elseif ~ischar(old_names) && ~isnumeric(old_names)
   error(['Inputs for old_names and new_names must be single strings, ' ...
          'single numerical indices, or ' ...
@@ -80,7 +85,7 @@ if old_names(1) == '/' && old_names(end) == '/'
 end
 
 % Single item mode
-if strcmp(new_names, old_names)
+if strcmp(new_names, old_names) 
   new_idx = old_idx;
   return;                               % nothing to do
 end
@@ -92,7 +97,7 @@ if isnumeric(old_names)
   new_idx.(new_names) = old_names;
   
   % convert back to name if it exists, so we can delete it
-  if ~isempty(old_idx) && length(all_names) >= old_names
+  if ~isempty(old_idx) && length(all_names) >= old_names    
     old_names = all_names{old_names};
   end
 else
@@ -101,7 +106,7 @@ else
 end
 
 % delete old name
-if isfield(new_idx, old_names)
+if isfield(new_idx, old_names) && ~strcmp(new_names, old_names)
   new_idx = rmfield(new_idx, old_names);
 end
 
