@@ -1,9 +1,9 @@
-function a_db = renameColumns(a_db, old_names, new_names)
+function a_db = renamePages(a_db, old_names, new_names)
 
-% renameColumns - Rename one or more existing columns.
+% renamePages - Rename one or more existing pages.
 %
 % Usage:
-% a_db = renameColumns(a_db, old_names, new_names)
+% a_db = renamePages(a_db, old_names, new_names)
 %
 % Parameters:
 %   a_db: A tests_db object.
@@ -13,17 +13,17 @@ function a_db = renameColumns(a_db, old_names, new_names)
 %   		replace string (no slashes, e.g, '$1_test'). See regexprep command.
 %		
 % Returns:
-%   a_db: The tests_db object that includes the new columns.
+%   a_db: The tests_db object that includes the new pages.
 %
 % Example:
-% % Renaming a single column:
-% >> new_db = renameColumns(a_db, 'PulseIni100msSpikeRateISI_D40pA', 'Firing_rate');
-% % Renaming an unnamed column:
-% >> new_db = renameColumns(a_db, 1, 'Firing_rate');
-% % Renaming using regular expressions: add suffix to all columns
-% >> new_db = renameColumns(a_db, '/(.*)/', '$1_old');
-% % Renaming multiple columns:
-% >> new_db = renameColumns(a_db, {'a', 'b'}, {'c', 'd'});
+% % Renaming a single page:
+% >> new_db = renamePages(a_db, 'PulseIni100msSpikeRateISI_D40pA', 'Firing_rate');
+% % Renaming an unnamed page:
+% >> new_db = renamePages(a_db, 1, 'Firing_rate');
+% % Renaming using regular expressions: add suffix to all pages
+% >> new_db = renamePages(a_db, '/(.*)/', '$1_old');
+% % Renaming multiple pages:
+% >> new_db = renamePages(a_db, {'a', 'b'}, {'c', 'd'});
 %
 % Description:
 %   This is a cheap operation than modifies meta-data kept in object. For
@@ -46,4 +46,4 @@ function a_db = renameColumns(a_db, old_names, new_names)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-a_db.col_idx = renameIdx(a_db.col_idx, old_names, new_names);
+a_db.page_idx = renameIdx(a_db.page_idx, old_names, new_names);
