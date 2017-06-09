@@ -1,9 +1,9 @@
-function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
+function [a_p, b] = plotScatter(a_db, test1, test2, title_str, short_title, props)
 
 % plotScatter - Create a scatter plot of the given two tests.
 %
 % Usage:
-% a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
+% [a_p, b] = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %
 % Parameters:
 %   a_db: A tests_db object.
@@ -27,6 +27,7 @@ function a_p = plotScatter(a_db, test1, test2, title_str, short_title, props)
 %		
 % Returns:
 %   a_p: A plot_abstract.
+%   b: A double holding the regression coefficient (optional)
 %
 % Description:
 %   Newer versions of Matlab (e.g. R2014b) won't allow line styles in
@@ -98,7 +99,7 @@ if isfield(props, 'Regress')
   if ~isempty(all_title)
     all_title = [ all_title, '; '];
   end
-  all_title = [ all_title, 'regress p=' sprintf('%.4f', stats(3)) ];
+  all_title = [ all_title, 'regress b=[' num2str(b(1)) ' ' num2str(b(2)) '], p=' sprintf('%.4f', stats(3)) ];
 end
 
 % diplay points with colors?
@@ -137,11 +138,10 @@ if isfield(props, 'colorTest')
   % choose colors, but truncated at given min and max values
   color = a_colormap(max(min(color_idx, size(a_colormap, 1)), 1), :);
   colormap_props = ...
-      mergeStructsRecursive(struct('colorbar', 1, 'colorbarLabel', color_test_name{1}, ...
+      mergeStructsRecursive(props, ...
+                            struct('colorbar', 1, 'colorbarLabel', color_test_name{1}, ...
                                    'minValue', min_val, ...
-                                   'maxValue', max_val), ...
-                            props);
-
+                                   'maxValue', max_val));
 else
   color = [0 0 1];
   a_colormap = color;

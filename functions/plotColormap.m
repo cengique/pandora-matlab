@@ -71,7 +71,7 @@ else
   mult_factor = 10^3;
 end
 
-if isfield(props, 'colorbar')
+if isfield(props, 'colorbar') && props.colorbar ~= 0
   hc = colorbar;
   
   % Default normalized display
@@ -91,9 +91,9 @@ if isfield(props, 'colorbar')
       end
       set(hc, prop_field, props.colorbarProps.(prop_field));
     end
-    if isempty(get(hc, 'YTick'))
-      set(hc, 'YTick', [0 1]);
-    end
+  end
+  if isempty(get(hc, 'YTick'))
+    set(hc, 'YTick', [0 1]);
   end
   if ~ isfield(props, 'colorbarProps') || ~isfield(props.colorbarProps, 'YTickLabel')
     yticks = get(hc, 'YTick')

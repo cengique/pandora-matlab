@@ -89,7 +89,7 @@ elseif isa(file_pattern, 'params_tests_fileset') % copy constructor?
 else
 
   if ~ exist('props', 'var')
-    props = struct([]);
+    props = struct;
   end
 
   % First find all filenames matching the pattern
