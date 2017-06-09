@@ -40,17 +40,20 @@ Tutorials
 Documentation:
 --------------------
 
-See the PDF and HTML manuals under the `doc/` directory. They may be
+See the PDF and HTML manuals under the [`doc/`](doc/) directory. They may be
 somewhat outdated, but the online help using Matlab's `help` command
 will be always up-to-date.
 
 Copyright:
 --------------------
 
-Copyright (c) 2007-17 Cengiz Gunay <cengique@users.sf.net>.
-This work is licensed under the Academic Free License ("AFL")
-v. 3.0. To view a copy of this license, please look at the COPYING
-file distributed with this software or visit
+Copyright (c) 2007-17 Cengiz Gunay <cengique AT users.sf.net> and
+Emory University.  This work is licensed under the Academic Free
+License ("AFL") v. 3.0. To view a copy of this license, please look at
+the COPYING file distributed with this software or visit
 http://opensource.org/licenses/afl-3.0.txt.
 
+Contact:
+--------------------
 
+Contact me directly if you have any questions or patches! (cengique AT users.sf.net).
