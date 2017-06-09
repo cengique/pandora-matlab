@@ -40,18 +40,6 @@ if ~ exist('title_str', 'var')
   title_str = '';
 end
 
-if isfield(props, 'pageVariable')
-  % Use this column as the per-page information value
-  page_vals = squeeze(get(onlyRowsTests(a_stats_db, 1, props.pageVariable, ':'), 'data'));
-  % put it in props to pass to plot_bars
-  props.groupValues = page_vals;
-  page_names = getColNames(a_stats_db, props.pageVariable);
-  % Then, remove the column
-  a_stats_db = delColumns(a_stats_db, props.pageVariable);
-else
-  page_names = {''};
-end
-
 % Setup lookup tables
 col_names = strrep(fieldnames(get(a_stats_db, 'col_idx')), '_', ' ');
 data = get(a_stats_db, 'data');
@@ -59,7 +47,22 @@ row_idx = get(a_stats_db, 'row_idx');
 num_cols = dbsize(a_stats_db, 2);
 num_pages = dbsize(a_stats_db, 3);
 
-[page_names{1:num_cols}] = deal(page_names{ones(1, num_cols)});
+if isfield(props, 'pageVariable')
+  % Use this column as the per-page information value
+  page_vals = squeeze(get(onlyRowsTests(a_stats_db, 1, props.pageVariable, ':'), 'data'));
+  % put it in props to pass to plot_bars
+  props.groupValues = page_vals;
+  page_names = getColNames(a_stats_db, props.pageVariable);
+  [page_names{1:num_cols}] = deal(page_names{ones(1, num_cols)});
+  % Then, remove the column
+  a_stats_db = delColumns(a_stats_db, props.pageVariable);
+elseif ~ isempty(get(a_stats_db, 'page_idx'))
+  page_names = col_names;
+  props.groupValues = fieldnames(get(a_stats_db, 'page_idx'));
+else
+  page_names = {''};
+  [page_names{1:num_cols}] = deal(page_names{ones(1, num_cols)});
+end
 
 if isfield(row_idx, 'min')
   lows = data(1,:, :) - data(row_idx.min,:, :);
