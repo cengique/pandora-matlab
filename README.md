@@ -15,7 +15,7 @@ If you use PANDORA, please cite this paper from your software or publications:
 
 **Günay C, Edgerton JR, Li S, Sangrey T, Prinz AA, Jaeger D (2009)** Database analysis of simulated and recorded electrophysiological datasets with Pandora's toolbox. *Neuroinformatics*, 7(2):93-111. doi: 10.1007/s12021-009-9048-z.
 
-You should also cite the [RRID: SCR_015522](https://scicrunch.org/resources/about/registry/SCR_015522)
+You should also cite the [RRID: SCR_001831](https://scicrunch.org/resources/about/registry/SCR_001831)
 
 Installation:
 --------------------
