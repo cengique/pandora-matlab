@@ -1,0 +1,6230 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{ifthen}
+\usepackage{ifpdf}
+
+% if normal PS or PDF LaTeX processing
+%begin{latexonly}
+%\newif\ifpdf 
+%  \ifx\pdfoutput\undefined \pdffalse % we are not running PDFLaTeX 
+%\else 
+%  \pdfoutput=1 % we are running PDFLaTeX 
+%  \pdftrue 
+%\fi
+
+\ifpdf 
+  \usepackage[pdftex]{graphicx} 
+  \pdfcompresslevel=9 
+  \DeclareGraphicsExtensions{.pdf,.gif,.png,.jpeg}
+  %\pdfpagewidth 11truein \pdfpageheight 8.5truein 
+  %\pdfhorigin 1truein \pdfvorigin 1truein
+\else 
+  \usepackage[dvips]{graphicx} 
+  \DeclareGraphicsExtensions{.eps,.pstex,.ps}
+\fi
+
+%% following is special latex2html command:
+%end{latexonly}
+
+\ifpdf
+\else
+\usepackage{html}
+
+\begin{htmlonly}
+  \usepackage[none]{graphicx} 
+\end{htmlonly}
+\fi
+
+\usepackage{epsfig}
+%\usepackage{color}
+%\usepackage{url}
+\usepackage{index}
+\usepackage{subfigure}
+
+% hyperref as last
+\ifpdf\else
+\begin{htmlonly}
+\newcommand{\hypertarget}[2]{#2}
+\newcommand{\hyperlink}[2]{#2}
+\end{htmlonly}
+\fi
+
+%begin{latexonly}
+\ifpdf 
+  \usepackage[colorlinks=true,pdftex]{hyperref}
+\else 
+  %\usepackage[colorlinks=false]{hyperref}
+  \newcommand{\hyperpage}[1]{#1}
+\fi
+%end{latexonly}
+
+%\newcommand{\shorter}{} % Shorter 25 pg for Biol Cybern
+%\newcommand{\forspringer}
+%\newcommand{\production}{}
+%\newcommand{\techreport}{}
+
+% Name of the software package
+\newcommand{\appname}{PANDORA Toolbox}
+
+%% Common preambles
+%\input{../over-delays/formals.tex}
+%\input{../over-delays/preamble.tex}
+
+%begin{latexonly}
+\def\idstring{Id}
+\gdef\CVSKeyword$#1 ${\expandafter\cCVSKeyword#1\endcCVSKeyword\relax}
+\gdef\cCVSKeyword#1: #2\endcCVSKeyword{%
+\gdef\myparam{#1}%
+%\typeout{************This is IT:'\myparam'}%
+\ifx\idstring\myparam%
+\expandafter\cCVSId#2\endcCVSId\relax
+\else%
+\expandafter\gdef\csname CVS#1\endcsname{#2}%
+\fi%
+}
+\gdef\cCVSId#1 #2\endcCVSId{%
+\gdef\CVSIdp{\shortstack{\url{#1} \\ #2}}%
+}
+
+%% Version info
+\CVSKeyword$Date$ 
+\CVSKeyword$Revision$ 
+\CVSKeyword$Id$ 
+\CVSKeyword$Author$
+
+%% Version number on footer
+\fancyfoot[RE,LO]{\footnotesize{\appname{}: Prog.'s Manual}}
+{\fancyfoot[LE,RO]{\parbox{.5\textwidth}{\begin{flushright}\footnotesize{Draft v\CVSRevision{}\\ on \CVSDate}\end{flushright}}}}
+
+%% Fix overlap in headers
+\fancyhead[L]{\slshape \leftmark} 
+\fancyhead[R]{} % otherwise they overwrite one another
+%\bibpunct{(}{)}{;}{a}{,}{,}
+
+\renewenvironment{lyxcode}
+   {\small\begin{list}{}{
+     \setlength{\leftmargin}{-60pt}
+     \setlength{\rightmargin}{\leftmargin}
+     \setlength{\listparindent}{0pt}% needed for AMS classes
+     \raggedright
+     \setlength{\itemsep}{0pt}
+     \setlength{\parsep}{0pt}
+     \normalfont\ttfamily}%
+    \item[]}
+   {\end{list}}
+%end{latexonly}
+
+\ifpdf\else
+\begin{htmlonly}
+\renewenvironment{lyxcode}{\begin{rawhtml}<div style="font-family: monospace">\end{rawhtml}}{\begin{rawhtml}</div>\end{rawhtml}}
+\end{htmlonly}
+\fi
+
+\newindex{funcref}{frx}{fnd}{Function Index}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics none
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Plotting and Analysis for Neural Database-Oriented Research Applications
+ (PANDORA) Toolbox — 
+\begin_inset Newline newline
+\end_inset
+
+User's and Programmer's Manual
+\end_layout
+
+\begin_layout Author
+Cengiz G
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+"
+\end_layout
+
+\end_inset
+
+unay 
+\end_layout
+
+\begin_layout Date
+Document Revision 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+CVSRevision{}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{latexonly}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{latexonly}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+TODO:
+\end_layout
+
+\begin_layout Plain Layout
+- make a tutorial section that explains usage bottom-up.
+ start from trace, profile, and dataset to database.
+\end_layout
+
+\begin_layout Plain Layout
+- more visualization.
+ look at paper figures and do similar examples.
+ weed out obsolete methods, put examples into funcref of current usage.
+\end_layout
+
+\begin_layout Plain Layout
+- add section on extensibility.
+ maybe at end of software part.
+\end_layout
+
+\begin_layout Plain Layout
+- put download info in install section.
+ before that include all external functions, choose a license, and make
+ an ant file to create binary and documentation packages.
+\end_layout
+
+\begin_layout Plain Layout
+- separate document into two? user's and admin manuals? [no...]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+What is the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+appname{}
+\end_layout
+
+\end_inset
+
+?
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+appname{}
+\end_layout
+
+\end_inset
+
+ is a software package which consists of a collection of 
+\noun on
+Matlab
+\noun default
+ object-oriented classes and script functions for creating, analyzing and
+ visualizing databases based on data from electrophysiological neuron simulation
+s and recordings.
+\end_layout
+
+\begin_layout Subsection
+Why did you make it?
+\end_layout
+
+\begin_layout Standard
+Motivations to create this software were:
+\end_layout
+
+\begin_layout Itemize
+Analyze data generated by brute-force and other parameter search methods.
+\end_layout
+
+\begin_layout Itemize
+Analyze subsets of parameter spaces and special cases.
+\end_layout
+
+\begin_layout Itemize
+Evaluate robustness of model neurons.
+\end_layout
+
+\begin_layout Itemize
+Find functional roles of specific conductances.
+\end_layout
+
+\begin_layout Subsection
+How is it implemented?
+\end_layout
+
+\begin_layout Standard
+A custom database management system (DBMS) is written from scratch in the
+ 
+\noun on
+Matlab
+\noun default
+ language.
+ The toolbox design follows object-oriented programming principles.
+ It uses functions from the statistics and signal processing toolboxes of
+ 
+\noun on
+Matlab
+\noun default
+, but they are not strictly necessary.
+ It does not use 
+\noun on
+Matlab
+\noun default
+'s database (DB) toolbox.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+At the time of initial design, the author did not have access to the DB
+ toolbox.
+ Future versions may support the DB toolbox.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+How can I use it?
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+appname{}
+\end_layout
+
+\end_inset
+
+ uses an object-oriented approach to provide maximal flexibility for interactive
+ use on the 
+\noun on
+Matlab 
+\noun default
+command-line.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This version of the toolbox does not yet have a general graphical user interface
+ (GUI).
+ The author prefers to have a flexible command-line interface than to maintain
+ a limited GUI.
+ However, once commonly used functions can be conveniently placed within
+ a GUI, it will be added to the toolbox.
+\end_layout
+
+\end_inset
+
+ Objects can be created, modified, analyzed, and visualized interactively
+ in few steps.
+ It is straightforward to save and load binary representations of these
+ objects into files.
+ Scripts can be made to programmatically repeat these procedures.
+ Existing object classes are designed with the prospect of future extension,
+ to accommodate new types of data and analyses.
+\end_layout
+
+\begin_layout Subsection
+Who is it made for?
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+appname{}
+\end_layout
+
+\end_inset
+
+ is customized for neuroscientific research.
+ However, the concepts of a complex dataset, extraction of multiple observations
+ from each item of the dataset, and analysis of multi-dimensional parameter
+ spaces are universal.
+ In its current form the database and dataset classes can be used for data
+ other than electrophysiologic sources.
+ As this toolbox is designed for flexible extensibility, one can add extensions
+ that deal with different types of data and analyses.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+link to extensibility section
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Finding your way around
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Finding-your-way-around"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The source code uses 
+\noun on
+Matlab
+\noun default
+'s documentation system, therefore all methods and classes are documented.
+ To get help about all classes, issue the 
+\end_layout
+
+\begin_layout LyX-Code
+>> help djlab
+\end_layout
+
+\begin_layout Standard
+at the 
+\noun on
+Matlab
+\noun default
+ prompt.
+ This should give you an overview of available classes.
+ Then, to learn about a specific class, ask for the documentation for the
+ constructor method.
+ For instance, for the 
+\family typewriter
+trace
+\family default
+ class, issuing
+\end_layout
+
+\begin_layout LyX-Code
+>> help trace
+\end_layout
+
+\begin_layout Standard
+gives you the documentation for the constructor together with an overview
+ for the class.
+ Sometimes, if there are multiple methods with the same name under different
+ classes, you may get the wrong documentation.
+ In that case, you can specify the class from which to take the method by
+ prepending the class name to the method, such as in
+\end_layout
+
+\begin_layout LyX-Code
+>> help trace/spikes
+\end_layout
+
+\begin_layout Standard
+In order to learn all methods available for a class, you can use 
+\noun on
+Matlab
+\noun default
+'s 
+\family typewriter
+methods
+\family default
+ command.
+ For the 
+\family typewriter
+trace
+\family default
+ class, do
+\end_layout
+
+\begin_layout LyX-Code
+>> methods(trace)
+\end_layout
+
+\begin_layout Standard
+However, some documentation may be outdated or simply wrong.
+ Please report these to the author via e-mail to 
+\family typewriter
+cgunay AT emory.edu
+\family default
+.
+\end_layout
+
+\begin_layout Subsection
+Overview of this document
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+put this in the preface?
+\end_layout
+
+\end_inset
+
+Next, Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Installation"
+
+\end_inset
+
+ guides the reader through the installation of the package and other dependencie
+s.
+ You can skip this section if you already have a running software environment.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Class-hierarchies"
+
+\end_inset
+
+ introduces the essential components of the software and talks about their
+ design decisions.
+ You can also skip this part if you're not interested in the guts of the
+ system and you are in favor of a quick start.
+ The recipes in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Recipes"
+
+\end_inset
+
+ provide a tutorial for some common tasks.
+ It may be easier for some readers to follow these recipes to jump-start
+ using the software.
+ However, it is recommended that you familiarize yourself with the basic
+ organization of the classes before proceeding into more complex tasks.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Visualization"
+
+\end_inset
+
+ takes the tutorial approach to describe common visualization tasks.
+ Finally, Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Function-Reference"
+
+\end_inset
+
+ points to the list of individual methods provided by the software.
+ These methods are documented in detail using the 
+\noun on
+Matlab
+\noun default
+ online help system.
+\end_layout
+
+\begin_layout Section
+Installation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Installation"
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+move everything from alf and cengiz directories into the toolbox, and make
+ the installation automatic.
+ make package available on ftp/http site.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Download the latest package file from: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://userwww.service.emory.edu/~cgunay/pandora
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Unpack the archive anywhere in your system, using
+\end_layout
+
+\begin_layout LyX-Code
+$ tar xzf pandora-xyz.tar.gz
+\end_layout
+
+\begin_layout Standard
+and follow the instructions in the README file.
+ 
+\end_layout
+
+\begin_layout Standard
+Basically it involves pointing your 
+\noun on
+Matlab
+\noun default
+ installation to look at the 
+\family typewriter
+pandora/
+\family default
+ subdirectory for loading the PANDORA files.
+ This can be achieved 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+either by copying the 
+\family typewriter
+pandora/
+\family default
+ directory under the 
+\family typewriter
+toolbox/
+\family default
+ directory in your 
+\noun on
+Matlab
+\noun default
+ installation, or [this doesn't work!] 
+\end_layout
+
+\end_inset
+
+by adding this directory to your 
+\noun on
+Matlab
+\noun default
+ search path using the 
+\family typewriter
+addpath
+\family default
+ Matlab command.
+ To avoid its repeated application for each new session, you can have a
+ startup script, 
+\family typewriter
+startup.m
+\family default
+, in the directory that you run 
+\noun on
+Matlab
+\noun default
+ with the following commands:
+\end_layout
+
+\begin_layout LyX-Code
+%--- startup.m for matlab
+\end_layout
+
+\begin_layout LyX-Code
+addpath 
+\family typewriter
+/my/download/directory/pandora-1.0b/pandora
+\end_layout
+
+\begin_layout LyX-Code
+%--- end startup.m
+\end_layout
+
+\begin_layout Standard
+This will be loaded everytime you run 
+\noun on
+Matlab
+\noun default
+ from this directory.
+ in UN*X systems, this can be improved further by placing the command in
+ the file 
+\family typewriter
+$HOME/matlab/startup.m, which
+\family default
+ is executed no matter from where 
+\noun on
+Matlab
+\noun default
+ is called, especially if you are running Matlab from different or unknown
+ places each time.
+ In Windows, place the file under 
+\family typewriter
+My Documents/MATLAB
+\family default
+, or add the directory to the search path using the 
+\emph on
+File->Set Path
+\emph default
+ menu option.
+\end_layout
+
+\begin_layout Part
+Software Architecture
+\end_layout
+
+\begin_layout Section
+Toolbox Components
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Class-hierarchies"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[0pt]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename db-overview.eps
+	lyxscale 50
+	width 80page%
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Database-overview"
+
+\end_inset
+
+Schematic overview of the database software.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+An overview of the toolbox functionality is shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Database-overview"
+
+\end_inset
+
+.
+ In the figure, boxes represent objects that can be created with the toolbox.
+ Flow starts from the dataset object on the top left which represents the
+ collection of raw data files.
+ The raw data is loaded using information in the dataset to create intermediate
+ objects that, for instance, contain data traces.
+ These objects define electrophysiological measurements to be entered into
+ the data matrix of the database object on the top right.
+ The database object allows filtering and querying to refine its contents.
+ From the database object, one can always go back to the dataset and find
+ the raw data that results from a query.
+ The arrows going to bottom objects and corresponding plots show the types
+ of possible analyses that can be done on a database object.
+ These analyses are typically for displaying statistical information.
+ The red arrow is a speacial analysis for searching and matching rows between
+ different databases.
+ The match is done by taking a row from a database created with data from
+ real neurons and finding best matching model neurons from a simulation
+ database.
+ 
+\end_layout
+
+\begin_layout Standard
+The objects in the figure are instances of classes that define their properties
+ in the object-oriented framework.
+ Each class comes with a hierarchy of of subclasses that specialize to specific
+ functions.
+ Subsequent sections describe each of these class hierarchies that make
+ up the main components of the toolbox.
+\end_layout
+
+\begin_layout Subsection
+Databases hold all the information
+\end_layout
+
+\begin_layout Standard
+The database object is at the center of this toolbox (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Database-overview"
+
+\end_inset
+
+).
+ It holds a data matrix with rows as observations and columns as attributes.
+ The rows would normally correspond to results from individual data traces,
+ or simply neurons.
+ The columns hold values of separate measurements, statistical data, or
+ parameter values.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[0pt]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename DB-classes.eps
+	lyxscale 50
+	width 90page%
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Database-class-hierarchy"
+
+\end_inset
+
+Database class hierarchy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A database object can be created from any of the classes in the hierarchy
+ of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Database-class-hierarchy"
+
+\end_inset
+
+.
+ The top-level database class is 
+\family typewriter
+tests_db
+\family default
+ which contains a two-dimensional data matrix of real numbers and some metadata.
+ The metadata consists of column labels (e.g., measure names), a dataset label,
+ and data properties (e.g., time resolution).
+ The subclasses are specialized for different tasks.
+ 
+\end_layout
+
+\begin_layout Standard
+If the database object is created using a dataset object, this maintains
+ a connection from the elements of the database (e.g., neurons) to the raw
+ data.
+ This allows raw data associated with database contents to be visualized
+ during analysis.
+ However, a database can be created from any data matrix given in the proper
+ format.
+\end_layout
+
+\begin_layout Standard
+Some specialized subclasses of 
+\family typewriter
+tests_db
+\family default
+ are as follows:
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+put links to reference section?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+params_tests_db
+\family default
+ The first 
+\family typewriter
+num_params
+\family default
+ columns are reserved for parameters that were changed between different
+ rows.
+ It contains methods that treat these columns specially.
+ Parameters can be simulation parameters, or pharmacological applications
+ to experiments.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+tests_3D_db
+\family default
+ Contains a three-dimensional data matrix that has additional dimension
+ for pages of information.
+ This is mainly used to look at change in measurements with a parameter
+ using the 
+\family typewriter
+invarParam
+\family default
+ method of 
+\family typewriter
+params_tests_db
+\family default
+.
+ Three dimensional databases can be useful for other purposes as well.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+stats_db
+\family default
+ Contains few rows that describe the statistics obtained possibly from another
+ database.
+ It can contain the mean and standard deviation or error, or in some cases,
+ the minimal and maximal values of columns in a database.
+ It contains special plotting functions.
+ There are methods that use the statistics collected by this class.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ranked_db
+\family default
+ Contains distances that resulted from a comparison of a database with a
+ criterion.
+ Its rows are ranked and sorted according to this distance value.
+ Each row would point to a row in dex into the original database.
+ Contains methods to generate reports from information about matching neurons.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+spikes_db
+\family default
+ Contains results from individual spike shapes of a 
+\family typewriter
+trace
+\family default
+ object.
+ It can be obtained using the 
+\family typewriter
+trace/analyzeSpikesInPeriod
+\family default
+ method.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+histogram_db
+\family default
+ Each row corresponds to a histogram bin.
+ Contains plotting methods.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+corrcoefs_db
+\family default
+ Each row corresponds to a correlation coefficient.
+ Contains plotting methods.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+cluster_db
+\family default
+ Each row corresponds to a cluster centroid.
+ Contains plotting methods.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Datasets create the databases
+\end_layout
+
+\begin_layout Standard
+The dataset object is responsible for creating the database objects (see
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Database-overview"
+
+\end_inset
+
+).
+ It defines where the raw data is stored and what parameters are used to
+ load and analyze it.
+ It knows that raw data has parameters associated which individual raw data
+ traces and how and which measures will be generated.
+ This information is used to automatically generate a database from the
+ dataset.
+ It also allows reaching back the raw data from rows of an analyzed database.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+makebox[0pt]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Dataset-classes.eps
+	display false
+	width 80page%
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Dataset-class-hierarchy"
+
+\end_inset
+
+Dataset class hierarchy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Dataset-class-hierarchy"
+
+\end_inset
+
+ shows the hierarchy for the dataset classes.
+ The top-level dataset class is 
+\family typewriter
+params_tests_dataset
+\family default
+ which is an incomplete class.
+ That is, this class defines general utilities that can work for a variety
+ of dataset subclasses, but one cannot make a object from the 
+\family typewriter
+params_tests_dataset
+\family default
+ class directly.
+ Instead, one of its subclasses must be chosen and used.
+ Some of these specialized subclasses are as follows:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+params_tests_fileset
+\family default
+ This class assumes each raw data item resides in a file and all of these
+ files are in the same directory.
+ The parameter names and values are obtained from each file name itself.
+ This class is mostly useful for simulation filesets.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+params_cip_trace_fileset
+\family default
+ This is a subclass of 
+\family typewriter
+params_tests_fileset
+\family default
+, therefore it inherits the notion of one file per data item.
+ The files must conform to the current-pulse injection experiments and have
+ a starting time and duration for the pulses.
+ The pulse magnitude is read from the 
+\family typewriter
+pAcip
+\family default
+ parameter.
+ This class is mostly useful for simulation filesets.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+physiol_cip_traceset
+\family default
+ This is a subclass of 
+\family typewriter
+params_tests_dataset
+\family default
+.
+ It is designed to load a set of physiology traces from a single file generated
+ by the PCDX stimulation and acquisition software.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+physiol_cip_traceset_fileset
+\family default
+ This is a subclass of 
+\family typewriter
+params_tests_dataset
+\family default
+.
+ It is designed to load traces from multiple PCDX data files.
+ It uses the 
+\family typewriter
+physiol_cip_traceset
+\family default
+ class for this purpose.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+cip_traces_dataset,
+\begin_inset space ~
+\end_inset
+
+cip_traceset,
+\begin_inset space ~
+\end_inset
+
+cip_traceset_dataset
+\family default
+ These are obsolete classes that allow loading physiology traces from older
+ 
+\noun on
+Matlab
+\noun default
+ formatted objects.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Bundling the database and dataset together
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename bundle-classes.eps
+	display false
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Bundle-class-hierarchy"
+
+\end_inset
+
+Bundle class hierarchy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Since dataset and database objects are related and work together for some
+ operations, it is convenient to have another object that bundles them together.
+ There are several analysis routines that start from the database, retrieve
+ raw data traces and other related information from the dataset and create
+ a result.
+ For instance, matching neurons from one database to another requires first
+ comparing the measurements to find match candidates, and then comparing
+ raw traces to visually represent the match quality.
+ 
+\end_layout
+
+\begin_layout Standard
+The top-level 
+\family typewriter
+dataset_db_bundle
+\family default
+ class in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Bundle-class-hierarchy"
+
+\end_inset
+
+ fulfills this purpose by bundling a 
+\family typewriter
+dataset
+\family default
+ with the raw database, 
+\family typewriter
+db
+\family default
+, created from it, and with the reduced database, 
+\family typewriter
+joined_db
+\family default
+, that contains a one-row-per-neuron representation.
+ Although being a virtual class that cannot be instantiated, it contains
+ general methods and prototype methods that must be implemented in subclasses.
+ This way, it provides guidelines for defining subclasses.
+ Its two subclasses provide specialize methods for model and physiology
+ databases, respectively.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+model_ct_bundle
+\family default
+ Contains methods to name and visualize neurons in the model database.
+ It has methods to compare real neurons to model neurons to find best matching
+ candidates.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+physiol_bundle
+\family default
+ Contains methods to name and visualize neurons in the physiology database.
+ It contains a new attribute, 
+\family typewriter
+joined_control_db
+\family default
+, that holds only the neurons recorded without any pharmacological treatments.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+put bundles here, and in recipes
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Wrapper classes hold raw data
+\end_layout
+
+\begin_layout Standard
+Wrapper classes are designed to hold data and provide simple methods that
+ operate on them.
+ They can either hold raw data, or intermediate processed forms of data
+ being byproducts of analysis routines.
+ In the overall schema of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Database-overview"
+
+\end_inset
+
+, the raw traces obtained from the dataset object are kept in data wrapper
+ objects.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename data-wrapper-diagram.eps
+	display false
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Datawrapper-class-hierarchy"
+
+\end_inset
+
+Data wrapper class hierarchy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Datawrapper-class-hierarchy"
+
+\end_inset
+
+ shows the hierarchy for the data wrapper classes.
+ The most basic data wrapper class in this toolbox is the 
+\family typewriter
+trace
+\family default
+ class, which holds raw voltage or current traces.
+ The 
+\family typewriter
+spikes
+\family default
+ object contains the spike times obtained by analyzing a 
+\family typewriter
+trace
+\family default
+ object.
+\end_layout
+
+\begin_layout Standard
+A data wrapper class does more than just holding the data.
+ It defines a set of operations in terms of method functions that can work
+ on the data held by the class.
+ As a rule of thumb, if one needs to add some new functionality into the
+ toolbox, it should be added as a method into a class holding the data on
+ which to operate.
+\end_layout
+
+\begin_layout Standard
+Some of the data wrapper classes are as follows:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+trace
+\family default
+ Generic object that holds a vector of data that changes over time.
+ It has a time resolution and y-axis resolution.
+ Contains simple analysis routines such as finding average values within
+ different periods, or finding spikes given a threshold.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+cip_trace
+\family default
+ A subclass of 
+\family typewriter
+trace
+\family default
+ class for current-injection recording protocols.
+ It defines an initial spontaneous period, followed by a current-injection
+ period, and final recovery period.
+ It contains period-specific analyses that apply to the experimental protocol.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+spike_shape
+\family default
+ A subclass of 
+\family typewriter
+trace
+\family default
+ that holds the shape of a single spike.
+ It contains spike shape measurements.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+spikes
+\family default
+ A generic class to hold the event times for spikes.
+ It contains methods for making measurements based on spike times, such
+ as rate and ISI calculations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Profiles hold results of measurements
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Profile-classes.eps
+	display false
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Profile-class-hierarchy"
+
+\end_inset
+
+Profile class hierarchy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Profile classes are designed to hold results of analysis and measurements
+ on the data wrapper or database objects.
+ The data and results are separated into different classes for added flexibility
+ of saving data and results separately.
+ Yet, the profiles normally keep a copy of the data wrapper object from
+ which they obtained the measurements.
+ The intention is to save the measurement results for possible visualization
+ or later inspection, without having to repeat the analyses.
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Profile-class-hierarchy"
+
+\end_inset
+
+, the top-level 
+\family typewriter
+results_profile
+\family default
+ class contains a simple 
+\noun on
+Matlab
+\noun default
+ structure variable, 
+\family typewriter
+results
+\family default
+, that holds a set of name-value pairs.
+ These are names of measurements and their corresponding values.
+ Most of the subclasses are simplistic, and they exist only for organizational
+ reasons.
+ Some of them may implement specialized plotting methods that make use of
+ the saved measurements.
+ These subclasses can be briefly described as follows:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+trace_profile
+\family default
+ Holds measurements from a 
+\family typewriter
+trace
+\family default
+ object.
+ It contains the 
+\family typewriter
+trace
+\family default
+ object and the 
+\family typewriter
+spikes
+\family default
+ found in it, and averaged 
+\family typewriter
+spike_shape
+\family default
+ object.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+cip_trace_profile
+\family default
+ Holds measurements from a 
+\family typewriter
+cip_trace
+\family default
+ object with a current-injection period.
+ It contains the original 
+\family typewriter
+cip_trace
+\family default
+ object and the 
+\family typewriter
+spikes
+\family default
+ found in it.
+ In addition, it holds averaged 
+\family typewriter
+spike_shape
+\family default
+ objects from the spontaneous and current-injection periods.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+cip_trace_allspikes_profile
+\family default
+ Extended version of 
+\family typewriter
+cip_trace_profile
+\family default
+.
+ Instead of single averaged spike shapes, it contains spike databases from
+ the spontaneous, current-injection and recovery periods.
+ These databases only retain measurements made from individual spikes, but
+ not their shapes.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+spike_shape_profile
+\family default
+ Holds measurements made from a 
+\family typewriter
+spike_shape
+\family default
+ object.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+params_tests_profile
+\family default
+ Holds analysis results from a 
+\family typewriter
+params_tests_db
+\family default
+ object.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Integrated plotting for easy visualization
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename plot-classes.eps
+	display false
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Plot-class-hierarchy"
+
+\end_inset
+
+Plot classes hierarchy.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+To integrate visualization into each class, common 
+\noun on
+Matlab
+\noun default
+ plotting features are implemented in the supporting classes seen in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Plot-class-hierarchy"
+
+\end_inset
+
+.
+ These bring an object-oriented approach to plot generation in 
+\noun on
+Matlab
+\noun default
+.
+ Plots can be generated as objects, saved, modified and included as subplots
+ in larger plots.
+ 
+\end_layout
+
+\begin_layout Standard
+The main plotting classes are 
+\family typewriter
+plot_abstract
+\family default
+, 
+\family typewriter
+plot_superpose
+\family default
+, and 
+\family typewriter
+plot_stack
+\family default
+.
+ The most general plotting template class, and the top-level class in the
+ hierarchy, is 
+\family typewriter
+plot_abstract
+\family default
+, which plots an axis using a single 
+\noun on
+Matlab
+\noun default
+ command, like 
+\family typewriter
+plot
+\family default
+ or 
+\family typewriter
+bar
+\family default
+.
+ Multiple 
+\family typewriter
+plot_abstract
+\family default
+ objects that use the same command can be superposed and still act as a
+ single 
+\family typewriter
+plot_abstract
+\family default
+ object.
+ If they require different plotting commands (e.g., mixing 
+\family typewriter
+plot
+\family default
+ and 
+\family typewriter
+text
+\family default
+ labels), a 
+\family typewriter
+plot_superpose
+\family default
+ object must be used that is composed of an array of 
+\family typewriter
+plot_abstract
+\family default
+ objects.
+ Multiple 
+\family typewriter
+plot_abstract
+\family default
+ objects or any of the subclass objects can be composed together in a horizontal
+ or vertical stack using the 
+\family typewriter
+plot_stack
+\family default
+ class.
+ Since 
+\family typewriter
+plot_stack
+\family default
+ is itself a subclass of 
+\family typewriter
+plot_abstract
+\family default
+, it can be stacked as well.
+ This allows creating virtually any complex structured figure using the
+ three classes.
+ Each of these classes have several properties that control the layout and
+ details of placement and looks.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+use an example figure here? or point to one later?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The rest of the classes in the hierarchy create typical types of plots for
+ convenience:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+plot_bars
+\family default
+ Multi-axis bar plot with extending errorbars using a combination of the
+ 
+\family typewriter
+bar
+\family default
+, 
+\family typewriter
+errorbar
+\family default
+, and 
+\family typewriter
+text
+\family default
+ commands.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+plot_errorbar
+\family default
+ Single-axis errorbar plot using the 
+\family typewriter
+errorbar
+\family default
+ command.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+plot_errorbars
+\family default
+ Multi-axis errorbar plot using the 
+\family typewriter
+errorbar
+\family default
+ command.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+plot_simple
+\family default
+ Simplified single-axis, single command plot.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Miscellaneous classes
+\end_layout
+
+\begin_layout Standard
+These are miscellaneous classes that do not fit into any of the above categories
+:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+period
+\family default
+ Defines a period composed of a start and end time for operations on traces,
+ etc.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+script_array
+\family default
+ Defines a looping construct that can be extended.
+ It defines an initialization routine, a job that needs to be repeated,
+ and a finalization routine.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+script_array_for_cluster
+\family default
+ Subclass of 
+\family typewriter
+script_array
+\family default
+, it can submit the array job to run in parallel on a computing cluster
+ that supports the Sun Grid Engine (SGE) commands.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+script_factory
+\family default
+ Factory class to generate an enumerated array of script files to be distributed
+ on several machines and run in parallel.
+ It also defines a final function to gather results.
+ It is recommended to use 
+\family typewriter
+script_array_for_cluster
+\family default
+ instead.
+\end_layout
+
+\begin_layout Section
+Programming Conventions
+\end_layout
+
+\begin_layout Subsection
+Using property structures for passing optional arguments to methods
+\end_layout
+
+\begin_layout Standard
+For flexibility in passing optional arguments to methods, this toolbox adopted
+ using property structures.
+ A 
+\noun on
+Matlab
+\noun default
+ structure, mostly called 
+\family typewriter
+props
+\family default
+, is passed to a method as the last argument:
+\end_layout
+
+\begin_layout LyX-Code
+>> props.optionalParam = 1
+\end_layout
+
+\begin_layout LyX-Code
+>> myFunc('hello', props)
+\end_layout
+
+\begin_layout Standard
+Each method defines a list of accepted arguments that can be defined as
+ fields in the structure, but should be able to execute without them by
+ substituting defaults.
+ Using a property structure is advantageous over using the 
+\family typewriter
+varargin
+\family default
+ keyword for variable number of arguments, because properties allow adding
+ and deleting arguments in methods without causing changes to the contents
+ of the method.
+ Since arguments are addressed by names rather than positional arguments,
+ missing arguments do not affect the other arguments.
+\end_layout
+
+\begin_layout Standard
+Most objects keep a property structure that define custom attributes passed
+ at time of construction.
+ These classes define a 
+\family typewriter
+setProp
+\family default
+ method to modify properties after being created.
+\end_layout
+
+\begin_layout Subsection
+Overloaded operators for transparent access to object contents
+\end_layout
+
+\begin_layout Standard
+The simplistic implementation of object-oriented programming features in
+ Matlab impose several strict limitations.
+ 
+\noun on
+Matlab
+\noun default
+'s powerful and flexible operator overloading feature helps overcome these
+ limitations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+appname{}
+\end_layout
+
+\end_inset
+
+
+\noun on
+ 
+\noun default
+uses
+\noun on
+ Matlab 
+\noun default
+operator overloading to facilitate manipulation of local and parent object
+ fields.
+ In 
+\noun on
+Matlab
+\noun default
+, object fields can only be accessed from the object's private methods.
+ This means one cannot access the object fields using the dot operator.
+ To give an example, the 
+\family typewriter
+trace
+\family default
+ object has a 
+\family typewriter
+dt
+\family default
+ field for time resolution.
+ The following command fails:
+\end_layout
+
+\begin_layout LyX-Code
+>> mytrace.dt = 1e-4;
+\end_layout
+
+\begin_layout LyX-Code
+??? Object fields can only be accessed within methods.
+\end_layout
+
+\begin_layout Standard
+Everytime object contents need to be addressed, a method must be called.
+ The recommended way to do this is by defining separate getter/setter methods
+ for each field of the object.
+ For instance, writing 
+\family typewriter
+getDt
+\family default
+ and 
+\family typewriter
+setDt
+\family default
+ methods for accessing the 
+\family typewriter
+dt
+\family default
+ field.
+ This creates a lot of burden for the programmer not just creating a class,
+ but also maintaining it later.
+ Although this probably was intended for strictness in building object-oriented
+ constructs, it is highly inconvenient for command-line manipulations.
+ Therefore our toolbox objects offer generic 
+\family typewriter
+get
+\family default
+ and 
+\family typewriter
+set
+\family default
+ methods that can read or write the value of any of its fields:
+\end_layout
+
+\begin_layout LyX-Code
+>> mytrace = set(mytrace, 'dt', 1e-4)
+\end_layout
+
+\begin_layout LyX-Code
+>> get(mytrace, 'dt')
+\end_layout
+
+\begin_layout LyX-Code
+ans = 1e-04
+\end_layout
+
+\begin_layout Standard
+These methods are almost identical across different classes.
+ In addition to this, defining the special 
+\family typewriter
+subsref
+\family default
+ method for objects allow overloading the dot (
+\family typewriter
+.
+\family default
+), parenthesis (
+\family typewriter
+()
+\family default
+), and curly brace (
+\family typewriter
+{}
+\family default
+) operators.
+ Most
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+May not be implemented for all objects.
+\end_layout
+
+\end_inset
+
+ of the objects in the toolbox allows using the dot operator to read or
+ write to fields.
+ Overloading these operators also help with the limitation of accessing
+ parent object fields, a problem not found in other object-oriented languages
+ such as 
+\noun on
+Java
+\noun default
+.
+ For example without any overloading, from the subclass class 
+\family typewriter
+cip_trace
+\family default
+ one needs to first address the parent class name, and then 
+\family typewriter
+dt
+\family default
+: 
+\end_layout
+
+\begin_layout LyX-Code
+>> myciptrace.trace.dt
+\end_layout
+
+\begin_layout LyX-Code
+ans = 1e-4
+\end_layout
+
+\begin_layout Standard
+After defining the overloaded operator that call parent methods, one get
+ reach 
+\family typewriter
+dt
+\family default
+ directly:
+\end_layout
+
+\begin_layout LyX-Code
+>> myciptrace.dt
+\end_layout
+
+\begin_layout LyX-Code
+ans = 1e-4
+\end_layout
+
+\begin_layout Standard
+Some classes overload indexing operators to allow accessing special functions.
+ For instance the main database class, 
+\family typewriter
+tests_db
+\family default
+, overloads parenthesized indexing to access cells in the database matrix.
+ Some classes define the special 
+\family typewriter
+subsasgn
+\family default
+ method to overload the assignment operations when the object is on the
+ left-hand-side of the operation.
+ This allows the command: 
+\end_layout
+
+\begin_layout LyX-Code
+>> mytrace.dt = 1e-4;
+\end_layout
+
+\begin_layout Standard
+which would otherwise need to be done the following way:
+\end_layout
+
+\begin_layout LyX-Code
+>> mytrace = set(mytrace, 'dt', 1e-4);
+\end_layout
+
+\begin_layout Subsection
+Troubleshooting errors
+\end_layout
+
+\begin_layout Standard
+For debugging problems with methods, one can turn on the verbosity of informatio
+n display during execution with:
+\end_layout
+
+\begin_layout LyX-Code
+>> warning on verbose
+\end_layout
+
+\begin_layout LyX-Code
+>> warning on backtrace
+\end_layout
+
+\begin_layout Subsection
+Creating a new class
+\end_layout
+
+\begin_layout Standard
+To get the benefit of overloading, the top-level class must have the generic
+ 
+\family typewriter
+subsref
+\family default
+ and 
+\family typewriter
+subsasgn
+\family default
+ methods.
+ These methods can be copied from any of the other top-level classes.
+ Any subclasses should have the generic 
+\family typewriter
+get
+\family default
+ and 
+\family typewriter
+set
+\family default
+ methods in place.
+ 
+\end_layout
+
+\begin_layout Part
+User's Manual
+\end_layout
+
+\begin_layout Section
+Recipes for Common Tasks
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Recipes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Loading a database
+\end_layout
+
+\begin_layout Standard
+A database can be created directly from a data matrix, or indirectly by
+ loading a dataset.
+ For the latter, first a dataset object must be created that point to the
+ data sources.
+ There are different dataset classes that allow using different data sources.
+ For instance, physiology and simulation data require different operations.
+ In physiology data, one can record information about the treatments and
+ other conditions, whereas in simulations one can keep track of changing
+ parameters.
+ 
+\end_layout
+
+\begin_layout Standard
+Once the dataset object is obtained, the database object can be created
+ with 
+\end_layout
+
+\begin_layout LyX-Code
+>> mydb = params_tests_db(dataset)
+\end_layout
+
+\begin_layout Standard
+which initiates the loading of files.
+ This operation is the same no matter what type of dataset or fileset object
+ is used.
+ The following commands reduce the verbosity of output during this long
+ process:
+\end_layout
+
+\begin_layout LyX-Code
+>> warning off verbose
+\end_layout
+
+\begin_layout LyX-Code
+>> warning off backtrace
+\end_layout
+
+\begin_layout LyX-Code
+>> warning off calcInitVm:info
+\end_layout
+
+\begin_layout Subsubsection
+Creating a dataset for physiology data
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:loading-phys"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Physiology data can be obtained from multiple sources.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Loading data by specifying tracesets in a text file
+\end_layout
+
+\begin_layout Standard
+The preferred way to load physiology traces is to first create a text file
+ where each line specifies traces to load from a single data source (e.g.,
+ a PCDX file).
+ The format of this text file is explained in the help of the 
+\family typewriter
+physiol_cip_traceset_fileset
+\family default
+ class.
+ The physiology fileset can be created from the text file with a command
+ such as follows:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_fileset = 
+\end_layout
+
+\begin_layout LyX-Code
+     physiol_cip_traceset_fileset('cell_traces.txt', 1e-4, 1e-3,
+\end_layout
+
+\begin_layout LyX-Code
+                                  struct('profile_method_name', 
+\end_layout
+
+\begin_layout LyX-Code
+                                         'getProfileAllSpikes',
+\end_layout
+
+\begin_layout LyX-Code
+                                         'offset_y', -9,
+\end_layout
+
+\begin_layout LyX-Code
+                                         'cip_list', 
+\end_layout
+
+\begin_layout LyX-Code
+                                         [-200 -100:20:100 200 300]))
+\end_layout
+
+\begin_layout Standard
+This command reads the 
+\family typewriter
+cell_traces.txt
+\family default
+ file and records the tracesets to read from each file.
+ The structure passed indicates to use the 
+\family typewriter
+getProfileAllSpikes
+\family default
+ method to calculate the measurements on the traces.
+\end_layout
+
+\begin_layout Standard
+The fileset can then be used to generate the database, as shown above, using
+ its 
+\family typewriter
+params_tests_db
+\family default
+ method.
+ The fileset object holds within, a separate 
+\family typewriter
+physiol_cip_traceset
+\family default
+ object for each line in the text file.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+cip_list
+\family default
+ optional parameter must be used with caution.
+ To determine actual CIP-levels, the current channel of the trace is analyzed.
+ 
+\family typewriter
+cip_list
+\family default
+ entries are used to discretize the noisy current channel.
+ Current levels will coerce to the nearest entry from 
+\family typewriter
+cip_list
+\family default
+.
+ In the above example, all current levels below 
+\begin_inset Formula $-200$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+pA will be assumed to be 
+\begin_inset Formula $-200$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+pA.
+ The default 
+\family typewriter
+cip_list
+\family default
+ resides in the 
+\family typewriter
+physiol_cip_traceset/CIPform
+\family default
+ method.
+\end_layout
+
+\begin_layout Paragraph
+Loading data from existing 
+\family typewriter
+cip_traces
+\family default
+ objects
+\end_layout
+
+\begin_layout Standard
+The now obsolete 
+\family typewriter
+cip_traces
+\family default
+ Matlab objects have been used to hold some earlier physiological data.
+ Each object holds a set of traces with varying CIP levels applied to the
+ cell.
+ The following command creates a dataset object from a cell array 
+\family typewriter
+ct_list
+\family default
+ of 
+\family typewriter
+cip_traces
+\family default
+ objects by choosing only the traces with 
+\begin_inset Formula $100$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+pA and 
+\begin_inset Formula $-100$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+pA CIP levels
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_dataset = 
+\end_layout
+
+\begin_layout LyX-Code
+  cip_traceset_dataset(ct_list, [100, -100], 1e-3, 
+\end_layout
+
+\begin_layout LyX-Code
+                       'dataset gpd 0411-21', 
+\end_layout
+
+\begin_layout LyX-Code
+                       struct('offsetPotential', -9)
+\end_layout
+
+\begin_layout Subsubsection
+Creating a dataset for simulation data
+\end_layout
+
+\begin_layout Standard
+First a dataset or a fileset must be created.
+ An example to load 
+\noun on
+Genesis
+\noun default
+ 
+\family typewriter
+.bin
+\family default
+ files would be
+\end_layout
+
+\begin_layout LyX-Code
+>> fileset = 
+\end_layout
+
+\begin_layout LyX-Code
+  params_cip_trace_fileset('/home/cengiz/data/*.bin', 
+\end_layout
+
+\begin_layout LyX-Code
+                           1e-4, 1e-3, 
+\end_layout
+
+\begin_layout LyX-Code
+                           20001, 10000, 
+\end_layout
+
+\begin_layout LyX-Code
+                           'sim dataset gpsc0501', 
+\end_layout
+
+\begin_layout LyX-Code
+                           struct('trace_time_start', 10001, 
+\end_layout
+
+\begin_layout LyX-Code
+                                  'type', 'sim',  
+\end_layout
+
+\begin_layout LyX-Code
+                                  'scale_y', 1e3))
+\end_layout
+
+\begin_layout Standard
+The explanation of arguments can be obtained by issuing a 
+\end_layout
+
+\begin_layout LyX-Code
+>> help params_cip_trace_fileset
+\end_layout
+
+\begin_layout Standard
+in 
+\noun on
+Matlab
+\noun default
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Point to reference manual at the end of this manual.
+ You know, the automatically generated one.
+\end_layout
+
+\end_inset
+
+ In this example, all 
+\noun on
+Genesis
+\noun default
+ files were created with the same characteristics: 
+\begin_inset Formula $\mathrm{d}t=10^{-4}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{d}V=10^{-3}$
+\end_inset
+
+, pulse during samples 
+\begin_inset Formula $[20001,30000]$
+\end_inset
+
+.
+ Optional properties (the last argument) indicates that the first 
+\begin_inset Formula $10000$
+\end_inset
+
+ samples should be discarded and that the data should be prescaled to yield
+ the 
+\begin_inset Formula $\mathrm{d}V$
+\end_inset
+
+ indicated.
+ Note that, using an absolute path to refer to data files ensures that they
+ can be reached from different directories after the fileset object is saved.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Loading heterogeneous set of simulation files
+\end_layout
+
+\begin_layout Standard
+Sometimes not all data files in a simulation set would have the same length,
+ or CIP start time.
+ The brute-force simulation set is such an example, where the spontaneous
+ trace and different CIP level traces are in different files.
+ I have a special superclass that contains multiple fileset objects to automatic
+ally handle this kind of data.
+ It resides not in the general distribution directory, but in my personal
+ directory 
+\family typewriter
+/djlab/shared/matlab/classes/cengiz
+\family default
+.
+ This class is an example of how to create composite fileset objects.
+ An instance of this class can be created with:
+\end_layout
+
+\begin_layout LyX-Code
+>> m_filesetall = 
+\end_layout
+
+\begin_layout LyX-Code
+     multi_fileset_gpsim_cns2005('.../data', '.../paramRanges.txt', 
+\end_layout
+
+\begin_layout LyX-Code
+                                 '.../all_0.par', 'sim db gpsc0502')
+\end_layout
+
+\begin_layout Standard
+which will find all the files in the given directory and put them in separate
+ pre-defined fileset objects according to their 
+\family typewriter
+_pAcip_
+\family default
+ suffixes.
+ Parameter range definition and value files are used to read parameter values
+ for each simulation.
+ A single database object can be loaded using the 
+\family typewriter
+params_tests_db
+\family default
+ method on the 
+\family typewriter
+m_filesetall
+\family default
+ object above.
+ The help on this method explains how to load only certain filesets at a
+ time.
+ This helps to load different filesets in parallel, since databases can
+ be concatanated easily afterwards.
+\end_layout
+
+\begin_layout Subsection
+Finding constrained subsets in a database
+\end_layout
+
+\begin_layout Standard
+Once a database with more-than-sufficient number of measures is available,
+ subsets of this database can be extracted easily for other tasks.
+ New databases can be formed by filtering rows, columns or pages of an existing
+ database.
+ For choosing any of these dimensions, the user can specify an array of
+ indices, or a logical array.
+ For instance, 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(1:10, :);
+\end_layout
+
+\begin_layout Standard
+creates a database object 
+\family typewriter
+db2
+\family default
+ by the first ten rows of 
+\family typewriter
+db1
+\family default
+ and all its columns.
+ For three-dimensional databases, a third parameter can be specified, as
+ in 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(1:10, :, [1 3]);
+\end_layout
+
+\begin_layout Standard
+which will take only the first and third page from 
+\family typewriter
+db1
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+For measures, columns can also be specified as a single string value, or
+ a cell array of strings, as in 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(1:10, 'pAcip');
+\end_layout
+
+\begin_layout Standard
+which chooses only the 
+\family typewriter
+pAcip
+\family default
+ column of the first 10 rows of 
+\family typewriter
+db1
+\family default
+ or 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(1:10, {'pAcip', 'IniSpontSpikeRate'});
+\end_layout
+
+\begin_layout Standard
+which chooses two columns.
+ Finally, composite queries can be formed when cell arrays are used for
+ addressing:
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(1:10, {1:10, 'IniSpontSpikeRate', 234});
+\end_layout
+
+\begin_layout Standard
+which will select the first ten measures, the spontaneous spike rate, and
+ the measure number 234.
+\end_layout
+
+\begin_layout Standard
+Rows of the database signify neurons or simulation runs.
+ Therefore it is important to find subset of neurons that match a certain
+ criteria.
+ This can be done specifying a list of rows that is the result of a logical
+ operation.
+ A logical operation finds rows that satisfy constraints on a single parameter
+ or measure of a database.
+ For instance, 
+\end_layout
+
+\begin_layout LyX-Code
+>> rows = db1(:, 'IniSpontSpikeRate') > 10;
+\end_layout
+
+\begin_layout Standard
+gives a logical array that contains a 
+\family typewriter
+true
+\family default
+ value for all rows in 
+\family typewriter
+db1
+\family default
+ that has spontaneous firing faster than 10 Hz.
+ If this is used as the row specifier in a subset operation, a new database
+ with only these neurons can be obtained by 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(rows, :);
+\end_layout
+
+\begin_layout Standard
+If we want more constrains it is straightforward to use any logical operation
+ such as AND (
+\family typewriter
+&
+\family default
+), OR (
+\family typewriter
+|
+\family default
+) and NOT(
+\family typewriter
+~
+\family default
+) on these logical arrays such as 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1((rows | rows2) & rows3, :);
+\end_layout
+
+\begin_layout Standard
+which says choose all rows from 
+\family typewriter
+db1
+\family default
+ where either the tests 
+\family typewriter
+rows
+\family default
+ and 
+\family typewriter
+rows2
+\family default
+ are satisfied and while 
+\family typewriter
+rows3
+\family default
+ is always satisfied.
+ All these operations can be specified in-place such as in 
+\end_layout
+
+\begin_layout LyX-Code
+>> db2 = db1(db1(:, 'IniSpontSpikeRate') > 10 & 
+\end_layout
+
+\begin_layout LyX-Code
+             db1(:, 'IniSpontSpikeRate') <= 20, :);
+\end_layout
+
+\begin_layout Standard
+which will create a database of neurons that spontaneously fire between
+ 10–20 Hz.
+\end_layout
+
+\begin_layout Subsubsection
+Complex Queries
+\end_layout
+
+\begin_layout Standard
+Complex queries can be constructed using results of queries in nested fashion.
+ The following example shows an example of finding all neurons that match
+ any of the neurons in another database and then find the ones that match
+ certain criteria:
+\end_layout
+
+\begin_layout LyX-Code
+>> sub_phys_es2 = phys_joined_db(phys_joined_db(:, 'NeuronId') == es2(:,
+ 'NeuronId'), :); 
+\end_layout
+
+\begin_layout LyX-Code
+>> displayRows(sub_phys_es2(sub_phys_es2(:, 'Apamin') > 0, 'NeuronId'))
+\end_layout
+
+\begin_layout Standard
+Here, the first query returns all rows that match the 
+\family typewriter
+NeuronId
+\family default
+s from the 
+\family typewriter
+es3
+\family default
+ database.
+ The inner term in the second query finds among these neurons the ones for
+ which apamin blocker data is present.
+ The final enclosing block uses these rows to get a subset of the 
+\family typewriter
+phys_joined_db
+\family default
+ with only the 
+\family typewriter
+NeuronId
+\family default
+ column.
+ This type query has equivalent computational power to using nested SELECT
+ statements in the SQL language.
+\end_layout
+
+\begin_layout Subsection
+Sorting the database according to a measure
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Sorting-the-database"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+First, all rows where the desired measure value is 
+\family typewriter
+NaN
+\family default
+ should be eliminated:
+\end_layout
+
+\begin_layout LyX-Code
+>> ampDecayTau_nonNaN_db = 
+\end_layout
+
+\begin_layout LyX-Code
+     dball(~isnan(dball(:, 'PulseSpikeAmpDecayTau')), :)
+\end_layout
+
+\begin_layout Standard
+This finds all rows in 
+\family typewriter
+dball
+\family default
+ that the 
+\family typewriter
+PulseSpikeAmpDecayTau
+\family default
+ measure is not 
+\family typewriter
+NaN
+\family default
+ and creates a new DB object 
+\family typewriter
+ampDecayTau_nonNaN_db
+\family default
+, which includes these rows with all measures from 
+\family typewriter
+dball
+\family default
+.
+ Notice that the newly created DB contains less rows than the original DB.
+ The number of rows in the new DB can be obtained by just typing the name
+ of the DB and pressing enter at the 
+\noun on
+Matlab
+\noun default
+ prompt.
+\end_layout
+
+\begin_layout Standard
+Then, one can sort the new database using:
+\end_layout
+
+\begin_layout LyX-Code
+>> ampDecayTau_sorted_db = sortrows(ampDecayTau_nonNaN_db, 
+\end_layout
+
+\begin_layout LyX-Code
+                                    'PulseSpikeAmpDecayTau') 
+\end_layout
+
+\begin_layout Standard
+This will create DB which is sorted with increasing values of the 
+\family typewriter
+PulseSpikeAmpDecayTau
+\family default
+ measure.
+ Displaying the first few rows gives lowest values:
+\end_layout
+
+\begin_layout LyX-Code
+>> displayRows(ampDecayTau_sorted_db, 1:3)
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    'NaF'                    [      1000]    [     250]    [     250]
+\end_layout
+
+\begin_layout LyX-Code
+    'NaP'                    [    0.5000]    [  0.5000]    [  2.5000]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv3'                    [        60]    [      15]    [      30]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv2'                    [         9]    [       3]    [       3]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv4f'                   [         5]    [       1]    [      25]
+\end_layout
+
+\begin_layout LyX-Code
+    'KCNQ'                   [    0.1000]    [  0.0100]    [  0.1000]
+\end_layout
+
+\begin_layout LyX-Code
+    'SK'                     [    8.5000]    [      34]    [  8.5000]
+\end_layout
+
+\begin_layout LyX-Code
+    'CaHVA'                  [        10]    [  0.1000]    [      10]
+\end_layout
+
+\begin_layout LyX-Code
+    'HCN'                    [        30]    [  0.3000]    [      30]
+\end_layout
+
+\begin_layout LyX-Code
+    'pAcip'                  [       100]    [     100]    [     100]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontISICV'          [3.9448e-04]    [  0.0051]    [  0.0452]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontPotAvg'         [  -64.9161]    [-52.6859]    [-41.5876]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontSpikeRate'      [   14.0014]    [ 18.0018]    [ 81.0081]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseISICV'             [    0.0226]    [       0]    [  0.0366]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseIni100msISICV'     [    0.0541]    [       0]    [  0.0814]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x27 char]    [   28.8953]    [       0]    [ 88.9086]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x27 char]    [   26.6785]    [       0]    [ 86.7052]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x22 char]    [        30]    [      20]    [     100]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x25 char]    [   29.4118]    [166.6667]    [ 96.0512]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulsePotAvg'            [  -61.0044]    [-32.7775]    [-34.1518]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulsePotMin'            [       NaN]    [     NaN]    [     NaN]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulsePotSag'            [       NaN]    [     NaN]    [     NaN]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSFA'               [    1.1254]    [     NaN]    [  1.3571]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSpikeAmpDecayDelta'[    4.2764]    [  9.2041]    [ 17.8389]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSpikeAmpDecayTau'  [    0.2000]    [  0.2000]    [  0.3000]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSpikeRate'         [   28.0028]    [  2.0002]    [ 89.0089]
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+Displaying the last few rows gives the highest values:
+\end_layout
+
+\begin_layout LyX-Code
+>> displayRows(ampDecayTau_sorted_db, 13879:13881)
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    'NaF'                    [     250]    [     250]    [      1000]
+\end_layout
+
+\begin_layout LyX-Code
+    'NaP'                    [  2.5000]    [  2.5000]    [    2.5000]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv3'                    [      15]    [      15]    [        60]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv2'                    [       3]    [       3]    [         9]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv4f'                   [       5]    [       5]    [        25]
+\end_layout
+
+\begin_layout LyX-Code
+    'KCNQ'                   [  0.1000]    [  0.1000]    [    0.0100]
+\end_layout
+
+\begin_layout LyX-Code
+    'SK'                     [  8.5000]    [  8.5000]    [        17]
+\end_layout
+
+\begin_layout LyX-Code
+    'CaHVA'                  [      10]    [      10]    [        10]
+\end_layout
+
+\begin_layout LyX-Code
+    'HCN'                    [      30]    [       3]    [        30]
+\end_layout
+
+\begin_layout LyX-Code
+    'pAcip'                  [    -100]    [    -100]    [       100]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontISICV'          [  0.0027]    [  0.0027]    [9.1376e-04]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontPotAvg'         [-28.5685]    [-28.5687]    [  -67.7567]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontSpikeRate'      [ 69.0069]    [ 69.0069]    [   14.0014]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseISICV'             [  0.0046]    [  0.0046]    [    0.0091]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseIni100msISICV'     [  0.0080]    [  0.0080]    [         0]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x27 char]    [ 71.1269]    [ 71.1269]    [   24.4499]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x27 char]    [ 71.1427]    [ 71.1427]    [   26.6785]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x22 char]    [      80]    [      80]    [        20]
+\end_layout
+
+\begin_layout LyX-Code
+              [1x25 char]    [ 70.6357]    [ 70.6357]    [   25.4453]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulsePotAvg'            [-30.1705]    [-30.1718]    [  -65.2721]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulsePotMin'            [     NaN]    [     NaN]    [       NaN]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulsePotSag'            [     NaN]    [     NaN]    [       NaN]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSFA'               [  0.9792]    [  0.9792]    [    1.0407]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSpikeAmpDecayDelta'[ -1.2791]    [ -1.2868]    [    1.2201]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSpikeAmpDecayTau'  [999.6000]    [999.6000]    [      1000]
+\end_layout
+
+\begin_layout LyX-Code
+    'PulseSpikeRate'         [ 72.0072]    [ 72.0072]    [   25.0025]
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Subsection
+Preprocessing a raw (physiology) database by elimination and averaging 
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Preprocessing a raw (physiology) database
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mostly, raw physiology databases are subject to redundancies and unwanted
+ recordings.
+ We usually apply the following steps before we start analyzing a raw physiology
+ database.
+ Similar steps may be employed for simulation databases, too.
+\end_layout
+
+\begin_layout Subsubsection
+Limiting range of bias currents
+\end_layout
+
+\begin_layout Standard
+Recordings with high bias current are undesirable.
+ We commonly filter-out high bias currents with:
+\end_layout
+
+\begin_layout LyX-Code
+>> db_bias_small = 
+\end_layout
+
+\begin_layout LyX-Code
+     phys_dball(phys_dball(:, 'pAbias') > -30 & 
+\end_layout
+
+\begin_layout LyX-Code
+                phys_dball(:, 'pAbias') < 30, :)
+\end_layout
+
+\begin_layout Standard
+which will limit the bias current, 
+\begin_inset Formula $i_{b}$
+\end_inset
+
+, to 
+\begin_inset Formula $-30\,\mathrm{pA}<i_{b}<30\,\mathrm{pA}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Choosing few current levels
+\end_layout
+
+\begin_layout Standard
+To get a profile for a neuron, usually both hyperpolarizing and depolarizing
+ CIP-levels need to be included.
+ Moreover, to capture the spiking frequency vs.
+ current response of the neuron, multiple depolarizing CIP-level information
+ may need to be included.
+ 
+\end_layout
+
+\begin_layout Standard
+There are two counterparts to selecting which CIP-levels to include in a
+ DB.
+ First, one can select what CIP-levels are available in the raw data and
+ what discretization levels should be used while loading the database.
+ This is done with the 
+\family typewriter
+cip_list
+\family default
+ optional parameter described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:loading-phys"
+
+\end_inset
+
+.
+ GP recordings prior to mid-2005 have current channel data which are too
+ noisy to be quantized to levels of 10 pA.
+ Instead, at least a step size of 20 pA needs to be used.
+ Later recordings have both better recordings, and feature 20 pA steps in
+ the experimental protocol anyway.
+ 
+\end_layout
+
+\begin_layout Standard
+Second, after the database is loaded, one can filter-out unwanted CIP-level
+ traces:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_dball_limitedcip = 
+\end_layout
+
+\begin_layout LyX-Code
+     phys_dball_big(phys_dball_big(:, 'pAcip') == -100 | 
+\end_layout
+
+\begin_layout LyX-Code
+                    phys_dball_big(:, 'pAcip') == 0 | 
+\end_layout
+
+\begin_layout LyX-Code
+                    phys_dball_big(:, 'pAcip') == 50 | 
+\end_layout
+
+\begin_layout LyX-Code
+                    phys_dball_big(:, 'pAcip') == 100 | 
+\end_layout
+
+\begin_layout LyX-Code
+                    phys_dball_big(:, 'pAcip') == 200, :)
+\end_layout
+
+\begin_layout Standard
+This operation can be simplified to take advantage of complex query form:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_dball_limitedcip = 
+\end_layout
+
+\begin_layout LyX-Code
+     phys_dball_big(phys_dball_big(:, 'pAcip') == [-100; 0; 50; 100; 200])
+ 
+\end_layout
+
+\begin_layout Standard
+which will choose rows with current levels matching any of the given values.
+\end_layout
+
+\begin_layout Subsubsection
+Adding new columns calculated from existing measures
+\end_layout
+
+\begin_layout Standard
+Some measures can be deduced from measures collected from raw data.
+ These do not need to be calculated at time of loading the raw data, but
+ rather can be added to the database later.
+ Some measures must be added later because they may be composed of measurements
+ from multiple traces or averages.
+ Here is an example for adding a new measure:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_db_limitedcip_addedcols = 
+\end_layout
+
+\begin_layout LyX-Code
+     addColumn(phys_db_limitedcip, 'PulsePotSagDivMin', 
+\end_layout
+
+\begin_layout LyX-Code
+               phys_db_limitedcip(:, 'PulsePotSag').data ./ 
+\end_layout
+
+\begin_layout LyX-Code
+               phys_db_limitedcip(:, 'PulsePotMin').data)
+\end_layout
+
+\begin_layout Subsubsection
+Averaging multiple traces of same neuron with same CIP-level and (pharmacologica
+l) parameters 
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Averaging multiple traces of same neuron
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In making a one-row-per-CIP-level database, it is essential to include all
+ available information from the raw database.
+ Especially in physiology datasets, there may be multiple traces of a neuron
+ where the same CIP-level and the same pharmacological conditions were applied.
+ These rows can be averaged to obtain a single row for each CIP-level of
+ a neuron.
+\end_layout
+
+\begin_layout Standard
+Before doing this, the parameters of the raw database should only include
+ parameters that uniquely distinguish neurons.
+ The averaging operation tries to find each distinct set of parameters and
+ then averages all rows that has this combination.
+ For example, the 
+\family typewriter
+NeuronId
+\family default
+ and 
+\family typewriter
+pAcip
+\family default
+ parameters need to be distinct.
+ However, the 
+\family typewriter
+pAbias
+\family default
+ parameter does not need to be distinct for each neuron.
+ The non-unique parameters need to be filtered-out before the averaging
+ process.
+ The following shows all the parameters of a raw physiology database:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_db
+\end_layout
+
+\begin_layout LyX-Code
+params_tests_db, tracesets from .../cip_traces_all_axoclamp.txt
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    num_params: 16
+\end_layout
+
+\begin_layout LyX-Code
+         props: [0x0 struct]
+\end_layout
+
+\begin_layout LyX-Code
+      tests_db: [1x1 tests_db]
+\end_layout
+
+\begin_layout LyX-Code
+Optional properties of params_tests_db:
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+0x0 struct array with no fields.
+\end_layout
+
+\begin_layout LyX-Code
+tests_db, tracesets from .../cip_traces_all_axoclamp.txt
+\end_layout
+
+\begin_layout LyX-Code
+1527 rows in database with 182 columns, and 1 pages.
+\end_layout
+
+\begin_layout LyX-Code
+Column names:
+\end_layout
+
+\begin_layout LyX-Code
+    [  1]    'pulseOn'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  2]    'pulseOff'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [  3]    'traceEnd'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [  4]    'pAcip'                      
+\end_layout
+
+\begin_layout LyX-Code
+    [  5]    'pAbias'                     
+\end_layout
+
+\begin_layout LyX-Code
+    [  6]    'Cadmium'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  7]    'PicroTx'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  8]    'Apamin'                     
+\end_layout
+
+\begin_layout LyX-Code
+    [  9]    'Glycine'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [ 10]    'KynAcid'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [ 11]    'TTX'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 12]    'XE991'                      
+\end_layout
+
+\begin_layout LyX-Code
+    [ 13]    'drug_4AP'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [ 14]    'EBIO'                       
+\end_layout
+
+\begin_layout LyX-Code
+    [ 15]    'NeuronId'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [ 16]    'TracesetIndex'            
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+One can choose which parameters need to be distinct for each row by specifying
+ as the second argument in the call to the 
+\family typewriter
+meanDuplicateRows
+\family default
+ method, whereas the third argument specifies the measures to be averaged:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_mean_db = meanDuplicateRows(phys_db, [4 6:15], [17:161])
+\end_layout
+
+\begin_layout LyX-Code
+params_tests_db, averaged tracesets from .../cip_traces_all.txt
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    num_params: 13
+\end_layout
+
+\begin_layout LyX-Code
+         props: [0x0 struct]
+\end_layout
+
+\begin_layout LyX-Code
+      tests_db: [1x1 tests_db]
+\end_layout
+
+\begin_layout LyX-Code
+Optional properties of params_tests_db:
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+0x0 struct array with no fields.
+\end_layout
+
+\begin_layout LyX-Code
+tests_db, averaged tracesets from .../cip_traces_all.txt
+\end_layout
+
+\begin_layout LyX-Code
+690 rows in database with 158 columns, and 1 pages.
+\end_layout
+
+\begin_layout LyX-Code
+Column names:
+\end_layout
+
+\begin_layout LyX-Code
+    [  1]    'pAcip'                      
+\end_layout
+
+\begin_layout LyX-Code
+    [  2]    'Cadmium'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  3]    'PicroTx'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  4]    'Apamin'                     
+\end_layout
+
+\begin_layout LyX-Code
+    [  5]    'Glycine'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  6]    'KynAcid'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [  7]    'TTX'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [  8]    'XE991'                      
+\end_layout
+
+\begin_layout LyX-Code
+    [  9]    'drug_4AP'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [ 10]    'EBIO'                       
+\end_layout
+
+\begin_layout LyX-Code
+    [ 11]    'NeuronId'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [ 12]    'NumDuplicates'              
+\end_layout
+
+\begin_layout LyX-Code
+    [ 13]    'RowIndex'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [ 14]    'IniSpontISICV'    
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+This command ignores the pulse time information and the bias current, but
+ includes all the pharmacological parameters, in distinguising the unique
+ traces.
+ It also eliminates some measures, such as the 
+\family typewriter
+ItemIndex
+\family default
+, from averaging.
+\end_layout
+
+\begin_layout Subsection
+Making a database by merging multiple rows from another database
+\end_layout
+
+\begin_layout Standard
+A simple example for making a new database out of multiple rows in an existing
+ database is combining multiple traces from the same neuron with different
+ current pulse injection (CIP) levels.
+ The initial database contains a row for each CIP level with redundant informati
+on, such as spontaneous period measurements.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Making a one-row-per-neuron DB from multiple CIP-level rows
+\end_layout
+
+\begin_layout Standard
+Measures of same cell obtained with multiple CIP-levels can be merged to
+ make a single row.
+ Note that, different pharmacological conditions applied to one cell must
+ be kept in a different rows.
+ The following command selects measures from each of the 
+\begin_inset Formula $\{-100,0,40,100,200\}$
+\end_inset
+
+ CIP levels to be included in the merged database:
+\end_layout
+
+\begin_layout LyX-Code
+>> phys_joined_db = 
+\end_layout
+
+\begin_layout LyX-Code
+     mergeMultipleCIPsInOne(phys_mean_db(:, [1:13 16:180]), 
+\end_layout
+
+\begin_layout LyX-Code
+                            {'_H100pA', 13 + [5:14 19:24 (119 + spike_tests)
+ 165],
+\end_layout
+
+\begin_layout LyX-Code
+                             '_0pA', 13 + [1:4 (27 + spike_tests)], 
+\end_layout
+
+\begin_layout LyX-Code
+                             '_D40pA', 13 + [5:11 19:24 (73 + spike_tests)
+ 165],
+\end_layout
+
+\begin_layout LyX-Code
+                             '_D100pA', 13 + [5:11 14:16 19:24 (73 + spike_tests
+) 
+\end_layout
+
+\begin_layout LyX-Code
+                                              (119 + spike_tests) 165],
+ 
+\end_layout
+
+\begin_layout LyX-Code
+                             '_D200pA', 13 + [5:11 19:24 (73 + spike_tests)
+ 165]},
+\end_layout
+
+\begin_layout LyX-Code
+                            'RowIndex_D200pA')
+\end_layout
+
+\begin_layout Standard
+This command operates on the previously averaged database, 
+\family typewriter
+phys_mean_db
+\family default
+, where each CIP level only occurs once for each distinct pharmacological
+ setting for each neuron.
+ Note that, we filter-out columns 14 and 15 from the averaged DB while supplying
+ the first argument to 
+\family typewriter
+mergeMultipleCIPsInOne
+\family default
+, which are artifacts of the averaging process and need not be included
+ in the merged database.
+ The second argument is a cell array of pairs of a suffix string and a correspon
+ding list of measures for each of the CIP levels in 
+\family typewriter
+phys_mean_db
+\family default
+, in increasing order.
+ The merged 
+\family typewriter
+phys_joined_db
+\family default
+ looks like this:
+\end_layout
+
+\begin_layout LyX-Code
+params_tests_db, averaged tracesets from .../cip_traces_all_axoclamp.txt mult
+ CIP
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    num_params: 12
+\end_layout
+
+\begin_layout LyX-Code
+      tests_db: [1x1 tests_db]
+\end_layout
+
+\begin_layout LyX-Code
+tests_db, averaged tracesets from .../cip_traces_all_axoclamp.txt mult CIP
+\end_layout
+
+\begin_layout LyX-Code
+179 rows in database with 258 columns, and 1 pages.
+\end_layout
+
+\begin_layout LyX-Code
+Column names:
+\end_layout
+
+\begin_layout LyX-Code
+    [  1]    'Cadmium'                           
+\end_layout
+
+\begin_layout LyX-Code
+    [  2]    'PicroTx'                           
+\end_layout
+
+\begin_layout LyX-Code
+    [  3]    'Apamin'                            
+\end_layout
+
+\begin_layout LyX-Code
+    [  4]    'Glycine'                           
+\end_layout
+
+\begin_layout LyX-Code
+    [  5]    'KynAcid'                           
+\end_layout
+
+\begin_layout LyX-Code
+    [  6]    'TTX'                               
+\end_layout
+
+\begin_layout LyX-Code
+    [  7]    'XE991'                             
+\end_layout
+
+\begin_layout LyX-Code
+    [  8]    'drug_4AP'                          
+\end_layout
+
+\begin_layout LyX-Code
+    [  9]    'EBIO'                              
+\end_layout
+
+\begin_layout LyX-Code
+    [ 10]    'Gabazine'                          
+\end_layout
+
+\begin_layout LyX-Code
+    [ 11]    'NeuronId'                          
+\end_layout
+
+\begin_layout LyX-Code
+    [ 12]    'TracesetIndex'                     
+\end_layout
+
+\begin_layout LyX-Code
+    [ 13]    'PulseISICV_H100pA'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [ 14]    'PulseIni100msISICV_H100pA'         
+\end_layout
+
+\begin_layout LyX-Code
+    [ 15]    'PulseIni100msRest1SpikeRate_H100pA'
+\end_layout
+
+\begin_layout LyX-Code
+    [ 16]    'PulseIni100msRest2SpikeRate_H100pA'
+\end_layout
+
+\begin_layout LyX-Code
+    [ 17]    'PulseIni100msSpikeRate_H100pA'     
+\end_layout
+
+\begin_layout LyX-Code
+    [ 18]    'PulseIni100msSpikeRateISI_H100pA'  
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+    [255]    'PulseSpikeRiseTimeMean_D200pA'     
+\end_layout
+
+\begin_layout LyX-Code
+    [256]    'PulseSpikeRiseTimeMode_D200pA'     
+\end_layout
+
+\begin_layout LyX-Code
+    [257]    'PulseSpikeRiseTimeSTD_D200pA'      
+\end_layout
+
+\begin_layout LyX-Code
+    [258]    'PulseSpontAmpRatio_D200pA'         
+\end_layout
+
+\begin_layout Standard
+Note how each measure suffix indicate the CIP-level it belongs.
+\end_layout
+
+\begin_layout Subsubsection
+Making a one-row-per-neuron DB from dual CIP-level rows
+\end_layout
+
+\begin_layout Standard
+The following statement uses the 
+\family typewriter
+params_tests_db/getDualCIPdb
+\family default
+ method to merge rows of depolarizing and hyperpolarizing CIP-levels:
+\end_layout
+
+\begin_layout LyX-Code
+>> sdball = getDualCIPdb(dball, depol_tests, hyper_tests, 
+\end_layout
+
+\begin_layout LyX-Code
+                         '', 'Hyp100pA')
+\end_layout
+
+\begin_layout Standard
+Here, the cell array variables 
+\family typewriter
+depol_tests
+\family default
+ and 
+\family typewriter
+hyper_tests
+\family default
+ hold the names of measures to be selected from depolarizing CIP and hyperpolari
+zing CIP, respectively.
+ The last two arguments define the suffixes to be applied to distinguish
+ the measures from each CIP.
+ The original DB is 
+\end_layout
+
+\begin_layout LyX-Code
+>> dball
+\end_layout
+
+\begin_layout LyX-Code
+dball
+\end_layout
+
+\begin_layout LyX-Code
+params_tests_db, sim dataset gpsc0501
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    num_params: 10
+\end_layout
+
+\begin_layout LyX-Code
+         props: [0x0 struct]
+\end_layout
+
+\begin_layout LyX-Code
+      tests_db: [1x1 tests_db]
+\end_layout
+
+\begin_layout LyX-Code
+Optional properties of params_tests_db:
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+0x0 struct array with no fields.
+\end_layout
+
+\begin_layout LyX-Code
+tests_db, sim dataset gpsc0501
+\end_layout
+
+\begin_layout LyX-Code
+39366 rows in database with 62 columns, and 1 pages.
+\end_layout
+
+\begin_layout LyX-Code
+Column names:
+\end_layout
+
+\begin_layout LyX-Code
+    [ 1]    'NaF'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 2]    'NaP'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 3]    'Kv3'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 4]    'Kv2'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 5]    'Kv4f'                       
+\end_layout
+
+\begin_layout LyX-Code
+    [ 6]    'KCNQ'                       
+\end_layout
+
+\begin_layout LyX-Code
+    [ 7]    'SK'                         
+\end_layout
+
+\begin_layout LyX-Code
+    [ 8]    'CaHVA'                      
+\end_layout
+
+\begin_layout LyX-Code
+    [ 9]    'HCN'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [10]    'pAcip'                      
+\end_layout
+
+\begin_layout LyX-Code
+    [11]    'IniSpontISICV'              
+\end_layout
+
+\begin_layout LyX-Code
+    [12]    'IniSpontPotAvg'             
+\end_layout
+
+\begin_layout LyX-Code
+    [13]    'IniSpontSpikeRate'          
+\end_layout
+
+\begin_layout LyX-Code
+    [14]    'PulseISICV'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [15]    'PulseIni100msISICV'         
+\end_layout
+
+\begin_layout LyX-Code
+    [16]    'PulseIni100msRest1SpikeRate'
+\end_layout
+
+\begin_layout LyX-Code
+    [17]    'PulseIni100msRest2SpikeRate'
+\end_layout
+
+\begin_layout LyX-Code
+    [18]    'PulseIni100msSpikeRate'     
+\end_layout
+
+\begin_layout LyX-Code
+    [19]    'PulseIni100msSpikeRateISI'  
+\end_layout
+
+\begin_layout LyX-Code
+    [20]    'PulsePotAvg'                
+\end_layout
+
+\begin_layout LyX-Code
+    [21]    'PulsePotMin'                
+\end_layout
+
+\begin_layout LyX-Code
+    [22]    'PulsePotSag'                
+\end_layout
+
+\begin_layout LyX-Code
+    [23]    'PulseSFA'                   
+\end_layout
+
+\begin_layout LyX-Code
+    [24]    'PulseSpikeAmpDecayDelta'    
+\end_layout
+
+\begin_layout LyX-Code
+    [25]    'PulseSpikeAmpDecayTau'      
+\end_layout
+
+\begin_layout LyX-Code
+    [26]    'PulseSpikeRate'             
+\end_layout
+
+\begin_layout LyX-Code
+    [27]    'PulseSpikeRateISI'          
+\end_layout
+
+\begin_layout LyX-Code
+    [28]    'RecIniSpontPotRatio'        
+\end_layout
+
+\begin_layout LyX-Code
+    [29]    'RecIniSpontRateRatio'       
+\end_layout
+
+\begin_layout LyX-Code
+    [30]    'RecSpont1SpikeRate'         
+\end_layout
+
+\begin_layout LyX-Code
+    [31]    'RecSpont2SpikeRate'         
+\end_layout
+
+\begin_layout LyX-Code
+    [32]    'RecSpontISICV'              
+\end_layout
+
+\begin_layout LyX-Code
+    [33]    'RecSpontPotAvg'             
+\end_layout
+
+\begin_layout LyX-Code
+    [34]    'RecSpontSpikeRate'          
+\end_layout
+
+\begin_layout LyX-Code
+    [35]    'SpontAmplitude'             
+\end_layout
+
+\begin_layout LyX-Code
+    [36]    'SpontBaseWidth'             
+\end_layout
+
+\begin_layout LyX-Code
+    [37]    'SpontDAHPMag'               
+\end_layout
+
+\begin_layout LyX-Code
+    [38]    'SpontFallTime'              
+\end_layout
+
+\begin_layout LyX-Code
+    [39]    'SpontHalfVm'                
+\end_layout
+
+\begin_layout LyX-Code
+    [40]    'SpontHalfWidth'             
+\end_layout
+
+\begin_layout LyX-Code
+    [41]    'SpontInitTime'              
+\end_layout
+
+\begin_layout LyX-Code
+    [42]    'SpontInitVm'                
+\end_layout
+
+\begin_layout LyX-Code
+    [43]    'SpontMaxAHP'                
+\end_layout
+
+\begin_layout LyX-Code
+    [44]    'SpontMinTime'               
+\end_layout
+
+\begin_layout LyX-Code
+    [45]    'SpontMinVm'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [46]    'SpontPeakVm'                
+\end_layout
+
+\begin_layout LyX-Code
+    [47]    'SpontRiseTime'              
+\end_layout
+
+\begin_layout LyX-Code
+    [48]    'PulseAmplitude'             
+\end_layout
+
+\begin_layout LyX-Code
+    [49]    'PulseBaseWidth'             
+\end_layout
+
+\begin_layout LyX-Code
+    [50]    'PulseDAHPMag'               
+\end_layout
+
+\begin_layout LyX-Code
+    [51]    'PulseFallTime'              
+\end_layout
+
+\begin_layout LyX-Code
+    [52]    'PulseHalfVm'                
+\end_layout
+
+\begin_layout LyX-Code
+    [53]    'PulseHalfWidth'             
+\end_layout
+
+\begin_layout LyX-Code
+    [54]    'PulseInitTime'              
+\end_layout
+
+\begin_layout LyX-Code
+    [55]    'PulseInitVm'                
+\end_layout
+
+\begin_layout LyX-Code
+    [56]    'PulseMaxAHP'                
+\end_layout
+
+\begin_layout LyX-Code
+    [57]    'PulseMinTime'               
+\end_layout
+
+\begin_layout LyX-Code
+    [58]    'PulseMinVm'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [59]    'PulsePeakVm'                
+\end_layout
+
+\begin_layout LyX-Code
+    [60]    'PulseRiseTime'              
+\end_layout
+
+\begin_layout LyX-Code
+    [61]    'PulseSpontAmpRatio'         
+\end_layout
+
+\begin_layout LyX-Code
+    [62]    'ItemIndex'                  
+\end_layout
+
+\begin_layout LyX-Code
+Optional properties of tests_db:
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+0x0 struct array with no fields.
+\end_layout
+
+\begin_layout Standard
+After merging, it becomes 
+\end_layout
+
+\begin_layout LyX-Code
+>> sdball
+\end_layout
+
+\begin_layout LyX-Code
+sdball
+\end_layout
+
+\begin_layout LyX-Code
+params_tests_db, sim dataset gpsc0501 dual cip
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    num_params: 9
+\end_layout
+
+\begin_layout LyX-Code
+         props: [0x0 struct]
+\end_layout
+
+\begin_layout LyX-Code
+      tests_db: [1x1 tests_db]
+\end_layout
+
+\begin_layout LyX-Code
+Optional properties of params_tests_db:
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+0x0 struct array with no fields.
+\end_layout
+
+\begin_layout LyX-Code
+tests_db, sim dataset gpsc0501 dual cip
+\end_layout
+
+\begin_layout LyX-Code
+19683 rows in database with 50 columns, and 1 pages.
+\end_layout
+
+\begin_layout LyX-Code
+Column names:
+\end_layout
+
+\begin_layout LyX-Code
+    [ 1]    'NaF'                         
+\end_layout
+
+\begin_layout LyX-Code
+    [ 2]    'NaP'                         
+\end_layout
+
+\begin_layout LyX-Code
+    [ 3]    'Kv3'                         
+\end_layout
+
+\begin_layout LyX-Code
+    [ 4]    'Kv2'                         
+\end_layout
+
+\begin_layout LyX-Code
+    [ 5]    'Kv4f'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 6]    'KCNQ'                        
+\end_layout
+
+\begin_layout LyX-Code
+    [ 7]    'SK'                          
+\end_layout
+
+\begin_layout LyX-Code
+    [ 8]    'CaHVA'                       
+\end_layout
+
+\begin_layout LyX-Code
+    [ 9]    'HCN'                         
+\end_layout
+
+\begin_layout LyX-Code
+    [10]    'RecIniSpontPotRatioHyp100pA' 
+\end_layout
+
+\begin_layout LyX-Code
+    [11]    'RecIniSpontRateRatioHyp100pA'
+\end_layout
+
+\begin_layout LyX-Code
+    [12]    'RecSpont1SpikeRateHyp100pA'  
+\end_layout
+
+\begin_layout LyX-Code
+    [13]    'RecSpont2SpikeRateHyp100pA'  
+\end_layout
+
+\begin_layout LyX-Code
+    [14]    'RecSpontISICVHyp100pA'       
+\end_layout
+
+\begin_layout LyX-Code
+    [15]    'RecSpontPotAvgHyp100pA'      
+\end_layout
+
+\begin_layout LyX-Code
+    [16]    'ItemIndexHyp100pA'           
+\end_layout
+
+\begin_layout LyX-Code
+    [17]    'IniSpontSpikeRate'           
+\end_layout
+
+\begin_layout LyX-Code
+    [18]    'PulseIni100msSpikeRate'      
+\end_layout
+
+\begin_layout LyX-Code
+    [19]    'PulseIni100msSpikeRateISI'   
+\end_layout
+
+\begin_layout LyX-Code
+    [20]    'PulseIni100msISICV'          
+\end_layout
+
+\begin_layout LyX-Code
+    [21]    'PulseIni100msRest1SpikeRate' 
+\end_layout
+
+\begin_layout LyX-Code
+    [22]    'PulseIni100msRest2SpikeRate' 
+\end_layout
+
+\begin_layout LyX-Code
+    [23]    'RecSpont1SpikeRate'          
+\end_layout
+
+\begin_layout LyX-Code
+    [24]    'RecSpont2SpikeRate'          
+\end_layout
+
+\begin_layout LyX-Code
+    [25]    'RecIniSpontRateRatio'        
+\end_layout
+
+\begin_layout LyX-Code
+    [26]    'IniSpontISICV'               
+\end_layout
+
+\begin_layout LyX-Code
+    [27]    'PulseISICV'                  
+\end_layout
+
+\begin_layout LyX-Code
+    [28]    'RecSpontISICV'               
+\end_layout
+
+\begin_layout LyX-Code
+    [29]    'PulseSFA'                    
+\end_layout
+
+\begin_layout LyX-Code
+    [30]    'PulseSpikeAmpDecayTau'       
+\end_layout
+
+\begin_layout LyX-Code
+    [31]    'PulseSpikeAmpDecayDelta'     
+\end_layout
+
+\begin_layout LyX-Code
+    [32]    'IniSpontPotAvg'              
+\end_layout
+
+\begin_layout LyX-Code
+    [33]    'PulsePotAvg'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [34]    'RecSpontPotAvg'              
+\end_layout
+
+\begin_layout LyX-Code
+    [35]    'RecIniSpontPotRatio'         
+\end_layout
+
+\begin_layout LyX-Code
+    [36]    'SpontInitVm'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [37]    'SpontAmplitude'              
+\end_layout
+
+\begin_layout LyX-Code
+    [38]    'SpontMaxAHP'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [39]    'SpontDAHPMag'                
+\end_layout
+
+\begin_layout LyX-Code
+    [40]    'SpontRiseTime'               
+\end_layout
+
+\begin_layout LyX-Code
+    [41]    'SpontFallTime'               
+\end_layout
+
+\begin_layout LyX-Code
+    [42]    'SpontHalfWidth'              
+\end_layout
+
+\begin_layout LyX-Code
+    [43]    'PulseInitVm'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [44]    'PulseAmplitude'              
+\end_layout
+
+\begin_layout LyX-Code
+    [45]    'PulseMaxAHP'                 
+\end_layout
+
+\begin_layout LyX-Code
+    [46]    'PulseDAHPMag'                
+\end_layout
+
+\begin_layout LyX-Code
+    [47]    'PulseRiseTime'               
+\end_layout
+
+\begin_layout LyX-Code
+    [48]    'PulseFallTime'               
+\end_layout
+
+\begin_layout LyX-Code
+    [49]    'PulseHalfWidth'              
+\end_layout
+
+\begin_layout LyX-Code
+    [50]    'ItemIndex'                   
+\end_layout
+
+\begin_layout LyX-Code
+Optional properties of tests_db:
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+0x0 struct array with no fields.
+\end_layout
+
+\begin_layout Section
+Visualization
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Visualization"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By default, 
+\noun on
+Matlab
+\noun default
+ prints figures in portrait orientation with a 8x6 aspect ratio, ignoring
+ their size on the screen.
+ The command; 
+\end_layout
+
+\begin_layout LyX-Code
+>> orient tall
+\end_layout
+
+\begin_layout Standard
+changes that behavior to print a full page in portrait orientation.
+ The command;
+\end_layout
+
+\begin_layout LyX-Code
+>> orient landscape
+\end_layout
+
+\begin_layout Standard
+does the same but rotates the figure to landscape orientation.
+ If you want the printed figure to reflect its current screen size, issue
+ the command;
+\end_layout
+
+\begin_layout LyX-Code
+>> set(figurenum, 'PaperPositionMode', 'auto')
+\end_layout
+
+\begin_layout Standard
+Figures generated by the plotting system of the 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+appname{}
+\end_layout
+
+\end_inset
+
+ has a special resizing capability.
+ Everytime the figure is resized, it will be drawn from scratch after calculatin
+g proper spacing between subplots according to font size.
+ However, in some conditions this may cause other problems, such as crashing
+ 
+\noun on
+Matlab
+\noun default
+ in figure editing mode or causing loss of manual changes to the figure.
+ To disable the auto-resize function, issue the following command after
+ creating the figure;
+\end_layout
+
+\begin_layout LyX-Code
+>> set(figurenum, 'ResizeFcn', '')
+\end_layout
+
+\begin_layout Standard
+Finally, to print the figure, consult your Matlab manual or issue a command
+ such as;
+\end_layout
+
+\begin_layout LyX-Code
+>> print -depsc2 figurename.eps
+\end_layout
+
+\begin_layout Standard
+See below for specific types of figures you can create.
+\end_layout
+
+\begin_layout Subsection
+Visualizing traces
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename cip_trace_plot_compact.eps
+	display false
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:cip_trace"
+
+\end_inset
+
+Example trace plot.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The 
+\family typewriter
+trace,
+\family default
+ and its subclasses such as 
+\family typewriter
+cip_trace
+\family default
+, has the plot command overloaded to draw the raw trace in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:cip_trace"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout LyX-Code
+>> a_ct = ctFromRows(mbundle, 9842, 100);
+\end_layout
+
+\begin_layout LyX-Code
+>> plot(a_ct)
+\end_layout
+
+\begin_layout Standard
+Note that the plot in the figure has been created with a more precise control:
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plotData(a_ct, '', struct('PaperPosition', [0 0 3 2])))
+\end_layout
+
+\begin_layout Subsection
+Displaying database contents
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+displayRows
+\family default
+ method of 
+\family typewriter
+tests_db
+\family default
+ can be used to display rows of a database:
+\end_layout
+
+\begin_layout LyX-Code
+>> displayRows(sdball, 1:3)
+\end_layout
+
+\begin_layout LyX-Code
+ans = 
+\end_layout
+
+\begin_layout LyX-Code
+    'NaF'                    [     250]    [     250]    [      1000]
+\end_layout
+
+\begin_layout LyX-Code
+    'NaP'                    [  2.5000]    [  2.5000]    [    2.5000]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv3'                    [      15]    [      15]    [        60]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv2'                    [       3]    [       3]    [         9]
+\end_layout
+
+\begin_layout LyX-Code
+    'Kv4f'                   [       5]    [       5]    [        25]
+\end_layout
+
+\begin_layout LyX-Code
+    'KCNQ'                   [  0.1000]    [  0.1000]    [    0.0100]
+\end_layout
+
+\begin_layout LyX-Code
+    'SK'                     [  8.5000]    [  8.5000]    [        17]
+\end_layout
+
+\begin_layout LyX-Code
+    'CaHVA'                  [      10]    [      10]    [        10]
+\end_layout
+
+\begin_layout LyX-Code
+    'HCN'                    [      30]    [       3]    [        30]
+\end_layout
+
+\begin_layout LyX-Code
+    'pAcip'                  [    -100]    [    -100]    [       100]
+\end_layout
+
+\begin_layout LyX-Code
+    'IniSpontISICV'          [  0.0027]    [  0.0027]    [9.1376e-04]
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+Note that, in the output, database rows appear as columns, and database
+ columns appear as rows.
+ See in above Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Sorting-the-database"
+
+\end_inset
+
+ for more example outputs from 
+\family typewriter
+displayRows
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+displayRows
+\family default
+ returns a cell array of column names justapoxed to a matrix of values.
+ This cell array is intended for display on the screen and for generating
+ reports.
+ The 
+\family typewriter
+displayRows\SpecialChar TeX
+
+\family default
+ method uses output from 
+\family typewriter
+displayRows
+\family default
+ to generate a \SpecialChar LaTeX
+ table that can be printed or converted to PDF:
+\end_layout
+
+\begin_layout LyX-Code
+>> tex_string = 
+\end_layout
+
+\begin_layout LyX-Code
+     displayRows\SpecialChar TeX
+(a_db(:, rows), 
+\end_layout
+
+\begin_layout LyX-Code
+                    'Selected rows indicating fast spiking neurons',
+\end_layout
+
+\begin_layout LyX-Code
+                    struct('height', '!'));
+\end_layout
+
+\begin_layout LyX-Code
+>> string2File(tex_string, 'fast_spiking.tex');
+\end_layout
+
+\begin_layout Standard
+With this the \SpecialChar LaTeX
+ code to generate a table with the given caption is saved
+ in a text file called 
+\family typewriter
+fast_spiking.tex
+\family default
+.
+ This file can then be included from a regular \SpecialChar LaTeX
+ document to generate PDF
+ output.
+ See a \SpecialChar LaTeX
+ manual on how to do that.
+\end_layout
+
+\begin_layout Standard
+An alternative to 
+\family typewriter
+displayRows
+\family default
+ is using the 
+\family typewriter
+tests_db/rows2Struct
+\family default
+ method:
+\end_layout
+
+\begin_layout LyX-Code
+>> s = rows2Struct(dball_full, 54023)
+\end_layout
+
+\begin_layout LyX-Code
+s = 
+\end_layout
+
+\begin_layout LyX-Code
+                            NaF: 500
+\end_layout
+
+\begin_layout LyX-Code
+                            NaP: 2
+\end_layout
+
+\begin_layout LyX-Code
+                            Kv2: 1
+\end_layout
+
+\begin_layout LyX-Code
+                            Kv3: 10
+\end_layout
+
+\begin_layout LyX-Code
+                           Kv4f: 40
+\end_layout
+
+\begin_layout LyX-Code
+                           KCNQ: 2
+\end_layout
+
+\begin_layout LyX-Code
+                             SK: 4
+\end_layout
+
+\begin_layout LyX-Code
+                          CaHVA: 0.0300
+\end_layout
+
+\begin_layout LyX-Code
+                            HCN: 1
+\end_layout
+
+\begin_layout LyX-Code
+                          trial: 7739
+\end_layout
+
+\begin_layout LyX-Code
+                          pAcip: 100
+\end_layout
+
+\begin_layout LyX-Code
+                  IniSpontISICV: NaN
+\end_layout
+
+\begin_layout LyX-Code
+                 IniSpontPotAvg: NaN
+\end_layout
+
+\begin_layout LyX-Code
+              IniSpontSpikeRate: 0
+\end_layout
+
+\begin_layout LyX-Code
+           IniSpontSpikeRateISI: 0
+\end_layout
+
+\begin_layout LyX-Code
+                     PulseISICV: 0.0265
+\end_layout
+
+\begin_layout LyX-Code
+             PulseIni100msISICV: 0.0584
+\end_layout
+
+\begin_layout LyX-Code
+    PulseIni100msRest1SpikeRate: 40.0089
+\end_layout
+
+\begin_layout LyX-Code
+    PulseIni100msRest2SpikeRate: 40.0178
+\end_layout
+
+\begin_layout LyX-Code
+         PulseIni100msSpikeRate: 50
+\end_layout
+
+\begin_layout LyX-Code
+      PulseIni100msSpikeRateISI: 43.5256
+\end_layout
+
+\begin_layout LyX-Code
+                    PulsePotAvg: -57.3737
+\end_layout
+
+\begin_layout LyX-Code
+                    PulsePotMin: NaN
+\end_layout
+
+\begin_layout LyX-Code
+                    PulsePotSag: NaN
+\end_layout
+
+\begin_layout LyX-Code
+                       PulseSFA: 1.1698
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout Standard
+This method returns the database contents as a structure array.
+ It is more natural for programming interfaces to use the database contents
+ in a structure array than a cell array.
+ The database columns become field names in the the structure.
+ If multiple rows are requested, the displayed output would not contain
+ the values.
+ The desired row can be reached via indexing (e.g., 
+\family typewriter
+s(1)
+\family default
+).
+ For instance, analysis in 
+\family typewriter
+cip_trace/getProfileAllSpikes
+\family default
+ method is done using this method for getting statistics from the 
+\family typewriter
+spikes_db
+\family default
+ databases.
+\end_layout
+
+\begin_layout Subsection
+Plotting all measure histograms
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename tests_db_plot_tests.eps
+	display false
+	width 120text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:tests_hists"
+
+\end_inset
+
+Example measure distribution plot.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+For plotting all measure histograms in a DB, the following method of 
+\family typewriter
+tests_db
+\family default
+ creates the horizontal stack plot in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:tests_hists"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout LyX-Code
+>> mp = plotTestsHistsMatrix(renamed_model_db(:, 2:end), '', 
+\end_layout
+
+\begin_layout LyX-Code
+                             struct('orient', 'x', 'quiet', 1, 'border',
+ [0 0.05 0 0])))
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(mp);
+\end_layout
+
+\begin_layout Subsection
+Plotting all parameter histograms
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename params_tests_db_plot_param_hists.eps
+	display false
+	width 120text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:params_hists"
+
+\end_inset
+
+Example parameter distribution plot.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+For plotting all parameter histograms in a DB, the following method of 
+\family typewriter
+params_tests_db
+\family default
+ creates the horizontal stack plot in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:params_hists"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plotParamsHists(sdball));
+\end_layout
+
+\begin_layout Subsection
+Plotting database statistics
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+stats_db
+\family default
+ object allows keeping statistical information obtained from a database.
+ Statistics are calculated using one of the 
+\family typewriter
+tests_db
+\family default
+ converter methods, such as 
+\family typewriter
+statsAll
+\family default
+, 
+\family typewriter
+statsMeanStd
+\family default
+, etc.: 
+\end_layout
+
+\begin_layout LyX-Code
+>> my_stats = statsMeanStd(my_db(:, {'IniSpontSpikeRate', 'PulseSpikeRate'}));
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+Default visualization for 
+\family typewriter
+stats_db
+\family default
+.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename plot_stats_abstract.eps
+	display false
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+Optional 
+\family typewriter
+plot_bars
+\family default
+ visualization for 
+\family typewriter
+stats_db
+\family default
+.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename plot_stats_bars_single.eps
+	display false
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+Comparing multiple 
+\family typewriter
+stats_db
+\family default
+s with 
+\family typewriter
+plot_bars
+\family default
+.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename plot_stats_bars_multi.eps
+	display false
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfigure[
+\end_layout
+
+\end_inset
+
+Plotting parameter-measure variation with 
+\family typewriter
+plotVar
+\family default
+.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename plot_stats_Var.eps
+	display false
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "figcap:Statistics-plots"
+
+\end_inset
+
+Plotting statistics for two selected measures.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Then, the statistics can be plotted with diamonds indicating the mean and
+ symmetric errorbars indicating upper and lower extensions (SE or Std):
+\end_layout
+
+\begin_layout LyX-Code
+>> plot(my_stats);
+\end_layout
+
+\begin_layout Standard
+which is equivalent to:
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plot_abstract(my_stats));
+\end_layout
+
+\begin_layout Standard
+An alternative plotting form is using filled bars with extending errorbars:
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plot_bars(my_stats));
+\end_layout
+
+\begin_layout Standard
+which are both seen in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Statistics-plots"
+
+\end_inset
+
+ (a) and (b).
+ The 
+\family typewriter
+plot_bars
+\family default
+ method is better suited for comparing statistics from multiple 
+\family typewriter
+stats_db
+\family default
+s coming from different sources.
+ In this case, we take the first 1000 rows from the DB as a subset, and
+ compare it with the statistics from the second 1000 rows:
+\end_layout
+
+\begin_layout LyX-Code
+>> compared_two_subset_stats = 
+\end_layout
+
+\begin_layout LyX-Code
+     compareStats(statsAll(mbundle.joined_db(1:1000, 
+\end_layout
+
+\begin_layout LyX-Code
+                                             {'IniSpontSpikeRateISI_0pA',
+\end_layout
+
+\begin_layout LyX-Code
+                                              'PulseIni100msSpikeRateISI_D100pA'
+})), 
+\end_layout
+
+\begin_layout LyX-Code
+                  statsAll(mbundle.joined_db(1001:2000, 
+\end_layout
+
+\begin_layout LyX-Code
+                                             {'IniSpontSpikeRateISI_0pA',
+\end_layout
+
+\begin_layout LyX-Code
+                                              'PulseIni100msSpikeRateISI_D100pA'
+})))));
+\end_layout
+
+\begin_layout Standard
+The combined statistics object can then be fed into 
+\family typewriter
+plot_bars
+\family default
+ as seen in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Statistics-plots"
+
+\end_inset
+
+ (c):
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plot_bars(compared_two_subset_stats));
+\end_layout
+
+\begin_layout Subsection
+Plotting parameter-measure variations
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename plotVarBoxMatrix_example.eps
+	display false
+	width 95col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "cap:plot-varboxmatrix"
+
+\end_inset
+
+Example parameter-measure variation statistics plot.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+To plot the variation of a measure with a parameter the 
+\family typewriter
+plotVar
+\family default
+ method of 
+\family typewriter
+stats_db
+\family default
+ can be used to achieve Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figcap:Statistics-plots"
+
+\end_inset
+
+ (d):
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plotVar(a_stats_db, 'CaHVA', 'AHP_depth', 'AHP change with
+ change in CaHVA', 
+\end_layout
+
+\begin_layout LyX-Code
+                      struct('quiet', 1, 'PaperPosition', [0 0 3 3])))
+\end_layout
+
+\begin_layout Standard
+To plot all parameter-measure variations, the 
+\family typewriter
+plotVarMatrix
+\family default
+ method of 
+\family typewriter
+stats_db
+\family default
+ can be used (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cap:plot-varboxmatrix"
+
+\end_inset
+
+).
+ 
+\family typewriter
+plotVarMatrix
+\family default
+ requires the a 
+\family typewriter
+p_stats
+\family default
+ array of 
+\family typewriter
+stats_db
+\family default
+ objects that hold the mean and standard error information (or possibly
+ other statistics) for each of the possible parameter-measure combinations.
+ The 
+\family typewriter
+p_stats
+\family default
+ array can be created using the 
+\family typewriter
+paramsTestsHistsStats
+\family default
+ method, which in turn requires the 
+\family typewriter
+p_t3ds
+\family default
+ array of 3-dimensional databases each of which contain effects of a parameter
+ invariant of other parameters.
+ The 
+\family typewriter
+p_t3ds
+\family default
+ array can be created using the 
+\family typewriter
+params_tests_db/invarParams
+\family default
+ method.
+ The sequence of commands
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The 
+\family typewriter
+noNaNRows
+\family default
+ function is required to filter out any rows containing 
+\family typewriter
+NaN
+\family default
+ values in measurements before running statistic functions.
+ Otherwise, the statistics functions (such as 
+\family typewriter
+mean
+\family default
+ and 
+\family typewriter
+std
+\family default
+) will eliminate 
+\family typewriter
+NaN
+\family default
+ values within each database column automatically, scrambling the row order
+ and loosing the association with parameters.
+\end_layout
+
+\end_inset
+
+ is then becomes:
+\end_layout
+
+\begin_layout LyX-Code
+>> p_t3ds = invarParams(noNaNRows(sdball))
+\end_layout
+
+\begin_layout LyX-Code
+>> [pt_hists, p_stats] = paramsTestsHistsStats(p_t3ds)
+\end_layout
+
+\begin_layout LyX-Code
+>> ap = plotVarMatrix(p_stats)
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(ap)
+\end_layout
+
+\begin_layout Standard
+This will create a matrix plot with as many columns as parameters and as
+ many rows as measures in the 
+\family typewriter
+sdball
+\family default
+ object.
+ It may be difficult to read if 
+\family typewriter
+sdball
+\family default
+ contains large number of measures.
+ One can divide the measures into two plots with the following sequence
+ of commands
+\end_layout
+
+\begin_layout LyX-Code
+>> sdb1 = sdball(:, [1:9, 10:35])
+\end_layout
+
+\begin_layout LyX-Code
+>> sdb2 = sdball(:, [1:9, 36:49])
+\end_layout
+
+\begin_layout Standard
+by choosing all parameters in both DBs, but only some measures for each.
+ Then, the plots can be created for each DB by issuing
+\end_layout
+
+\begin_layout LyX-Code
+>> p1_t3ds = invarParams(sdb1)
+\end_layout
+
+\begin_layout LyX-Code
+>> p2_t3ds = invarParams(sdb2)
+\end_layout
+
+\begin_layout LyX-Code
+>> [pt1_hists, p1_stats] = paramsTestsHistsStats(p1_t3ds)
+\end_layout
+
+\begin_layout LyX-Code
+>> [pt2_hists, p2_stats] = paramsTestsHistsStats(p2_t3ds)
+\end_layout
+
+\begin_layout LyX-Code
+>> ap1 = plotVarMatrix(p1_stats)
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(ap1)
+\end_layout
+
+\begin_layout LyX-Code
+>> ap2 = plotVarMatrix(p2_stats)
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(ap2)
+\end_layout
+
+\begin_layout Subsection
+Insets
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename plot_inset.eps
+	display false
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:insets"
+
+\end_inset
+
+Creating insets in figures.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:insets"
+
+\end_inset
+
+ which was created with the following set of commands.
+\end_layout
+
+\begin_layout LyX-Code
+>> im_p = plot_abstract({50 * rand(5)}, {}, '', {}, 'image');
+\end_layout
+
+\begin_layout LyX-Code
+>> plotFigure(plot_absolute([im_p, im_p], [0 0 1 1; 0.5 0.5 0.3 0.3])) 
+\end_layout
+
+\begin_layout Subsection
+Generating a report comparing two databases
+\end_layout
+
+\begin_layout Standard
+Most commonly a database of physiology neurons need to be compared to a
+ database of a large body of simulation neurons and find best matches.
+ One may need to see the match quality for a number of best matching candidates
+ for each of the physiology neurons.
+ Assuming multiple plots and tables are required to do a fair job of comparing
+ a neuron to a thousands of simulation neurons, it becomes a difficult job
+ to do this manually.
+ An automatic report generation system has been built into the system for
+ this purpose.
+ 
+\end_layout
+
+\begin_layout Standard
+Currently a \SpecialChar LaTeX
+ document is created that needs to be included in either a proper
+ \SpecialChar LaTeX
+ document, or included in a \SpecialChar LyX
+ document.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This document is prepared using the \SpecialChar LyX
+ document preparation system 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "lyx-03"
+
+\end_inset
+
+ which uses the 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeXe{}
+\end_layout
+
+\end_inset
+
+ typesetting language 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "lamport-94"
+
+\end_inset
+
+.
+ \SpecialChar LyX
+ is copyrighted by Matthias Ettrich and covered by the terms of the GNU
+ General Public License (GPL), and 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeXe{}
+\end_layout
+
+\end_inset
+
+ is copyrighted by D.
+\begin_inset space ~
+\end_inset
+
+E.
+\begin_inset space ~
+\end_inset
+
+Knuth and the Free Software Foundation, Inc.
+\begin_inset space ~
+\end_inset
+
+and is covered by both the \SpecialChar TeX
+ copyright and the GNU GPL.
+\end_layout
+
+\end_inset
+
+ The including document should provide the context in which the included
+ part becomes meaningful.
+ The report contains a set of tables and figures with proper captions.
+ The table of contents, list of figures and list of tables facilities of
+ \SpecialChar LaTeX
+ becomes useful to make the automatically generated document eaisly readable.
+ 
+\end_layout
+
+\begin_layout Standard
+The report can be created with the command
+\end_layout
+
+\begin_layout LyX-Code
+>> tex_string = rankVsAllDB(sdb, phys_sdb, 
+\end_layout
+
+\begin_layout LyX-Code
+                            fileset, phys_fileset);
+\end_layout
+
+\begin_layout Standard
+where the simulation database 
+\family typewriter
+sdb
+\family default
+ is searched for best matches to each row of physiology database 
+\family typewriter
+phys_sdb
+\family default
+.
+ The dataset for each is provided for the report to contain raw data associated
+ with best matches.
+ The obtained report contained in 
+\family typewriter
+tex_string
+\family default
+ can be saved as a ASCII \SpecialChar LaTeX
+ file with
+\end_layout
+
+\begin_layout LyX-Code
+>> string2File(tex_string, 'myreport.tex');
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "~/Documents/writings/refs/ref"
+options "bibtotoc,plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+\start_of_appendix
+Appendices
+\end_layout
+
+\begin_layout Section
+Function Reference
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Function-Reference"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+See Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Finding-your-way-around"
+
+\end_inset
+
+ on how to get online help about the software within 
+\noun on
+Matlab
+\noun default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+[Supposed to have all class and method documentation automagically generated
+ from matlab help files.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "func-ref.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{section}{Function Index}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+printindex[funcref]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
