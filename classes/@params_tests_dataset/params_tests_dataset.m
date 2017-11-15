@@ -65,14 +65,14 @@ if nargin == 0 % Called with no params
   obj.dt=1;
   obj.dy=1;
   obj.id = '';
-  obj.props = struct([]);
+  obj.props = struct;
   obj = class(obj, 'params_tests_dataset');
 elseif isa(list, 'params_tests_dataset') % copy constructor?
   obj = list;
 else
 
   if ~ exist('props', 'var')
-    props = struct([]);
+    props = struct;
   end
 
   obj.list = list;

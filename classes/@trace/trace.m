@@ -150,6 +150,9 @@ else
    if ~ exist('id','var')
      id = '';
    end
+   
+   % Defaults
+   props.spike_finder = getFieldDefault(props, 'spike_finder', 1);
 
    if isa(data_src, 'char') % filename?
      [path, filename, ext] = fileparts(data_src);
@@ -346,23 +349,28 @@ else
      data =  data(props.trace_time_start:end, :);
    end
 
-   % Custom filter props
-   if isfield(props, 'custom_filter') && props.custom_filter == 1
+   % Custom filter props (use custom filter by default for no 10kHz
+   % traces with spike_finder=1)
+   if (isfield(props, 'custom_filter') && props.custom_filter == 1) || ...
+         (props.spike_finder == 1 && dt ~= 1e-4)
      if isfield(props, 'highPassFreq')
        hpf = props.highPassFreq;
      else
-       hpf = 50;
+       % Limit to slightly smaller than Nyquist frequency
+       hpf = min(50, 1/dt/2 * (1 - 1e5*eps));
      end
      if isfield(props, 'lowPassFreq')
        lpf = props.lowPassFreq;
      else
-       lpf =3000;
+       % Limit to slightly smaller than Nyquist frequency
+       lpf = min(3000, 1/dt/2 * (1 - 1e5*eps));
      end
      % make a new filter based on the given dt
      % multiply by 2 to find nyquist freq
-     assert(all(2*[lpf hpf]*dt <= 1), ...
+     assert(all(2*[lpf hpf]*dt < 1), ...
             [ 'For custom filter, highPassFreq and lowPassFreq must be <= ' ...
-              'Nyquist freq (' num2str(1/dt/2) ').' ]);
+              'Nyquist freq (' num2str(1/dt/2) '). But they are lpf=' ...
+              num2str(lpf) ' and hpf=' num2str(hpf) ]);
      [b,a] = butter(2,2*hpf*dt,'high');
      butterWorth.highPass = struct('b', b, 'a', a);
      [b,a] = butter(2,2*lpf*dt,'low');

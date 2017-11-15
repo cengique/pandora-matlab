@@ -39,10 +39,12 @@ verbose = strcmp(vs.state, 'on');
 col_names = getColNames(db);
 with_col_names = getColNames(with_db);
 
-% Check if they have same columns
-if dbsize(db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
-  ((~ isempty(col_names) || ~ isempty(with_col_names)) && ... % If any names are specified,
-   ~ all(ismember(col_names, with_col_names))) 	          % make sure they're same 
+% Check if they have same columns by satisfying both:
+% 1. Same number of columns if they have any rows
+% 2. If both sides have names are specified, make sure they're same 
+if (dbsize(db, 1) > 0 && dbsize(with_db, 1) > 0 && dbsize(db, 2) ~= dbsize(with_db, 2))  || ... 
+      ((~ isempty(col_names) && ~ isempty(with_col_names)) && ... 
+       ~ all(ismember(col_names, with_col_names)))
   
   if isfield(props, 'useCommon')
     % Choose common columns
@@ -58,7 +60,8 @@ if dbsize(db, 2) ~= dbsize(with_db, 2) || ... % Same number of columns
                'columns.']);
     end
   else
-    error(['Need to have same columns with same names in db and ' ...
+    error('tests_db:column_mismatch', ...
+          ['Need to have same columns with same names in db and ' ...
            'with_db.']);
   end
 end

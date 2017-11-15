@@ -1,4 +1,4 @@
-function a_profile = loadItemProfile(dataset, item_index)
+function a_profile = loadItemProfile(dataset, item_index, params_row, props)
 
 % loadItemProfile - Generates a results_profile object from a dataset item.
 %
@@ -8,6 +8,8 @@ function a_profile = loadItemProfile(dataset, item_index)
 % Parameters:
 %   dataset: A params_tests_dataset object.
 %   item_index: Index of item in dataset.
+%   params_row: Parameter values for this item (default=[])
+%   props: Struct with optional properties.
 %		
 % Returns:
 %   a_profile: A profile object that implements the getResults method.

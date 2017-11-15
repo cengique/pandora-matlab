@@ -40,7 +40,12 @@ function obj = addColumns(obj, test_names, test_columns)
 if isa(test_names, 'tests_db')
   to_db = test_names;
   if dbsize(to_db, 1) == 0
-    warning('tests_db/addColumns: Ignoring empty db');
+    warning('tests_db/addColumns: Ignoring empty db (right side)');
+    return;
+  end
+  if dbsize(obj, 1) == 0
+    warning('tests_db/addColumns: Ignoring empty db (left side)');
+    obj = to_db;
     return;
   end
   test_names = fieldnames(get(to_db, 'col_idx'));

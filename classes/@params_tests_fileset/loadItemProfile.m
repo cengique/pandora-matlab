@@ -1,4 +1,4 @@
-function a_profile = loadItemProfile(fileset, file_index, props)
+function a_profile = loadItemProfile(fileset, file_index, params_row, props)
 
 % loadItemProfile - Loads a profile object from a raw data file in the fileset.
 %
@@ -8,6 +8,7 @@ function a_profile = loadItemProfile(fileset, file_index, props)
 % Parameters:
 %   fileset: A params_tests_fileset.
 %   file_index: Index of file in fileset.
+%   params_row: Parameter values for this item (default=[])
 %   props: A structure with any optional properties.
 %     (passed to loadItemProfileFunc)
 %		
