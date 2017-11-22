@@ -64,7 +64,11 @@ elseif ~ isfield(props, 'num_params') || props.num_params ~= 0
     num_params = size(names_vals, 1);
   end
 
-  params_row = [ names_vals{1:num_params, 2} ];
+  if num_params > 0 
+    params_row = [ names_vals{1:num_params, 2} ];
+  else
+    params_row = [];
+  end
 end
 
 if isfield(props, 'param_rows')
