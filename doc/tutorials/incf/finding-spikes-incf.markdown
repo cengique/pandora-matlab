@@ -1,6 +1,6 @@
 # Tutorial: Finding Spike Times
 
-This tutorial assumes you already loaded an intracellular voltage trace and found it spikes in the previous tutorial on [Loading Data](load-trace).
+This tutorial assumes you already loaded an intracellular voltage trace and found it spikes in the previous tutorial on [Loading Data](load-trace.markdown).
 
 Once you have the `trace` object ready and a `spike_finder` method selected, finding spikes is easy:
 
@@ -61,4 +61,4 @@ that gives:
 
 ![Simple view of spikes](screenshot-spikes-plotISIs.png)
 
-Now you can continue onto the next tutorial on [Extracting Firing Characteristics](extracting-spike-info).
+Now you can continue onto the next tutorial on [Extracting Firing Characteristics](extracting-spike-info.markdown).

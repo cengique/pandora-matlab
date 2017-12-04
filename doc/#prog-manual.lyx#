@@ -252,7 +252,7 @@ today
 
 \begin_layout Standard
 \begin_inset Note Comment
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -360,7 +360,7 @@ Introduction
 \begin_layout Subsection
 What is the 
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -563,7 +563,7 @@ Matlab
 \end_layout
 
 \begin_layout LyX-Code
->> help classes
+>> help djlab
 \end_layout
 
 \begin_layout Standard
