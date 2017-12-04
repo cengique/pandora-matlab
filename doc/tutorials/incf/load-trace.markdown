@@ -1,7 +1,7 @@
 # Tutorial: Loading Intracellular Data
 
 # Load example data
-First download the example Matlab data file [from here](doc/tutorials/incf/file "supp_mat_1_dat.mat") and load it like this:
+First download the example Matlab data file [from here](supp_mat_1_dat.mat) and load it like this:
 
     load('supp_mat_1_dat.mat')
 
