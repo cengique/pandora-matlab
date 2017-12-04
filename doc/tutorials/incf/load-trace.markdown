@@ -107,5 +107,5 @@ The better solution is to supply the custom filter while creating the `trace` ob
 
 which will automatically create a 2-pole Butterworth filter that has a bandpass between 50 - 3000 Hz. You can change these limits with the `lowPassFreq` and `highPassFreq` properties in `trace`. Just append them to the `struct` above.
 
-Next tutorial: [Finding Spike Times](intracellular-spike-finding-tutorial).
+Next tutorial: [Finding Spike Times](finding-spikes-incf.markdown).
 
