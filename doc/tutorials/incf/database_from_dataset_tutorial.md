@@ -3,7 +3,7 @@ Creating a Generic Pandora Database
 
 ---
 
-In this tutorial, we will cover how to create a generic database object. The scope of this tutorial assumes that you've already downloaded and setup the Pandora Toolbox with your version of Mat Lab. If that is not the case, please see [Installing Pandora](pandora-matlab/README.md).
+In this tutorial, we will cover how to create a generic database object. The scope of this tutorial assumes that you've already downloaded and setup the Pandora Toolbox with your version of Mat Lab. If that is not the case, please see [Installing Pandora](https://github.com/cengique/pandora-matlab/blob/master/README.md).
 
  # 1.Creating the DataSet Object
  
