@@ -3,7 +3,7 @@ Creating a Generic Pandora Database
 
 ---
 
-In this tutorial, we will cover how to create a generic database object. The scope of this tutorial assumes that you've already downloaded and setup the Pandora Toolbox with your version of Mat Lab. If that is not the case, please see [Installing Pandora](https://github.com/ejjay00/pandora-matlab/blob/1.4compat2/README.md).
+In this tutorial, we will cover how to create a generic database object. The scope of this tutorial assumes that you've already downloaded and setup the Pandora Toolbox with your version of Mat Lab. If that is not the case, please see [Installing Pandora](README.md).
 
  # 1.Creating the DataSet Object
  
@@ -12,35 +12,102 @@ In this tutorial, we will cover how to create a generic database object. The sco
  --
 
 
- ``pandora-matlab\doc\tutorials\incf\supp_mat_2_dat``
+ ``pandora-matlab\doc\tutorials\incf\file.txt``
  
  In pandora there are several methods for creating a DataSet object. we will be using the ``>>params_tests_fileset`` object method. This object uses raw data from a grouping of files using any number of files you'd like. We will be using the following command to create the dataset.
  
 ``>> params_tests_fileset(file-pattern, dt, dy, id, props)``
 
+First Let's identify our parameter variables.
 
-file-pattern: A file-format string notation used to establish which files to pull raw data from.
 
-see ``>>help trace`` for a list of file formats
+- file-pattern: A file-format string notation used to establish which files to pull raw data from.
+- dt: time resolution of the data.
+- dy: The y-axis resolution of the data.
+- id: identification string for your dataset object.
+- props: A structure array object.
 
-`file-pattern = '*.txt'` 
-This indicates that we want all `.txt` files only.
+Now lets assign their values.
 
-dt: time resolution of the data.
-dy: The y-axis resolution of the data.
+- `file-pattern = '*.txt'` 
+This indicates that we want all `.txt` files only.  See ``>>help trace`` for a list of file formats  
+- `dt = 1e-4;   % recorded @ 10 khz`
+- `dy = 1e-3;   % in mV`
+- `id = 'dataset1';`
+- `props = struct;`
 
-`dt = 1e-4;   % recorded @ 10 khz`
-`dy = 1e-3;   % in mV`
+Now that we've gotten our parameter values, we are going to need some data.
 
-id: identification string for your dataset object.
-props: A structure array object.
+We will be using the `ASCII` file format for our data.
 
-`id = 'dataset1';`
-`props = struct;`
+Now call: `>>load('file.txt')` in the command window. 
 
- First call: `>>load('test_data')` in the command window. This will create a variable `test_data`. This variable will be in the `.mat` format.  We will be using the `ASCII` file format for our data. To convert the data to a text file, call: `>>  save -ASCII file.txt test_data` in the command window. This saves `test_data` to `file.txt`. All thats left to do now is to call the following command to create and store your data set in a variable:
+(For more practice with data, please see [Loading Intracellular Data](load-trace.markdown) )
+
+All thats left to do now is to call the following command to create and store your dataset in a variable:
  
- ``my_data_set = params_tests_fileset(file-pattern, dt, dy, id, props) ``
+ ``my_data_set = params_tests_fileset( '*.txt',  1e-4, 1e-3, 'dataset1', struct) ``
+ 
+ 2.Creating the Database Object
+ --
+ 
+ creating a database is now pretty simple using the following line:
+
+ 
+ ``my_db = params_tests_db(my_data_set)``
+
+
+
+
+Creating a Generic Pandora Database
+===================================
+
+---
+
+In this tutorial, we will cover how to create a generic database object. The scope of this tutorial assumes that you've already downloaded and setup the Pandora Toolbox with your version of Mat Lab. If that is not the case, please see [Installing Pandora](README.md).
+
+ # 1.Creating the DataSet Object
+ 
+
+ 1.1. The Necessary Files
+ --
+
+
+ ``pandora-matlab\doc\tutorials\incf\file.txt``
+ 
+ In pandora there are several methods for creating a DataSet object. we will be using the ``>>params_tests_fileset`` object method. This object uses raw data from a grouping of files using any number of files you'd like. We will be using the following command to create the dataset.
+ 
+``>> params_tests_fileset(file-pattern, dt, dy, id, props)``
+
+First Let's identify our parameter variables.
+
+
+- file-pattern: A file-format string notation used to establish which files to pull raw data from.
+- dt: time resolution of the data.
+- dy: The y-axis resolution of the data.
+- id: identification string for your dataset object.
+- props: A structure array object.
+
+Now lets assign their values.
+
+- `file-pattern = '*.txt'` 
+This indicates that we want all `.txt` files only.  See ``>>help trace`` for a list of file formats  
+- `dt = 1e-4;   % recorded @ 10 khz`
+- `dy = 1e-3;   % in mV`
+- `id = 'dataset1';`
+- `props = struct;`
+
+Now that we've gotten our parameter values, we are going to need some data.
+
+We will be using the `ASCII` file format for our data.
+
+Now call: `>>load('file.txt')` in the command window. 
+
+(For more practice with data, please see [Loading Intracellular Data](load-trace.markdown) )
+
+All thats left to do now is to call the following command to create and store your dataset in a variable:
+ 
+ ``my_data_set = params_tests_fileset( '*.txt',  1e-4, 1e-3, 'dataset1', struct) ``
  
  2.Creating the Database Object
  --

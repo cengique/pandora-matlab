@@ -1,6 +1,6 @@
 # Tutorial: Extracting and Analyzing Firing Properties (rate, spike amplitude, etc.)
 
-This tutorial assumes you already loaded an intracellular voltage trace and found it spikes in the previous tutorial on [Finding Spike Times](intracellular-spike-finding-tutorial).
+This tutorial assumes you already loaded an intracellular voltage trace and found it spikes in the previous tutorial on [Finding Spike Times](finding-spikes-incf.markdown).
 
 # Spiking statistics
 The simplest information about the spikes in a trace can be obtained with:
