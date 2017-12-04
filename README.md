@@ -38,6 +38,7 @@ Tutorials
   from recordings or simulations to create trace objects.
 * [Intracellular spike finding](doc/tutorials/incf/finding-spikes-incf.markdown)
 * [Extracting and analyzing firing properties (rate, spike amplitude, etc.)](doc/tutorials/incf/extracting-spike-info.markdown)
+* [Creating a database from files](doc/tutorials/incf/database_from_dataset_tutorial.md)
 
 Documentation:
 --------------------
