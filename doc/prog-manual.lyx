@@ -2530,14 +2530,37 @@ name "sec:Recipes"
 \end_layout
 
 \begin_layout Subsection
+Create a database from arbitrary data
+\end_layout
+
+\begin_layout Standard
+A database can be created directly from a data matrix.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+>> cap = [1 2 3 1];
+\end_layout
+
+\begin_layout LyX-Code
+>> res = [5 6 4 5];
+\end_layout
+
+\begin_layout LyX-Code
+>> a_db = tests_db([cap' res'], {'Capacitance', 'Resistance'}, {}, ...
+\end_layout
+
+\begin_layout LyX-Code
+'Canton S - fake');
+\end_layout
+
+\begin_layout Subsection
 Loading a database
 \end_layout
 
 \begin_layout Standard
-A database can be created directly from a data matrix, or indirectly by
- loading a dataset.
- For the latter, first a dataset object must be created that point to the
- data sources.
+A secondary way would be to create a database from a dataset.
+ First a dataset object must be created that point to the data sources.
  There are different dataset classes that allow using different data sources.
  For instance, physiology and simulation data require different operations.
  In physiology data, one can record information about the treatments and

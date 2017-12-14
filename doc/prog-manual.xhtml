@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.2.3" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Plotting and Analysis for Neural Database-Oriented Research Applications (PANDORA) Toolbox — User's and Programmer's Manual</title>
+<style type='text/css'>
+/* LyX Provided Styles */
+div.bibtexentry { margin-left: 2em; text-indent: -2em; }
+span.bibtexlabel:before{ content: "["; }
+span.bibtexlabel:after{ content: "] "; }
+
+/* Layout-provided Styles */
+dfn.lyxnoun {
+  font-variant: small-caps;
+}
+h1.title {
+font-size: x-large;
+margin-bottom: 1ex;
+text-align: center;
+
+}
+div.author {
+font-size: large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: center;
+
+}
+div.date {
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: center;
+
+}
+div.standard {
+margin-bottom: 2ex;
+}
+div.plain_layout {
+text-align: left;
+
+}
+h2.section {
+font-weight: bold;
+font-size: x-large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: left;
+
+}
+h3.subsection {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+ul.itemize {
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+text-align: left;
+
+}
+div.lyx_code {
+font-family: monospace;
+margin-top: 0.5ex;
+margin-bottom: 0.5ex;
+margin-left: 3ex;
+margin-right: 3ex;
+text-align: left;
+
+}
+h1.part {
+font-weight: bold;
+font-size: x-large;
+margin-top: 2ex;
+margin-bottom: 1.5ex;
+text-align: left;
+
+}
+dl.description dt { font-weight: bold; }
+h4.subsubsection {
+font-weight: bold;
+font-size: medium;
+margin-top: 0.7ex;
+margin-bottom: 0.4ex;
+text-align: left;
+
+}
+h5.paragraph {
+font-weight: bold;
+font-size: medium;
+margin-top: 0.4ex;
+text-align: left;
+
+}
+h1.part_ {
+font-weight: bold;
+font-size: x-large;
+margin-top: 2ex;
+margin-bottom: 1.5ex;
+text-align: left;
+
+}
+ div.note_comment {
+   display: none;
+ }
+ div.toc {
+   margin: 2em 0em;
+   border-style: solid;
+   border-width: 2px 0px;
+   padding: 1em 0em;
+ }
+ h2.tochead { font-size: x-large; font-weight: bold; }
+ div.lyxtoc-0 {
+   margin: 2em 0em 0em 0em;
+   font-size: xx-large;
+   font-weight: bold;
+ }
+ div.lyxtoc-1 {
+   margin: 1em 0em 0em 0em;
+   font-size: x-large;
+   font-weight: bold;
+ }
+ div.lyxtoc-2 {
+   margin: 0em 0.1em 0em 1em;
+   font-size: large;
+   font-weight: normal;
+ }
+ div.lyxtoc-3 { margin: 0em 0.1em 0em 0.5em; font-size: medium; }
+ div.lyxtoc-4 { margin: 0em 0.1em 0em 0.5em; }
+ div.lyxtoc-5 { margin: 0em 0.1em 0em 0.5em; }
+ div.lyxtoc-6 { margin: 0em 0.1em 0em 0.5em; }
+ a.tocentry {
+   text-decoration: none;
+   color: black;
+ }
+ a.tocentry:visited { color: black; }
+ a.lyxtoc-floats { 
+   text-decoration: none; 
+   color: black;
+ }
+ a.lyxtoc-floats:visited { color: black; }
+ div.lyxtoc-floats { 
+   margin: 0em 0em 0.1em 1em;
+   font-size: large;
+   font-weight: normal;
+ }
+span.foot_label {
+vertical-align: super;
+font-size: smaller;
+font-weight: bold;
+text-decoration: underline;
+}
+div.foot {
+display: inline;
+font-size: small;
+font-weight: medium;
+font-family: serif;
+font-variant: normal;
+font-style: normal;
+}
+div.foot_inner { display: none; }
+div.foot:hover div.foot_inner {
+display: block;
+border: 1px double black;
+margin: 0em 1em;
+padding: 1em;
+}
+span.flex_url {
+font-family: monospace;
+}
+div.float {
+border: 2px solid black;
+text-align: center;
+}
+div.float-caption {
+text-align: center;
+border: 2px solid black;
+padding: 1ex;
+margin: 1ex;
+}
+
+
+</style>
+</head>
+<body dir="auto">
+<h1 class="title"><a id='magicparlabel-1' />Plotting and Analysis for Neural Database-Oriented Research Applications (PANDORA) Toolbox — 
+<br />
+
+User's and Programmer's Manual</h1>
+<div class="author"><a id='magicparlabel-2' />Cengiz Gunay </div>
+<div class="date"><a id='magicparlabel-7' />Document Revision , </div>
+
+
+
+
+<div class='toc'><h2 class='tochead section'>Table of Contents</h2>
+
+
+<div class='lyxtoc-1'><div class='lyxtoc-2'><a href='#magicparlabel-45' class='tocentry'>1 Introduction</a>
+
+
+<div class='lyxtoc-3'><a href='#magicparlabel-46' class='tocentry'>1.1 What is the ?</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-56' class='tocentry'>1.2 Why did you make it?</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-62' class='tocentry'>1.3 How is it implemented?</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-68' class='tocentry'>1.4 How can I use it?</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-78' class='tocentry'>1.5 Who is it made for?</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-88' class='tocentry'>1.6 Finding your way around</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-98' class='tocentry'>1.7 Overview of this document</a>
+</div>
+</div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-104' class='tocentry'>2 Installation</a>
+</div>
+</div>
+</div>
+
+<div class='lyxtoc-0'><a href='#magicparlabel-127' class='tocentry'>Part I Software Architecture</a>
+
+
+
+<div class='lyxtoc-1'><div class='lyxtoc-2'><a href='#magicparlabel-128' class='tocentry'>3 Toolbox Components</a>
+
+
+<div class='lyxtoc-3'><a href='#magicparlabel-148' class='tocentry'>3.1 Databases hold all the information</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-187' class='tocentry'>3.2 Datasets create the databases</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-217' class='tocentry'>3.3 Bundling the database and dataset together</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-240' class='tocentry'>3.4 Wrapper classes hold raw data</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-263' class='tocentry'>3.5 Profiles hold results of measurements</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-286' class='tocentry'>3.6 Integrated plotting for easy visualization</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-312' class='tocentry'>3.7 Miscellaneous classes</a>
+</div>
+</div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-318' class='tocentry'>4 Programming Conventions</a>
+
+
+<div class='lyxtoc-3'><a href='#magicparlabel-319' class='tocentry'>4.1 Using property structures for passing optional arguments to methods</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-325' class='tocentry'>4.2 Overloaded operators for transparent access to object contents</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-352' class='tocentry'>4.3 Troubleshooting errors</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-356' class='tocentry'>4.4 Creating a new class</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class='lyxtoc-0'><a href='#magicparlabel-358' class='tocentry'>Part II User's Manual</a>
+
+
+
+<div class='lyxtoc-1'><div class='lyxtoc-2'><a href='#magicparlabel-359' class='tocentry'>5 Recipes for Common Tasks</a>
+
+
+<div class='lyxtoc-3'><a href='#magicparlabel-360' class='tocentry'>5.1 Create a database from arbitrary data</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-366' class='tocentry'>5.2 Loading a database</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-417' class='tocentry'>5.3 Finding constrained subsets in a database</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-445' class='tocentry'>5.4 Sorting the database according to a measure</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-513' class='tocentry'>5.5 Preprocessing a raw (physiology) database by elimination and averaging </a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-610' class='tocentry'>5.6 Making a database by merging multiple rows from another database</a>
+</div>
+</div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-805' class='tocentry'>6 Visualization</a>
+
+
+<div class='lyxtoc-3'><a href='#magicparlabel-821' class='tocentry'>6.1 Visualizing traces</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-836' class='tocentry'>6.2 Displaying database contents</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-890' class='tocentry'>6.3 Plotting all measure histograms</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-904' class='tocentry'>6.4 Plotting all parameter histograms</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-916' class='tocentry'>6.5 Plotting database statistics</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-993' class='tocentry'>6.6 Plotting parameter-measure variations</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-1027' class='tocentry'>6.7 Insets</a>
+</div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-1040' class='tocentry'>6.8 Generating a report comparing two databases</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class='lyxtoc-0'><a href='#magicparlabel-1061' class='tocentry'>Appendices</a>
+
+
+
+<div class='lyxtoc-1'><div class='lyxtoc-2'><a href='#magicparlabel-1062' class='tocentry'>A Function Reference</a>
+</div>
+</div>
+</div>
+
+
+
+<div class="standard"><a id='magicparlabel-30' /><div class="note_comment"><div class='toc toc-floats'><h2 class='tochead toc-figure verbatim_'>List of Figures</h2><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-133' class='lyxtoc-floats'>Figure 1: Schematic overview of the database software.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-154' class='lyxtoc-floats'>Figure 2: Database class hierarchy.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-193' class='lyxtoc-floats'>Figure 3: Dataset class hierarchy.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-222' class='lyxtoc-floats'>Figure 4: Bundle class hierarchy.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-246' class='lyxtoc-floats'>Figure 5: Data wrapper class hierarchy.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-268' class='lyxtoc-floats'>Figure 6: Profile class hierarchy.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-291' class='lyxtoc-floats'>Figure 7: Plot classes hierarchy.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-826' class='lyxtoc-floats'>Figure 8: Example trace plot.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-895' class='lyxtoc-floats'>Figure 9: Example measure distribution plot.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-909' class='lyxtoc-floats'>Figure 10: Example parameter distribution plot.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-923' class='lyxtoc-floats'>Figure 11: Plotting statistics for two selected measures.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-998' class='lyxtoc-floats'>Figure 12: Example parameter-measure variation statistics plot.</a></div><div class='lyxtoc-floats lyxtoc-figure'><a href='#magicparlabel-1032' class='lyxtoc-floats'>Figure 13: Creating insets in figures.</a></div></div>
+</div></div>
+
+
+<h2 class="section"><a id='magicparlabel-45' /><span class="section_label">1</span> Introduction</h2>
+<h3 class="subsection"><a id='magicparlabel-46' /><span class="subsection_label">1.1</span> What is the ?</h3>
+<div class="standard"><a id='magicparlabel-51' />The  is a software package which consists of a collection of <dfn class='lyxnoun'>Matlab</dfn> object-oriented classes and script functions for creating, analyzing and visualizing databases based on data from electrophysiological neuron simulations and recordings.</div>
+<h3 class="subsection"><a id='magicparlabel-56' /><span class="subsection_label">1.2</span> Why did you make it?</h3>
+<div class="standard"><a id='magicparlabel-57' />Motivations to create this software were:</div>
+
+<ul class="itemize"><a id='magicparlabel-58' /><li class="itemize_item">Analyze data generated by brute-force and other parameter search methods.</li>
+<li class="itemize_item">Analyze subsets of parameter spaces and special cases.</li>
+<li class="itemize_item">Evaluate robustness of model neurons.</li>
+<li class="itemize_item">Find functional roles of specific conductances.</li>
+</ul>
+<h3 class="subsection"><a id='magicparlabel-62' /><span class="subsection_label">1.3</span> How is it implemented?</h3>
+<div class="standard"><a id='magicparlabel-63' />A custom database management system (DBMS) is written from scratch in the <dfn class='lyxnoun'>Matlab</dfn> language. The toolbox design follows object-oriented programming principles. It uses functions from the statistics and signal processing toolboxes of <dfn class='lyxnoun'>Matlab</dfn>, but they are not strictly necessary. It does not use <dfn class='lyxnoun'>Matlab</dfn>'s database (DB) toolbox.<div class="foot"><span class="foot_label">1</span><div class="foot_inner"><div class="plain_layout"><a id='magicparlabel-67' />At the time of initial design, the author did not have access to the DB toolbox. Future versions may support the DB toolbox.</div>
+</div></div></div>
+<h3 class="subsection"><a id='magicparlabel-68' /><span class="subsection_label">1.4</span> How can I use it?</h3>
+<div class="standard"><a id='magicparlabel-69' />The  uses an object-oriented approach to provide maximal flexibility for interactive use on the <dfn class='lyxnoun'>Matlab </dfn>command-line.<div class="foot"><span class="foot_label">2</span><div class="foot_inner"><div class="plain_layout"><a id='magicparlabel-77' />This version of the toolbox does not yet have a general graphical user interface (GUI). The author prefers to have a flexible command-line interface than to maintain a limited GUI. However, once commonly used functions can be conveniently placed within a GUI, it will be added to the toolbox.</div>
+</div></div> Objects can be created, modified, analyzed, and visualized interactively in few steps. It is straightforward to save and load binary representations of these objects into files. Scripts can be made to programmatically repeat these procedures. Existing object classes are designed with the prospect of future extension, to accommodate new types of data and analyses.</div>
+<h3 class="subsection"><a id='magicparlabel-78' /><span class="subsection_label">1.5</span> Who is it made for?</h3>
+<div class="standard"><a id='magicparlabel-79' /> is customized for neuroscientific research. However, the concepts of a complex dataset, extraction of multiple observations from each item of the dataset, and analysis of multi-dimensional parameter spaces are universal. In its current form the database and dataset classes can be used for data other than electrophysiologic sources. As this toolbox is designed for flexible extensibility, one can add extensions that deal with different types of data and analyses.</div>
+<h3 class="subsection"><a id='magicparlabel-88' /><span class="subsection_label">1.6</span> Finding your way around<a id="subsec_Finding_your_way_around" />
+</h3>
+<div class="standard"><a id='magicparlabel-89' />The source code uses <dfn class='lyxnoun'>Matlab</dfn>'s documentation system, therefore all methods and classes are documented. To get help about all classes, issue the </div>
+
+<div class="lyx_code"><a id='magicparlabel-90' /><div class="lyx_code_item">&gt;&gt; help classes</div>
+</div>
+<div class="standard"><a id='magicparlabel-91' />at the <dfn class='lyxnoun'>Matlab</dfn> prompt. This should give you an overview of available classes. Then, to learn about a specific class, ask for the documentation for the constructor method. For instance, for the <span style='font-family:monospace;'>trace</span> class, issuing</div>
+
+<div class="lyx_code"><a id='magicparlabel-92' /><div class="lyx_code_item">&gt;&gt; help trace</div>
+</div>
+<div class="standard"><a id='magicparlabel-93' />gives you the documentation for the constructor together with an overview for the class. Sometimes, if there are multiple methods with the same name under different classes, you may get the wrong documentation. In that case, you can specify the class from which to take the method by prepending the class name to the method, such as in</div>
+
+<div class="lyx_code"><a id='magicparlabel-94' /><div class="lyx_code_item">&gt;&gt; help trace/spikes</div>
+</div>
+<div class="standard"><a id='magicparlabel-95' />In order to learn all methods available for a class, you can use <dfn class='lyxnoun'>Matlab</dfn>'s <span style='font-family:monospace;'>methods</span> command. For the <span style='font-family:monospace;'>trace</span> class, do</div>
+
+<div class="lyx_code"><a id='magicparlabel-96' /><div class="lyx_code_item">&gt;&gt; methods(trace)</div>
+</div>
+<div class="standard"><a id='magicparlabel-97' />However, some documentation may be outdated or simply wrong. Please report these to the author via e-mail to <span style='font-family:monospace;'>cgunay AT emory.edu</span>.</div>
+<h3 class="subsection"><a id='magicparlabel-98' /><span class="subsection_label">1.7</span> Overview of this document</h3>
+<div class="standard"><a id='magicparlabel-99' />Next, Section <a href="#sec_Installation">2</a> guides the reader through the installation of the package and other dependencies. You can skip this section if you already have a running software environment. Section <a href="#sec_Class_hierarchies">3</a> introduces the essential components of the software and talks about their design decisions. You can also skip this part if you're not interested in the guts of the system and you are in favor of a quick start. The recipes in Section <a href="#sec_Recipes">5</a> provide a tutorial for some common tasks. It may be easier for some readers to follow these recipes to jump-start using the software. However, it is recommended that you familiarize yourself with the basic organization of the classes before proceeding into more complex tasks. Section <a href="#sec_Visualization">6</a> takes the tutorial approach to describe common visualization tasks. Finally, Section <a href="#sec_Function_Reference">A</a> points to the list of individual methods provided by the software. These methods are documented in detail using the <dfn class='lyxnoun'>Matlab</dfn> online help system.</div>
+<h2 class="section"><a id='magicparlabel-104' /><span class="section_label">2</span> Installation<a id="sec_Installation" />
+</h2>
+<div class="standard"><a id='magicparlabel-109' />Download the latest package file from: </div>
+
+<div class="standard"><a id='magicparlabel-110' /><span class="flex_url">http://userwww.service.emory.edu/~cgunay/pandora</span>. </div>
+
+<div class="standard"><a id='magicparlabel-115' />Unpack the archive anywhere in your system, using</div>
+
+<div class="lyx_code"><a id='magicparlabel-116' /><div class="lyx_code_item">$ tar xzf pandora-xyz.tar.gz</div>
+</div>
+<div class="standard"><a id='magicparlabel-117' />and follow the instructions in the README file. </div>
+
+<div class="standard"><a id='magicparlabel-118' />Basically it involves pointing your <dfn class='lyxnoun'>Matlab</dfn> installation to look at the <span style='font-family:monospace;'>pandora/</span> subdirectory for loading the PANDORA files. This can be achieved <div class="note_comment"><div class="plain_layout"><a id='magicparlabel-122' />either by copying the <span style='font-family:monospace;'>pandora/</span> directory under the <span style='font-family:monospace;'>toolbox/</span> directory in your <dfn class='lyxnoun'>Matlab</dfn> installation, or [this doesn't work!] </div>
+</div>by adding this directory to your <dfn class='lyxnoun'>Matlab</dfn> search path using the <span style='font-family:monospace;'>addpath</span> Matlab command. To avoid its repeated application for each new session, you can have a startup script, <span style='font-family:monospace;'>startup.m</span>, in the directory that you run <dfn class='lyxnoun'>Matlab</dfn> with the following commands:</div>
+
+<div class="lyx_code"><a id='magicparlabel-123' /><div class="lyx_code_item">%--- startup.m for matlab</div>
+<div class="lyx_code_item">addpath /my/download/directory/pandora-1.0b/pandora</div>
+<div class="lyx_code_item">%--- end startup.m</div>
+</div>
+<div class="standard"><a id='magicparlabel-126' />This will be loaded everytime you run <dfn class='lyxnoun'>Matlab</dfn> from this directory. in UN*X systems, this can be improved further by placing the command in the file <span style='font-family:monospace;'>$HOME/matlab/startup.m, which</span> is executed no matter from where <dfn class='lyxnoun'>Matlab</dfn> is called, especially if you are running Matlab from different or unknown places each time. In Windows, place the file under <span style='font-family:monospace;'>My Documents/MATLAB</span>, or add the directory to the search path using the <em>File-&gt;Set Path</em> menu option.</div>
+<h1 class="part"><a id='magicparlabel-127' /><span class="part_label">Part I</span> Software Architecture</h1>
+<h2 class="section"><a id='magicparlabel-128' /><span class="section_label">3</span> Toolbox Components<a id="sec_Class_hierarchies" />
+</h2>
+<div class="standard"><a id='magicparlabel-129' />An overview of the toolbox functionality is shown in Figure <a href="#figcap_Database_overview">1</a>. In the figure, boxes represent objects that can be created with the toolbox. Flow starts from the dataset object on the top left which represents the collection of raw data files. The raw data is loaded using information in the dataset to create intermediate objects that, for instance, contain data traces. These objects define electrophysiological measurements to be entered into the data matrix of the database object on the top right. The database object allows filtering and querying to refine its contents. From the database object, one can always go back to the dataset and find the raw data that results from a query. The arrows going to bottom objects and corresponding plots show the types of possible analyses that can be done on a database object. These analyses are typically for displaying statistical information. The red arrow is a speacial analysis for searching and matching rows between different databases. The match is done by taking a row from a database created with data from real neurons and finding best matching model neurons from a simulation database. </div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-133' /><img style='width:80%;' src='1C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_db-overview.png' alt='image: 1C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_db-overview.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-142' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 1:  <a id="figcap_Database_overview" />
+Schematic overview of the database software.</span></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-147' />The objects in the figure are instances of classes that define their properties in the object-oriented framework. Each class comes with a hierarchy of of subclasses that specialize to specific functions. Subsequent sections describe each of these class hierarchies that make up the main components of the toolbox.</div>
+<h3 class="subsection"><a id='magicparlabel-148' /><span class="subsection_label">3.1</span> Databases hold all the information</h3>
+<div class="standard"><a id='magicparlabel-149' />The database object is at the center of this toolbox (see Figure <a href="#figcap_Database_overview">1</a>). It holds a data matrix with rows as observations and columns as attributes. The rows would normally correspond to results from individual data traces, or simply neurons. The columns hold values of separate measurements, statistical data, or parameter values. </div>
+
+<div class="standard"><a id='magicparlabel-150' />A database object can be created from any of the classes in the hierarchy of Figure <a href="#figcap_Database_class_hierarchy">2</a>. The top-level database class is <span style='font-family:monospace;'>tests_db</span> which contains a two-dimensional data matrix of real numbers and some metadata. The metadata consists of column labels (e.g., measure names), a dataset label, and data properties (e.g., time resolution). The subclasses are specialized for different tasks. </div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-154' /><img style='width:90%;' src='2C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_DB-classes.png' alt='image: 2C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_DB-classes.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-163' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 2:  <a id="figcap_Database_class_hierarchy" />
+Database class hierarchy.</span></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-168' />If the database object is created using a dataset object, this maintains a connection from the elements of the database (e.g., neurons) to the raw data. This allows raw data associated with database contents to be visualized during analysis. However, a database can be created from any data matrix given in the proper format.</div>
+
+<div class="standard"><a id='magicparlabel-169' />Some specialized subclasses of <span style='font-family:monospace;'>tests_db</span> are as follows:</div>
+
+<dl class='description'><a id='magicparlabel-174' /><dt class="description_label">params_tests_db</dt>
+<dd class="description_item"> The first <span style='font-family:monospace;'>num_params</span> columns are reserved for parameters that were changed between different rows. It contains methods that treat these columns specially. Parameters can be simulation parameters, or pharmacological applications to experiments.</dd>
+<dt class="description_label">tests_3D_db</dt>
+<dd class="description_item"> Contains a three-dimensional data matrix that has additional dimension for pages of information. This is mainly used to look at change in measurements with a parameter using the <span style='font-family:monospace;'>invarParam</span> method of <span style='font-family:monospace;'>params_tests_db</span>. Three dimensional databases can be useful for other purposes as well.</dd>
+<dt class="description_label">stats_db</dt>
+<dd class="description_item"> Contains few rows that describe the statistics obtained possibly from another database. It can contain the mean and standard deviation or error, or in some cases, the minimal and maximal values of columns in a database. It contains special plotting functions. There are methods that use the statistics collected by this class.</dd>
+<dt class="description_label">ranked_db</dt>
+<dd class="description_item"> Contains distances that resulted from a comparison of a database with a criterion. Its rows are ranked and sorted according to this distance value. Each row would point to a row in dex into the original database. Contains methods to generate reports from information about matching neurons.</dd>
+<dt class="description_label">spikes_db</dt>
+<dd class="description_item"> Contains results from individual spike shapes of a <span style='font-family:monospace;'>trace</span> object. It can be obtained using the <span style='font-family:monospace;'>trace/analyzeSpikesInPeriod</span> method.</dd>
+<dt class="description_label">histogram_db</dt>
+<dd class="description_item"> Each row corresponds to a histogram bin. Contains plotting methods.</dd>
+<dt class="description_label">corrcoefs_db</dt>
+<dd class="description_item"> Each row corresponds to a correlation coefficient. Contains plotting methods.</dd>
+<dt class="description_label">cluster_db</dt>
+<dd class="description_item"> Each row corresponds to a cluster centroid. Contains plotting methods.</dd>
+</dl>
+
+<h3 class="subsection"><a id='magicparlabel-187' /><span class="subsection_label">3.2</span> Datasets create the databases</h3>
+<div class="standard"><a id='magicparlabel-188' />The dataset object is responsible for creating the database objects (see Figure <a href="#figcap_Database_overview">1</a>). It defines where the raw data is stored and what parameters are used to load and analyze it. It knows that raw data has parameters associated which individual raw data traces and how and which measures will be generated. This information is used to automatically generate a database from the dataset. It also allows reaching back the raw data from rows of an analyzed database. </div>
+
+<div class="standard"><a id='magicparlabel-189' />Figure <a href="#figcap_Dataset_class_hierarchy">3</a> shows the hierarchy for the dataset classes. The top-level dataset class is <span style='font-family:monospace;'>params_tests_dataset</span> which is an incomplete class. That is, this class defines general utilities that can work for a variety of dataset subclasses, but one cannot make a object from the <span style='font-family:monospace;'>params_tests_dataset</span> class directly. Instead, one of its subclasses must be chosen and used. Some of these specialized subclasses are as follows:</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-193' /><img style='width:80%;' src='3C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_Dataset-classes.png' alt='image: 3C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_Dataset-classes.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-202' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 3:  <a id="figcap_Dataset_class_hierarchy" />
+Dataset class hierarchy.</span></div>
+</div>
+
+
+<dl class='description'><a id='magicparlabel-207' /><dt class="description_label">params_tests_fileset</dt>
+<dd class="description_item"> This class assumes each raw data item resides in a file and all of these files are in the same directory. The parameter names and values are obtained from each file name itself. This class is mostly useful for simulation filesets.</dd>
+<dt class="description_label">params_cip_trace_fileset</dt>
+<dd class="description_item"> This is a subclass of <span style='font-family:monospace;'>params_tests_fileset</span>, therefore it inherits the notion of one file per data item. The files must conform to the current-pulse injection experiments and have a starting time and duration for the pulses. The pulse magnitude is read from the <span style='font-family:monospace;'>pAcip</span> parameter. This class is mostly useful for simulation filesets.</dd>
+<dt class="description_label">physiol_cip_traceset</dt>
+<dd class="description_item"> This is a subclass of <span style='font-family:monospace;'>params_tests_dataset</span>. It is designed to load a set of physiology traces from a single file generated by the PCDX stimulation and acquisition software. </dd>
+<dt class="description_label">physiol_cip_traceset_fileset</dt>
+<dd class="description_item"> This is a subclass of <span style='font-family:monospace;'>params_tests_dataset</span>. It is designed to load traces from multiple PCDX data files. It uses the <span style='font-family:monospace;'>physiol_cip_traceset</span> class for this purpose. </dd>
+<dt class="description_label">cip_traces_dataset,&nbsp;cip_traceset,&nbsp;cip_traceset_dataset</dt>
+<dd class="description_item"> These are obsolete classes that allow loading physiology traces from older <dfn class='lyxnoun'>Matlab</dfn> formatted objects.</dd>
+</dl>
+
+<h3 class="subsection"><a id='magicparlabel-217' /><span class="subsection_label">3.3</span> Bundling the database and dataset together</h3>
+<div class="standard"><a id='magicparlabel-218' />Since dataset and database objects are related and work together for some operations, it is convenient to have another object that bundles them together. There are several analysis routines that start from the database, retrieve raw data traces and other related information from the dataset and create a result. For instance, matching neurons from one database to another requires first comparing the measurements to find match candidates, and then comparing raw traces to visually represent the match quality. </div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-222' /><img style='width:100%;' src='4C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_bundle-classes.png' alt='image: 4C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_bundle-classes.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-223' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 4:  <a id="figcap_Bundle_class_hierarchy" />
+Bundle class hierarchy.</span></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-228' />The top-level <span style='font-family:monospace;'>dataset_db_bundle</span> class in Figure <a href="#figcap_Bundle_class_hierarchy">4</a> fulfills this purpose by bundling a <span style='font-family:monospace;'>dataset</span> with the raw database, <span style='font-family:monospace;'>db</span>, created from it, and with the reduced database, <span style='font-family:monospace;'>joined_db</span>, that contains a one-row-per-neuron representation. Although being a virtual class that cannot be instantiated, it contains general methods and prototype methods that must be implemented in subclasses. This way, it provides guidelines for defining subclasses. Its two subclasses provide specialize methods for model and physiology databases, respectively.</div>
+
+<dl class='description'><a id='magicparlabel-229' /><dt class="description_label">model_ct_bundle</dt>
+<dd class="description_item"> Contains methods to name and visualize neurons in the model database. It has methods to compare real neurons to model neurons to find best matching candidates. </dd>
+<dt class="description_label">physiol_bundle</dt>
+<dd class="description_item"> Contains methods to name and visualize neurons in the physiology database. It contains a new attribute, <span style='font-family:monospace;'>joined_control_db</span>, that holds only the neurons recorded without any pharmacological treatments.</dd>
+</dl>
+
+<h3 class="subsection"><a id='magicparlabel-240' /><span class="subsection_label">3.4</span> Wrapper classes hold raw data</h3>
+<div class="standard"><a id='magicparlabel-241' />Wrapper classes are designed to hold data and provide simple methods that operate on them. They can either hold raw data, or intermediate processed forms of data being byproducts of analysis routines. In the overall schema of Figure <a href="#figcap_Database_overview">1</a>, the raw traces obtained from the dataset object are kept in data wrapper objects. </div>
+
+<div class="standard"><a id='magicparlabel-242' />Figure <a href="#figcap_Datawrapper_class_hierarchy">5</a> shows the hierarchy for the data wrapper classes. The most basic data wrapper class in this toolbox is the <span style='font-family:monospace;'>trace</span> class, which holds raw voltage or current traces. The <span style='font-family:monospace;'>spikes</span> object contains the spike times obtained by analyzing a <span style='font-family:monospace;'>trace</span> object.</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-246' /><img style='width:100%;' src='5C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_data-wrapper-diagram.png' alt='image: 5C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_data-wrapper-diagram.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-247' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 5:  <a id="figcap_Datawrapper_class_hierarchy" />
+Data wrapper class hierarchy.</span></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-252' />A data wrapper class does more than just holding the data. It defines a set of operations in terms of method functions that can work on the data held by the class. As a rule of thumb, if one needs to add some new functionality into the toolbox, it should be added as a method into a class holding the data on which to operate.</div>
+
+<div class="standard"><a id='magicparlabel-253' />Some of the data wrapper classes are as follows:</div>
+
+<dl class='description'><a id='magicparlabel-254' /><dt class="description_label">trace</dt>
+<dd class="description_item"> Generic object that holds a vector of data that changes over time. It has a time resolution and y-axis resolution. Contains simple analysis routines such as finding average values within different periods, or finding spikes given a threshold.</dd>
+<dt class="description_label">cip_trace</dt>
+<dd class="description_item"> A subclass of <span style='font-family:monospace;'>trace</span> class for current-injection recording protocols. It defines an initial spontaneous period, followed by a current-injection period, and final recovery period. It contains period-specific analyses that apply to the experimental protocol.</dd>
+<dt class="description_label">spike_shape</dt>
+<dd class="description_item"> A subclass of <span style='font-family:monospace;'>trace</span> that holds the shape of a single spike. It contains spike shape measurements.</dd>
+<dt class="description_label">spikes</dt>
+<dd class="description_item"> A generic class to hold the event times for spikes. It contains methods for making measurements based on spike times, such as rate and ISI calculations.</dd>
+</dl>
+
+<h3 class="subsection"><a id='magicparlabel-263' /><span class="subsection_label">3.5</span> Profiles hold results of measurements</h3>
+
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-268' /><img style='width:90%;' src='6C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_Profile-classes.png' alt='image: 6C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_Profile-classes.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-269' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 6:  <a id="figcap_Profile_class_hierarchy" />
+Profile class hierarchy.</span></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-274' />Profile classes are designed to hold results of analysis and measurements on the data wrapper or database objects. The data and results are separated into different classes for added flexibility of saving data and results separately. Yet, the profiles normally keep a copy of the data wrapper object from which they obtained the measurements. The intention is to save the measurement results for possible visualization or later inspection, without having to repeat the analyses.</div>
+
+<div class="standard"><a id='magicparlabel-275' />In Figure <a href="#figcap_Profile_class_hierarchy">6</a>, the top-level <span style='font-family:monospace;'>results_profile</span> class contains a simple <dfn class='lyxnoun'>Matlab</dfn> structure variable, <span style='font-family:monospace;'>results</span>, that holds a set of name-value pairs. These are names of measurements and their corresponding values. Most of the subclasses are simplistic, and they exist only for organizational reasons. Some of them may implement specialized plotting methods that make use of the saved measurements. These subclasses can be briefly described as follows:</div>
+
+<dl class='description'><a id='magicparlabel-276' /><dt class="description_label">trace_profile</dt>
+<dd class="description_item"> Holds measurements from a <span style='font-family:monospace;'>trace</span> object. It contains the <span style='font-family:monospace;'>trace</span> object and the <span style='font-family:monospace;'>spikes</span> found in it, and averaged <span style='font-family:monospace;'>spike_shape</span> object.</dd>
+<dt class="description_label">cip_trace_profile</dt>
+<dd class="description_item"> Holds measurements from a <span style='font-family:monospace;'>cip_trace</span> object with a current-injection period. It contains the original <span style='font-family:monospace;'>cip_trace</span> object and the <span style='font-family:monospace;'>spikes</span> found in it. In addition, it holds averaged <span style='font-family:monospace;'>spike_shape</span> objects from the spontaneous and current-injection periods.</dd>
+<dt class="description_label">cip_trace_allspikes_profile</dt>
+<dd class="description_item"> Extended version of <span style='font-family:monospace;'>cip_trace_profile</span>. Instead of single averaged spike shapes, it contains spike databases from the spontaneous, current-injection and recovery periods. These databases only retain measurements made from individual spikes, but not their shapes.</dd>
+<dt class="description_label">spike_shape_profile</dt>
+<dd class="description_item"> Holds measurements made from a <span style='font-family:monospace;'>spike_shape</span> object.</dd>
+<dt class="description_label">params_tests_profile</dt>
+<dd class="description_item"> Holds analysis results from a <span style='font-family:monospace;'>params_tests_db</span> object.</dd>
+</dl>
+
+<h3 class="subsection"><a id='magicparlabel-286' /><span class="subsection_label">3.6</span> Integrated plotting for easy visualization</h3>
+<div class="standard"><a id='magicparlabel-287' />To integrate visualization into each class, common <dfn class='lyxnoun'>Matlab</dfn> plotting features are implemented in the supporting classes seen in Figure <a href="#figcap_Plot_class_hierarchy">7</a>. These bring an object-oriented approach to plot generation in <dfn class='lyxnoun'>Matlab</dfn>. Plots can be generated as objects, saved, modified and included as subplots in larger plots. </div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-291' /><img style='width:100%;' src='7C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot-classes.png' alt='image: 7C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot-classes.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-292' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 7:  <a id="figcap_Plot_class_hierarchy" />
+Plot classes hierarchy.</span></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-297' />The main plotting classes are <span style='font-family:monospace;'>plot_abstract</span>, <span style='font-family:monospace;'>plot_superpose</span>, and <span style='font-family:monospace;'>plot_stack</span>. The most general plotting template class, and the top-level class in the hierarchy, is <span style='font-family:monospace;'>plot_abstract</span>, which plots an axis using a single <dfn class='lyxnoun'>Matlab</dfn> command, like <span style='font-family:monospace;'>plot</span> or <span style='font-family:monospace;'>bar</span>. Multiple <span style='font-family:monospace;'>plot_abstract</span> objects that use the same command can be superposed and still act as a single <span style='font-family:monospace;'>plot_abstract</span> object. If they require different plotting commands (e.g., mixing <span style='font-family:monospace;'>plot</span> and <span style='font-family:monospace;'>text</span> labels), a <span style='font-family:monospace;'>plot_superpose</span> object must be used that is composed of an array of <span style='font-family:monospace;'>plot_abstract</span> objects. Multiple <span style='font-family:monospace;'>plot_abstract</span> objects or any of the subclass objects can be composed together in a horizontal or vertical stack using the <span style='font-family:monospace;'>plot_stack</span> class. Since <span style='font-family:monospace;'>plot_stack</span> is itself a subclass of <span style='font-family:monospace;'>plot_abstract</span>, it can be stacked as well. This allows creating virtually any complex structured figure using the three classes. Each of these classes have several properties that control the layout and details of placement and looks.</div>
+
+<div class="standard"><a id='magicparlabel-302' />The rest of the classes in the hierarchy create typical types of plots for convenience:</div>
+
+<dl class='description'><a id='magicparlabel-303' /><dt class="description_label">plot_bars</dt>
+<dd class="description_item"> Multi-axis bar plot with extending errorbars using a combination of the <span style='font-family:monospace;'>bar</span>, <span style='font-family:monospace;'>errorbar</span>, and <span style='font-family:monospace;'>text</span> commands.</dd>
+<dt class="description_label">plot_errorbar</dt>
+<dd class="description_item"> Single-axis errorbar plot using the <span style='font-family:monospace;'>errorbar</span> command.</dd>
+<dt class="description_label">plot_errorbars</dt>
+<dd class="description_item"> Multi-axis errorbar plot using the <span style='font-family:monospace;'>errorbar</span> command.</dd>
+<dt class="description_label">plot_simple</dt>
+<dd class="description_item"> Simplified single-axis, single command plot.</dd>
+</dl>
+
+<h3 class="subsection"><a id='magicparlabel-312' /><span class="subsection_label">3.7</span> Miscellaneous classes</h3>
+<div class="standard"><a id='magicparlabel-313' />These are miscellaneous classes that do not fit into any of the above categories:</div>
+
+<dl class='description'><a id='magicparlabel-314' /><dt class="description_label">period</dt>
+<dd class="description_item"> Defines a period composed of a start and end time for operations on traces, etc.</dd>
+<dt class="description_label">script_array</dt>
+<dd class="description_item"> Defines a looping construct that can be extended. It defines an initialization routine, a job that needs to be repeated, and a finalization routine.</dd>
+<dt class="description_label">script_array_for_cluster</dt>
+<dd class="description_item"> Subclass of <span style='font-family:monospace;'>script_array</span>, it can submit the array job to run in parallel on a computing cluster that supports the Sun Grid Engine (SGE) commands.</dd>
+<dt class="description_label">script_factory</dt>
+<dd class="description_item"> Factory class to generate an enumerated array of script files to be distributed on several machines and run in parallel. It also defines a final function to gather results. It is recommended to use <span style='font-family:monospace;'>script_array_for_cluster</span> instead.</dd>
+</dl>
+<h2 class="section"><a id='magicparlabel-318' /><span class="section_label">4</span> Programming Conventions</h2>
+<h3 class="subsection"><a id='magicparlabel-319' /><span class="subsection_label">4.1</span> Using property structures for passing optional arguments to methods</h3>
+<div class="standard"><a id='magicparlabel-320' />For flexibility in passing optional arguments to methods, this toolbox adopted using property structures. A <dfn class='lyxnoun'>Matlab</dfn> structure, mostly called <span style='font-family:monospace;'>props</span>, is passed to a method as the last argument:</div>
+
+<div class="lyx_code"><a id='magicparlabel-321' /><div class="lyx_code_item">&gt;&gt; props.optionalParam = 1</div>
+<div class="lyx_code_item">&gt;&gt; myFunc('hello', props)</div>
+</div>
+<div class="standard"><a id='magicparlabel-323' />Each method defines a list of accepted arguments that can be defined as fields in the structure, but should be able to execute without them by substituting defaults. Using a property structure is advantageous over using the <span style='font-family:monospace;'>varargin</span> keyword for variable number of arguments, because properties allow adding and deleting arguments in methods without causing changes to the contents of the method. Since arguments are addressed by names rather than positional arguments, missing arguments do not affect the other arguments.</div>
+
+<div class="standard"><a id='magicparlabel-324' />Most objects keep a property structure that define custom attributes passed at time of construction. These classes define a <span style='font-family:monospace;'>setProp</span> method to modify properties after being created.</div>
+<h3 class="subsection"><a id='magicparlabel-325' /><span class="subsection_label">4.2</span> Overloaded operators for transparent access to object contents</h3>
+<div class="standard"><a id='magicparlabel-326' />The simplistic implementation of object-oriented programming features in Matlab impose several strict limitations. <dfn class='lyxnoun'>Matlab</dfn>'s powerful and flexible operator overloading feature helps overcome these limitations.</div>
+
+<div class="standard"><a id='magicparlabel-327' /><dfn class='lyxnoun'> </dfn>uses<dfn class='lyxnoun'> Matlab </dfn>operator overloading to facilitate manipulation of local and parent object fields. In <dfn class='lyxnoun'>Matlab</dfn>, object fields can only be accessed from the object's private methods. This means one cannot access the object fields using the dot operator. To give an example, the <span style='font-family:monospace;'>trace</span> object has a <span style='font-family:monospace;'>dt</span> field for time resolution. The following command fails:</div>
+
+<div class="lyx_code"><a id='magicparlabel-332' /><div class="lyx_code_item">&gt;&gt; mytrace.dt = 1e-4;</div>
+<div class="lyx_code_item">??? Object fields can only be accessed within methods.</div>
+</div>
+<div class="standard"><a id='magicparlabel-334' />Everytime object contents need to be addressed, a method must be called. The recommended way to do this is by defining separate getter/setter methods for each field of the object. For instance, writing <span style='font-family:monospace;'>getDt</span> and <span style='font-family:monospace;'>setDt</span> methods for accessing the <span style='font-family:monospace;'>dt</span> field. This creates a lot of burden for the programmer not just creating a class, but also maintaining it later. Although this probably was intended for strictness in building object-oriented constructs, it is highly inconvenient for command-line manipulations. Therefore our toolbox objects offer generic <span style='font-family:monospace;'>get</span> and <span style='font-family:monospace;'>set</span> methods that can read or write the value of any of its fields:</div>
+
+<div class="lyx_code"><a id='magicparlabel-335' /><div class="lyx_code_item">&gt;&gt; mytrace = set(mytrace, 'dt', 1e-4)</div>
+<div class="lyx_code_item">&gt;&gt; get(mytrace, 'dt')</div>
+<div class="lyx_code_item">ans = 1e-04</div>
+</div>
+<div class="standard"><a id='magicparlabel-338' />These methods are almost identical across different classes. In addition to this, defining the special <span style='font-family:monospace;'>subsref</span> method for objects allow overloading the dot (<span style='font-family:monospace;'>.</span>), parenthesis (<span style='font-family:monospace;'>()</span>), and curly brace (<span style='font-family:monospace;'>{}</span>) operators. Most<div class="foot"><span class="foot_label">3</span><div class="foot_inner"><div class="plain_layout"><a id='magicparlabel-342' />May not be implemented for all objects.</div>
+</div></div> of the objects in the toolbox allows using the dot operator to read or write to fields. Overloading these operators also help with the limitation of accessing parent object fields, a problem not found in other object-oriented languages such as <dfn class='lyxnoun'>Java</dfn>. For example without any overloading, from the subclass class <span style='font-family:monospace;'>cip_trace</span> one needs to first address the parent class name, and then <span style='font-family:monospace;'>dt</span>: </div>
+
+<div class="lyx_code"><a id='magicparlabel-343' /><div class="lyx_code_item">&gt;&gt; myciptrace.trace.dt</div>
+<div class="lyx_code_item">ans = 1e-4</div>
+</div>
+<div class="standard"><a id='magicparlabel-345' />After defining the overloaded operator that call parent methods, one get reach <span style='font-family:monospace;'>dt</span> directly:</div>
+
+<div class="lyx_code"><a id='magicparlabel-346' /><div class="lyx_code_item">&gt;&gt; myciptrace.dt</div>
+<div class="lyx_code_item">ans = 1e-4</div>
+</div>
+<div class="standard"><a id='magicparlabel-348' />Some classes overload indexing operators to allow accessing special functions. For instance the main database class, <span style='font-family:monospace;'>tests_db</span>, overloads parenthesized indexing to access cells in the database matrix. Some classes define the special <span style='font-family:monospace;'>subsasgn</span> method to overload the assignment operations when the object is on the left-hand-side of the operation. This allows the command: </div>
+
+<div class="lyx_code"><a id='magicparlabel-349' /><div class="lyx_code_item">&gt;&gt; mytrace.dt = 1e-4;</div>
+</div>
+<div class="standard"><a id='magicparlabel-350' />which would otherwise need to be done the following way:</div>
+
+<div class="lyx_code"><a id='magicparlabel-351' /><div class="lyx_code_item">&gt;&gt; mytrace = set(mytrace, 'dt', 1e-4);</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-352' /><span class="subsection_label">4.3</span> Troubleshooting errors</h3>
+<div class="standard"><a id='magicparlabel-353' />For debugging problems with methods, one can turn on the verbosity of information display during execution with:</div>
+
+<div class="lyx_code"><a id='magicparlabel-354' /><div class="lyx_code_item">&gt;&gt; warning on verbose</div>
+<div class="lyx_code_item">&gt;&gt; warning on backtrace</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-356' /><span class="subsection_label">4.4</span> Creating a new class</h3>
+<div class="standard"><a id='magicparlabel-357' />To get the benefit of overloading, the top-level class must have the generic <span style='font-family:monospace;'>subsref</span> and <span style='font-family:monospace;'>subsasgn</span> methods. These methods can be copied from any of the other top-level classes. Any subclasses should have the generic <span style='font-family:monospace;'>get</span> and <span style='font-family:monospace;'>set</span> methods in place. </div>
+<h1 class="part"><a id='magicparlabel-358' /><span class="part_label">Part II</span> User's Manual</h1>
+<h2 class="section"><a id='magicparlabel-359' /><span class="section_label">5</span> Recipes for Common Tasks<a id="sec_Recipes" />
+</h2>
+<h3 class="subsection"><a id='magicparlabel-360' /><span class="subsection_label">5.1</span> Create a database from arbitrary data</h3>
+<div class="standard"><a id='magicparlabel-361' />A database can be created directly from a data matrix. </div>
+
+<div class="lyx_code"><a id='magicparlabel-362' /><div class="lyx_code_item">&gt;&gt; cap = [1 2 3 1];</div>
+<div class="lyx_code_item">&gt;&gt; res = [5 6 4 5];</div>
+<div class="lyx_code_item">&gt;&gt; a_db = tests_db([cap' res'], {'Capacitance', 'Resistance'}, {}, ...</div>
+<div class="lyx_code_item">'Canton S - fake');</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-366' /><span class="subsection_label">5.2</span> Loading a database</h3>
+<div class="standard"><a id='magicparlabel-367' />A secondary way would be to create a database from a dataset. First a dataset object must be created that point to the data sources. There are different dataset classes that allow using different data sources. For instance, physiology and simulation data require different operations. In physiology data, one can record information about the treatments and other conditions, whereas in simulations one can keep track of changing parameters. </div>
+
+<div class="standard"><a id='magicparlabel-368' />Once the dataset object is obtained, the database object can be created with </div>
+
+<div class="lyx_code"><a id='magicparlabel-369' /><div class="lyx_code_item">&gt;&gt; mydb = params_tests_db(dataset)</div>
+</div>
+<div class="standard"><a id='magicparlabel-370' />which initiates the loading of files. This operation is the same no matter what type of dataset or fileset object is used. The following commands reduce the verbosity of output during this long process:</div>
+
+<div class="lyx_code"><a id='magicparlabel-371' /><div class="lyx_code_item">&gt;&gt; warning off verbose</div>
+<div class="lyx_code_item">&gt;&gt; warning off backtrace</div>
+<div class="lyx_code_item">&gt;&gt; warning off calcInitVm:info</div>
+</div>
+<h4 class="subsubsection"><a id='magicparlabel-374' /><span class="subsubsection_label">5.2.1</span> Creating a dataset for physiology data<a id="subsec_loading_phys" />
+</h4>
+<div class="standard"><a id='magicparlabel-375' />Physiology data can be obtained from multiple sources. </div>
+<h5 class="paragraph"><a id='magicparlabel-376' /><span class="paragraph_label"></span> Loading data by specifying tracesets in a text file</h5>
+<div class="standard"><a id='magicparlabel-377' />The preferred way to load physiology traces is to first create a text file where each line specifies traces to load from a single data source (e.g., a PCDX file). The format of this text file is explained in the help of the <span style='font-family:monospace;'>physiol_cip_traceset_fileset</span> class. The physiology fileset can be created from the text file with a command such as follows:</div>
+
+<div class="lyx_code"><a id='magicparlabel-378' /><div class="lyx_code_item">&gt;&gt; phys_fileset = </div>
+<div class="lyx_code_item">     physiol_cip_traceset_fileset('cell_traces.txt', 1e-4, 1e-3,</div>
+<div class="lyx_code_item">                                  struct('profile_method_name', </div>
+<div class="lyx_code_item">                                         'getProfileAllSpikes',</div>
+<div class="lyx_code_item">                                         'offset_y', -9,</div>
+<div class="lyx_code_item">                                         'cip_list', </div>
+<div class="lyx_code_item">                                         [-200 -100:20:100 200 300]))</div>
+</div>
+<div class="standard"><a id='magicparlabel-385' />This command reads the <span style='font-family:monospace;'>cell_traces.txt</span> file and records the tracesets to read from each file. The structure passed indicates to use the <span style='font-family:monospace;'>getProfileAllSpikes</span> method to calculate the measurements on the traces.</div>
+
+<div class="standard"><a id='magicparlabel-386' />The fileset can then be used to generate the database, as shown above, using its <span style='font-family:monospace;'>params_tests_db</span> method. The fileset object holds within, a separate <span style='font-family:monospace;'>physiol_cip_traceset</span> object for each line in the text file. </div>
+
+<div class="standard"><a id='magicparlabel-387' />The <span style='font-family:monospace;'>cip_list</span> optional parameter must be used with caution. To determine actual CIP-levels, the current channel of the trace is analyzed. <span style='font-family:monospace;'>cip_list</span> entries are used to discretize the noisy current channel. Current levels will coerce to the nearest entry from <span style='font-family:monospace;'>cip_list</span>. In the above example, all current levels below <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mo>-</mo><mn>200</mn>
+  </mrow>
+ </mrow></math>&nbsp;pA will be assumed to be <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mo>-</mo><mn>200</mn>
+  </mrow>
+ </mrow></math>&nbsp;pA. The default <span style='font-family:monospace;'>cip_list</span> resides in the <span style='font-family:monospace;'>physiol_cip_traceset/CIPform</span> method.</div>
+<h5 class="paragraph"><a id='magicparlabel-388' /><span class="paragraph_label"></span> Loading data from existing <span style='font-family:monospace;'>cip_traces</span> objects</h5>
+<div class="standard"><a id='magicparlabel-389' />The now obsolete <span style='font-family:monospace;'>cip_traces</span> Matlab objects have been used to hold some earlier physiological data. Each object holds a set of traces with varying CIP levels applied to the cell. The following command creates a dataset object from a cell array <span style='font-family:monospace;'>ct_list</span> of <span style='font-family:monospace;'>cip_traces</span> objects by choosing only the traces with <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow><mn>100</mn>
+ </mrow></math>&nbsp;pA and <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mo>-</mo><mn>100</mn>
+  </mrow>
+ </mrow></math>&nbsp;pA CIP levels</div>
+
+<div class="lyx_code"><a id='magicparlabel-390' /><div class="lyx_code_item">&gt;&gt; phys_dataset = </div>
+<div class="lyx_code_item">  cip_traceset_dataset(ct_list, [100, -100], 1e-3, </div>
+<div class="lyx_code_item">                       'dataset gpd 0411-21', </div>
+<div class="lyx_code_item">                       struct('offsetPotential', -9)</div>
+</div>
+<h4 class="subsubsection"><a id='magicparlabel-394' /><span class="subsubsection_label">5.2.2</span> Creating a dataset for simulation data</h4>
+<div class="standard"><a id='magicparlabel-395' />First a dataset or a fileset must be created. An example to load <dfn class='lyxnoun'>Genesis</dfn> <span style='font-family:monospace;'>.bin</span> files would be</div>
+
+<div class="lyx_code"><a id='magicparlabel-396' /><div class="lyx_code_item">&gt;&gt; fileset = </div>
+<div class="lyx_code_item">  params_cip_trace_fileset('/home/cengiz/data/*.bin', </div>
+<div class="lyx_code_item">                           1e-4, 1e-3, </div>
+<div class="lyx_code_item">                           20001, 10000, </div>
+<div class="lyx_code_item">                           'sim dataset gpsc0501', </div>
+<div class="lyx_code_item">                           struct('trace_time_start', 10001, </div>
+<div class="lyx_code_item">                                  'type', 'sim',  </div>
+<div class="lyx_code_item">                                  'scale_y', 1e3))</div>
+</div>
+<div class="standard"><a id='magicparlabel-404' />The explanation of arguments can be obtained by issuing a </div>
+
+<div class="lyx_code"><a id='magicparlabel-405' /><div class="lyx_code_item">&gt;&gt; help params_cip_trace_fileset</div>
+</div>
+<div class="standard"><a id='magicparlabel-406' />in <dfn class='lyxnoun'>Matlab</dfn>. In this example, all <dfn class='lyxnoun'>Genesis</dfn> files were created with the same characteristics: <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow>
+   <mstyle mathvariant='normal'><mi>d</mi>
+   </mstyle><mi>t</mi><mo>=</mo><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>4</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow>
+   <mstyle mathvariant='normal'><mi>d</mi>
+   </mstyle><mi>V</mi><mo>=</mo><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>3</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>, pulse during samples <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow><mo form='prefix' fence='true' stretchy='true' symmetric='true'>[</mo>
+
+  <mrow><mn>20001</mn><mo>,</mo><mn>30000</mn>
+  </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>]</mo>
+
+ </mrow></math>. Optional properties (the last argument) indicates that the first <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow><mn>10000</mn>
+ </mrow></math> samples should be discarded and that the data should be prescaled to yield the <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow>
+   <mstyle mathvariant='normal'><mi>d</mi>
+   </mstyle><mi>V</mi>
+  </mrow>
+ </mrow></math> indicated. Note that, using an absolute path to refer to data files ensures that they can be reached from different directories after the fileset object is saved. </div>
+<h5 class="paragraph"><a id='magicparlabel-411' /><span class="paragraph_label"></span> Loading heterogeneous set of simulation files</h5>
+<div class="standard"><a id='magicparlabel-412' />Sometimes not all data files in a simulation set would have the same length, or CIP start time. The brute-force simulation set is such an example, where the spontaneous trace and different CIP level traces are in different files. I have a special superclass that contains multiple fileset objects to automatically handle this kind of data. It resides not in the general distribution directory, but in my personal directory <span style='font-family:monospace;'>/djlab/shared/matlab/classes/cengiz</span>. This class is an example of how to create composite fileset objects. An instance of this class can be created with:</div>
+
+<div class="lyx_code"><a id='magicparlabel-413' /><div class="lyx_code_item">&gt;&gt; m_filesetall = </div>
+<div class="lyx_code_item">     multi_fileset_gpsim_cns2005('.../data', '.../paramRanges.txt', </div>
+<div class="lyx_code_item">                                 '.../all_0.par', 'sim db gpsc0502')</div>
+</div>
+<div class="standard"><a id='magicparlabel-416' />which will find all the files in the given directory and put them in separate pre-defined fileset objects according to their <span style='font-family:monospace;'>_pAcip_</span> suffixes. Parameter range definition and value files are used to read parameter values for each simulation. A single database object can be loaded using the <span style='font-family:monospace;'>params_tests_db</span> method on the <span style='font-family:monospace;'>m_filesetall</span> object above. The help on this method explains how to load only certain filesets at a time. This helps to load different filesets in parallel, since databases can be concatanated easily afterwards.</div>
+<h3 class="subsection"><a id='magicparlabel-417' /><span class="subsection_label">5.3</span> Finding constrained subsets in a database</h3>
+<div class="standard"><a id='magicparlabel-418' />Once a database with more-than-sufficient number of measures is available, subsets of this database can be extracted easily for other tasks. New databases can be formed by filtering rows, columns or pages of an existing database. For choosing any of these dimensions, the user can specify an array of indices, or a logical array. For instance, </div>
+
+<div class="lyx_code"><a id='magicparlabel-419' /><div class="lyx_code_item">&gt;&gt; db2 = db1(1:10, :);</div>
+</div>
+<div class="standard"><a id='magicparlabel-420' />creates a database object <span style='font-family:monospace;'>db2</span> by the first ten rows of <span style='font-family:monospace;'>db1</span> and all its columns. For three-dimensional databases, a third parameter can be specified, as in </div>
+
+<div class="lyx_code"><a id='magicparlabel-421' /><div class="lyx_code_item">&gt;&gt; db2 = db1(1:10, :, [1 3]);</div>
+</div>
+<div class="standard"><a id='magicparlabel-422' />which will take only the first and third page from <span style='font-family:monospace;'>db1</span>.</div>
+
+<div class="standard"><a id='magicparlabel-423' />For measures, columns can also be specified as a single string value, or a cell array of strings, as in </div>
+
+<div class="lyx_code"><a id='magicparlabel-424' /><div class="lyx_code_item">&gt;&gt; db2 = db1(1:10, 'pAcip');</div>
+</div>
+<div class="standard"><a id='magicparlabel-425' />which chooses only the <span style='font-family:monospace;'>pAcip</span> column of the first 10 rows of <span style='font-family:monospace;'>db1</span> or </div>
+
+<div class="lyx_code"><a id='magicparlabel-426' /><div class="lyx_code_item">&gt;&gt; db2 = db1(1:10, {'pAcip', 'IniSpontSpikeRate'});</div>
+</div>
+<div class="standard"><a id='magicparlabel-427' />which chooses two columns. Finally, composite queries can be formed when cell arrays are used for addressing:</div>
+
+<div class="lyx_code"><a id='magicparlabel-428' /><div class="lyx_code_item">&gt;&gt; db2 = db1(1:10, {1:10, 'IniSpontSpikeRate', 234});</div>
+</div>
+<div class="standard"><a id='magicparlabel-429' />which will select the first ten measures, the spontaneous spike rate, and the measure number 234.</div>
+
+<div class="standard"><a id='magicparlabel-430' />Rows of the database signify neurons or simulation runs. Therefore it is important to find subset of neurons that match a certain criteria. This can be done specifying a list of rows that is the result of a logical operation. A logical operation finds rows that satisfy constraints on a single parameter or measure of a database. For instance, </div>
+
+<div class="lyx_code"><a id='magicparlabel-431' /><div class="lyx_code_item">&gt;&gt; rows = db1(:, 'IniSpontSpikeRate') &gt; 10;</div>
+</div>
+<div class="standard"><a id='magicparlabel-432' />gives a logical array that contains a <span style='font-family:monospace;'>true</span> value for all rows in <span style='font-family:monospace;'>db1</span> that has spontaneous firing faster than 10 Hz. If this is used as the row specifier in a subset operation, a new database with only these neurons can be obtained by </div>
+
+<div class="lyx_code"><a id='magicparlabel-433' /><div class="lyx_code_item">&gt;&gt; db2 = db1(rows, :);</div>
+</div>
+<div class="standard"><a id='magicparlabel-434' />If we want more constrains it is straightforward to use any logical operation such as AND (<span style='font-family:monospace;'>&amp;</span>), OR (<span style='font-family:monospace;'>|</span>) and NOT(<span style='font-family:monospace;'>~</span>) on these logical arrays such as </div>
+
+<div class="lyx_code"><a id='magicparlabel-435' /><div class="lyx_code_item">&gt;&gt; db2 = db1((rows | rows2) &amp; rows3, :);</div>
+</div>
+<div class="standard"><a id='magicparlabel-436' />which says choose all rows from <span style='font-family:monospace;'>db1</span> where either the tests <span style='font-family:monospace;'>rows</span> and <span style='font-family:monospace;'>rows2</span> are satisfied and while <span style='font-family:monospace;'>rows3</span> is always satisfied. All these operations can be specified in-place such as in </div>
+
+<div class="lyx_code"><a id='magicparlabel-437' /><div class="lyx_code_item">&gt;&gt; db2 = db1(db1(:, 'IniSpontSpikeRate') &gt; 10 &amp; </div>
+<div class="lyx_code_item">             db1(:, 'IniSpontSpikeRate') &lt;= 20, :);</div>
+</div>
+<div class="standard"><a id='magicparlabel-439' />which will create a database of neurons that spontaneously fire between 10–20 Hz.</div>
+<h4 class="subsubsection"><a id='magicparlabel-440' /><span class="subsubsection_label">5.3.1</span> Complex Queries</h4>
+<div class="standard"><a id='magicparlabel-441' />Complex queries can be constructed using results of queries in nested fashion. The following example shows an example of finding all neurons that match any of the neurons in another database and then find the ones that match certain criteria:</div>
+
+<div class="lyx_code"><a id='magicparlabel-442' /><div class="lyx_code_item">&gt;&gt; sub_phys_es2 = phys_joined_db(phys_joined_db(:, 'NeuronId') == es2(:, 'NeuronId'), :); </div>
+<div class="lyx_code_item">&gt;&gt; displayRows(sub_phys_es2(sub_phys_es2(:, 'Apamin') &gt; 0, 'NeuronId'))</div>
+</div>
+<div class="standard"><a id='magicparlabel-444' />Here, the first query returns all rows that match the <span style='font-family:monospace;'>NeuronId</span>s from the <span style='font-family:monospace;'>es3</span> database. The inner term in the second query finds among these neurons the ones for which apamin blocker data is present. The final enclosing block uses these rows to get a subset of the <span style='font-family:monospace;'>phys_joined_db</span> with only the <span style='font-family:monospace;'>NeuronId</span> column. This type query has equivalent computational power to using nested SELECT statements in the SQL language.</div>
+<h3 class="subsection"><a id='magicparlabel-445' /><span class="subsection_label">5.4</span> Sorting the database according to a measure<a id="subsec_Sorting_the_database" />
+</h3>
+<div class="standard"><a id='magicparlabel-446' />First, all rows where the desired measure value is <span style='font-family:monospace;'>NaN</span> should be eliminated:</div>
+
+<div class="lyx_code"><a id='magicparlabel-447' /><div class="lyx_code_item">&gt;&gt; ampDecayTau_nonNaN_db = </div>
+<div class="lyx_code_item">     dball(~isnan(dball(:, 'PulseSpikeAmpDecayTau')), :)</div>
+</div>
+<div class="standard"><a id='magicparlabel-449' />This finds all rows in <span style='font-family:monospace;'>dball</span> that the <span style='font-family:monospace;'>PulseSpikeAmpDecayTau</span> measure is not <span style='font-family:monospace;'>NaN</span> and creates a new DB object <span style='font-family:monospace;'>ampDecayTau_nonNaN_db</span>, which includes these rows with all measures from <span style='font-family:monospace;'>dball</span>. Notice that the newly created DB contains less rows than the original DB. The number of rows in the new DB can be obtained by just typing the name of the DB and pressing enter at the <dfn class='lyxnoun'>Matlab</dfn> prompt.</div>
+
+<div class="standard"><a id='magicparlabel-450' />Then, one can sort the new database using:</div>
+
+<div class="lyx_code"><a id='magicparlabel-451' /><div class="lyx_code_item">&gt;&gt; ampDecayTau_sorted_db = sortrows(ampDecayTau_nonNaN_db, </div>
+<div class="lyx_code_item">                                    'PulseSpikeAmpDecayTau') </div>
+</div>
+<div class="standard"><a id='magicparlabel-453' />This will create DB which is sorted with increasing values of the <span style='font-family:monospace;'>PulseSpikeAmpDecayTau</span> measure. Displaying the first few rows gives lowest values:</div>
+
+<div class="lyx_code"><a id='magicparlabel-454' /><div class="lyx_code_item">&gt;&gt; displayRows(ampDecayTau_sorted_db, 1:3)</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    'NaF'                    [      1000]    [     250]    [     250]</div>
+<div class="lyx_code_item">    'NaP'                    [    0.5000]    [  0.5000]    [  2.5000]</div>
+<div class="lyx_code_item">    'Kv3'                    [        60]    [      15]    [      30]</div>
+<div class="lyx_code_item">    'Kv2'                    [         9]    [       3]    [       3]</div>
+<div class="lyx_code_item">    'Kv4f'                   [         5]    [       1]    [      25]</div>
+<div class="lyx_code_item">    'KCNQ'                   [    0.1000]    [  0.0100]    [  0.1000]</div>
+<div class="lyx_code_item">    'SK'                     [    8.5000]    [      34]    [  8.5000]</div>
+<div class="lyx_code_item">    'CaHVA'                  [        10]    [  0.1000]    [      10]</div>
+<div class="lyx_code_item">    'HCN'                    [        30]    [  0.3000]    [      30]</div>
+<div class="lyx_code_item">    'pAcip'                  [       100]    [     100]    [     100]</div>
+<div class="lyx_code_item">    'IniSpontISICV'          [3.9448e-04]    [  0.0051]    [  0.0452]</div>
+<div class="lyx_code_item">    'IniSpontPotAvg'         [  -64.9161]    [-52.6859]    [-41.5876]</div>
+<div class="lyx_code_item">    'IniSpontSpikeRate'      [   14.0014]    [ 18.0018]    [ 81.0081]</div>
+<div class="lyx_code_item">    'PulseISICV'             [    0.0226]    [       0]    [  0.0366]</div>
+<div class="lyx_code_item">    'PulseIni100msISICV'     [    0.0541]    [       0]    [  0.0814]</div>
+<div class="lyx_code_item">              [1x27 char]    [   28.8953]    [       0]    [ 88.9086]</div>
+<div class="lyx_code_item">              [1x27 char]    [   26.6785]    [       0]    [ 86.7052]</div>
+<div class="lyx_code_item">              [1x22 char]    [        30]    [      20]    [     100]</div>
+<div class="lyx_code_item">              [1x25 char]    [   29.4118]    [166.6667]    [ 96.0512]</div>
+<div class="lyx_code_item">    'PulsePotAvg'            [  -61.0044]    [-32.7775]    [-34.1518]</div>
+<div class="lyx_code_item">    'PulsePotMin'            [       NaN]    [     NaN]    [     NaN]</div>
+<div class="lyx_code_item">    'PulsePotSag'            [       NaN]    [     NaN]    [     NaN]</div>
+<div class="lyx_code_item">    'PulseSFA'               [    1.1254]    [     NaN]    [  1.3571]</div>
+<div class="lyx_code_item">    'PulseSpikeAmpDecayDelta'[    4.2764]    [  9.2041]    [ 17.8389]</div>
+<div class="lyx_code_item">    'PulseSpikeAmpDecayTau'  [    0.2000]    [  0.2000]    [  0.3000]</div>
+<div class="lyx_code_item">    'PulseSpikeRate'         [   28.0028]    [  2.0002]    [ 89.0089]</div>
+<div class="lyx_code_item">...</div>
+</div>
+<div class="standard"><a id='magicparlabel-483' />Displaying the last few rows gives the highest values:</div>
+
+<div class="lyx_code"><a id='magicparlabel-484' /><div class="lyx_code_item">&gt;&gt; displayRows(ampDecayTau_sorted_db, 13879:13881)</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    'NaF'                    [     250]    [     250]    [      1000]</div>
+<div class="lyx_code_item">    'NaP'                    [  2.5000]    [  2.5000]    [    2.5000]</div>
+<div class="lyx_code_item">    'Kv3'                    [      15]    [      15]    [        60]</div>
+<div class="lyx_code_item">    'Kv2'                    [       3]    [       3]    [         9]</div>
+<div class="lyx_code_item">    'Kv4f'                   [       5]    [       5]    [        25]</div>
+<div class="lyx_code_item">    'KCNQ'                   [  0.1000]    [  0.1000]    [    0.0100]</div>
+<div class="lyx_code_item">    'SK'                     [  8.5000]    [  8.5000]    [        17]</div>
+<div class="lyx_code_item">    'CaHVA'                  [      10]    [      10]    [        10]</div>
+<div class="lyx_code_item">    'HCN'                    [      30]    [       3]    [        30]</div>
+<div class="lyx_code_item">    'pAcip'                  [    -100]    [    -100]    [       100]</div>
+<div class="lyx_code_item">    'IniSpontISICV'          [  0.0027]    [  0.0027]    [9.1376e-04]</div>
+<div class="lyx_code_item">    'IniSpontPotAvg'         [-28.5685]    [-28.5687]    [  -67.7567]</div>
+<div class="lyx_code_item">    'IniSpontSpikeRate'      [ 69.0069]    [ 69.0069]    [   14.0014]</div>
+<div class="lyx_code_item">    'PulseISICV'             [  0.0046]    [  0.0046]    [    0.0091]</div>
+<div class="lyx_code_item">    'PulseIni100msISICV'     [  0.0080]    [  0.0080]    [         0]</div>
+<div class="lyx_code_item">              [1x27 char]    [ 71.1269]    [ 71.1269]    [   24.4499]</div>
+<div class="lyx_code_item">              [1x27 char]    [ 71.1427]    [ 71.1427]    [   26.6785]</div>
+<div class="lyx_code_item">              [1x22 char]    [      80]    [      80]    [        20]</div>
+<div class="lyx_code_item">              [1x25 char]    [ 70.6357]    [ 70.6357]    [   25.4453]</div>
+<div class="lyx_code_item">    'PulsePotAvg'            [-30.1705]    [-30.1718]    [  -65.2721]</div>
+<div class="lyx_code_item">    'PulsePotMin'            [     NaN]    [     NaN]    [       NaN]</div>
+<div class="lyx_code_item">    'PulsePotSag'            [     NaN]    [     NaN]    [       NaN]</div>
+<div class="lyx_code_item">    'PulseSFA'               [  0.9792]    [  0.9792]    [    1.0407]</div>
+<div class="lyx_code_item">    'PulseSpikeAmpDecayDelta'[ -1.2791]    [ -1.2868]    [    1.2201]</div>
+<div class="lyx_code_item">    'PulseSpikeAmpDecayTau'  [999.6000]    [999.6000]    [      1000]</div>
+<div class="lyx_code_item">    'PulseSpikeRate'         [ 72.0072]    [ 72.0072]    [   25.0025]</div>
+<div class="lyx_code_item">...</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-513' /><span class="subsection_label">5.5</span> Preprocessing a raw (physiology) database by elimination and averaging </h3>
+<div class="standard"><a id='magicparlabel-518' />Mostly, raw physiology databases are subject to redundancies and unwanted recordings. We usually apply the following steps before we start analyzing a raw physiology database. Similar steps may be employed for simulation databases, too.</div>
+<h4 class="subsubsection"><a id='magicparlabel-519' /><span class="subsubsection_label">5.5.1</span> Limiting range of bias currents</h4>
+<div class="standard"><a id='magicparlabel-520' />Recordings with high bias current are undesirable. We commonly filter-out high bias currents with:</div>
+
+<div class="lyx_code"><a id='magicparlabel-521' /><div class="lyx_code_item">&gt;&gt; db_bias_small = </div>
+<div class="lyx_code_item">     phys_dball(phys_dball(:, 'pAbias') &gt; -30 &amp; </div>
+<div class="lyx_code_item">                phys_dball(:, 'pAbias') &lt; 30, :)</div>
+</div>
+<div class="standard"><a id='magicparlabel-524' />which will limit the bias current, <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <msub>
+   <mrow><mi>i</mi>
+   </mrow>
+   <mrow><mi>b</mi>
+   </mrow>
+  </msub>
+ </mrow></math>, to <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mo>-</mo><mn>30</mn><mspace width="6px" />
+   <mstyle mathvariant='normal'>
+    <mrow><mi>p</mi><mi>A</mi>
+    </mrow>
+   </mstyle><mo>&lt;</mo>
+   <msub>
+    <mrow><mi>i</mi>
+    </mrow>
+    <mrow><mi>b</mi>
+    </mrow>
+   </msub><mo>&lt;</mo><mn>30</mn><mspace width="6px" />
+   <mstyle mathvariant='normal'>
+    <mrow><mi>p</mi><mi>A</mi>
+    </mrow>
+   </mstyle>
+  </mrow>
+ </mrow></math>. </div>
+<h4 class="subsubsection"><a id='magicparlabel-525' /><span class="subsubsection_label">5.5.2</span> Choosing few current levels</h4>
+<div class="standard"><a id='magicparlabel-526' />To get a profile for a neuron, usually both hyperpolarizing and depolarizing CIP-levels need to be included. Moreover, to capture the spiking frequency vs. current response of the neuron, multiple depolarizing CIP-level information may need to be included. </div>
+
+<div class="standard"><a id='magicparlabel-527' />There are two counterparts to selecting which CIP-levels to include in a DB. First, one can select what CIP-levels are available in the raw data and what discretization levels should be used while loading the database. This is done with the <span style='font-family:monospace;'>cip_list</span> optional parameter described in Section <a href="#subsec_loading_phys">5.2.1</a>. GP recordings prior to mid-2005 have current channel data which are too noisy to be quantized to levels of 10 pA. Instead, at least a step size of 20 pA needs to be used. Later recordings have both better recordings, and feature 20 pA steps in the experimental protocol anyway. </div>
+
+<div class="standard"><a id='magicparlabel-528' />Second, after the database is loaded, one can filter-out unwanted CIP-level traces:</div>
+
+<div class="lyx_code"><a id='magicparlabel-529' /><div class="lyx_code_item">&gt;&gt; phys_dball_limitedcip = </div>
+<div class="lyx_code_item">     phys_dball_big(phys_dball_big(:, 'pAcip') == -100 | </div>
+<div class="lyx_code_item">                    phys_dball_big(:, 'pAcip') == 0 | </div>
+<div class="lyx_code_item">                    phys_dball_big(:, 'pAcip') == 50 | </div>
+<div class="lyx_code_item">                    phys_dball_big(:, 'pAcip') == 100 | </div>
+<div class="lyx_code_item">                    phys_dball_big(:, 'pAcip') == 200, :)</div>
+</div>
+<div class="standard"><a id='magicparlabel-535' />This operation can be simplified to take advantage of complex query form:</div>
+
+<div class="lyx_code"><a id='magicparlabel-536' /><div class="lyx_code_item">&gt;&gt; phys_dball_limitedcip = </div>
+<div class="lyx_code_item">     phys_dball_big(phys_dball_big(:, 'pAcip') == [-100; 0; 50; 100; 200]) </div>
+</div>
+<div class="standard"><a id='magicparlabel-538' />which will choose rows with current levels matching any of the given values.</div>
+<h4 class="subsubsection"><a id='magicparlabel-539' /><span class="subsubsection_label">5.5.3</span> Adding new columns calculated from existing measures</h4>
+<div class="standard"><a id='magicparlabel-540' />Some measures can be deduced from measures collected from raw data. These do not need to be calculated at time of loading the raw data, but rather can be added to the database later. Some measures must be added later because they may be composed of measurements from multiple traces or averages. Here is an example for adding a new measure:</div>
+
+<div class="lyx_code"><a id='magicparlabel-541' /><div class="lyx_code_item">&gt;&gt; phys_db_limitedcip_addedcols = </div>
+<div class="lyx_code_item">     addColumn(phys_db_limitedcip, 'PulsePotSagDivMin', </div>
+<div class="lyx_code_item">               phys_db_limitedcip(:, 'PulsePotSag').data ./ </div>
+<div class="lyx_code_item">               phys_db_limitedcip(:, 'PulsePotMin').data)</div>
+</div>
+<h4 class="subsubsection"><a id='magicparlabel-545' /><span class="subsubsection_label">5.5.4</span> Averaging multiple traces of same neuron with same CIP-level and (pharmacological) parameters </h4>
+<div class="standard"><a id='magicparlabel-550' />In making a one-row-per-CIP-level database, it is essential to include all available information from the raw database. Especially in physiology datasets, there may be multiple traces of a neuron where the same CIP-level and the same pharmacological conditions were applied. These rows can be averaged to obtain a single row for each CIP-level of a neuron.</div>
+
+<div class="standard"><a id='magicparlabel-551' />Before doing this, the parameters of the raw database should only include parameters that uniquely distinguish neurons. The averaging operation tries to find each distinct set of parameters and then averages all rows that has this combination. For example, the <span style='font-family:monospace;'>NeuronId</span> and <span style='font-family:monospace;'>pAcip</span> parameters need to be distinct. However, the <span style='font-family:monospace;'>pAbias</span> parameter does not need to be distinct for each neuron. The non-unique parameters need to be filtered-out before the averaging process. The following shows all the parameters of a raw physiology database:</div>
+
+<div class="lyx_code"><a id='magicparlabel-552' /><div class="lyx_code_item">&gt;&gt; phys_db</div>
+<div class="lyx_code_item">params_tests_db, tracesets from .../cip_traces_all_axoclamp.txt</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    num_params: 16</div>
+<div class="lyx_code_item">         props: [0x0 struct]</div>
+<div class="lyx_code_item">      tests_db: [1x1 tests_db]</div>
+<div class="lyx_code_item">Optional properties of params_tests_db:</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">0x0 struct array with no fields.</div>
+<div class="lyx_code_item">tests_db, tracesets from .../cip_traces_all_axoclamp.txt</div>
+<div class="lyx_code_item">1527 rows in database with 182 columns, and 1 pages.</div>
+<div class="lyx_code_item">Column names:</div>
+<div class="lyx_code_item">    [  1]    'pulseOn'                    </div>
+<div class="lyx_code_item">    [  2]    'pulseOff'                   </div>
+<div class="lyx_code_item">    [  3]    'traceEnd'                   </div>
+<div class="lyx_code_item">    [  4]    'pAcip'                      </div>
+<div class="lyx_code_item">    [  5]    'pAbias'                     </div>
+<div class="lyx_code_item">    [  6]    'Cadmium'                    </div>
+<div class="lyx_code_item">    [  7]    'PicroTx'                    </div>
+<div class="lyx_code_item">    [  8]    'Apamin'                     </div>
+<div class="lyx_code_item">    [  9]    'Glycine'                    </div>
+<div class="lyx_code_item">    [ 10]    'KynAcid'                    </div>
+<div class="lyx_code_item">    [ 11]    'TTX'                        </div>
+<div class="lyx_code_item">    [ 12]    'XE991'                      </div>
+<div class="lyx_code_item">    [ 13]    'drug_4AP'                   </div>
+<div class="lyx_code_item">    [ 14]    'EBIO'                       </div>
+<div class="lyx_code_item">    [ 15]    'NeuronId'                   </div>
+<div class="lyx_code_item">    [ 16]    'TracesetIndex'            </div>
+<div class="lyx_code_item">...</div>
+</div>
+<div class="standard"><a id='magicparlabel-581' />One can choose which parameters need to be distinct for each row by specifying as the second argument in the call to the <span style='font-family:monospace;'>meanDuplicateRows</span> method, whereas the third argument specifies the measures to be averaged:</div>
+
+<div class="lyx_code"><a id='magicparlabel-582' /><div class="lyx_code_item">&gt;&gt; phys_mean_db = meanDuplicateRows(phys_db, [4 6:15], [17:161])</div>
+<div class="lyx_code_item">params_tests_db, averaged tracesets from .../cip_traces_all.txt</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    num_params: 13</div>
+<div class="lyx_code_item">         props: [0x0 struct]</div>
+<div class="lyx_code_item">      tests_db: [1x1 tests_db]</div>
+<div class="lyx_code_item">Optional properties of params_tests_db:</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">0x0 struct array with no fields.</div>
+<div class="lyx_code_item">tests_db, averaged tracesets from .../cip_traces_all.txt</div>
+<div class="lyx_code_item">690 rows in database with 158 columns, and 1 pages.</div>
+<div class="lyx_code_item">Column names:</div>
+<div class="lyx_code_item">    [  1]    'pAcip'                      </div>
+<div class="lyx_code_item">    [  2]    'Cadmium'                    </div>
+<div class="lyx_code_item">    [  3]    'PicroTx'                    </div>
+<div class="lyx_code_item">    [  4]    'Apamin'                     </div>
+<div class="lyx_code_item">    [  5]    'Glycine'                    </div>
+<div class="lyx_code_item">    [  6]    'KynAcid'                    </div>
+<div class="lyx_code_item">    [  7]    'TTX'                        </div>
+<div class="lyx_code_item">    [  8]    'XE991'                      </div>
+<div class="lyx_code_item">    [  9]    'drug_4AP'                   </div>
+<div class="lyx_code_item">    [ 10]    'EBIO'                       </div>
+<div class="lyx_code_item">    [ 11]    'NeuronId'                   </div>
+<div class="lyx_code_item">    [ 12]    'NumDuplicates'              </div>
+<div class="lyx_code_item">    [ 13]    'RowIndex'                   </div>
+<div class="lyx_code_item">    [ 14]    'IniSpontISICV'    </div>
+<div class="lyx_code_item">...</div>
+</div>
+<div class="standard"><a id='magicparlabel-609' />This command ignores the pulse time information and the bias current, but includes all the pharmacological parameters, in distinguising the unique traces. It also eliminates some measures, such as the <span style='font-family:monospace;'>ItemIndex</span>, from averaging.</div>
+<h3 class="subsection"><a id='magicparlabel-610' /><span class="subsection_label">5.6</span> Making a database by merging multiple rows from another database</h3>
+<div class="standard"><a id='magicparlabel-611' />A simple example for making a new database out of multiple rows in an existing database is combining multiple traces from the same neuron with different current pulse injection (CIP) levels. The initial database contains a row for each CIP level with redundant information, such as spontaneous period measurements. </div>
+<h4 class="subsubsection"><a id='magicparlabel-612' /><span class="subsubsection_label">5.6.1</span> Making a one-row-per-neuron DB from multiple CIP-level rows</h4>
+<div class="standard"><a id='magicparlabel-613' />Measures of same cell obtained with multiple CIP-levels can be merged to make a single row. Note that, different pharmacological conditions applied to one cell must be kept in a different rows. The following command selects measures from each of the <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow>{<mo>-</mo><mn>100</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>40</mn><mo>,</mo><mn>100</mn><mo>,</mo><mn>200</mn>}
+  </mrow>
+ </mrow></math> CIP levels to be included in the merged database:</div>
+
+<div class="lyx_code"><a id='magicparlabel-614' /><div class="lyx_code_item">&gt;&gt; phys_joined_db = </div>
+<div class="lyx_code_item">     mergeMultipleCIPsInOne(phys_mean_db(:, [1:13 16:180]), </div>
+<div class="lyx_code_item">                            {'_H100pA', 13 + [5:14 19:24 (119 + spike_tests) 165],</div>
+<div class="lyx_code_item">                             '_0pA', 13 + [1:4 (27 + spike_tests)], </div>
+<div class="lyx_code_item">                             '_D40pA', 13 + [5:11 19:24 (73 + spike_tests) 165],</div>
+<div class="lyx_code_item">                             '_D100pA', 13 + [5:11 14:16 19:24 (73 + spike_tests) </div>
+<div class="lyx_code_item">                                              (119 + spike_tests) 165], </div>
+<div class="lyx_code_item">                             '_D200pA', 13 + [5:11 19:24 (73 + spike_tests) 165]},</div>
+<div class="lyx_code_item">                            'RowIndex_D200pA')</div>
+</div>
+<div class="standard"><a id='magicparlabel-623' />This command operates on the previously averaged database, <span style='font-family:monospace;'>phys_mean_db</span>, where each CIP level only occurs once for each distinct pharmacological setting for each neuron. Note that, we filter-out columns 14 and 15 from the averaged DB while supplying the first argument to <span style='font-family:monospace;'>mergeMultipleCIPsInOne</span>, which are artifacts of the averaging process and need not be included in the merged database. The second argument is a cell array of pairs of a suffix string and a corresponding list of measures for each of the CIP levels in <span style='font-family:monospace;'>phys_mean_db</span>, in increasing order. The merged <span style='font-family:monospace;'>phys_joined_db</span> looks like this:</div>
+
+<div class="lyx_code"><a id='magicparlabel-624' /><div class="lyx_code_item">params_tests_db, averaged tracesets from .../cip_traces_all_axoclamp.txt mult CIP</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    num_params: 12</div>
+<div class="lyx_code_item">      tests_db: [1x1 tests_db]</div>
+<div class="lyx_code_item">tests_db, averaged tracesets from .../cip_traces_all_axoclamp.txt mult CIP</div>
+<div class="lyx_code_item">179 rows in database with 258 columns, and 1 pages.</div>
+<div class="lyx_code_item">Column names:</div>
+<div class="lyx_code_item">    [  1]    'Cadmium'                           </div>
+<div class="lyx_code_item">    [  2]    'PicroTx'                           </div>
+<div class="lyx_code_item">    [  3]    'Apamin'                            </div>
+<div class="lyx_code_item">    [  4]    'Glycine'                           </div>
+<div class="lyx_code_item">    [  5]    'KynAcid'                           </div>
+<div class="lyx_code_item">    [  6]    'TTX'                               </div>
+<div class="lyx_code_item">    [  7]    'XE991'                             </div>
+<div class="lyx_code_item">    [  8]    'drug_4AP'                          </div>
+<div class="lyx_code_item">    [  9]    'EBIO'                              </div>
+<div class="lyx_code_item">    [ 10]    'Gabazine'                          </div>
+<div class="lyx_code_item">    [ 11]    'NeuronId'                          </div>
+<div class="lyx_code_item">    [ 12]    'TracesetIndex'                     </div>
+<div class="lyx_code_item">    [ 13]    'PulseISICV_H100pA'                 </div>
+<div class="lyx_code_item">    [ 14]    'PulseIni100msISICV_H100pA'         </div>
+<div class="lyx_code_item">    [ 15]    'PulseIni100msRest1SpikeRate_H100pA'</div>
+<div class="lyx_code_item">    [ 16]    'PulseIni100msRest2SpikeRate_H100pA'</div>
+<div class="lyx_code_item">    [ 17]    'PulseIni100msSpikeRate_H100pA'     </div>
+<div class="lyx_code_item">    [ 18]    'PulseIni100msSpikeRateISI_H100pA'  </div>
+<div class="lyx_code_item">    ...</div>
+<div class="lyx_code_item">    [255]    'PulseSpikeRiseTimeMean_D200pA'     </div>
+<div class="lyx_code_item">    [256]    'PulseSpikeRiseTimeMode_D200pA'     </div>
+<div class="lyx_code_item">    [257]    'PulseSpikeRiseTimeSTD_D200pA'      </div>
+<div class="lyx_code_item">    [258]    'PulseSpontAmpRatio_D200pA'         </div>
+</div>
+<div class="standard"><a id='magicparlabel-654' />Note how each measure suffix indicate the CIP-level it belongs.</div>
+<h4 class="subsubsection"><a id='magicparlabel-655' /><span class="subsubsection_label">5.6.2</span> Making a one-row-per-neuron DB from dual CIP-level rows</h4>
+<div class="standard"><a id='magicparlabel-656' />The following statement uses the <span style='font-family:monospace;'>params_tests_db/getDualCIPdb</span> method to merge rows of depolarizing and hyperpolarizing CIP-levels:</div>
+
+<div class="lyx_code"><a id='magicparlabel-657' /><div class="lyx_code_item">&gt;&gt; sdball = getDualCIPdb(dball, depol_tests, hyper_tests, </div>
+<div class="lyx_code_item">                         '', 'Hyp100pA')</div>
+</div>
+<div class="standard"><a id='magicparlabel-659' />Here, the cell array variables <span style='font-family:monospace;'>depol_tests</span> and <span style='font-family:monospace;'>hyper_tests</span> hold the names of measures to be selected from depolarizing CIP and hyperpolarizing CIP, respectively. The last two arguments define the suffixes to be applied to distinguish the measures from each CIP. The original DB is </div>
+
+<div class="lyx_code"><a id='magicparlabel-660' /><div class="lyx_code_item">&gt;&gt; dball</div>
+<div class="lyx_code_item">dball</div>
+<div class="lyx_code_item">params_tests_db, sim dataset gpsc0501</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    num_params: 10</div>
+<div class="lyx_code_item">         props: [0x0 struct]</div>
+<div class="lyx_code_item">      tests_db: [1x1 tests_db]</div>
+<div class="lyx_code_item">Optional properties of params_tests_db:</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">0x0 struct array with no fields.</div>
+<div class="lyx_code_item">tests_db, sim dataset gpsc0501</div>
+<div class="lyx_code_item">39366 rows in database with 62 columns, and 1 pages.</div>
+<div class="lyx_code_item">Column names:</div>
+<div class="lyx_code_item">    [ 1]    'NaF'                        </div>
+<div class="lyx_code_item">    [ 2]    'NaP'                        </div>
+<div class="lyx_code_item">    [ 3]    'Kv3'                        </div>
+<div class="lyx_code_item">    [ 4]    'Kv2'                        </div>
+<div class="lyx_code_item">    [ 5]    'Kv4f'                       </div>
+<div class="lyx_code_item">    [ 6]    'KCNQ'                       </div>
+<div class="lyx_code_item">    [ 7]    'SK'                         </div>
+<div class="lyx_code_item">    [ 8]    'CaHVA'                      </div>
+<div class="lyx_code_item">    [ 9]    'HCN'                        </div>
+<div class="lyx_code_item">    [10]    'pAcip'                      </div>
+<div class="lyx_code_item">    [11]    'IniSpontISICV'              </div>
+<div class="lyx_code_item">    [12]    'IniSpontPotAvg'             </div>
+<div class="lyx_code_item">    [13]    'IniSpontSpikeRate'          </div>
+<div class="lyx_code_item">    [14]    'PulseISICV'                 </div>
+<div class="lyx_code_item">    [15]    'PulseIni100msISICV'         </div>
+<div class="lyx_code_item">    [16]    'PulseIni100msRest1SpikeRate'</div>
+<div class="lyx_code_item">    [17]    'PulseIni100msRest2SpikeRate'</div>
+<div class="lyx_code_item">    [18]    'PulseIni100msSpikeRate'     </div>
+<div class="lyx_code_item">    [19]    'PulseIni100msSpikeRateISI'  </div>
+<div class="lyx_code_item">    [20]    'PulsePotAvg'                </div>
+<div class="lyx_code_item">    [21]    'PulsePotMin'                </div>
+<div class="lyx_code_item">    [22]    'PulsePotSag'                </div>
+<div class="lyx_code_item">    [23]    'PulseSFA'                   </div>
+<div class="lyx_code_item">    [24]    'PulseSpikeAmpDecayDelta'    </div>
+<div class="lyx_code_item">    [25]    'PulseSpikeAmpDecayTau'      </div>
+<div class="lyx_code_item">    [26]    'PulseSpikeRate'             </div>
+<div class="lyx_code_item">    [27]    'PulseSpikeRateISI'          </div>
+<div class="lyx_code_item">    [28]    'RecIniSpontPotRatio'        </div>
+<div class="lyx_code_item">    [29]    'RecIniSpontRateRatio'       </div>
+<div class="lyx_code_item">    [30]    'RecSpont1SpikeRate'         </div>
+<div class="lyx_code_item">    [31]    'RecSpont2SpikeRate'         </div>
+<div class="lyx_code_item">    [32]    'RecSpontISICV'              </div>
+<div class="lyx_code_item">    [33]    'RecSpontPotAvg'             </div>
+<div class="lyx_code_item">    [34]    'RecSpontSpikeRate'          </div>
+<div class="lyx_code_item">    [35]    'SpontAmplitude'             </div>
+<div class="lyx_code_item">    [36]    'SpontBaseWidth'             </div>
+<div class="lyx_code_item">    [37]    'SpontDAHPMag'               </div>
+<div class="lyx_code_item">    [38]    'SpontFallTime'              </div>
+<div class="lyx_code_item">    [39]    'SpontHalfVm'                </div>
+<div class="lyx_code_item">    [40]    'SpontHalfWidth'             </div>
+<div class="lyx_code_item">    [41]    'SpontInitTime'              </div>
+<div class="lyx_code_item">    [42]    'SpontInitVm'                </div>
+<div class="lyx_code_item">    [43]    'SpontMaxAHP'                </div>
+<div class="lyx_code_item">    [44]    'SpontMinTime'               </div>
+<div class="lyx_code_item">    [45]    'SpontMinVm'                 </div>
+<div class="lyx_code_item">    [46]    'SpontPeakVm'                </div>
+<div class="lyx_code_item">    [47]    'SpontRiseTime'              </div>
+<div class="lyx_code_item">    [48]    'PulseAmplitude'             </div>
+<div class="lyx_code_item">    [49]    'PulseBaseWidth'             </div>
+<div class="lyx_code_item">    [50]    'PulseDAHPMag'               </div>
+<div class="lyx_code_item">    [51]    'PulseFallTime'              </div>
+<div class="lyx_code_item">    [52]    'PulseHalfVm'                </div>
+<div class="lyx_code_item">    [53]    'PulseHalfWidth'             </div>
+<div class="lyx_code_item">    [54]    'PulseInitTime'              </div>
+<div class="lyx_code_item">    [55]    'PulseInitVm'                </div>
+<div class="lyx_code_item">    [56]    'PulseMaxAHP'                </div>
+<div class="lyx_code_item">    [57]    'PulseMinTime'               </div>
+<div class="lyx_code_item">    [58]    'PulseMinVm'                 </div>
+<div class="lyx_code_item">    [59]    'PulsePeakVm'                </div>
+<div class="lyx_code_item">    [60]    'PulseRiseTime'              </div>
+<div class="lyx_code_item">    [61]    'PulseSpontAmpRatio'         </div>
+<div class="lyx_code_item">    [62]    'ItemIndex'                  </div>
+<div class="lyx_code_item">Optional properties of tests_db:</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">0x0 struct array with no fields.</div>
+</div>
+<div class="standard"><a id='magicparlabel-738' />After merging, it becomes </div>
+
+<div class="lyx_code"><a id='magicparlabel-739' /><div class="lyx_code_item">&gt;&gt; sdball</div>
+<div class="lyx_code_item">sdball</div>
+<div class="lyx_code_item">params_tests_db, sim dataset gpsc0501 dual cip</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    num_params: 9</div>
+<div class="lyx_code_item">         props: [0x0 struct]</div>
+<div class="lyx_code_item">      tests_db: [1x1 tests_db]</div>
+<div class="lyx_code_item">Optional properties of params_tests_db:</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">0x0 struct array with no fields.</div>
+<div class="lyx_code_item">tests_db, sim dataset gpsc0501 dual cip</div>
+<div class="lyx_code_item">19683 rows in database with 50 columns, and 1 pages.</div>
+<div class="lyx_code_item">Column names:</div>
+<div class="lyx_code_item">    [ 1]    'NaF'                         </div>
+<div class="lyx_code_item">    [ 2]    'NaP'                         </div>
+<div class="lyx_code_item">    [ 3]    'Kv3'                         </div>
+<div class="lyx_code_item">    [ 4]    'Kv2'                         </div>
+<div class="lyx_code_item">    [ 5]    'Kv4f'                        </div>
+<div class="lyx_code_item">    [ 6]    'KCNQ'                        </div>
+<div class="lyx_code_item">    [ 7]    'SK'                          </div>
+<div class="lyx_code_item">    [ 8]    'CaHVA'                       </div>
+<div class="lyx_code_item">    [ 9]    'HCN'                         </div>
+<div class="lyx_code_item">    [10]    'RecIniSpontPotRatioHyp100pA' </div>
+<div class="lyx_code_item">    [11]    'RecIniSpontRateRatioHyp100pA'</div>
+<div class="lyx_code_item">    [12]    'RecSpont1SpikeRateHyp100pA'  </div>
+<div class="lyx_code_item">    [13]    'RecSpont2SpikeRateHyp100pA'  </div>
+<div class="lyx_code_item">    [14]    'RecSpontISICVHyp100pA'       </div>
+<div class="lyx_code_item">    [15]    'RecSpontPotAvgHyp100pA'      </div>
+<div class="lyx_code_item">    [16]    'ItemIndexHyp100pA'           </div>
+<div class="lyx_code_item">    [17]    'IniSpontSpikeRate'           </div>
+<div class="lyx_code_item">    [18]    'PulseIni100msSpikeRate'      </div>
+<div class="lyx_code_item">    [19]    'PulseIni100msSpikeRateISI'   </div>
+<div class="lyx_code_item">    [20]    'PulseIni100msISICV'          </div>
+<div class="lyx_code_item">    [21]    'PulseIni100msRest1SpikeRate' </div>
+<div class="lyx_code_item">    [22]    'PulseIni100msRest2SpikeRate' </div>
+<div class="lyx_code_item">    [23]    'RecSpont1SpikeRate'          </div>
+<div class="lyx_code_item">    [24]    'RecSpont2SpikeRate'          </div>
+<div class="lyx_code_item">    [25]    'RecIniSpontRateRatio'        </div>
+<div class="lyx_code_item">    [26]    'IniSpontISICV'               </div>
+<div class="lyx_code_item">    [27]    'PulseISICV'                  </div>
+<div class="lyx_code_item">    [28]    'RecSpontISICV'               </div>
+<div class="lyx_code_item">    [29]    'PulseSFA'                    </div>
+<div class="lyx_code_item">    [30]    'PulseSpikeAmpDecayTau'       </div>
+<div class="lyx_code_item">    [31]    'PulseSpikeAmpDecayDelta'     </div>
+<div class="lyx_code_item">    [32]    'IniSpontPotAvg'              </div>
+<div class="lyx_code_item">    [33]    'PulsePotAvg'                 </div>
+<div class="lyx_code_item">    [34]    'RecSpontPotAvg'              </div>
+<div class="lyx_code_item">    [35]    'RecIniSpontPotRatio'         </div>
+<div class="lyx_code_item">    [36]    'SpontInitVm'                 </div>
+<div class="lyx_code_item">    [37]    'SpontAmplitude'              </div>
+<div class="lyx_code_item">    [38]    'SpontMaxAHP'                 </div>
+<div class="lyx_code_item">    [39]    'SpontDAHPMag'                </div>
+<div class="lyx_code_item">    [40]    'SpontRiseTime'               </div>
+<div class="lyx_code_item">    [41]    'SpontFallTime'               </div>
+<div class="lyx_code_item">    [42]    'SpontHalfWidth'              </div>
+<div class="lyx_code_item">    [43]    'PulseInitVm'                 </div>
+<div class="lyx_code_item">    [44]    'PulseAmplitude'              </div>
+<div class="lyx_code_item">    [45]    'PulseMaxAHP'                 </div>
+<div class="lyx_code_item">    [46]    'PulseDAHPMag'                </div>
+<div class="lyx_code_item">    [47]    'PulseRiseTime'               </div>
+<div class="lyx_code_item">    [48]    'PulseFallTime'               </div>
+<div class="lyx_code_item">    [49]    'PulseHalfWidth'              </div>
+<div class="lyx_code_item">    [50]    'ItemIndex'                   </div>
+<div class="lyx_code_item">Optional properties of tests_db:</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">0x0 struct array with no fields.</div>
+</div>
+<h2 class="section"><a id='magicparlabel-805' /><span class="section_label">6</span> Visualization<a id="sec_Visualization" />
+</h2>
+<div class="standard"><a id='magicparlabel-806' />By default, <dfn class='lyxnoun'>Matlab</dfn> prints figures in portrait orientation with a 8x6 aspect ratio, ignoring their size on the screen. The command; </div>
+
+<div class="lyx_code"><a id='magicparlabel-807' /><div class="lyx_code_item">&gt;&gt; orient tall</div>
+</div>
+<div class="standard"><a id='magicparlabel-808' />changes that behavior to print a full page in portrait orientation. The command;</div>
+
+<div class="lyx_code"><a id='magicparlabel-809' /><div class="lyx_code_item">&gt;&gt; orient landscape</div>
+</div>
+<div class="standard"><a id='magicparlabel-810' />does the same but rotates the figure to landscape orientation. If you want the printed figure to reflect its current screen size, issue the command;</div>
+
+<div class="lyx_code"><a id='magicparlabel-811' /><div class="lyx_code_item">&gt;&gt; set(figurenum, 'PaperPositionMode', 'auto')</div>
+</div>
+<div class="standard"><a id='magicparlabel-812' />Figures generated by the plotting system of the  has a special resizing capability. Everytime the figure is resized, it will be drawn from scratch after calculating proper spacing between subplots according to font size. However, in some conditions this may cause other problems, such as crashing <dfn class='lyxnoun'>Matlab</dfn> in figure editing mode or causing loss of manual changes to the figure. To disable the auto-resize function, issue the following command after creating the figure;</div>
+
+<div class="lyx_code"><a id='magicparlabel-817' /><div class="lyx_code_item">&gt;&gt; set(figurenum, 'ResizeFcn', '')</div>
+</div>
+<div class="standard"><a id='magicparlabel-818' />Finally, to print the figure, consult your Matlab manual or issue a command such as;</div>
+
+<div class="lyx_code"><a id='magicparlabel-819' /><div class="lyx_code_item">&gt;&gt; print -depsc2 figurename.eps</div>
+</div>
+<div class="standard"><a id='magicparlabel-820' />See below for specific types of figures you can create.</div>
+<h3 class="subsection"><a id='magicparlabel-821' /><span class="subsection_label">6.1</span> Visualizing traces</h3>
+<div class="standard"><a id='magicparlabel-822' />The <span style='font-family:monospace;'>trace,</span> and its subclasses such as <span style='font-family:monospace;'>cip_trace</span>, has the plot command overloaded to draw the raw trace in Figure <a href="#figcap_cip_trace">8</a>:</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-826' /><img style='width:50%;' src='8C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_cip_trace_plot_compact.png' alt='image: 8C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_cip_trace_plot_compact.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-827' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 8:  <a id="figcap_cip_trace" />
+Example trace plot.</span></div>
+</div>
+
+
+<div class="lyx_code"><a id='magicparlabel-832' /><div class="lyx_code_item">&gt;&gt; a_ct = ctFromRows(mbundle, 9842, 100);</div>
+<div class="lyx_code_item">&gt;&gt; plot(a_ct)</div>
+</div>
+<div class="standard"><a id='magicparlabel-834' />Note that the plot in the figure has been created with a more precise control:</div>
+
+<div class="lyx_code"><a id='magicparlabel-835' /><div class="lyx_code_item">&gt;&gt; plotFigure(plotData(a_ct, '', struct('PaperPosition', [0 0 3 2])))</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-836' /><span class="subsection_label">6.2</span> Displaying database contents</h3>
+<div class="standard"><a id='magicparlabel-837' />The <span style='font-family:monospace;'>displayRows</span> method of <span style='font-family:monospace;'>tests_db</span> can be used to display rows of a database:</div>
+
+<div class="lyx_code"><a id='magicparlabel-838' /><div class="lyx_code_item">&gt;&gt; displayRows(sdball, 1:3)</div>
+<div class="lyx_code_item">ans = </div>
+<div class="lyx_code_item">    'NaF'                    [     250]    [     250]    [      1000]</div>
+<div class="lyx_code_item">    'NaP'                    [  2.5000]    [  2.5000]    [    2.5000]</div>
+<div class="lyx_code_item">    'Kv3'                    [      15]    [      15]    [        60]</div>
+<div class="lyx_code_item">    'Kv2'                    [       3]    [       3]    [         9]</div>
+<div class="lyx_code_item">    'Kv4f'                   [       5]    [       5]    [        25]</div>
+<div class="lyx_code_item">    'KCNQ'                   [  0.1000]    [  0.1000]    [    0.0100]</div>
+<div class="lyx_code_item">    'SK'                     [  8.5000]    [  8.5000]    [        17]</div>
+<div class="lyx_code_item">    'CaHVA'                  [      10]    [      10]    [        10]</div>
+<div class="lyx_code_item">    'HCN'                    [      30]    [       3]    [        30]</div>
+<div class="lyx_code_item">    'pAcip'                  [    -100]    [    -100]    [       100]</div>
+<div class="lyx_code_item">    'IniSpontISICV'          [  0.0027]    [  0.0027]    [9.1376e-04]</div>
+<div class="lyx_code_item">...</div>
+</div>
+<div class="standard"><a id='magicparlabel-852' />Note that, in the output, database rows appear as columns, and database columns appear as rows. See in above Section <a href="#subsec_Sorting_the_database">5.4</a> for more example outputs from <span style='font-family:monospace;'>displayRows</span>.</div>
+
+<div class="standard"><a id='magicparlabel-853' /><span style='font-family:monospace;'>displayRows</span> returns a cell array of column names justapoxed to a matrix of values. This cell array is intended for display on the screen and for generating reports. The <span style='font-family:monospace;'>displayRowsTeX</span> method uses output from <span style='font-family:monospace;'>displayRows</span> to generate a LaTeX table that can be printed or converted to PDF:</div>
+
+<div class="lyx_code"><a id='magicparlabel-854' /><div class="lyx_code_item">&gt;&gt; tex_string = </div>
+<div class="lyx_code_item">     displayRowsTeX(a_db(:, rows), </div>
+<div class="lyx_code_item">                    'Selected rows indicating fast spiking neurons',</div>
+<div class="lyx_code_item">                    struct('height', '!'));</div>
+<div class="lyx_code_item">&gt;&gt; string2File(tex_string, 'fast_spiking.tex');</div>
+</div>
+<div class="standard"><a id='magicparlabel-859' />With this the LaTeX code to generate a table with the given caption is saved in a text file called <span style='font-family:monospace;'>fast_spiking.tex</span>. This file can then be included from a regular LaTeX document to generate PDF output. See a LaTeX manual on how to do that.</div>
+
+<div class="standard"><a id='magicparlabel-860' />An alternative to <span style='font-family:monospace;'>displayRows</span> is using the <span style='font-family:monospace;'>tests_db/rows2Struct</span> method:</div>
+
+<div class="lyx_code"><a id='magicparlabel-861' /><div class="lyx_code_item">&gt;&gt; s = rows2Struct(dball_full, 54023)</div>
+<div class="lyx_code_item">s = </div>
+<div class="lyx_code_item">                            NaF: 500</div>
+<div class="lyx_code_item">                            NaP: 2</div>
+<div class="lyx_code_item">                            Kv2: 1</div>
+<div class="lyx_code_item">                            Kv3: 10</div>
+<div class="lyx_code_item">                           Kv4f: 40</div>
+<div class="lyx_code_item">                           KCNQ: 2</div>
+<div class="lyx_code_item">                             SK: 4</div>
+<div class="lyx_code_item">                          CaHVA: 0.0300</div>
+<div class="lyx_code_item">                            HCN: 1</div>
+<div class="lyx_code_item">                          trial: 7739</div>
+<div class="lyx_code_item">                          pAcip: 100</div>
+<div class="lyx_code_item">                  IniSpontISICV: NaN</div>
+<div class="lyx_code_item">                 IniSpontPotAvg: NaN</div>
+<div class="lyx_code_item">              IniSpontSpikeRate: 0</div>
+<div class="lyx_code_item">           IniSpontSpikeRateISI: 0</div>
+<div class="lyx_code_item">                     PulseISICV: 0.0265</div>
+<div class="lyx_code_item">             PulseIni100msISICV: 0.0584</div>
+<div class="lyx_code_item">    PulseIni100msRest1SpikeRate: 40.0089</div>
+<div class="lyx_code_item">    PulseIni100msRest2SpikeRate: 40.0178</div>
+<div class="lyx_code_item">         PulseIni100msSpikeRate: 50</div>
+<div class="lyx_code_item">      PulseIni100msSpikeRateISI: 43.5256</div>
+<div class="lyx_code_item">                    PulsePotAvg: -57.3737</div>
+<div class="lyx_code_item">                    PulsePotMin: NaN</div>
+<div class="lyx_code_item">                    PulsePotSag: NaN</div>
+<div class="lyx_code_item">                       PulseSFA: 1.1698</div>
+<div class="lyx_code_item">...</div>
+</div>
+<div class="standard"><a id='magicparlabel-889' />This method returns the database contents as a structure array. It is more natural for programming interfaces to use the database contents in a structure array than a cell array. The database columns become field names in the the structure. If multiple rows are requested, the displayed output would not contain the values. The desired row can be reached via indexing (e.g., <span style='font-family:monospace;'>s(1)</span>). For instance, analysis in <span style='font-family:monospace;'>cip_trace/getProfileAllSpikes</span> method is done using this method for getting statistics from the <span style='font-family:monospace;'>spikes_db</span> databases.</div>
+<h3 class="subsection"><a id='magicparlabel-890' /><span class="subsection_label">6.3</span> Plotting all measure histograms</h3>
+<div class="standard"><a id='magicparlabel-891' />For plotting all measure histograms in a DB, the following method of <span style='font-family:monospace;'>tests_db</span> creates the horizontal stack plot in Figure <a href="#figcap_tests_hists">9</a>:</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-895' /><img style='width:120%;' src='9C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_tests_db_plot_tests.png' alt='image: 9C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_tests_db_plot_tests.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-896' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 9:  <a id="figcap_tests_hists" />
+Example measure distribution plot.</span></div>
+</div>
+
+
+<div class="lyx_code"><a id='magicparlabel-901' /><div class="lyx_code_item">&gt;&gt; mp = plotTestsHistsMatrix(renamed_model_db(:, 2:end), '', </div>
+<div class="lyx_code_item">                             struct('orient', 'x', 'quiet', 1, 'border', [0 0.05 0 0])))</div>
+<div class="lyx_code_item">&gt;&gt; plotFigure(mp);</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-904' /><span class="subsection_label">6.4</span> Plotting all parameter histograms</h3>
+<div class="standard"><a id='magicparlabel-905' />For plotting all parameter histograms in a DB, the following method of <span style='font-family:monospace;'>params_tests_db</span> creates the horizontal stack plot in Figure <a href="#figcap_params_hists">10</a>:</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-909' /><img style='width:120%;' src='10C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_params_tests_db_plot_param_hists.png' alt='image: 10C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_params_tests_db_plot_param_hists.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-910' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 10:  <a id="figcap_params_hists" />
+Example parameter distribution plot.</span></div>
+</div>
+
+
+<div class="lyx_code"><a id='magicparlabel-915' /><div class="lyx_code_item">&gt;&gt; plotFigure(plotParamsHists(sdball));</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-916' /><span class="subsection_label">6.5</span> Plotting database statistics</h3>
+<div class="standard"><a id='magicparlabel-917' />The <span style='font-family:monospace;'>stats_db</span> object allows keeping statistical information obtained from a database. Statistics are calculated using one of the <span style='font-family:monospace;'>tests_db</span> converter methods, such as <span style='font-family:monospace;'>statsAll</span>, <span style='font-family:monospace;'>statsMeanStd</span>, etc.: </div>
+
+<div class="lyx_code"><a id='magicparlabel-918' /><div class="lyx_code_item">&gt;&gt; my_stats = statsMeanStd(my_db(:, {'IniSpontSpikeRate', 'PulseSpikeRate'}));</div>
+</div>
+<div class="standard"><a id='magicparlabel-919' />Then, the statistics can be plotted with diamonds indicating the mean and symmetric errorbars indicating upper and lower extensions (SE or Std):</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-923' />Default visualization for <span style='font-family:monospace;'>stats_db</span>.<img style='width:50%;' src='11C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_abstract.png' alt='image: 11C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_abstract.png' />
+ Optional <span style='font-family:monospace;'>plot_bars</span> visualization for <span style='font-family:monospace;'>stats_db</span>.<img style='width:50%;' src='12C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_bars_single.png' alt='image: 12C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_bars_single.png' />
+</div>
+
+<div class="plain_layout" style='text-align: center;'><a id='magicparlabel-948' />Comparing multiple <span style='font-family:monospace;'>stats_db</span>s with <span style='font-family:monospace;'>plot_bars</span>.<img style='width:50%;' src='13C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_bars_multi.png' alt='image: 13C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_bars_multi.png' />
+ Plotting parameter-measure variation with <span style='font-family:monospace;'>plotVar</span>.<img style='width:50%;' src='14C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_Var.png' alt='image: 14C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_stats_Var.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-973' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 11:  <a id="figcap_Statistics_plots" />
+Plotting statistics for two selected measures.</span></div>
+</div>
+
+
+<div class="lyx_code"><a id='magicparlabel-978' /><div class="lyx_code_item">&gt;&gt; plot(my_stats);</div>
+</div>
+<div class="standard"><a id='magicparlabel-979' />which is equivalent to:</div>
+
+<div class="lyx_code"><a id='magicparlabel-980' /><div class="lyx_code_item">&gt;&gt; plotFigure(plot_abstract(my_stats));</div>
+</div>
+<div class="standard"><a id='magicparlabel-981' />An alternative plotting form is using filled bars with extending errorbars:</div>
+
+<div class="lyx_code"><a id='magicparlabel-982' /><div class="lyx_code_item">&gt;&gt; plotFigure(plot_bars(my_stats));</div>
+</div>
+<div class="standard"><a id='magicparlabel-983' />which are both seen in Figure <a href="#figcap_Statistics_plots">11</a> (a) and (b). The <span style='font-family:monospace;'>plot_bars</span> method is better suited for comparing statistics from multiple <span style='font-family:monospace;'>stats_db</span>s coming from different sources. In this case, we take the first 1000 rows from the DB as a subset, and compare it with the statistics from the second 1000 rows:</div>
+
+<div class="lyx_code"><a id='magicparlabel-984' /><div class="lyx_code_item">&gt;&gt; compared_two_subset_stats = </div>
+<div class="lyx_code_item">     compareStats(statsAll(mbundle.joined_db(1:1000, </div>
+<div class="lyx_code_item">                                             {'IniSpontSpikeRateISI_0pA',</div>
+<div class="lyx_code_item">                                              'PulseIni100msSpikeRateISI_D100pA'})), </div>
+<div class="lyx_code_item">                  statsAll(mbundle.joined_db(1001:2000, </div>
+<div class="lyx_code_item">                                             {'IniSpontSpikeRateISI_0pA',</div>
+<div class="lyx_code_item">                                              'PulseIni100msSpikeRateISI_D100pA'})))));</div>
+</div>
+<div class="standard"><a id='magicparlabel-991' />The combined statistics object can then be fed into <span style='font-family:monospace;'>plot_bars</span> as seen in Figure <a href="#figcap_Statistics_plots">11</a> (c):</div>
+
+<div class="lyx_code"><a id='magicparlabel-992' /><div class="lyx_code_item">&gt;&gt; plotFigure(plot_bars(compared_two_subset_stats));</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-993' /><span class="subsection_label">6.6</span> Plotting parameter-measure variations</h3>
+<div class="standard"><a id='magicparlabel-994' />To plot the variation of a measure with a parameter the <span style='font-family:monospace;'>plotVar</span> method of <span style='font-family:monospace;'>stats_db</span> can be used to achieve Figure <a href="#figcap_Statistics_plots">11</a> (d):</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-998' /><img style='width:95%;' src='15C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plotVarBoxMatrix_example.png' alt='image: 15C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plotVarBoxMatrix_example.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-999' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 12:  <a id="cap_plot_varboxmatrix" />
+Example parameter-measure variation statistics plot.</span></div>
+</div>
+
+
+<div class="lyx_code"><a id='magicparlabel-1004' /><div class="lyx_code_item">&gt;&gt; plotFigure(plotVar(a_stats_db, 'CaHVA', 'AHP_depth', 'AHP change with change in CaHVA', </div>
+<div class="lyx_code_item">                      struct('quiet', 1, 'PaperPosition', [0 0 3 3])))</div>
+</div>
+<div class="standard"><a id='magicparlabel-1006' />To plot all parameter-measure variations, the <span style='font-family:monospace;'>plotVarMatrix</span> method of <span style='font-family:monospace;'>stats_db</span> can be used (see Figure <a href="#cap_plot_varboxmatrix">12</a>). <span style='font-family:monospace;'>plotVarMatrix</span> requires the a <span style='font-family:monospace;'>p_stats</span> array of <span style='font-family:monospace;'>stats_db</span> objects that hold the mean and standard error information (or possibly other statistics) for each of the possible parameter-measure combinations. The <span style='font-family:monospace;'>p_stats</span> array can be created using the <span style='font-family:monospace;'>paramsTestsHistsStats</span> method, which in turn requires the <span style='font-family:monospace;'>p_t3ds</span> array of 3-dimensional databases each of which contain effects of a parameter invariant of other parameters. The <span style='font-family:monospace;'>p_t3ds</span> array can be created using the <span style='font-family:monospace;'>params_tests_db/invarParams</span> method. The sequence of commands<div class="foot"><span class="foot_label">4</span><div class="foot_inner"><div class="plain_layout"><a id='magicparlabel-1010' />The <span style='font-family:monospace;'>noNaNRows</span> function is required to filter out any rows containing <span style='font-family:monospace;'>NaN</span> values in measurements before running statistic functions. Otherwise, the statistics functions (such as <span style='font-family:monospace;'>mean</span> and <span style='font-family:monospace;'>std</span>) will eliminate <span style='font-family:monospace;'>NaN</span> values within each database column automatically, scrambling the row order and loosing the association with parameters.</div>
+</div></div> is then becomes:</div>
+
+<div class="lyx_code"><a id='magicparlabel-1011' /><div class="lyx_code_item">&gt;&gt; p_t3ds = invarParams(noNaNRows(sdball))</div>
+<div class="lyx_code_item">&gt;&gt; [pt_hists, p_stats] = paramsTestsHistsStats(p_t3ds)</div>
+<div class="lyx_code_item">&gt;&gt; ap = plotVarMatrix(p_stats)</div>
+<div class="lyx_code_item">&gt;&gt; plotFigure(ap)</div>
+</div>
+<div class="standard"><a id='magicparlabel-1015' />This will create a matrix plot with as many columns as parameters and as many rows as measures in the <span style='font-family:monospace;'>sdball</span> object. It may be difficult to read if <span style='font-family:monospace;'>sdball</span> contains large number of measures. One can divide the measures into two plots with the following sequence of commands</div>
+
+<div class="lyx_code"><a id='magicparlabel-1016' /><div class="lyx_code_item">&gt;&gt; sdb1 = sdball(:, [1:9, 10:35])</div>
+<div class="lyx_code_item">&gt;&gt; sdb2 = sdball(:, [1:9, 36:49])</div>
+</div>
+<div class="standard"><a id='magicparlabel-1018' />by choosing all parameters in both DBs, but only some measures for each. Then, the plots can be created for each DB by issuing</div>
+
+<div class="lyx_code"><a id='magicparlabel-1019' /><div class="lyx_code_item">&gt;&gt; p1_t3ds = invarParams(sdb1)</div>
+<div class="lyx_code_item">&gt;&gt; p2_t3ds = invarParams(sdb2)</div>
+<div class="lyx_code_item">&gt;&gt; [pt1_hists, p1_stats] = paramsTestsHistsStats(p1_t3ds)</div>
+<div class="lyx_code_item">&gt;&gt; [pt2_hists, p2_stats] = paramsTestsHistsStats(p2_t3ds)</div>
+<div class="lyx_code_item">&gt;&gt; ap1 = plotVarMatrix(p1_stats)</div>
+<div class="lyx_code_item">&gt;&gt; plotFigure(ap1)</div>
+<div class="lyx_code_item">&gt;&gt; ap2 = plotVarMatrix(p2_stats)</div>
+<div class="lyx_code_item">&gt;&gt; plotFigure(ap2)</div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-1027' /><span class="subsection_label">6.7</span> Insets</h3>
+<div class="standard"><a id='magicparlabel-1028' />See Figure <a href="#fig_insets">13</a> which was created with the following set of commands.</div>
+<div class='float-figure'><div class="plain_layout" style='text-align: center;'><a id='magicparlabel-1032' /><img style='width:50%;' src='16C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_inset.png' alt='image: 16C__Users_Wroc_Documents_Neuron_Project_pandora-matlab_doc_plot_inset.png' />
+</div>
+
+<div class="plain_layout"><a id='magicparlabel-1033' /><span class='float-caption-Standard float-caption float-caption-standard'>Figure 13:  <a id="fig_insets" />
+Creating insets in figures.</span></div>
+</div>
+
+
+<div class="lyx_code"><a id='magicparlabel-1038' /><div class="lyx_code_item">&gt;&gt; im_p = plot_abstract({50 * rand(5)}, {}, '', {}, 'image');</div>
+<div class="lyx_code_item">&gt;&gt; plotFigure(plot_absolute([im_p, im_p], [0 0 1 1; 0.5 0.5 0.3 0.3])) </div>
+</div>
+<h3 class="subsection"><a id='magicparlabel-1040' /><span class="subsection_label">6.8</span> Generating a report comparing two databases</h3>
+<div class="standard"><a id='magicparlabel-1041' />Most commonly a database of physiology neurons need to be compared to a database of a large body of simulation neurons and find best matches. One may need to see the match quality for a number of best matching candidates for each of the physiology neurons. Assuming multiple plots and tables are required to do a fair job of comparing a neuron to a thousands of simulation neurons, it becomes a difficult job to do this manually. An automatic report generation system has been built into the system for this purpose. </div>
+
+<div class="standard"><a id='magicparlabel-1042' />Currently a LaTeX document is created that needs to be included in either a proper LaTeX document, or included in a LyX document.<div class="foot"><span class="foot_label">5</span><div class="foot_inner"><div class="plain_layout"><a id='magicparlabel-1046' />This document is prepared using the LyX document preparation system [<a href='#LyXCite-lyx_03'>lyx-03</a>] which uses the  typesetting language [<a href='#LyXCite-lamport_94'>lamport-94</a>]. LyX is copyrighted by Matthias Ettrich and covered by the terms of the GNU General Public License (GPL), and  is copyrighted by D.&nbsp;E.&nbsp;Knuth and the Free Software Foundation, Inc.&nbsp;and is covered by both the TeX copyright and the GNU GPL.</div>
+</div></div> The including document should provide the context in which the included part becomes meaningful. The report contains a set of tables and figures with proper captions. The table of contents, list of figures and list of tables facilities of LaTeX becomes useful to make the automatically generated document eaisly readable. </div>
+
+<div class="standard"><a id='magicparlabel-1055' />The report can be created with the command</div>
+
+<div class="lyx_code"><a id='magicparlabel-1056' /><div class="lyx_code_item">&gt;&gt; tex_string = rankVsAllDB(sdb, phys_sdb, </div>
+<div class="lyx_code_item">                            fileset, phys_fileset);</div>
+</div>
+<div class="standard"><a id='magicparlabel-1058' />where the simulation database <span style='font-family:monospace;'>sdb</span> is searched for best matches to each row of physiology database <span style='font-family:monospace;'>phys_sdb</span>. The dataset for each is provided for the report to contain raw data associated with best matches. The obtained report contained in <span style='font-family:monospace;'>tex_string</span> can be saved as a ASCII LaTeX file with</div>
+
+<div class="lyx_code"><a id='magicparlabel-1059' /><div class="lyx_code_item">&gt;&gt; string2File(tex_string, 'myreport.tex');</div>
+</div>
+<div class="standard"><a id='magicparlabel-1060' /><h2 class='bibtex'>References</h2></div>
+<h1 class="part_"><a id='magicparlabel-1061' />Appendices</h1>
+<h2 class="section"><a id='magicparlabel-1062' /><span class="section_label">A</span> Function Reference<a id="sec_Function_Reference" />
+</h2>
+<div class="standard"><a id='magicparlabel-1063' />See Section <a href="#subsec_Finding_your_way_around">1.6</a> on how to get online help about the software within <dfn class='lyxnoun'>Matlab</dfn>.</div>
+
+<div class="standard"><a id='magicparlabel-1064' /><div class="note_comment"><div class="plain_layout"><a id='magicparlabel-1068' />[Supposed to have all class and method documentation automagically generated from matlab help files.]</div>
+</div></div>
+
+
+
+<div class="standard"><a id='magicparlabel-1070' /><br />
+</div>
+
+
+</body>
+</html>
