@@ -5,7 +5,7 @@
 # then be converted to HTML.
 #
 # Usage:
-# ./m2tex.pl > func-ref.tex
+# ./oom2tex.pl > func-ref.tex
 #
 # See the README file on how to generate function indices and HTML
 # pages from the generated LaTeX file.
@@ -55,7 +55,9 @@ sub proper_latex_label {
   s/_/\\_/g;
   s/&/\\&/g;
   s/\^/\\textasciicircum{}/g;
-
+  # lookahead for existing backslash (above), otherwise escape $s
+  s/(?<!\$\\backslash)\$(?!\\backslash\$)/\\\$/g;	
+	
   return $_;
 }
 

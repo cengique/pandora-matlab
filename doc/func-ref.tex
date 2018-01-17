@@ -18000,7 +18000,7 @@ This is a cheap operation than modifies meta-data kept in object. For
  parameters are passed to the regexprep command after removing the
  delimiting slashes (//). At least one grouping construct ('()') must be
  used in the search pattern such that it can be used in the replacement
- pattern (e.g., '$1'). See example above. This function uses the generic
+ pattern (e.g., '\$1'). See example above. This function uses the generic
  renameIdx that can work on row, column, or page indices.
 %%
 \item[Parameters:]~
@@ -18013,7 +18013,7 @@ This is a cheap operation than modifies meta-data kept in object. For
 expression denoted between slashes (e.g., '/(.*)/').\item[\texttt{new\_names}:]
  New names to replace existing ones OR regular expression
 
-replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{description}%
+replace string (no slashes, e.g, '\$1\_test'). See regexprep command.\end{description}%
 %
 \item[Returns:]~
 
@@ -18025,7 +18025,7 @@ replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{descri
  % Renaming an unnamed page:\\%
  >> new\_db = renamePages(a\_db, 1, 'Firing\_rate');\\%
  % Renaming using regular expressions: add suffix to all pages\\%
- >> new\_db = renamePages(a\_db, '/(.*)/', '$1\_old');\\%
+ >> new\_db = renamePages(a\_db, '/(.*)/', '\$1\_old');\\%
  % Renaming multiple pages:\\%
  >> new\_db = renamePages(a\_db, {'a', 'b'}, {'c', 'd'});\\%
 \end{lyxcode}
@@ -22062,7 +22062,7 @@ This is a cheap operation than modifies meta-data kept in object. For
  parameters are passed to the regexprep command after removing the
  delimiting slashes (//). At least one grouping construct ('()') must be
  used in the search pattern such that it can be used in the replacement
- pattern (e.g., '$1'). See example above. This function uses the generic
+ pattern (e.g., '\$1'). See example above. This function uses the generic
  renameIdx that can work on row, column, or page indices.
 %%
 \item[Parameters:]~
@@ -22075,7 +22075,7 @@ This is a cheap operation than modifies meta-data kept in object. For
 expression denoted between slashes (e.g., '/(.*)/').\item[\texttt{new\_names}:]
  New names to replace existing ones OR regular expression
 
-replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{description}%
+replace string (no slashes, e.g, '\$1\_test'). See regexprep command.\end{description}%
 %
 \item[Returns:]~
 
@@ -22087,7 +22087,7 @@ replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{descri
  % Renaming an unnamed column:\\%
  >> new\_db = renameColumns(a\_db, 1, 'Firing\_rate');\\%
  % Renaming using regular expressions: add suffix to all columns\\%
- >> new\_db = renameColumns(a\_db, '/(.*)/', '$1\_old');\\%
+ >> new\_db = renameColumns(a\_db, '/(.*)/', '\$1\_old');\\%
  % Renaming multiple columns:\\%
  >> new\_db = renameColumns(a\_db, {'a', 'b'}, {'c', 'd'});\\%
 \end{lyxcode}
@@ -22129,7 +22129,7 @@ This is a cheap operation than modifies meta-data kept in object. For
  parameters are passed to the regexprep command after removing the
  delimiting slashes (//). At least one grouping construct ('()') must be
  used in the search pattern such that it can be used in the replacement
- pattern (e.g., '$1'). See example above. This function uses the generic
+ pattern (e.g., '\$1'). See example above. This function uses the generic
  renameIdx that can work on row, column, or page indices.
 %%
 \item[Parameters:]~
@@ -22142,7 +22142,7 @@ This is a cheap operation than modifies meta-data kept in object. For
 expression denoted between slashes (e.g., '/(.*)/').\item[\texttt{new\_names}:]
  New names to replace existing ones OR regular expression
 
-replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{description}%
+replace string (no slashes, e.g, '\$1\_test'). See regexprep command.\end{description}%
 %
 \item[Returns:]~
 
@@ -22154,7 +22154,7 @@ replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{descri
  % Renaming an unnamed row:\\%
  >> new\_db = renameRows(a\_db, 1, 'Firing\_rate');\\%
  % Renaming using regular expressions: add suffix to all rows\\%
- >> new\_db = renameRows(a\_db, '/(.*)/', '$1\_old');\\%
+ >> new\_db = renameRows(a\_db, '/(.*)/', '\$1\_old');\\%
  % Renaming multiple rows:\\%
  >> new\_db = renameRows(a\_db, {'a', 'b'}, {'c', 'd'});\\%
 \end{lyxcode}
@@ -27990,7 +27990,7 @@ Prefer the convenience methods in tests\_db (renameColumns, renameRows) and
  old\_names and new\_names parameters are passed to the regexprep command
  after removing the delimiting slashes (//). At least one grouping
  construct ('()') must be used in the search pattern such that it can be
- used in the replacement pattern (e.g., '$1'). See example above.
+ used in the replacement pattern (e.g., '\$1'). See example above.
 %%
 \item[Parameters:]~
 \begin{description}%
@@ -28002,7 +28002,7 @@ Prefer the convenience methods in tests\_db (renameColumns, renameRows) and
 expression denoted between slashes (e.g., '/(.*)/').\item[\texttt{new\_names}:]
  New names to replace existing ones OR regular expression
 
-replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{description}%
+replace string (no slashes, e.g, '\$1\_test'). See regexprep command.\end{description}%
 %
 \item[Returns:]~
 
@@ -28014,7 +28014,7 @@ replace string (no slashes, e.g, '$1\_test'). See regexprep command.\end{descri
  % Renaming an unnamed column:\\%
  >> a\_db.col\_idx = renameIdx(a\_db.col\_idx, 1, 'Firing\_rate');\\%
  % Renaming using regular expressions: add a suffix to all columns\\%
- >> a\_db.col\_idx = renameIdx(a\_db.col\_idx, '/(.*)/', '$1\_old');\\%
+ >> a\_db.col\_idx = renameIdx(a\_db.col\_idx, '/(.*)/', '\$1\_old');\\%
  % Renaming multiple columns:\\%
  >> a\_db.col\_idx = renameIdx(a\_db.col\_idx, {'a', 'b'}, {'c', 'd'});\\%
  >> a\_db.col\_idx = renameIdx(a\_db.col\_idx, [1, 2], {'c', 'd'});\\%
