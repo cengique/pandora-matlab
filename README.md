@@ -43,7 +43,7 @@ Tutorials
 Documentation:
 --------------------
 
-See the PDF and HTML manuals under the [`doc/`](doc/) directory. They may be
+See the ['doc/prog-manual.pdf'](PDF) manual under the [`doc/`](doc/) directory. It may be
 somewhat outdated, but the online help using Matlab's `help` command
 will be always up-to-date.
 
