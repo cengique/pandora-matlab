@@ -1,7 +1,7 @@
 # Tutorial: Loading Intracellular Data
 
 # Load example data
-First download the example Matlab data file [from here](/software/pandora/pandora-package/pandora-tutorial-example-data-1/at_download/file "supp_mat_1_dat.mat") and load it like this:
+First download the example Matlab data file [from here](supp_mat_1_dat.mat) and load it like this:
 
     load('supp_mat_1_dat.mat')
 
@@ -48,7 +48,7 @@ will produce the following plot:
 
 You can type `help trace` or `doc trace` to get more help on trace options. If this gives you the help for the Matlab `trace` function for summing diagonal elements, try `pandora/trace` in the `help` and `doc` commands.
 
-Now you can continue onto the next tutorial on [Finding Spike Times](intracellular-spike-finding-tutorial).
+Now you can continue onto the next tutorial on [Finding Spike Times](finding-spikes-incf.markdown).
 
 # Loading other data formats
 
@@ -107,5 +107,5 @@ The better solution is to supply the custom filter while creating the `trace` ob
 
 which will automatically create a 2-pole Butterworth filter that has a bandpass between 50 - 3000 Hz. You can change these limits with the `lowPassFreq` and `highPassFreq` properties in `trace`. Just append them to the `struct` above.
 
-Next tutorial: [Finding Spike Times](intracellular-spike-finding-tutorial).
+Next tutorial: [Finding Spike Times](finding-spikes-incf.markdown).
 

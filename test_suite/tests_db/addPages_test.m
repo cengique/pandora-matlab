@@ -84,6 +84,17 @@ function testNameless( testCase )
     assert(b_db(1, 2, 'page1') == 2); 
     assert(b_db(1, 2, 'page2') == 2); 
   
+function testEmpty( testCase )
   
+    b_db = addPages(tests_3D_db, testCase.TestData.a_3_db);
+    assert(b_db.data(1, 1, 1) == 1);
+    assert(dbsize(b_db, 3) == 1);
+    assert(length(fieldnames(b_db.page_idx)) == 1);
+    assert(b_db(1, 2, 'page0') == 2); 
 
+function testSwapColsPages( testCase )
+  b_db = swapColsPages(addPages(testCase.TestData.a_3_db, testCase.TestData.a_3_db2));
   
+  assert(b_db.data(1, 1, 1) == 1);
+  assert(b_db.data(1, 2, 1) == 4);
+  assert(b_db.data(1, 2, 3) == 6);

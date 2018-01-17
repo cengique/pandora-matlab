@@ -1,7 +1,9 @@
-#LyX 1.6.7svn created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass article
 \begin_preamble
 \usepackage{ifthen}
@@ -127,47 +129,74 @@
 \newindex{funcref}{frx}{fnd}{Function Index}
 \end_preamble
 \use_default_options false
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding auto
-\font_roman times
-\font_sans default
-\font_typewriter default
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
-
+\font_sf_scale 100 100
+\font_tt_scale 100 100
 \graphics none
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize default
 \spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
-\use_amsmath 2
-\use_esint 0
-\cite_engine natbib_authoryear
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 1
 \paperpagestyle fancy
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
 
 \begin_layout Title
 Plotting and Analysis for Neural Database-Oriented Research Applications
- (PANDORA) Toolbox --- 
+ (PANDORA) Toolbox — 
 \begin_inset Newline newline
 \end_inset
 
@@ -517,7 +546,7 @@ link to extensibility section
 Finding your way around
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Finding-your-way-around"
+name "subsec:Finding-your-way-around"
 
 \end_inset
 
@@ -534,7 +563,7 @@ Matlab
 \end_layout
 
 \begin_layout LyX-Code
->> help djlab
+>> help classes
 \end_layout
 
 \begin_layout Standard
@@ -878,7 +907,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -999,7 +1028,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1254,7 +1283,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1421,7 +1450,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1573,7 +1602,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1717,7 +1746,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1909,7 +1938,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -2501,14 +2530,37 @@ name "sec:Recipes"
 \end_layout
 
 \begin_layout Subsection
+Create a database from arbitrary data
+\end_layout
+
+\begin_layout Standard
+A database can be created directly from a data matrix.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+>> cap = [1 2 3 1];
+\end_layout
+
+\begin_layout LyX-Code
+>> res = [5 6 4 5];
+\end_layout
+
+\begin_layout LyX-Code
+>> a_db = tests_db([cap' res'], {'Capacitance', 'Resistance'}, {}, ...
+\end_layout
+
+\begin_layout LyX-Code
+'Canton S - fake');
+\end_layout
+
+\begin_layout Subsection
 Loading a database
 \end_layout
 
 \begin_layout Standard
-A database can be created directly from a data matrix, or indirectly by
- loading a dataset.
- For the latter, first a dataset object must be created that point to the
- data sources.
+A secondary way would be to create a database from a dataset.
+ First a dataset object must be created that point to the data sources.
  There are different dataset classes that allow using different data sources.
  For instance, physiology and simulation data require different operations.
  In physiology data, one can record information about the treatments and
@@ -2550,7 +2602,7 @@ which initiates the loading of files.
 Creating a dataset for physiology data
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:loading-phys"
+name "subsec:loading-phys"
 
 \end_inset
 
@@ -3070,7 +3122,7 @@ rows3
 
 \begin_layout Standard
 which will create a database of neurons that spontaneously fire between
- 10--20 Hz.
+ 10–20 Hz.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3122,7 +3174,7 @@ NeuronId
 Sorting the database according to a measure
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Sorting-the-database"
+name "subsec:Sorting-the-database"
 
 \end_inset
 
@@ -3435,7 +3487,7 @@ ans =
 
 \begin_layout Subsection
 Preprocessing a raw (physiology) database by elimination and averaging 
-\begin_inset OptArg
+\begin_inset Argument 1
 status collapsed
 
 \begin_layout Plain Layout
@@ -3514,7 +3566,7 @@ cip_list
  optional parameter described in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:loading-phys"
+reference "subsec:loading-phys"
 
 \end_inset
 
@@ -3605,7 +3657,7 @@ Some measures can be deduced from measures collected from raw data.
 \begin_layout Subsubsection
 Averaging multiple traces of same neuron with same CIP-level and (pharmacologica
 l) parameters 
-\begin_inset OptArg
+\begin_inset Argument 1
 status collapsed
 
 \begin_layout Plain Layout
@@ -4843,7 +4895,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -4974,7 +5026,7 @@ Note that, in the output, database rows appear as columns, and database
  See in above Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:Sorting-the-database"
+reference "subsec:Sorting-the-database"
 
 \end_inset
 
@@ -4995,13 +5047,15 @@ displayRows
  reports.
  The 
 \family typewriter
-displayRowsTeX
+displayRows\SpecialChar TeX
+
 \family default
  method uses output from 
 \family typewriter
 displayRows
 \family default
- to generate a LaTeX table that can be printed or converted to PDF:
+ to generate a \SpecialChar LaTeX
+ table that can be printed or converted to PDF:
 \end_layout
 
 \begin_layout LyX-Code
@@ -5009,7 +5063,8 @@ displayRows
 \end_layout
 
 \begin_layout LyX-Code
-     displayRowsTeX(a_db(:, rows), 
+     displayRows\SpecialChar TeX
+(a_db(:, rows), 
 \end_layout
 
 \begin_layout LyX-Code
@@ -5025,15 +5080,18 @@ displayRows
 \end_layout
 
 \begin_layout Standard
-With this the LaTeX code to generate a table with the given caption is saved
+With this the \SpecialChar LaTeX
+ code to generate a table with the given caption is saved
  in a text file called 
 \family typewriter
 fast_spiking.tex
 \family default
 .
- This file can then be included from a regular LaTeX document to generate
- PDF output.
- See a LaTeX manual on how to do that.
+ This file can then be included from a regular \SpecialChar LaTeX
+ document to generate PDF
+ output.
+ See a \SpecialChar LaTeX
+ manual on how to do that.
 \end_layout
 
 \begin_layout Standard
@@ -5206,7 +5264,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -5275,7 +5333,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -5552,7 +5610,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -5689,7 +5747,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -5924,7 +5982,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -5979,13 +6037,17 @@ Most commonly a database of physiology neurons need to be compared to a
 \end_layout
 
 \begin_layout Standard
-Currently a LaTeX document is created that needs to be included in either
- a proper LaTeX document, or included in a LyX document.
+Currently a \SpecialChar LaTeX
+ document is created that needs to be included in either a proper
+ \SpecialChar LaTeX
+ document, or included in a \SpecialChar LyX
+ document.
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-This document is prepared using the LyX document preparation system 
+This document is prepared using the \SpecialChar LyX
+ document preparation system 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "lyx-03"
@@ -6013,8 +6075,9 @@ key "lamport-94"
 \end_inset
 
 .
- LyX is copyrighted by Matthias Ettrich and covered by the terms of the
- GNU General Public License (GPL), and 
+ \SpecialChar LyX
+ is copyrighted by Matthias Ettrich and covered by the terms of the GNU
+ General Public License (GPL), and 
 \begin_inset ERT
 status collapsed
 
@@ -6039,7 +6102,8 @@ Knuth and the Free Software Foundation, Inc.
 \begin_inset space ~
 \end_inset
 
-and is covered by both the TeX copyright and the GNU GPL.
+and is covered by both the \SpecialChar TeX
+ copyright and the GNU GPL.
 \end_layout
 
 \end_inset
@@ -6048,8 +6112,8 @@ and is covered by both the TeX copyright and the GNU GPL.
  part becomes meaningful.
  The report contains a set of tables and figures with proper captions.
  The table of contents, list of figures and list of tables facilities of
- LaTeX becomes useful to make the automatically generated document eaisly
- readable.
+ \SpecialChar LaTeX
+ becomes useful to make the automatically generated document eaisly readable.
  
 \end_layout
 
@@ -6081,7 +6145,8 @@ phys_sdb
 \family typewriter
 tex_string
 \family default
- can be saved as a ASCII LaTeX file with
+ can be saved as a ASCII \SpecialChar LaTeX
+ file with
 \end_layout
 
 \begin_layout LyX-Code
@@ -6119,7 +6184,7 @@ name "sec:Function-Reference"
 See Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:Finding-your-way-around"
+reference "subsec:Finding-your-way-around"
 
 \end_inset
 

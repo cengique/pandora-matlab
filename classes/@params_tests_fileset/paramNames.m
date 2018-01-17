@@ -63,8 +63,12 @@ elseif ~ isfield(props, 'num_params') || props.num_params ~= 0
   else
     num_params = size(names_vals, 1);
   end
-  
-  param_names = { names_vals{1:num_params, 1} };
+
+  if num_params > 0 
+    param_names = { names_vals{1:num_params, 1} };
+  else
+    param_names = {};
+  end
 end
 
 % parameter names in addition to the ones specified in data filenames

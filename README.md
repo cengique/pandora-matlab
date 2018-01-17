@@ -38,11 +38,12 @@ Tutorials
   from recordings or simulations to create trace objects.
 * [Intracellular spike finding](doc/tutorials/incf/finding-spikes-incf.markdown)
 * [Extracting and analyzing firing properties (rate, spike amplitude, etc.)](doc/tutorials/incf/extracting-spike-info.markdown)
+* [Creating a database from files](doc/tutorials/incf/database_from_dataset_tutorial.md)
 
 Documentation:
 --------------------
 
-See the PDF and HTML manuals under the [`doc/`](doc/) directory. They may be
+See the ['doc/prog-manual.pdf'](PDF) manual under the [`doc/`](doc/) directory. It may be
 somewhat outdated, but the online help using Matlab's `help` command
 will be always up-to-date.
 

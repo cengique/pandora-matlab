@@ -42,7 +42,12 @@ new_page_id = dbsize(obj, 3) + 1;
 if isa(page_names, 'tests_3D_db')
   to_db = page_names;
   if dbsize(to_db, 1) == 0
-    warning('tests_3D_db/addPages: Ignoring empty db');
+    warning('tests_3D_db/addPages: Ignoring empty db (right side)');
+    return;
+  end
+  if dbsize(obj, 1) == 0
+    warning('tests_3D_db/addPages: Ignoring empty db (left side)');
+    obj = to_db;
     return;
   end
   page_names = fieldnames(get(to_db, 'page_idx'));
@@ -58,7 +63,12 @@ if isa(page_names, 'tests_3D_db')
 elseif isa(page_names, 'tests_db')
   to_db = page_names;
   if dbsize(to_db, 1) == 0
-    warning('tests_3D_db/addPages: Ignoring empty db');
+    warning('tests_3D_db/addPages: Ignoring empty db (right side)');
+    return;
+  end
+  if dbsize(obj, 1) == 0
+    warning('tests_3D_db/addPages: Ignoring empty db (left side)');
+    obj = to_db;
     return;
   end
   % No page names maintained in tests_db
@@ -90,7 +100,7 @@ end
 
 % Update the meta-data
 new_page_idx = get(obj, 'page_idx');
-if isempty(new_page_idx) || isempty(fieldnames(new_page_idx))
+if (isempty(new_page_idx) || isempty(fieldnames(new_page_idx)))
   new_page_idx = struct;
 
   % create default page names

@@ -68,6 +68,7 @@ end
 
 pre_name = filename(1:max(1, sep_indices(word_num) - 1));
 
+names_vals = {};
 for param_num=1:floor((length(sep_indices) - word_num + 1) / 2)
   % Get the value from here to the first separator
   index = 2 * param_num + word_num - 1;
