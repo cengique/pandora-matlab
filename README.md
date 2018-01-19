@@ -43,7 +43,7 @@ Tutorials
 Documentation:
 --------------------
 
-See the ['doc/prog-manual.pdf'](PDF) manual under the [`doc/`](doc/) directory. It may be
+See the [PDF](doc/prog-manual.pdf) manual under the [`doc/`](doc/) directory. It may be
 somewhat outdated, but the online help using Matlab's `help` command
 will be always up-to-date.
 
@@ -59,4 +59,4 @@ http://opensource.org/licenses/afl-3.0.txt.
 Contact:
 --------------------
 
-Contact me directly if you have any questions or patches! (cengique AT users.sf.net).
+Open new issues on GitHub or contact me at this address! (cengique AT users.sf.net).
