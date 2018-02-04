@@ -7,7 +7,7 @@ SHELL = /bin/sh
 .SUFFIXES: .c
 
 TARNAME = pandora
-VERSION = 1.3b
+VERSION = 1.4b
 
 DIRNAME = $(TARNAME)-$(VERSION)
 DOCDIR = $(DIRNAME)-htmldoc
