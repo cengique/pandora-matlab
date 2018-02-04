@@ -33,7 +33,7 @@ function a_plot = plot_bars(a_stats_db, title_str, props)
 % http://opensource.org/licenses/afl-3.0.php.
 
 if ~ exist('props', 'var')
-  props = struct([]);
+  props = struct;
 end
 
 if ~ exist('title_str', 'var')

@@ -1,3 +1,6 @@
+% Example data from Natalia Toporikova from sensory neuron from
+% electrosensory lateral line lobe (ELL) of electric fish.
+
 %load('R:\Cengiz\pyloric-sensordb\temp\example_for_pandora.mat')
 load('example_for_pandora.mat')
 

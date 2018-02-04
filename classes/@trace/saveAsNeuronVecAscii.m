@@ -16,7 +16,7 @@ function saveAsNeuronVecAscii(a_t, filename)
 % Data converted to Neuron units of nA and mV. Uses writeNeuronVecAscii.
 %
 % Example:
-%   saveAsNeuronVecAscii('myvec.dat', data, 1e-4, 1e-3, 'V', 'my membrane voltage');
+%   saveAsNeuronVecAscii(a_trace_obj, 'myvec.dat');
 %
 % Also see: writeNeuronVecAscii, dlmread, http://www.neuron.yale.edu
 %
@@ -30,5 +30,5 @@ function saveAsNeuronVecAscii(a_t, filename)
 
   filename = defaultValue('filename', [ 'neuron-vec-' a_t.id '.dat']);
   
-  writeNeuronVecAscii(filename, a_t.data, ...
-                      a_t.dt, a_t.dy, a_t.props.unit_y, a_t.id);
+  writeNeuronVecAscii(filename, (0:(size(a_t.data, 1) - 1)), a_t.data, ...
+                      a_t.dt, a_t.dy, 's', a_t.props.unit_y, a_t.id);

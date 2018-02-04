@@ -47,6 +47,12 @@ See the [PDF](doc/prog-manual.pdf) manual under the [`doc/`](doc/) directory. It
 somewhat outdated, but the online help using Matlab's `help` command
 will be always up-to-date.
 
+Other resources:
+--------------------
+
+- [CNS*2014 Neuronal Parameter Search Techniques tutorial](https://sites.google.com/site/neuroparamsearchtut/) files and information
+- [Parallel parameter search scripts for neuron models](https://github.com/cengique/param-search-neuro) intended for high-performance computing clusters
+
 Copyright:
 --------------------
 
@@ -60,3 +66,8 @@ Contact:
 --------------------
 
 Open new issues on GitHub or contact me at this address! (cengique AT users.sf.net).
+
+Acknowledgments:
+--------------------
+
+See the [CREDITS](CREDITS) file.
