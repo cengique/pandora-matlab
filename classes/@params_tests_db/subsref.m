@@ -1,4 +1,4 @@
-function b = subsref(a,index)
+function varargout = subsref(a,index)
 % subsref - Defines generic indexing for objects.
 
 % Copyright (c) 2007 Cengiz Gunay <cengique@users.sf.net>.
@@ -15,7 +15,7 @@ function b = subsref(a,index)
 % If a is an array, use built-in methods
 num_dbs = length(a);
 if num_dbs > 1
-  b = builtin('subsref', a, index);
+  varargout{1} = builtin('subsref', a, index);
   return;
 end
 
@@ -23,14 +23,14 @@ if size(index, 2) > 1
   % if a sequence of indexing operators present
   first = subsref(a, index(1));
   % recursive
-  b = subsref(first, index(2:end));
+  varargout{1} = subsref(first, index(2:end));
 else
   switch index.type
     case '()'
       if length(index.subs) == 1
-	b = a(index.subs{1});
+	varargout{1} = a(index.subs{1});
       else
-	b = onlyRowsTests(a, index.subs{:});
+	varargout{1} = onlyRowsTests(a, index.subs{:});
       end
     case '.'
       % If multiple DBs addressed at the same time
@@ -49,13 +49,13 @@ else
 % $$$ 	end
 % $$$       else
 	% Ground case: only one DB, only one index
-	b = get(a, index.subs); 
+	varargout{1} = get(a, index.subs); 
 % $$$       end
     case '{}'
       if num_dbs > 1
-        b = builtin('subsref', a, index);
+        varargout{1} = builtin('subsref', a, index);
         return;
       end
-      b = a{index.subs{:}};
+      varargout{1} = a{index.subs{:}};
   end
 end
