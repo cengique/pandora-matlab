@@ -18,19 +18,21 @@ function [a_bundle, a_new_db, a_new_joined_db] = ...
 %     writePar: If 1, create a new par file (default=0).
 %
 % Returns:
-%   a_bundle: The bundle with updated parameters and measures.
-%   a_new_db: Newly created rows.
-%   a_new_joined_db: Newly created rows joined.
+%   a_bundle: The bundle with updated parameters and measures. If trial
+%   	specified, only return the new item, which is easy to merge later.
+%   a_new_db: Newly created rows. If trial specified, treated similar to a_bundle.
+%   a_new_joined_db: Newly created rows joined. If trial specified, treated similar to a_bundle.
 %
 % Description:
-%
+%   Warning: specific to Genesis simulation sets.
+% 
 % See also: params_tests_dataset/loadItemProfile
 %
 % $Id$
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2014/06/23
 
-% Copyright (c) 2014 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2014-2019 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit
@@ -117,10 +119,11 @@ if ind_mode
   % only output the new trial data, erase previous items
   a_dataset.list = [ {files.name} ];
   a_dataset.props.param_names = ...
-      getColNames(a_param_row_db);
+      getParamNames(a_param_row_db);
   a_dataset.props.param_rows = ...
     [ get(a_param_row_db(1, 1:a_param_row_db.num_params), 'data') ];
 
+  % read files and analyze data
   dataset_db = ...
       params_tests_db(a_dataset, 1:num_files);
   joined_db = ...
