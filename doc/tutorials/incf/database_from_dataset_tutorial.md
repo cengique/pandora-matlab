@@ -11,8 +11,7 @@ In this tutorial, we will cover how to create a generic database object. The sco
  1.1. The Necessary Files
  --
 
-
- ``pandora-matlab\doc\tutorials\incf\file.txt``
+First download the example Matlab data file [`file.txt`](file.txt).
  
  In pandora there are several methods for creating a DataSet object. we will be using the ``>>params_tests_fileset`` object method. This object uses raw data from a grouping of files using any number of files you'd like. We will be using the following command to create the dataset.
  
@@ -39,8 +38,6 @@ This indicates that we want all `.txt` files only.  See ``>>help trace`` for a l
 Now that we've gotten our parameter values, we are going to need some data.
 
 We will be using the `ASCII` file format for our data.
-
-Now call: `>>load('file.txt')` in the command window. 
 
 (For more practice with data, please see [Loading Intracellular Data](load-trace.markdown) )
 
