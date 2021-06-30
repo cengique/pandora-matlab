@@ -63,3 +63,50 @@ string2File(displayRowsTeX(sortrows(merged_db, 'NeuronId'), ...
                                   'label', 'tbl:ttx-cells')), ['example-' ...
                     'table.tex'])
 ```
+
+# Example for invariant parameter effects
+
+Display database contents of TTX cells (see Table 4 in manuscript)
+
+```matlab
+displayRows(sortrows(ttx_example1_db, 'NeuronId'))
+```
+
+% select two TTX concentrations and three neurons
+```matlab
+ttx_reduced_db = ttx_example1_db(anyRows(ttx_example1_db(:, 'TTX'), [0; ...
+                    7e-9]) & anyRows(ttx_example1_db(:, 'NeuronId'), [107; ...
+                   108; 110]), :)
+```
+
+% find invariant parameter effects on extracted characteristics
+```matlab
+ttx_invar_reduced_db = invarParam(delColumns(ttx_reduced_db, 'TracesetIndex'), 'TTX')
+```
+
+% Find differential effects of TTX on rate
+```matlab
+ttx_diffed_db = diff2D(ttx_invar_reduced_db, 'D100pA_steady_rate');
+```
+
+% Plot as a bar plot (Figure 8C in manuscript)
+```matlab
+plotFigure(plotBox(ttx_diffed_db(:, 'd1_2'), '', ...
+                   struct('quiet', 1, 'putLabels', 1, 'fixedSize', ...
+                          [2.5 2], 'colormap', [0 0 0])))
+```
+
+
+% Find statistics of parameter effects
+```matlab
+ttx_stats_db = statsMeanSE(swapRowsPages(ttx_invar_reduced_db));
+```
+
+% plot bar plot showing parameter effects (see Figure 8B in manuscript)
+```matlab
+plotFigure(plot_bars(ttx_stats_db(:, {'TTX', 'D100pA_steady_rate'}, :), ...
+                     '', ...
+                     struct('pageVariable', 'TTX', 'axisLimits', [NaN NaN ...
+                    20 30], 'quiet', 1, 'fixedSize', [2.5 2], 'colormap', ...
+                            [0 0 0])))
+```
