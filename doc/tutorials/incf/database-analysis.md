@@ -30,3 +30,36 @@ string2File(displayRowsTeX(sortrows(avg_example1_db, 'pAcip'), ...
                                   'label', 'tbl:ttx-cells')), 'example-table.tex')
 ```
 
+# Example for combining (merging) rows
+
+Display example database contents before merging (see Table S1A in manuscript)
+
+```matlab
+displayRowsTeX(sortrows(merge_example_db, 'NeuronId'))
+```
+
+Merge columns into rows
+
+```matlab
+merged_db = ...
+   mergeMultipleCIPsInOne(delColumns(merge_example_db(:, :, 1), ...
+				     {'NumDuplicates', 'RowIndex'}), ...
+			  {'_0pA', 9, ...
+			      '_D100pA', 9, '_D200pA', 9})
+```
+
+Display after merging
+
+```matlab
+displayRowsTeX(sortrows(merged_db, 'NeuronId'))
+```
+
+Optionally, generate a formatted LaTeX table (see Table S1B in manuscript)
+
+```matlab
+string2File(displayRowsTeX(sortrows(merged_db, 'NeuronId'), ...
+                           'Parameter in the raw cell database.', ...
+                           struct('rotate', 0, 'width', '\textwidth', ...
+                                  'label', 'tbl:ttx-cells')), ['example-' ...
+                    'table.tex'])
+```
