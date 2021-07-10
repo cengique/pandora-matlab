@@ -1,21 +1,18 @@
-* Ralph Meier <meier@biologie.uni-freiburg.de> - Author of FIND Toolbox (http://find.bccn.uni-freiburg.de)
-He has an external link to the Pandora web page. I have a link to him, too.
-
-* Bill Lytton - plans to use the toolbox, but has no matlab.
-
-* Adam Weaver is expecting to see the neuroinf paper
-
 Repositories:
 
-* INCF Software center has an entry for Pandora: 
-  http://software.incf.org/software/pandora/home
+* Matlab Central File Exchange 
+  https://www.mathworks.com/matlabcentral/fileexchange/60237-cengique-pandora-matlab
 
 * SimToolDB of SenseLab at Yale Univ.
   https://senselab.med.yale.edu/simtooldb/ShowTool.asp?Tool=112112
-
-* Matlab Central File Exchange [to be submitted]
 
 Related projects:
 
 * PyPet python parameter exploration toolkit for data storage and simulation management
   http://pypet.readthedocs.org/en/latest/
+
+* FIND Toolbox (http://find.bccn.uni-freiburg.de)
+  Ralph Meier <meier@biologie.uni-freiburg.de> 
+
+* SPIKY Toolbox (https://arxiv.org/abs/1410.6910)
+  Thomas Kreuz <thomas.kreuz@cnr.it>
