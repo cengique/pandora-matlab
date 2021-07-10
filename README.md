@@ -17,6 +17,8 @@ If you use PANDORA, please cite this paper from your software or publications:
 
 You should also cite the [RRID: SCR_001831](https://scicrunch.org/resources/about/registry/SCR_001831)
 
+[![View cengique/pandora-matlab on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/60237-cengique-pandora-matlab)
+
 Installation:
 --------------------
 
