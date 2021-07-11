@@ -15,7 +15,7 @@ If you use PANDORA, please cite these from your software or publications:
 
 - **Günay C, Edgerton JR, Li S, Sangrey T, Prinz AA, Jaeger D (2009)** Database analysis of simulated and recorded electrophysiological datasets with Pandora's toolbox. *Neuroinformatics*, 7(2):93-111. doi: 10.1007/s12021-009-9048-z. ([PDF](doc/neuroinf-published-online-2009-06-02.pdf))
 - [RRID: SCR_001831](https://scicrunch.org/resources/about/registry/SCR_001831)
-- [Pandora page in SimToolDB](https://senselab.med.yale.edu/simtooldb/ShowTool.asp?Tool=112112)
+- [Pandora page in SimToolDB](https://senselab.med.yale.edu/SimToolDB/showTool.cshtml?Tool=112112)
 
 [![View cengique/pandora-matlab on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/60237-cengique-pandora-matlab)
 

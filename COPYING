@@ -1,5 +1,5 @@
 
-Copyright (c) 2007, 2008 Cengiz Gunay <cengique@users.sf.net>. 
+Copyright (c) 2007-2021 Cengiz Gunay <cengique@users.sf.net>. 
 
 The PANDORA source code is licensed under the Academic Free License
 ("AFL") v. 3.0. Please also read the attribution notice below for
@@ -37,14 +37,14 @@ Neuroinformatics Journal. 2008.
 And/or you can cite one the following URLs, ordered according to
 higher preference, after making sure that they are still valid:
 
-1) International Neuroinformatics Coordinating Facility Software Center:
-  http://software.incf.org/software/pandora/home
+1) Github page
+   https://github.com/cengique/pandora-matlab   
 
-2) SimToolDB of SenseLab at Yale Univ.
+2) Mathworks FileExchange page
+   https://www.mathworks.com/matlabcentral/fileexchange/60237-cengique-pandora-matlab
+
+3) SimToolDB of SenseLab at Yale Univ.
    http://senselab.med.yale.edu/simtooldb
-
-3) PANDORA home page
-   http://userwww.service.emory.edu/~cgunay/pandora
 
 4) Cengiz Gunay's home page
    http://cengique.2y.net/~cengiz
