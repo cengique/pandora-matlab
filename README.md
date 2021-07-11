@@ -34,6 +34,14 @@ Matlab search path. For example:
 To test the installation try `help tests_db` and `help collectspikes`,
 which should give you their help text.
 
+Videos
+--------------------
+
+![CNS*2020 Showcase - 30 minutes](https://www.youtube.com/watch?v=ctN7wPl_eAE&t=3847s)
+
+![CNS*2021 Tutorial - 3 hours](https://www.youtube.com/watch?v=Q7Gc-Dq48Yw)
+
+
 Tutorials
 --------------------
 
@@ -51,7 +59,7 @@ See the [PDF](doc/prog-manual.pdf) manual under the [`doc/`](doc/) directory. It
 somewhat outdated, but the online help using Matlab's `help` command
 will be always up-to-date.
 
-Other resources:
+Presentations:
 --------------------
 
 - [CNS*2014 Neuronal Parameter Search Techniques tutorial](https://sites.google.com/site/neuroparamsearchtut/) files and information
@@ -67,7 +75,7 @@ Related projects:
 Copyright:
 --------------------
 
-Copyright (c) 2007-17 Cengiz Gunay <cengique AT users.sf.net> and
+Copyright (c) 2007-21 Cengiz Gunay <cengique AT users.sf.net> and
 Emory University.  This work is licensed under the Academic Free
 License ("AFL") v. 3.0. To view a copy of this license, please look at
 the COPYING file distributed with this software or visit
