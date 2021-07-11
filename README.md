@@ -37,10 +37,8 @@ which should give you their help text.
 Videos
 --------------------
 
-![CNS*2020 Showcase - 30 minutes](https://www.youtube.com/watch?v=ctN7wPl_eAE&t=3847s)
-
-![CNS*2021 Tutorial - 3 hours](https://www.youtube.com/watch?v=Q7Gc-Dq48Yw)
-
+- [CNS*2020 Showcase - 30 minutes](https://www.youtube.com/watch?v=ctN7wPl_eAE&t=3847s)
+- [CNS*2021 Tutorial - 3 hours](https://www.youtube.com/watch?v=Q7Gc-Dq48Yw)
 
 Tutorials
 --------------------
