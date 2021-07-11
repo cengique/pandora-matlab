@@ -11,13 +11,14 @@ PANDORA is a Matlab Toolbox that:
 - Is flexible, can easily tie with existing Matlab scripts; 
 - Can query database as in SQL. 
 
-If you use PANDORA, please cite this paper from your software or publications:
+If you use PANDORA, please cite these from your software or publications:
 
-**Günay C, Edgerton JR, Li S, Sangrey T, Prinz AA, Jaeger D (2009)** Database analysis of simulated and recorded electrophysiological datasets with Pandora's toolbox. *Neuroinformatics*, 7(2):93-111. doi: 10.1007/s12021-009-9048-z.
-
-You should also cite the [RRID: SCR_001831](https://scicrunch.org/resources/about/registry/SCR_001831)
+- **Günay C, Edgerton JR, Li S, Sangrey T, Prinz AA, Jaeger D (2009)** Database analysis of simulated and recorded electrophysiological datasets with Pandora's toolbox. *Neuroinformatics*, 7(2):93-111. doi: 10.1007/s12021-009-9048-z. ([PDF](doc/neuroinf-published-online-2009-06-02.pdf))
+- [RRID: SCR_001831](https://scicrunch.org/resources/about/registry/SCR_001831)
+- [Pandora page in SimToolDB](https://senselab.med.yale.edu/simtooldb/ShowTool.asp?Tool=112112)
 
 [![View cengique/pandora-matlab on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/60237-cengique-pandora-matlab)
+
 
 Installation:
 --------------------
@@ -56,6 +57,13 @@ Other resources:
 - [CNS*2014 Neuronal Parameter Search Techniques tutorial](https://sites.google.com/site/neuroparamsearchtut/) files and information
 - [Parallel parameter search scripts for neuron models](https://github.com/cengique/param-search-neuro) intended for high-performance computing clusters
 
+Related projects:
+--------------------
+
+* [PyPet python parameter exploration toolkit](http://pypet.readthedocs.org/en/latest/) for data storage and simulation management
+* [FIND Toolbox](http://find.bccn.uni-freiburg.de) by Ralph Meier (meier AT biologie.uni-freiburg.de)
+* [SPIKY Toolbox](https://arxiv.org/abs/1410.6910) by Thomas Kreuz (thomas.kreuz AT cnr.it)
+
 Copyright:
 --------------------
 
@@ -73,4 +81,4 @@ Open new issues on GitHub or contact me at this address! (cengique AT users.sf.n
 Acknowledgments:
 --------------------
 
-See the [CREDITS](CREDITS) file.
+See the [CREDITS](CREDITS).
