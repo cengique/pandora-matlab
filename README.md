@@ -37,8 +37,8 @@ which should give you their help text.
 Videos
 --------------------
 
-- [CNS*2020 Showcase - 30 minutes](https://www.youtube.com/watch?v=ctN7wPl_eAE&t=3847s)
-- [CNS*2021 Tutorial - 3 hours](https://www.youtube.com/watch?v=Q7Gc-Dq48Yw)
+- [Short introduction to PANDORA - 30 minutes](https://www.youtube.com/watch?v=ctN7wPl_eAE&t=3847s)
+- [Signal processing and tabular data analysis - 3 hours](https://www.youtube.com/watch?v=Q7Gc-Dq48Yw)
 
 Tutorials
 --------------------
@@ -60,8 +60,11 @@ will be always up-to-date.
 Presentations:
 --------------------
 
-- [CNS*2014 Neuronal Parameter Search Techniques tutorial](https://sites.google.com/site/neuroparamsearchtut/) files and information
+- [CNS*2021 Tutorial](https://cengique.github.io/cns2020-tutorials-website/2021/06/30/cns2021-tutorial-pandora.html)
+- [CNS*2020 Showcase](https://cengique.github.io/cns2020-tutorials-website/2020/07/18/cns2020-showcase.html)
 - [Parallel parameter search scripts for neuron models](https://github.com/cengique/param-search-neuro) intended for high-performance computing clusters
+- [CNS*2014 Neuronal Parameter Search Techniques tutorial](https://sites.google.com/site/neuroparamsearchtut/) files and information
+
 
 Related projects:
 --------------------
