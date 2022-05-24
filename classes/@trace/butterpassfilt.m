@@ -22,7 +22,7 @@ function t = butterpassfilt(t, n, cutoff_freq, filter_type)
 %
 % $Id$
 %
-% Author: Cengiz Gunay <cgunay@emory.edu>, 2010/04/08
+% Author: Ekechi Nzewi <ekechi29@gmail.com>, 2022/02/24
 
 % Copyright (c) 2010 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
