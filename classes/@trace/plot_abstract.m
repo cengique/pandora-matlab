@@ -1,6 +1,6 @@
 function a_plot = plot_abstract(t, title_str, props)
 
-% plot_abstract - Plots a trace by calling plotData.
+% plot_abstract - Plots a trace.
 %
 % Usage: 
 % a_plot = plot_abstract(t, title_str, props)
@@ -13,6 +13,7 @@ function a_plot = plot_abstract(t, title_str, props)
 %	title_str: (Optional) String to append to plot title.
 %	props: A structure with any optional properties.
 %	  timeScale: 's' for seconds, or 'ms' for milliseconds.
+%	  quiet: If 1, only display given title_str.
 %	  (rest passed to plot_abstract.)
 %
 %   Returns:
@@ -36,4 +37,86 @@ end
 
 title_str = defaultValue('title_str', '');
 
-a_plot = plotData(t, title_str, props);
+% If input is an array, then return array of plots
+num_dbs = length(t);
+if num_dbs > 1 
+  % Create array of plots
+  [a_plot(1:num_dbs)] = deal(plot_abstract);
+  for plot_num = 1:num_dbs
+    a_plot(plot_num) = plotData(t(plot_num), title_str, props);
+  end
+  return;
+end
+
+if ~isfield(props, 'timeScale')
+  props.timeScale = 'ms';
+end
+
+time = (0:(size(t.data, 1) - 1)) * t.dt; % in s
+switch props.timeScale
+  case 's'
+    xlabel = 'time [s]';
+  case 'ms'
+    time = time * 1e3; % in ms
+    xlabel = 'time [ms]';
+end
+
+% default:
+scale_y = 1/t.dy;
+unit_y = getFieldDefault(t.props, 'unit_y', 'V');
+
+switch (unit_y)
+  case 'A'
+    switch (t.dy)
+      case 1e-9
+        curunit = 'nA';
+      case 1e-12
+        curunit = 'pA';
+      case 1e-15
+        curunit = 'pA';
+        scale_y = 1e12;
+      case 1e-6
+        curunit = '\mu{}A'; 
+      otherwise
+        curunit = 'nA';
+        scale_y = 1e9;
+    end
+    ylabel = [ 'current [' curunit ']' ];
+  case 'V'
+    % heuristic to detect non-millivolt range data
+    if t.dy > 1e-3 && ~isempty(t.data) && max(t.data*t.dy) > 1
+      scale_y = 1;
+      ylabel = 'voltage [V]';
+    else
+      scale_y = 1e3;
+      ylabel = 'voltage [mV]';
+    end
+  otherwise
+    error([ 'Unit name ''' t.props.unit_y ''' not recognized. Must be ' ...
+            'one of ''A'' or ''V''.' ]);
+end
+
+% overwrite if given 
+if isfield(t.props, 'y_label')
+  ylabel = t.props.y_label;
+end
+
+% Remove all '_' characters, because they interfere with TeX interpretation
+
+the_legend = t.id;
+if isfield(t.props, 'quiet') || isfield(props, 'quiet')
+  if isempty(title_str)
+    the_title = t.id;
+  else
+    the_title = title_str;
+    the_legend = title_str;
+  end
+else
+  class_name = strrep(class(t), '_', ' ');
+  the_title = [ sprintf('%s: %s', class_name, t.id) title_str ];
+end
+
+a_plot = plot_abstract({time, t.dy * t.data * scale_y}, ...
+		       {xlabel, ylabel}, ...
+		       properTeXLabel(the_title), ...
+		       {properTeXLabel(the_legend)}, 'plot', props);
