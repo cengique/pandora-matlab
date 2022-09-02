@@ -13,7 +13,9 @@ function [times, peaks, n] = ...
 %   cip period effects, and high-frequency noise that is detected 
 %   as local peaks by findspikes. The spikes found are 
 %   post-processed to make sure the rise and fall times are consistent.
-%   Note: The filter employed only works with data sampled at 10kHz.
+%   Note: The filter employed only works with data sampled at 10kHz. For
+%   other sampling frequencies, apply a custom filter using the butterWorth
+%   property below.
 %
 % Parameters: 
 %   t: Trace object
@@ -23,6 +25,7 @@ function [times, peaks, n] = ...
 % 	--> adjust as necessary to discriminate spikes from EPSPs.
 %   props: A structure with any optional properties, such as:
 %     downThreshold: Size of trough after spike (default=-2)
+%     butterWorth: Custom filter to apply; put output of butter() function.
 %
 % Returns:
 %   times: The times of spikes [dt].
@@ -47,9 +50,6 @@ function [times, peaks, n] = ...
 
 props = defaultValue('props', struct);
 
-s = load('spike_filter_50_3000Hz_ChebII.mat');
-fields = fieldnames(s);
-fd = getfield(s, fields{1});	% Assuming there's only one element
 dn_threshold = getFieldDefault(props, 'downThreshold', -2);
 
 % Scale to mV for spike finder
@@ -96,6 +96,9 @@ else
            'Choose another spike_finder method or supply a custom filter ' ...
            '(see trace)']);
   end
+  s = load('spike_filter_50_3000Hz_ChebII.mat');
+  fields = fieldnames(s);
+  fd = getfield(s, fields{1});	% Assuming there's only one element
   filtered = filtfilt(fd.tf.num, fd.tf.den, data);
 end
 
