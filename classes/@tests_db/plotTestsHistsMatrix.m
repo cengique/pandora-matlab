@@ -14,7 +14,7 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 %     histBins: Number of histogram bins.
 %     quiet: Don't put the DB id on the title.
 %     plotProps: Props passed to individual plots.
-%     stackProps: Passed to vertical plot stacks.
+%     stackProps: Passed to plot stacks (only vertical stack in matrix form).
 % 
 % Returns:
 %   a_pm: A plot_stack with the plots organized in matrix form.

@@ -36,7 +36,7 @@ else
   bin_param = {};
 end
 
-t_hists = repmat(histogram_db, num_tests, num_dbs);
+t_hists(1:num_tests, 1:num_dbs) = deal(histogram_db);
 % use cells instead OR use a 2nd dimension!
 %t_hists = cell(1, num_tests);
 for test_num=1:num_tests
