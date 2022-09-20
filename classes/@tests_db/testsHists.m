@@ -1,4 +1,4 @@
-function t_hists = testsHists(a_db, num_bins)
+function t_hists = testsHists(a_db, num_bins, props)
 
 % testsHists - Calculates histograms for all tests.
 %
@@ -27,19 +27,22 @@ function t_hists = testsHists(a_db, num_bins)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+if ~ exist('props', 'var')
+  props = struct;
+end
+
 num_tests = dbsize(a_db(1), 2);
 num_dbs = length(a_db);
 
 if exist('num_bins', 'var')
-  bin_param = { num_bins };
+  bin_param = num_bins;
 else
-  bin_param = {};
+  bin_param = [];
 end
 
 t_hists(1:num_tests, 1:num_dbs) = deal(histogram_db);
 % use cells instead OR use a 2nd dimension!
 %t_hists = cell(1, num_tests);
 for test_num=1:num_tests
-  params = {a_db, test_num, bin_param{:}};
-  t_hists(test_num, :) = histogram(params{:});
+  t_hists(test_num, :) = histogram(a_db, test_num, bin_param, props);
 end
