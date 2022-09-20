@@ -17,7 +17,8 @@ function a_plot = plot_abstract(a_hist_db, title_str, props)
 %     shading: 'faceted' (default) or 'flat'.
 %     barWidth: Controls spacing between bars (see width argument for the
 %     		bar command; default=0.8).
-%     quiet: If 1, don't include database name on title.
+%     showId: If 1, append database id to frequency label.
+%     quiet: If 1, do not show column and database name on title.
 %		
 %   Returns:
 %	a_plot: A object of plot_abstract or one of its subclasses.
@@ -78,6 +79,10 @@ if isfield(a_hist_props, 'normalized') && a_hist_props.normalized == 1
   hist_label = 'Frequency';
 else
   hist_label = 'Count';
+end
+
+if isfield(props, 'showId')
+    hist_label = [ strrep(get(a_hist_db, 'id'), '_', '\_'), ' ', hist_label];
 end
 
 % if the plot is rotated switch the axis labels

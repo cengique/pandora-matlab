@@ -15,6 +15,7 @@ function a_histogram_db = histogram(db, col, num_bins, props)
 %	num_bins: Number of histogram bins (Optional, default=100), or
 %		  vector of histogram bin centers.
 %	props: A structure with any optional properties.
+%	  shortId: If 1, only include db Id in label.
 %	  normalized: If 1, normalize histogram counts.
 %
 %   Returns:
@@ -101,6 +102,12 @@ end
 col_name_cell = fieldnames(col_db.col_idx);
 col_name = col_name_cell{1};
 
+if isfield(props, 'shortId')
+    hist_id = db.id;
+else
+    hist_id = [ col_name ' of ' db.id ];
+end
+
 a_histogram_db = histogram_db(col_name, bins', hist_results', ...
-			      [ col_name ' of ' db.id ], props);
+			      hist_id, props);
 end

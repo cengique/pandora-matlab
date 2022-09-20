@@ -13,7 +13,7 @@ function a_pm = plotTestsHistsMatrix(a_db, title_str, props)
 %     orient: Orientation of the plot_stack. 'x', 'y', or 'matrix' (default).
 %     histBins: Number of histogram bins.
 %     quiet: Don't put the DB id on the title.
-%     plotProps: Props passed to individual plots.
+%     histProps: Props passed to individual plots.
 %     stackProps: Passed to plot stacks (only vertical stack in matrix form).
 % 
 % Returns:
@@ -48,9 +48,9 @@ end
 stack_props = getFieldDefault(props, 'stackProps', struct);
 
 if isfield(props, 'histBins')
-  hist_pars = {a_db, props.histBins};
+  hist_pars = {a_db, props.histBins, props};
 else
-  hist_pars = {a_db};
+  hist_pars = {a_db, [], props};
 end
 
 num_tests = dbsize(a_db(1), 2);
@@ -67,7 +67,7 @@ if num_dbs > 1
   [all_pm(1:num_tests)] = deal(plot_stack);
   for test_num=1:num_tests
     plots = plot_abstract(hists_cell(test_num, :), '', ...
-			  mergeStructs(getFieldDefault(props, 'plotProps', ...
+			  mergeStructs(getFieldDefault(props, 'histProps', ...
                                                               struct), ...
                                        struct('rotateXLabel', 10)));
     % find maximal y-axis value
