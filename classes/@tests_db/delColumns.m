@@ -33,20 +33,27 @@ function obj = delColumns(obj, tests)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
-cols = tests2cols(obj, tests);
-mask = true(1, dbsize(obj, 2));
+num_dbs = length(obj);
+if num_dbs > 1
+    for db_ind = 1:num_dbs
+        obj(db_ind) = delColumns(obj(db_ind), tests);
+    end
+else
+    cols = tests2cols(obj, tests);
+    mask = true(1, dbsize(obj, 2));
 
-% delete the columns
-obj.data(:, cols, :) = [];
+    % delete the columns
+    obj.data(:, cols, :) = [];
 
-% Update the meta-data
-col_idx = get(obj, 'col_idx');
-test_names = fieldnames(col_idx);
+    % Update the meta-data
+    col_idx = get(obj, 'col_idx');
+    test_names = fieldnames(col_idx);
 
-% remove the names
-mask(cols) = false;
-test_names = {test_names{mask}};
+    % remove the names
+    mask(cols) = false;
+    test_names = {test_names{mask}};
 
-% Make new col_idx
-new_col_idx = makeIdx(test_names);
-obj = set(obj, 'col_idx', new_col_idx);
+    % Make new col_idx
+    new_col_idx = makeIdx(test_names);
+    obj = set(obj, 'col_idx', new_col_idx);
+end
