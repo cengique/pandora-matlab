@@ -82,7 +82,7 @@ else
 end
 
 if isfield(props, 'showId')
-    hist_label = [ strrep(get(a_hist_db, 'id'), '_', '\_'), ' ', hist_label];
+    hist_label = [ strrep(get(a_hist_db, 'id'), '_', '\_'), sprintf('\n'), hist_label];
 end
 
 % if the plot is rotated switch the axis labels

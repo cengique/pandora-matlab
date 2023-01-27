@@ -96,10 +96,12 @@ if isfield(props, 'Regress')
                get(onlyRowsTests(nonnan_db, ':', 1), 'data')]);
   disp(['regress R^2=' num2str(stats(1)) ', F=' num2str(stats(2)) ...
        ', p=' num2str(stats(3)) ', var=' num2str(stats(4))])
-  if ~isempty(all_title)
-    all_title = [ all_title, '; '];
+  if ~ isfield(props, 'quiet')
+      if ~isempty(all_title)
+          all_title = [ all_title, '; '];
+      end
+      all_title = [ all_title, 'regress b=[' num2str(b(1)) ' ' num2str(b(2)) '], p=' sprintf('%.4f', stats(3)) ];
   end
-  all_title = [ all_title, 'regress b=[' num2str(b(1)) ' ' num2str(b(2)) '], p=' sprintf('%.4f', stats(3)) ];
 end
 
 % diplay points with colors?
