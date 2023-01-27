@@ -91,7 +91,7 @@ for step_num = 1:num_steps
       mean(data_i( step_range, : ));
 end
 
-% get the ending voltage
+% get the ending voltage and current
 data_len = size(data_v, 1);
 step_range = ...
     min(step_time + step_delay, data_len) : ...
@@ -99,6 +99,8 @@ step_range = ...
 
 v_steps(step_num + 1, :) = ...
     mean(data_v( step_range, : ));
+i_steps(step_num + 1, :) = ...
+    mean(data_i( step_range, : ));
 
 function time_steps = findTimes(mag_num, time_change)
   time_steps = [];

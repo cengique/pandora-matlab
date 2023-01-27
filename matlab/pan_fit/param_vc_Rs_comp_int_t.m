@@ -10,7 +10,7 @@ function a_pf = param_vc_Rs_comp_int_t(param_init_vals, id, props)
 %     amplifier estimates for series resistance, 'Rscomp' [Mohm];
 %     whole cell capacitance, 'Ccomp' [mV]; capacitive current
 %     compensation "prediction" percentage, 'pred'; ion current
-%     "correction" compensation percentage, 'pred'; actual 
+%     "correction" compensation percentage, 'corr'; actual 
 %     electrode resistance, 'Re' [MOhm], and capacitance, 'Ce'
 %     [nF]; leak conductance, 'gL' [uS]; leak reversal, 'EL' [mV];
 %     cell capacitance, 'Cm' [nF], a 'delay' [ms], and a current

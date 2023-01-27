@@ -22,7 +22,7 @@ function [results profs] = getResults(a_cc, props)
 %
 % Author: Cengiz Gunay <cgunay@emory.edu>, 2011/02/22
 
-% Copyright (c) 20011 Cengiz Gunay <cengique@users.sf.net>.
+% Copyright (c) 2011 Cengiz Gunay <cengique@users.sf.net>.
 % This work is licensed under the Academic Free License ("AFL")
 % v. 3.0. To view a copy of this license, please look at the COPYING
 % file distributed with this software or visit

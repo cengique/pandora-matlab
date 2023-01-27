@@ -42,7 +42,11 @@ if isempty(a_vc.time_steps)
   step_dur = length(a_vc.v.data);
 else
   start_time = a_vc.time_steps(1);
-  step_dur = diff(a_vc.time_steps(1:2));
+  if length(a_vc.time_steps) > 1
+    step_dur = diff(a_vc.time_steps(1:2));
+  else
+    step_dur = diff([a_vc.time_steps size(a_vc.i.data, 1)]);
+  end
 end
 
 % make a cip_trace object

@@ -52,6 +52,8 @@ data_v = get(a_vc.v, 'data');
 cell_name = get(a_vc, 'id');
 time = (0:(size(data_v, 1)-1))*dt;
 
+assert(a_vc.v.dy == 1e-3);
+
 % models produce current in nA
 nA_scale = a_vc.i.dy / 1e-9;
 
@@ -89,7 +91,8 @@ else
 end
 
 % integrate current for selected voltage steps
-model_vc.i = set(model_vc.i, 'data', Im / nA_scale);
+model_vc.i = set(model_vc.i, 'data', Im); % / nA_scale);
+model_vc.i.dy = 1e-9;
 
 % set a name
 model_vc = set(model_vc, 'id', [ 'sim ' get(f_I_v, 'id') ]);

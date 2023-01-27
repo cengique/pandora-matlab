@@ -19,7 +19,7 @@ function a_pf = param_Re_Ce_cap_leak_act_int_t(param_init_vals, id, props)
 %     (Rest passed to param_mult)
 %		
 % Returns:
-%	a_pf: a param_mult object.
+%	a_pf: a param_mult object with currents in nA.
 %
 % Description:
 %   Defines a function f(a_pf, struct) where v is an array of voltage

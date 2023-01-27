@@ -8,7 +8,9 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 % Parameters:
 %   pas: A data_L1_passive object.
 %   props: Structure with optional properties.
-%     stepNum: Voltage pulse to be considered (default=2, so as not to start at the beginning of the trace; see getTimeRelStep).
+%     stepNum: Pre-pulse voltage step to be considered (default=2, so as not to
+%     start at the beginning of the trace; see getTimeRelStep). Post-pulse
+%     	       step would be stepNum + 1.
 %     traceNum: Trace number to be analyzed (default=1).
 %     delay: Current response delay from voltage step (default=calculated).
 %     gL: Leak conductance (default=calculated).
@@ -16,6 +18,8 @@ function [results pas_md a_doc] = getResultsPassiveReCeElec(pas, props)
 %     minResnorm: Lowest resnorm to accept (default=0.004).
 %     minRe: Lowest Re value accepted (default=50MO).
 %     noReCmEst: If 1, don't use the Re and Ce estimates as seed.
+%     noEst: If 1, don't use any estimates (only works when model_f
+%     		is given).
 %     compCap: Add back subtracted capacitance transients [pF]. If
 %     	       there is a second index, it is series resistence [MO].
 %     initCe: Initial value for Ce [pF].
@@ -108,18 +112,28 @@ diff_steps = diff(quant_steps, 1, 2);
 yes_change_idx = abs(diff_steps) > 0;
 quant_steps = quant_steps(yes_change_idx, :);
 pas_vsteps_idx = pas_vsteps_idx(yes_change_idx);
+
 % find distinct values (do not process multiple steps of same values)
 [pas_vsteps pas_vsteps_uidx] = ...
     unique(quant_steps, 'rows', 'first');
+
 if verbose
 disp(['Found unique Vsteps [mV]: ', ...
-      sprintf('%d to %d, ', reshape(pas_vsteps, prod(size(pas_vsteps)), 1))]);
+      sprintf('%d to %d, ', reshape(pas_vsteps', prod(size(pas_vsteps)), 1))]);
 end
+
 [largest_step, largest_step_idx] = ...
     max(abs(diff(pas_vsteps, 1, 2)));
 pas_vsteps_idx = pas_vsteps_idx(pas_vsteps_uidx);
 
-assert(length(pas_vsteps_idx) > 0, 'No passive steps were found with given parameters.');
+assert(length(pas_vsteps_idx) > 0, ...
+       'No passive steps were found with given parameters.');
+
+if verbose
+disp(['Using largest step [mV]: ', ...
+      sprintf('%d to %d', pas_vsteps(largest_step_idx, ...
+                                       :))]);
+end
 
 pas_res = calcSteadyLeak(pas, struct('stepNum', step_num, ...
                                      'traceNum', pas_vsteps_idx(largest_step_idx)));
@@ -217,20 +231,23 @@ results.est_delay_ms = delay;
 % make model for least-squares optimization
 if isfield(props, 'model_f')
   capleakReCe_f = props.model_f;
-  % overwrite some parameters from initial estimates
-  % TODO: make a new function param_func/setParamsStruct
-  par_prefix = 'Vm_Vw_';
-  if ~ isfield(props, 'noReCmEst')
+  if ~ isfield(props, 'noEst') 
+    % overwrite some parameters from initial estimates
+    % TODO: make a new function param_func/setParamsStruct
+    par_prefix = subname;
+    if ~ isfield(props, 'noReCmEst')
       capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'Re'], Re);
       capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'Cm'], Cm);
+    end
+    capleakReCe_f = ...
+        setParam(capleakReCe_f, [ par_prefix 'Ce'], ...
+                               getFieldDefault(props, 'initCe', 1.2)*1e-3);
+    capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'gL'], pas_res.gL);
+    capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'EL'], pas_res.EL);
+    capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'delay'], delay);
+    capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'offset'], ...
+                                           pas_res.offset);
   end
-  capleakReCe_f = ...
-      setParam(capleakReCe_f, [ par_prefix 'Ce'], ...
-                             getFieldDefault(props, 'initCe', 1.2)*1e-3);
-  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'gL'], pas_res.gL);
-  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'EL'], pas_res.EL);
-  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'delay'], delay);
-  capleakReCe_f = setParam(capleakReCe_f, [ par_prefix 'offset'], pas_res.offset);
 else
   capleakReCe_f = ...
       param_Re_Ce_cap_leak_act_int_t(...
@@ -258,9 +275,6 @@ plotFigure(plotDataCompare(a_md, ' - analytic estimate', ...
                     * pas.data_vc.dt  * 1e3 + [0 3*Re*Cm], ...
                     y_lims])));
 
-% select parameters to fit
-a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
-                                        {'Re', 'Ce', 'Cm', 'delay'});
 
 % fit once to make a better Re estimate
 narrowToWide();
@@ -271,13 +285,13 @@ if results.resnorm > min_resnorm
     % fit very narrow range after step
     a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
                                             {'Re', 'Ce', 'Cm', 'delay'});
-    runFit([step_num -.1 3*Re*Cm], '2nd fit (narrow)');
+    runFit([(step_num+1) -.1 3*Re*Cm], '2nd fit (narrow)');
     if results.resnorm > min_resnorm
         error(['narrow fit failed, resnorm too large: ' num2str(results.resnorm) ]);
     else
         % do full fit again
         warning(['narrow fit improved, doing a full fit again.' ]);
-        runFit([step_num -1 10], '3rd fit (full)');
+        runFit([(step_num+1) -1 10], '3rd fit (full)');
         assert(results.resnorm < min_resnorm, ...
                ['Fit failed. Resnorm (' num2str(results.resnorm) ') > ' num2str(min_resnorm) ...
                 ' after narrow and full fits.' ]);
@@ -322,12 +336,25 @@ results.fit_offset_pA = results.fit_offset_pA * 1e3;
 pas_md = a_md;
 
 function narrowToWide()
-% new try:
-% 1- do narrow fit first
-% 2- then relax to larger range and more params
+  1;
+  % new try:
+  % 0- new estimates for gL, EL, and offset
+  % 1- do narrow fit first
+  % 2- then relax to larger range and more params
 
-% TODO: use new Re and Cm estimates at some point?
-  runFit([step_num -.1 3*Re*Cm], 'Starting narrow fit');
+  % start w better gL, EL, & offset
+  a_md.model_f.(subname) = ...
+      setProp(a_md.model_f.(subname), 'selectParams', ...
+                            {'gL', 'EL', 'offset'});
+  runFit([(step_num+1) -10 40], 'only fit gL,EL and offset');
+
+  
+  % TODO: use new Re and Cm estimates at some point?
+  % narrow fit: select parameters
+  a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
+                                        {'Re', 'Ce', 'Cm', 'delay'});
+
+  runFit([(step_num+1) -.1 3*Re*Cm], 'Starting narrow fit');
 
   % do another fit with more params relaxed.
   % this also recalculates gL and EL based on the Re estimate.
@@ -340,7 +367,7 @@ function narrowToWide()
         setProp(a_md.model_f.(subname), 'selectParams', ...
                               {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
   end
-  runFit([step_num -1 40], 'fit w/ relaxed gL,EL and offset');
+  runFit([(step_num+1) -1 40], 'fit w/ relaxed gL,EL and offset');
 
   % remove El, gL before narrow fit (added 2012/02/29)
   a_md.model_f.(subname) = ...
@@ -348,7 +375,7 @@ function narrowToWide()
                             {'Re', 'Ce', 'Cm', 'offset'});
   
   % last do narrower range
-  runFit([step_num -1 10], 'fit 1-10ms');
+  runFit([(step_num+1) -1 10], 'fit 1-10ms');
 end
 
 function oneFitsAll()
@@ -358,7 +385,7 @@ function oneFitsAll()
 % 3- then same relaxed params, fit 1-10 ms
 % 4- if resnorm fails, do another narrow and full fit
 
-  runFit([step_num -1 10], 'fit 1-10ms');
+  runFit([(step_num+1) -1 10], 'fit 1-10ms');
 
 % do another fit with more params relaxed.
 % this also recalculates gL and EL based on the Re estimate.
@@ -371,13 +398,13 @@ else
       setProp(a_md.model_f.(subname), 'selectParams', ...
                             {'Re', 'Ce', 'Cm', 'gL', 'EL', 'offset'});
 end
-runFit([step_num -1 30], 'fit w/ relaxed gL,EL and offset');
+runFit([(step_num+1) -1 30], 'fit w/ relaxed gL,EL and offset');
 
 % repeat regular fit
 % $$$ a_md.model_f.(subname) = setProp(a_md.model_f.(subname), 'selectParams', ...
 % $$$                                         {'Re', 'Ce', 'Cm', 'delay'});
 
-runFit([step_num -1 10], 'fit 1-10ms');
+runFit([(step_num+1) -1 10], 'fit 1-10ms');
 end
 
 function renameFields(re_from, re_to)
@@ -388,7 +415,8 @@ function renameFields(re_from, re_to)
 end
 
 function runFit(fitrange, str)
-  disp([ pas.data_vc.id ', fitting range ' num2str(fitrange) ': ' str ])
+  disp([ pas.data_vc.id ', fitting range ' ...
+         num2str(fitrange) ': ' str ])
   if isempty(fig_handle)
     fig_handle = figure;
   end
@@ -420,5 +448,11 @@ function runFit(fitrange, str)
   a_doc = doc_plot(fit_plot, [ 'Fitting passive parameters of ' pas.data_vc.id ', ' str '.' ], ...
                    [ get(pas.data_vc, 'id') '-passive-fits' ], struct, ...
                    pas.data_vc.id, props);
+
+  disp('press enter to continue')
+  pause
+
 end
+
+
 end
