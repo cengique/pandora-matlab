@@ -1,0 +1,3 @@
+[submodule "matlab/pan_fit"]
+	path = matlab/pan_fit
+	url = git@github.com:cengique/pandora-fit-matlab.git
