@@ -1,3 +1,6 @@
 [submodule "matlab/pan_fit"]
 	path = matlab/pan_fit
 	url = git@github.com:cengique/pandora-fit-matlab.git
+[submodule "matlab/pan_clamp"]
+	path = matlab/pan_clamp
+	url = git@github.com:cengique/pandora-clamp-matlab.git
