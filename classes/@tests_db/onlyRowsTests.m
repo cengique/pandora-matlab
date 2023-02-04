@@ -61,6 +61,8 @@ end
 % Convert and get row_idx
 row_names = fieldnames(obj.row_idx);
 if ~ isempty(row_names)
-  obj.row_idx = makeIdx({row_names{rows}});
+  row_numbers = cell2mat(struct2cell(obj.row_idx));
+  row_common = ismember(row_numbers, rows);
+  obj.row_idx = cell2struct(num2cell(row_numbers(row_common)), row_names(row_common), 1);
 end
 
