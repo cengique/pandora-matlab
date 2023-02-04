@@ -34,6 +34,7 @@ function tex_string = getTeXString(a_doc, props)
 % file distributed with this software or visit
 % http://opensource.org/licenses/afl-3.0.php.
 
+props = defaultValue('props', struct);
 num_docs = length(a_doc.docs);
 
 % Concatenate all docs together
