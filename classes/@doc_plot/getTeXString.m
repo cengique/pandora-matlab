@@ -43,7 +43,7 @@ doc_dir = getFieldDefault(props, 'docDir', '');
 plot_dir = getFieldDefault(props, 'plotRelDir', '');
 
 if ~isempty(doc_dir) && doc_dir(end) ~= '/', doc_dir = [ doc_dir '/' ]; end
-if ~isempty(plot_dir)  && plot_dir(end) ~= '/', plot_dir = [ plot_dir '/' ]; end
+if ~isempty(plot_dir)  && plot_dir(end) == '/', plot_dir = plot_dir(1:end-1); end
 
 fig_num = plot(a_doc);
 
@@ -62,5 +62,5 @@ a_doc.float_props.floatType = 'figure';
 a_doc.float_props.label = [ 'fig:' get(a_doc, 'id') ];
 
 % TeX points to relative dir
-tex_string = TeXfloat([ '\includegraphics{' plot_dir filename '}' ], a_doc.caption, ...
+tex_string = TeXfloat([ '\includegraphics{' properTeXFilename(plot_dir) filesep filename '}' ], a_doc.caption, ...
                       mergeStructs(props, a_doc.float_props));
